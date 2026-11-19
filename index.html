@@ -138,16 +138,44 @@ h1 {
 .sub b { color: var(--ink); font-weight: 600; }
 .num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
 
-.callout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-.callout {
-  background: var(--card); border: 1px solid var(--wall-line); border-radius: 8px;
-  padding: 13px 15px; display: flex; flex-direction: column; gap: 4px;
+.rec-banner {
+  background: var(--card); border: 1.5px solid var(--beam-nav); border-radius: 10px;
+  padding: 15px 16px; display: flex; flex-direction: column; gap: 11px;
 }
-.callout.primary { border-left: 4px solid var(--beam-nav); }
-.callout.secondary { border-left: 4px solid var(--accent-strip); }
-.callout-title { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.callout p { margin: 0; font-size: 13.5px; color: var(--muted); }
-.callout b { color: var(--ink); }
+.rec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 12px; }
+.rec-head h2 { margin: 0; font-size: 16.5px; font-weight: 700; color: var(--info); }
+.rec-head span { font-size: 13px; color: var(--muted); }
+.rec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.rec-card {
+  background: var(--paper); border: 1px solid var(--wall-line); border-radius: 8px;
+  padding: 11px 13px; display: flex; flex-direction: column; gap: 4px;
+}
+.rec-card.top { border-color: var(--beam-nav); background: var(--info-bg); }
+.rec-tag {
+  display: inline-block; align-self: flex-start; font-size: 11.5px; font-weight: 700;
+  padding: 1px 7px; border-radius: 4px; background: var(--card); border: 1px solid var(--wall-line); color: var(--ink);
+}
+.rec-card.top .rec-tag { background: var(--beam-nav); border-color: var(--beam-nav); color: #fff; }
+.rec-card h3 { margin: 2px 0 0; font-size: 14.5px; font-weight: 700; }
+.rec-card p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+.rec-card b { color: var(--ink); }
+
+.v2-toolbar {
+  background: var(--card); border: 1px solid var(--wall-line); border-radius: 8px;
+  padding: 12px 14px; display: flex; flex-direction: column; gap: 8px;
+}
+.v2-toolbar-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.v2-toolbar-label { font-size: 13px; font-weight: 700; color: var(--ink); }
+.faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.faq-card {
+  background: var(--card); border: 1px solid var(--wall-line); border-radius: 8px;
+  padding: 13px 15px; display: flex; flex-direction: column; gap: 7px;
+}
+.faq-card h4 { margin: 0; font-size: 15px; font-weight: 700; }
+.faq-card ul { margin: 0; padding-left: 1.15em; display: flex; flex-direction: column; gap: 5px; font-size: 13.5px; }
+.ok-txt { color: var(--ok); font-weight: 700; }
+.warn-txt { color: var(--warn); font-weight: 700; }
+.bad-txt { color: var(--bad); font-weight: 700; }
 
 .toc { display: flex; flex-wrap: wrap; gap: 8px; }
 .toc a {
@@ -408,20 +436,33 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
     </div>
     <h1>반사테이프 부착도 (기둥면 띠 자리 + 무늬판 v2)</h1>
     <p class="sub">
-      <b>현장 주력: 기둥면 띠 자리(폭 <span class="num">5 cm</span>)</b> · <b>긴 평벽 보조: 무늬판 v2 <span class="num">B01~B09</span>(폭 <span class="num">10 cm</span>)</b> · 눈금 한 칸 = <span class="num">10 cm</span> · 붙일 수 있는 윗끝 <span class="num">61 cm</span>
+      <b>현장 통일 권장: 폭 <span class="num">5 cm</span> 테이프 한 종류</b>로 기둥(모서리 기준)과 긴 평벽(<span class="num">B01~B09</span>) 모두 시공 · 눈금 한 칸 = <span class="num">10 cm</span> · 윗끝 <span class="num">61 cm</span>
     </p>
   </header>
 
-  <div class="callout-grid no-print">
-    <div class="callout primary">
-      <div class="callout-title">1. 주력: 기둥면 띠 자리 (<span class="num">rfx_face</span>)</div>
-      <p>통로에서 기둥면을 정면으로 마주 보고 <b>오른쪽 모서리(<span class="num">0 cm</span>)</b>에서 줄자를 대고 붙입니다. 띠 위치 자체가 ID이므로 몇 cm 어긋나도 로봇이 실제 잰 자리 그대로 등록합니다.</p>
+  <section class="rec-banner no-print" aria-label="현장 시공 권장안 요약">
+    <div class="rec-head">
+      <h2>현장 시공 권장안 요약 — 폭 5 cm 테이프 하나로 끝내기</h2>
+      <span>세로 높이 표준: <b class="num">바닥 10~61 cm</b> (51 cm × 줄 · T10/M 공용)</span>
     </div>
-    <div class="callout secondary">
-      <div class="callout-title">2. 보조: 무늬판 v2 <span class="num">B01~B09</span> (모서리 없는 긴 평벽)</div>
-      <p>모서리를 잴 수 없는 평벽에만 폭 <span class="num">10 cm</span> 띠 3줄(간격 <span class="num">17·23·29 cm</span>)을 씁니다. <b>구버전 <span class="num">5 cm C01~C16</span> 거울 그림(11-09)은 폐기되었습니다.</b></p>
+    <div class="rec-grid">
+      <article class="rec-card top">
+        <span class="rec-tag">준비물 통일</span>
+        <h3>폭 5 cm 반사 테이프 한 종류만</h3>
+        <p><b><span class="num">10 cm</span> 테이프를 따로 챙기지 않아도 됩니다.</b> 기둥면과 평벽(<span class="num">B01~B09</span>) 모두 <span class="num">5 cm</span> 테이프로 붙이며, 정면 약 <span class="num">9.5~14 m</span>까지 정상 인식됩니다.</p>
+      </article>
+      <article class="rec-card">
+        <span class="rec-tag">1순위 · 모서리 있는 기둥/벽</span>
+        <h3>① 기둥면 띠 자리 (<span class="num">rfx_face</span>)</h3>
+        <p><b>오른쪽 모서리(<span class="num">0 cm</span>)</b>에서 재서 <span class="num">1~3줄</span> 부착. 개수 제한이 없고 몇 cm 어긋나도 실측으로 등록되며, <b>가려져 1~2줄만 보여도 단독 보정이 작동</b>합니다.</p>
+      </article>
+      <article class="rec-card">
+        <span class="rec-tag">2순위 · 모서리 없는 긴 평벽</span>
+        <h3>③ 무늬판 v2 (<span class="num">B01~B09</span> · <span class="num">5 cm</span> 가능)</h3>
+        <p><span class="num">5 cm</span> 테이프 3줄로 <b>중심 간격(<span class="num">17·23·29 cm</span>)</b>만 맞춰 부착. <b>지도 녹화 때만 3줄이 다 보이게</b> 지나가고, 로봇 웹에서 <span class="num">[잰 간격 그대로 넣기 (5 cm)]</span>로 등록합니다.</p>
+      </article>
     </div>
-  </div>
+  </section>
 
   <nav class="toc no-print" aria-label="바로 가기">
     <a href="#placement-section">① 기둥면 붙임 표 계산기</a>
@@ -811,18 +852,29 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
   <section id="plates-v2-section" class="block no-print">
     <div class="sec-head">
       <h2 class="sec">③ 모서리가 없는 긴 평벽용 — 무늬판 v2 (<span class="num">B01~B09</span>)</h2>
-      <span class="sec-sub">폭 10 cm 테이프 3줄 · 거울 방향 보정 완료 (구 C01~C16 대체)</span>
+      <span class="sec-sub">폭 5 cm 통일 시공 권장 (10 cm 원안 전환 가능 · 거울 방향 보정 완료)</span>
     </div>
 
-    <div class="notice warn">
-      <b>언제 쓰나요?</b> 기둥 모서리를 잴 수 없을 만큼 긴 평벽이나 합판에만 씁니다. 기둥/벽 모서리가 보이면 위 <b>① 기둥면 띠 자리</b>를 쓰세요. (11-09 페이지의 폭 <span class="num">5 cm</span> <span class="num">C01~C16</span> 그림은 좌우 반전·구표라 폐기되었습니다.)
+    <div class="v2-toolbar">
+      <div class="v2-toolbar-row" role="radiogroup" aria-label="무늬판 테이프 폭 선택">
+        <span class="v2-toolbar-label">무늬판 테이프 폭:</span>
+        <label class="radio-pill">
+          <input type="radio" name="v2-strip-width" value="5" checked>
+          <span><b>폭 <span class="num">5 cm</span> 테이프로 붙이기</b> (현장 통일 권장)</span>
+        </label>
+        <label class="radio-pill">
+          <input type="radio" name="v2-strip-width" value="10">
+          <span><b>폭 <span class="num">10 cm</span> 테이프로 붙이기</b> (표준 v2 원안)</span>
+        </label>
+      </div>
+      <div id="v2-tape-note" class="notice info" style="margin:0;"></div>
     </div>
 
     <div class="panels">
       <figure>
-        <div class="ptitle"><span class="tag">B02</span><h3>정면 치수 예시 (마주 본 그대로)</h3><span class="for">로봇 읽기 17 / 23 cm = B02</span></div>
+        <div class="ptitle"><span class="tag">B02</span><h3>정면 치수 예시 (마주 본 그대로)</h3><span class="for" id="b02-head-for">폭 5 cm · 로봇 읽기 17 / 23 cm = B02</span></div>
         <div class="fig">
-          <svg viewBox="0 0 430 460" role="img" aria-label="폭 50 cm 판에 폭 10 cm 반사 테이프 3개를 통로에서 마주 보고 왼쪽 끝부터 0 cm, 23 cm, 40 cm 자리에 붙인 B02 무늬판. 빈칸은 왼쪽부터 13 cm, 7 cm이며 바닥에서 10~61 cm 높이에 붙인다.">
+          <svg id="svg-b02-front" viewBox="0 0 430 460" role="img" aria-label="폭 45 cm 판에 폭 5 cm 반사 테이프 3개를 통로에서 마주 보고 왼쪽 끝부터 0 cm, 23 cm, 40 cm 자리에 붙인 B02 무늬판. 빈칸은 왼쪽부터 18 cm, 12 cm이며 바닥에서 10~61 cm 높이에 붙인다.">
             <defs>
               <pattern id="prismV2" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
                 <rect class="tape-bg" width="6" height="6"/>
@@ -845,27 +897,24 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
               <line x1="34" y1="80" x2="40" y2="80"/><text x="30" y="84" text-anchor="end">70</text>
               <text x="30" y="18" text-anchor="end">cm</text>
             </g>
-            <!-- Scale 1 cm = 4 px, board 50 cm = 200 px (x=112..312) -->
-            <rect class="board" x="112" y="114" width="200" height="276"/>
-            <!-- Strip 1: 0..10 cm -> x=112..152 (width 40) -->
-            <rect x="112" y="125" width="40" height="255" fill="url(#prismV2)"/>
-            <rect class="tape-edge" x="112" y="125" width="40" height="255"/>
-            <!-- Strip 2: 23..33 cm -> x=204..244 (width 40) -->
-            <rect x="204" y="125" width="40" height="255" fill="url(#prismV2)"/>
-            <rect class="tape-edge" x="204" y="125" width="40" height="255"/>
-            <!-- Strip 3: 40..50 cm -> x=272..312 (width 40) -->
-            <rect x="272" y="125" width="40" height="255" fill="url(#prismV2)"/>
-            <rect class="tape-edge" x="272" y="125" width="40" height="255"/>
+            <!-- Scale 1 cm = 4 px, x start = 112 (strip left edges at 0, 23, 40 -> x = 112, 204, 272) -->
+            <rect id="b02-board" class="board" x="112" y="114" width="180" height="276"/>
+            <rect id="b02-s1-bg" x="112" y="125" width="20" height="255" fill="url(#prismV2)"/>
+            <rect id="b02-s1-edge" class="tape-edge" x="112" y="125" width="20" height="255"/>
+            <rect id="b02-s2-bg" x="204" y="125" width="20" height="255" fill="url(#prismV2)"/>
+            <rect id="b02-s2-edge" class="tape-edge" x="204" y="125" width="20" height="255"/>
+            <rect id="b02-s3-bg" x="272" y="125" width="20" height="255" fill="url(#prismV2)"/>
+            <rect id="b02-s3-edge" class="tape-edge" x="272" y="125" width="20" height="255"/>
 
-            <text class="snum" x="132" y="148" text-anchor="middle">1</text>
-            <text class="snum" x="224" y="148" text-anchor="middle">2</text>
-            <text class="snum" x="292" y="148" text-anchor="middle">3</text>
+            <text id="b02-n1" class="snum" x="122" y="148" text-anchor="middle">1</text>
+            <text id="b02-n2" class="snum" x="214" y="148" text-anchor="middle">2</text>
+            <text id="b02-n3" class="snum" x="282" y="148" text-anchor="middle">3</text>
 
             <!-- Gap labels -->
-            <text class="note" x="178" y="232" text-anchor="middle">빈칸</text>
-            <text class="dimtext" x="178" y="247" text-anchor="middle">13 cm</text>
-            <text class="note" x="258" y="232" text-anchor="middle">빈칸</text>
-            <text class="dimtext" x="258" y="247" text-anchor="middle">7 cm</text>
+            <text id="b02-gap1-lbl" class="note" x="168" y="232" text-anchor="middle">빈칸</text>
+            <text id="b02-gap1-val" class="dimtext" x="168" y="247" text-anchor="middle">18 cm</text>
+            <text id="b02-gap2-lbl" class="note" x="248" y="232" text-anchor="middle">빈칸</text>
+            <text id="b02-gap2-val" class="dimtext" x="248" y="247" text-anchor="middle">12 cm</text>
 
             <!-- Top dims: left edges 0, 23, 40 cm -->
             <line class="ext" x1="112" y1="114" x2="112" y2="30"/>
@@ -877,8 +926,8 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
             <text class="dimtext" x="192" y="30" text-anchor="middle">40 cm</text>
 
             <!-- Person sticking direction -->
-            <line class="dim" x1="126" y1="106" x2="298" y2="106" marker-end="url(#arrV2R)"/>
-            <text class="note" x="212" y="96" text-anchor="middle">붙이는 방향: 마주 보고 왼쪽 끝(0) → 오른쪽</text>
+            <line class="dim" x1="122" y1="106" x2="288" y2="106" marker-end="url(#arrV2R)"/>
+            <text class="note" x="208" y="96" text-anchor="middle">붙이는 방향: 마주 보고 왼쪽 끝(0) → 오른쪽</text>
 
             <!-- Beams -->
             <line class="limit" x1="48" y1="125" x2="352" y2="125"/><text class="blabel lim" x="356" y="122">윗끝</text><text class="bnum lim" x="356" y="137">61 cm</text>
@@ -886,15 +935,15 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
             <line class="beam mf" x1="48" y1="355" x2="352" y2="355"/><text class="blabel m" x="356" y="359">M 15~24</text>
 
             <!-- Bottom board width -->
-            <line class="dim" x1="112" y1="402" x2="312" y2="402"/>
+            <line id="b02-wline" class="dim" x1="112" y1="402" x2="292" y2="402"/>
             <line class="dim" x1="112" y1="397" x2="112" y2="407"/>
-            <line class="dim" x1="312" y1="397" x2="312" y2="407"/>
-            <text class="dimtext" x="212" y="418" text-anchor="middle">판 폭 50 cm (로봇 읽기 오른쪽부터 17·23)</text>
+            <line id="b02-wtick2" class="dim" x1="292" y1="397" x2="292" y2="407"/>
+            <text id="b02-wtext" class="dimtext" x="202" y="418" text-anchor="middle">전체 폭 45 cm (로봇 읽기 오른쪽부터 17·23)</text>
           </svg>
         </div>
-        <ul class="facts">
-          <li><b>테이프 폭 <span class="num">10 cm</span></b>, 세로 최소 <span class="num">30 cm</span> (공용 구역 <span class="num">10~61 cm</span> 권장).</li>
-          <li><b>마주 보고 왼쪽 끝(<span class="num">0 cm</span>) 기준</b>: <span class="num">0~10</span> · <span class="num">23~33</span> · <span class="num">40~50 cm</span> (빈칸 <span class="num">13</span> · <span class="num">7 cm</span>).</li>
+        <ul class="facts" id="b02-facts">
+          <li><b>테이프 폭 <span class="num">5 cm</span></b>, 세로 최소 <span class="num">30 cm</span> (공용 구역 <span class="num">10~61 cm</span> 권장).</li>
+          <li><b>마주 보고 왼쪽 끝(<span class="num">0 cm</span>) 기준</b>: <span class="num">0~5 · 23~28 · 40~45 cm</span> (빈칸 <span class="num">18 · 12 cm</span>).</li>
           <li><b>거울 주의</b>: B02 그림을 좌우 뒤집어 붙이면 로봇은 <b>B04</b>로 읽습니다.</li>
         </ul>
       </figure>
@@ -904,24 +953,24 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
         <div class="fig">
           <svg viewBox="0 0 430 250" role="img" aria-label="위에서 본 그림. 벽에 B02와 B04 판이 붙어 있고, 각 판 양옆 40 cm는 빈 공간으로 비워야 다른 반사 테이프와 합쳐 A표 4줄로 오인하지 않는다.">
             <rect class="wall" x="20" y="24" width="390" height="44"/>
-            <rect class="board" x="55" y="68" width="100" height="8"/>
-            <rect class="cg-strip" x="55" y="68" width="20" height="6"/>
-            <rect class="cg-strip" x="101" y="68" width="20" height="6"/>
-            <rect class="cg-strip" x="135" y="68" width="20" height="6"/>
-            <text class="dimtext" x="105" y="52" text-anchor="middle">B02 (50 cm)</text>
+            <rect class="board" x="55" y="68" width="90" height="8"/>
+            <rect class="cg-strip" x="55" y="68" width="10" height="6"/>
+            <rect class="cg-strip" x="101" y="68" width="10" height="6"/>
+            <rect class="cg-strip" x="135" y="68" width="10" height="6"/>
+            <text class="dimtext" x="100" y="52" text-anchor="middle">B02 (17·23)</text>
 
-            <rect class="board" x="255" y="68" width="100" height="8"/>
-            <rect class="cg-strip" x="255" y="68" width="20" height="6"/>
-            <rect class="cg-strip" x="289" y="68" width="20" height="6"/>
-            <rect class="cg-strip" x="335" y="68" width="20" height="6"/>
-            <text class="dimtext" x="305" y="52" text-anchor="middle">B04 (50 cm)</text>
+            <rect class="board" x="255" y="68" width="90" height="8"/>
+            <rect class="cg-strip" x="255" y="68" width="10" height="6"/>
+            <rect class="cg-strip" x="289" y="68" width="10" height="6"/>
+            <rect class="cg-strip" x="335" y="68" width="10" height="6"/>
+            <text class="dimtext" x="300" y="52" text-anchor="middle">B04 (23·17)</text>
 
-            <line class="dim" x1="158" y1="92" x2="252" y2="92"/>
-            <text class="note" x="205" y="108" text-anchor="middle">양옆 40 cm 이상 비움</text>
+            <line class="dim" x1="148" y1="92" x2="252" y2="92"/>
+            <text class="note" x="200" y="108" text-anchor="middle">양옆 40 cm 이상 비움</text>
 
             <rect class="aisle" x="20" y="128" width="390" height="96" rx="4"/>
-            <line class="beam nav" x1="215" y1="170" x2="105" y2="78"/>
-            <line class="beam nav" x1="215" y1="170" x2="305" y2="78"/>
+            <line class="beam nav" x1="215" y1="170" x2="100" y2="78"/>
+            <line class="beam nav" x1="215" y1="170" x2="300" y2="78"/>
             <rect class="robot" x="183" y="170" width="64" height="34" rx="4"/>
             <text class="robotlabel" x="215" y="191" text-anchor="middle">로봇</text>
             <text class="note-muted" x="30" y="216">로봇은 오른쪽 띠부터 간격을 읽음 (B02 ↔ B04 좌우 반대)</text>
@@ -930,13 +979,65 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
         <ul class="facts">
           <li><b>판 양옆 <span class="num">40 cm</span> 안에 다른 반사 테이프 금지</b>: 4줄이 한꺼번에 보이면 시스템(`part_of_four`)이 4띠 <span class="num">A</span>표로 간주해 <span class="num">B</span>판에서 제외합니다.</li>
           <li><b>같은 번호는 <span class="num">30 m</span> 안에 두 번 금지</b>: 9개를 모두 쓰면 30 m 이상 떨어진 곳에 다시 씁니다.</li>
-          <li>허용 오차는 간격당 <span class="num">1.5 cm</span>입니다. 줄자로 중심 간격을 확인하세요.</li>
+          <li>허용 오차는 간격당 <span class="num">1.5 cm</span>입니다. 줄자로 중심 간격을 확인하세요. (11-09 구 <span class="num">C01~C16</span> 거울 표는 폐기)</li>
         </ul>
       </figure>
     </div>
 
-    <h3 class="sub3">무늬판 v2 전체 9종 (<span class="num">B01~B09</span> · 마주 보고 왼쪽 <span class="num">0 cm</span>부터 붙이는 눈금)</h3>
+    <h3 class="sub3" id="v2-grid-title">무늬판 v2 전체 9종 (<span class="num">B01~B09</span> · 폭 <span class="num">5 cm</span> · 마주 보고 왼쪽 <span class="num">0 cm</span>부터 붙이는 눈금)</h3>
     <div id="grid-v2" class="bgrid"></div>
+
+    <h3 class="sub3">자주 묻는 현장 기준: 가림(1~2줄만 보일 때) · 9개 초과 시 확장법</h3>
+    <div class="tablebox">
+      <table>
+        <thead>
+          <tr>
+            <th>부착 방식</th>
+            <th>지도 녹화 / 바코드 재측위</th>
+            <th>주행 중 가려져 1~2줄만 보일 때</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>① 기둥면 (<span class="num">rfx_face</span>)</b><br>모서리 1개 이상 확인</td>
+            <td><span class="ok-txt">모서리 + 1줄만 보여도 등록</span></td>
+            <td><span class="ok-txt">가능 (3줄 중 1줄만 보여도 단독 보정)</span><br>모서리+1줄로 위치·각도 3자유도 보정</td>
+            <td>모서리 있는 곳 최우선 권장</td>
+          </tr>
+          <tr>
+            <td><b>① 기둥면 (<span class="num">rfx_face</span>)</b><br>모서리 없는 평벽(<span class="num">oo</span>)</td>
+            <td>가능한 전체가 보이게 녹화</td>
+            <td><span class="ok-txt">가능 (3줄 중 2줄만 보여도 단독 보정)</span><br>남은 간격+예측 위치로 보정 (1줄만 보이면 다른 반사판과 보조)</td>
+            <td>평벽도 기둥면으로 잡히면 자동 반영</td>
+          </tr>
+          <tr>
+            <td><b>③ 무늬판 (<span class="num">B01~B09</span> / <span class="num">P01~</span>)</b><br>모서리 없는 긴 평벽</td>
+            <td><span class="bad-txt">3줄 모두 보여야 해독</span><br>(녹화 시 전 구간 확보 필요)</td>
+            <td><span class="warn-txt">조건부 가능</span> (개별 반사판 <span class="num">r_dt</span>로 참여)<br>주변 포함 <b>총 3개 이상</b> 짝이 보이면 보정</td>
+            <td>녹화 때만 3줄 다 보이게 주행</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="faq-grid">
+      <div class="faq-card">
+        <h4>왜 <span class="num">B01~B09</span>는 9개만 나오나요?</h4>
+        <ul>
+          <li>오인식을 줄이려 간격 차이를 <span class="num">6 cm</span> 단위(<span class="num">17 · 23 · 29 cm</span>)로 넓혔고, 3줄 판은 간격이 2칸이라 <span class="num">3 × 3 = 9종</span>이 됩니다.</li>
+          <li>구버전 <span class="num">13·17·21·25 cm</span>(<span class="num">16종</span>)는 <span class="num">4 cm</span> 차이라 비스듬한 각도·원거리에서 번호가 섞여 폐기했습니다.</li>
+        </ul>
+      </div>
+      <div class="faq-card">
+        <h4>현장에 9개보다 많이 필요하면? (3가지 해결책)</h4>
+        <ul>
+          <li><b>1. <span class="num">30 m</span> 띄워 번호 재사용</b>: 주행 짝짓기는 예측 위치 <span class="num">3 m</span> 반경만 보므로 30 m 이상 떨어지면 같은 <span class="num">B01~B09</span>를 다시 써도 됩니다.</li>
+          <li><b>2. 띠 4줄 <span class="num">A01~A64</span> (<span class="num">64종</span>)</b>: 간격 <span class="num">17·22·27·32 cm</span>로 4줄을 붙이면 코드 수정 없이 자동 인식합니다.</li>
+          <li><b>3. 자유 간격 등록 (<span class="num">P01~</span>)</b>: 로봇 웹 <span class="num">[잰 간격 그대로 넣기 (5 cm)]</span>로 <span class="num">8~40 cm</span> 임의 간격을 최대 <span class="num">1,000개</span>까지 넣을 수 있습니다.</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <!-- ==================== SECTION 4: FIELD WORKFLOW ==================== -->
@@ -946,14 +1047,14 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
       <span class="sec-sub">T10 34937 · M-type 공통</span>
     </div>
     <ol>
-      <li><b>벽 닦고 수직으로 붙이기</b>: 붙일 면을 알코올로 닦은 뒤 기둥면은 <b>오른쪽 모서리(<span class="num">0 cm</span>)</b> 기준으로 재고, 테이프를 당겨 늘이지 말고 헤라로 눌러 기포 없이 수직 부착합니다. 반짝이는 금속·유리에서는 <span class="num">1 m</span> 이상 띄웁니다.</li>
-      <li><b>지도 만들기 / 고치기 → [반사판] 탭에 등록</b>: 붙인 기둥 앞을 지나가며 녹화한 뒤 로봇 웹 <b>[반사판] 탭</b>을 열면 기둥면(<span class="num">면 1, 면 2…</span>)이 자동으로 잡혀 등록됩니다. 몇 cm 어긋나게 붙였어도 로봇이 실제 잰 위치로 들어가므로 떼고 다시 붙일 필요가 없습니다.</li>
+      <li><b>벽 닦고 <span class="num">5 cm</span> 테이프로 수직 부착</b>: 붙일 면을 알코올로 닦은 뒤 기둥면은 <b>오른쪽 모서리(<span class="num">0 cm</span>)</b> 기준으로, 긴 평벽 무늬판(<span class="num">B01~B09</span>)은 왼쪽 <span class="num">0 cm</span> 기준으로 재서 기포 없이 붙입니다. 기둥면은 몇 cm 어긋나도 떼지 말고 그대로 두면 실제 위치로 들어갑니다.</li>
+      <li><b>지도 만들기 / 고치기 → [반사판] 탭에 등록</b>: 붙인 기둥과 평벽 앞을 지나가며 녹화한 뒤 로봇 웹 <b>[반사판] 탭</b>을 엽니다. 기둥면은 <span class="num">면 1, 면 2…</span>로 자동 등록되고, <span class="num">5 cm</span>로 붙인 <span class="num">B01~B09</span>는 <b><span class="num">[잰 간격 그대로 넣기 (띠 폭 5 cm로 기록)]</span></b>(또는 표준 <span class="num">B01~B09</span>)을 선택해 넣습니다.</li>
       <li><b>설정 켜고 [읽히는지 확인]</b>: 로봇 설정에서 <b>반사판: 씀(use)</b>과 <b>기둥면 띠 자리로 위치 찾기: 켬</b>을 확인하고 한 번 주행해 <b>[읽히는지 확인]</b> 화면에서 미인식 면이 없는지 점검합니다.</li>
     </ol>
   </section>
 
   <p class="foot no-print">
-    기준 출처: <code>codebook.ts</code>(v2 B01~B09 · 10 cm · 좌우 보정 <code>facedSpacings</code>), <code>placement.ts</code> · <code>FaceBar.tsx</code> · <code>stripPlanView.ts</code>(기둥면 띠 자리 <code>rfx_face</code> · L-type 53 cm / M-type 15 cm), 현장 T10 34937 설정(482 mm / 76 mm) 및 11-09 M-type 실측(약 24 cm). 입력한 숫자와 설정은 이 브라우저에만 저장됩니다.
+    기준 출처: <code>codebook.ts</code> · <code>plates.ts</code> · <code>widthRule.ts</code>(v2 B01~B09 · 5 cm / 10 cm 겸용 · 좌우 보정 <code>facedSpacings</code>), <code>placement.ts</code> · <code>FaceBar.tsx</code> · <code>stripPlanView.ts</code>(기둥면 띠 자리 <code>rfx_face</code> · L-type 53 cm / M-type 15 cm), <code>face_core.cpp</code> · <code>native_reflector_constellation.cpp</code>, 현장 T10 34937 설정(482 mm / 76 mm) 및 11-09 M-type 실측(약 24 cm). 입력한 숫자와 설정은 이 브라우저에만 저장됩니다.
   </p>
 </div>
 
@@ -1698,9 +1799,11 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
     return spacings.slice().reverse();
   }
 
-  function codebookBPlates() {
+  function codebookBPlates(stripWidthCm) {
     var set = CODEBOOK_V2.three.spacingsCm;
-    var sw = CODEBOOK_V2.stripWidthCm;
+    var sw = (typeof stripWidthCm === "number" && Number.isFinite(stripWidthCm) && stripWidthCm > 0)
+      ? stripWidthCm
+      : CODEBOOK_V2.stripWidthCm;
     var list = [];
     for (var i = 0; i < set.length; i++) {
       for (var j = 0; j < set.length; j++) {
@@ -2176,15 +2279,104 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
     });
   });
 
-  /* ==================== 5. SECTION 3 CODEBOOK V2 B01..B09 GRID ==================== */
-  function renderV2Grid() {
+  /* ==================== 5. SECTION 3 CODEBOOK V2 B01..B09 GRID (5 cm / 10 cm) ==================== */
+  var V2_WIDTH_STORAGE_KEY = "reflector-tape-v2-width-v1";
+  var V2_DEFAULT_STRIP_WIDTH = 5;
+
+  function selectedV2StripWidth() {
+    var checked = document.querySelector('input[name="v2-strip-width"]:checked');
+    var n = checked ? Number(checked.value) : V2_DEFAULT_STRIP_WIDTH;
+    return n === 10 ? 10 : 5;
+  }
+
+  function loadV2Width() {
+    try {
+      var saved = localStorage.getItem(V2_WIDTH_STORAGE_KEY);
+      if (saved === "5" || saved === "10") {
+        var r = document.querySelector('input[name="v2-strip-width"][value="' + saved + '"]');
+        if (r) r.checked = true;
+      }
+    } catch (e) { /* storage blocked */ }
+  }
+
+  function saveV2Width() {
+    try { localStorage.setItem(V2_WIDTH_STORAGE_KEY, String(selectedV2StripWidth())); }
+    catch (e) { /* storage blocked */ }
+  }
+
+  function renderV2B02Diagram(sw) {
+    var scale = 4; // 1 cm = 4 px
+    var lefts = [0, 23, 40];
+    var totalW = 40 + sw; // 45 (for 5 cm) or 50 (for 10 cm)
+    var gap1 = 23 - sw; // 18 or 13
+    var gap2 = 17 - sw; // 12 or 7
+    var board = document.getElementById("b02-board");
+    if (board) board.setAttribute("width", String(totalW * scale));
+
+    lefts.forEach(function (lx, idx) {
+      var x = 112 + lx * scale;
+      var w = sw * scale;
+      var bg = document.getElementById("b02-s" + (idx + 1) + "-bg");
+      var edge = document.getElementById("b02-s" + (idx + 1) + "-edge");
+      var num = document.getElementById("b02-n" + (idx + 1));
+      if (bg) { bg.setAttribute("x", String(x)); bg.setAttribute("width", String(w)); }
+      if (edge) { edge.setAttribute("x", String(x)); edge.setAttribute("width", String(w)); }
+      if (num) num.setAttribute("x", String(x + w / 2));
+    });
+
+    var g1x = 112 + (0 + sw + 23) * 0.5 * scale;
+    var g2x = 112 + (23 + sw + 40) * 0.5 * scale;
+    var g1Lbl = document.getElementById("b02-gap1-lbl");
+    var g1Val = document.getElementById("b02-gap1-val");
+    var g2Lbl = document.getElementById("b02-gap2-lbl");
+    var g2Val = document.getElementById("b02-gap2-val");
+    if (g1Lbl) g1Lbl.setAttribute("x", String(g1x));
+    if (g1Val) { g1Val.setAttribute("x", String(g1x)); g1Val.textContent = gap1 + " cm"; }
+    if (g2Lbl) g2Lbl.setAttribute("x", String(g2x));
+    if (g2Val) { g2Val.setAttribute("x", String(g2x)); g2Val.textContent = gap2 + " cm"; }
+
+    var xEnd = 112 + totalW * scale;
+    var wLine = document.getElementById("b02-wline");
+    var wTick2 = document.getElementById("b02-wtick2");
+    var wText = document.getElementById("b02-wtext");
+    if (wLine) wLine.setAttribute("x2", String(xEnd));
+    if (wTick2) { wTick2.setAttribute("x1", String(xEnd)); wTick2.setAttribute("x2", String(xEnd)); }
+    if (wText) {
+      wText.setAttribute("x", String((112 + xEnd) / 2));
+      wText.textContent = "전체 폭 " + totalW + " cm (로봇 읽기 오른쪽부터 17·23)";
+    }
+
+    var svgB02 = document.getElementById("svg-b02-front");
+    if (svgB02) {
+      svgB02.setAttribute("aria-label",
+        "폭 " + totalW + " cm 판에 폭 " + sw + " cm 반사 테이프 3개를 통로에서 마주 보고 왼쪽 끝부터 0 cm, 23 cm, 40 cm 자리에 붙인 B02 무늬판. 빈칸은 왼쪽부터 " +
+        gap1 + " cm, " + gap2 + " cm이며 바닥에서 10~61 cm 높이에 붙인다.");
+    }
+
+    var headFor = document.getElementById("b02-head-for");
+    if (headFor) headFor.textContent = "폭 " + sw + " cm · 로봇 읽기 17 / 23 cm = B02";
+
+    var facts = document.getElementById("b02-facts");
+    if (facts) {
+      facts.innerHTML =
+        "<li><b>테이프 폭 <span class=\"num\">" + sw + " cm</span></b>, 세로 최소 <span class=\"num\">30 cm</span> (공용 구역 <span class=\"num\">10~61 cm</span> 권장).</li>" +
+        "<li><b>마주 보고 왼쪽 끝(<span class=\"num\">0 cm</span>) 기준</b>: <span class=\"num\">" +
+        lefts.map(function (lx) { return lx + "~" + (lx + sw); }).join(" · ") +
+        " cm</span> (빈칸 <span class=\"num\">" + gap1 + " · " + gap2 + " cm</span>).</li>" +
+        "<li><b>거울 주의</b>: B02 그림을 좌우 뒤집어 붙이면 로봇은 <b>B04</b>로 읽습니다.</li>";
+    }
+  }
+
+  function renderV2Grid(stripWidthCm) {
+    var sw = (typeof stripWidthCm === "number" && stripWidthCm > 0) ? stripWidthCm : selectedV2StripWidth();
     var container = document.getElementById("grid-v2");
     container.innerHTML = "";
-    var plates = codebookBPlates();
+    var plates = codebookBPlates(sw);
     plates.forEach(function (p) {
       var cell = document.createElement("div");
       cell.className = "bcell";
       cell.setAttribute("data-plate-id", p.id);
+      cell.setAttribute("data-strip-width-cm", String(sw));
 
       var head = document.createElement("div");
       head.className = "bcell-head";
@@ -2202,7 +2394,7 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
       var svg = svgEl("svg", {
         viewBox: "0 0 148 54",
         role: "img",
-        "aria-label": p.id + ": 폭 " + fmtNum(p.plateWidthCm) + " cm, 왼쪽 끝 기준 테이프 " +
+        "aria-label": p.id + ": 폭 " + fmtNum(p.plateWidthCm) + " cm, 왼쪽 끝 기준 " + sw + " cm 테이프 " +
           p.edgesCm.map(function (e) { return e[0] + "~" + e[1]; }).join(", ") + " cm, 로봇 읽기 오른쪽부터 " + p.spacingsCm.join("/") + " cm"
       });
       svg.appendChild(svgEl("rect", { "class": "cg-board", x: 4, y: 8, width: p.plateWidthCm * scale, height: 36 }));
@@ -2218,7 +2410,7 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
           x: 4 + (lx + p.stripWidthCm / 2) * scale,
           y: 30,
           "text-anchor": "middle",
-          "font-size": "11",
+          "font-size": sw <= 5 ? "9" : "11",
           "font-weight": "700",
           fill: "var(--ink)"
         }, String(sIdx + 1)));
@@ -2240,12 +2432,41 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
     return plates;
   }
 
+  function renderV2Section() {
+    var sw = selectedV2StripWidth();
+    var noteEl = document.getElementById("v2-tape-note");
+    if (noteEl) {
+      if (sw === 5) {
+        noteEl.innerHTML =
+          "<b>폭 <span class=\"num\">5 cm</span> 시공 시 핵심</b>: 판독은 <b>띠 중심 간격(<span class=\"num\">17·23·29 cm</span>)</b>만 봅니다. " +
+          "따라서 <b>각 띠의 왼쪽 시작 눈금(<span class=\"num\">0 · s2 · s2+s1</span>)을 유지한 채 <span class=\"num\">5 cm</span> 폭</b>만 붙이면 빈틈이 더 넓어져(<span class=\"num\">17 cm</span> 기준 <span class=\"num\">7 → 12 cm</span>) 원거리 뭉침이 오히려 줄어듭니다. " +
+          "로봇 웹 등록 때는 <b><span class=\"num\">[잰 간격 그대로 넣기 (띠 폭 5 cm로 기록)]</span></b>(또는 표준 <span class=\"num\">B01~B09</span>)을 고르세요.";
+      } else {
+        noteEl.innerHTML =
+          "<b>폭 <span class=\"num\">10 cm</span> 원안</b>: <span class=\"num\">10 m</span> 이상 장거리에서 레이저 점이 많이 맞도록 잡은 <span class=\"num\">v2</span> 표준 규격입니다. " +
+          "로봇 웹 <b>[반사판]</b> 탭의 표준 이름(<b>기둥 <span class=\"num\">B01~B09</span></b>) 체크 한 번으로 등록되며, <b>폭 <span class=\"num\">5 cm</span></b>만 준비된 현장에서는 위 5 cm 버튼으로 바꿔 붙이셔도 정상 작동합니다.";
+      }
+    }
+    var titleEl = document.getElementById("v2-grid-title");
+    if (titleEl) {
+      titleEl.innerHTML = "무늬판 v2 전체 9종 (<span class=\"num\">B01~B09</span> · 폭 <span class=\"num\">" + sw +
+        " cm</span> · 마주 보고 왼쪽 <span class=\"num\">0 cm</span>부터 붙이는 눈금)";
+    }
+    renderV2B02Diagram(sw);
+    return renderV2Grid(sw);
+  }
+
+  document.querySelectorAll('input[name="v2-strip-width"]').forEach(function (el) {
+    el.addEventListener("change", function () { saveV2Width(); renderV2Section(); });
+  });
+
   /* ==================== BOOT ==================== */
   loadPlanState();
   renderPlacement();
   loadM();
   renderHeight();
-  renderV2Grid();
+  loadV2Width();
+  renderV2Section();
 
   /* Export pure helpers for automated verification (offline test only, harmless in browser) */
   window.ReflectorGuide = {
@@ -2261,6 +2482,7 @@ section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
     tapeEdgesText: tapeEdgesText,
     faceBarStripLayout: faceBarStripLayout,
     CODEBOOK_V2: CODEBOOK_V2,
+    V2_DEFAULT_STRIP_WIDTH: V2_DEFAULT_STRIP_WIDTH,
     facedSpacings: facedSpacings,
     codebookBPlates: codebookBPlates
   };
