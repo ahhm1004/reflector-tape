@@ -4,13 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif;background:#f7f7f5}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>반사테이프 부착도</title>
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif;background:#f2f4f2}[hidden]{display:none!important}</style>
+<title>반사테이프 부착도 — 기둥면 띠 자리 · 무늬판 v2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: M-type height inputs on top, two wall elevations at one shared scale (1 grid cell = 10 cm), lidar table and rules underneath. */
 :root {
   --paper: #f2f4f2;
   --ink: #1c2326;
@@ -22,15 +21,23 @@
   --tape-hatch: #c3d0d8;
   --tape-edge: #7f8f99;
   --beam-nav: #0b7480;
+  --beam-nav-sub: #3b8d96;
   --beam-floor: #a65400;
   --beam-m: #5b45b8;
+  --accent-strip: #c96f00;
   --dim: #3a4448;
   --card: #fafbfa;
+  --card-alt: #f3f6f4;
   --pillar: #c6cbc7;
   --board: #d6cab0;
   --ok: #1f7a3d;
+  --ok-bg: #e7f4ec;
   --warn: #9a6200;
+  --warn-bg: #fcf3df;
   --bad: #b3261e;
+  --bad-bg: #fbeaea;
+  --info: #0b5d69;
+  --info-bg: #e6f3f5;
   --font-display: "Black Han Sans", "IBM Plex Sans KR", "Malgun Gothic", sans-serif;
   --font-body: "IBM Plex Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
   --font-num: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
@@ -48,15 +55,23 @@
     --tape-hatch: #a7b6c0;
     --tape-edge: #c9d4da;
     --beam-nav: #3dc4d0;
+    --beam-nav-sub: #65b6be;
     --beam-floor: #f0a13c;
     --beam-m: #b39dff;
+    --accent-strip: #f0a13c;
     --dim: #c8d0d3;
     --card: #1a2023;
+    --card-alt: #20272b;
     --pillar: #353d40;
     --board: #574f3f;
     --ok: #5fcf83;
+    --ok-bg: #162c1e;
     --warn: #e7b04a;
+    --warn-bg: #2e2514;
     --bad: #ff8a80;
+    --bad-bg: #321818;
+    --info: #5fd0db;
+    --info-bg: #152b2e;
   }
 }
 :root[data-theme="dark"] {
@@ -71,33 +86,50 @@
   --tape-hatch: #a7b6c0;
   --tape-edge: #c9d4da;
   --beam-nav: #3dc4d0;
+  --beam-nav-sub: #65b6be;
   --beam-floor: #f0a13c;
   --beam-m: #b39dff;
+  --accent-strip: #f0a13c;
   --dim: #c8d0d3;
   --card: #1a2023;
+  --card-alt: #20272b;
   --pillar: #353d40;
   --board: #574f3f;
   --ok: #5fcf83;
+  --ok-bg: #162c1e;
   --warn: #e7b04a;
+  --warn-bg: #2e2514;
   --bad: #ff8a80;
+  --bad-bg: #321818;
+  --info: #5fd0db;
+  --info-bg: #152b2e;
 }
 
+* { box-sizing: border-box; }
 body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6;
-  padding-inline: 20px;
-  padding-block: 28px 40px;
+  padding-inline: 18px;
+  padding-block: 24px 48px;
 }
-.wrap { max-width: 1000px; margin-inline: auto; display: flex; flex-direction: column; gap: 26px; }
+.wrap { max-width: 1040px; margin-inline: auto; display: flex; flex-direction: column; gap: 30px; }
 
-header { display: flex; flex-direction: column; gap: 6px; }
+header { display: flex; flex-direction: column; gap: 8px; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px;
+  border: 1px solid var(--wall-line); background: var(--card); color: var(--muted);
+}
+.badge.live { border-color: var(--beam-nav); color: var(--info); background: var(--info-bg); }
+.badge.ok { border-color: var(--ok); color: var(--ok); background: var(--ok-bg); }
 h1 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(28px, 4.4vw, 40px);
+  font-size: clamp(27px, 4.4vw, 38px);
   line-height: 1.15;
   margin: 0;
   text-wrap: balance;
@@ -106,97 +138,210 @@ h1 {
 .sub b { color: var(--ink); font-weight: 600; }
 .num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
 
-.measure {
-  display: flex; flex-wrap: wrap; align-items: end; gap: 14px 22px;
-  border: 1px dashed var(--beam-m); border-radius: 6px; padding: 14px 16px;
+.callout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.callout {
+  background: var(--card); border: 1px solid var(--wall-line); border-radius: 8px;
+  padding: 13px 15px; display: flex; flex-direction: column; gap: 4px;
 }
-.measure .lead { flex: 1 1 260px; margin: 0; font-size: 14px; color: var(--muted); }
-.measure .lead b { color: var(--beam-m); font-weight: 600; }
+.callout.primary { border-left: 4px solid var(--beam-nav); }
+.callout.secondary { border-left: 4px solid var(--accent-strip); }
+.callout-title { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.callout p { margin: 0; font-size: 13.5px; color: var(--muted); }
+.callout b { color: var(--ink); }
+
+.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+.toc a {
+  text-decoration: none; font-size: 13px; font-weight: 600;
+  color: var(--ink); background: var(--card); border: 1px solid var(--wall-line);
+  border-radius: 6px; padding: 6px 11px;
+}
+.toc a:hover { border-color: var(--beam-nav); color: var(--beam-nav); }
+
+section.block { display: flex; flex-direction: column; gap: 14px; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; border-bottom: 1.5px solid var(--wall-line); padding-bottom: 6px; }
+section h2.sec { font-size: 20px; font-weight: 700; margin: 0; }
+.sec-sub { font-size: 13px; color: var(--muted); }
+.lead2 { margin: 0; max-width: 78ch; color: var(--ink); }
+.lead2.muted { color: var(--muted); font-size: 14px; }
+.sub3 { font-size: 16px; font-weight: 600; margin: 10px 0 6px; }
+
+/* Notices & Warnings */
+.notice {
+  border-radius: 6px; padding: 10px 13px; font-size: 13.5px; line-height: 1.5;
+  border: 1px solid var(--wall-line); background: var(--card);
+}
+.notice.info { border-color: var(--beam-nav); background: var(--info-bg); color: var(--ink); }
+.notice.info b { color: var(--info); }
+.notice.warn { border-color: var(--warn); background: var(--warn-bg); color: var(--ink); }
+.notice.warn b { color: var(--warn); }
+.notice.bad { border-color: var(--bad); background: var(--bad-bg); color: var(--ink); }
+.notice.bad b { color: var(--bad); }
+
+/* Panels & SVG figures */
+.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+figure {
+  margin: 0; background: var(--card); border: 1px solid var(--wall-line); border-radius: 8px;
+  padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 12px;
+}
+.ptitle { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
+.tag { font-family: var(--font-num); font-weight: 600; font-size: 12.5px; border: 1.5px solid var(--ink); border-radius: 4px; padding: 0 6px; }
+.ptitle h3, .ptitle h2 { margin: 0; font-size: 17px; font-weight: 600; }
+.ptitle span.for { color: var(--muted); font-size: 13.5px; }
+.fig { overflow-x: auto; }
+svg { display: block; width: 100%; height: auto; max-width: 440px; margin-inline: auto; }
+svg.wide { max-width: 720px; min-width: 480px; }
+
+/* Calculator form */
+.calc-box {
+  background: var(--card); border: 1px solid var(--wall-line); border-radius: 8px;
+  padding: 16px; display: flex; flex-direction: column; gap: 14px;
+}
+.calc-fields {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px 16px; align-items: end;
+}
 .field { display: flex; flex-direction: column; gap: 4px; }
-.field label { font-size: 13px; font-weight: 600; color: var(--beam-m); }
+.field.wide { grid-column: span 2; }
+@media (max-width: 560px) { .field.wide { grid-column: span 1; } }
+.field label { font-size: 12.5px; font-weight: 600; color: var(--muted); }
 .field .box { display: flex; align-items: center; gap: 6px; }
-.field input {
-  width: 6.5em; font: 500 15px var(--font-num); color: var(--ink);
-  background: var(--paper); border: 1px solid var(--wall-line); border-radius: 4px; padding: 5px 8px;
+.field input[type="number"], .field input[type="text"] {
+  width: 100%; min-width: 0; font: 500 15px var(--font-num); color: var(--ink);
+  background: var(--paper); border: 1px solid var(--wall-line); border-radius: 5px; padding: 6px 9px;
 }
-.field input:focus-visible { outline: 2px solid var(--beam-m); outline-offset: 1px; }
-.field .unit { color: var(--muted); font-size: 13px; }
+.field input:focus-visible { outline: 2px solid var(--beam-nav); outline-offset: 1px; }
+.field .unit { color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+
+.robot-select {
+  display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center;
+  padding-top: 4px; border-top: 1px dashed var(--wall-line); font-size: 13.5px;
+}
+.robot-select .rlabel { font-weight: 600; color: var(--muted); font-size: 13px; }
+.radio-pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px;
+  border-radius: 6px; border: 1px solid var(--wall-line); background: var(--paper);
+  cursor: pointer; font-size: 13.5px;
+}
+.radio-pill input { accent-color: var(--beam-nav); margin: 0; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+.btn-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+button.btn {
+  font: 600 13.5px var(--font-body); color: var(--ink); background: var(--card-alt);
+  border: 1px solid var(--wall-line); border-radius: 6px; padding: 7px 13px; cursor: pointer;
+}
+button.btn:hover { border-color: var(--beam-nav); color: var(--beam-nav); }
+button.btn.primary { background: var(--beam-nav); color: #fff; border-color: var(--beam-nav); }
+button.btn.primary:hover { opacity: 0.92; color: #fff; }
+button.btn.mini { padding: 4px 9px; font-size: 12.5px; }
+
+/* FaceBar + Placement Cards */
+.cap-summary { margin: 0; font-size: 14px; }
+.cap-summary b { font-weight: 700; color: var(--ink); }
+.plan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 12px; }
+.face-card {
+  border: 1px solid var(--wall-line); border-radius: 8px; padding: 12px 14px;
+  background: var(--card); display: flex; flex-direction: column; gap: 8px; min-width: 0;
+}
+.face-card.bad-row { border-color: var(--bad); background: var(--bad-bg); }
+.face-card-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 10px; }
+.face-card-head h4 { margin: 0; font-size: 15px; font-weight: 700; display: flex; align-items: baseline; gap: 6px; }
+.face-width-tag { font-family: var(--font-num); font-size: 12px; font-weight: 500; color: var(--muted); }
+.plan-edges { font-family: var(--font-num); font-size: 13px; font-weight: 600; color: var(--accent-strip); font-variant-numeric: tabular-nums; }
+.face-meta { margin: 0; font-size: 12.5px; color: var(--muted); }
+.face-meta b { color: var(--ink); font-weight: 600; }
+
+.mm-face-bar { position: relative; height: 58px; min-width: 0; margin-top: 2px; }
+.mm-face-bar[data-staggered='true'] { height: 74px; }
+.mm-face-bar[data-label-rows='3'] { height: 90px; }
+.mm-face-bar[data-label-rows='0'] { height: 42px; }
+.mm-face-bar-end {
+  position: absolute; top: 0; font-family: var(--font-num); font-size: 11px; line-height: 14px;
+  color: var(--muted); white-space: nowrap;
+}
+.mm-face-bar-end.right { right: 0; font-weight: 600; color: var(--beam-nav); }
+.mm-face-bar-end.left { left: 0; }
+.mm-face-bar-wall {
+  position: absolute; left: 0; right: 0; top: 20px; height: 16px;
+  background: var(--wall); border: 1px solid var(--wall-line); border-radius: 3px;
+}
+.mm-face-bar-strip {
+  position: absolute; top: 15px; height: 26px;
+  background: var(--accent-strip); border: 1px solid var(--card); border-radius: 2px;
+}
+.mm-face-bar-label {
+  position: absolute; top: 43px; transform: translateX(50%);
+  font-family: var(--font-num); font-size: 11.5px; line-height: 15px; color: var(--ink); white-space: nowrap;
+}
+.mm-face-bar-label[data-edge-align='right'] { transform: none; }
+.mm-face-bar-label[data-edge-align='left'] { transform: translateX(100%); }
+.mm-face-bar-label[data-label-row='1'] { top: 59px; }
+.mm-face-bar-label[data-label-row='2'] { top: 75px; }
+.mm-face-bar-values { margin: 2px 0 0; font-family: var(--font-num); font-size: 12px; line-height: 16px; color: var(--ink); overflow-wrap: anywhere; }
+
+details.table-fold { border: 1px solid var(--wall-line); border-radius: 6px; padding: 8px 12px; background: var(--card); }
+details.table-fold > summary { cursor: pointer; font-weight: 600; font-size: 13.5px; color: var(--ink); }
+
+/* Measure box (Section 2) */
+.measure {
+  display: flex; flex-wrap: wrap; align-items: end; gap: 12px 18px;
+  border: 1px dashed var(--beam-m); border-radius: 8px; padding: 14px 16px; background: var(--card);
+}
+.measure .lead { flex: 1 1 280px; margin: 0; font-size: 13.5px; color: var(--muted); }
+.measure .lead b { color: var(--beam-m); font-weight: 600; }
+.measure .field { max-width: 145px; }
+.measure .field label { color: var(--beam-m); }
+.measure .field input:focus-visible { outline-color: var(--beam-m); }
 #suggest { flex: 1 1 100%; margin: 0; font-size: 14px; }
 #suggest b { font-weight: 600; }
 
-.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-figure {
-  margin: 0; background: var(--card); border: 1px solid var(--wall-line); border-radius: 6px;
-  padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 12px;
-}
-.ptitle { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.tag { font-family: var(--font-num); font-weight: 500; font-size: 13px; border: 1.5px solid var(--ink); border-radius: 3px; padding: 0 6px; }
-.ptitle h2 { margin: 0; font-size: 18px; font-weight: 600; }
-.ptitle span.for { color: var(--muted); font-size: 14px; }
-.fig { overflow-x: auto; }
-svg { display: block; width: 100%; height: auto; max-width: 440px; margin-inline: auto; }
-
 .spec { margin: 0; font-size: 14px; }
-.verdict { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
-.verdict li { display: grid; grid-template-columns: 9.5em 1fr; gap: 10px; align-items: baseline; }
-.verdict .who { color: var(--muted); }
+.verdict { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+.verdict li { display: grid; grid-template-columns: 11em 1fr; gap: 10px; align-items: baseline; }
+@media (max-width: 480px) { .verdict li { grid-template-columns: 1fr; gap: 1px; } }
+.verdict .who { color: var(--muted); font-size: 13px; }
 .st { font-weight: 600; }
 .st.ok { color: var(--ok); }
 .st.warn { color: var(--warn); }
 .st.bad { color: var(--bad); }
 .st.unk { color: var(--muted); font-weight: 400; }
 
-section h2.sec { font-size: 18px; font-weight: 600; margin: 0 0 8px; }
+/* Tables */
 .tablebox { overflow-x: auto; }
-table { border-collapse: collapse; font-size: 14px; min-width: 720px; width: 100%; }
+table { border-collapse: collapse; font-size: 13.5px; min-width: 640px; width: 100%; }
 th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--wall-line); vertical-align: top; }
-th { color: var(--muted); font-weight: 600; font-size: 13px; }
+th { color: var(--muted); font-weight: 600; font-size: 12.5px; }
 td.num, th.num { white-space: nowrap; }
 tr.m td:first-child { color: var(--beam-m); font-weight: 600; }
 tr.t td:first-child { font-weight: 600; }
-.tnote { margin: 8px 0 0; font-size: 13px; color: var(--muted); max-width: 80ch; }
+.tnote { margin: 4px 0 0; font-size: 13px; color: var(--muted); max-width: 82ch; }
 
-section.rules ul { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
-section.rules li::marker { color: var(--beam-nav); }
-.foot { color: var(--muted); font-size: 13px; margin: 0; max-width: 80ch; }
+/* Plate v2 B01..B09 grid */
+.bgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.bcell {
+  border: 1px solid var(--wall-line); border-radius: 6px; padding: 10px 12px;
+  background: var(--card); display: flex; flex-direction: column; gap: 5px;
+}
+.bcell-head { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.bcell-id { font-family: var(--font-num); font-size: 15px; font-weight: 700; }
+.bcell-mirror { font-size: 12px; color: var(--muted); }
+.bcell svg { max-width: none; margin: 0; }
+.bcell-spec { font-family: var(--font-num); font-size: 12.5px; color: var(--ink); }
+.bcell-meta { font-size: 12px; color: var(--muted); }
 
-.lead2 { margin: 0 0 14px; max-width: 70ch; }
-.sub3 { font-size: 16px; font-weight: 600; margin: 22px 0 8px; }
-.facts { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
-.cg { display: grid; grid-template-columns: 8.5em repeat(4, minmax(112px, 1fr)); gap: 6px; min-width: 600px; }
-.cg-h { font-size: 13px; color: var(--muted); text-align: center; align-self: end; font-family: var(--font-num); }
-.cg-corner { font-family: var(--font-body); text-align: left; font-size: 12px; }
-.cg-row { text-align: right; align-self: center; padding-right: 6px; }
-.cg-cell { border: 1px solid var(--wall-line); border-radius: 4px; padding: 6px 8px; background: var(--card); display: flex; flex-direction: column; gap: 2px; }
-.cg-cell.fit { border: 1.5px solid var(--beam-nav); }
-.cg-cell svg { max-width: none; margin: 0; }
-.cg-id { font-family: var(--font-num); font-size: 13px; font-weight: 500; }
-.cg-meta { font-size: 12px; color: var(--muted); }
-.cg-board, .board { fill: var(--board); }
-.board { stroke: var(--wall-line); stroke-width: 1; }
-.cg-strip { fill: var(--tape); stroke: var(--tape-edge); stroke-width: 1; }
-.pillar { fill: var(--pillar); }
-.aisle { fill: var(--wall); }
-.robot { fill: var(--ink); }
-.robotlabel { fill: var(--paper); font-family: var(--font-body); font-size: 11px; font-weight: 600; }
-.snum { fill: var(--ink); font-family: var(--font-num); font-size: 12px; font-weight: 500; }
-.arrowhead { fill: var(--dim); }
-svg.wide { max-width: 680px; min-width: 560px; }
-table.t3 { min-width: 440px; }
-table.t3 td:first-child, table.t3 td:nth-child(3) { white-space: nowrap; }
-tr.sum td { font-weight: 600; border-bottom: none; }
+/* Rules & Steps */
+section.rules ul, section.rules ol { margin: 0; padding-left: 1.25em; display: flex; flex-direction: column; gap: 7px; max-width: 74ch; }
+section.rules li::marker { color: var(--beam-nav); font-weight: 700; }
+.facts { margin: 0; padding-left: 1.15em; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+.foot { color: var(--muted); font-size: 12.5px; margin: 0; max-width: 82ch; border-top: 1px solid var(--wall-line); padding-top: 12px; }
 
-.limit { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 3; fill: none; }
-.blabel.lim, .bnum.lim { fill: var(--warn); }
-
-/* SVG parts */
+/* SVG styling */
 .wall { fill: var(--wall); }
 .grid { stroke: var(--wall-line); stroke-width: 1; }
 .floor { fill: var(--floor); }
 .floorlabel { fill: var(--paper); font-family: var(--font-body); font-size: 11px; font-weight: 600; }
 .ruler line { stroke: var(--dim); stroke-width: 1; }
 .ruler text { fill: var(--muted); font-family: var(--font-num); font-size: 11px; }
-.ruler text.hl { fill: var(--ink); font-weight: 500; }
+.ruler text.hl { fill: var(--ink); font-weight: 600; }
 .tape-bg { fill: var(--tape); }
 .tape-hatch { stroke: var(--tape-hatch); stroke-width: 1.2; }
 .tape-edge { fill: none; stroke: var(--tape-edge); stroke-width: 1.2; }
@@ -205,8 +350,10 @@ tr.sum td { font-weight: 600; border-bottom: none; }
 .dim { stroke: var(--dim); stroke-width: 1; fill: none; }
 .dimtext { fill: var(--ink); font-family: var(--font-num); font-size: 12px; font-weight: 500; }
 .note { fill: var(--ink); font-family: var(--font-body); font-size: 11px; }
-.beam { stroke-width: 1.6; stroke-dasharray: 7 4; fill: none; }
+.note-muted { fill: var(--muted); font-family: var(--font-body); font-size: 10.5px; }
+.beam { stroke-width: 1.7; stroke-dasharray: 7 4; fill: none; }
 .beam.nav { stroke: var(--beam-nav); }
+.beam.nav-sub { stroke: var(--beam-nav-sub); stroke-dasharray: 3 3; stroke-width: 1.3; }
 .beam.flr { stroke: var(--beam-floor); }
 .beam.mf { stroke: var(--beam-m); }
 .beam.mr { stroke: var(--beam-m); stroke-dasharray: 2 3; stroke-width: 2; }
@@ -215,458 +362,1691 @@ tr.sum td { font-weight: 600; border-bottom: none; }
 .hit.m { fill: var(--beam-m); }
 .blabel { font-family: var(--font-body); font-size: 11px; font-weight: 600; }
 .blabel.nav { fill: var(--beam-nav); }
+.blabel.nav-sub { fill: var(--beam-nav-sub); font-weight: 500; }
 .blabel.flr { fill: var(--beam-floor); }
 .blabel.m { fill: var(--beam-m); }
 .bnum { font-family: var(--font-num); font-size: 11px; }
 .bnum.nav { fill: var(--beam-nav); }
+.bnum.nav-sub { fill: var(--beam-nav-sub); }
 .bnum.flr { fill: var(--beam-floor); }
 .dot { fill: var(--ink); }
+.limit { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 1 3; fill: none; }
+.blabel.lim, .bnum.lim { fill: var(--warn); }
+.cg-board, .board { fill: var(--board); }
+.board { stroke: var(--wall-line); stroke-width: 1; }
+.cg-strip { fill: var(--tape); stroke: var(--tape-edge); stroke-width: 1.1; }
+.pillar { fill: var(--pillar); }
+.aisle { fill: var(--wall); }
+.robot { fill: var(--ink); }
+.robotlabel { fill: var(--paper); font-family: var(--font-body); font-size: 11px; font-weight: 600; }
+.snum { fill: var(--ink); font-family: var(--font-num); font-size: 12px; font-weight: 600; }
+.arrowhead { fill: var(--dim); }
+.zero-line { stroke: var(--beam-nav); stroke-width: 2; }
+
+/* Print layout for placement table */
+.print-only-header { display: none; }
+@media print {
+  body { background: #fff !important; color: #111 !important; padding: 6mm; font-size: 10.5pt; }
+  body.printing-placement .no-print { display: none !important; }
+  body.printing-placement .print-only-header { display: block !important; margin-bottom: 10px; }
+  body.printing-placement details.table-fold { border: none; padding: 0; }
+  body.printing-placement details.table-fold > summary { display: none; }
+  body.printing-placement details.table-fold > * { display: block !important; }
+  body.printing-placement .plan-grid { display: none !important; }
+  table { min-width: 0; font-size: 10pt; }
+  th, td { border: 0.4pt solid #333; padding: 4px 7px; color: #111 !important; }
+  thead th { background: #eee !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1>반사테이프 부착도</h1>
-    <p class="sub"><b>T10 34937</b> · <b>M-type(HELI)</b> · 폭 <b class="num">5 cm</b> 테이프 · 벽을 정면에서 본 모습 · 눈금 한 칸 = <span class="num">10 cm</span> · 붙일 수 있는 윗끝 <span class="num">61 cm</span></p>
+  <header class="no-print">
+    <div class="badge-row">
+      <span class="badge live">최신 기준 · 2026-11-15~19 반영</span>
+      <span class="badge ok">T10 34937 (BOOT100) · M-type (c11) 공통</span>
+    </div>
+    <h1>반사테이프 부착도 (기둥면 띠 자리 + 무늬판 v2)</h1>
+    <p class="sub">
+      <b>현장 주력: 기둥면 띠 자리(폭 <span class="num">5 cm</span>)</b> · <b>긴 평벽 보조: 무늬판 v2 <span class="num">B01~B09</span>(폭 <span class="num">10 cm</span>)</b> · 눈금 한 칸 = <span class="num">10 cm</span> · 붙일 수 있는 윗끝 <span class="num">61 cm</span>
+    </p>
   </header>
 
-  <div class="measure">
-    <p class="lead"><b>M-type 라이다 높이</b>는 11-09 현장에서 약 <span class="num">24 cm</span>로 쟀습니다(로봇 설정에는 비어 있음). 앞뒤가 다르면 바닥에서 라이다 창 가운데까지 다시 재서 고쳐 넣으세요.</p>
-    <div class="field">
-      <label for="m-front">M-type 앞 (R2)</label>
-      <div class="box"><input id="m-front" type="number" inputmode="decimal" min="0" max="80" step="0.5" placeholder="재서 넣기" value="24"><span class="unit">cm</span></div>
+  <div class="callout-grid no-print">
+    <div class="callout primary">
+      <div class="callout-title">1. 주력: 기둥면 띠 자리 (<span class="num">rfx_face</span>)</div>
+      <p>통로에서 기둥면을 정면으로 마주 보고 <b>오른쪽 모서리(<span class="num">0 cm</span>)</b>에서 줄자를 대고 붙입니다. 띠 위치 자체가 ID이므로 몇 cm 어긋나도 로봇이 실제 잰 자리 그대로 등록합니다.</p>
     </div>
-    <div class="field">
-      <label for="m-rear">M-type 뒤 (H1)</label>
-      <div class="box"><input id="m-rear" type="number" inputmode="decimal" min="0" max="80" step="0.5" placeholder="재서 넣기" value="24"><span class="unit">cm</span></div>
+    <div class="callout secondary">
+      <div class="callout-title">2. 보조: 무늬판 v2 <span class="num">B01~B09</span> (모서리 없는 긴 평벽)</div>
+      <p>모서리를 잴 수 없는 평벽에만 폭 <span class="num">10 cm</span> 띠 3줄(간격 <span class="num">17·23·29 cm</span>)을 씁니다. <b>구버전 <span class="num">5 cm C01~C16</span> 거울 그림(11-09)은 폐기되었습니다.</b></p>
     </div>
-    <p id="suggest" aria-live="polite">높이를 넣으면 윗끝 61 cm 안에서 T10과 M-type이 같이 읽는 붙이는 높이를 계산합니다.</p>
   </div>
 
-  <div class="panels">
-    <figure>
-      <div class="ptitle"><span class="tag">A</span><h2>세로 한 줄</h2><span class="for">T10 측위 + M-type</span></div>
-      <div class="fig">
-        <svg id="svgA" viewBox="0 0 400 470" role="img" aria-label="폭 5 cm 테이프 한 장을 바닥에서 10 cm부터 61 cm까지 세로로 붙인 그림. T10 측위 라이다 빔이 48 cm 높이에서 테이프를 지나고, 7.6 cm 높이의 T10 바닥 라이다 빔은 테이프 아래를 지난다.">
-          <defs>
-            <pattern id="prismA" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <rect class="tape-bg" width="6" height="6"/>
-              <line class="tape-hatch" x1="0" y1="0" x2="0" y2="6"/>
-            </pattern>
-          </defs>
-          <rect class="wall" x="60" y="30" width="250" height="400"/>
-          <g>
-            <line class="grid" x1="60" y1="380" x2="310" y2="380"/>
-            <line class="grid" x1="60" y1="330" x2="310" y2="330"/>
-            <line class="grid" x1="60" y1="280" x2="310" y2="280"/>
-            <line class="grid" x1="60" y1="230" x2="310" y2="230"/>
-            <line class="grid" x1="60" y1="180" x2="310" y2="180"/>
-            <line class="grid" x1="60" y1="130" x2="310" y2="130"/>
-            <line class="grid" x1="60" y1="80" x2="310" y2="80"/>
-          </g>
-          <rect class="floor" x="60" y="430" width="250" height="24"/>
-          <text class="floorlabel" x="68" y="446">바닥</text>
-          <g class="ruler">
-            <line x1="50" y1="30" x2="50" y2="430"/>
-            <line x1="44" y1="430" x2="50" y2="430"/><text x="40" y="434" text-anchor="end">0</text>
-            <line x1="44" y1="380" x2="50" y2="380"/><text x="40" y="384" text-anchor="end">10</text>
-            <line x1="44" y1="330" x2="50" y2="330"/><text x="40" y="334" text-anchor="end">20</text>
-            <line x1="44" y1="280" x2="50" y2="280"/><text x="40" y="284" text-anchor="end">30</text>
-            <line x1="44" y1="230" x2="50" y2="230"/><text x="40" y="234" text-anchor="end">40</text>
-            <line x1="44" y1="180" x2="50" y2="180"/><text x="40" y="184" text-anchor="end">50</text>
-            <line x1="44" y1="130" x2="50" y2="130"/><text x="40" y="134" text-anchor="end">60</text>
-            <line x1="44" y1="80" x2="50" y2="80"/><text x="40" y="84" text-anchor="end">70</text>
-            <line x1="44" y1="30" x2="50" y2="30"/><text x="40" y="34" text-anchor="end">80</text>
-            <text x="40" y="18" text-anchor="end">cm</text>
-          </g>
-          <line class="ext" x1="52" y1="125" x2="170" y2="125"/>
-          <line class="ext" x1="52" y1="380" x2="170" y2="380"/>
-          <rect x="172.5" y="125" width="25" height="255" fill="url(#prismA)"/>
-          <rect class="tape-edge" x="172.5" y="125" width="25" height="255"/>
-          <line class="dim" x1="172.5" y1="110" x2="197.5" y2="110"/>
-          <line class="dim" x1="172.5" y1="105" x2="172.5" y2="115"/>
-          <line class="dim" x1="197.5" y1="105" x2="197.5" y2="115"/>
-          <text class="dimtext" x="185" y="99" text-anchor="middle">5 cm</text>
-          <line class="dim" x1="150" y1="125" x2="150" y2="380"/>
-          <line class="dim" x1="145" y1="125" x2="155" y2="125"/>
-          <line class="dim" x1="145" y1="380" x2="155" y2="380"/>
-          <text class="dimtext" x="144" y="300" text-anchor="end">51 cm</text>
-          <line class="beam nav" x1="60" y1="189" x2="318" y2="189"/>
-          <rect class="hit nav" x="172.5" y="186.5" width="25" height="5"/>
-          <text class="blabel nav" x="322" y="186">T10 측위</text>
-          <text class="bnum nav" x="322" y="201">48 cm</text>
-          <line class="beam flr" x1="60" y1="392" x2="318" y2="392"/>
-          <text class="blabel flr" x="322" y="389">T10 바닥</text>
-          <text class="bnum flr" x="322" y="404">7.6 cm</text>
-          <line class="limit" x1="60" y1="125" x2="318" y2="125"/><text class="blabel lim" x="322" y="122">윗끝</text><text class="bnum lim" x="322" y="137">61 cm</text>
-          <g id="dynA"></g>
-        </svg>
-      </div>
-      <p class="spec">테이프 <span class="num">51 cm</span> × 1장 · 바닥에서 <span class="num">10~61 cm</span></p>
-      <ul class="verdict" id="vA" aria-live="polite"></ul>
-    </figure>
+  <nav class="toc no-print" aria-label="바로 가기">
+    <a href="#placement-section">① 기둥면 붙임 표 계산기</a>
+    <a href="#height-section">② 세로 높이 · 라이다 빔</a>
+    <a href="#plates-v2-section">③ 평벽용 무늬판 B01~B09</a>
+    <a href="#steps-section">④ 현장 부착 · 등록 순서</a>
+  </nav>
 
-    <figure>
-      <div class="ptitle"><span class="tag">B</span><h2>네 장 나란히</h2><span class="for">T10 바닥 라이다까지</span></div>
-      <div class="fig">
-        <svg id="svgB" viewBox="0 0 400 470" role="img" aria-label="폭 5 cm 테이프 네 장을 틈 없이 맞대어 폭 20 cm로 만들고, 바닥부터 61 cm 높이까지 세로로 붙인 그림. 48 cm 높이의 T10 측위 라이다 빔과 7.6 cm 높이의 T10 바닥 라이다 빔이 모두 테이프를 지난다.">
-          <defs>
-            <pattern id="prismB" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <rect class="tape-bg" width="6" height="6"/>
-              <line class="tape-hatch" x1="0" y1="0" x2="0" y2="6"/>
-            </pattern>
-          </defs>
-          <rect class="wall" x="60" y="30" width="250" height="400"/>
-          <g>
-            <line class="grid" x1="60" y1="380" x2="310" y2="380"/>
-            <line class="grid" x1="60" y1="330" x2="310" y2="330"/>
-            <line class="grid" x1="60" y1="280" x2="310" y2="280"/>
-            <line class="grid" x1="60" y1="230" x2="310" y2="230"/>
-            <line class="grid" x1="60" y1="180" x2="310" y2="180"/>
-            <line class="grid" x1="60" y1="130" x2="310" y2="130"/>
-            <line class="grid" x1="60" y1="80" x2="310" y2="80"/>
-          </g>
-          <rect class="floor" x="60" y="430" width="250" height="24"/>
-          <text class="floorlabel" x="68" y="446">바닥</text>
-          <g class="ruler">
-            <line x1="50" y1="30" x2="50" y2="430"/>
-            <line x1="44" y1="430" x2="50" y2="430"/><text class="hl" x="40" y="434" text-anchor="end">0</text>
-            <line x1="44" y1="380" x2="50" y2="380"/><text x="40" y="384" text-anchor="end">10</text>
-            <line x1="44" y1="330" x2="50" y2="330"/><text x="40" y="334" text-anchor="end">20</text>
-            <line x1="44" y1="280" x2="50" y2="280"/><text x="40" y="284" text-anchor="end">30</text>
-            <line x1="44" y1="230" x2="50" y2="230"/><text x="40" y="234" text-anchor="end">40</text>
-            <line x1="44" y1="180" x2="50" y2="180"/><text x="40" y="184" text-anchor="end">50</text>
-            <line x1="44" y1="130" x2="50" y2="130"/><text x="40" y="134" text-anchor="end">60</text>
-            <line x1="44" y1="80" x2="50" y2="80"/><text x="40" y="84" text-anchor="end">70</text>
-            <line x1="44" y1="30" x2="50" y2="30"/><text x="40" y="34" text-anchor="end">80</text>
-            <text x="40" y="18" text-anchor="end">cm</text>
-          </g>
-          <line class="ext" x1="52" y1="125" x2="116" y2="125"/>
-          <rect x="135" y="125" width="100" height="305" fill="url(#prismB)"/>
-          <line class="seam" x1="160" y1="125" x2="160" y2="430"/>
-          <line class="seam" x1="185" y1="125" x2="185" y2="430"/>
-          <line class="seam" x1="210" y1="125" x2="210" y2="430"/>
-          <rect class="tape-edge" x="135" y="125" width="100" height="305"/>
-          <line class="dim" x1="135" y1="110" x2="235" y2="110"/>
-          <line class="dim" x1="135" y1="105" x2="135" y2="115"/>
-          <line class="dim" x1="235" y1="105" x2="235" y2="115"/>
-          <text class="dimtext" x="185" y="99" text-anchor="middle">20 cm = 5 cm × 4장</text>
-          <line class="dim" x1="118" y1="125" x2="118" y2="430"/>
-          <line class="dim" x1="113" y1="125" x2="123" y2="125"/>
-          <line class="dim" x1="113" y1="430" x2="123" y2="430"/>
-          <text class="dimtext" x="112" y="300" text-anchor="end">61 cm</text>
-          <circle class="dot" cx="210" cy="165" r="2.2"/>
-          <line class="dim" x1="212" y1="165" x2="243" y2="165"/>
-          <text class="note" x="246" y="161">틈 없이</text>
-          <text class="note" x="246" y="175">맞대기</text>
-          <line class="beam nav" x1="60" y1="189" x2="318" y2="189"/>
-          <rect class="hit nav" x="135" y="186.5" width="100" height="5"/>
-          <text class="blabel nav" x="322" y="186">T10 측위</text>
-          <text class="bnum nav" x="322" y="201">48 cm</text>
-          <line class="beam flr" x1="60" y1="392" x2="318" y2="392"/>
-          <rect class="hit flr" x="135" y="389.5" width="100" height="5"/>
-          <text class="blabel flr" x="322" y="389">T10 바닥</text>
-          <text class="bnum flr" x="322" y="404">7.6 cm</text>
-          <line class="limit" x1="60" y1="125" x2="318" y2="125"/><text class="blabel lim" x="322" y="122">윗끝</text><text class="bnum lim" x="322" y="137">61 cm</text>
-          <g id="dynB"></g>
-        </svg>
-      </div>
-      <p class="spec">테이프 <span class="num">61 cm</span> × 4장 (합계 <span class="num">2.44 m</span>) · 바닥부터 <span class="num">61 cm</span> · 아래 <span class="num">20 cm</span>는 짐이 닿지 않는 벽에서만</p>
-      <ul class="verdict" id="vB" aria-live="polite"></ul>
-    </figure>
-  </div>
+  <!-- ==================== SECTION 1: PLACEMENT CALCULATOR ==================== -->
+  <section id="placement-section" class="block">
+    <div class="print-only-header">
+      <h2 style="margin:0 0 4px;">기둥면 반사테이프 붙임 표</h2>
+      <p id="print-spec-line" style="margin:0; font-size:10pt; color:#333;"></p>
+    </div>
 
-  <p class="tnote">T10 측위 라이다는 로봇 설정상 48 cm라 윗끝 61 cm까지 여유가 13 cm입니다. 지도 이름에는 H530(53 cm)으로 적혀 있는데, 실제로 53 cm면 여유가 8 cm라 멀리서 차체가 숙으면 빔이 테이프 위로 빠질 수 있습니다. 줄자로 한 번 재 주세요.</p>
+    <div class="sec-head no-print">
+      <h2 class="sec">① 기둥면 "붙임 표" 계산기 · 도해</h2>
+      <span class="sec-sub">로봇 웹 [반사판] → [붙임 표]와 같은 계산 식</span>
+    </div>
 
-  <section class="codes">
-    <h2 class="sec">기둥 무늬판</h2>
-    <p class="lead2">모양이 같은 기둥은 띠 3개 사이의 간격으로 구분합니다. 간격은 <span class="num">13 · 17 · 21 · 25 cm</span> 중에서 골라 기둥마다 다른 조합을 붙이고, 로봇은 이 간격을 재서 몇 번 기둥인지 알아봅니다.</p>
-    <div class="panels">
+    <div class="panels no-print">
       <figure>
-        <div class="ptitle"><span class="tag">C02</span><h2>기둥 정면</h2><span class="for">통로에서 마주 본 모습</span></div>
+        <div class="ptitle"><span class="tag">기준</span><h3>어디를 0 cm로 재나요?</h3><span class="for">통로에서 기둥을 정면으로 본 모습</span></div>
         <div class="fig">
-          <svg viewBox="0 0 430 470" role="img" aria-label="기둥 정면에 붙인 무늬판 C02. 폭 35 cm 판에 5 cm 띠 세 개를 판 왼쪽 끝에서 0, 13, 30 cm 위치에 세로로 붙이고, 띠 사이 8 cm와 12 cm는 비워 둔다. 띠는 바닥에서 10~61 cm 높이.">
+          <svg viewBox="0 0 460 250" role="img" aria-label="통로에서 기둥면을 마주 보았을 때 오른쪽 모서리가 0 cm, 왼쪽 모서리가 면 폭 cm다. 예시로 폭 80 cm 면에 15 cm와 45 cm 중심 자리에 폭 5 cm 테이프 두 줄을 바닥에서 10~61 cm로 붙인 그림.">
             <defs>
-              <pattern id="prismC" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <pattern id="prismGuide" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
                 <rect class="tape-bg" width="6" height="6"/>
                 <line class="tape-hatch" x1="0" y1="0" x2="0" y2="6"/>
               </pattern>
-              <marker id="arrC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="arrowhead" d="M0,0 L10,5 L0,10 z"/></marker>
+              <marker id="arrLeft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path class="arrowhead" d="M0,0 L10,5 L0,10 z"/>
+              </marker>
             </defs>
-            <rect class="pillar" x="90" y="20" width="250" height="410"/>
-            <rect class="floor" x="60" y="430" width="330" height="24"/>
-            <text class="floorlabel" x="68" y="446">바닥</text>
-            <g class="ruler"><line x1="50" y1="30" x2="50" y2="430"/><line x1="44" y1="430" x2="50" y2="430"/><text x="40" y="434" text-anchor="end">0</text><line x1="44" y1="380" x2="50" y2="380"/><text x="40" y="384" text-anchor="end">10</text><line x1="44" y1="330" x2="50" y2="330"/><text x="40" y="334" text-anchor="end">20</text><line x1="44" y1="280" x2="50" y2="280"/><text x="40" y="284" text-anchor="end">30</text><line x1="44" y1="230" x2="50" y2="230"/><text x="40" y="234" text-anchor="end">40</text><line x1="44" y1="180" x2="50" y2="180"/><text x="40" y="184" text-anchor="end">50</text><line x1="44" y1="130" x2="50" y2="130"/><text x="40" y="134" text-anchor="end">60</text><line x1="44" y1="80" x2="50" y2="80"/><text x="40" y="84" text-anchor="end">70</text><line x1="44" y1="30" x2="50" y2="30"/><text x="40" y="34" text-anchor="end">80</text><text x="40" y="18" text-anchor="end">cm</text></g>
-            <line class="ext" x1="52" y1="125" x2="125" y2="125"/>
-            <line class="ext" x1="52" y1="380" x2="125" y2="380"/>
-            <rect class="board" x="127.5" y="115" width="175" height="275"/>
-            <rect x="127.5" y="125" width="25" height="255" fill="url(#prismC)"/>
-            <rect class="tape-edge" x="127.5" y="125" width="25" height="255"/>
-            <rect x="192.5" y="125" width="25" height="255" fill="url(#prismC)"/>
-            <rect class="tape-edge" x="192.5" y="125" width="25" height="255"/>
-            <rect x="277.5" y="125" width="25" height="255" fill="url(#prismC)"/>
-            <rect class="tape-edge" x="277.5" y="125" width="25" height="255"/>
-            <text class="snum" x="140" y="148" text-anchor="middle">1</text>
-            <text class="snum" x="205" y="148" text-anchor="middle">2</text>
-            <text class="snum" x="290" y="148" text-anchor="middle">3</text>
-            <line class="ext" x1="127.5" y1="115" x2="127.5" y2="30"/>
-            <line class="ext" x1="192.5" y1="125" x2="192.5" y2="50"/>
-            <line class="ext" x1="277.5" y1="125" x2="277.5" y2="30"/>
-            <line class="dim" x1="127.5" y1="56" x2="192.5" y2="56"/>
-            <line class="dim" x1="192.5" y1="51" x2="192.5" y2="61"/>
-            <text class="dimtext" x="160" y="50" text-anchor="middle">13 cm</text>
-            <line class="dim" x1="127.5" y1="36" x2="277.5" y2="36"/>
-            <line class="dim" x1="127.5" y1="31" x2="127.5" y2="61"/>
-            <line class="dim" x1="277.5" y1="31" x2="277.5" y2="41"/>
-            <text class="dimtext" x="202.5" y="30" text-anchor="middle">30 cm</text>
-            <text class="note" x="172.5" y="232" text-anchor="middle">비움</text>
-            <text class="dimtext" x="172.5" y="247" text-anchor="middle">8 cm</text>
-            <text class="note" x="247.5" y="232" text-anchor="middle">비움</text>
-            <text class="dimtext" x="247.5" y="247" text-anchor="middle">12 cm</text>
-            <line class="limit" x1="60" y1="125" x2="352" y2="125"/><text class="blabel lim" x="356" y="122">윗끝</text><text class="bnum lim" x="356" y="137">61 cm</text>
-            <line class="beam mf" x1="60" y1="310" x2="352" y2="310"/><text class="blabel m" x="356" y="314">M-type 24</text>
-            <line class="beam nav" x1="60" y1="189" x2="352" y2="189"/>
-            <text class="blabel nav" x="356" y="186">T10 측위</text>
-            <text class="bnum nav" x="356" y="201">48 cm</text>
-            <line class="dim" x1="127.5" y1="400" x2="302.5" y2="400"/>
-            <line class="dim" x1="127.5" y1="395" x2="127.5" y2="405"/>
-            <line class="dim" x1="302.5" y1="395" x2="302.5" y2="405"/>
-            <text class="dimtext" x="215" y="416" text-anchor="middle">판 폭 35 cm</text>
-            <line class="dim" x1="140" y1="112" x2="290" y2="112" marker-end="url(#arrC)"/>
-            <text class="note" x="215" y="102" text-anchor="middle">마주 보고 왼쪽부터 1 → 2 → 3</text>
-            <text class="note" x="330" y="426" text-anchor="end">기둥 면 50 cm (예)</text>
+            <!-- Pillar face: 80 cm example = 240 px (3 px per cm), x from 90 (left, 80 cm) to 330 (right, 0 cm) -->
+            <rect class="pillar" x="90" y="38" width="240" height="162"/>
+            <rect class="floor" x="40" y="200" width="380" height="22"/>
+            <text class="floorlabel" x="50" y="215">바닥</text>
+
+            <!-- Vertical right-corner highlight (0 cm) -->
+            <line class="zero-line" x1="330" y1="24" x2="330" y2="200"/>
+            <text class="blabel nav" x="334" y="32" text-anchor="start">오른쪽 모서리</text>
+            <text class="bnum nav" x="334" y="46" text-anchor="start">0 cm (줄자 끝)</text>
+            <text class="note-muted" x="86" y="32" text-anchor="end">왼쪽 모서리</text>
+            <text class="dimtext" x="86" y="46" text-anchor="end">80 cm (예)</text>
+
+            <!-- Measurement arrow RIGHT -> LEFT -->
+            <line class="dim" x1="326" y1="24" x2="96" y2="24" marker-end="url(#arrLeft)"/>
+            <text class="note" x="210" y="16" text-anchor="middle">오른쪽 0에서 왼쪽으로 재기 ←</text>
+
+            <!-- Strip 1: centre = 15 cm from right => x_centre = 330 - 45 = 285, edges 12.5~17.5 cm (277.5..292.5) -->
+            <rect x="277.5" y="64" width="15" height="114" fill="url(#prismGuide)"/>
+            <rect class="tape-edge" x="277.5" y="64" width="15" height="114"/>
+            <!-- Strip 2: centre = 45 cm from right => x_centre = 330 - 135 = 195, edges 42.5~47.5 cm (187.5..202.5) -->
+            <rect x="187.5" y="64" width="15" height="114" fill="url(#prismGuide)"/>
+            <rect class="tape-edge" x="187.5" y="64" width="15" height="114"/>
+
+            <!-- Height brace 10~61 cm -->
+            <line class="dim" x1="344" y1="64" x2="344" y2="178"/>
+            <line class="dim" x1="339" y1="64" x2="349" y2="64"/>
+            <line class="dim" x1="339" y1="178" x2="349" y2="178"/>
+            <text class="note" x="353" y="114">바닥에서</text>
+            <text class="dimtext" x="353" y="129">10~61 cm</text>
+            <text class="note-muted" x="353" y="144">(L+M 공용)</text>
+
+            <!-- Dimension lines from right corner 0 cm -->
+            <line class="ext" x1="285" y1="64" x2="285" y2="191"/>
+            <line class="dim" x1="330" y1="188" x2="285" y2="188"/>
+            <text class="bnum nav" x="307.5" y="184" text-anchor="middle">15</text>
+
+            <line class="ext" x1="195" y1="64" x2="195" y2="236"/>
+            <line class="dim" x1="330" y1="234" x2="195" y2="234"/>
+            <text class="dimtext" x="262.5" y="246" text-anchor="middle">45 cm (중심 42.5~47.5)</text>
           </svg>
         </div>
         <ul class="facts">
-          <li>띠 5 cm × 3개, 세로 <span class="num">51 cm</span> (바닥에서 <span class="num">10~61 cm</span>)</li>
-          <li>판 왼쪽 끝에서 각 띠 왼쪽 가장자리까지 <span class="num">0 · 13 · 30 cm</span></li>
-          <li>띠 사이는 비워 둡니다. 반사되는 것이 있으면 다른 번호로 읽힙니다.</li>
-          <li>면이 판보다 좁거나 철 기둥이 반짝이면 무광 합판에 붙여 기둥에 답니다.</li>
+          <li><b>줄자 <span class="num">0 cm</span>를 오른쪽 모서리</b>에 대고 왼쪽으로 잽니다.</li>
+          <li>예시(80 cm 면): 테이프 가장자리를 <span class="num">12.5~17.5 cm</span>, <span class="num">42.5~47.5 cm</span>에 맞춥니다.</li>
+          <li>실제 현장 벽에서 몇 cm 어긋나도 떼지 마세요. 로봇이 <b>실제 붙은 거리 그대로</b> 기억합니다.</li>
         </ul>
       </figure>
+
       <figure>
-        <div class="ptitle"><span class="tag">위</span><h2>위에서 본 모습</h2><span class="for">같은 기둥, 다른 무늬</span></div>
+        <div class="ptitle"><span class="tag">위</span><h3>한 줄과 모서리 규칙</h3><span class="for">1~3줄 모두 가능 · 1줄도 작동</span></div>
         <div class="fig">
-          <svg viewBox="0 0 430 250" role="img" aria-label="위에서 본 그림. 모양이 같은 기둥 7과 기둥 8의 통로 쪽 면에 각각 무늬판 C02와 C09가 붙어 있고, 통로의 로봇이 두 판을 라이다로 본다. 무늬는 통로에서 마주 보고 왼쪽에서 오른쪽으로 읽는다.">
-            <defs>
-              <marker id="arrT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="arrowhead" d="M0,0 L10,5 L0,10 z"/></marker>
-            </defs>
-            <rect class="pillar" x="60" y="30" width="100" height="100"/>
-            <rect class="pillar" x="270" y="30" width="100" height="100"/>
-            <text class="note" x="110" y="74" text-anchor="middle">기둥 7</text>
-            <text class="dimtext" x="110" y="92" text-anchor="middle">C02</text>
-            <text class="note" x="320" y="74" text-anchor="middle">기둥 8</text>
-            <text class="dimtext" x="320" y="92" text-anchor="middle">C09</text>
-            <rect class="board" x="75" y="130" width="70" height="6"/>
-            <rect class="cg-strip" x="75" y="130" width="10" height="4"/>
-            <rect class="cg-strip" x="101" y="130" width="10" height="4"/>
-            <rect class="cg-strip" x="135" y="130" width="10" height="4"/>
-            <rect class="board" x="281" y="130" width="78" height="6"/>
-            <rect class="cg-strip" x="281" y="130" width="10" height="4"/>
-            <rect class="cg-strip" x="323" y="130" width="10" height="4"/>
-            <rect class="cg-strip" x="349" y="130" width="10" height="4"/>
-            <line class="dim" x1="80" y1="150" x2="140" y2="150" marker-end="url(#arrT)"/>
-            <line class="dim" x1="286" y1="150" x2="354" y2="150" marker-end="url(#arrT)"/>
-            <rect class="aisle" x="20" y="164" width="390" height="72"/>
-            <line class="beam nav" x1="215" y1="182" x2="110" y2="138"/>
-            <line class="beam nav" x1="215" y1="182" x2="320" y2="138"/>
-            <rect class="robot" x="185" y="182" width="60" height="34" rx="3"/>
-            <text class="robotlabel" x="215" y="203" text-anchor="middle">로봇</text>
-            <text class="note" x="30" y="228">통로 (로봇 쪽)</text>
+          <svg viewBox="0 0 430 230" role="img" aria-label="위에서 본 그림. 통로의 로봇이 기둥 1의 정면에 붙은 오른쪽 모서리 기준 15 cm, 45 cm 테이프와 기둥 2의 20 cm, 60 cm 테이프를 보고 구분한다.">
+            <rect class="pillar" x="55" y="26" width="120" height="90"/>
+            <rect class="pillar" x="255" y="26" width="120" height="90"/>
+            <text class="note" x="115" y="64" text-anchor="middle">기둥 1 (폭 80 cm)</text>
+            <text class="dimtext" x="115" y="82" text-anchor="middle">15 · 45 cm</text>
+            <text class="note" x="315" y="64" text-anchor="middle">기둥 2 (폭 80 cm)</text>
+            <text class="dimtext" x="315" y="82" text-anchor="middle">20 · 60 cm</text>
+
+            <!-- Top-down strips on aisle face (bottom edge of pillar = y=116; viewer faces from below -> viewer's right is +x!) -->
+            <!-- For pillar 1 (x=55..175, width 120 = 80 cm -> 1.5 px/cm): viewer's right is x=175! -->
+            <circle cx="175" cy="116" r="3" fill="var(--beam-nav)"/>
+            <rect class="cg-strip" x="148.75" y="114" width="7.5" height="5"/>
+            <rect class="cg-strip" x="103.75" y="114" width="7.5" height="5"/>
+            <!-- For pillar 2 (x=255..375): viewer's right is x=375! -->
+            <circle cx="375" cy="116" r="3" fill="var(--beam-nav)"/>
+            <rect class="cg-strip" x="341.25" y="114" width="7.5" height="5"/>
+            <rect class="cg-strip" x="281.25" y="114" width="7.5" height="5"/>
+
+            <rect class="aisle" x="20" y="142" width="390" height="72" rx="4"/>
+            <line class="beam nav" x1="215" y1="164" x2="115" y2="120"/>
+            <line class="beam nav" x1="215" y1="164" x2="315" y2="120"/>
+            <rect class="robot" x="183" y="164" width="64" height="34" rx="4"/>
+            <text class="robotlabel" x="215" y="185" text-anchor="middle">로봇</text>
+            <text class="note-muted" x="32" y="204">파란 점 = 각 면의 오른쪽 모서리 (0 cm 기준)</text>
           </svg>
         </div>
         <ul class="facts">
-          <li>판은 통로 쪽 면에, 통로를 향하게 붙입니다.</li>
-          <li>무늬는 통로에서 마주 보고 왼쪽에서 오른쪽으로 읽습니다. 거꾸로 붙이면 다른 번호가 됩니다.</li>
-          <li>같은 번호는 <span class="num">30 m</span> 안에 두 번 쓰지 않습니다.</li>
-          <li>측위 라이다로 약 <span class="num">10 m</span> 안, 정면에 가까울 때 잘 읽힙니다.</li>
+          <li><b>한 면에 띠 <span class="num">1~3줄</span></b> 중 선택 (기본 2줄 · 모서리가 꺾여 보이면 1줄도 인식).</li>
+          <li><b>양끝 모서리 여유 <span class="num">15 cm</span> 이상</b>, 10 m 거리 기준 <b>띠 사이 빈 간격 <span class="num">12 cm</span> 이상</b>.</li>
+          <li>로봇은 모서리 직선으로 각도를 잡고, 띠 위치로 기둥 번호와 가로 위치를 맞춥니다.</li>
         </ul>
       </figure>
     </div>
-    <h3 class="sub3">무늬 16가지 (띠 3개, 축척대로)</h3>
-    <div class="tablebox">
-      <div class="cg">
-          <div class="cg-h cg-corner">첫 간격 ↓ · 둘째 간격 →</div>
-          <div class="cg-h">13 cm</div>
-          <div class="cg-h">17 cm</div>
-          <div class="cg-h">21 cm</div>
-          <div class="cg-h">25 cm</div>
-          <div class="cg-h cg-row">13 cm</div>
-          <div class="cg-cell fit"><div class="cg-id">C01</div><svg viewBox="0 0 120 60" aria-label="C01: 띠 간격 13 cm, 13 cm, 판 폭 31 cm"><rect class="cg-board" x="5" y="10" width="62" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="31" y="13" width="10" height="34"/><rect class="cg-strip" x="57" y="13" width="10" height="34"/></svg><div class="cg-meta num">13 · 13 · 판 31 cm</div></div>
-          <div class="cg-cell fit"><div class="cg-id">C02</div><svg viewBox="0 0 120 60" aria-label="C02: 띠 간격 13 cm, 17 cm, 판 폭 35 cm"><rect class="cg-board" x="5" y="10" width="70" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="31" y="13" width="10" height="34"/><rect class="cg-strip" x="65" y="13" width="10" height="34"/></svg><div class="cg-meta num">13 · 17 · 판 35 cm</div></div>
-          <div class="cg-cell fit"><div class="cg-id">C03</div><svg viewBox="0 0 120 60" aria-label="C03: 띠 간격 13 cm, 21 cm, 판 폭 39 cm"><rect class="cg-board" x="5" y="10" width="78" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="31" y="13" width="10" height="34"/><rect class="cg-strip" x="73" y="13" width="10" height="34"/></svg><div class="cg-meta num">13 · 21 · 판 39 cm</div></div>
-          <div class="cg-cell"><div class="cg-id">C04</div><svg viewBox="0 0 120 60" aria-label="C04: 띠 간격 13 cm, 25 cm, 판 폭 43 cm"><rect class="cg-board" x="5" y="10" width="86" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="31" y="13" width="10" height="34"/><rect class="cg-strip" x="81" y="13" width="10" height="34"/></svg><div class="cg-meta num">13 · 25 · 판 43 cm</div></div>
-          <div class="cg-h cg-row">17 cm</div>
-          <div class="cg-cell fit"><div class="cg-id">C05</div><svg viewBox="0 0 120 60" aria-label="C05: 띠 간격 17 cm, 13 cm, 판 폭 35 cm"><rect class="cg-board" x="5" y="10" width="70" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="39" y="13" width="10" height="34"/><rect class="cg-strip" x="65" y="13" width="10" height="34"/></svg><div class="cg-meta num">17 · 13 · 판 35 cm</div></div>
-          <div class="cg-cell fit"><div class="cg-id">C06</div><svg viewBox="0 0 120 60" aria-label="C06: 띠 간격 17 cm, 17 cm, 판 폭 39 cm"><rect class="cg-board" x="5" y="10" width="78" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="39" y="13" width="10" height="34"/><rect class="cg-strip" x="73" y="13" width="10" height="34"/></svg><div class="cg-meta num">17 · 17 · 판 39 cm</div></div>
-          <div class="cg-cell"><div class="cg-id">C07</div><svg viewBox="0 0 120 60" aria-label="C07: 띠 간격 17 cm, 21 cm, 판 폭 43 cm"><rect class="cg-board" x="5" y="10" width="86" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="39" y="13" width="10" height="34"/><rect class="cg-strip" x="81" y="13" width="10" height="34"/></svg><div class="cg-meta num">17 · 21 · 판 43 cm</div></div>
-          <div class="cg-cell"><div class="cg-id">C08</div><svg viewBox="0 0 120 60" aria-label="C08: 띠 간격 17 cm, 25 cm, 판 폭 47 cm"><rect class="cg-board" x="5" y="10" width="94" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="39" y="13" width="10" height="34"/><rect class="cg-strip" x="89" y="13" width="10" height="34"/></svg><div class="cg-meta num">17 · 25 · 판 47 cm</div></div>
-          <div class="cg-h cg-row">21 cm</div>
-          <div class="cg-cell fit"><div class="cg-id">C09</div><svg viewBox="0 0 120 60" aria-label="C09: 띠 간격 21 cm, 13 cm, 판 폭 39 cm"><rect class="cg-board" x="5" y="10" width="78" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="47" y="13" width="10" height="34"/><rect class="cg-strip" x="73" y="13" width="10" height="34"/></svg><div class="cg-meta num">21 · 13 · 판 39 cm</div></div>
-          <div class="cg-cell"><div class="cg-id">C10</div><svg viewBox="0 0 120 60" aria-label="C10: 띠 간격 21 cm, 17 cm, 판 폭 43 cm"><rect class="cg-board" x="5" y="10" width="86" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="47" y="13" width="10" height="34"/><rect class="cg-strip" x="81" y="13" width="10" height="34"/></svg><div class="cg-meta num">21 · 17 · 판 43 cm</div></div>
-          <div class="cg-cell"><div class="cg-id">C11</div><svg viewBox="0 0 120 60" aria-label="C11: 띠 간격 21 cm, 21 cm, 판 폭 47 cm"><rect class="cg-board" x="5" y="10" width="94" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="47" y="13" width="10" height="34"/><rect class="cg-strip" x="89" y="13" width="10" height="34"/></svg><div class="cg-meta num">21 · 21 · 판 47 cm</div></div>
-          <div class="cg-cell"><div class="cg-id">C12</div><svg viewBox="0 0 120 60" aria-label="C12: 띠 간격 21 cm, 25 cm, 판 폭 51 cm"><rect class="cg-board" x="5" y="10" width="102" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="47" y="13" width="10" height="34"/><rect class="cg-strip" x="97" y="13" width="10" height="34"/></svg><div class="cg-meta num">21 · 25 · 판 51 cm</div></div>
-          <div class="cg-h cg-row">25 cm</div>
-          <div class="cg-cell"><div class="cg-id">C13</div><svg viewBox="0 0 120 60" aria-label="C13: 띠 간격 25 cm, 13 cm, 판 폭 43 cm"><rect class="cg-board" x="5" y="10" width="86" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="55" y="13" width="10" height="34"/><rect class="cg-strip" x="81" y="13" width="10" height="34"/></svg><div class="cg-meta num">25 · 13 · 판 43 cm</div></div>
-          <div class="cg-cell"><div class="cg-id">C14</div><svg viewBox="0 0 120 60" aria-label="C14: 띠 간격 25 cm, 17 cm, 판 폭 47 cm"><rect class="cg-board" x="5" y="10" width="94" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="55" y="13" width="10" height="34"/><rect class="cg-strip" x="89" y="13" width="10" height="34"/></svg><div class="cg-meta num">25 · 17 · 판 47 cm</div></div>
-          <div class="cg-cell"><div class="cg-id">C15</div><svg viewBox="0 0 120 60" aria-label="C15: 띠 간격 25 cm, 21 cm, 판 폭 51 cm"><rect class="cg-board" x="5" y="10" width="102" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="55" y="13" width="10" height="34"/><rect class="cg-strip" x="97" y="13" width="10" height="34"/></svg><div class="cg-meta num">25 · 21 · 판 51 cm</div></div>
-          <div class="cg-cell"><div class="cg-id">C16</div><svg viewBox="0 0 120 60" aria-label="C16: 띠 간격 25 cm, 25 cm, 판 폭 55 cm"><rect class="cg-board" x="5" y="10" width="110" height="40"/><rect class="cg-strip" x="5" y="13" width="10" height="34"/><rect class="cg-strip" x="55" y="13" width="10" height="34"/><rect class="cg-strip" x="105" y="13" width="10" height="34"/></svg><div class="cg-meta num">25 · 25 · 판 55 cm</div></div>
+
+    <div class="calc-box no-print" id="calc-controls">
+      <div class="calc-fields">
+        <div class="field">
+          <label for="fp-count">붙일 면 수</label>
+          <div class="box"><input id="fp-count" type="number" min="1" max="500" value="8"><span class="unit">면</span></div>
+        </div>
+        <div class="field wide">
+          <label for="fp-widths">기둥 폭 (여러 개면 쉼표 구분)</label>
+          <div class="box"><input id="fp-widths" type="text" inputmode="decimal" value="80"><span class="unit">cm</span></div>
+        </div>
+        <div class="field">
+          <label for="fp-tape">테이프 폭</label>
+          <div class="box"><input id="fp-tape" type="number" min="2" max="15" step="0.5" value="5"><span class="unit">cm</span></div>
+        </div>
+        <div class="field">
+          <label for="fp-strips">면당 띠 수</label>
+          <div class="box"><input id="fp-strips" type="number" min="1" max="3" value="2"><span class="unit">개 (1~3)</span></div>
+        </div>
+        <div class="field">
+          <label for="fp-range">가장 먼 읽는 거리</label>
+          <div class="box"><input id="fp-range" type="number" min="1" max="30" step="0.5" value="10"><span class="unit">m</span></div>
+        </div>
+        <div class="field">
+          <label for="fp-margin">모서리 여유</label>
+          <div class="box"><input id="fp-margin" type="number" min="0" max="100" step="5" value="15"><span class="unit">cm</span></div>
+        </div>
+      </div>
+
+      <div class="robot-select" role="radiogroup" aria-label="현장 주행 로봇 선택">
+        <span class="rlabel">이 현장의 로봇:</span>
+        <label class="radio-pill">
+          <input type="radio" name="robot-mode" value="both" checked>
+          <span><b>T10 (34937, 53 cm) + M-type (15~24 cm) 공용</b> (기본)</span>
+        </label>
+        <label class="radio-pill">
+          <input type="radio" name="robot-mode" value="l_only">
+          <span><b>T10 (34937, 53 cm) 단독</b></span>
+        </label>
+      </div>
+
+      <div class="actions">
+        <div class="btn-group">
+          <button type="button" class="btn primary" id="fp-print">붙임 표 인쇄</button>
+          <button type="button" class="btn" id="fp-reset">기본값 복원</button>
+        </div>
+        <span class="sec-sub num" id="fp-tape-total"></span>
       </div>
     </div>
-    <p class="tnote">숫자는 첫 간격 · 둘째 간격 · 판 폭입니다. 파란 테두리는 판 폭 40 cm 이하로, 면 폭 40 cm 기둥에 들어가는 무늬입니다. 기둥이 16개를 넘으면 띠 4개(D01~D64, 판 44~80 cm)를 씁니다. 번호 배정과 실제 치수 카드 인쇄는 로봇 웹 [기둥 무늬표] 화면에서 합니다.</p>
+
+    <p class="cap-summary" id="fp-capacity" role="status"></p>
+    <p class="notice info" id="fp-height-note"></p>
+    <p class="notice warn" id="fp-clamp-note" hidden></p>
+    <div id="fp-warnings"></div>
+
+    <div id="fp-cards" class="plan-grid no-print" role="list" aria-label="면별 붙임 표 카드"></div>
+
+    <details class="table-fold" id="fp-table-wrap">
+      <summary class="no-print">면별 치수 표 한눈에 보기 (인쇄할 때 자동으로 이 표가 출력됩니다)</summary>
+      <div class="tablebox" style="margin-top:8px;">
+        <table>
+          <thead>
+            <tr>
+              <th>기둥면</th>
+              <th>기둥 폭</th>
+              <th>띠 자리 중심 (오른쪽 모서리에서)</th>
+              <th>테이프 끝~끝 (줄자 눈금)</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody id="fp-tbody"></tbody>
+        </table>
+      </div>
+    </details>
+    <p class="tnote no-print">띠 자리는 면을 정면으로 마주 보고 섰을 때 <b>오른쪽 모서리(0 cm)에서 왼쪽으로</b> 잰 거리입니다. 가장자리 치수대로 줄자를 대고 붙이세요.</p>
   </section>
 
-  <section class="three">
-    <h2 class="sec">기둥 3면 배치</h2>
-    <p class="lead2">기둥만으로 위치를 잡을 때는 통로 쪽 면에 번호 무늬판을, 양 끝면 A·B에 띠를 한 줄씩 붙입니다. 멀리서는 끝면이, 옆을 지날 때는 무늬판이 보여서 위치를 고치는 데 필요한 반사판 3개 이상이 함께 잡히기 쉽습니다.</p>
+  <!-- ==================== SECTION 2: VERTICAL HEIGHT & LIDAR SIMULATOR ==================== -->
+  <section id="height-section" class="block no-print">
+    <div class="sec-head">
+      <h2 class="sec">② 세로 부착 높이 · 라이다 빔 확인</h2>
+      <span class="sec-sub">T10 34937 (53 cm / 48.2 cm) · M-type (15~24 cm)</span>
+    </div>
 
-    <figure>
-      <div class="ptitle"><span class="tag">위</span><h2>지나가는 동안 보이는 것</h2><span class="for">위에서 본 모습 · 축척 아님</span></div>
-      <div class="fig">
-        <svg class="wide" viewBox="0 0 640 270" role="img" aria-label="모양이 같은 기둥 세 개가 통로 옆에 있다. 기둥마다 통로 쪽 면에 무늬판, 양 끝면에 띠가 한 줄씩 붙어 있다. 오른쪽으로 가는 로봇이 지나간 기둥의 끝면 B, 옆 기둥의 무늬판, 다가오는 기둥의 끝면 A를 함께 본다.">
-          <defs>
-            <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="arrowhead" d="M0,0 L10,5 L0,10 z"/></marker>
-          </defs>
-          <rect class="aisle" x="20" y="150" width="600" height="76"/>
-          <text class="note" x="30" y="218">통로</text>
-          <text class="note" x="110" y="26" text-anchor="middle">지나간 기둥</text>
-          <text class="note" x="320" y="26" text-anchor="middle">옆 기둥</text>
-          <text class="note" x="530" y="26" text-anchor="middle">다가오는 기둥</text>
-          <rect class="pillar" x="80" y="40" width="60" height="60"/>
-          <rect class="pillar" x="290" y="40" width="60" height="60"/>
-          <rect class="pillar" x="500" y="40" width="60" height="60"/>
-          <rect class="board" x="90" y="100" width="40" height="5"/>
-          <rect class="cg-strip" x="90" y="100" width="6" height="4"/><rect class="cg-strip" x="104" y="100" width="6" height="4"/><rect class="cg-strip" x="124" y="100" width="6" height="4"/>
-          <rect class="board" x="300" y="100" width="40" height="5"/>
-          <rect class="cg-strip" x="300" y="100" width="6" height="4"/><rect class="cg-strip" x="314" y="100" width="6" height="4"/><rect class="cg-strip" x="334" y="100" width="6" height="4"/>
-          <rect class="board" x="510" y="100" width="40" height="5"/>
-          <rect class="cg-strip" x="510" y="100" width="6" height="4"/><rect class="cg-strip" x="524" y="100" width="6" height="4"/><rect class="cg-strip" x="544" y="100" width="6" height="4"/>
-          <rect class="cg-strip" x="76" y="64" width="4" height="12"/><rect class="cg-strip" x="140" y="64" width="4" height="12"/>
-          <rect class="cg-strip" x="286" y="64" width="4" height="12"/><rect class="cg-strip" x="350" y="64" width="4" height="12"/>
-          <rect class="cg-strip" x="496" y="64" width="4" height="12"/><rect class="cg-strip" x="560" y="64" width="4" height="12"/>
-          <line class="beam nav" x1="300" y1="176" x2="146" y2="71"/>
-          <line class="beam nav" x1="310" y1="176" x2="318" y2="107"/>
-          <line class="beam nav" x1="320" y1="176" x2="494" y2="71"/>
-          <circle class="hit nav" cx="144" cy="70" r="4"/>
-          <circle class="hit nav" cx="318" cy="104" r="4"/>
-          <circle class="hit nav" cx="496" cy="70" r="4"/>
-          <text class="blabel nav" x="150" y="62">끝면 B</text>
-          <text class="blabel nav" x="328" y="122">무늬판(번호)</text>
-          <text class="blabel nav" x="490" y="62" text-anchor="end">끝면 A</text>
-          <rect class="robot" x="275" y="176" width="70" height="36" rx="3"/>
-          <text class="robotlabel" x="310" y="198" text-anchor="middle">로봇</text>
-          <line class="dim" x1="40" y1="242" x2="600" y2="242" marker-end="url(#arr3)"/>
-          <text class="note" x="40" y="262">진행 방향 → (돌아올 때는 끝면 A·B 역할이 바뀝니다)</text>
-        </svg>
+    <div class="measure">
+      <p class="lead"><b>M-type 라이다 높이</b>: 11-09 현장 실측 약 <span class="num">24 cm</span>, 로봇 웹 키트 안전 기준 <span class="num">15 cm</span>입니다. 두 값 모두 아래 <span class="num">10~61 cm</span> 테이프 안에 들어오며, 현장에서 다시 재면 즉시 판정이 바뀝니다.</p>
+      <div class="field">
+        <label for="m-front">M-type 앞 (R2 / laser_f)</label>
+        <div class="box"><input id="m-front" type="number" inputmode="decimal" min="0" max="80" step="0.5" value="24"><span class="unit">cm</span></div>
       </div>
-      <ul class="facts">
-        <li>반사판으로 위치를 고치려면 띠 <b>3개 이상</b>이 동시에 지도와 맞아야 합니다. 옆 기둥 무늬판 띠 3개에 끝면 띠가 더해져, 판이 비스듬해 띠가 뭉쳐 보일 때도 수가 채워집니다.</li>
-        <li>반사판이 통로 앞뒤로 흩어지고 직각인 면이 섞여 있어서 통로 방향 위치, 옆 위치, 각도가 함께 잡힙니다.</li>
-        <li>T10 측위 라이다는 포크 반대쪽 왼쪽 모서리에 달려 있어 <b>포크 쪽 ±45°</b>를 못 봅니다. 포크 먼저 갈 때는 지나간 기둥의 끝면을, 포크 반대쪽 먼저 갈 때는 다가오는 기둥의 끝면을 봅니다. M-type은 앞뒤 라이다로 A·B를 다 봅니다.</li>
-      </ul>
-    </figure>
+      <div class="field">
+        <label for="m-rear">M-type 뒤 (H1)</label>
+        <div class="box"><input id="m-rear" type="number" inputmode="decimal" min="0" max="80" step="0.5" value="24"><span class="unit">cm</span></div>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn mini" data-m-preset="24">실측 24 cm</button>
+        <button type="button" class="btn mini" data-m-preset="15">키트 기본 15 cm</button>
+      </div>
+      <p id="suggest" aria-live="polite"></p>
+    </div>
 
     <div class="panels">
       <figure>
-        <div class="ptitle"><span class="tag">1개</span><h2>기둥 하나 확대</h2><span class="for">위에서 본 모습 · 기둥 50 × 50 cm 예</span></div>
+        <div class="ptitle"><span class="tag">A</span><h3>세로 한 줄 (표준)</h3><span class="for">T10 측위 + M-type 공용</span></div>
         <div class="fig">
-          <svg viewBox="0 0 430 330" role="img" aria-label="50 cm 정사각 기둥을 위에서 본 그림. 통로 쪽 면 가운데에 폭 35 cm 무늬판 C02가 있고, 왼쪽 끝면 A와 오른쪽 끝면 B의 가운데에 띠가 한 줄씩 있다. 끝면 띠 가운데는 통로 쪽 모서리에서 25 cm 떨어져 있다.">
+          <svg id="svgA" viewBox="0 0 420 470" role="img" aria-label="폭 5 cm 테이프 한 장을 바닥에서 10 cm부터 61 cm까지 세로로 붙인 그림. T10 측위 라이다 빔 53 cm(지도 H530·웹 키트)와 48.2 cm(설정값)가 테이프를 지나고, 7.6 cm T10 바닥 라이다 빔은 아래를 지난다.">
             <defs>
-              <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="arrowhead" d="M0,0 L10,5 L0,10 z"/></marker>
-              <marker id="arr4s" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="arrowhead" d="M10,0 L0,5 L10,10 z"/></marker>
+              <pattern id="prismA" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <rect class="tape-bg" width="6" height="6"/>
+                <line class="tape-hatch" x1="0" y1="0" x2="0" y2="6"/>
+              </pattern>
             </defs>
-            <rect class="pillar" x="115" y="40" width="200" height="200"/>
-            <text class="note" x="215" y="136" text-anchor="middle">기둥</text>
-            <text class="dimtext" x="215" y="152" text-anchor="middle">50 × 50 cm</text>
-            <rect class="board" x="145" y="240" width="140" height="8"/>
-            <rect class="cg-strip" x="145" y="240" width="20" height="5"/>
-            <rect class="cg-strip" x="197" y="240" width="20" height="5"/>
-            <rect class="cg-strip" x="265" y="240" width="20" height="5"/>
-            <text class="note" x="215" y="268" text-anchor="middle">통로 쪽 면: 무늬판 (예 C02, 판 35 cm)</text>
-            <rect class="cg-strip" x="109" y="130" width="6" height="20"/>
-            <rect class="cg-strip" x="315" y="130" width="6" height="20"/>
-            <text class="note" x="100" y="128" text-anchor="end">끝면 A</text>
-            <text class="note" x="100" y="143" text-anchor="end">띠 한 줄</text>
-            <text class="note" x="100" y="158" text-anchor="end">면 가운데</text>
-            <text class="note" x="330" y="104">끝면 B</text>
-            <text class="note" x="330" y="119">띠 한 줄</text>
-            <line class="ext" x1="321" y1="140" x2="340" y2="140"/>
-            <line class="ext" x1="315" y1="240" x2="340" y2="240"/>
-            <line class="dim" x1="345" y1="140" x2="345" y2="240"/>
-            <line class="dim" x1="340" y1="140" x2="350" y2="140"/>
-            <line class="dim" x1="340" y1="240" x2="350" y2="240"/>
-            <text class="dimtext" x="354" y="194">25 cm</text>
-            <text class="note" x="354" y="210">(면 가운데)</text>
-            <line class="dim" x1="60" y1="300" x2="370" y2="300" marker-start="url(#arr4s)" marker-end="url(#arr4)"/>
-            <text class="note" x="215" y="320" text-anchor="middle">로봇이 다니는 길 (갈 때 → · ← 올 때)</text>
+            <rect class="wall" x="60" y="30" width="250" height="400"/>
+            <g>
+              <line class="grid" x1="60" y1="380" x2="310" y2="380"/>
+              <line class="grid" x1="60" y1="330" x2="310" y2="330"/>
+              <line class="grid" x1="60" y1="280" x2="310" y2="280"/>
+              <line class="grid" x1="60" y1="230" x2="310" y2="230"/>
+              <line class="grid" x1="60" y1="180" x2="310" y2="180"/>
+              <line class="grid" x1="60" y1="130" x2="310" y2="130"/>
+              <line class="grid" x1="60" y1="80" x2="310" y2="80"/>
+            </g>
+            <rect class="floor" x="60" y="430" width="250" height="24"/>
+            <text class="floorlabel" x="68" y="446">바닥</text>
+            <g class="ruler">
+              <line x1="50" y1="30" x2="50" y2="430"/>
+              <line x1="44" y1="430" x2="50" y2="430"/><text x="40" y="434" text-anchor="end">0</text>
+              <line x1="44" y1="380" x2="50" y2="380"/><text x="40" y="384" text-anchor="end">10</text>
+              <line x1="44" y1="330" x2="50" y2="330"/><text x="40" y="334" text-anchor="end">20</text>
+              <line x1="44" y1="280" x2="50" y2="280"/><text x="40" y="284" text-anchor="end">30</text>
+              <line x1="44" y1="230" x2="50" y2="230"/><text x="40" y="234" text-anchor="end">40</text>
+              <line x1="44" y1="180" x2="50" y2="180"/><text x="40" y="184" text-anchor="end">50</text>
+              <line x1="44" y1="130" x2="50" y2="130"/><text x="40" y="134" text-anchor="end">60</text>
+              <line x1="44" y1="80" x2="50" y2="80"/><text x="40" y="84" text-anchor="end">70</text>
+              <line x1="44" y1="30" x2="50" y2="30"/><text x="40" y="34" text-anchor="end">80</text>
+              <text x="40" y="18" text-anchor="end">cm</text>
+            </g>
+            <line class="ext" x1="52" y1="125" x2="170" y2="125"/>
+            <line class="ext" x1="52" y1="380" x2="170" y2="380"/>
+            <rect x="172.5" y="125" width="25" height="255" fill="url(#prismA)"/>
+            <rect class="tape-edge" x="172.5" y="125" width="25" height="255"/>
+            <line class="dim" x1="172.5" y1="110" x2="197.5" y2="110"/>
+            <line class="dim" x1="172.5" y1="105" x2="172.5" y2="115"/>
+            <line class="dim" x1="197.5" y1="105" x2="197.5" y2="115"/>
+            <text class="dimtext" x="185" y="99" text-anchor="middle">5 cm</text>
+            <line class="dim" x1="150" y1="125" x2="150" y2="380"/>
+            <line class="dim" x1="145" y1="125" x2="155" y2="125"/>
+            <line class="dim" x1="145" y1="380" x2="155" y2="380"/>
+            <text class="dimtext" x="144" y="300" text-anchor="end">51 cm</text>
+
+            <!-- T10 53 cm (H530 / web kit) -->
+            <line class="beam nav" x1="60" y1="165" x2="318" y2="165"/>
+            <rect class="hit nav" x="172.5" y="162.5" width="25" height="5"/>
+            <text class="blabel nav" x="322" y="162">T10 측위(키트)</text>
+            <text class="bnum nav" x="322" y="176">53 cm</text>
+
+            <!-- T10 48.2 cm (driver setting) -->
+            <line class="beam nav-sub" x1="60" y1="189" x2="318" y2="189"/>
+            <rect class="hit nav" x="172.5" y="187" width="25" height="4" opacity="0.65"/>
+            <text class="blabel nav-sub" x="322" y="196">T10 설정 48.2</text>
+
+            <!-- T10 floor 7.6 cm -->
+            <line class="beam flr" x1="60" y1="392" x2="318" y2="392"/>
+            <text class="blabel flr" x="322" y="389">T10 바닥</text>
+            <text class="bnum flr" x="322" y="404">7.6 cm</text>
+
+            <line class="limit" x1="60" y1="125" x2="318" y2="125"/><text class="blabel lim" x="322" y="122">윗끝</text><text class="bnum lim" x="322" y="137">61 cm</text>
+            <g id="dynA"></g>
+          </svg>
+        </div>
+        <p class="spec">테이프 <span class="num">51 cm</span> × 1장 · 바닥에서 <span class="num">10~61 cm</span> (기둥면·일반 벽 표준)</p>
+        <ul class="verdict" id="vA" aria-live="polite"></ul>
+      </figure>
+
+      <figure>
+        <div class="ptitle"><span class="tag">B</span><h3>네 장 나란히 (바닥 라이다까지)</h3><span class="for">아래 20 cm는 짐 안 닿는 벽에서만</span></div>
+        <div class="fig">
+          <svg id="svgB" viewBox="0 0 420 470" role="img" aria-label="폭 5 cm 테이프 네 장을 틈 없이 맞대어 폭 20 cm로 만들고 바닥부터 61 cm까지 붙인 그림. 53 cm, 48.2 cm T10 측위 빔과 7.6 cm 바닥 라이다 빔이 모두 테이프를 지난다.">
+            <defs>
+              <pattern id="prismB" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <rect class="tape-bg" width="6" height="6"/>
+                <line class="tape-hatch" x1="0" y1="0" x2="0" y2="6"/>
+              </pattern>
+            </defs>
+            <rect class="wall" x="60" y="30" width="250" height="400"/>
+            <g>
+              <line class="grid" x1="60" y1="380" x2="310" y2="380"/>
+              <line class="grid" x1="60" y1="330" x2="310" y2="330"/>
+              <line class="grid" x1="60" y1="280" x2="310" y2="280"/>
+              <line class="grid" x1="60" y1="230" x2="310" y2="230"/>
+              <line class="grid" x1="60" y1="180" x2="310" y2="180"/>
+              <line class="grid" x1="60" y1="130" x2="310" y2="130"/>
+              <line class="grid" x1="60" y1="80" x2="310" y2="80"/>
+            </g>
+            <rect class="floor" x="60" y="430" width="250" height="24"/>
+            <text class="floorlabel" x="68" y="446">바닥</text>
+            <g class="ruler">
+              <line x1="50" y1="30" x2="50" y2="430"/>
+              <line x1="44" y1="430" x2="50" y2="430"/><text class="hl" x="40" y="434" text-anchor="end">0</text>
+              <line x1="44" y1="380" x2="50" y2="380"/><text x="40" y="384" text-anchor="end">10</text>
+              <line x1="44" y1="330" x2="50" y2="330"/><text x="40" y="334" text-anchor="end">20</text>
+              <line x1="44" y1="280" x2="50" y2="280"/><text x="40" y="284" text-anchor="end">30</text>
+              <line x1="44" y1="230" x2="50" y2="230"/><text x="40" y="234" text-anchor="end">40</text>
+              <line x1="44" y1="180" x2="50" y2="180"/><text x="40" y="184" text-anchor="end">50</text>
+              <line x1="44" y1="130" x2="50" y2="130"/><text x="40" y="134" text-anchor="end">60</text>
+              <line x1="44" y1="80" x2="50" y2="80"/><text x="40" y="84" text-anchor="end">70</text>
+              <line x1="44" y1="30" x2="50" y2="30"/><text x="40" y="34" text-anchor="end">80</text>
+              <text x="40" y="18" text-anchor="end">cm</text>
+            </g>
+            <line class="ext" x1="52" y1="125" x2="116" y2="125"/>
+            <rect x="135" y="125" width="100" height="305" fill="url(#prismB)"/>
+            <line class="seam" x1="160" y1="125" x2="160" y2="430"/>
+            <line class="seam" x1="185" y1="125" x2="185" y2="430"/>
+            <line class="seam" x1="210" y1="125" x2="210" y2="430"/>
+            <rect class="tape-edge" x="135" y="125" width="100" height="305"/>
+            <line class="dim" x1="135" y1="110" x2="235" y2="110"/>
+            <line class="dim" x1="135" y1="105" x2="135" y2="115"/>
+            <line class="dim" x1="235" y1="105" x2="235" y2="115"/>
+            <text class="dimtext" x="185" y="99" text-anchor="middle">20 cm = 5 cm × 4장</text>
+            <line class="dim" x1="118" y1="125" x2="118" y2="430"/>
+            <line class="dim" x1="113" y1="125" x2="123" y2="125"/>
+            <line class="dim" x1="113" y1="430" x2="123" y2="430"/>
+            <text class="dimtext" x="112" y="300" text-anchor="end">61 cm</text>
+            <circle class="dot" cx="210" cy="215" r="2.2"/>
+            <line class="dim" x1="212" y1="215" x2="243" y2="215"/>
+            <text class="note" x="246" y="211">틈 없이</text>
+            <text class="note" x="246" y="225">맞대기</text>
+
+            <line class="beam nav" x1="60" y1="165" x2="318" y2="165"/>
+            <rect class="hit nav" x="135" y="162.5" width="100" height="5"/>
+            <text class="blabel nav" x="322" y="162">T10 측위(키트)</text>
+            <text class="bnum nav" x="322" y="176">53 cm</text>
+
+            <line class="beam nav-sub" x1="60" y1="189" x2="318" y2="189"/>
+            <rect class="hit nav" x="135" y="187" width="100" height="4" opacity="0.65"/>
+            <text class="blabel nav-sub" x="322" y="196">T10 설정 48.2</text>
+
+            <line class="beam flr" x1="60" y1="392" x2="318" y2="392"/>
+            <rect class="hit flr" x="135" y="389.5" width="100" height="5"/>
+            <text class="blabel flr" x="322" y="389">T10 바닥</text>
+            <text class="bnum flr" x="322" y="404">7.6 cm</text>
+
+            <line class="limit" x1="60" y1="125" x2="318" y2="125"/><text class="blabel lim" x="322" y="122">윗끝</text><text class="bnum lim" x="322" y="137">61 cm</text>
+            <g id="dynB"></g>
+          </svg>
+        </div>
+        <p class="spec">테이프 <span class="num">61 cm</span> × 4장 (합계 <span class="num">2.44 m</span>) · 바닥부터 <span class="num">61 cm</span> · 짐이 닿지 않는 고정 벽 전용</p>
+        <ul class="verdict" id="vB" aria-live="polite"></ul>
+      </figure>
+    </div>
+
+    <div class="tablebox">
+      <table>
+        <thead>
+          <tr><th>로봇 · 라이다</th><th>용도 / 판 상태</th><th class="num">높이</th><th class="num">점 간격</th><th class="num">5 cm 띠 인식</th><th class="num">기둥면 · 반사판</th></tr>
+        </thead>
+        <tbody>
+          <tr class="t"><td>T10 34937 측위 (포크 반대 270°)</td><td>Free Optics H1E0-02A · BOOT100</td><td class="num">53 cm (설정 48.2)</td><td class="num">0.1°</td><td class="num">9.5~14 m</td><td>반사판 씀(use) · 기둥면 지원</td></tr>
+          <tr class="t"><td>T10 바닥 4대</td><td>장애물 · 바닥 감시 (0~63 밝기)</td><td class="num">7.6 cm</td><td class="num">0.333°</td><td>A: 빔 아래 / B: 11~17 m</td><td>반사판·기둥면 안 씀</td></tr>
+          <tr class="m"><td>M-type 앞 (laser_f / R2)</td><td>Free Optics R2 · c11</td><td class="num" id="tf">24 cm (키트 15)</td><td class="num">0.1° · 20 Hz</td><td class="num">9.5~14 m</td><td>반사판 · 기둥면 지원</td></tr>
+          <tr class="m"><td>M-type 뒤 (H1)</td><td>Free Optics H1</td><td class="num" id="tr">24 cm</td><td class="num">0.05°</td><td class="num">19~29 m</td><td>M 기둥면 코어는 laser_f 사용</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tnote">기둥면에 띠를 붙일 때는 <span class="num">10~61 cm</span> 세로 한 줄(A형)로 붙이는 것이 표준입니다. 지도 이름 `H530`의 `53 cm` 기준 윗끝 `61 cm`까지 여유가 8 cm이므로, <b>윗끝 `61 cm`까지 끝까지</b> 붙여 주세요.</p>
+  </section>
+
+  <!-- ==================== SECTION 3: PLATE V2 B01..B09 ==================== -->
+  <section id="plates-v2-section" class="block no-print">
+    <div class="sec-head">
+      <h2 class="sec">③ 모서리가 없는 긴 평벽용 — 무늬판 v2 (<span class="num">B01~B09</span>)</h2>
+      <span class="sec-sub">폭 10 cm 테이프 3줄 · 거울 방향 보정 완료 (구 C01~C16 대체)</span>
+    </div>
+
+    <div class="notice warn">
+      <b>언제 쓰나요?</b> 기둥 모서리를 잴 수 없을 만큼 긴 평벽이나 합판에만 씁니다. 기둥/벽 모서리가 보이면 위 <b>① 기둥면 띠 자리</b>를 쓰세요. (11-09 페이지의 폭 <span class="num">5 cm</span> <span class="num">C01~C16</span> 그림은 좌우 반전·구표라 폐기되었습니다.)
+    </div>
+
+    <div class="panels">
+      <figure>
+        <div class="ptitle"><span class="tag">B02</span><h3>정면 치수 예시 (마주 본 그대로)</h3><span class="for">로봇 읽기 17 / 23 cm = B02</span></div>
+        <div class="fig">
+          <svg viewBox="0 0 430 460" role="img" aria-label="폭 50 cm 판에 폭 10 cm 반사 테이프 3개를 통로에서 마주 보고 왼쪽 끝부터 0 cm, 23 cm, 40 cm 자리에 붙인 B02 무늬판. 빈칸은 왼쪽부터 13 cm, 7 cm이며 바닥에서 10~61 cm 높이에 붙인다.">
+            <defs>
+              <pattern id="prismV2" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <rect class="tape-bg" width="6" height="6"/>
+                <line class="tape-hatch" x1="0" y1="0" x2="0" y2="6"/>
+              </pattern>
+              <marker id="arrV2R" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="arrowhead" d="M0,0 L10,5 L0,10 z"/></marker>
+            </defs>
+            <rect class="pillar" x="75" y="20" width="275" height="410"/>
+            <rect class="floor" x="45" y="430" width="350" height="24"/>
+            <text class="floorlabel" x="53" y="446">바닥</text>
+            <g class="ruler">
+              <line x1="40" y1="30" x2="40" y2="430"/>
+              <line x1="34" y1="430" x2="40" y2="430"/><text x="30" y="434" text-anchor="end">0</text>
+              <line x1="34" y1="380" x2="40" y2="380"/><text x="30" y="384" text-anchor="end">10</text>
+              <line x1="34" y1="330" x2="40" y2="330"/><text x="30" y="334" text-anchor="end">20</text>
+              <line x1="34" y1="280" x2="40" y2="280"/><text x="30" y="284" text-anchor="end">30</text>
+              <line x1="34" y1="230" x2="40" y2="230"/><text x="30" y="234" text-anchor="end">40</text>
+              <line x1="34" y1="180" x2="40" y2="180"/><text x="30" y="184" text-anchor="end">50</text>
+              <line x1="34" y1="130" x2="40" y2="130"/><text x="30" y="134" text-anchor="end">60</text>
+              <line x1="34" y1="80" x2="40" y2="80"/><text x="30" y="84" text-anchor="end">70</text>
+              <text x="30" y="18" text-anchor="end">cm</text>
+            </g>
+            <!-- Scale 1 cm = 4 px, board 50 cm = 200 px (x=112..312) -->
+            <rect class="board" x="112" y="114" width="200" height="276"/>
+            <!-- Strip 1: 0..10 cm -> x=112..152 (width 40) -->
+            <rect x="112" y="125" width="40" height="255" fill="url(#prismV2)"/>
+            <rect class="tape-edge" x="112" y="125" width="40" height="255"/>
+            <!-- Strip 2: 23..33 cm -> x=204..244 (width 40) -->
+            <rect x="204" y="125" width="40" height="255" fill="url(#prismV2)"/>
+            <rect class="tape-edge" x="204" y="125" width="40" height="255"/>
+            <!-- Strip 3: 40..50 cm -> x=272..312 (width 40) -->
+            <rect x="272" y="125" width="40" height="255" fill="url(#prismV2)"/>
+            <rect class="tape-edge" x="272" y="125" width="40" height="255"/>
+
+            <text class="snum" x="132" y="148" text-anchor="middle">1</text>
+            <text class="snum" x="224" y="148" text-anchor="middle">2</text>
+            <text class="snum" x="292" y="148" text-anchor="middle">3</text>
+
+            <!-- Gap labels -->
+            <text class="note" x="178" y="232" text-anchor="middle">빈칸</text>
+            <text class="dimtext" x="178" y="247" text-anchor="middle">13 cm</text>
+            <text class="note" x="258" y="232" text-anchor="middle">빈칸</text>
+            <text class="dimtext" x="258" y="247" text-anchor="middle">7 cm</text>
+
+            <!-- Top dims: left edges 0, 23, 40 cm -->
+            <line class="ext" x1="112" y1="114" x2="112" y2="30"/>
+            <line class="ext" x1="204" y1="125" x2="204" y2="52"/>
+            <line class="ext" x1="272" y1="125" x2="272" y2="30"/>
+            <line class="dim" x1="112" y1="56" x2="204" y2="56"/>
+            <text class="dimtext" x="158" y="50" text-anchor="middle">23 cm</text>
+            <line class="dim" x1="112" y1="36" x2="272" y2="36"/>
+            <text class="dimtext" x="192" y="30" text-anchor="middle">40 cm</text>
+
+            <!-- Person sticking direction -->
+            <line class="dim" x1="126" y1="106" x2="298" y2="106" marker-end="url(#arrV2R)"/>
+            <text class="note" x="212" y="96" text-anchor="middle">붙이는 방향: 마주 보고 왼쪽 끝(0) → 오른쪽</text>
+
+            <!-- Beams -->
+            <line class="limit" x1="48" y1="125" x2="352" y2="125"/><text class="blabel lim" x="356" y="122">윗끝</text><text class="bnum lim" x="356" y="137">61 cm</text>
+            <line class="beam nav" x1="48" y1="165" x2="352" y2="165"/><text class="blabel nav" x="356" y="169">T10 53</text>
+            <line class="beam mf" x1="48" y1="355" x2="352" y2="355"/><text class="blabel m" x="356" y="359">M 15~24</text>
+
+            <!-- Bottom board width -->
+            <line class="dim" x1="112" y1="402" x2="312" y2="402"/>
+            <line class="dim" x1="112" y1="397" x2="112" y2="407"/>
+            <line class="dim" x1="312" y1="397" x2="312" y2="407"/>
+            <text class="dimtext" x="212" y="418" text-anchor="middle">판 폭 50 cm (로봇 읽기 오른쪽부터 17·23)</text>
           </svg>
         </div>
         <ul class="facts">
-          <li>끝면 띠는 면 가운데에 붙입니다. 띠 가장자리가 통로 쪽 모서리에서 <span class="num">10 cm</span> 이상 떨어져야 무늬판 띠와 붙어 보이지 않습니다.</li>
-          <li>번호 무늬는 통로 쪽 면에만 둡니다. 끝면 띠는 기둥마다 같아도 되고, 어느 기둥인지는 무늬판 번호로 가립니다.</li>
+          <li><b>테이프 폭 <span class="num">10 cm</span></b>, 세로 최소 <span class="num">30 cm</span> (공용 구역 <span class="num">10~61 cm</span> 권장).</li>
+          <li><b>마주 보고 왼쪽 끝(<span class="num">0 cm</span>) 기준</b>: <span class="num">0~10</span> · <span class="num">23~33</span> · <span class="num">40~50 cm</span> (빈칸 <span class="num">13</span> · <span class="num">7 cm</span>).</li>
+          <li><b>거울 주의</b>: B02 그림을 좌우 뒤집어 붙이면 로봇은 <b>B04</b>로 읽습니다.</li>
         </ul>
       </figure>
 
       <figure>
-        <div class="ptitle"><span class="tag">표</span><h2>면마다 붙이는 것</h2><span class="for">높이는 모두 바닥에서 10~61 cm</span></div>
-        <div class="tablebox">
-          <table class="t3">
-            <thead><tr><th>면</th><th>붙이는 것</th><th>자리</th><th class="num">테이프</th></tr></thead>
-            <tbody>
-              <tr><td>통로 쪽 면</td><td>무늬판: 5 cm 띠 3개, 간격은 번호표대로</td><td>면 가운데</td><td class="num">51 cm × 3</td></tr>
-              <tr><td>끝면 A</td><td>띠 한 줄 (5 cm)</td><td>면 가운데</td><td class="num">51 cm × 1</td></tr>
-              <tr><td>끝면 B</td><td>띠 한 줄 (5 cm)</td><td>면 가운데</td><td class="num">51 cm × 1</td></tr>
-              <tr class="sum"><td>기둥 하나</td><td></td><td></td><td class="num">51 cm × 5 ≈ 2.6 m</td></tr>
-            </tbody>
-          </table>
+        <div class="ptitle"><span class="tag">규칙</span><h3>무늬판 v2 필수 제한</h3><span class="for">4줄 겹침 · 30 m 재사용 금지</span></div>
+        <div class="fig">
+          <svg viewBox="0 0 430 250" role="img" aria-label="위에서 본 그림. 벽에 B02와 B04 판이 붙어 있고, 각 판 양옆 40 cm는 빈 공간으로 비워야 다른 반사 테이프와 합쳐 A표 4줄로 오인하지 않는다.">
+            <rect class="wall" x="20" y="24" width="390" height="44"/>
+            <rect class="board" x="55" y="68" width="100" height="8"/>
+            <rect class="cg-strip" x="55" y="68" width="20" height="6"/>
+            <rect class="cg-strip" x="101" y="68" width="20" height="6"/>
+            <rect class="cg-strip" x="135" y="68" width="20" height="6"/>
+            <text class="dimtext" x="105" y="52" text-anchor="middle">B02 (50 cm)</text>
+
+            <rect class="board" x="255" y="68" width="100" height="8"/>
+            <rect class="cg-strip" x="255" y="68" width="20" height="6"/>
+            <rect class="cg-strip" x="289" y="68" width="20" height="6"/>
+            <rect class="cg-strip" x="335" y="68" width="20" height="6"/>
+            <text class="dimtext" x="305" y="52" text-anchor="middle">B04 (50 cm)</text>
+
+            <line class="dim" x1="158" y1="92" x2="252" y2="92"/>
+            <text class="note" x="205" y="108" text-anchor="middle">양옆 40 cm 이상 비움</text>
+
+            <rect class="aisle" x="20" y="128" width="390" height="96" rx="4"/>
+            <line class="beam nav" x1="215" y1="170" x2="105" y2="78"/>
+            <line class="beam nav" x1="215" y1="170" x2="305" y2="78"/>
+            <rect class="robot" x="183" y="170" width="64" height="34" rx="4"/>
+            <text class="robotlabel" x="215" y="191" text-anchor="middle">로봇</text>
+            <text class="note-muted" x="30" y="216">로봇은 오른쪽 띠부터 간격을 읽음 (B02 ↔ B04 좌우 반대)</text>
+          </svg>
         </div>
         <ul class="facts">
-          <li>기둥 10개면 테이프 약 <span class="num">26 m</span>입니다.</li>
-          <li>시범 기둥 3~4개에 먼저 붙이고, 로봇 웹 반사판을 "보기만"으로 둔 채 지나가며 동시에 보이는 띠가 늘 3개 이상인지 봅니다. 되면 "씀"으로 바꿉니다.</li>
+          <li><b>판 양옆 <span class="num">40 cm</span> 안에 다른 반사 테이프 금지</b>: 4줄이 한꺼번에 보이면 시스템(`part_of_four`)이 4띠 <span class="num">A</span>표로 간주해 <span class="num">B</span>판에서 제외합니다.</li>
+          <li><b>같은 번호는 <span class="num">30 m</span> 안에 두 번 금지</b>: 9개를 모두 쓰면 30 m 이상 떨어진 곳에 다시 씁니다.</li>
+          <li>허용 오차는 간격당 <span class="num">1.5 cm</span>입니다. 줄자로 중심 간격을 확인하세요.</li>
         </ul>
       </figure>
     </div>
+
+    <h3 class="sub3">무늬판 v2 전체 9종 (<span class="num">B01~B09</span> · 마주 보고 왼쪽 <span class="num">0 cm</span>부터 붙이는 눈금)</h3>
+    <div id="grid-v2" class="bgrid"></div>
   </section>
 
-<section>
-    <h2 class="sec">라이다별로 읽는 거리</h2>
-    <div class="tablebox">
-      <table>
-        <thead>
-          <tr><th>로봇 · 라이다</th><th>기종</th><th class="num">높이</th><th class="num">점 간격</th><th class="num">A 한 줄 (5 cm)</th><th class="num">B 네 장 (20 cm)</th></tr>
-        </thead>
-        <tbody>
-          <tr class="t"><td>T10 측위 (포크 반대쪽 270°)</td><td>Free Optics H1E0-02A</td><td class="num">48 cm</td><td class="num">0.1°</td><td class="num">9.5~14 m</td><td class="num">38 m 이상</td></tr>
-          <tr class="t"><td>T10 바닥 4대</td><td>Free Optics C3 (추정)</td><td class="num">7.6 cm</td><td class="num">0.333°</td><td>빔이 테이프 아래</td><td class="num">11~17 m</td></tr>
-          <tr class="m"><td>M-type 앞</td><td>Free Optics R2 (360° 중 270° 사용)</td><td class="num" id="tf">미측정</td><td class="num">0.1° · 20 Hz</td><td class="num">9.5~14 m</td><td class="num">38 m 이상</td></tr>
-          <tr class="m"><td>M-type 뒤</td><td>Free Optics H1</td><td class="num" id="tr">미측정</td><td class="num">0.05°</td><td class="num">19~29 m</td><td class="num">45 m (최대)</td></tr>
-        </tbody>
-      </table>
+  <!-- ==================== SECTION 4: FIELD WORKFLOW ==================== -->
+  <section id="steps-section" class="block rules no-print">
+    <div class="sec-head">
+      <h2 class="sec">④ 현장 부착 · 로봇 웹 등록 순서</h2>
+      <span class="sec-sub">T10 34937 · M-type 공통</span>
     </div>
-    <p class="tnote">읽는 거리는 테이프에 레이저 점이 3개~2개 맞는 거리입니다. M-type 거리는 그 라이다 높이가 테이프 안에 들 때만 해당합니다. M-type 점 간격은 .193 설정값(앞 3600점/회전, 뒤 270°에 5401점)입니다.</p>
-    <p class="tnote">반사판으로 위치를 잡는 기능은 두 로봇 다 있고 지금은 꺼져 있습니다. T10은 native 반사판 기능(지도에 반사판 0개), M-type은 HELI 원본 반사판 측위(.193 설정에서 꺼짐)입니다.</p>
+    <ol>
+      <li><b>벽 닦고 수직으로 붙이기</b>: 붙일 면을 알코올로 닦은 뒤 기둥면은 <b>오른쪽 모서리(<span class="num">0 cm</span>)</b> 기준으로 재고, 테이프를 당겨 늘이지 말고 헤라로 눌러 기포 없이 수직 부착합니다. 반짝이는 금속·유리에서는 <span class="num">1 m</span> 이상 띄웁니다.</li>
+      <li><b>지도 만들기 / 고치기 → [반사판] 탭에 등록</b>: 붙인 기둥 앞을 지나가며 녹화한 뒤 로봇 웹 <b>[반사판] 탭</b>을 열면 기둥면(<span class="num">면 1, 면 2…</span>)이 자동으로 잡혀 등록됩니다. 몇 cm 어긋나게 붙였어도 로봇이 실제 잰 위치로 들어가므로 떼고 다시 붙일 필요가 없습니다.</li>
+      <li><b>설정 켜고 [읽히는지 확인]</b>: 로봇 설정에서 <b>반사판: 씀(use)</b>과 <b>기둥면 띠 자리로 위치 찾기: 켬</b>을 확인하고 한 번 주행해 <b>[읽히는지 확인]</b> 화면에서 미인식 면이 없는지 점검합니다.</li>
+    </ol>
   </section>
 
-  <section class="rules">
-    <h2 class="sec">붙일 때</h2>
-    <ul>
-      <li>수직으로 곧게 붙입니다. 로봇은 테이프 가장자리로 위치를 잡아서, 비뚤거나 모서리가 들뜨면 위치가 틀어집니다.</li>
-      <li>B처럼 여러 장을 붙일 때는 틈 없이 맞댑니다. 틈이 1 cm만 있어도 좁은 띠 여러 개로 잘려 보입니다.</li>
-      <li>벽을 알코올로 닦고, 테이프를 늘이지 말고 헤라로 눌러 기포 없이 붙입니다.</li>
-      <li>반짝이는 금속·유리에서 1 m 이상 떨어뜨립니다.</li>
-      <li>한 벽에 3~4 m마다 붙이되 간격은 매번 다르게(3.1 · 4.2 · 2.8 m처럼), 맞은편 벽과 엇갈리게 붙입니다.</li>
-    </ul>
-  </section>
-
-  <p class="foot">T10 높이는 34937 로봇 설정의 라이다 장착 높이입니다(측위 482 mm, 바닥 76 mm). 라이다 기종은 로봇 설정의 드라이버 이름, 라이다 MAC 주소, 제조사 사양서로 맞춘 것입니다. 넣은 M-type 높이는 이 브라우저에만 저장됩니다.</p>
+  <p class="foot no-print">
+    기준 출처: <code>codebook.ts</code>(v2 B01~B09 · 10 cm · 좌우 보정 <code>facedSpacings</code>), <code>placement.ts</code> · <code>FaceBar.tsx</code> · <code>stripPlanView.ts</code>(기둥면 띠 자리 <code>rfx_face</code> · L-type 53 cm / M-type 15 cm), 현장 T10 34937 설정(482 mm / 76 mm) 및 11-09 M-type 실측(약 24 cm). 입력한 숫자와 설정은 이 브라우저에만 저장됩니다.
+  </p>
 </div>
 
 <script>
 (function () {
+  "use strict";
+
+  /* ==================== 1. PLACEMENT ENGINE (1:1 port of placement.ts + stripPlanView.ts + FaceBar.tsx) ==================== */
+  var GRID_CM = 5;
+  var MAX_ENUMERATED_SIGNATURES = 5000;
+  var MAX_DISTINCT_WIDTHS = 10;
+  var INVALID_INPUT_CAPACITY_TEXT = "입력값을 고치면 최대 면 수를 계산합니다";
+  var PANEL_MIN_STRIPS = 1;
+  var PANEL_MAX_STRIPS = 3;
+  var BAR_FALLBACK_WIDTH_PX = 280;
+  var BAR_LABEL_MAX_ROWS = 3;
+  var LABEL_GAP_PX = 6;
+  var ASCII_PX = 7.2;
+  var WIDE_PX = 12;
+
+  function fmtNum(v) {
+    var normalized = Number(Number(v).toFixed(1));
+    return String(Object.is(normalized, -0) ? 0 : normalized);
+  }
+  function sigKey(sig) { return sig.join(","); }
+
+  function parseWidthsCm(raw) {
+    return String(raw)
+      .split(/[,\s/]+/)
+      .map(function (t) { return t.trim(); })
+      .filter(function (t) { return t.length > 0; })
+      .map(function (t) { return Number(t); });
+  }
+
+  function signaturesForWidth(widthCm, stripsPerFace, tapeWidthCm, cornerMarginCm, minDarkGapCm, maxCount) {
+    if (maxCount === undefined) maxCount = MAX_ENUMERATED_SIGNATURES;
+    if (!(widthCm > 0) || stripsPerFace < 1 || stripsPerFace > 6 || !(tapeWidthCm > 0) || maxCount <= 0) return [];
+    var margin = Math.max(cornerMarginCm, tapeWidthCm / 2);
+    var maxPos = widthCm - margin;
+    if (maxPos < margin - 1e-9) return [];
+
+    var positions = [];
+    var firstGrid = Math.ceil((margin - 1e-9) / GRID_CM) * GRID_CM;
+    for (var p = firstGrid; p <= maxPos + 1e-9; p += GRID_CM) {
+      positions.push(Math.round(p * 100) / 100);
+    }
+    if (positions.length < stripsPerFace) return [];
+    if (stripsPerFace === 1) {
+      return positions.slice(0, maxCount).map(function (x) { return [x]; });
+    }
+
+    var minStep = tapeWidthCm + minDarkGapCm - 1e-9;
+    var out = [];
+    var current = [];
+    function pick(startIdx) {
+      if (out.length >= maxCount) return;
+      var needed = stripsPerFace - current.length;
+      if (needed === 0) {
+        out.push(current.slice());
+        return;
+      }
+      for (var i = startIdx; i <= positions.length - needed; i++) {
+        if (out.length >= maxCount) break;
+        var pos = positions[i];
+        if (current.length > 0 && pos - current[current.length - 1] < minStep) continue;
+        current.push(pos);
+        pick(i + 1);
+        current.pop();
+      }
+    }
+    pick(0);
+    return out;
+  }
+
+  function pairDiff(a, b) {
+    var minCm = Infinity;
+    var maxCm = 0;
+    var sumCm = 0;
+    var n = Math.min(a.length, b.length);
+    for (var i = 0; i < n; i++) {
+      var d = Math.abs(a[i] - b[i]);
+      if (d < minCm) minCm = d;
+      if (d > maxCm) maxCm = d;
+      sumCm += d;
+    }
+    if (!Number.isFinite(minCm)) minCm = 0;
+    var score = minCm * 1000000 + maxCm * 1000 + sumCm;
+    return { minCm: minCm, maxCm: maxCm, sumCm: sumCm, score: score };
+  }
+
+  function sequenceQuality(seq, wrap) {
+    if (seq.length <= 1) return { minScore: Infinity, bottleneckCount: 0, totalScore: 0 };
+    var edgeCount = wrap && seq.length >= 2 ? seq.length : seq.length - 1;
+    var minScore = Infinity;
+    var bottleneckCount = 0;
+    var totalScore = 0;
+    for (var i = 0; i < edgeCount; i++) {
+      var s = pairDiff(seq[i], seq[(i + 1) % seq.length]).score;
+      totalScore += s;
+      if (s < minScore) {
+        minScore = s;
+        bottleneckCount = 1;
+      } else if (s === minScore) {
+        bottleneckCount++;
+      }
+    }
+    return { minScore: minScore, bottleneckCount: bottleneckCount, totalScore: totalScore };
+  }
+
+  function betterQuality(a, b) {
+    if (a.minScore !== b.minScore) return a.minScore > b.minScore;
+    if (a.bottleneckCount !== b.bottleneckCount) return a.bottleneckCount < b.bottleneckCount;
+    return a.totalScore > b.totalScore;
+  }
+
+  function improveSequenceSwaps(seq, wrap) {
+    if (seq.length < 3 || seq.length > 80) return seq.slice();
+    var work = seq.slice();
+    var cur = sequenceQuality(work, wrap);
+    for (var pass = 0; pass < 4; pass++) {
+      var improved = false;
+      for (var i = 0; i < work.length - 1; i++) {
+        for (var j = i + 1; j < work.length; j++) {
+          var tmp = work[i];
+          work[i] = work[j];
+          work[j] = tmp;
+          var cand = sequenceQuality(work, wrap);
+          if (betterQuality(cand, cur)) {
+            cur = cand;
+            improved = true;
+          } else {
+            work[j] = work[i];
+            work[i] = tmp;
+          }
+        }
+      }
+      if (!improved) break;
+    }
+    return work;
+  }
+
+  function findThresholdPath(pool, m, wrap, minBetterThanCm) {
+    var V = pool.length;
+    if (m < 2 || V < m || V > 120) return null;
+
+    var minCmMat = Array.from({ length: V }, function () { return new Array(V).fill(0); });
+    var scoreMat = Array.from({ length: V }, function () { return new Array(V).fill(0); });
+    var maxD = 0;
+    for (var i = 0; i < V; i++) {
+      for (var j = i + 1; j < V; j++) {
+        var diff = pairDiff(pool[i], pool[j]);
+        minCmMat[i][j] = diff.minCm;
+        minCmMat[j][i] = diff.minCm;
+        scoreMat[i][j] = diff.score;
+        scoreMat[j][i] = diff.score;
+        if (diff.minCm > maxD) maxD = diff.minCm;
+      }
+    }
+
+    var topThreshold = Math.floor((maxD + 1e-9) / GRID_CM) * GRID_CM;
+    var TOTAL_LIMIT = 50000;
+    var START_LIMIT = 4000;
+
+    for (var d = topThreshold; d >= minBetterThanCm + GRID_CM - 1e-9; d -= GRID_CM) {
+      var adj = Array.from({ length: V }, function () { return []; });
+      for (var ai = 0; ai < V; ai++) {
+        for (var aj = ai + 1; aj < V; aj++) {
+          if (minCmMat[ai][aj] >= d - 1e-9) {
+            adj[ai].push(aj);
+            adj[aj].push(ai);
+          }
+        }
+      }
+
+      var seenComp = new Uint8Array(V);
+      var components = [];
+      for (var ci = 0; ci < V; ci++) {
+        if (seenComp[ci] || adj[ci].length === 0) continue;
+        var comp = [];
+        var queue = [ci];
+        seenComp[ci] = 1;
+        for (var q = 0; q < queue.length; q++) {
+          var u = queue[q];
+          comp.push(u);
+          for (var wi = 0; wi < adj[u].length; wi++) {
+            var w = adj[u][wi];
+            if (!seenComp[w]) {
+              seenComp[w] = 1;
+              queue.push(w);
+            }
+          }
+        }
+        if (comp.length >= m) components.push(comp);
+      }
+      if (components.length === 0) continue;
+
+      var totalSteps = 0;
+      for (var cIdx = 0; cIdx < components.length; cIdx++) {
+        var compCur = components[cIdx];
+        if (wrap && m >= 3 && compCur.filter(function (u) { return adj[u].length >= 2; }).length < m) continue;
+        if (!wrap && m === compCur.length && compCur.filter(function (u) { return adj[u].length === 1; }).length > 2) continue;
+
+        var starts = compCur
+          .filter(function (u) { return !wrap || adj[u].length >= 2; })
+          .sort(function (a, b) { return adj[a].length - adj[b].length || a - b; });
+
+        var visited = new Uint8Array(V);
+        var remDeg = new Int32Array(V);
+        var posDegUnvisited = 0;
+        for (var ui = 0; ui < compCur.length; ui++) {
+          var cu = compCur[ui];
+          remDeg[cu] = adj[cu].length;
+          if (remDeg[cu] > 0) posDegUnvisited++;
+        }
+
+        function enter(u) {
+          visited[u] = 1;
+          if (remDeg[u] > 0) posDegUnvisited--;
+          for (var k = 0; k < adj[u].length; k++) {
+            var nw = adj[u][k];
+            if (!visited[nw] && remDeg[nw] === 1) posDegUnvisited--;
+            remDeg[nw]--;
+          }
+        }
+        function leave(u) {
+          for (var k = 0; k < adj[u].length; k++) {
+            var nw = adj[u][k];
+            remDeg[nw]++;
+            if (!visited[nw] && remDeg[nw] === 1) posDegUnvisited++;
+          }
+          if (remDeg[u] > 0) posDegUnvisited++;
+          visited[u] = 0;
+        }
+
+        for (var si = 0; si < starts.length; si++) {
+          if (totalSteps > TOTAL_LIMIT) break;
+          var start = starts[si];
+          var startSteps = 0;
+          var path = [start];
+          enter(start);
+
+          function dfs(u) {
+            var needed = m - path.length;
+            if (needed === 0) return !wrap || minCmMat[u][start] >= d - 1e-9;
+            if (wrap && remDeg[start] === 0) return false;
+            if (needed === 1) {
+              var bestLast = -1;
+              var bestLastScore = -1;
+              for (var k = 0; k < adj[u].length; k++) {
+                var v = adj[u][k];
+                if (visited[v]) continue;
+                if (wrap && minCmMat[v][start] < d - 1e-9) continue;
+                var sc = scoreMat[u][v] + (wrap ? scoreMat[v][start] : 0);
+                if (sc > bestLastScore) {
+                  bestLastScore = sc;
+                  bestLast = v;
+                }
+              }
+              if (bestLast < 0) return false;
+              path.push(bestLast);
+              return true;
+            }
+
+            if (posDegUnvisited < needed) return false;
+            if (++startSteps > START_LIMIT || ++totalSteps > TOTAL_LIMIT) return false;
+
+            var cands = [];
+            for (var k = 0; k < adj[u].length; k++) {
+              var cv = adj[u][k];
+              if (!visited[cv] && remDeg[cv] >= 1) cands.push(cv);
+            }
+            cands.sort(function (a, b) {
+              return remDeg[a] - remDeg[b] || scoreMat[u][b] - scoreMat[u][a] || a - b;
+            });
+
+            for (var ck = 0; ck < cands.length; ck++) {
+              var nv = cands[ck];
+              path.push(nv);
+              enter(nv);
+              if (dfs(nv)) return true;
+              leave(nv);
+              path.pop();
+              if (startSteps > START_LIMIT || totalSteps > TOTAL_LIMIT) return false;
+            }
+            return false;
+          }
+
+          if (dfs(start)) {
+            return path.map(function (idx) { return pool[idx]; });
+          }
+          leave(start);
+        }
+      }
+    }
+    return null;
+  }
+
+  function orderSingleWidthSignatures(pool, count, wrap) {
+    if (count <= 0 || pool.length === 0) return [];
+    if (count === 1 || pool.length === 1) return [pool[0]];
+    var m = Math.min(count, pool.length);
+
+    var interleaved = null;
+    if (m === pool.length) {
+      var half = Math.floor(m / 2);
+      interleaved = [];
+      for (var i = 0; i < half; i++) {
+        interleaved.push(pool[half + i]);
+        interleaved.push(pool[i]);
+      }
+      if (m % 2 === 1) interleaved.push(pool[m - 1]);
+    }
+
+    var used = new Array(pool.length).fill(false);
+    var greedy = [pool[0]];
+    used[0] = true;
+    while (greedy.length < m) {
+      var prev = greedy[greedy.length - 1];
+      var bestIdx = -1;
+      var bestScore = -1;
+      for (var j = 0; j < pool.length; j++) {
+        if (used[j]) continue;
+        var sc = pairDiff(prev, pool[j]).score;
+        if (sc > bestScore) {
+          bestScore = sc;
+          bestIdx = j;
+        }
+      }
+      used[bestIdx] = true;
+      greedy.push(pool[bestIdx]);
+    }
+
+    var best = interleaved && betterQuality(sequenceQuality(interleaved, wrap), sequenceQuality(greedy, wrap))
+      ? interleaved
+      : greedy;
+
+    best = improveSequenceSwaps(best, wrap);
+    if (pool.length <= 120) {
+      var baselineMinCm = Math.floor((sequenceQuality(best, wrap).minScore / 1000000) + 1e-6);
+      var thresholdSeq = findThresholdPath(pool, m, wrap, baselineMinCm);
+      if (thresholdSeq) {
+        var refined = improveSequenceSwaps(thresholdSeq, wrap);
+        if (betterQuality(sequenceQuality(refined, wrap), sequenceQuality(best, wrap))) {
+          best = refined;
+        }
+      }
+    }
+    return best;
+  }
+
+  function minimumRequiredWidthCm(stripsPerFace, tapeWidthCm, cornerMarginCm, darkGapCm) {
+    var margin = Math.max(cornerMarginCm, tapeWidthCm / 2);
+    var firstGrid = Math.ceil((margin - 1e-9) / GRID_CM) * GRID_CM;
+    if (stripsPerFace <= 1) return Math.ceil((firstGrid + margin - 1e-9) * 10) / 10;
+    var gridStep = Math.ceil((tapeWidthCm + darkGapCm - 1e-9) / GRID_CM) * GRID_CM;
+    var lastCentre = firstGrid + (stripsPerFace - 1) * gridStep;
+    return Math.ceil((lastCentre + margin - 1e-9) * 10) / 10;
+  }
+
+  function buildPlacementTable(input) {
+    var tapeWidthCm = input.tapeWidthCm !== undefined ? input.tapeWidthCm : 5;
+    var rawStrips = input.stripsPerFace !== undefined ? input.stripsPerFace : 2;
+    var stripsPerFace = Number.isFinite(rawStrips) ? Math.trunc(rawStrips) : NaN;
+    var maxRangeM = input.maxRangeM !== undefined ? input.maxRangeM : 10;
+    var cornerMarginCm = input.cornerMarginCm !== undefined ? input.cornerMarginCm : 15;
+    var faceCount = Number.isFinite(input.faceCount) ? Math.trunc(input.faceCount) : NaN;
+    var safeRangeM = Number.isFinite(maxRangeM) ? Math.min(30, Math.max(1, maxRangeM)) : 10;
+    var minDarkGapCm = Math.max(12, Math.round((1.1 * safeRangeM - 3) * 100) / 100);
+
+    var rawWidths = typeof input.widthCm === "number" ? [input.widthCm] : Array.from(input.widthCm);
+    var warnings = [];
+
+    var invalidRanges = [];
+    if (!Number.isFinite(faceCount) || faceCount < 1 || faceCount > 500) invalidRanges.push("붙일 면 수(1~500면)");
+    if (rawWidths.length === 0 || rawWidths.some(function (w) { return !Number.isFinite(w) || w < 20 || w > 400; })) invalidRanges.push("기둥 폭(20~400 cm)");
+    if (!Number.isFinite(tapeWidthCm) || tapeWidthCm < 2 || tapeWidthCm > 15) invalidRanges.push("테이프 폭(2~15 cm)");
+    if (!Number.isFinite(stripsPerFace) || stripsPerFace < 1 || stripsPerFace > 6) invalidRanges.push("면당 띠 수(1~6개)");
+    if (!Number.isFinite(maxRangeM) || maxRangeM < 1 || maxRangeM > 30) invalidRanges.push("가장 먼 읽는 거리(1~30 m)");
+    if (!Number.isFinite(cornerMarginCm) || cornerMarginCm < 0 || cornerMarginCm > 100) invalidRanges.push("모서리 여유(0~100 cm)");
+
+    var distinctInputWidths = new Set(rawWidths).size;
+    var tooManyWidths = distinctInputWidths > MAX_DISTINCT_WIDTHS;
+
+    if (invalidRanges.length > 0 || tooManyWidths) {
+      if (invalidRanges.length > 0) {
+        warnings.push({
+          kind: "invalid_input",
+          text: "입력 허용 범위를 벗어났습니다 — " + invalidRanges.join(", ") + " 범위 안에서 입력하세요."
+        });
+      }
+      if (tooManyWidths) {
+        warnings.push({
+          kind: "invalid_input",
+          text: "폭은 " + MAX_DISTINCT_WIDTHS + "가지까지 넣을 수 있습니다(지금 " + distinctInputWidths + "가지) — 같은 폭은 한 번만 적거나 나눠서 계산하세요."
+        });
+      }
+      return {
+        rows: [],
+        capacity: 0,
+        capacitiesByWidth: [],
+        capacityText: INVALID_INPUT_CAPACITY_TEXT,
+        minDarkGapCm: minDarkGapCm,
+        reused: false,
+        reuseNotice: null,
+        warnings: warnings
+      };
+    }
+
+    var usedWidths = rawWidths.length > faceCount ? rawWidths.slice(0, faceCount) : rawWidths;
+    var unusedWidths = rawWidths.slice(usedWidths.length);
+    if (unusedWidths.length > 0) {
+      warnings.push({
+        kind: "unused_widths",
+        text: "폭 " + rawWidths.length + "개 중 앞의 " + usedWidths.length + "개(" + usedWidths.map(fmtNum).join(", ") + " cm)만 " + faceCount + "면에 썼고 " +
+          unusedWidths.map(fmtNum).join(", ") + " cm 는 쓰지 않았습니다 — 면 수를 늘리거나 남는 폭을 지우세요."
+      });
+    } else if (usedWidths.length > 1 && usedWidths.length !== faceCount) {
+      warnings.push({
+        kind: "cycled_widths",
+        text: "폭 " + usedWidths.length + "개를 " + faceCount + "면에 차례로 되풀이해 배정했습니다 — 면마다 폭이 다르면 면 수만큼 적으세요."
+      });
+    }
+
+    var uniqueWidths = Array.from(new Set(usedWidths));
+    var poolsByWidth = new Map();
+    var poolKeysByWidth = new Map();
+    var cappedByWidth = new Map();
+    var distinctSigKeys = new Set();
+    var widthsBySig = new Map();
+    var perWidthBudget = Math.floor(MAX_ENUMERATED_SIGNATURES / uniqueWidths.length);
+
+    uniqueWidths.forEach(function (w) {
+      var rawPool = signaturesForWidth(w, stripsPerFace, tapeWidthCm, cornerMarginCm, minDarkGapCm, perWidthBudget + 1);
+      var capped = rawPool.length > perWidthBudget;
+      var pool = capped ? rawPool.slice(0, perWidthBudget) : rawPool;
+      var keys = pool.map(sigKey);
+      poolsByWidth.set(w, pool);
+      poolKeysByWidth.set(w, keys);
+      cappedByWidth.set(w, capped);
+      keys.forEach(function (key) {
+        distinctSigKeys.add(key);
+        var arr = widthsBySig.get(key) || [];
+        arr.push(w);
+        widthsBySig.set(key, arr);
+      });
+    });
+
+    var capacitiesByWidth = uniqueWidths.map(function (w) {
+      return { widthCm: w, capacity: poolsByWidth.get(w).length };
+    });
+    var anyCapped = Array.from(cappedByWidth.values()).some(Boolean);
+    var capacity = uniqueWidths.length === 1 ? capacitiesByWidth[0].capacity : distinctSigKeys.size;
+    var capacityText = uniqueWidths.length === 1
+      ? (anyCapped
+          ? "이 폭에서는 최대 " + MAX_ENUMERATED_SIGNATURES + "면 이상 — 가짓수가 충분합니다(" + MAX_ENUMERATED_SIGNATURES + " 이상)"
+          : "이 폭에서는 최대 " + capacity + "면")
+      : (anyCapped
+          ? "폭별 최대 " + capacitiesByWidth.map(function (c) { return fmtNum(c.widthCm) + " cm " + (cappedByWidth.get(c.widthCm) ? perWidthBudget + "면 이상" : c.capacity + "면"); }).join(" · ") + " (서로 다른 띠 자리 " + capacity + "면 이상 — 가짓수가 충분합니다(" + capacity + " 이상))"
+          : "폭별 최대 " + capacitiesByWidth.map(function (c) { return fmtNum(c.widthCm) + " cm " + c.capacity + "면"; }).join(" · ") + " (서로 다른 띠 자리 최대 " + capacity + "면)");
+
+    var unplaceableReasonByWidth = new Map();
+    uniqueWidths.forEach(function (w) {
+      var cap = poolsByWidth.get(w).length;
+      if (cap > 0) return;
+      var hasCloseRange = stripsPerFace >= 2 &&
+        minDarkGapCm > 12 &&
+        signaturesForWidth(w, stripsPerFace, tapeWidthCm, cornerMarginCm, 12, 1).length > 0;
+      if (hasCloseRange) {
+        warnings.push({
+          kind: "range_too_far",
+          text: "읽는 거리(" + fmtNum(maxRangeM) + " m)가 기둥 폭 " + fmtNum(w) + " cm 에 비해 너무 멉니다 — " + fmtNum(maxRangeM) + " m 에서는 띠 사이 빈 간격이 최소 " + fmtNum(minDarkGapCm) + " cm 필요해 띠 " + stripsPerFace + "개를 붙일 수 없습니다. 읽는 거리를 줄이거나 모서리 여유를 줄이거나 띠 수를 줄이세요."
+        });
+        unplaceableReasonByWidth.set(
+          w,
+          "읽는 거리(" + fmtNum(maxRangeM) + " m)에 비해 폭이 좁아 띠 " + stripsPerFace + "개를 붙일 수 없습니다 — 읽는 거리를 줄이거나 모서리 여유를 줄이거나 띠 수를 줄이세요."
+        );
+      } else {
+        var minW = minimumRequiredWidthCm(stripsPerFace, tapeWidthCm, cornerMarginCm, minDarkGapCm);
+        warnings.push({
+          kind: "too_narrow",
+          text: "기둥 폭 " + fmtNum(w) + " cm 이 너무 좁아 띠 " + stripsPerFace + "개를 붙일 수 없습니다(모서리 여유 " + fmtNum(cornerMarginCm) + " cm · 테이프 폭 " + fmtNum(tapeWidthCm) + " cm · 빈 간격 " + fmtNum(minDarkGapCm) + " cm 기준 최소 " + fmtNum(minW) + " cm 필요 — 띠 수를 줄이거나 모서리 여유를 줄이거나 읽는 거리를 줄이세요)."
+        });
+        unplaceableReasonByWidth.set(
+          w,
+          "폭 " + fmtNum(w) + " cm 이 너무 좁아 띠 " + stripsPerFace + "개를 붙일 수 없습니다(최소 " + fmtNum(minW) + " cm 필요) — 띠 수를 줄이거나 모서리 여유를 줄이거나 읽는 거리를 줄이세요."
+        );
+      }
+    });
+
+    if (capacity === 0) {
+      return {
+        rows: [],
+        capacity: capacity,
+        capacitiesByWidth: capacitiesByWidth,
+        capacityText: capacityText,
+        minDarkGapCm: minDarkGapCm,
+        reused: false,
+        reuseNotice: null,
+        warnings: warnings
+      };
+    }
+
+    var assigned = [];
+    if (uniqueWidths.length === 1) {
+      var singleW = uniqueWidths[0];
+      var singlePool = poolsByWidth.get(singleW);
+      var cycle = orderSingleWidthSignatures(singlePool, Math.min(faceCount, singlePool.length), faceCount > singlePool.length);
+      for (var fi = 0; fi < faceCount; fi++) {
+        assigned.push({ widthCm: singleW, sig: cycle[fi % cycle.length] });
+      }
+    } else {
+      var order = usedWidths;
+      var lastUsedAt = new Map();
+      var unusedByWidth = new Map(uniqueWidths.map(function (w) { return [w, poolsByWidth.get(w).length]; }));
+      var facesLeftByWidth = new Map(uniqueWidths.map(function (w) { return [w, 0]; }));
+      for (var mfi = 0; mfi < faceCount; mfi++) {
+        var mw = order[mfi % order.length];
+        facesLeftByWidth.set(mw, facesLeftByWidth.get(mw) + 1);
+      }
+      var lastPlacedSig = null;
+      for (var mi = 0; mi < faceCount; mi++) {
+        var curW = order[mi % order.length];
+        facesLeftByWidth.set(curW, facesLeftByWidth.get(curW) - 1);
+        var curPool = poolsByWidth.get(curW);
+        if (curPool.length === 0) {
+          assigned.push({ widthCm: curW, sig: null, reason: unplaceableReasonByWidth.get(curW) });
+          continue;
+        }
+        var tightWidths = new Set(uniqueWidths.filter(function (u) {
+          return u !== curW && facesLeftByWidth.get(u) > 0 && facesLeftByWidth.get(u) >= unusedByWidth.get(u);
+        }));
+        var curKeys = poolKeysByWidth.get(curW);
+        var bestIdx = 0;
+        var bestTuple = [-1, -Infinity, -1];
+        var lastKey = lastPlacedSig ? sigKey(lastPlacedSig) : null;
+        for (var k = 0; k < curPool.length; k++) {
+          var cand = curPool[k];
+          var key = curKeys[k];
+          if (lastKey !== null && curPool.length >= 2 && key === lastKey) continue;
+          var prevIdx = lastUsedAt.get(key);
+          var isUnused = prevIdx === undefined ? 1 : 0;
+          var wsForSig = widthsBySig.get(key) || [];
+          var harmless = tightWidths.size === 0 || !wsForSig.some(function (u) { return tightWidths.has(u); });
+          var priorityOrSpan = prevIdx === undefined ? (harmless ? 1 : 0) : mi - prevIdx;
+          var diffScore = lastPlacedSig ? pairDiff(lastPlacedSig, cand).score : cand[0];
+          var tuple = [isUnused, priorityOrSpan, diffScore];
+          if (
+            tuple[0] > bestTuple[0] ||
+            (tuple[0] === bestTuple[0] && tuple[1] > bestTuple[1]) ||
+            (tuple[0] === bestTuple[0] && tuple[1] === bestTuple[1] && tuple[2] > bestTuple[2])
+          ) {
+            bestTuple = tuple;
+            bestIdx = k;
+          }
+        }
+        var bestSig = curPool[bestIdx];
+        var bestKey = curKeys[bestIdx];
+        if (!lastUsedAt.has(bestKey)) {
+          (widthsBySig.get(bestKey) || []).forEach(function (u) {
+            unusedByWidth.set(u, unusedByWidth.get(u) - 1);
+          });
+        }
+        assigned.push({ widthCm: curW, sig: bestSig });
+        lastUsedAt.set(bestKey, mi);
+        lastPlacedSig = bestSig;
+      }
+    }
+
+    var firstSeenFace = new Map();
+    var reusedCount = 0;
+    var minReuseSpan = Infinity;
+    var firstReuseInfo = null;
+    var prevPlacedSig = null;
+    var halfTape = tapeWidthCm / 2;
+
+    var rows = assigned.map(function (entry, idx) {
+      var faceNumber = idx + 1;
+      if (entry.sig === null) {
+        return {
+          faceNumber: faceNumber,
+          widthCm: entry.widthCm,
+          strips: [],
+          minDiffFromPrevCm: null,
+          reusedFromFace: null,
+          reason: entry.reason
+        };
+      }
+      var k = sigKey(entry.sig);
+      var firstFace = firstSeenFace.has(k) ? firstSeenFace.get(k) : null;
+      if (firstFace === null) {
+        firstSeenFace.set(k, faceNumber);
+      } else {
+        if (firstReuseInfo === null) {
+          firstReuseInfo = { faceNumber: faceNumber, widthCm: entry.widthCm, usedDistinctBefore: firstSeenFace.size };
+        }
+        reusedCount++;
+        minReuseSpan = Math.min(minReuseSpan, faceNumber - firstFace);
+      }
+      var minDiffFromPrevCm = prevPlacedSig ? pairDiff(prevPlacedSig, entry.sig).minCm : null;
+      prevPlacedSig = entry.sig;
+      return {
+        faceNumber: faceNumber,
+        widthCm: entry.widthCm,
+        strips: entry.sig.map(function (centreCm) {
+          return {
+            centreCm: centreCm,
+            rightEdgeCm: Math.round((centreCm - halfTape) * 100) / 100,
+            leftEdgeCm: Math.round((centreCm + halfTape) * 100) / 100
+          };
+        }),
+        minDiffFromPrevCm: minDiffFromPrevCm,
+        reusedFromFace: firstFace
+      };
+    });
+
+    var reused = reusedCount > 0;
+    var reuseNotice = null;
+    if (reused && firstReuseInfo !== null) {
+      var info = firstReuseInfo;
+      var widthCapEntry = poolsByWidth.get(info.widthCm);
+      var widthCap = widthCapEntry ? widthCapEntry.length : capacity;
+      var placedSigs = assigned.map(function (a) { return a.sig; }).filter(function (s) { return s !== null; });
+      var allConsecutiveUnique = placedSigs.every(function (s, i) { return i === 0 || sigKey(s) !== sigKey(placedSigs[i - 1]); });
+      if (uniqueWidths.length > 1 && widthCap < capacity && info.usedDistinctBefore < capacity) {
+        reuseNotice = "폭 " + fmtNum(info.widthCm) + " cm 면은 " + widthCap + "가지뿐이라 " + info.faceNumber + "번 면부터 같은 띠 자리를 다시 썼습니다(전체 서로 다른 자리는 최대 " + capacity + "면, 최소 " + minReuseSpan + "면 간격).";
+      } else {
+        reuseNotice = allConsecutiveUnique
+          ? "요청한 " + faceCount + "면이 최대 가짓수(" + capacity + "면)를 넘어 " + info.faceNumber + "번 면부터 같은 띠 자리를 최소 " + minReuseSpan + "면 간격으로 멀리 떨어뜨려 다시 썼습니다(이웃한 두 면은 항상 서로 다릅니다)."
+          : "요청한 " + faceCount + "면이 최대 가짓수(" + capacity + "면)를 넘어 " + info.faceNumber + "번 면부터 같은 띠 자리를 반복했습니다(가능한 자리가 1개뿐이라 이웃한 면도 같습니다).";
+      }
+      warnings.push({ kind: "over_capacity", text: reuseNotice });
+    }
+
+    return {
+      rows: rows,
+      capacity: capacity,
+      capacitiesByWidth: capacitiesByWidth,
+      capacityText: capacityText,
+      minDarkGapCm: minDarkGapCm,
+      reused: reused,
+      reuseNotice: reuseNotice,
+      warnings: warnings
+    };
+  }
+
+  function stripHeightGuidance(lidarHeightsCm) {
+    var unique = Array.from(new Set((lidarHeightsCm || []).filter(function (h) { return Number.isFinite(h) && h > 0; }))).sort(function (a, b) { return a - b; });
+    if (unique.length === 0) return "이 현장의 로봇을 고르면 띠 높이를 알려 드립니다.";
+    if (unique.length === 1) {
+      return "띠 가운데가 바닥에서 " + fmtNum(unique[0]) + " cm 높이에 오게 붙입니다. 세로 길이는 10 cm면 됩니다.";
+    }
+    var minCm = Math.max(0, unique[0] - 5);
+    var maxCm = unique[unique.length - 1] + 5;
+    var prefix = unique.length === 2 ? "두 기종이" : "여러 기종이";
+    return prefix + " 같은 띠를 보도록 바닥에서 " + fmtNum(minCm) + " cm부터 " + fmtNum(maxCm) + " cm까지 세로로 길게 붙입니다.";
+  }
+
+  function tapeEdgesText(offsetsCm, tapeWidthCm) {
+    if (tapeWidthCm === undefined) tapeWidthCm = 5;
+    var w = tapeWidthCm > 0 && Number.isFinite(tapeWidthCm) ? tapeWidthCm : 5;
+    var half = w / 2;
+    var sorted = offsetsCm.slice().sort(function (a, b) { return a - b; });
+    if (sorted.length === 0) return "띠 없음";
+    return sorted.map(function (c) { return fmtNum(c - half) + "~" + fmtNum(c + half); }).join(" · ") + " cm";
+  }
+
+  function faceBarStripLayout(lengthCm, offsetCm, tapeWidthCm) {
+    var safeW = lengthCm > 0 && Number.isFinite(lengthCm) ? lengthCm : 1;
+    var w = tapeWidthCm > 0 && Number.isFinite(tapeWidthCm) ? tapeWidthCm : 5;
+    var startCm = Math.max(0, offsetCm - w / 2);
+    var endCm = Math.min(safeW, offsetCm + w / 2);
+    var rightRatio = startCm / safeW;
+    var widthRatio = Math.max(0.01, (endCm - startCm) / safeW);
+    var leftRatio = (safeW - endCm) / safeW;
+    return {
+      safeW: safeW,
+      startCm: startCm,
+      endCm: endCm,
+      rightRatio: rightRatio,
+      widthRatio: widthRatio,
+      leftEdgeRatio: leftRatio,
+      rightEdgeRatio: 1 - rightRatio
+    };
+  }
+
+  function pctCss(ratio) {
+    var clamped = Math.min(100, Math.max(0, ratio * 100));
+    return Number(clamped.toFixed(4)) + "%";
+  }
+
+  function labelWidthPx(text) {
+    var px = 0;
+    for (var i = 0; i < text.length; i++) px += text.charCodeAt(i) < 0x80 ? ASCII_PX : WIDE_PX;
+    return px;
+  }
+
+  function layoutBarLabels(offsetsCm, safeW, barWidthPx) {
+    var width = barWidthPx > 0 && Number.isFinite(barWidthPx) ? barWidthPx : BAR_FALLBACK_WIDTH_PX;
+    var items = offsetsCm.map(function (o, idx) {
+      var ratio = Math.min(1, Math.max(0, o / safeW));
+      return { key: "lbl-" + idx, centreRatio: ratio, text: fmtNum(o) + " cm", value: fmtNum(o) };
+    });
+    var order = items.map(function (item, idx) { return { item: item, idx: idx }; })
+      .sort(function (a, b) { return a.item.centreRatio - b.item.centreRatio; });
+    var rows = [];
+    var placed = [];
+    for (var i = 0; i < order.length; i++) {
+      var cur = order[i].item;
+      var align = cur.centreRatio <= 0.12 ? "right" : cur.centreRatio >= 0.88 ? "left" : "center";
+      var wPx = labelWidthPx(cur.text);
+      var cPx = cur.centreRatio * width;
+      var span = align === "right"
+        ? { fromPx: cPx, toPx: cPx + wPx }
+        : align === "left"
+          ? { fromPx: cPx - wPx, toPx: cPx }
+          : { fromPx: cPx - wPx / 2, toPx: cPx + wPx / 2 };
+      var row = -1;
+      for (var r = 0; r < rows.length; r++) {
+        var fits = rows[r].every(function (o) { return span.toPx + LABEL_GAP_PX <= o.fromPx || o.toPx + LABEL_GAP_PX <= span.fromPx; });
+        if (fits) { row = r; break; }
+      }
+      if (row < 0) {
+        if (rows.length >= BAR_LABEL_MAX_ROWS) return { kind: "line", items: items };
+        rows.push([]);
+        row = rows.length - 1;
+      }
+      rows[row].push(span);
+      placed.push({ key: cur.key, centreRatio: cur.centreRatio, text: cur.text, align: align, row: row });
+    }
+    return { kind: "labels", labels: placed, rows: rows.length };
+  }
+
+  /* ==================== 2. CODEBOOK V2 (B01..B09, 1:1 port of codebook.ts + gen_sheet.py) ==================== */
+  var CODEBOOK_V2 = {
+    version: 2,
+    stripWidthCm: 10,
+    three: { prefix: "B", spacingsCm: [17, 23, 29] },
+    minReuseDistanceM: 30
+  };
+
+  function facedSpacings(spacings) {
+    return spacings.slice().reverse();
+  }
+
+  function codebookBPlates() {
+    var set = CODEBOOK_V2.three.spacingsCm;
+    var sw = CODEBOOK_V2.stripWidthCm;
+    var list = [];
+    for (var i = 0; i < set.length; i++) {
+      for (var j = 0; j < set.length; j++) {
+        var idx = i * 3 + j + 1;
+        var id = "B" + (idx < 10 ? "0" + idx : String(idx));
+        var spacingsCm = [set[i], set[j]]; // robot reads from right end!
+        var seen = facedSpacings(spacingsCm); // viewer sees left -> right!
+        var leftsCm = [0, seen[0], seen[0] + seen[1]];
+        var plateWidthCm = seen[0] + seen[1] + sw;
+        var edgesCm = leftsCm.map(function (x) { return [x, x + sw]; });
+        var centresCm = leftsCm.map(function (x) { return x + sw / 2; });
+        var gapsCm = [seen[0] - sw, seen[1] - sw];
+        list.push({
+          id: id,
+          spacingsCm: spacingsCm,
+          facedSpacingsCm: seen,
+          leftsCm: leftsCm,
+          edgesCm: edgesCm,
+          centresCm: centresCm,
+          gapsCm: gapsCm,
+          plateWidthCm: plateWidthCm,
+          stripWidthCm: sw
+        });
+      }
+    }
+    list.forEach(function (p) {
+      var rev = facedSpacings(p.spacingsCm);
+      if (rev[0] === p.spacingsCm[0] && rev[1] === p.spacingsCm[1]) {
+        p.mirrorId = null;
+      } else {
+        var match = list.find(function (q) { return q.spacingsCm[0] === rev[0] && q.spacingsCm[1] === rev[1]; });
+        p.mirrorId = match ? match.id : null;
+      }
+    });
+    return list;
+  }
+
+  /* ==================== 3. PLACEMENT UI WIRING ==================== */
+  var PLAN_STORAGE_KEY = "reflector-tape-face-plan-v1";
+  var PLAN_DEFAULTS = {
+    count: "8",
+    widths: "80",
+    tape: "5",
+    strips: "2",
+    range: "10",
+    margin: "15",
+    robotMode: "both"
+  };
+
+  var inCount = document.getElementById("fp-count");
+  var inWidths = document.getElementById("fp-widths");
+  var inTape = document.getElementById("fp-tape");
+  var inStrips = document.getElementById("fp-strips");
+  var inRange = document.getElementById("fp-range");
+  var inMargin = document.getElementById("fp-margin");
+  var btnReset = document.getElementById("fp-reset");
+  var btnPrint = document.getElementById("fp-print");
+  var outCap = document.getElementById("fp-capacity");
+  var outHeight = document.getElementById("fp-height-note");
+  var outClamp = document.getElementById("fp-clamp-note");
+  var outWarnings = document.getElementById("fp-warnings");
+  var outCards = document.getElementById("fp-cards");
+  var outTbody = document.getElementById("fp-tbody");
+  var outTotal = document.getElementById("fp-tape-total");
+  var outPrintSpec = document.getElementById("print-spec-line");
+
+  function selectedRobotMode() {
+    var checked = document.querySelector('input[name="robot-mode"]:checked');
+    return checked ? checked.value : "both";
+  }
+
+  function loadPlanState() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(PLAN_STORAGE_KEY) || "null");
+      if (!saved) return;
+      if (typeof saved.count === "string") inCount.value = saved.count;
+      if (typeof saved.widths === "string") inWidths.value = saved.widths;
+      if (typeof saved.tape === "string") inTape.value = saved.tape;
+      if (typeof saved.strips === "string") inStrips.value = saved.strips;
+      if (typeof saved.range === "string") inRange.value = saved.range;
+      if (typeof saved.margin === "string") inMargin.value = saved.margin;
+      if (saved.robotMode === "l_only" || saved.robotMode === "both") {
+        var r = document.querySelector('input[name="robot-mode"][value="' + saved.robotMode + '"]');
+        if (r) r.checked = true;
+      }
+    } catch (e) { /* storage blocked */ }
+  }
+
+  function savePlanState() {
+    try {
+      localStorage.setItem(PLAN_STORAGE_KEY, JSON.stringify({
+        count: inCount.value,
+        widths: inWidths.value,
+        tape: inTape.value,
+        strips: inStrips.value,
+        range: inRange.value,
+        margin: inMargin.value,
+        robotMode: selectedRobotMode()
+      }));
+    } catch (e) { /* storage blocked */ }
+  }
+
+  function isCompleteNum(txt) {
+    return txt.trim() !== "" && Number.isFinite(Number(txt));
+  }
+
+  function clampStrips(text) {
+    var typed = Number(text);
+    var strips = Math.min(PANEL_MAX_STRIPS, Math.max(PANEL_MIN_STRIPS, Math.trunc(typed)));
+    return {
+      strips: strips,
+      note: strips === typed ? null : "면당 띠 수는 " + PANEL_MIN_STRIPS + "~" + PANEL_MAX_STRIPS + "개까지입니다 — " + strips + "개로 계산했습니다."
+    };
+  }
+
+  function buildFaceBarElement(widthCm, strips, tapeWidthCm) {
+    var safeW = widthCm > 0 && Number.isFinite(widthCm) ? widthCm : 1;
+    var offsetsCm = strips.map(function (s) { return s.centreCm; });
+    var layout = layoutBarLabels(offsetsCm, safeW, BAR_FALLBACK_WIDTH_PX);
+    var bar = document.createElement("div");
+    bar.className = "mm-face-bar";
+    bar.setAttribute("role", "img");
+    bar.setAttribute("data-face-bar", "true");
+    bar.setAttribute("data-label-rows", layout.kind === "labels" ? String(layout.rows) : "0");
+    if (layout.kind === "labels" && layout.rows >= 2) bar.setAttribute("data-staggered", "true");
+    var rightDists = offsetsCm.map(function (c) { return fmtNum(c) + " cm"; }).join(", ");
+    bar.setAttribute("aria-label", "기둥면 폭 " + fmtNum(widthCm) + " cm, 오른쪽 모서리 기준 띠 자리 " + (rightDists || "없음"));
+
+    var rEnd = document.createElement("span");
+    rEnd.className = "mm-face-bar-end right";
+    rEnd.setAttribute("data-end", "right");
+    rEnd.textContent = "0 (오른쪽)";
+    bar.appendChild(rEnd);
+
+    var lEnd = document.createElement("span");
+    lEnd.className = "mm-face-bar-end left";
+    lEnd.setAttribute("data-end", "left");
+    lEnd.textContent = fmtNum(widthCm) + " cm";
+    bar.appendChild(lEnd);
+
+    var wall = document.createElement("div");
+    wall.className = "mm-face-bar-wall";
+    bar.appendChild(wall);
+
+    strips.forEach(function (st) {
+      var geo = faceBarStripLayout(safeW, st.centreCm, tapeWidthCm);
+      var span = document.createElement("span");
+      span.className = "mm-face-bar-strip";
+      span.setAttribute("data-face-strip", "true");
+      span.setAttribute("data-centre-cm", String(st.centreCm));
+      span.setAttribute("data-left-edge-ratio", String(Number(geo.leftEdgeRatio.toFixed(6))));
+      span.setAttribute("data-right-edge-ratio", String(Number(geo.rightEdgeRatio.toFixed(6))));
+      span.style.right = pctCss(geo.rightRatio);
+      span.style.width = pctCss(geo.widthRatio);
+      bar.appendChild(span);
+    });
+
+    if (layout.kind === "labels") {
+      layout.labels.forEach(function (lbl) {
+        var el = document.createElement("span");
+        el.className = "mm-face-bar-label";
+        el.setAttribute("data-edge-align", lbl.align);
+        el.setAttribute("data-label-row", String(lbl.row));
+        el.style.right = pctCss(lbl.centreRatio);
+        el.textContent = lbl.text;
+        bar.appendChild(el);
+      });
+    }
+    return { bar: bar, lineText: layout.kind === "line" ? "오른쪽 모서리에서 " + offsetsCm.map(fmtNum).join(" · ") + " cm" : null };
+  }
+
+  function renderPlacement() {
+    var mode = selectedRobotMode();
+    var heights = mode === "both" ? [15, 53] : [53];
+    var kitHeightLine = stripHeightGuidance(heights);
+    if (mode === "both") {
+      outHeight.innerHTML = "<b>세로 부착 높이 (T10 + M-type 공용)</b>: " + kitHeightLine +
+        " <b>현장 권장 <span class=\"num\">10~61 cm</span> (테이프 <span class=\"num\">51 cm</span> × 줄)</b> — T10 윗끝 <span class=\"num\">61 cm</span>까지 여유 확보 + M-type(<span class=\"num\">15~24 cm</span>) 동시 인식.";
+    } else {
+      outHeight.innerHTML = "<b>세로 부착 높이 (T10 34937 단독)</b>: " + kitHeightLine +
+        " 지도 <span class=\"num\">H530(53 cm)</span>과 설정 <span class=\"num\">48.2 cm</span>를 모두 넉넉히 덮으려면 <b>바닥에서 <span class=\"num\">40~61 cm</span> (테이프 <span class=\"num\">21 cm</span>)</b>를 권장합니다.";
+    }
+
+    var widths = parseWidthsCm(inWidths.value);
+    var missing = [];
+    if (!isCompleteNum(inCount.value)) missing.push("붙일 면 수");
+    if (widths.length === 0) missing.push("기둥 폭");
+    if (!isCompleteNum(inTape.value)) missing.push("테이프 폭");
+    if (!isCompleteNum(inStrips.value)) missing.push("면당 띠 수");
+    if (!isCompleteNum(inRange.value)) missing.push("가장 먼 읽는 거리");
+    if (!isCompleteNum(inMargin.value)) missing.push("모서리 여유");
+
+    outWarnings.innerHTML = "";
+    outCards.innerHTML = "";
+    outTbody.innerHTML = "";
+
+    if (missing.length > 0) {
+      outCap.textContent = "값을 입력하세요 — " + missing.join(", ");
+      outClamp.hidden = true;
+      outTotal.textContent = "";
+      return;
+    }
+
+    var stripChoice = clampStrips(inStrips.value);
+    var tapeW = Number(inTape.value);
+    var res = buildPlacementTable({
+      faceCount: Number(inCount.value),
+      widthCm: widths.length === 1 ? widths[0] : widths,
+      tapeWidthCm: tapeW,
+      stripsPerFace: stripChoice.strips,
+      maxRangeM: Number(inRange.value),
+      cornerMarginCm: Number(inMargin.value)
+    });
+
+    outCap.innerHTML = "<b>" + res.capacityText + "</b> · 띠 사이 최소 빈 간격 <span class=\"num\">" +
+      fmtNum(res.minDarkGapCm) + " cm</span> · <span class=\"num\">5 cm</span> 격자 기준";
+
+    if (stripChoice.note) {
+      outClamp.textContent = stripChoice.note;
+      outClamp.hidden = false;
+    } else {
+      outClamp.hidden = true;
+    }
+
+    res.warnings.forEach(function (w) {
+      var p = document.createElement("p");
+      p.className = "notice " + (w.kind === "invalid_input" || w.kind === "too_narrow" ? "bad" : "warn");
+      p.style.margin = "0 0 8px";
+      p.textContent = w.text;
+      outWarnings.appendChild(p);
+    });
+
+    var validStripCount = 0;
+    res.rows.forEach(function (row) {
+      validStripCount += row.strips.length;
+
+      var noteText = row.strips.length === 0
+        ? (row.reason || "이 폭에는 띠를 붙일 수 없습니다")
+        : row.reusedFromFace !== null
+          ? row.reusedFromFace + "면과 같은 자리 재사용"
+          : row.minDiffFromPrevCm !== null
+            ? "앞 면과 최소 " + fmtNum(row.minDiffFromPrevCm) + " cm 차이"
+            : "첫 면";
+
+      var card = document.createElement("article");
+      card.className = "face-card" + (row.strips.length === 0 ? " bad-row" : "");
+      card.setAttribute("role", "listitem");
+      card.setAttribute("data-plan-card", String(row.faceNumber));
+
+      var head = document.createElement("div");
+      head.className = "face-card-head";
+      var h4 = document.createElement("h4");
+      h4.textContent = "면 " + row.faceNumber + " ";
+      var wTag = document.createElement("span");
+      wTag.className = "face-width-tag";
+      wTag.textContent = "폭 " + fmtNum(row.widthCm) + " cm";
+      h4.appendChild(wTag);
+      var edgesSpan = document.createElement("span");
+      edgesSpan.className = "plan-edges";
+      edgesSpan.textContent = row.strips.length > 0
+        ? tapeEdgesText(row.strips.map(function (s) { return s.centreCm; }), tapeW)
+        : "붙일 수 없음";
+      head.appendChild(h4);
+      head.appendChild(edgesSpan);
+      card.appendChild(head);
+
+      if (row.strips.length > 0) {
+        var fb = buildFaceBarElement(row.widthCm, row.strips, tapeW);
+        card.appendChild(fb.bar);
+        if (fb.lineText) {
+          var lp = document.createElement("p");
+          lp.className = "mm-face-bar-values";
+          lp.textContent = fb.lineText;
+          card.appendChild(lp);
+        }
+      }
+
+      var meta = document.createElement("p");
+      meta.className = "face-meta";
+      meta.textContent = noteText;
+      card.appendChild(meta);
+      outCards.appendChild(card);
+
+      var tr = document.createElement("tr");
+      var td1 = document.createElement("td"); td1.className = "num"; td1.textContent = row.faceNumber + "면";
+      var td2 = document.createElement("td"); td2.className = "num"; td2.textContent = fmtNum(row.widthCm) + " cm";
+      var td3 = document.createElement("td"); td3.className = "num";
+      td3.textContent = row.strips.length > 0 ? row.strips.map(function (s) { return fmtNum(s.centreCm) + " cm"; }).join(" / ") : "붙일 수 없음";
+      var td4 = document.createElement("td"); td4.className = "num";
+      td4.textContent = row.strips.length > 0 ? row.strips.map(function (s) { return fmtNum(s.rightEdgeCm) + "~" + fmtNum(s.leftEdgeCm) + " cm"; }).join(" · ") : "—";
+      var td5 = document.createElement("td"); td5.textContent = noteText;
+      tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); tr.appendChild(td4); tr.appendChild(td5);
+      outTbody.appendChild(tr);
+    });
+
+    if (validStripCount > 0) {
+      if (mode === "both") {
+        var totalM = (validStripCount * 51) / 100;
+        outTotal.textContent = "총 테이프 소요(10~61 cm): 51 cm × " + validStripCount + "줄 = " + totalM.toFixed(2) + " m";
+      } else {
+        var recM = (validStripCount * 21) / 100;
+        var minM = (validStripCount * 10) / 100;
+        outTotal.textContent = "총 테이프 소요(T10 단독): 40~61 cm 기준 " + recM.toFixed(2) + " m (최소 10 cm 기준 " + minM.toFixed(2) + " m)";
+      }
+    } else {
+      outTotal.textContent = "";
+    }
+
+    outPrintSpec.textContent = "조건: " + inCount.value + "면 · 폭 " + inWidths.value + " cm · 테이프 폭 " + fmtNum(tapeW) +
+      " cm · 면당 " + stripChoice.strips + "줄 · 최대 거리 " + inRange.value + " m · 여유 " + inMargin.value + " cm · " +
+      (mode === "both" ? "높이 10~61 cm (T10+M 공용)" : "높이 중심 53 cm / 권장 40~61 cm (T10 단독)");
+  }
+
+  [inCount, inWidths, inTape, inStrips, inRange, inMargin].forEach(function (el) {
+    el.addEventListener("input", function () { savePlanState(); renderPlacement(); });
+  });
+  document.querySelectorAll('input[name="robot-mode"]').forEach(function (el) {
+    el.addEventListener("change", function () { savePlanState(); renderPlacement(); });
+  });
+  btnReset.addEventListener("click", function () {
+    inCount.value = PLAN_DEFAULTS.count;
+    inWidths.value = PLAN_DEFAULTS.widths;
+    inTape.value = PLAN_DEFAULTS.tape;
+    inStrips.value = PLAN_DEFAULTS.strips;
+    inRange.value = PLAN_DEFAULTS.range;
+    inMargin.value = PLAN_DEFAULTS.margin;
+    var r = document.querySelector('input[name="robot-mode"][value="' + PLAN_DEFAULTS.robotMode + '"]');
+    if (r) r.checked = true;
+    savePlanState();
+    renderPlacement();
+  });
+  btnPrint.addEventListener("click", function () {
+    var tableFold = document.getElementById("fp-table-wrap");
+    if (tableFold) tableFold.open = true;
+    document.body.classList.add("printing-placement");
+    window.print();
+  });
+  window.addEventListener("afterprint", function () {
+    document.body.classList.remove("printing-placement");
+  });
+
+  /* ==================== 4. SECTION 2 VERTICAL HEIGHT SIMULATOR ==================== */
   var NS = "http://www.w3.org/2000/svg";
-  var FLOOR = 430, SCALE = 5, KEY = "reflector-tape-m-heights";
-  var NAV_H = 48.2, FLR_H = 7.6;
-  var panels = [
+  var FLOOR = 430, SCALE = 5, M_HEIGHT_KEY = "reflector-tape-m-heights-v2";
+  var NAV_KIT_H = 53.0, NAV_CFG_H = 48.2, FLR_H = 7.6;
+  var heightPanels = [
     { id: "A", bottom: 10, top: 61, x: 172.5, w: 25 },
     { id: "B", bottom: 0, top: 61, x: 135, w: 100 }
   ];
@@ -674,85 +2054,79 @@ tr.sum td { font-weight: 600; border-bottom: none; }
   var inRear = document.getElementById("m-rear");
 
   function yOf(cm) { return FLOOR - SCALE * cm; }
-  function fmt(n) { return String(Math.round(n * 10) / 10); }
-  function read(el) {
+  function readM(el) {
     var t = el.value.trim();
     if (t === "") return null;
     var n = Number(t);
     return Number.isFinite(n) && n >= 0 && n <= 80 ? n : NaN;
   }
-  function load() {
+  function loadM() {
     try {
-      var v = JSON.parse(localStorage.getItem(KEY) || "{}");
+      var v = JSON.parse(localStorage.getItem(M_HEIGHT_KEY) || "{}");
       if (v.front) inFront.value = v.front;
       if (v.rear) inRear.value = v.rear;
-    } catch (e) { /* storage blocked: start empty */ }
+    } catch (e) { /* storage blocked */ }
   }
-  function save() {
-    try { localStorage.setItem(KEY, JSON.stringify({ front: inFront.value, rear: inRear.value })); }
-    catch (e) { /* storage blocked: nothing kept */ }
+  function saveM() {
+    try { localStorage.setItem(M_HEIGHT_KEY, JSON.stringify({ front: inFront.value, rear: inRear.value })); }
+    catch (e) { /* storage blocked */ }
   }
-
-  function judge(p, h) {
+  function judgeHeight(p, h) {
     if (h === null) return { cls: "unk", text: "높이 미측정" };
     if (Number.isNaN(h)) return { cls: "bad", text: "0~80 cm 사이 숫자로 넣어 주세요" };
-    if (h < p.bottom || h > p.top) return { cls: "bad", text: fmt(h) + " cm · 테이프 밖이라 못 읽음" };
+    if (h < p.bottom || h > p.top) return { cls: "bad", text: fmtNum(h) + " cm · 테이프 밖이라 못 읽음" };
     var margin = p.bottom === 0 ? p.top - h : Math.min(h - p.bottom, p.top - h);
-    if (margin >= 10) return { cls: "ok", text: fmt(h) + " cm · 읽음 (위아래 여유 " + fmt(margin) + " cm)" };
-    return { cls: "warn", text: fmt(h) + " cm · 가장자리 (여유 " + fmt(margin) + " cm), 테이프를 늘리세요" };
+    if (margin >= 10) return { cls: "ok", text: fmtNum(h) + " cm · 읽음 (위아래 여유 " + fmtNum(margin) + " cm)" };
+    if (margin >= 5) return { cls: "ok", text: fmtNum(h) + " cm · 읽음 (여유 " + fmtNum(margin) + " cm · 윗끝 61 cm까지 끝까지 부착)" };
+    return { cls: "warn", text: fmtNum(h) + " cm · 가장자리 (여유 " + fmtNum(margin) + " cm), 테이프 길이를 늘리세요" };
   }
-
-  function el(tag, attrs, text) {
+  function svgEl(tag, attrs, text) {
     var e = document.createElementNS(NS, tag);
     Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
-    if (text) e.textContent = text;
+    if (text !== undefined) e.textContent = text;
     return e;
   }
-
-  function drawPanel(p, beams) {
+  function drawHeightPanel(p, beams) {
     var g = document.getElementById("dyn" + p.id);
     while (g.firstChild) g.removeChild(g.firstChild);
-    var taken = [[110, 140], [175, 205], [378, 408]];
+    var taken = [[110, 140], [150, 206], [376, 408]];
     beams.forEach(function (b) {
       if (b.h === null || Number.isNaN(b.h)) return;
       var y = yOf(b.h);
-      g.appendChild(el("line", { "class": "beam " + b.cls, x1: 60, y1: y, x2: 318, y2: y }));
+      g.appendChild(svgEl("line", { "class": "beam " + b.cls, x1: 60, y1: y, x2: 318, y2: y }));
       if (b.h >= p.bottom && b.h <= p.top) {
-        g.appendChild(el("rect", { "class": "hit m", x: p.x, y: y - 2.5, width: p.w, height: 5 }));
+        g.appendChild(svgEl("rect", { "class": "hit m", x: p.x, y: y - 2.5, width: p.w, height: 5 }));
       }
       var ly = y + 4;
-      for (var i = 0; i < 12; i++) {
+      for (var i = 0; i < 14; i++) {
         var hit = taken.filter(function (r) { return ly - 11 < r[1] && ly + 3 > r[0]; })[0];
         if (!hit) break;
         ly = hit[1] + 12;
       }
-      if (ly > 466) ly = 466;
+      if (ly > 464) ly = 464;
       taken.push([ly - 11, ly + 3]);
-      g.appendChild(el("text", { "class": "blabel m", x: 322, y: ly }, b.label + " " + fmt(b.h)));
+      g.appendChild(svgEl("text", { "class": "blabel m", x: 322, y: ly }, b.label + " " + fmtNum(b.h)));
     });
   }
-
   function verdictList(p, front, rear) {
     var ul = document.getElementById("v" + p.id);
     var rows = [
-      { who: "T10 측위", v: judge(p, NAV_H) },
-      { who: "T10 바닥", v: judge(p, FLR_H) },
-      { who: "M-type 앞 (R2)", v: judge(p, front) },
-      { who: "M-type 뒤 (H1)", v: judge(p, rear) }
+      { who: "T10 측위 (H530·키트)", v: judgeHeight(p, NAV_KIT_H) },
+      { who: "T10 측위 (로봇 설정)", v: judgeHeight(p, NAV_CFG_H) },
+      { who: "T10 바닥 (7.6 cm)", v: judgeHeight(p, FLR_H) },
+      { who: "M-type 앞 (laser_f)", v: judgeHeight(p, front) },
+      { who: "M-type 뒤 (H1)", v: judgeHeight(p, rear) }
     ];
     ul.innerHTML = "";
     rows.forEach(function (r) {
       var li = document.createElement("li");
-      var who = document.createElement("span");
-      who.className = "who"; who.textContent = r.who;
-      var st = document.createElement("span");
-      st.className = "st " + r.v.cls; st.textContent = r.v.text;
+      var who = document.createElement("span"); who.className = "who"; who.textContent = r.who;
+      var st = document.createElement("span"); st.className = "st " + r.v.cls; st.textContent = r.v.text;
       li.appendChild(who); li.appendChild(st);
       ul.appendChild(li);
     });
   }
-
-  function suggest(front, rear) {
+  function renderHeightSuggest(front, rear) {
     var TOP = 61;
     var out = document.getElementById("suggest");
     var ms = [front, rear].filter(function (h) { return h !== null && !Number.isNaN(h); });
@@ -760,45 +2134,137 @@ tr.sum td { font-weight: 600; border-bottom: none; }
       out.textContent = "높이를 넣으면 윗끝 61 cm 안에서 T10과 M-type이 같이 읽는 붙이는 높이를 계산합니다.";
       return;
     }
-    var hs = ms.concat([NAV_H]);
+    var hs = ms.concat([NAV_KIT_H, NAV_CFG_H]);
     var highest = Math.max.apply(null, hs);
+    var lowest = Math.min.apply(null, hs);
     out.innerHTML = "";
-    if (highest + 10 > TOP) {
-      var w = document.createElement("b");
-      w.className = "st bad";
-      w.textContent = "윗끝 61 cm로는 여유가 모자랍니다";
-      out.appendChild(w);
-      out.appendChild(document.createTextNode(". 가장 높은 라이다(" + fmt(highest) + " cm) 위로 10 cm 여유를 두려면 " +
-        fmt(highest + 10) + " cm까지 붙여야 합니다. 그 라이다는 가까이서만 읽히거나 차체가 숙으면 놓칩니다."));
+    if (highest + 5 > TOP) {
+      var bad = document.createElement("b"); bad.className = "st bad";
+      bad.textContent = "윗끝 61 cm로는 위쪽 여유가 부족합니다";
+      out.appendChild(bad);
+      out.appendChild(document.createTextNode(". 가장 높은 라이다(" + fmtNum(highest) + " cm) 위로 최소 5 cm 여유를 두려면 " + fmtNum(highest + 5) + " cm까지 붙여야 합니다."));
       return;
     }
-    var lo = Math.max(0, Math.min(30, Math.floor((Math.min.apply(null, hs) - 10) / 5) * 5));
-    var b1 = document.createElement("b"); b1.textContent = "한 줄로: 바닥에서 " + lo + "~" + TOP + " cm";
-    var b2 = document.createElement("b"); b2.textContent = "바닥 라이다까지: 바닥부터 " + TOP + " cm, 네 장";
-    out.appendChild(document.createTextNode("T10 측위와 넣은 M-type 라이다를 위아래 10 cm 여유로 덮으려면 "));
+    var lo = Math.max(0, Math.min(10, Math.floor((lowest - 5) / 5) * 5));
+    var b1 = document.createElement("b"); b1.textContent = "한 줄 표준: 바닥에서 " + lo + "~" + TOP + " cm (" + (TOP - lo) + " cm × 1장)";
+    var b2 = document.createElement("b"); b2.textContent = "바닥 라이다 포함: 바닥부터 " + TOP + " cm (" + TOP + " cm × 4장)";
+    out.appendChild(document.createTextNode("T10(" + fmtNum(NAV_KIT_H) + "·" + fmtNum(NAV_CFG_H) + " cm)과 M-type(" + ms.map(fmtNum).join("·") + " cm)을 함께 덮으려면 "));
     out.appendChild(b1);
-    out.appendChild(document.createTextNode(" (테이프 " + (TOP - lo) + " cm × 1장) · "));
+    out.appendChild(document.createTextNode(" · "));
     out.appendChild(b2);
-    out.appendChild(document.createTextNode(" (" + TOP + " cm × 4장)."));
+    out.appendChild(document.createTextNode("."));
   }
-
-  function render() {
-    var front = read(inFront), rear = read(inRear);
+  function renderHeight() {
+    var front = readM(inFront), rear = readM(inRear);
     var beams = [
       { h: front, cls: "mf", label: "M 앞" },
       { h: rear, cls: "mr", label: "M 뒤" }
     ];
-    panels.forEach(function (p) { drawPanel(p, beams); verdictList(p, front, rear); });
-    document.getElementById("tf").textContent = front === null || Number.isNaN(front) ? "미측정" : fmt(front) + " cm";
-    document.getElementById("tr").textContent = rear === null || Number.isNaN(rear) ? "미측정" : fmt(rear) + " cm";
-    suggest(front, rear);
+    heightPanels.forEach(function (p) { drawHeightPanel(p, beams); verdictList(p, front, rear); });
+    document.getElementById("tf").textContent = (front === null || Number.isNaN(front) ? "미측정" : fmtNum(front) + " cm") + " (키트 15)";
+    document.getElementById("tr").textContent = rear === null || Number.isNaN(rear) ? "미측정" : fmtNum(rear) + " cm";
+    renderHeightSuggest(front, rear);
+  }
+  [inFront, inRear].forEach(function (i) { i.addEventListener("input", function () { saveM(); renderHeight(); }); });
+  document.querySelectorAll("[data-m-preset]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var val = btn.getAttribute("data-m-preset");
+      inFront.value = val;
+      inRear.value = val;
+      saveM();
+      renderHeight();
+    });
+  });
+
+  /* ==================== 5. SECTION 3 CODEBOOK V2 B01..B09 GRID ==================== */
+  function renderV2Grid() {
+    var container = document.getElementById("grid-v2");
+    container.innerHTML = "";
+    var plates = codebookBPlates();
+    plates.forEach(function (p) {
+      var cell = document.createElement("div");
+      cell.className = "bcell";
+      cell.setAttribute("data-plate-id", p.id);
+
+      var head = document.createElement("div");
+      head.className = "bcell-head";
+      var idEl = document.createElement("span");
+      idEl.className = "bcell-id";
+      idEl.textContent = p.id + " · 판 " + fmtNum(p.plateWidthCm) + " cm";
+      var mEl = document.createElement("span");
+      mEl.className = "bcell-mirror";
+      mEl.textContent = p.mirrorId ? "뒤집으면 " + p.mirrorId : "좌우 대칭";
+      head.appendChild(idEl);
+      head.appendChild(mEl);
+      cell.appendChild(head);
+
+      var scale = 2; // 1 cm = 2 px; max 68 cm = 136 px, viewBox 148 x 54
+      var svg = svgEl("svg", {
+        viewBox: "0 0 148 54",
+        role: "img",
+        "aria-label": p.id + ": 폭 " + fmtNum(p.plateWidthCm) + " cm, 왼쪽 끝 기준 테이프 " +
+          p.edgesCm.map(function (e) { return e[0] + "~" + e[1]; }).join(", ") + " cm, 로봇 읽기 오른쪽부터 " + p.spacingsCm.join("/") + " cm"
+      });
+      svg.appendChild(svgEl("rect", { "class": "cg-board", x: 4, y: 8, width: p.plateWidthCm * scale, height: 36 }));
+      p.leftsCm.forEach(function (lx, sIdx) {
+        svg.appendChild(svgEl("rect", {
+          "class": "cg-strip",
+          x: 4 + lx * scale,
+          y: 11,
+          width: p.stripWidthCm * scale,
+          height: 30
+        }));
+        svg.appendChild(svgEl("text", {
+          x: 4 + (lx + p.stripWidthCm / 2) * scale,
+          y: 30,
+          "text-anchor": "middle",
+          "font-size": "11",
+          "font-weight": "700",
+          fill: "var(--ink)"
+        }, String(sIdx + 1)));
+      });
+      cell.appendChild(svg);
+
+      var spec = document.createElement("div");
+      spec.className = "bcell-spec";
+      spec.textContent = "눈금(왼쪽 0): " + p.edgesCm.map(function (e) { return e[0] + "~" + e[1]; }).join(" · ") + " cm";
+      cell.appendChild(spec);
+
+      var meta = document.createElement("div");
+      meta.className = "bcell-meta num";
+      meta.textContent = "마주 본 빈칸 " + p.gapsCm.join(" · ") + " cm | 로봇 읽기(오른쪽) " + p.spacingsCm.join(" / ");
+      cell.appendChild(meta);
+
+      container.appendChild(cell);
+    });
+    return plates;
   }
 
-  load();
-  [inFront, inRear].forEach(function (i) { i.addEventListener("input", function () { save(); render(); }); });
-  render();
+  /* ==================== BOOT ==================== */
+  loadPlanState();
+  renderPlacement();
+  loadM();
+  renderHeight();
+  renderV2Grid();
+
+  /* Export pure helpers for automated verification (offline test only, harmless in browser) */
+  window.ReflectorGuide = {
+    GRID_CM: GRID_CM,
+    MAX_ENUMERATED_SIGNATURES: MAX_ENUMERATED_SIGNATURES,
+    MAX_DISTINCT_WIDTHS: MAX_DISTINCT_WIDTHS,
+    INVALID_INPUT_CAPACITY_TEXT: INVALID_INPUT_CAPACITY_TEXT,
+    parseWidthsCm: parseWidthsCm,
+    signaturesForWidth: signaturesForWidth,
+    minimumRequiredWidthCm: minimumRequiredWidthCm,
+    buildPlacementTable: buildPlacementTable,
+    stripHeightGuidance: stripHeightGuidance,
+    tapeEdgesText: tapeEdgesText,
+    faceBarStripLayout: faceBarStripLayout,
+    CODEBOOK_V2: CODEBOOK_V2,
+    facedSpacings: facedSpacings,
+    codebookBPlates: codebookBPlates
+  };
 })();
 </script>
-
 </body>
 </html>
