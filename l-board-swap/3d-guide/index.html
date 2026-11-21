@@ -1,0 +1,3416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>L-type 메인보드 교체 3D 가이드 — 보고 그대로 따라하기</title>
+<style>
+:root {
+  --bg: #eef3f8;
+  --surface: #ffffff;
+  --surface-soft: #f6f9fc;
+  --fg: #0f172a;
+  --fg-sub: #334155;
+  --muted: #64748b;
+  --border: #d8e2ee;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-soft: #eff6ff;
+  --ok: #059669;
+  --ok-soft: #ecfdf5;
+  --ok-border: #a7f3d0;
+  --warn: #d97706;
+  --warn-soft: #fffbeb;
+  --warn-border: #fde68a;
+  --danger: #dc2626;
+  --danger-soft: #fef2f2;
+  --danger-border: #fecaca;
+  --sky: #0284c7;
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.12);
+  --shadow-lg: 0 14px 36px rgba(15, 23, 42, 0.16);
+  --radius: 14px;
+  --radius-sm: 9px;
+  --sans: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", "Segoe UI", system-ui, sans-serif;
+  --topbar-h: 60px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Top Navigation Bar */
+.topbar {
+  height: var(--topbar-h);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px;
+  position: relative;
+  z-index: 40;
+  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.04);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.brand-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563eb, #0284c7);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.28);
+}
+.brand-text h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.brand-text span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Candidate Switcher Pill */
+.cand-switch {
+  display: inline-flex;
+  background: #edf2f7;
+  padding: 3px;
+  border-radius: 11px;
+  border: 1px solid var(--border);
+  gap: 3px;
+}
+.cand-btn {
+  border: none;
+  background: transparent;
+  color: var(--fg-sub);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.cand-btn .sub-pill {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 99px;
+  background: rgba(15, 23, 42, 0.07);
+}
+.cand-btn.active {
+  background: #ffffff;
+  color: var(--primary);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
+}
+.cand-btn.active .sub-pill {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+.cand-btn.cand1.active {
+  color: #b45309;
+}
+.cand-btn.cand1.active .sub-pill {
+  background: var(--warn-soft);
+  color: #b45309;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.top-btn {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 9px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.16s ease;
+  white-space: nowrap;
+}
+.top-btn:hover {
+  background: var(--surface-soft);
+  border-color: #94a3b8;
+}
+.top-btn.photo-active {
+  background: #0ea5e9;
+  border-color: #0284c7;
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(14, 165, 233, 0.35);
+}
+.top-btn.dash-link {
+  background: var(--surface-soft);
+  color: var(--primary);
+  border-color: #bfdbfe;
+}
+.top-btn.dash-link:hover {
+  background: var(--primary-soft);
+}
+
+/* Main Split Workspace */
+.workspace {
+  display: flex;
+  height: calc(100vh - var(--topbar-h));
+  width: 100%;
+  position: relative;
+}
+
+/* Left 3D Viewport (70%) */
+.stage-wrap {
+  flex: 1 1 70%;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 42%, #f8fbff 0%, #e5edf6 62%, #d5e0ec 100%);
+  user-select: none;
+}
+#canvas-container {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+#canvas-container:active { cursor: grabbing; }
+#canvas-container.hover-part { cursor: pointer; }
+
+/* Floating HUD Overlays on 3D Stage */
+.stage-top-left {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 390px;
+  pointer-events: none;
+}
+.stage-pill {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(203, 213, 225, 0.9);
+  border-radius: 12px;
+  padding: 8px 13px;
+  box-shadow: var(--shadow-sm);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+}
+.stage-pill .step-tag {
+  background: var(--primary);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+.stage-hint {
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  border-radius: 99px;
+  padding: 4px 11px;
+  font-size: 11.5px;
+  color: var(--fg-sub);
+  width: fit-content;
+}
+
+/* Candidate 1 Width Warning Banner on 3D Stage */
+.cand1-banner {
+  pointer-events: auto;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: rgba(254, 242, 242, 0.95);
+  border: 1.5px solid #ef4444;
+  color: #991b1b;
+  border-radius: 11px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.18);
+}
+.cand1-banner.show { display: flex; }
+
+/* Stage Top Right Controls (Reset Camera + Quick Angle) */
+.stage-top-right {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+.mini-ctrl {
+  border: 1px solid rgba(203, 213, 225, 0.95);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 11px;
+  border-radius: 9px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s;
+}
+.mini-ctrl:hover {
+  background: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Step 5 Interactive IMU Toggle Overlay */
+.imu-overlay {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow-lg);
+}
+.imu-overlay.show { display: flex; }
+.imu-toggle-row {
+  display: flex;
+  gap: 8px;
+}
+.imu-btn {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.18s;
+  background: #f1f5f9;
+  color: var(--fg-sub);
+}
+.imu-btn.good.active {
+  background: var(--ok);
+  color: #fff;
+  border-color: #047857;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
+}
+.imu-btn.bad.active {
+  background: var(--danger);
+  color: #fff;
+  border-color: #b91c1c;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+}
+.imu-status-line {
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+.imu-status-line.good { background: var(--ok-soft); color: #065f46; }
+.imu-status-line.bad { background: var(--danger-soft); color: #991b1b; }
+
+/* Photo Guide Mode Overlay (Viewfinder + 3 Spots) */
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  pointer-events: none;
+  display: none;
+}
+.photo-overlay.show { display: block; }
+.viewfinder {
+  position: absolute;
+  inset: 22px 24px 92px 24px;
+  border: 2px dashed rgba(14, 165, 233, 0.65);
+  border-radius: 18px;
+  pointer-events: none;
+}
+.vf-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: #0284c7;
+  border-style: solid;
+}
+.vf-tl { top: -2px; left: -2px; border-width: 4px 0 0 4px; border-radius: 10px 0 0 0; }
+.vf-tr { top: -2px; right: -2px; border-width: 4px 4px 0 0; border-radius: 0 10px 0 0; }
+.vf-bl { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; border-radius: 0 0 0 10px; }
+.vf-br { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; border-radius: 0 0 10px 0; }
+
+.photo-bar {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  border: 2px solid #0ea5e9;
+  border-radius: 16px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow-lg);
+  max-width: min(92%, 560px);
+}
+.photo-btns {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.photo-spot-btn {
+  border: 1.5px solid #bae6fd;
+  background: #f0f9ff;
+  color: #0369a1;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.photo-spot-btn.active {
+  background: #0284c7;
+  color: #fff;
+  border-color: #0284c7;
+  box-shadow: 0 3px 10px rgba(2, 132, 199, 0.35);
+}
+.photo-close-btn {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: var(--fg-sub);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+.photo-caption {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  text-align: center;
+  line-height: 1.45;
+}
+
+/* Hover Floating Label */
+.hover-pill {
+  position: absolute;
+  z-index: 25;
+  pointer-events: none;
+  display: none;
+  background: rgba(15, 23, 42, 0.9);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+  transform: translate(14px, -10px);
+}
+
+/* Click "이게 뭐예요?" Speech Bubble Card */
+.part-card {
+  position: absolute;
+  bottom: 92px;
+  left: 16px;
+  z-index: 26;
+  width: min(350px, calc(100% - 32px));
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid #bfdbfe;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow-lg);
+  display: none;
+  animation: popIn 0.18s ease-out;
+}
+.part-card.show { display: block; }
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.part-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.part-card-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.part-card-title {
+  margin: 2px 0 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--fg);
+}
+.part-card-close {
+  border: none;
+  background: #f1f5f9;
+  color: var(--fg-sub);
+  width: 26px;
+  height: 26px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.part-card-desc {
+  margin: 6px 0 8px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--fg-sub);
+}
+.part-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.part-chip {
+  font-size: 11.5px;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: var(--fg-sub);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.part-chip.tip {
+  background: var(--warn-soft);
+  color: #92400e;
+}
+
+/* Bottom Playback Dock */
+.dock {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(203, 213, 225, 0.95);
+  border-radius: 16px;
+  padding: 8px 12px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: min(680px, calc(100% - 24px));
+}
+.dock-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.dock-btns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ctrl-btn {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 7px 13px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s;
+}
+.ctrl-btn:hover { background: var(--surface-soft); }
+.ctrl-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.ctrl-btn.play {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  padding: 7px 16px;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.28);
+}
+.ctrl-btn.play:hover { background: var(--primary-hover); }
+.ctrl-btn.play.playing {
+  background: #ea580c;
+  border-color: #ea580c;
+  box-shadow: 0 3px 10px rgba(234, 88, 12, 0.28);
+}
+
+.speed-group {
+  display: inline-flex;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
+}
+.speed-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.speed-btn.active {
+  background: #fff;
+  color: var(--primary);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
+}
+
+.step-dots {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 4px;
+}
+.step-dot {
+  border: 1px solid #dbe4ef;
+  background: #f8fafc;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 2px;
+  border-radius: 7px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.step-dot:hover { background: #eff6ff; color: var(--primary); }
+.step-dot.done { background: #ecfdf5; border-color: #a7f3d0; color: #047857; }
+.step-dot.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+.step-dot.important:not(.active) {
+  border-color: #fbbf24;
+  background: #fffbeb;
+  color: #b45309;
+}
+
+/* Right Guide Panel (30%) */
+.guide-panel {
+  flex: 0 0 31%;
+  min-width: 330px;
+  max-width: 440px;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 25;
+}
+.guide-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 20px 28px;
+}
+.step-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.step-badge-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border: 1px solid #bfdbfe;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+.step-badge-lg.star {
+  color: #b45309;
+  background: var(--warn-soft);
+  border-color: var(--warn-border);
+}
+.step-time {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.step-title {
+  margin: 0 0 8px;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+  color: var(--fg);
+}
+.step-lead {
+  margin: 0 0 14px;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.58;
+  color: var(--fg-sub);
+  background: var(--surface-soft);
+  border-left: 4px solid var(--primary);
+  padding: 10px 12px;
+  border-radius: 0 10px 10px 0;
+}
+
+.action-list {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 11px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  font-size: 13.8px;
+  line-height: 1.5;
+  color: var(--fg);
+}
+.action-num {
+  width: 23px;
+  height: 23px;
+  border-radius: 99px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.action-item strong { color: #0f172a; }
+
+.callout {
+  border-radius: 12px;
+  padding: 12px 13px;
+  margin-bottom: 14px;
+  font-size: 13.2px;
+  line-height: 1.55;
+}
+.callout-title {
+  font-weight: 800;
+  font-size: 13.5px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.callout.warn {
+  background: var(--warn-soft);
+  border: 1.5px solid #f59e0b;
+  color: #78350f;
+}
+.callout.danger {
+  background: var(--danger-soft);
+  border: 1.5px solid #ef4444;
+  color: #7f1d1d;
+}
+.callout.ok {
+  background: var(--ok-soft);
+  border: 1.5px solid #10b981;
+  color: #064e3b;
+}
+.callout.info {
+  background: var(--primary-soft);
+  border: 1.5px solid #93c5fd;
+  color: #1e3a8a;
+}
+
+/* Step 7 5-Item Success Checklist */
+.success-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.success-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: var(--ok-soft);
+  border: 1px solid var(--ok-border);
+  color: #065f46;
+  font-size: 13px;
+  font-weight: 700;
+}
+.success-badge {
+  background: var(--ok);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+/* Board Spec Mini Compare Box */
+.spec-box {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 13px;
+  background: #fbfdff;
+  margin-bottom: 14px;
+}
+.spec-box-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  margin-bottom: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.spec-kv {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 4px 8px;
+  font-size: 12.6px;
+  line-height: 1.45;
+}
+.spec-k { color: var(--muted); font-weight: 700; }
+.spec-v { color: var(--fg); font-weight: 700; }
+
+/* Cable Legend Strip */
+.cable-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.cable-chip {
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+.cable-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 99px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* Loading & Fallback Banner */
+.loading-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  background: linear-gradient(135deg, #f8fbff, #e5edf6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+}
+.loading-mask.hidden { display: none; }
+.spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid #cbd5e1;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Responsive Mobile Layout */
+@media (max-width: 960px) {
+  html, body { overflow: auto; height: auto; }
+  .topbar {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .brand-text span { display: none; }
+  .cand-switch { order: 3; width: 100%; justify-content: stretch; }
+  .cand-btn { flex: 1; justify-content: center; font-size: 11.5px; padding: 6px 6px; }
+  .cand-btn .sub-pill { display: none; }
+  .workspace {
+    flex-direction: column;
+    height: auto;
+  }
+  .stage-wrap {
+    flex: none;
+    width: 100%;
+    height: 54vh;
+    min-height: 360px;
+  }
+  .guide-panel {
+    flex: none;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+  .guide-scroll { overflow: visible; padding: 16px; }
+  .dock { padding: 6px 8px; bottom: 8px; }
+  .step-dot { font-size: 10px; padding: 3px 1px; }
+  .ctrl-btn { font-size: 12px; padding: 6px 10px; }
+  .stage-hint { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-badge">3D</div>
+    <div class="brand-text">
+      <h1>L-type 메인보드 교체 3D 가이드</h1>
+      <span>하드웨어 몰라도 OK · 마우스로 돌려보며 그대로 따라하기</span>
+    </div>
+  </div>
+
+  <div class="cand-switch" role="group" aria-label="새 보드 후보 비교">
+    <button type="button" class="cand-btn cand3b active" id="btnCand3B" onclick="setCandidate('3b')">
+      <span>후보 3-B · Orin NX</span>
+      <span class="sub-pill">작고 쏙 들어감</span>
+    </button>
+    <button type="button" class="cand-btn cand1" id="btnCand1" onclick="setCandidate('1')">
+      <span>후보 1 · OK3588J-C</span>
+      <span class="sub-pill">123만 원 저렴·실측필수</span>
+    </button>
+  </div>
+
+  <div class="topbar-right">
+    <button type="button" class="top-btn" id="btnPhotoMode" onclick="togglePhotoMode()">📷 사진 찍을 곳 3군데</button>
+    <a class="top-btn dash-link" href="../">📊 상세 견적·기술표 보기</a>
+  </div>
+</header>
+
+<!-- Main Split Workspace -->
+<main class="workspace">
+  <!-- Left 3D Studio Viewport -->
+  <section class="stage-wrap" aria-label="3D 인터랙티브 조립 뷰어">
+    <div id="canvas-container"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-mask" id="loadingMask">
+      <div class="spinner"></div>
+      <div style="font-weight:800;font-size:15px;">3D 로봇 내부 조립 화면을 불러오는 중...</div>
+      <div id="loadingSub" style="font-size:12.5px;color:#64748b;">Three.js 3D 엔진 초기화 중</div>
+    </div>
+
+    <!-- Top Left Status Pill & Candidate 1 Warning -->
+    <div class="stage-top-left">
+      <div class="stage-pill">
+        <span class="step-tag" id="hudStepTag">0단계</span>
+        <span id="hudStepName">전체 보기</span>
+      </div>
+      <div class="stage-hint">🖱️ 드래그: 360° 회전 · 휠: 확대/축소 · 부품 클릭: 쉬운 설명</div>
+      <div class="cand1-banner" id="cand1Banner">
+        <span>⚠️</span>
+        <span>후보 1 (190×130mm)은 기존 폭(142mm)보다 큽니다! 빨간 영역을 줄자로 꼭 실측하세요.</span>
+      </div>
+    </div>
+
+    <!-- Top Right Quick Camera Reset -->
+    <div class="stage-top-right">
+      <button type="button" class="mini-ctrl" onclick="resetCameraForCurrentView()">↺ 시점 원래대로</button>
+      <button type="button" class="mini-ctrl" id="btnInspectToggle" onclick="togglePartLabelsGuide()">💡 부품 클릭 안내</button>
+    </div>
+
+    <!-- Step 5 Interactive IMU Orientation Toggle -->
+    <div class="imu-overlay" id="imuOverlay">
+      <div class="imu-toggle-row">
+        <button type="button" class="imu-btn good active" id="btnImuGood" onclick="setImuMode('vertical')">✅ 정답 (세로 장착)</button>
+        <button type="button" class="imu-btn bad" id="btnImuBad" onclick="setImuMode('flat')">❌ 오답 (평평하게 눕힘)</button>
+      </div>
+      <div class="imu-status-line good" id="imuStatusLine">✅ Y 화살표가 땅(아래) · -Y가 하늘 → 설정 0줄 수정 통과!</div>
+    </div>
+
+    <!-- Photo Guide Mode Overlay -->
+    <div class="photo-overlay" id="photoOverlay">
+      <div class="viewfinder">
+        <div class="vf-corner vf-tl"></div>
+        <div class="vf-corner vf-tr"></div>
+        <div class="vf-corner vf-bl"></div>
+        <div class="vf-corner vf-br"></div>
+      </div>
+      <div class="photo-bar">
+        <div class="photo-btns">
+          <button type="button" class="photo-spot-btn active" id="photoSpot1" onclick="selectPhotoSpot(1)">📸 1번: 회색 COM 구멍</button>
+          <button type="button" class="photo-spot-btn" id="photoSpot2" onclick="selectPhotoSpot(2)">📸 2번: 은색 상자 옆 빈 공간</button>
+          <button type="button" class="photo-spot-btn" id="photoSpot3" onclick="selectPhotoSpot(3)">📸 3번: 위 스위치·전원선</button>
+          <button type="button" class="photo-close-btn" onclick="togglePhotoMode(false)">✕ 닫기</button>
+        </div>
+        <div class="photo-caption" id="photoCaption">휴대폰을 이 각도로 대고 찰칵!</div>
+      </div>
+    </div>
+
+    <!-- Hover Tooltip -->
+    <div class="hover-pill" id="hoverPill"></div>
+
+    <!-- Click "이게 뭐예요?" Card -->
+    <div class="part-card" id="partCard" role="dialog" aria-live="polite">
+      <div class="part-card-head">
+        <div>
+          <div class="part-card-eyebrow">이게 뭐예요? (초보 설명)</div>
+          <h3 class="part-card-title" id="partCardTitle">-</h3>
+        </div>
+        <button type="button" class="part-card-close" onclick="closePartCard()" aria-label="닫기">✕</button>
+      </div>
+      <p class="part-card-desc" id="partCardDesc">-</p>
+      <div class="part-card-meta" id="partCardMeta"></div>
+    </div>
+
+    <!-- Bottom Playback Dock -->
+    <div class="dock">
+      <div class="dock-row">
+        <div class="dock-btns">
+          <button type="button" class="ctrl-btn" id="btnPrev" onclick="prevStep()">◀ 이전</button>
+          <button type="button" class="ctrl-btn play" id="btnPlay" onclick="toggleAutoPlay()">▶ 자동 재생</button>
+          <button type="button" class="ctrl-btn" id="btnNext" onclick="nextStep()">다음 ▶</button>
+        </div>
+        <div class="speed-group" role="group" aria-label="재생 속도">
+          <button type="button" class="speed-btn" id="spd05" onclick="setSpeed(0.5)">0.5x</button>
+          <button type="button" class="speed-btn active" id="spd10" onclick="setSpeed(1)">1x</button>
+          <button type="button" class="speed-btn" id="spd15" onclick="setSpeed(1.5)">1.5x</button>
+        </div>
+      </div>
+      <div class="step-dots" id="stepDots"></div>
+    </div>
+  </section>
+
+  <!-- Right Easy Explanation Panel (30%) -->
+  <aside class="guide-panel" aria-label="단계별 쉬운 설명">
+    <div class="guide-scroll" id="guideContent"></div>
+  </aside>
+</main>
+
+<!-- Three.js r128 UMD with Automatic jsDelivr -> unpkg Fallback -->
+<script>
+(function loadThreeEngine() {
+  function loadScript(primary, fallback, onLoad, onFail) {
+    var s = document.createElement('script');
+    s.src = primary;
+    s.onload = onLoad;
+    s.onerror = function() {
+      var s2 = document.createElement('script');
+      s2.src = fallback;
+      s2.onload = onLoad;
+      s2.onerror = onFail;
+      document.head.appendChild(s2);
+    };
+    document.head.appendChild(s);
+  }
+  loadScript(
+    'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js',
+    'https://unpkg.com/three@0.128.0/build/three.min.js',
+    function() {
+      loadScript(
+        'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js',
+        'https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js',
+        function() { window.__init3DGuide && window.__init3DGuide(); },
+        function() { showLoadError('OrbitControls 로드에 실패했습니다. 인터넷 연결을 확인해주세요.'); }
+      );
+    },
+    function() { showLoadError('Three.js 3D 엔진 로드에 실패했습니다. 인터넷 연결을 확인해주세요.'); }
+  );
+  function showLoadError(msg) {
+    var sub = document.getElementById('loadingSub');
+    if (sub) sub.textContent = msg;
+  }
+})();
+</script>
+
+<script>
+// ============================================================
+// L-type (T10) Mainboard Swap — Interactive 3D Beginner Guide
+// Technical facts 100% synced with MASTER_PLAN_BOARD_SWAP.md
+// Zero sensitive IPs / MACs / personal info / local paths
+// ============================================================
+
+(function() {
+  'use strict';
+
+  // ---- Application State ----
+  const state = {
+    step: 0,
+    candidate: '3b',      // '3b' (Orin NX + ORNX-LAN) | '1' (OK3588J-C + RSD-60G-12)
+    imuMode: 'vertical',  // 'vertical' (good) | 'flat' (bad D0303)
+    autoPlay: false,
+    speed: 1.0,
+    photoMode: false,
+    photoSpot: 1,
+    stepElapsed: 0,
+    userControllingCam: false,
+    camTransitioning: false,
+    hoveredPartId: null
+  };
+
+  // Step auto-advance durations (seconds at 1x)
+  const STEP_DURATIONS = [6.5, 5.5, 7.5, 6.5, 7.0, 8.0, 8.5, 7.5, 8.0];
+
+  // ---- Plain-Korean Beginner Data for Every 3D Part ----
+  const PART_INFO = {
+    'mc40': {
+      title: '원래 두뇌 상자 (MC-40)',
+      desc: '지금 로봇 안에서 길 찾기와 주행을 맡고 있는 은색 금속 상자예요. 위쪽으로 선이 꽂히게 세로로 서 있어요. 이번 작업에서 이 상자만 빼서 보관함에 담아두고 새 보드로 바꿉니다.',
+      chips: ['크기 142×91mm', '세로 장착', '원래 선 절단 0개'],
+      tip: '절대 버리지 마세요! 문제 생기면 15분 만에 그대로 다시 끼워 원복합니다.'
+    },
+    'ic40': {
+      title: '아래쪽 전력·바퀴 제어판 (IC-40)',
+      desc: '48V 배터리 전기를 받아 안전한 24V 정전압으로 바꿔주고, 바퀴 모터와 포크를 움직이는 아래쪽 큰 초록 기판이에요. 이건 교체하지 않고 그대로 씁니다.',
+      chips: ['48V → 정전압 24V', '교체 안 함', '검정 선(eth1) 연결'],
+      tip: '검정색 둥근 선이 이 기판 위쪽에서 올라옵니다.'
+    },
+    'switch': {
+      title: '위쪽 은색 네트워크 스위치',
+      desc: '로봇 안의 라이다(눈), 화면, 무선 관제를 한데 모아주는 인터넷 공유기 같은 상자예요. 하늘색 선이 여기에 꽂혀 있어요.',
+      chips: ['하늘색 선 → eth0', '1Gbps 연결', '빈 구멍 사진 확인'],
+      tip: '나중에 3D 라이다를 달 때 빈 구멍이 있는지 사진으로 확인해요.'
+    },
+    'estop': {
+      title: '빨간 비상정지 버튼 & 주전원 스위치',
+      desc: '작업 시작 전에 안전을 위해 가장 먼저 끄는 스위치예요. 빨간 버섯 버튼을 꾹 누르고 주전원을 내려야 감전·고장 없이 안전하게 선을 뺄 수 있어요.',
+      chips: ['1단계 필수 안전', 'MC-40 초록불 OFF 확인'],
+      tip: '포크를 바닥에 완전히 내린 뒤 눌러주세요.'
+    },
+    'cable-blue': {
+      title: '하늘색 선 (1번 eth0 · 스위치 행)',
+      desc: '위쪽 은색 스위치와 연결된 하늘색 인터넷 선이에요. 원래 상자에는 ENET1이라고 적혀 있지만, 새 보드에서는 반드시 "eth0 (1번)" 자리에 꽂아야 합니다!',
+      chips: ['노란 이름표: eth0 1번', '돼지코 어댑터 사용', '선 자르지 않음'],
+      tip: '원래 상자 글자(ENET1)에 속지 말고 "하늘색 = 1번(eth0)"만 기억하세요!'
+    },
+    'cable-black': {
+      title: '검정 선 (2번 eth1 · 아래보드 행)',
+      desc: '아래쪽 IC-40 제어판과 연결된 검정색 선이에요. 원래 상자에는 ENET0이라고 적혀 있지만, 새 보드에서는 반드시 "eth1 (2번)" 자리에 꽂아야 합니다!',
+      chips: ['노란 이름표: eth1 2번', '돼지코 어댑터 사용', '선 자르지 않음'],
+      tip: '원래 상자 글자(ENET0)와 반대예요. "검정색 = 2번(eth1)"만 기억하세요!'
+    },
+    'cable-com': {
+      title: '회색 40핀 큰 뭉치 (COM)',
+      desc: '24V 전기와 조종기·모터 신호(CAN)가 한꺼번에 들어 있는 회색 큰 플러그예요. 가운데 걸쇠를 손가락으로 누르면서 위로 쏙 뽑아요.',
+      chips: ['JAE MX34 40핀', '가운데 걸쇠 눌러 분리'],
+      tip: '선을 자르지 않고 "COM 중간 연결판"에 그대로 착 꽂아 연결합니다.'
+    },
+    'storage': {
+      title: '원래 상자 보관함 (15분 원복 보험)',
+      desc: '빼낸 원래 MC-40 은색 상자를 안전하게 담아두는 전용 보관함이에요. 혹시라도 새 보드가 말을 안 들으면 이 상자를 꺼내 15분 만에 원래대로 되돌립니다.',
+      chips: ['비파괴 15분 원복', '내부 데이터 그대로 보관'],
+      tip: '원래 상자 안의 메모리는 절대 지우지 않고 보관합니다.'
+    },
+    'plate': {
+      title: '맞춤 금속 받침판',
+      desc: '로봇 차체에 새로 구멍을 뚫지 않도록, 원래 MC-40 나사 구멍 4개에 딱 맞게 만든 알루미늄 받침판이에요. 이 판 위에 새 보드와 세로 방향 센서(IMU)를 얹습니다.',
+      chips: ['원래 구멍 4개 그대로 사용', '구멍 뚫기 0개'],
+      tip: '오른쪽에 방향 센서(IMU)를 세워 달 수 있는 직각 받침대(L브래킷)가 붙어 있어요.'
+    },
+    'board-3b': {
+      title: '후보 3-B: Orin NX + ORNX-LAN (추천)',
+      desc: '가로·세로 10cm 정사각형의 아주 작고 강력한 새 두뇌예요. 원래 상자(14.2cm)보다 작아서 양옆 전선 사이에 쏙 들어가고, 24V 전기를 변환기 없이 바로 꽂을 수 있어요!',
+      chips: ['크기 100×100mm', '24V 직결 가능', '교체 세트 약 262만 원'],
+      tip: '공간 걱정 없고 배선이 가장 깔끔해서 일정·확실성 우선 시 최고예요.'
+    },
+    'board-1': {
+      title: '후보 1: OK3588J-C (123만 원 저렴)',
+      desc: '가격이 후보 3-B보다 약 123만 원이나 저렴한 산업용 보드예요! 대신 크기가 190×130mm로 기존 상자(142mm)보다 넓어서, 줄자로 빈 공간을 먼저 재본 뒤 결정해야 해요.',
+      chips: ['크기 190×130mm', '교체 세트 약 139만 원', '줄자 실측 필수!'],
+      tip: '빨간 경고 영역이 양옆 전선 다발과 부딪히지 않는지 실측 사진 2번으로 꼭 확인하세요.'
+    },
+    'rsd': {
+      title: '전원 변환기 (RSD-60G-12)',
+      desc: '후보 1 보드는 12V 전기를 먹기 때문에, 로봇의 24V 전기를 안전한 12V로 바꿔주는 철도급 튼튼한 전원 어댑터예요. 후보 3-B를 쓰면 필요 없어요!',
+      chips: ['크기 128×60×25mm', '24V → 12V 변환', '후보 1 전용'],
+      tip: '열과 진동에 강한 산업용이라 바닥에 나사로 고정해 둡니다.'
+    },
+    'imu': {
+      title: '⭐ 방향 센서 칩 (IMU · OSTSen-6500)',
+      desc: '로봇이 왼쪽으로 도는지 오른쪽으로 도는지 느끼는 작은 파란 칩(수평계+나침반)이에요. 반드시 "Y 화살표가 땅(아래)"을 보게 똑바로 세워 나사로 고정해야 합니다!',
+      chips: ['Y 화살표 ↓ 땅', '-Y ↑ 하늘', '설정 0줄 수정 조건'],
+      tip: '평평하게 눕혀 붙이면 로봇이 D0303 에러를 띄우며 출발을 거부해요! 폼테이프도 금지!'
+    },
+    'breakout': {
+      title: 'COM 중간 연결판 + 5A 퓨즈',
+      desc: '로봇의 원래 회색 40핀 큰 뭉치를 선 자르지 않고 그대로 꽂아주는 중간 연결 보드예요. 혹시 전기가 튀어도 새 보드를 지켜주는 5A 안전 퓨즈가 들어 있어요.',
+      chips: ['40핀 원터치 연결', '5A 안전 퓨즈 내장', '배선 절단 0개'],
+      tip: '15분 원복할 때도 이 판에서 회색 뭉치만 쏙 빼면 끝이에요.'
+    },
+    'adapters': {
+      title: '돼지코 변환 어댑터 (M12 암 ↔ RJ45 수)',
+      desc: '로봇의 둥근 쇠 플러그(M12)를 새 보드의 네모난 인터넷 구멍(RJ45)에 끼울 수 있게 바꿔주는 중간 어댑터예요. 해외여행 돼지코처럼 돌려서 끼우기만 하면 돼요!',
+      chips: ['M12 X-코드 8핀 암↔RJ45 수', '2개 사용 (하늘/검정)', '선 자르지 않음'],
+      tip: '하늘색 어댑터는 eth0(1번), 검정 어댑터는 eth1(2번)에 꽂아요.'
+    },
+    'harness': {
+      title: '양옆 검정 배선 다발 (공간 경계)',
+      desc: '원래 MC-40 양옆을 지나가는 두꺼운 전선 묶음이에요. 이 전선들 사이의 빈 폭이 약 142mm라서, 넓은 후보 1 보드(190mm)를 넣으려면 줄자 실측이 꼭 필요해요.',
+      chips: ['기존 폭 약 142mm', '실측 2번 핵심 기준'],
+      tip: '후보 3-B(100mm)는 양옆에 여유가 넉넉하게 남아요.'
+    }
+  };
+
+  // ---- 3 Photo Guide Spots (MASTER_PLAN Section 11) ----
+  const PHOTO_SPOTS = {
+    1: {
+      title: '📸 1번 사진: 회색 큰 뭉치(COM) 정면 구멍',
+      caption: '회색 뭉치(COM)를 뽑아서 "선이 꽂힌 구멍 쪽"과 옆면 글자가 잘 보이게 휴대폰으로 정면 1장 찍어주세요! (어떤 구멍에 무슨 색 선이 있는지 확인용)',
+      camPos: [5.5, 16.5, 11.5],
+      camTarget: [4.6, 11.2, -1.5]
+    },
+    2: {
+      title: '📸 2번 사진: 은색 상자 옆 빈 공간 (줄자 대고!)',
+      caption: '은색 상자(MC-40) 양옆(전선 다발까지)과 위쪽 빈 공간에 줄자를 대고 정면 1장 찍어주세요! 저렴한 후보 1 보드가 들어갈지 결정하는 가장 중요한 사진이에요.',
+      camPos: [0.0, 11.0, 25.0],
+      camTarget: [0.0, 6.8, -1.5]
+    },
+    3: {
+      title: '📸 3번 사진: 위쪽 은색 스위치 & 전원선 글자',
+      caption: '위쪽 은색 스위치 전체(빈 인터넷 구멍이 몇 개인지 + 모델명)와 빨강/검정 전원선 겉면에 인쇄된 굵기 글자를 1장씩 찍어주세요!',
+      camPos: [-3.5, 19.5, 14.5],
+      camTarget: [-2.0, 16.2, -9.5]
+    }
+  };
+
+  // ---- 9 Steps Data (0..8) ----
+  function getStepsData() {
+    const isCand1 = state.candidate === '1';
+    const boardShort = isCand1 ? '후보 1 (OK3588J-C + 전원변환기)' : '후보 3-B (Orin NX + ORNX-LAN)';
+    const boardDim = isCand1 ? '190×130mm (폭 초과 실측 필수!)' : '100×100mm (기존 자리에 쏙 들어감)';
+    const boardPower = isCand1 ? '24V → RSD-60G-12(12V 변환) → 보드' : '정전압 24V → 5A 퓨즈 → 보드 직결';
+    const boardPrice = isCand1 ? '약 139만 원 (후보 3-B보다 123만 원 저렴)' : '약 262만 원 (가장 깔끔·빠른 장착)';
+
+    return [
+      {
+        num: 0,
+        short: '0 전체',
+        name: '로봇 속 구경하기 (전체 보기)',
+        time: '예상 총 작업: 약 1시간',
+        lead: '가운데 서 있는 "은색 두뇌 상자(MC-40)" 하나만 새 보드로 갈아끼워요. 로봇의 원래 선은 단 한 가닥도 자르지 않습니다!',
+        actions: [
+          '<strong>가운데 세로로 선 은색 상자(MC-40)</strong>가 이번에 교체할 로봇의 두뇌예요.',
+          '<strong>아래쪽 큰 초록판(IC-40)</strong>은 48V 배터리를 안전한 24V로 바꿔주는 전력·바퀴 판이라 그대로 둡니다.',
+          '<strong>위쪽 은색 스위치</strong>는 라이다(눈)와 통신을 묶어주는 공유기예요. 하늘색 선으로 연결돼 있어요.',
+          '궁금한 부품이 있으면 <strong>3D 화면에서 직접 클릭</strong>해보세요! 쉬운 설명 말풍선이 뜹니다.'
+        ],
+        callout: {
+          type: 'info',
+          title: '💡 소프트웨어도 건드리지 않아요!',
+          body: '미리 세팅된 새 보드를 끼우기만 하면 기존 로봇 프로그램(native)과 설정 파일은 0줄 수정으로 그대로 돌아갑니다.'
+        },
+        camPos: [17.5, 17.5, 32.0],
+        camTarget: [1.5, 7.8, -0.5]
+      },
+      {
+        num: 1,
+        short: '1 전원OFF',
+        name: '안전하게 전원 완전히 끄기',
+        time: '소요 약 2분',
+        lead: '전기 만지기 전 필수 3단계! 포크를 내리고, 빨간 버섯 버튼을 꾹 누른 뒤, 주전원을 끄세요.',
+        actions: [
+          '먼저 로봇의 <strong>포크를 바닥까지 완전히</strong> 내려놓으세요.',
+          '왼쪽 앞의 <strong>빨간 비상정지 버섯 버튼</strong>을 딸깍 소리가 날 때까지 꾹 누르세요.',
+          '바로 옆 <strong>주전원 스위치</strong>를 OFF로 내립니다.',
+          '은색 상자(MC-40) 위쪽의 <strong>초록색 24V 불빛이 완전히 꺼졌는지</strong> 눈으로 꼭 확인하세요!'
+        ],
+        callout: {
+          type: 'danger',
+          title: '🛑 초록 불이 켜진 채로 선을 뽑지 마세요!',
+          body: '전기가 들어간 상태에서 선을 뽑으면 쇼트가 날 수 있어요. 은색 상자와 위쪽 스위치 불빛이 모두 꺼진 걸 확인하고 다음 단계로 넘어가세요.'
+        },
+        camPos: [-12, 13, 24],
+        camTarget: [-7.5, 5.5, 5.0]
+      },
+      {
+        num: 2,
+        short: '2 선뽑기',
+        name: '이름표 붙이고 선 3개 뽑기',
+        time: '소요 약 5분',
+        lead: '선을 뽑기 전에 노란 이름표부터 붙이세요! 둥근 선은 "병뚜껑 열듯 왼쪽으로" 돌려서 뺍니다.',
+        actions: [
+          '<strong>하늘색 선</strong>에 노란 이름표 <strong>[eth0 1번 · 스위치]</strong>를, <strong>검정 선</strong>에 <strong>[eth1 2번 · 아래보드]</strong>를 먼저 붙이고 휴대폰으로 사진 1장을 남겨요.',
+          '둥근 쇠링 2개(하늘색·검정)를 <strong>병뚜껑 열듯 왼쪽(반시계 ↺)</strong>으로 돌려 위로 쏙 빼세요.',
+          '오른쪽 <strong>회색 큰 뭉치(COM)</strong>는 가운데 걸쇠를 손가락으로 꾸욱 누르면서 위로 똑바로 뽑습니다.'
+        ],
+        callout: {
+          type: 'warn',
+          title: '⚠️ 초주의! 원래 상자 글자(ENET0 / ENET1)는 거꾸로예요!',
+          body: '원래 상자에 적힌 ENET1은 새 보드 1번(eth0), ENET0은 2번(eth1)이라 헷갈리기 쉬워요. <strong>글자는 무시하고 오직 "선 색깔(하늘색=1번, 검정=2번)"만 보세요!</strong>'
+        },
+        camPos: [2.5, 19.5, 13.5],
+        camTarget: [-0.2, 11.2, -1.5]
+      },
+      {
+        num: 3,
+        short: '3 상자보관',
+        name: '나사 4개 풀고 원래 상자 보관하기',
+        time: '소요 약 5분',
+        lead: '은색 상자 네 모서리 나사 4개만 풀면 통째로 빠져요. 오른쪽 "원복 보관함"에 소중히 넣어두세요!',
+        actions: [
+          '드라이버로 은색 상자(MC-40) <strong>양옆 날개 나사 4개</strong>를 왼쪽으로 돌려 풉니다.',
+          '은색 상자를 위쪽으로 조심스럽게 들어 올려 꺼내세요.',
+          '빼낸 은색 상자는 버리거나 포맷하지 말고, 옆의 <strong>"원복 보관함"</strong>에 그대로 담아둡니다.'
+        ],
+        callout: {
+          type: 'ok',
+          title: '🛡️ 왜 보관함에 잘 넣어두나요?',
+          body: '이 은색 상자가 바로 "15분 원복 보험"이에요! 새 보드 테스트 중 문제가 생기면 이 상자만 다시 끼우면 바로 현장 투입이 가능합니다.'
+        },
+        camPos: [14, 15, 29],
+        camTarget: [8.5, 6.2, -0.5]
+      },
+      {
+        num: 4,
+        short: '4 새보드',
+        name: '받침판 & 새 보드 달기',
+        time: '소요 약 10분',
+        lead: isCand1
+          ? '원래 나사 구멍 4개에 맞춤 받침판을 달고 후보 1 보드와 12V 전원변환기를 장착해요. 단, 폭(190mm)이 넓어 실측이 필수입니다!'
+          : '구멍을 새로 뚫지 않아요! 원래 나사 구멍 4개에 맞춤 금속 받침판을 달고, 작고 튼튼한 후보 3-B 보드를 착 고정합니다.',
+        actions: isCand1
+          ? [
+              '<strong>맞춤 금속 받침판</strong>을 원래 MC-40 나사 구멍 4개에 맞춰 나사로 고정해요.',
+              '<strong>후보 1 (OK3588J-C · 190×130mm)</strong>과 <strong>전원변환기(RSD-60G-12 · 128×60mm)</strong>를 장착합니다.',
+              '<strong>3D 화면의 빨간 경고 상자</strong>를 보세요! 기존 폭(142mm)보다 넓어 양옆 배선 다발과 닿을 수 있으니, 발주 전 <strong>줄자 실측(사진 2번)</strong>이 필수예요.'
+            ]
+          : [
+              '<strong>맞춤 금속 받침판</strong>을 원래 MC-40 나사 구멍 4개에 맞춰 그대로 나사로 고정해요.',
+              '<strong>후보 3-B (Orin NX + ORNX-LAN · 100×100mm)</strong>를 받침판 위에 나사로 단단히 고정합니다.',
+              '기존 폭(142mm)보다 4cm 이상 작아서 양옆 전선 다발 사이에 여유 있게 쏙 들어가고, 별도 전원변환기도 필요 없어요!'
+            ],
+        callout: isCand1
+          ? {
+              type: 'danger',
+              title: '📏 후보 1 선택 시: 폭 초과 경고 (190mm vs 142mm)!',
+              body: '후보 1은 약 123만 원 저렴하지만 케이스 포함 시 약 210×150mm로 기존 자리에 안 들어갈 수 있어요. 공간이 부족하면 위쪽 스위치에서 <strong>후보 3-B</strong>를 선택하세요!'
+            }
+          : {
+              type: 'ok',
+              title: '✅ 후보 3-B 장점: 쏙 들어가는 크기 + 24V 직결!',
+              body: '100×100mm 초소형이라 같은 자리에 세워 달기 편하고, 9~32V 입력을 지원해 24V 전기를 변환기 없이 바로 연결합니다. (상단 버튼으로 후보 1과 크기를 비교해보세요!)'
+            },
+        camPos: isCand1 ? [3.5, 13.8, 33.5] : [3.0, 12.2, 26.5],
+        camTarget: isCand1 ? [1.2, 7.6, -1.2] : [0.5, 7.0, -1.2]
+      },
+      {
+        num: 5,
+        short: '5 ⭐IMU',
+        name: '⭐ 초중요: 방향 센서(IMU) 세워 붙이기',
+        time: '소요 약 5분 · 가장 중요!',
+        lead: '이 단계만 제대로 지키면 로봇 설정을 1줄도 안 고쳐도 돼요! 파란 작은 칩의 "Y 화살표가 땅(아래)"을 보게 똑바로 세워 나사로 고정하세요.',
+        actions: [
+          '3D 화면 위쪽의 <strong>[✅ 정답 (세로)] / [❌ 오답 (눕힘)] 버튼</strong>을 직접 눌러 차이를 확인해보세요!',
+          '파란 작은 칩(OSTSen-6500)에 적힌 <strong>Y 화살표가 땅(아래)</strong>을, <strong>-Y 쪽이 하늘(위)</strong>을 향하게 받침판 옆 직각 브래킷에 세워 나사로 고정해요.',
+          '<strong>양면 폼테이프는 절대 금지!</strong> 로봇이 덜컹거릴 때 센서가 흔들려 오류가 나요. 반드시 <strong>금속 스탠드오프 + 나사</strong>로 단단히 조이세요.'
+        ],
+        callout: {
+          type: 'danger',
+          title: '🚨 평평하게 눕히면 왜 안 되나요? (D0303 출발 거부!)',
+          body: '로봇 프로그램이 중력 방향을 "-Y = 하늘"로 읽도록 고정돼 있어요. 칩을 바닥에 평평하게 눕히면 중력을 0으로 착각해 <strong>D0303 에러를 띄우며 출발을 거부</strong>합니다!'
+        },
+        camPos: [11.6, 10.6, 11.2],
+        camTarget: [5.8, 7.7, 0.2]
+      },
+      {
+        num: 6,
+        short: '6 선연결',
+        name: '돼지코 어댑터 끼우고 선 3개 연결',
+        time: '소요 약 10분',
+        lead: '선을 자르지 않고 "중간 연결판"과 "돼지코 어댑터"만 끼워서 딱 3가닥을 순서대로 꽂아주세요!',
+        actions: [
+          '<strong>① 회색 큰 뭉치(COM) 연결</strong>: <strong>COM 중간 연결판(5A 퓨즈 포함)</strong>에 원래 회색 뭉치를 딸깍 꽂아요.' + (isCand1 ? ' (24V 전기가 RSD-60G-12에서 12V로 바뀌어 보드로 들어갑니다.)' : ' (24V 전기와 조종기 신호가 새 보드로 바로 들어갑니다.)'),
+          '<strong>② 하늘색 선 → eth0 (1번)</strong>: 하늘색 둥근 플러그에 <strong>돼지코 어댑터(M12 암↔RJ45 수)</strong>를 돌려서 끼운 뒤, 새 보드 <strong>eth0 1번</strong>에 딸깍 꽂아요.',
+          '<strong>③ 검정 선 → eth1 (2번)</strong>: 검정 둥근 플러그에 두 번째 <strong>돼지코 어댑터</strong>를 돌려서 끼운 뒤, 새 보드 <strong>eth1 2번</strong>에 딸깍 꽂아요.'
+        ],
+        callout: {
+          type: 'warn',
+          title: '🔌 끼우기 전 최종 색깔 체크!',
+          body: '<strong>하늘색 = eth0 (1번, 스위치)</strong> · <strong>검정색 = eth1 (2번, 아래보드)</strong>. 반대로 꽂아도 고장 나진 않지만 통신이 안 되니 이름표를 한 번 더 확인하세요!'
+        },
+        camPos: [6.8, 17.2, 24.5],
+        camTarget: [0.8, 9.8, -0.8]
+      },
+      {
+        num: 7,
+        short: '7 전원ON',
+        name: '전원 켜고 성공 확인하기!',
+        time: '소요 약 10분',
+        lead: '주전원을 올리면 새 보드 불빛이 켜지고 팬이 돌며 초록·파랑 신호가 슝슝 오갑니다! 아래 5가지만 확인하면 성공이에요.',
+        actions: [
+          '빨간 비상정지 버튼을 오른쪽으로 돌려 풀고, <strong>주전원 스위치</strong>를 ON으로 올립니다.',
+          '새 보드의 <strong>초록·파랑 LED 점등</strong>과 <strong>쿨링팬 회전</strong>을 눈으로 확인하세요.',
+          '3D 화면처럼 위쪽 스위치(하늘색 eth0)와 아래쪽 IC-40(검정 eth1)으로 통신이 살아나면 저속 수동 주행부터 테스트합니다!'
+        ],
+        checklist: [
+          '새 보드 전원 LED 점등 & 쿨링팬 부드럽게 회전',
+          '하늘색 eth0 — 라이다 5대 & 스위치 연결 OK',
+          '검정 eth1 — 아래 제어판(IC-40) 바퀴/포크 응답 OK',
+          '세로 IMU 센서 — D0303 에러 없음 & 제자리 좌회전 정상',
+          '로봇 웹 화면 & 관제(FMS) 자동 접속 OK'
+        ],
+        callout: {
+          type: 'ok',
+          title: '🎉 축하합니다! 보드 교체 완료!',
+          body: '일주일 이상 안정적으로 운행한 뒤, 원하시면 나중에 3D 라이다(Mid-360S)도 스위치에 꽂아 바로 확장할 수 있어요.'
+        },
+        camPos: [16.5, 17.0, 29.0],
+        camTarget: [0.5, 8.8, -1.0]
+      },
+      {
+        num: 8,
+        short: '8 원복',
+        name: '안심 보험: 15분 만에 원래대로 되돌리기',
+        time: '비상시 소요 15분',
+        lead: '혹시 현장에서 예상치 못한 문제가 생겨도 걱정 마세요! 원래 선을 하나도 안 잘랐기 때문에 15분 만에 완벽하게 원상 복구됩니다.',
+        actions: [
+          '주전원을 끄고(1단계 동일) 돼지코 어댑터 2개와 회색 COM 뭉치를 분리합니다.',
+          '새 보드와 받침판을 나사 4개 풀어 꺼냅니다.',
+          '오른쪽 <strong>원복 보관함</strong>에 넣어뒀던 <strong>원래 은색 상자(MC-40)</strong>를 제자리에 넣고 나사 4개를 조여요.',
+          '원래 하늘색·검정 둥근 선과 회색 COM 뭉치를 그대로 다시 꽂고 전원을 켜면 끝!'
+        ],
+        callout: {
+          type: 'ok',
+          title: '✅ 되돌릴 때 납땜·선 연결 작업이 "0개"입니다',
+          body: '전부 어댑터와 커넥터로만 연결했기 때문에, 초보자도 드라이버 하나만으로 15분 안에 로봇을 교체 전 상태로 100% 되돌릴 수 있습니다.'
+        },
+        camPos: [15.5, 15.0, 29.0],
+        camTarget: [7.5, 6.5, -0.5]
+      }
+    ].map(s => Object.assign(s, { boardShort, boardDim, boardPower, boardPrice }));
+  }
+
+  // ---- Canvas Texture Helpers (Sharp Printed Labels on 3D Parts) ----
+  function makeLabelTexture(opts) {
+    const w = opts.w || 512;
+    const h = opts.h || 256;
+    const c = document.createElement('canvas');
+    c.width = w;
+    c.height = h;
+    const ctx = c.getContext('2d');
+
+    ctx.fillStyle = opts.bg || '#ffffff';
+    ctx.fillRect(0, 0, w, h);
+
+    if (opts.border) {
+      ctx.strokeStyle = opts.border;
+      ctx.lineWidth = opts.borderWidth || 10;
+      ctx.strokeRect(ctx.lineWidth / 2, ctx.lineWidth / 2, w - ctx.lineWidth, h - ctx.lineWidth);
+    }
+
+    if (opts.draw) {
+      opts.draw(ctx, w, h);
+    } else {
+      ctx.fillStyle = opts.color || '#0f172a';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      if (opts.sub) {
+        ctx.font = '800 ' + (opts.fontSize || 58) + 'px "Malgun Gothic", "Segoe UI", sans-serif';
+        ctx.fillText(opts.text || '', w / 2, h * 0.39);
+        ctx.fillStyle = opts.subColor || '#475569';
+        ctx.font = '700 ' + (opts.subSize || 34) + 'px "Malgun Gothic", "Segoe UI", sans-serif';
+        ctx.fillText(opts.sub, w / 2, h * 0.72);
+      } else {
+        ctx.font = '800 ' + (opts.fontSize || 64) + 'px "Malgun Gothic", "Segoe UI", sans-serif';
+        ctx.fillText(opts.text || '', w / 2, h / 2);
+      }
+    }
+
+    const tex = new THREE.CanvasTexture(c);
+    tex.anisotropy = 4;
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  function makeSpriteSign(text, sub, bg, border, textColor) {
+    const tex = makeLabelTexture({
+      w: 640, h: sub ? 180 : 128,
+      bg: bg || '#ffffff',
+      border: border || '#2563eb',
+      borderWidth: 10,
+      text: text,
+      sub: sub,
+      color: textColor || '#0f172a',
+      subColor: textColor || '#334155',
+      fontSize: sub ? 44 : 48,
+      subSize: 30
+    });
+    const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false });
+    const sp = new THREE.Sprite(mat);
+    sp.renderOrder = 10;
+    return sp;
+  }
+
+  function tagPart(obj, partId) {
+    obj.traverse(ch => {
+      if (ch.isMesh) ch.userData.partId = partId;
+    });
+    obj.userData.partId = partId;
+    return obj;
+  }
+
+  // ---- Main 3D App Initializer ----
+  window.__init3DGuide = function() {
+    const container = document.getElementById('canvas-container');
+    const loadingMask = document.getElementById('loadingMask');
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.08;
+    container.appendChild(renderer.domElement);
+
+    // Bright Modern Engineering Studio Scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xeaf0f7);
+    scene.fog = new THREE.Fog(0xeaf0f7, 70, 145);
+
+    // Camera & OrbitControls
+    const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.2, 220);
+    camera.position.set(16, 16, 26);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.minDistance = 6;
+    controls.maxDistance = 68;
+    controls.maxPolarAngle = Math.PI * 0.49;
+    controls.target.set(0, 7.5, -0.5);
+    controls.addEventListener('start', () => {
+      state.userControllingCam = true;
+      state.camTransitioning = false;
+    });
+
+    // Studio Lighting (Bright, Clean, Crisp Shadows)
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0xcbd5e1, 0.92);
+    hemiLight.position.set(0, 40, 0);
+    scene.add(hemiLight);
+
+    const keyLight = new THREE.DirectionalLight(0xfffdf8, 0.95);
+    keyLight.position.set(22, 34, 24);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.width = 2048;
+    keyLight.shadow.mapSize.height = 2048;
+    keyLight.shadow.camera.near = 5;
+    keyLight.shadow.camera.far = 95;
+    const d = 32;
+    keyLight.shadow.camera.left = -d;
+    keyLight.shadow.camera.right = d;
+    keyLight.shadow.camera.top = d;
+    keyLight.shadow.camera.bottom = -d;
+    keyLight.shadow.bias = -0.0005;
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0xdbeafe, 0.48);
+    fillLight.position.set(-24, 18, -14);
+    scene.add(fillLight);
+
+    const rimLight = new THREE.DirectionalLight(0xffffff, 0.35);
+    rimLight.position.set(0, 14, -26);
+    scene.add(rimLight);
+
+    // Studio Floor + Subtle Engineering Grid
+    const floorGeo = new THREE.PlaneGeometry(160, 160);
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0xe6edf5, roughness: 0.88, metalness: 0.05 });
+    const floor = new THREE.Mesh(floorGeo, floorMat);
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -0.05;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    const grid = new THREE.GridHelper(120, 60, 0xc3d0df, 0xd8e2ee);
+    grid.position.y = -0.02;
+    scene.add(grid);
+
+    // ============================================================
+    // 1. ROBOT ELECTRICAL BAY CHASSIS (Open Cutaway Studio Frame)
+    // ============================================================
+    const bayGroup = new THREE.Group();
+    scene.add(bayGroup);
+
+    const chassisMat = new THREE.MeshStandardMaterial({ color: 0xdce4ee, roughness: 0.45, metalness: 0.35 });
+    const chassisDarkMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.5, metalness: 0.45 });
+
+    // Bay Base Plate (360 x 280 mm)
+    const bayBase = new THREE.Mesh(new THREE.BoxGeometry(36, 0.6, 26), chassisMat);
+    bayBase.position.set(0, 0.3, 0.5);
+    bayBase.receiveShadow = true;
+    bayBase.castShadow = true;
+    bayGroup.add(bayBase);
+
+    // Bay Back Wall
+    const backWall = new THREE.Mesh(new THREE.BoxGeometry(36, 22, 0.6), chassisMat);
+    backWall.position.set(0, 11.2, -12.5);
+    backWall.receiveShadow = true;
+    bayGroup.add(backWall);
+
+    // Subtle Side Frame Rails (open so camera never blocked)
+    [-17.7, 17.7].forEach(sx => {
+      const rail = new THREE.Mesh(new THREE.BoxGeometry(0.6, 2.4, 26), chassisDarkMat);
+      rail.position.set(sx, 1.5, 0.5);
+      rail.receiveShadow = true;
+      bayGroup.add(rail);
+    });
+
+    // Vertical Mounting Bracket Pillar behind MC-40 (z = -3.3)
+    const mountStanchion = new THREE.Mesh(new THREE.BoxGeometry(16.4, 11.2, 0.7), chassisDarkMat);
+    mountStanchion.position.set(0, 6.2, -3.5);
+    mountStanchion.castShadow = true;
+    mountStanchion.receiveShadow = true;
+    bayGroup.add(mountStanchion);
+
+    // 4 Original Threaded Boss Holes on Stanchion (matching MC-40 4 tabs)
+    const bossCoords = [[-7.6, 10.2], [7.6, 10.2], [-7.6, 2.4], [7.6, 2.4]];
+    const brassMat = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.35, metalness: 0.8 });
+    bossCoords.forEach(([bx, by]) => {
+      const boss = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.5, 16), brassMat);
+      boss.rotation.x = Math.PI / 2;
+      boss.position.set(bx, by, -3.05);
+      bayGroup.add(boss);
+    });
+
+    // ============================================================
+    // 2. WIRE HARNESS BUNDLES (Left & Right — defines ~142mm clear bay!)
+    // ============================================================
+    const harnessGroup = new THREE.Group();
+    const loomMat = new THREE.MeshStandardMaterial({ color: 0x262c36, roughness: 0.78, metalness: 0.15 });
+    const tieMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.5, metalness: 0.2 });
+    [-9.2, 9.2].forEach(hx => {
+      const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(hx, 1.4, -11.5),
+        new THREE.Vector3(hx, 2.4, -2.5),
+        new THREE.Vector3(hx, 6.5, -1.6),
+        new THREE.Vector3(hx, 12.2, -2.2),
+        new THREE.Vector3(hx, 15.0, -9.5)
+      ]);
+      const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 32, 1.05, 12, false), loomMat);
+      tube.castShadow = true;
+      tube.receiveShadow = true;
+      harnessGroup.add(tube);
+      // Ribbed cable ties
+      [0.2, 0.4, 0.58, 0.78].forEach(t => {
+        const pt = curve.getPoint(t);
+        const tie = new THREE.Mesh(new THREE.TorusGeometry(1.12, 0.14, 8, 16), tieMat);
+        tie.position.copy(pt);
+        tie.rotation.x = Math.PI / 2;
+        harnessGroup.add(tie);
+      });
+    });
+    tagPart(harnessGroup, 'harness');
+    scene.add(harnessGroup);
+
+    // ============================================================
+    // 3. IC-40 LOWER POWER & MOTOR CONTROLLER BOARD (Flat at bottom)
+    // ============================================================
+    const ic40Group = new THREE.Group();
+    ic40Group.position.set(0, 1.1, 6.5);
+
+    const ic40PcbTex = makeLabelTexture({
+      w: 1024, h: 512, bg: '#136f45', border: '#0b4d2e', borderWidth: 16,
+      draw(ctx, w, h) {
+        ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+        ctx.lineWidth = 4;
+        for (let i = 60; i < w - 60; i += 80) {
+          ctx.beginPath(); ctx.moveTo(i, 40); ctx.lineTo(i, h - 40); ctx.stroke();
+        }
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 72px "Malgun Gothic", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('IC-40 아래 제어판', w / 2, 195);
+        ctx.fillStyle = '#fde68a';
+        ctx.font = '800 44px "Malgun Gothic", sans-serif';
+        ctx.fillText('48V 배터리 → 정전압 24V 공급', w / 2, 285);
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '700 32px "Malgun Gothic", sans-serif';
+        ctx.fillText('바퀴·포크 제어 (교체 안 함 · 그대로 사용)', w / 2, 360);
+      }
+    });
+    const ic40Materials = [
+      new THREE.MeshStandardMaterial({ color: 0x0f5c39, roughness: 0.55 }),
+      new THREE.MeshStandardMaterial({ color: 0x0f5c39, roughness: 0.55 }),
+      new THREE.MeshStandardMaterial({ map: ic40PcbTex, roughness: 0.48 }),
+      new THREE.MeshStandardMaterial({ color: 0x0f5c39, roughness: 0.55 }),
+      new THREE.MeshStandardMaterial({ color: 0x0f5c39, roughness: 0.55 }),
+      new THREE.MeshStandardMaterial({ color: 0x0f5c39, roughness: 0.55 })
+    ];
+    const ic40Board = new THREE.Mesh(new THREE.BoxGeometry(22, 0.8, 10.5), ic40Materials);
+    ic40Board.castShadow = true;
+    ic40Board.receiveShadow = true;
+    ic40Group.add(ic40Board);
+
+    // Terminal blocks & IC chips on IC-40
+    const chipDarkMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.45, metalness: 0.25 });
+    const capMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.3, metalness: 0.7 });
+    [[-7.5, -2.5], [7.5, -2.5], [7.5, 2.5]].forEach(([cx, cz]) => {
+      const blk = new THREE.Mesh(new THREE.BoxGeometry(3.2, 1.1, 2.2), chipDarkMat);
+      blk.position.set(cx, 0.85, cz);
+      blk.castShadow = true;
+      ic40Group.add(blk);
+    });
+    for (let i = 0; i < 4; i++) {
+      const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 1.3, 14), capMat);
+      cap.position.set(-8.2 + i * 1.4, 0.95, 3.2);
+      ic40Group.add(cap);
+    }
+
+    // M12 Socket on IC-40 top-left (origin of black eth1 cable!)
+    const metalMat = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, roughness: 0.28, metalness: 0.82 });
+    const ic40M12Port = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 1.2, 18), metalMat);
+    ic40M12Port.position.set(-2.6, 0.9, -3.6);
+    ic40Group.add(ic40M12Port);
+
+    tagPart(ic40Group, 'ic40');
+    scene.add(ic40Group);
+
+    // ============================================================
+    // 4. TOP SILVER ETHERNET SWITCH (스위치)
+    // ============================================================
+    const switchGroup = new THREE.Group();
+    switchGroup.position.set(-2.0, 16.5, -9.6);
+
+    const swFrontTex = makeLabelTexture({
+      w: 1024, h: 320, bg: '#d8e1ec', border: '#64748b', borderWidth: 10,
+      draw(ctx, w, h) {
+        ctx.fillStyle = '#0f172a';
+        ctx.font = '900 54px "Malgun Gothic", sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('은색 네트워크 스위치', 36, 86);
+        ctx.fillStyle = '#0284c7';
+        ctx.font = '800 36px "Malgun Gothic", sans-serif';
+        ctx.fillText('하늘색 선 → eth0 (라이다·관제 연결)', 36, 148);
+        // Draw 8 RJ45 ports
+        for (let i = 0; i < 8; i++) {
+          const px = 42 + i * 116;
+          ctx.fillStyle = i === 0 ? '#0284c7' : '#1e293b';
+          ctx.fillRect(px, 190, 86, 86);
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = '700 26px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(String(i + 1), px + 43, 298);
+        }
+      }
+    });
+    const swBodyMat = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, roughness: 0.35, metalness: 0.65 });
+    const swMats = [swBodyMat, swBodyMat, swBodyMat, swBodyMat, new THREE.MeshStandardMaterial({ map: swFrontTex, roughness: 0.4 }), swBodyMat];
+    const swBody = new THREE.Mesh(new THREE.BoxGeometry(14.5, 4.4, 4.8), swMats);
+    swBody.castShadow = true;
+    swBody.receiveShadow = true;
+    switchGroup.add(swBody);
+
+    // Switch LEDs
+    const swLedMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, emissive: 0x22c55e, emissiveIntensity: 1.4 });
+    for (let i = 0; i < 5; i++) {
+      const led = new THREE.Mesh(new THREE.SphereGeometry(0.18, 10, 10), swLedMat);
+      led.position.set(-5.6 + i * 1.65, 1.5, 2.45);
+      switchGroup.add(led);
+    }
+    tagPart(switchGroup, 'switch');
+    scene.add(switchGroup);
+
+    // ============================================================
+    // 5. FRONT-LEFT SAFETY CONTROL PANEL (E-Stop + Main Switch)
+    // ============================================================
+    const estopGroup = new THREE.Group();
+    estopGroup.position.set(-14.6, 2.2, 9.6);
+
+    const ctrlBox = new THREE.Mesh(
+      new THREE.BoxGeometry(4.4, 3.2, 6.2),
+      new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.42, metalness: 0.1 })
+    );
+    ctrlBox.castShadow = true;
+    ctrlBox.receiveShadow = true;
+    estopGroup.add(ctrlBox);
+
+    // Red Mushroom E-Stop Button
+    const estopStem = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.55, 0.55, 1.0, 18),
+      new THREE.MeshStandardMaterial({ color: 0x334155 })
+    );
+    estopStem.position.set(0, 1.9, -1.2);
+    estopGroup.add(estopStem);
+
+    const estopCap = new THREE.Mesh(
+      new THREE.CylinderGeometry(1.45, 1.25, 0.9, 24),
+      new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.3, metalness: 0.1 })
+    );
+    estopCap.position.set(0, 2.55, -1.2);
+    estopCap.castShadow = true;
+    estopGroup.add(estopCap);
+
+    // E-stop label plate
+    const estopLbl = new THREE.Mesh(
+      new THREE.PlaneGeometry(4.0, 1.2),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({ w: 512, h: 144, bg: '#fef08a', border: '#ca8a04', text: '비상정지 / 주전원', color: '#991b1b', fontSize: 48 })
+      })
+    );
+    estopLbl.position.set(0, 0.2, 3.12);
+    estopGroup.add(estopLbl);
+
+    // Main Power Toggle Switch
+    const swBase = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.6, 1.8), chipDarkMat);
+    swBase.position.set(0, 1.8, 1.5);
+    estopGroup.add(swBase);
+
+    const powerLeverPivot = new THREE.Group();
+    powerLeverPivot.position.set(0, 2.0, 1.5);
+    const powerLever = new THREE.Mesh(
+      new THREE.BoxGeometry(0.55, 1.4, 0.45),
+      new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.35, metalness: 0.4 })
+    );
+    powerLever.position.set(0, 0.65, 0);
+    powerLeverPivot.add(powerLever);
+    estopGroup.add(powerLeverPivot);
+
+    const powerPilotMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, emissive: 0x22c55e, emissiveIntensity: 1.5 });
+    const powerPilot = new THREE.Mesh(new THREE.SphereGeometry(0.32, 14, 14), powerPilotMat);
+    powerPilot.position.set(1.3, 1.75, 1.5);
+    estopGroup.add(powerPilot);
+
+    tagPart(estopGroup, 'estop');
+    scene.add(estopGroup);
+
+    // ============================================================
+    // 6. ORIGINAL PARTS SAFE STORAGE BOX (원복 보관함)
+    // ============================================================
+    const storageGroup = new THREE.Group();
+    storageGroup.position.set(27.0, 0.0, -0.5);
+
+    const trayOuterMat = new THREE.MeshStandardMaterial({ color: 0x3b82f6, roughness: 0.4, metalness: 0.15 });
+    const trayFoamMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.92 });
+
+    const trayBottom = new THREE.Mesh(new THREE.BoxGeometry(17.5, 0.8, 12.5), trayOuterMat);
+    trayBottom.position.y = 0.4;
+    trayBottom.receiveShadow = true;
+    trayBottom.castShadow = true;
+    storageGroup.add(trayBottom);
+
+    const trayFoam = new THREE.Mesh(new THREE.BoxGeometry(16.2, 0.5, 11.2), trayFoamMat);
+    trayFoam.position.y = 1.0;
+    trayFoam.receiveShadow = true;
+    storageGroup.add(trayFoam);
+
+    // 4 Low Walls
+    [
+      [0, 2.0, 6.0, 17.5, 2.6, 0.5],
+      [0, 2.0, -6.0, 17.5, 2.6, 0.5],
+      [-8.5, 2.0, 0, 0.5, 2.6, 12.5],
+      [8.5, 2.0, 0, 0.5, 2.6, 12.5]
+    ].forEach(([x, y, z, w, h, d]) => {
+      const wall = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), trayOuterMat);
+      wall.position.set(x, y, z);
+      wall.castShadow = true;
+      storageGroup.add(wall);
+    });
+
+    // Storage Front Sign
+    const storageSign = new THREE.Mesh(
+      new THREE.PlaneGeometry(15.2, 2.2),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({
+          w: 768, h: 128, bg: '#ffffff', border: '#2563eb', borderWidth: 8,
+          text: '원래 MC-40 보관함 (15분 원복용)', color: '#1e3a8a', fontSize: 42
+        })
+      })
+    );
+    storageSign.position.set(0, 2.0, 6.28);
+    storageGroup.add(storageSign);
+
+    tagPart(storageGroup, 'storage');
+    scene.add(storageGroup);
+
+    // ============================================================
+    // 7. ORIGINAL MC-40 ENCLOSURE (142 x 91 x 30 mm, Vertical!)
+    // ============================================================
+    const mc40Group = new THREE.Group();
+    const MC40_HOME = new THREE.Vector3(0, 6.3, -1.6);
+    mc40Group.position.copy(MC40_HOME);
+
+    const silverMat = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, roughness: 0.32, metalness: 0.72 });
+    const silverDarkMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.42, metalness: 0.65 });
+
+    // Main Body (14.2 x 9.1 x 2.8)
+    const mcBody = new THREE.Mesh(new THREE.BoxGeometry(14.2, 9.1, 2.8), silverMat);
+    mcBody.castShadow = true;
+    mcBody.receiveShadow = true;
+    mc40Group.add(mcBody);
+
+    // Front Heatsink Cooling Fins (facing IC-40, +Z)
+    for (let i = -5.6; i <= 5.6; i += 1.4) {
+      const fin = new THREE.Mesh(new THREE.BoxGeometry(0.45, 8.2, 0.55), silverDarkMat);
+      fin.position.set(i, 0, 1.55);
+      fin.castShadow = true;
+      mc40Group.add(fin);
+    }
+
+    // Printed MC-40 Front Badge
+    const mcFrontLbl = new THREE.Mesh(
+      new THREE.PlaneGeometry(8.6, 3.0),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({
+          w: 640, h: 224, bg: '#f8fafc', border: '#475569', borderWidth: 10,
+          text: 'MC-40 (원래 두뇌)', sub: '142 × 91 mm · 세로 장착', color: '#0f172a', subColor: '#475569', fontSize: 56, subSize: 34
+        })
+      })
+    );
+    mcFrontLbl.position.set(0, 0, 1.86);
+    mc40Group.add(mcFrontLbl);
+
+    // Top Connector Silkscreen Face (+Y, facing UP!)
+    // Accurate layout: left-to-right ENET1, ENET0, USB1, USB0, COM
+    const mcTopTex = makeLabelTexture({
+      w: 1024, h: 220, bg: '#334155', border: '#64748b', borderWidth: 6,
+      draw(ctx, w, h) {
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = '800 32px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('ENET1(하늘)', 140, 56);
+        ctx.fillText('ENET0(검정)', 355, 56);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText('USB1', 530, 56);
+        ctx.fillText('USB0', 645, 56);
+        ctx.fillStyle = '#fde68a';
+        ctx.fillText('COM (40핀)', 850, 56);
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '700 24px "Malgun Gothic", sans-serif';
+        ctx.fillText('※ 외함 글자 ENET1→eth0 · ENET0→eth1', w / 2, 188);
+      }
+    });
+    const mcTopPlate = new THREE.Mesh(
+      new THREE.PlaneGeometry(14.0, 2.65),
+      new THREE.MeshBasicMaterial({ map: mcTopTex })
+    );
+    mcTopPlate.rotation.x = -Math.PI / 2;
+    mcTopPlate.position.set(0, 4.57, 0);
+    mc40Group.add(mcTopPlate);
+
+    // Top Connectors (ENET1 at x=-5.1, ENET0 at x=-2.2, COM at x=+4.6)
+    const m12Socket1 = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.9, 18), metalMat);
+    m12Socket1.position.set(-5.1, 4.9, 0);
+    mc40Group.add(m12Socket1);
+
+    const m12Socket2 = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.9, 18), metalMat);
+    m12Socket2.position.set(-2.2, 4.9, 0);
+    mc40Group.add(m12Socket2);
+
+    const comSocket = new THREE.Mesh(
+      new THREE.BoxGeometry(3.4, 0.9, 1.25),
+      new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.5 })
+    );
+    comSocket.position.set(4.6, 4.9, 0);
+    mc40Group.add(comSocket);
+
+    // Green 24V Power LED on MC-40
+    const mcLedMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, emissive: 0x22c55e, emissiveIntensity: 2.0 });
+    const mcLed = new THREE.Mesh(new THREE.SphereGeometry(0.28, 12, 12), mcLedMat);
+    mcLed.position.set(6.4, 3.8, 1.5);
+    mc40Group.add(mcLed);
+
+    // 4 Corner Mounting Flanges
+    const flangeLocal = [[-7.6, 3.9], [7.6, 3.9], [-7.6, -3.9], [7.6, -3.9]];
+    flangeLocal.forEach(([fx, fy]) => {
+      const fl = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.2, 0.45), silverDarkMat);
+      fl.position.set(fx, fy, -1.2);
+      mc40Group.add(fl);
+    });
+
+    tagPart(mc40Group, 'mc40');
+    scene.add(mc40Group);
+
+    // 4 Removable Mounting Screws (independent meshes for Step 3 & Step 4 & Step 8 spin animation)
+    const screws = [];
+    const screwMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.25, metalness: 0.85 });
+    bossCoords.forEach(([bx, by]) => {
+      const sg = new THREE.Group();
+      const head = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.35, 12), screwMat);
+      head.rotation.x = Math.PI / 2;
+      sg.add(head);
+      const slot = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.1, 0.4), new THREE.MeshBasicMaterial({ color: 0x1e293b }));
+      sg.add(slot);
+      const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 1.2, 10), silverDarkMat);
+      shaft.rotation.x = Math.PI / 2;
+      shaft.position.z = -0.6;
+      sg.add(shaft);
+      sg.position.set(bx, by, -2.55);
+      scene.add(sg);
+      screws.push({ group: sg, baseX: bx, baseY: by });
+    });
+
+    // ============================================================
+    // 8. CUSTOM ADAPTER MOUNTING PLATE + L-BRACKET (맞춤 받침판)
+    // ============================================================
+    const plateGroup = new THREE.Group();
+    const PLATE_HOME = new THREE.Vector3(0, 6.3, -2.8);
+    plateGroup.position.copy(PLATE_HOME);
+
+    const plateMat = new THREE.MeshStandardMaterial({ color: 0x93c5fd, roughness: 0.32, metalness: 0.65 });
+    const plateMain = new THREE.Mesh(new THREE.BoxGeometry(16.6, 10.2, 0.45), plateMat);
+    plateMain.castShadow = true;
+    plateMain.receiveShadow = true;
+    plateGroup.add(plateMain);
+
+    // Printed label on plate
+    const plateLbl = new THREE.Mesh(
+      new THREE.PlaneGeometry(9.0, 1.6),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({ w: 512, h: 96, bg: '#eff6ff', border: '#3b82f6', borderWidth: 6, text: '맞춤 받침판 (원래 구멍 4개 사용)', color: '#1d4ed8', fontSize: 30 })
+      })
+    );
+    plateLbl.position.set(-1.5, -4.1, 0.24);
+    plateGroup.add(plateLbl);
+
+    // Rigid Metal L-Bracket on right side for Vertical IMU
+    const lBrkBack = new THREE.Mesh(new THREE.BoxGeometry(3.4, 3.6, 0.35), silverDarkMat);
+    lBrkBack.position.set(5.8, 1.0, 0.4);
+    plateGroup.add(lBrkBack);
+    const lBrkShelf = new THREE.Mesh(new THREE.BoxGeometry(3.4, 0.35, 3.4), silverDarkMat);
+    lBrkShelf.position.set(5.8, -0.6, 1.9);
+    plateGroup.add(lBrkShelf);
+
+    tagPart(plateGroup, 'plate');
+    scene.add(plateGroup);
+
+    // ============================================================
+    // 9. CANDIDATE 3-B: Orin NX + DSBOARD-ORNX-LAN (100 x 100 mm)
+    // ============================================================
+    const board3BGroup = new THREE.Group();
+    const BOARD3B_HOME = new THREE.Vector3(-1.0, 6.4, -1.2);
+    board3BGroup.position.copy(BOARD3B_HOME);
+
+    const pcb3BMat = new THREE.MeshStandardMaterial({ color: 0x0f5132, roughness: 0.45, metalness: 0.2 });
+    const carrier3B = new THREE.Mesh(new THREE.BoxGeometry(10.0, 10.0, 0.55), pcb3BMat);
+    carrier3B.castShadow = true;
+    carrier3B.receiveShadow = true;
+    board3BGroup.add(carrier3B);
+
+    // Orin NX Heatsink + Fan Block
+    const hs3B = new THREE.Mesh(
+      new THREE.BoxGeometry(7.2, 6.6, 1.8),
+      new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4, metalness: 0.65 })
+    );
+    hs3B.position.set(0, -0.4, 1.15);
+    hs3B.castShadow = true;
+    board3BGroup.add(hs3B);
+
+    // Spinning Fan on Candidate 3-B
+    const fan3BHub = new THREE.Group();
+    fan3BHub.position.set(0, -0.4, 2.1);
+    const fanRing = new THREE.Mesh(
+      new THREE.TorusGeometry(2.35, 0.22, 10, 28),
+      new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.4 })
+    );
+    fan3BHub.add(fanRing);
+    const fanBlades3B = new THREE.Group();
+    const bladeMat = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.35, metalness: 0.3 });
+    for (let i = 0; i < 7; i++) {
+      const b = new THREE.Mesh(new THREE.BoxGeometry(0.62, 1.9, 0.14), bladeMat);
+      const a = (i / 7) * Math.PI * 2;
+      b.position.set(Math.cos(a) * 1.1, Math.sin(a) * 1.1, 0);
+      b.rotation.z = a + 0.35;
+      fanBlades3B.add(b);
+    }
+    const fanCenter = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 0.25, 16), chipDarkMat);
+    fanCenter.rotation.x = Math.PI / 2;
+    fanBlades3B.add(fanCenter);
+    fan3BHub.add(fanBlades3B);
+    board3BGroup.add(fan3BHub);
+
+    // Label on Candidate 3-B
+    const lbl3B = new THREE.Mesh(
+      new THREE.PlaneGeometry(8.8, 2.1),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({
+          w: 640, h: 160, bg: '#ecfdf5', border: '#059669', borderWidth: 8,
+          text: '후보 3-B · Orin NX', sub: '100×100mm · 24V 직결', color: '#065f46', subColor: '#047857', fontSize: 48, subSize: 32
+        })
+      })
+    );
+    lbl3B.position.set(0, -3.7, 2.12);
+    board3BGroup.add(lbl3B);
+
+    // 2x RJ45 Jacks on top of 3-B (eth0 sky-blue accent, eth1 dark accent)
+    const rj45Mat = new THREE.MeshStandardMaterial({ color: 0xdbeafe, roughness: 0.3, metalness: 0.75 });
+    const rj3B_0 = new THREE.Mesh(new THREE.BoxGeometry(1.7, 1.6, 1.6), rj45Mat);
+    rj3B_0.position.set(-2.8, 4.9, 0.8);
+    board3BGroup.add(rj3B_0);
+    const rj3B_0_ring = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.35, 1.75), new THREE.MeshBasicMaterial({ color: 0x0ea5e9 }));
+    rj3B_0_ring.position.set(-2.8, 5.65, 0.8);
+    board3BGroup.add(rj3B_0_ring);
+
+    const rj3B_1 = new THREE.Mesh(new THREE.BoxGeometry(1.7, 1.6, 1.6), rj45Mat);
+    rj3B_1.position.set(-0.2, 4.9, 0.8);
+    board3BGroup.add(rj3B_1);
+    const rj3B_1_ring = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.35, 1.75), new THREE.MeshBasicMaterial({ color: 0x1e293b }));
+    rj3B_1_ring.position.set(-0.2, 5.65, 0.8);
+    board3BGroup.add(rj3B_1_ring);
+
+    // Port labels on 3-B
+    const portLbl3B = new THREE.Mesh(
+      new THREE.PlaneGeometry(5.6, 1.1),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({
+          w: 512, h: 100, bg: '#0f172a',
+          draw(ctx, w, h) {
+            ctx.font = '800 36px "Malgun Gothic", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#38bdf8'; ctx.fillText('eth0 1번', w * 0.25, 62);
+            ctx.fillStyle = '#f8fafc'; ctx.fillText('eth1 2번', w * 0.74, 62);
+          }
+        })
+      })
+    );
+    portLbl3B.position.set(-1.5, 3.65, 1.2);
+    board3BGroup.add(portLbl3B);
+
+    // 4-pin 24V Power & CAN Terminal on right-top of 3-B
+    const term3B = new THREE.Mesh(
+      new THREE.BoxGeometry(2.2, 1.1, 1.1),
+      new THREE.MeshStandardMaterial({ color: 0x16a34a, roughness: 0.45 })
+    );
+    term3B.position.set(3.2, 4.7, 0.75);
+    board3BGroup.add(term3B);
+
+    // Status LEDs on 3-B
+    const newLedGreenMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, emissive: 0x22c55e, emissiveIntensity: 0 });
+    const newLedBlueMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x38bdf8, emissiveIntensity: 0 });
+    const led3BG = new THREE.Mesh(new THREE.SphereGeometry(0.26, 12, 12), newLedGreenMat);
+    led3BG.position.set(3.9, 2.8, 0.7);
+    board3BGroup.add(led3BG);
+    const led3BB = new THREE.Mesh(new THREE.SphereGeometry(0.26, 12, 12), newLedBlueMat);
+    led3BB.position.set(3.9, 2.0, 0.7);
+    board3BGroup.add(led3BB);
+
+    tagPart(board3BGroup, 'board-3b');
+    scene.add(board3BGroup);
+
+    // ============================================================
+    // 10. CANDIDATE 1: OK3588J-C (190 x 130 mm) + RSD-60G-12 + RED OVERFLOW BOX
+    // ============================================================
+    const board1Group = new THREE.Group();
+    const BOARD1_HOME = new THREE.Vector3(0, 7.6, -1.2);
+    board1Group.position.copy(BOARD1_HOME);
+
+    const pcb1Mat = new THREE.MeshStandardMaterial({ color: 0x1e3a8a, roughness: 0.45, metalness: 0.22 });
+    const carrier1 = new THREE.Mesh(new THREE.BoxGeometry(19.0, 13.0, 0.55), pcb1Mat);
+    carrier1.castShadow = true;
+    carrier1.receiveShadow = true;
+    board1Group.add(carrier1);
+
+    // RK3588J SoM + Heatsink + Fan
+    const hs1 = new THREE.Mesh(
+      new THREE.BoxGeometry(7.8, 6.2, 1.5),
+      new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.35, metalness: 0.7 })
+    );
+    hs1.position.set(-1.5, 0.4, 1.0);
+    hs1.castShadow = true;
+    board1Group.add(hs1);
+
+    const fanBlades1 = new THREE.Group();
+    fanBlades1.position.set(-1.5, 0.4, 1.85);
+    for (let i = 0; i < 7; i++) {
+      const b = new THREE.Mesh(new THREE.BoxGeometry(0.55, 1.7, 0.14), bladeMat);
+      const a = (i / 7) * Math.PI * 2;
+      b.position.set(Math.cos(a) * 1.0, Math.sin(a) * 1.0, 0);
+      b.rotation.z = a + 0.35;
+      fanBlades1.add(b);
+    }
+    board1Group.add(fanBlades1);
+
+    const lbl1 = new THREE.Mesh(
+      new THREE.PlaneGeometry(12.2, 2.4),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({
+          w: 768, h: 160, bg: '#fffbeb', border: '#d97706', borderWidth: 8,
+          text: '후보 1 · OK3588J-C (190×130mm)', sub: '123만 원 저렴 · 기존 폭(142mm) 초과!', color: '#92400e', subColor: '#dc2626', fontSize: 42, subSize: 32
+        })
+      })
+    );
+    lbl1.position.set(-1.0, -4.3, 0.8);
+    board1Group.add(lbl1);
+
+    // 2x RJ45 Jacks on top of Cand 1
+    const rj1_0 = new THREE.Mesh(new THREE.BoxGeometry(1.7, 1.6, 1.6), rj45Mat);
+    rj1_0.position.set(-4.5, 6.3, 0.8);
+    board1Group.add(rj1_0);
+    const rj1_0_ring = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.35, 1.75), new THREE.MeshBasicMaterial({ color: 0x0ea5e9 }));
+    rj1_0_ring.position.set(-4.5, 7.05, 0.8);
+    board1Group.add(rj1_0_ring);
+
+    const rj1_1 = new THREE.Mesh(new THREE.BoxGeometry(1.7, 1.6, 1.6), rj45Mat);
+    rj1_1.position.set(-1.8, 6.3, 0.8);
+    board1Group.add(rj1_1);
+    const rj1_1_ring = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.35, 1.75), new THREE.MeshBasicMaterial({ color: 0x1e293b }));
+    rj1_1_ring.position.set(-1.8, 7.05, 0.8);
+    board1Group.add(rj1_1_ring);
+
+    const portLbl1 = new THREE.Mesh(
+      new THREE.PlaneGeometry(5.6, 1.1),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({
+          w: 512, h: 100, bg: '#0f172a',
+          draw(ctx, w, h) {
+            ctx.font = '800 36px "Malgun Gothic", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#38bdf8'; ctx.fillText('eth0 1번', w * 0.25, 62);
+            ctx.fillStyle = '#f8fafc'; ctx.fillText('eth1 2번', w * 0.74, 62);
+          }
+        })
+      })
+    );
+    portLbl1.position.set(-3.15, 4.9, 0.85);
+    board1Group.add(portLbl1);
+
+    // Status LEDs on Cand 1
+    const led1G = new THREE.Mesh(new THREE.SphereGeometry(0.28, 12, 12), newLedGreenMat);
+    led1G.position.set(5.5, 4.5, 0.7);
+    board1Group.add(led1G);
+    const led1B = new THREE.Mesh(new THREE.SphereGeometry(0.28, 12, 12), newLedBlueMat);
+    led1B.position.set(5.5, 3.6, 0.7);
+    board1Group.add(led1B);
+
+    // Translucent RED Collision/Overflow Warning Zones (Left & Right overhanging > 142mm!)
+    const warnBoxMat = new THREE.MeshBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.34, depthWrite: false });
+    const warnEdgeMat = new THREE.LineBasicMaterial({ color: 0xdc2626 });
+
+    [-8.9, 8.9].forEach(wx => {
+      const ovGeo = new THREE.BoxGeometry(3.6, 15.0, 4.5);
+      const ovMesh = new THREE.Mesh(ovGeo, warnBoxMat);
+      ovMesh.position.set(wx, 0, 0.6);
+      board1Group.add(ovMesh);
+      const ovWire = new THREE.LineSegments(new THREE.EdgesGeometry(ovGeo), warnEdgeMat);
+      ovWire.position.copy(ovMesh.position);
+      board1Group.add(ovWire);
+    });
+
+    const cand1WarnSign = makeSpriteSign('⚠️ 폭 초과! 줄자 실측 필수!', '190×130mm (케이스 ≈210mm) > 기존 142mm', '#fef2f2', '#dc2626', '#991b1b');
+    cand1WarnSign.scale.set(12.2, 3.1, 1);
+    cand1WarnSign.position.set(2.2, 8.2, 1.8);
+    board1Group.add(cand1WarnSign);
+
+    tagPart(board1Group, 'board-1');
+    scene.add(board1Group);
+
+    // RSD-60G-12 Power Converter (128 x 60 x 25 mm, Candidate 1 only) — placed visibly beside right bay
+    const rsdGroup = new THREE.Group();
+    const RSD_HOME = new THREE.Vector3(12.6, 1.9, 5.2);
+    rsdGroup.position.copy(RSD_HOME);
+    rsdGroup.rotation.y = -0.25;
+
+    const rsdBody = new THREE.Mesh(
+      new THREE.BoxGeometry(12.8, 2.5, 6.0),
+      new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.35, metalness: 0.72 })
+    );
+    rsdBody.castShadow = true;
+    rsdBody.receiveShadow = true;
+    rsdGroup.add(rsdBody);
+
+    const rsdLbl = new THREE.Mesh(
+      new THREE.PlaneGeometry(11.8, 4.8),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({
+          w: 640, h: 256, bg: '#dbeafe', border: '#1d4ed8', borderWidth: 10,
+          text: 'RSD-60G-12 전원변환기', sub: '24V → 12V (128×60mm · 후보 1 전용)', color: '#1e3a8a', subColor: '#1d4ed8', fontSize: 44, subSize: 28
+        })
+      })
+    );
+    rsdLbl.rotation.x = -Math.PI / 2;
+    rsdLbl.position.y = 1.28;
+    rsdGroup.add(rsdLbl);
+
+    tagPart(rsdGroup, 'rsd');
+    scene.add(rsdGroup);
+
+    // ============================================================
+    // 11. IMU VERTICAL CHIP ASSEMBLY (⭐ Step 5 Hero Object!)
+    // ============================================================
+    const imuMountGroup = new THREE.Group();
+    const IMU_HOME = new THREE.Vector3(5.8, 7.2, -0.8);
+    imuMountGroup.position.copy(IMU_HOME);
+
+    // Pivot that rotates between Vertical (0 rad = Good) and Flat (-PI/2 rad = Bad D0303)
+    const imuPivot = new THREE.Group();
+    imuMountGroup.add(imuPivot);
+
+    const imuFrontTex = makeLabelTexture({
+      w: 512, h: 512, bg: '#1d4ed8', border: '#93c5fd', borderWidth: 14,
+      draw(ctx, w, h) {
+        // Title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 54px "Malgun Gothic", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('IMU 방향센서', w / 2, 74);
+
+        // QFN-24 black chip center
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(w / 2 - 64, h / 2 - 58, 128, 128);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '700 24px monospace';
+        ctx.fillText('MPU', w / 2, h / 2 + 2);
+        ctx.fillText('6500', w / 2, h / 2 + 32);
+
+        // Huge Y DOWN arrow (points to floor when vertical!)
+        ctx.strokeStyle = '#fde047';
+        ctx.fillStyle = '#fde047';
+        ctx.lineWidth = 16;
+        ctx.beginPath();
+        ctx.moveTo(w / 2, h / 2 + 86);
+        ctx.lineTo(w / 2, h - 60);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(w / 2 - 34, h - 92);
+        ctx.lineTo(w / 2 + 34, h - 92);
+        ctx.lineTo(w / 2, h - 32);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.font = '900 46px sans-serif';
+        ctx.fillText('Y ↓ (땅)', w / 2 + 125, h - 68);
+
+        // -Y UP label at top
+        ctx.fillStyle = '#86efac';
+        ctx.font = '800 34px "Malgun Gothic", sans-serif';
+        ctx.fillText('-Y ↑ (하늘)', w / 2, 134);
+
+        // X arrow to right
+        ctx.fillStyle = '#e0f2fe';
+        ctx.font = '800 32px sans-serif';
+        ctx.fillText('X →', w - 74, h / 2 + 10);
+      }
+    });
+    const imuSideMat = new THREE.MeshStandardMaterial({ color: 0x1e40af, roughness: 0.45 });
+    const imuMats = [imuSideMat, imuSideMat, imuSideMat, imuSideMat, new THREE.MeshStandardMaterial({ map: imuFrontTex, roughness: 0.35 }), imuSideMat];
+    const imuChipBoard = new THREE.Mesh(new THREE.BoxGeometry(2.8, 2.8, 0.3), imuMats);
+    imuChipBoard.castShadow = true;
+    imuPivot.add(imuChipBoard);
+
+    // 4 Brass Standoffs (showing rigid screw mounting, NO foam tape!)
+    [[-1.1, 1.1], [1.1, 1.1], [-1.1, -1.1], [1.1, -1.1]].forEach(([sx, sy]) => {
+      const st = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.5, 10), brassMat);
+      st.rotation.x = Math.PI / 2;
+      st.position.set(sx, sy, -0.35);
+      imuPivot.add(st);
+    });
+
+    // Visual Arrows around IMU (visible in Step 5!)
+    const imuGoodVisuals = new THREE.Group();
+    // Green UP arrow (-Y sky)
+    const upArrow = new THREE.ArrowHelper(new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, 1.6, 0.2), 2.1, 0x059669, 0.55, 0.42);
+    imuGoodVisuals.add(upArrow);
+    // Yellow DOWN arrow (+Y ground)
+    const dnArrow = new THREE.ArrowHelper(new THREE.Vector3(0, -1, 0), new THREE.Vector3(0, -1.6, 0.2), 2.1, 0xd97706, 0.55, 0.42);
+    imuGoodVisuals.add(dnArrow);
+    // Green horizontal CCW rotation test ring around vertical axis
+    const rotRing = new THREE.Mesh(
+      new THREE.TorusGeometry(2.1, 0.1, 10, 36, Math.PI * 1.45),
+      new THREE.MeshBasicMaterial({ color: 0x10b981 })
+    );
+    rotRing.rotation.x = Math.PI / 2;
+    rotRing.position.set(0, 2.5, 0);
+    imuGoodVisuals.add(rotRing);
+
+    // Keep 3D arrows/ring unobstructed; status text is displayed crisply in the top IMU toggle bar
+    imuMountGroup.add(imuGoodVisuals);
+
+    // Red Bad Visuals (when toggled to Flat!)
+    const imuBadVisuals = new THREE.Group();
+    const badRing = new THREE.Mesh(
+      new THREE.TorusGeometry(2.2, 0.14, 10, 32),
+      new THREE.MeshBasicMaterial({ color: 0xdc2626 })
+    );
+    badRing.rotation.x = Math.PI / 2;
+    badRing.position.set(0, 0.2, 0.9);
+    imuBadVisuals.add(badRing);
+
+    const badSign = makeSpriteSign('❌ 오답! D0303 출발 거부!', '평평하게 눕히면 중력을 못 읽어요!', '#fef2f2', '#dc2626', '#991b1b');
+    badSign.scale.set(6.6, 1.85, 1);
+    badSign.position.set(0, 3.6, 0.8);
+    badSign.visible = false;
+    imuBadVisuals.add(badSign);
+    imuBadVisuals.visible = false;
+    imuMountGroup.add(imuBadVisuals);
+
+    tagPart(imuMountGroup, 'imu');
+    scene.add(imuMountGroup);
+
+    // ============================================================
+    // 12. COM BREAKOUT PCB + 5A FUSE (COM 중간 연결판)
+    // ============================================================
+    const breakoutGroup = new THREE.Group();
+    const BREAKOUT_HOME = new THREE.Vector3(5.6, 10.6, -1.3);
+    breakoutGroup.position.copy(BREAKOUT_HOME);
+
+    const boPcb = new THREE.Mesh(
+      new THREE.BoxGeometry(5.6, 3.2, 0.35),
+      new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.45 })
+    );
+    boPcb.castShadow = true;
+    breakoutGroup.add(boPcb);
+
+    // 40-pin JAE MX34 Header on top
+    const boHeader = new THREE.Mesh(
+      new THREE.BoxGeometry(3.4, 0.9, 1.1),
+      new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.4 })
+    );
+    boHeader.position.set(-0.6, 1.75, 0.45);
+    breakoutGroup.add(boHeader);
+
+    // Bright Amber 5A Blade Fuse (top-right, clear of text)
+    const boFuse = new THREE.Mesh(
+      new THREE.BoxGeometry(0.95, 1.05, 0.5),
+      new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.3 })
+    );
+    boFuse.position.set(1.95, 0.65, 0.45);
+    breakoutGroup.add(boFuse);
+
+    const boLbl = new THREE.Mesh(
+      new THREE.PlaneGeometry(5.1, 1.25),
+      new THREE.MeshBasicMaterial({
+        map: makeLabelTexture({ w: 512, h: 128, bg: '#fefce8', border: '#ca8a04', borderWidth: 8, text: 'COM 중간판 + 5A 퓨즈', color: '#854d0e', fontSize: 36 })
+      })
+    );
+    boLbl.position.set(0, -0.75, 0.25);
+    breakoutGroup.add(boLbl);
+
+    tagPart(breakoutGroup, 'breakout');
+    scene.add(breakoutGroup);
+
+    // ============================================================
+    // 13. M12 X-CODE FEMALE <-> RJ45 MALE "돼지코" ADAPTERS (x2)
+    // ============================================================
+    function createAdapter(accentHex, labelText, badgeOffsetX, badgeOffsetY) {
+      const g = new THREE.Group();
+      // Metallic M12 Female Barrel (top)
+      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.56, 1.45, 18), metalMat);
+      barrel.position.y = 1.1;
+      barrel.castShadow = true;
+      g.add(barrel);
+      // Colored Collar
+      const collar = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.68, 0.68, 0.42, 18),
+        new THREE.MeshStandardMaterial({ color: accentHex, roughness: 0.35 })
+      );
+      collar.position.y = 0.35;
+      g.add(collar);
+      // Short flex boot
+      const neck = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.32, 0.32, 0.9, 12),
+        new THREE.MeshStandardMaterial({ color: accentHex, roughness: 0.5 })
+      );
+      neck.position.y = -0.25;
+      g.add(neck);
+      // RJ45 Male Plug (bottom)
+      const rj = new THREE.Mesh(
+        new THREE.BoxGeometry(1.1, 1.15, 1.0),
+        new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.3 })
+      );
+      rj.position.y = -1.0;
+      g.add(rj);
+      const badge = makeSpriteSign(labelText, null, '#ffffff', accentHex === 0x0ea5e9 ? '#0284c7' : '#334155', '#0f172a');
+      badge.scale.set(3.9, 0.85, 1);
+      badge.position.set(badgeOffsetX, badgeOffsetY, 1.4);
+      g.add(badge);
+      g.userData.badge = badge;
+      tagPart(g, 'adapters');
+      scene.add(g);
+      return g;
+    }
+    const adapterBlue = createAdapter(0x0ea5e9, '돼지코 → eth0 1번', -2.3, 0.75);
+    const adapterBlack = createAdapter(0x1e293b, '돼지코 → eth1 2번', 1.9, 0.15);
+
+    // ============================================================
+    // 14. PLUGS, YELLOW NAME TAGS, & DYNAMIC FLEXIBLE CABLES
+    // ============================================================
+    function createM12Plug(colorHex, tagText, partId, tagOffsetX) {
+      const g = new THREE.Group();
+      // Rotating Metal Nut (spins CCW in Step 2!)
+      const nut = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 0.85, 12), metalMat);
+      nut.castShadow = true;
+      g.add(nut);
+      const nutGrip = new THREE.Mesh(new THREE.TorusGeometry(0.72, 0.1, 6, 12), silverDarkMat);
+      nutGrip.rotation.x = Math.PI / 2;
+      g.add(nutGrip);
+      // Strain Boot
+      const boot = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.42, 0.52, 1.4, 14),
+        new THREE.MeshStandardMaterial({ color: colorHex, roughness: 0.45 })
+      );
+      boot.position.y = 1.05;
+      g.add(boot);
+
+      // Yellow Wrap Name Tag (appears from Step 2 onwards!)
+      const tag = makeSpriteSign(tagText, null, '#fef08a', '#ca8a04', '#713f12');
+      tag.scale.set(4.3, 0.9, 1);
+      tag.position.set(tagOffsetX || 0, 2.55, 0.9);
+      tag.visible = false;
+      g.add(tag);
+
+      // CCW Rotation Indicator Halo (visible during Step 2 unscrewing)
+      const spinHalo = new THREE.Mesh(
+        new THREE.TorusGeometry(1.15, 0.09, 8, 28, Math.PI * 1.5),
+        new THREE.MeshBasicMaterial({ color: 0xf59e0b })
+      );
+      spinHalo.rotation.x = Math.PI / 2;
+      spinHalo.position.y = 0.1;
+      spinHalo.visible = false;
+      g.add(spinHalo);
+
+      g.userData.nut = nut;
+      g.userData.tag = tag;
+      g.userData.spinHalo = spinHalo;
+      tagPart(g, partId);
+      scene.add(g);
+      return g;
+    }
+
+    const plugBlue = createM12Plug(0x0ea5e9, '🏷️ eth0 1번 (스위치)', 'cable-blue', -2.3);
+    const plugBlack = createM12Plug(0x1e293b, '🏷️ eth1 2번 (아래보드)', 'cable-black', 2.2);
+
+    // Gray 40-pin COM Plug with pressable center latch
+    const plugCom = new THREE.Group();
+    const comBody = new THREE.Mesh(
+      new THREE.BoxGeometry(3.2, 1.6, 1.2),
+      new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.45 })
+    );
+    comBody.position.y = 0.7;
+    comBody.castShadow = true;
+    plugCom.add(comBody);
+    const comLatch = new THREE.Mesh(
+      new THREE.BoxGeometry(0.9, 1.1, 0.35),
+      new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.4 })
+    );
+    comLatch.position.set(0, 0.8, 0.7);
+    plugCom.add(comLatch);
+    const comTag = makeSpriteSign('🏷️ COM 40핀 (전원·조종)', null, '#fef08a', '#ca8a04', '#713f12');
+    comTag.scale.set(5.4, 1.05, 1);
+    comTag.position.set(0.4, 2.55, 0.8);
+    comTag.visible = false;
+    plugCom.add(comTag);
+    plugCom.userData.latch = comLatch;
+    plugCom.userData.tag = comTag;
+    tagPart(plugCom, 'cable-com');
+    scene.add(plugCom);
+
+    // Dynamic Cable Meshes (rebuilt only when endpoint moves noticeably)
+    const blueCableMat = new THREE.MeshStandardMaterial({ color: 0x0ea5e9, roughness: 0.42, metalness: 0.1 });
+    const blackCableMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.55, metalness: 0.12 });
+    const comCableMat = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.58 });
+    const pwrCableMat = new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.45 });
+
+    let cableBlueMesh = null, cableBlackMesh = null, cableComMesh = null, cablePwrMesh = null;
+    let blueCurve = null, blackCurve = null;
+
+    function updateTube(existing, points, radius, mat, partId) {
+      const curve = new THREE.CatmullRomCurve3(points);
+      const geo = new THREE.TubeGeometry(curve, 24, radius, 10, false);
+      if (existing) {
+        existing.geometry.dispose();
+        existing.geometry = geo;
+        return { mesh: existing, curve };
+      }
+      const m = new THREE.Mesh(geo, mat);
+      m.castShadow = true;
+      m.userData.partId = partId;
+      scene.add(m);
+      return { mesh: m, curve };
+    }
+
+    // ============================================================
+    // 15. STEP 7 ANIMATED DATA PACKETS (Glowing Light Particles)
+    // ============================================================
+    const packetGroup = new THREE.Group();
+    scene.add(packetGroup);
+    const bluePackets = [];
+    const blackPackets = [];
+    for (let i = 0; i < 6; i++) {
+      const p1 = new THREE.Mesh(
+        new THREE.SphereGeometry(0.32, 10, 10),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+      );
+      packetGroup.add(p1);
+      bluePackets.push({ mesh: p1, offset: i / 6 });
+
+      const p2 = new THREE.Mesh(
+        new THREE.SphereGeometry(0.32, 10, 10),
+        new THREE.MeshBasicMaterial({ color: 0x22c55e })
+      );
+      packetGroup.add(p2);
+      blackPackets.push({ mesh: p2, offset: i / 6 });
+    }
+    packetGroup.visible = false;
+
+    // ============================================================
+    // 16. BONUS: 3D PHOTO GUIDE PINS (1, 2, 3)
+    // ============================================================
+    const photoPinsGroup = new THREE.Group();
+    const pinPositions = {
+      1: new THREE.Vector3(4.6, 13.8, -1.5),
+      2: new THREE.Vector3(-8.5, 9.2, 0.5),
+      3: new THREE.Vector3(-2.0, 20.3, -8.5)
+    };
+    const photoPinSprites = {};
+    [1, 2, 3].forEach(num => {
+      const tex = makeLabelTexture({
+        w: 256, h: 256, bg: 'rgba(0,0,0,0)',
+        draw(ctx, w, h) {
+          ctx.clearRect(0, 0, w, h);
+          ctx.fillStyle = '#0284c7';
+          ctx.beginPath(); ctx.arc(w / 2, h / 2, 104, 0, Math.PI * 2); ctx.fill();
+          ctx.lineWidth = 14; ctx.strokeStyle = '#ffffff'; ctx.stroke();
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '900 102px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('📷' + num, w / 2, h / 2 + 4);
+        }
+      });
+      const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false }));
+      sp.position.copy(pinPositions[num]);
+      sp.scale.set(3.2, 3.2, 1);
+      sp.userData.photoSpot = num;
+      sp.renderOrder = 20;
+      photoPinsGroup.add(sp);
+      photoPinSprites[num] = sp;
+    });
+    photoPinsGroup.visible = false;
+    scene.add(photoPinsGroup);
+
+    // ============================================================
+    // CAMERA SMOOTH FLY-TO SYSTEM
+    // ============================================================
+    const camGoalPos = new THREE.Vector3(16, 16, 26);
+    const camGoalTarget = new THREE.Vector3(0, 7.5, -0.5);
+
+    function flyCameraTo(posArr, tgtArr) {
+      camGoalPos.set(posArr[0], posArr[1], posArr[2]);
+      camGoalTarget.set(tgtArr[0], tgtArr[1], tgtArr[2]);
+      state.userControllingCam = false;
+      state.camTransitioning = true;
+    }
+
+    // ============================================================
+    // RAYCASTER (Hover Highlight + Click "이게 뭐예요?" Card)
+    // ============================================================
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    const hoverPill = document.getElementById('hoverPill');
+    let pointerDownPos = { x: 0, y: 0 };
+
+    function getHit(ev) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+
+      if (state.photoMode) {
+        const pinHits = raycaster.intersectObjects(photoPinsGroup.children, false);
+        if (pinHits.length > 0) return { photoSpot: pinHits[0].object.userData.photoSpot };
+      }
+
+      const hits = raycaster.intersectObjects(scene.children, true);
+      for (let i = 0; i < hits.length; i++) {
+        let o = hits[i].object;
+        if (!o.visible) continue;
+        // Skip hidden ancestors
+        let vis = true, p = o;
+        while (p) { if (!p.visible) { vis = false; break; } p = p.parent; }
+        if (!vis) continue;
+        if (o.userData && o.userData.partId) {
+          return { partId: o.userData.partId };
+        }
+      }
+      return null;
+    }
+
+    renderer.domElement.addEventListener('pointerdown', ev => {
+      pointerDownPos = { x: ev.clientX, y: ev.clientY };
+    });
+
+    renderer.domElement.addEventListener('pointermove', ev => {
+      const hit = getHit(ev);
+      if (hit && hit.photoSpot) {
+        container.classList.add('hover-part');
+        hoverPill.style.display = 'block';
+        hoverPill.textContent = PHOTO_SPOTS[hit.photoSpot].title;
+        hoverPill.style.left = (ev.clientX - container.getBoundingClientRect().left) + 'px';
+        hoverPill.style.top = (ev.clientY - container.getBoundingClientRect().top) + 'px';
+      } else if (hit && hit.partId && PART_INFO[hit.partId]) {
+        container.classList.add('hover-part');
+        hoverPill.style.display = 'block';
+        hoverPill.textContent = '👆 클릭: ' + PART_INFO[hit.partId].title;
+        hoverPill.style.left = (ev.clientX - container.getBoundingClientRect().left) + 'px';
+        hoverPill.style.top = (ev.clientY - container.getBoundingClientRect().top) + 'px';
+        state.hoveredPartId = hit.partId;
+      } else {
+        container.classList.remove('hover-part');
+        hoverPill.style.display = 'none';
+        state.hoveredPartId = null;
+      }
+    });
+
+    renderer.domElement.addEventListener('pointerup', ev => {
+      const dist = Math.hypot(ev.clientX - pointerDownPos.x, ev.clientY - pointerDownPos.y);
+      if (dist > 6) return; // Was a drag, not a click
+      const hit = getHit(ev);
+      if (hit && hit.photoSpot) {
+        selectPhotoSpot(hit.photoSpot);
+        return;
+      }
+      if (hit && hit.partId && PART_INFO[hit.partId]) {
+        openPartCard(hit.partId);
+      } else {
+        closePartCard();
+      }
+    });
+
+    // ============================================================
+    // UI RENDERING & CONTROLS
+    // ============================================================
+    function openPartCard(partId) {
+      const info = PART_INFO[partId];
+      if (!info) return;
+      document.getElementById('partCardTitle').textContent = info.title;
+      document.getElementById('partCardDesc').textContent = info.desc;
+      const meta = document.getElementById('partCardMeta');
+      meta.innerHTML = info.chips.map(c => '<span class="part-chip">' + c + '</span>').join('') +
+        (info.tip ? '<span class="part-chip tip">💡 ' + info.tip + '</span>' : '');
+      document.getElementById('partCard').classList.add('show');
+    }
+
+    window.closePartCard = function() {
+      document.getElementById('partCard').classList.remove('show');
+    };
+
+    window.togglePartLabelsGuide = function() {
+      const card = document.getElementById('partCard');
+      if (card.classList.contains('show')) {
+        closePartCard();
+      } else {
+        const defaultPart = state.step >= 4 && state.step <= 7
+          ? (state.step === 5 ? 'imu' : (state.candidate === '1' ? 'board-1' : 'board-3b'))
+          : 'mc40';
+        openPartCard(defaultPart);
+      }
+    };
+
+    function renderStepDots() {
+      const steps = getStepsData();
+      const wrap = document.getElementById('stepDots');
+      wrap.innerHTML = steps.map(s => {
+        const cls = ['step-dot'];
+        if (s.num === state.step) cls.push('active');
+        else if (s.num < state.step) cls.push('done');
+        if (s.num === 5) cls.push('important');
+        return '<button type="button" class="' + cls.join(' ') + '" onclick="goStep(' + s.num + ')" title="' + s.name + '">' + s.short + '</button>';
+      }).join('');
+    }
+
+    function renderGuidePanel() {
+      const steps = getStepsData();
+      const s = steps[state.step];
+      const isCand1 = state.candidate === '1';
+
+      document.getElementById('hudStepTag').textContent = s.num + '단계';
+      document.getElementById('hudStepName').textContent = s.name;
+      document.getElementById('btnPrev').disabled = (state.step === 0);
+      document.getElementById('btnNext').disabled = (state.step === 8);
+
+      // Hide stage-top-left HUD pill during Photo Guide Mode for clean viewfinder
+      document.querySelector('.stage-top-left').style.display = state.photoMode ? 'none' : 'flex';
+
+      // Show Candidate 1 warning banner when Cand 1 is active (except Step 4 where 3D red sign is right in view)
+      document.getElementById('cand1Banner').classList.toggle('show', isCand1 && !state.photoMode && state.step !== 4);
+
+      // Show Step 5 IMU Interactive Toggle
+      document.getElementById('imuOverlay').classList.toggle('show', state.step === 5 && !state.photoMode);
+
+      let html = '';
+      html += '<div class="step-header-row">';
+      html += '<span class="step-badge-lg' + (s.num === 5 ? ' star' : '') + '">' + (s.num === 5 ? '⭐ 가장 중요한 단계' : (s.num + ' / 8 단계')) + '</span>';
+      html += '<span class="step-time">' + s.time + '</span>';
+      html += '</div>';
+      html += '<h2 class="step-title">' + s.name + '</h2>';
+      html += '<p class="step-lead">' + s.lead + '</p>';
+
+      if (s.callout) {
+        html += '<div class="callout ' + s.callout.type + '">';
+        html += '<div class="callout-title">' + s.callout.title + '</div>';
+        html += '<div>' + s.callout.body + '</div>';
+        html += '</div>';
+      }
+
+      html += '<ol class="action-list">';
+      s.actions.forEach((a, idx) => {
+        html += '<li class="action-item"><span class="action-num">' + (idx + 1) + '</span><span>' + a + '</span></li>';
+      });
+      html += '</ol>';
+
+      if (s.checklist) {
+        html += '<div class="success-grid">';
+        s.checklist.forEach(item => {
+          html += '<div class="success-row"><span class="success-badge">OK</span><span>' + item + '</span></div>';
+        });
+        html += '</div>';
+      }
+
+      // Color Cable Quick Legend
+      html += '<div class="cable-legend">';
+      html += '<div class="cable-chip"><span class="cable-dot" style="background:#0ea5e9"></span><strong>하늘색 선 → eth0 (1번)</strong><br><span style="color:#64748b">위쪽 스위치 (원래 ENET1)</span></div>';
+      html += '<div class="cable-chip"><span class="cable-dot" style="background:#1e293b"></span><strong>검정 선 → eth1 (2번)</strong><br><span style="color:#64748b">아래 IC-40 (원래 ENET0)</span></div>';
+      html += '</div>';
+
+      // Active Board Summary Card
+      html += '<div class="spec-box">';
+      html += '<div class="spec-box-title"><span>현재 선택한 새 보드</span><span style="color:' + (isCand1 ? '#d97706' : '#059669') + '">' + (isCand1 ? '실측 필수' : '공간 여유') + '</span></div>';
+      html += '<div class="spec-kv">';
+      html += '<div class="spec-k">보드</div><div class="spec-v">' + s.boardShort + '</div>';
+      html += '<div class="spec-k">크기</div><div class="spec-v">' + s.boardDim + '</div>';
+      html += '<div class="spec-k">전원</div><div class="spec-v">' + s.boardPower + '</div>';
+      html += '<div class="spec-k">교체 비용</div><div class="spec-v">' + s.boardPrice + '</div>';
+      html += '</div></div>';
+
+      document.getElementById('guideContent').innerHTML = html;
+      renderStepDots();
+    }
+
+    window.goStep = function(n, keepPhotoOff) {
+      const clamped = Math.max(0, Math.min(8, n));
+      if (state.photoMode && !keepPhotoOff) togglePhotoMode(false);
+      state.step = clamped;
+      state.stepElapsed = 0;
+      closePartCard();
+      const s = getStepsData()[state.step];
+      flyCameraTo(s.camPos, s.camTarget);
+      renderGuidePanel();
+    };
+
+    window.prevStep = function() { goStep(state.step - 1); };
+    window.nextStep = function() { goStep(state.step + 1); };
+
+    window.toggleAutoPlay = function() {
+      state.autoPlay = !state.autoPlay;
+      const btn = document.getElementById('btnPlay');
+      if (state.autoPlay) {
+        if (state.photoMode) togglePhotoMode(false);
+        if (state.step === 8) goStep(0);
+        btn.classList.add('playing');
+        btn.textContent = '⏸ 일시정지';
+      } else {
+        btn.classList.remove('playing');
+        btn.textContent = '▶ 자동 재생';
+      }
+    };
+
+    window.setSpeed = function(v) {
+      state.speed = v;
+      document.getElementById('spd05').classList.toggle('active', v === 0.5);
+      document.getElementById('spd10').classList.toggle('active', v === 1);
+      document.getElementById('spd15').classList.toggle('active', v === 1.5);
+    };
+
+    window.setCandidate = function(c) {
+      state.candidate = c;
+      document.getElementById('btnCand3B').classList.toggle('active', c === '3b');
+      document.getElementById('btnCand1').classList.toggle('active', c === '1');
+      if (state.step === 4 && !state.photoMode) {
+        const s = getStepsData()[4];
+        flyCameraTo(s.camPos, s.camTarget);
+      }
+      renderGuidePanel();
+    };
+
+    window.setImuMode = function(mode) {
+      state.imuMode = mode;
+      const isGood = mode === 'vertical';
+      document.getElementById('btnImuGood').classList.toggle('active', isGood);
+      document.getElementById('btnImuBad').classList.toggle('active', !isGood);
+      const line = document.getElementById('imuStatusLine');
+      line.className = 'imu-status-line ' + (isGood ? 'good' : 'bad');
+      line.textContent = isGood
+        ? '✅ Y 화살표가 땅(아래) · -Y가 하늘 → 설정 0줄 수정 통과!'
+        : '❌ D0303 출발 거부! 칩을 평평하게 눕히면 로봇이 출발하지 못합니다!';
+    };
+
+    window.togglePhotoMode = function(forceVal) {
+      const next = (typeof forceVal === 'boolean') ? forceVal : !state.photoMode;
+      state.photoMode = next;
+      if (next && state.autoPlay) toggleAutoPlay();
+      document.getElementById('btnPhotoMode').classList.toggle('photo-active', next);
+      document.getElementById('photoOverlay').classList.toggle('show', next);
+      photoPinsGroup.visible = next;
+      closePartCard();
+      if (next) {
+        selectPhotoSpot(state.photoSpot);
+      } else {
+        const s = getStepsData()[state.step];
+        flyCameraTo(s.camPos, s.camTarget);
+      }
+      renderGuidePanel();
+    };
+
+    window.selectPhotoSpot = function(spotNum) {
+      state.photoSpot = spotNum;
+      [1, 2, 3].forEach(i => {
+        document.getElementById('photoSpot' + i).classList.toggle('active', i === spotNum);
+      });
+      const sp = PHOTO_SPOTS[spotNum];
+      document.getElementById('photoCaption').textContent = sp.caption;
+      flyCameraTo(sp.camPos, sp.camTarget);
+    };
+
+    window.resetCameraForCurrentView = function() {
+      if (state.photoMode) {
+        const sp = PHOTO_SPOTS[state.photoSpot];
+        flyCameraTo(sp.camPos, sp.camTarget);
+      } else {
+        const s = getStepsData()[state.step];
+        flyCameraTo(s.camPos, s.camTarget);
+      }
+    };
+
+    // Keyboard shortcuts (← → Space)
+    window.addEventListener('keydown', ev => {
+      if (ev.target && (ev.target.tagName === 'INPUT' || ev.target.tagName === 'TEXTAREA')) return;
+      if (ev.key === 'ArrowRight') { ev.preventDefault(); nextStep(); }
+      else if (ev.key === 'ArrowLeft') { ev.preventDefault(); prevStep(); }
+      else if (ev.key === ' ') { ev.preventDefault(); toggleAutoPlay(); }
+    });
+
+    // ============================================================
+    // ANIMATION ENGINE (Smooth 60fps State Interpolation)
+    // ============================================================
+    const clamp01 = v => Math.max(0, Math.min(1, v));
+    const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    const lerp = (a, b, t) => a + (b - a) * t;
+
+    let clock = new THREE.Clock();
+    let totalTime = 0;
+
+    // Anchor positions for cables
+    const SW_PORT_ORIGIN = new THREE.Vector3(-7.6, 15.8, -7.2);
+    const IC40_PORT_ORIGIN = new THREE.Vector3(-2.6, 2.2, 2.9);
+    const COM_ORIGIN = new THREE.Vector3(10.5, 2.2, -5.0);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const dt = Math.min(clock.getDelta(), 0.05);
+      totalTime += dt;
+      state.stepElapsed += dt * state.speed;
+
+      // Auto-play progression
+      if (state.autoPlay && !state.photoMode) {
+        const dur = STEP_DURATIONS[state.step] || 6.5;
+        if (state.stepElapsed >= dur) {
+          if (state.step < 8) {
+            goStep(state.step + 1);
+          } else {
+            toggleAutoPlay(); // Finished step 8 cleanly
+          }
+        }
+      }
+
+      const st = state.photoMode ? 0 : state.step;
+      const t = state.stepElapsed;
+      const isCand1 = state.candidate === '1';
+
+      // ---- 1. Power State (E-Stop, Main Switch, LEDs) ----
+      let powerOn = (st === 0 || st === 7);
+      let estopPressed = (st >= 1 && st <= 6);
+      if (st === 1) {
+        const p1 = ease(clamp01((t - 0.4) / 1.1));
+        estopCap.position.y = lerp(2.55, 2.18, p1);
+        const p2 = ease(clamp01((t - 1.5) / 0.9));
+        powerLeverPivot.rotation.x = lerp(-0.45, 0.55, p2);
+        powerOn = (p2 < 0.6);
+      } else if (st === 7) {
+        const p1 = ease(clamp01((t - 0.3) / 0.8));
+        estopCap.position.y = lerp(2.18, 2.55, p1);
+        const p2 = ease(clamp01((t - 1.1) / 0.8));
+        powerLeverPivot.rotation.x = lerp(0.55, -0.45, p2);
+        powerOn = (p2 > 0.5);
+      } else if (st === 8) {
+        const pEnd = ease(clamp01((t - 5.8) / 0.8));
+        estopCap.position.y = lerp(2.18, 2.55, pEnd);
+        powerLeverPivot.rotation.x = lerp(0.55, -0.45, pEnd);
+        powerOn = (pEnd > 0.5);
+      } else {
+        estopCap.position.y = estopPressed ? 2.18 : 2.55;
+        powerLeverPivot.rotation.x = powerOn ? -0.45 : 0.55;
+      }
+
+      const mcPowerOn = (st === 0) || (st === 1 && powerOn) || (st === 8 && powerOn);
+      mcLedMat.emissiveIntensity = mcPowerOn ? 2.2 : 0.0;
+      mcLedMat.color.setHex(mcPowerOn ? 0x22c55e : 0x334155);
+      swLedMat.emissiveIntensity = powerOn ? 1.5 : 0.0;
+      swLedMat.color.setHex(powerOn ? 0x22c55e : 0x334155);
+      powerPilotMat.emissiveIntensity = powerOn ? 1.8 : 0.0;
+      powerPilotMat.color.setHex(powerOn ? 0x22c55e : 0x475569);
+
+      const newBoardPowered = (st === 7 && powerOn);
+      newLedGreenMat.emissiveIntensity = newBoardPowered ? 2.2 : 0.0;
+      newLedBlueMat.emissiveIntensity = newBoardPowered ? (1.2 + Math.sin(totalTime * 7) * 0.8) : 0.0;
+
+      // Spin cooling fan when powered on (Step 7)
+      if (newBoardPowered) {
+        fanBlades3B.rotation.z -= dt * 16;
+        fanBlades1.rotation.z -= dt * 16;
+      }
+
+      // ---- 2. MC-40 Position & Storage Box Animation ----
+      const MC40_STORED = new THREE.Vector3(27.0, 2.7, -0.5);
+      if (st <= 2) {
+        mc40Group.position.copy(MC40_HOME);
+        mc40Group.rotation.set(0, 0, 0);
+      } else if (st === 3) {
+        // Screws come out 0..1.5s, MC-40 lifts 1.6..3.2s, arcs to storage box 3.2..5.2s
+        const liftP = ease(clamp01((t - 1.6) / 1.5));
+        const arcP = ease(clamp01((t - 3.1) / 2.0));
+        if (arcP <= 0) {
+          mc40Group.position.set(MC40_HOME.x, lerp(MC40_HOME.y, 17.5, liftP), MC40_HOME.z);
+          mc40Group.rotation.set(0, 0, 0);
+        } else {
+          mc40Group.position.set(
+            lerp(MC40_HOME.x, MC40_STORED.x, arcP),
+            lerp(17.5, MC40_STORED.y, arcP) + Math.sin(arcP * Math.PI) * 5.0,
+            lerp(MC40_HOME.z, MC40_STORED.z, arcP)
+          );
+          mc40Group.rotation.set(-Math.PI / 2 * arcP, 0, 0);
+        }
+      } else if (st >= 4 && st <= 7) {
+        mc40Group.position.copy(MC40_STORED);
+        mc40Group.rotation.set(-Math.PI / 2, 0, 0);
+      } else if (st === 8) {
+        // 15-min Rollback! New board exits 0..2.2s, MC-40 returns 2.2..4.6s
+        const retP = ease(clamp01((t - 2.2) / 2.2));
+        mc40Group.position.set(
+          lerp(MC40_STORED.x, MC40_HOME.x, retP),
+          lerp(MC40_STORED.y, MC40_HOME.y, retP) + Math.sin(retP * Math.PI) * 10.5,
+          lerp(MC40_STORED.z, MC40_HOME.z, retP)
+        );
+        mc40Group.rotation.set(-Math.PI / 2 * (1 - retP), 0, 0);
+      }
+
+      // ---- 3. 4 Corner Mounting Screws ----
+      screws.forEach((sc, idx) => {
+        let outAmt = 0;
+        let spin = 0;
+        if (st === 3) {
+          const p = ease(clamp01((t - 0.2 - idx * 0.12) / 1.1));
+          outAmt = p * 5.0;
+          spin = p * Math.PI * 6;
+          sc.group.visible = (t < 3.6);
+        } else if (st === 4) {
+          const p = 1 - ease(clamp01((t - 0.9 - idx * 0.1) / 1.0));
+          outAmt = p * 4.5;
+          spin = -p * Math.PI * 6;
+          sc.group.visible = (t > 0.7);
+        } else if (st === 8) {
+          const p = 1 - ease(clamp01((t - 4.3) / 1.0));
+          outAmt = p * 4.2;
+          spin = -p * Math.PI * 6;
+          sc.group.visible = (t > 4.1);
+        } else {
+          sc.group.visible = true;
+        }
+        sc.group.position.set(sc.baseX, sc.baseY, -2.55 + outAmt);
+        sc.group.rotation.z = spin;
+      });
+
+      // ---- 4. Adapter Plate & New Board (Cand 3-B vs Cand 1 + RSD) ----
+      let showNewGear = (st >= 4 && st <= 7) || (st === 8 && t < 2.3);
+      plateGroup.visible = showNewGear;
+      board3BGroup.visible = showNewGear && !isCand1;
+      board1Group.visible = showNewGear && isCand1;
+      rsdGroup.visible = showNewGear && isCand1;
+
+      if (st === 4) {
+        const pPlate = ease(clamp01(t / 1.2));
+        plateGroup.position.set(PLATE_HOME.x, PLATE_HOME.y, lerp(PLATE_HOME.z + 9, PLATE_HOME.z, pPlate));
+        const pBoard = ease(clamp01((t - 1.5) / 1.5));
+        board3BGroup.position.set(BOARD3B_HOME.x, lerp(BOARD3B_HOME.y + 8, BOARD3B_HOME.y, pBoard), lerp(BOARD3B_HOME.z + 5, BOARD3B_HOME.z, pBoard));
+        board1Group.position.set(BOARD1_HOME.x, lerp(BOARD1_HOME.y + 8, BOARD1_HOME.y, pBoard), lerp(BOARD1_HOME.z + 5, BOARD1_HOME.z, pBoard));
+        rsdGroup.position.set(RSD_HOME.x, lerp(RSD_HOME.y + 6, RSD_HOME.y, pBoard), RSD_HOME.z);
+      } else if (st === 8 && showNewGear) {
+        const pOut = ease(clamp01((t - 0.6) / 1.6));
+        plateGroup.position.set(PLATE_HOME.x, PLATE_HOME.y + pOut * 14, PLATE_HOME.z + pOut * 6);
+        board3BGroup.position.set(BOARD3B_HOME.x, BOARD3B_HOME.y + pOut * 14, BOARD3B_HOME.z + pOut * 6);
+        board1Group.position.set(BOARD1_HOME.x, BOARD1_HOME.y + pOut * 14, BOARD1_HOME.z + pOut * 6);
+        rsdGroup.position.set(RSD_HOME.x, RSD_HOME.y + pOut * 14, RSD_HOME.z);
+      } else {
+        plateGroup.position.copy(PLATE_HOME);
+        board3BGroup.position.copy(BOARD3B_HOME);
+        board1Group.position.copy(BOARD1_HOME);
+        rsdGroup.position.copy(RSD_HOME);
+      }
+
+      // Avoid L-bracket poking through wider Candidate 1 PCB
+      lBrkBack.visible = !isCand1;
+      lBrkShelf.visible = !isCand1;
+
+      // Subtle pulse on Candidate 1 red collision warning box
+      if (board1Group.visible) {
+        warnBoxMat.opacity = 0.28 + Math.sin(totalTime * 4.5) * 0.1;
+      }
+
+      // ---- 5. IMU Assembly (Step 5 Hero!) ----
+      const showImu = (st >= 5 && st <= 7) || (st === 8 && t < 2.0);
+      imuMountGroup.visible = showImu;
+      if (st === 5) {
+        const pIn = ease(clamp01(t / 1.1));
+        imuMountGroup.position.set(IMU_HOME.x, IMU_HOME.y, lerp(IMU_HOME.z + 4.5, IMU_HOME.z, pIn));
+      } else if (st === 8) {
+        const pOut = ease(clamp01((t - 0.6) / 1.4));
+        imuMountGroup.position.set(IMU_HOME.x, IMU_HOME.y + pOut * 14, IMU_HOME.z + pOut * 5);
+      } else {
+        imuMountGroup.position.copy(IMU_HOME);
+      }
+
+      // Smoothly tilt IMU between vertical (good: 0) and flat (bad: -PI/2)
+      const targetImuRotX = (state.imuMode === 'vertical' || st !== 5) ? 0 : -Math.PI / 2;
+      imuPivot.rotation.x += (targetImuRotX - imuPivot.rotation.x) * Math.min(1, dt * 8);
+      const isImuStep = (st === 5 && !state.photoMode);
+      imuGoodVisuals.visible = isImuStep && (state.imuMode === 'vertical');
+      imuBadVisuals.visible = isImuStep && (state.imuMode === 'flat');
+      if (imuGoodVisuals.visible) {
+        rotRing.rotation.z = totalTime * 2.2;
+      }
+
+      // ---- 6. COM Breakout + "돼지코" Adapters ----
+      const showAdapters = (st === 6 || st === 7) || (st === 8 && t < 1.6);
+      breakoutGroup.visible = showAdapters;
+      adapterBlue.visible = showAdapters;
+      adapterBlack.visible = showAdapters;
+
+      // Target RJ45 positions depend on Candidate 3-B vs Candidate 1!
+      const rj0Target = isCand1 ? new THREE.Vector3(-4.5, 15.8, -0.4) : new THREE.Vector3(-3.8, 13.1, -0.4);
+      const rj1Target = isCand1 ? new THREE.Vector3(-1.8, 15.8, -0.4) : new THREE.Vector3(-1.2, 13.1, -0.4);
+
+      if (st === 6) {
+        // Sequenced fly-in: 1) COM breakout 0..1.4s  2) Blue adapter 1.8..3.2s  3) Black adapter 3.6..5.0s
+        const pBo = ease(clamp01(t / 1.3));
+        breakoutGroup.position.set(BREAKOUT_HOME.x, lerp(BREAKOUT_HOME.y + 7, BREAKOUT_HOME.y, pBo), BREAKOUT_HOME.z);
+
+        const pAd1 = ease(clamp01((t - 1.7) / 1.4));
+        adapterBlue.position.set(rj0Target.x, lerp(rj0Target.y + 6.5, rj0Target.y, pAd1), rj0Target.z);
+        adapterBlue.visible = (t > 1.5);
+
+        const pAd2 = ease(clamp01((t - 3.4) / 1.4));
+        adapterBlack.position.set(rj1Target.x, lerp(rj1Target.y + 6.5, rj1Target.y, pAd2), rj1Target.z);
+        adapterBlack.visible = (t > 3.2);
+      } else if (st === 8 && showAdapters) {
+        const pOut = ease(clamp01(t / 1.3));
+        breakoutGroup.position.set(BREAKOUT_HOME.x, BREAKOUT_HOME.y + pOut * 9, BREAKOUT_HOME.z);
+        adapterBlue.position.set(rj0Target.x, rj0Target.y + pOut * 9, rj0Target.z);
+        adapterBlack.position.set(rj1Target.x, rj1Target.y + pOut * 9, rj1Target.z);
+      } else {
+        breakoutGroup.position.copy(BREAKOUT_HOME);
+        adapterBlue.position.copy(rj0Target);
+        adapterBlack.position.copy(rj1Target);
+      }
+
+      // ---- 7. Plugs & Dynamic Cables ----
+      const MC_BLUE_PORT = new THREE.Vector3(-5.1, 11.7, -1.6);
+      const MC_BLACK_PORT = new THREE.Vector3(-2.2, 11.7, -1.6);
+      const MC_COM_PORT = new THREE.Vector3(4.6, 11.4, -1.6);
+
+      const PARK_BLUE = new THREE.Vector3(-11.2, 16.0, -3.5);
+      const PARK_BLACK = new THREE.Vector3(-11.6, 11.2, 3.6);
+      const PARK_COM = new THREE.Vector3(11.4, 14.2, -2.5);
+
+      const NEW_BLUE_PORT = rj0Target.clone().add(new THREE.Vector3(0, 2.0, 0));
+      const NEW_BLACK_PORT = rj1Target.clone().add(new THREE.Vector3(0, 2.0, 0));
+      const NEW_COM_PORT = BREAKOUT_HOME.clone().add(new THREE.Vector3(-0.5, 2.1, 0.45));
+
+      let pBluePos = MC_BLUE_PORT.clone();
+      let pBlackPos = MC_BLACK_PORT.clone();
+      let pComPos = MC_COM_PORT.clone();
+
+      plugBlue.userData.spinHalo.visible = false;
+      plugBlack.userData.spinHalo.visible = false;
+      plugBlue.userData.tag.visible = (st >= 2 && st <= 7);
+      plugBlack.userData.tag.visible = (st >= 2 && st <= 7);
+      plugCom.userData.tag.visible = (st >= 2 && st <= 7);
+      plugCom.userData.latch.position.z = 0.7;
+
+      if (st === 2) {
+        // 0..1.0s tags appear, 1.0..2.8s nuts spin CCW & lift, 3.0..4.8s COM latch presses & lifts
+        const tagShow = (t > 0.3);
+        plugBlue.userData.tag.visible = tagShow;
+        plugBlack.userData.tag.visible = tagShow;
+        plugCom.userData.tag.visible = tagShow;
+
+        const spinP = clamp01((t - 1.0) / 1.4);
+        if (spinP > 0 && spinP < 1) {
+          plugBlue.userData.spinHalo.visible = true;
+          plugBlack.userData.spinHalo.visible = true;
+          plugBlue.userData.nut.rotation.y = spinP * Math.PI * 5;
+          plugBlack.userData.nut.rotation.y = spinP * Math.PI * 5;
+          plugBlue.userData.spinHalo.rotation.z = spinP * Math.PI * 3;
+          plugBlack.userData.spinHalo.rotation.z = spinP * Math.PI * 3;
+        }
+        const liftM12 = ease(clamp01((t - 2.3) / 1.5));
+        pBluePos.lerpVectors(MC_BLUE_PORT, PARK_BLUE, liftM12);
+        pBlackPos.lerpVectors(MC_BLACK_PORT, PARK_BLACK, liftM12);
+
+        const latchP = clamp01((t - 3.6) / 0.6);
+        plugCom.userData.latch.position.z = lerp(0.7, 0.45, Math.sin(latchP * Math.PI));
+        const liftCom = ease(clamp01((t - 4.0) / 1.4));
+        pComPos.lerpVectors(MC_COM_PORT, PARK_COM, liftCom);
+      } else if (st >= 3 && st <= 5) {
+        pBluePos.copy(PARK_BLUE);
+        pBlackPos.copy(PARK_BLACK);
+        pComPos.copy(PARK_COM);
+      } else if (st === 6) {
+        const pComIn = ease(clamp01((t - 1.2) / 1.2));
+        const pBlueIn = ease(clamp01((t - 2.9) / 1.2));
+        const pBlackIn = ease(clamp01((t - 4.6) / 1.2));
+        pComPos.lerpVectors(PARK_COM, NEW_COM_PORT, pComIn);
+        pBluePos.lerpVectors(PARK_BLUE, NEW_BLUE_PORT, pBlueIn);
+        pBlackPos.lerpVectors(PARK_BLACK, NEW_BLACK_PORT, pBlackIn);
+      } else if (st === 7) {
+        pBluePos.copy(NEW_BLUE_PORT);
+        pBlackPos.copy(NEW_BLACK_PORT);
+        pComPos.copy(NEW_COM_PORT);
+      } else if (st === 8) {
+        if (t < 1.8) {
+          const pOff = ease(clamp01(t / 1.1));
+          pBluePos.lerpVectors(NEW_BLUE_PORT, PARK_BLUE, pOff);
+          pBlackPos.lerpVectors(NEW_BLACK_PORT, PARK_BLACK, pOff);
+          pComPos.lerpVectors(NEW_COM_PORT, PARK_COM, pOff);
+        } else {
+          const pBack = ease(clamp01((t - 4.7) / 1.2));
+          pBluePos.lerpVectors(PARK_BLUE, MC_BLUE_PORT, pBack);
+          pBlackPos.lerpVectors(PARK_BLACK, MC_BLACK_PORT, pBack);
+          pComPos.lerpVectors(PARK_COM, MC_COM_PORT, pBack);
+        }
+      }
+
+      plugBlue.position.copy(pBluePos);
+      plugBlack.position.copy(pBlackPos);
+      plugCom.position.copy(pComPos);
+
+      // Update dynamic cable tubes smoothly
+      const resBlue = updateTube(cableBlueMesh, [
+        SW_PORT_ORIGIN,
+        new THREE.Vector3(-7.6, 16.4, -5.2),
+        new THREE.Vector3((SW_PORT_ORIGIN.x + pBluePos.x) * 0.5, Math.max(16.8, pBluePos.y + 2.8), (SW_PORT_ORIGIN.z + pBluePos.z) * 0.5),
+        pBluePos.clone().add(new THREE.Vector3(0, 1.5, 0))
+      ], 0.24, blueCableMat, 'cable-blue');
+      cableBlueMesh = resBlue.mesh;
+      blueCurve = resBlue.curve;
+
+      const blackMidX = (st >= 3 && st <= 5) ? -10.5 : (pBlackPos.x - 1.4);
+      const resBlack = updateTube(cableBlackMesh, [
+        IC40_PORT_ORIGIN,
+        new THREE.Vector3((st >= 3 && st <= 5) ? -8.5 : -4.2, 5.2, 3.4),
+        new THREE.Vector3(blackMidX, Math.max(12.2, pBlackPos.y + 2.2), 2.2),
+        pBlackPos.clone().add(new THREE.Vector3(0, 1.5, 0))
+      ], 0.24, blackCableMat, 'cable-black');
+      cableBlackMesh = resBlack.mesh;
+      blackCurve = resBlack.curve;
+
+      const resCom = updateTube(cableComMesh, [
+        COM_ORIGIN,
+        new THREE.Vector3(10.8, 8.8, -4.4),
+        new THREE.Vector3(pComPos.x + 1.8, pComPos.y + 2.8, pComPos.z - 0.6),
+        pComPos.clone().add(new THREE.Vector3(0, 1.4, 0))
+      ], 0.34, comCableMat, 'cable-com');
+      cableComMesh = resCom.mesh;
+
+      // Internal Power/CAN jumper from COM breakout to New Board (or via RSD-60G-12 for Cand 1)
+      if (st === 6 || st === 7) {
+        const pwrPts = isCand1
+          ? [
+              BREAKOUT_HOME.clone().add(new THREE.Vector3(1.5, -1.0, 0)),
+              new THREE.Vector3(4.2, 4.5, -4.5),
+              RSD_HOME.clone().add(new THREE.Vector3(4.0, 0.8, 0)),
+              new THREE.Vector3(2.5, 5.2, -1.0)
+            ]
+          : [
+              BREAKOUT_HOME.clone().add(new THREE.Vector3(-1.4, -0.8, 0.2)),
+              new THREE.Vector3(3.2, 10.6, -0.3),
+              new THREE.Vector3(2.2, 11.1, -0.4)
+            ];
+        const resPwr = updateTube(cablePwrMesh, pwrPts, 0.17, pwrCableMat, 'breakout');
+        cablePwrMesh = resPwr.mesh;
+        cablePwrMesh.visible = true;
+      } else if (cablePwrMesh) {
+        cablePwrMesh.visible = false;
+      }
+
+      // ---- 8. Step 7 Flowing Data Light Particles ----
+      packetGroup.visible = newBoardPowered && !state.photoMode;
+      if (packetGroup.visible && blueCurve && blackCurve) {
+        bluePackets.forEach(p => {
+          const u = (totalTime * 0.45 + p.offset) % 1;
+          p.mesh.position.copy(blueCurve.getPoint(u));
+        });
+        blackPackets.forEach(p => {
+          const u = (totalTime * 0.45 + p.offset) % 1;
+          p.mesh.position.copy(blackCurve.getPoint(u));
+        });
+      }
+
+      // ---- 9. Photo Guide Pin Gentle Bobbing ----
+      if (photoPinsGroup.visible) {
+        [1, 2, 3].forEach(num => {
+          const sp = photoPinSprites[num];
+          const active = (state.photoSpot === num);
+          const s = active ? (3.5 + Math.sin(totalTime * 5) * 0.35) : 2.6;
+          sp.scale.set(s, s, 1);
+          sp.position.y = pinPositions[num].y + Math.sin(totalTime * 3 + num) * 0.3;
+        });
+      }
+
+      // ---- 10. Smooth Camera Glide ----
+      if (state.camTransitioning && !state.userControllingCam) {
+        const alpha = Math.min(1, dt * 4.5);
+        camera.position.lerp(camGoalPos, alpha);
+        controls.target.lerp(camGoalTarget, alpha);
+        if (camera.position.distanceTo(camGoalPos) < 0.08 && controls.target.distanceTo(camGoalTarget) < 0.08) {
+          state.camTransitioning = false;
+        }
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // Resize Handler
+    function onResize() {
+      const w = container.clientWidth || 800;
+      const h = container.clientHeight || 600;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
+    window.addEventListener('resize', onResize);
+
+    // Expose tiny test hook for verification scripts
+    window.__guide3d = {
+      goStep: window.goStep,
+      setCandidate: window.setCandidate,
+      setImuMode: window.setImuMode,
+      togglePhotoMode: window.togglePhotoMode,
+      selectPhotoSpot: window.selectPhotoSpot,
+      openPartCard: openPartCard,
+      snapCameraNow: function() {
+        camera.position.copy(camGoalPos);
+        controls.target.copy(camGoalTarget);
+        state.camTransitioning = false;
+        controls.update();
+      },
+      setStepTime: function(sec) { state.stepElapsed = sec; },
+      getState: function() { return Object.assign({}, state); }
+    };
+
+    // Start!
+    renderGuidePanel();
+    loadingMask.classList.add('hidden');
+    animate();
+  };
+})();
+</script>
+</body>
+</html>
