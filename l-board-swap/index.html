@@ -1,0 +1,2989 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>L-type(T10) 메인보드 MC-40 교체 — 교차 검수 통합 엔지니어링 대시보드</title>
+<style>
+:root {
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --surface-alt: #f8fafc;
+  --surface-hover: #f1f5f9;
+  --fg: #0f172a;
+  --fg-secondary: #334155;
+  --muted: #64748b;
+  --border: #cbd5e1;
+  --border-subtle: #e2e8f0;
+  --grid: #e8edf3;
+
+  --primary: #1d4ed8;
+  --primary-bg: #eff6ff;
+  --primary-border: #bfdbfe;
+
+  --ok: #047857;
+  --ok-bg: #ecfdf5;
+  --ok-border: #a7f3d0;
+
+  --est: #b45309;
+  --est-bg: #fffbeb;
+  --est-border: #fde68a;
+
+  --unk: #b91c1c;
+  --unk-bg: #fef2f2;
+  --unk-border: #fecaca;
+
+  --cyan: #0284c7;
+  --cyan-bg: #f0f9ff;
+  --purple: #6d28d9;
+  --purple-bg: #f5f3ff;
+  --slate-dark: #1e293b;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --sidebar-w: 256px;
+
+  --sans: "Malgun Gothic", "Apple SD Gothic Neo", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "Cascadia Code", "Consolas", "D2Coding", ui-monospace, monospace;
+}
+
+[data-theme="dark"] {
+  --bg: #0b1120;
+  --surface: #111827;
+  --surface-alt: #1e293b;
+  --surface-hover: #243247;
+  --fg: #f1f5f9;
+  --fg-secondary: #cbd5e1;
+  --muted: #94a3b8;
+  --border: #334155;
+  --border-subtle: #1e293b;
+  --grid: #1b2538;
+
+  --primary: #60a5fa;
+  --primary-bg: #172554;
+  --primary-border: #1e40af;
+
+  --ok: #34d399;
+  --ok-bg: #064e3b;
+  --ok-border: #065f46;
+
+  --est: #fbbf24;
+  --est-bg: #451a03;
+  --est-border: #78350f;
+
+  --unk: #f87171;
+  --unk-bg: #450a0a;
+  --unk-border: #7f1d1d;
+
+  --cyan: #38bdf8;
+  --cyan-bg: #0c4a6e;
+  --purple: #a78bfa;
+  --purple-bg: #2e1065;
+  --slate-dark: #e2e8f0;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 14.5px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Layout Shell */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Fixed Sidebar TOC */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+  overflow-y: auto;
+}
+.sidebar-head {
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.sidebar-brand {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.sidebar-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 4px 0 2px;
+  line-height: 1.3;
+}
+.sidebar-meta {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 10px 24px;
+  flex: 1;
+}
+.toc-list li { margin-bottom: 2px; }
+.toc-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--fg-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+}
+.toc-link:hover { background: var(--surface-hover); color: var(--fg); }
+.toc-link.active {
+  background: var(--primary-bg);
+  color: var(--primary);
+  font-weight: 700;
+}
+.toc-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  min-width: 22px;
+}
+.toc-link.active .toc-num { color: var(--primary); }
+
+.sidebar-foot {
+  padding: 12px 14px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 11.5px;
+  color: var(--muted);
+  background: var(--surface-alt);
+}
+
+/* Main Content */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-width: 0;
+  padding: 20px 28px 80px;
+  max-width: 1320px;
+}
+
+/* Top Utility Bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.topbar-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.08s;
+}
+.btn:hover { background: var(--surface-hover); border-color: var(--primary); }
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+.btn-primary:hover { opacity: 0.92; background: var(--primary); }
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1.5px 7px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+}
+.badge-ok { color: var(--ok); background: var(--ok-bg); border-color: var(--ok-border); }
+.badge-est { color: var(--est); background: var(--est-bg); border-color: var(--est-border); }
+.badge-unk { color: var(--unk); background: var(--unk-bg); border-color: var(--unk-border); }
+.badge-info { color: var(--primary); background: var(--primary-bg); border-color: var(--primary-border); }
+
+/* Hero */
+.hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--cyan), var(--ok));
+}
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+.hero-sub {
+  margin: 0 0 18px;
+  color: var(--fg-secondary);
+  font-size: 14px;
+  max-width: 92ch;
+}
+
+/* 5 KPI Cards */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.kpi-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 13px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.kpi-card.kpi-accent {
+  border-color: var(--primary-border);
+  background: var(--primary-bg);
+}
+.kpi-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.kpi-val {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.kpi-desc {
+  font-size: 12px;
+  color: var(--fg-secondary);
+  line-height: 1.4;
+}
+
+/* Sections */
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  scroll-margin-top: 18px;
+}
+.sec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+.sec-num {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 2px;
+}
+.section h2 {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.3;
+}
+.section h3 {
+  margin: 18px 0 8px;
+  font-size: 15.5px;
+  color: var(--fg);
+}
+code, .mono {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--surface-alt);
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+}
+.num {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Callouts */
+.callout {
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin: 12px 0;
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  background: var(--surface-alt);
+  font-size: 13.8px;
+}
+.callout-warn { border-color: var(--unk-border); border-left-color: var(--unk); background: var(--unk-bg); }
+.callout-ok { border-color: var(--ok-border); border-left-color: var(--ok); background: var(--ok-bg); }
+.callout-est { border-color: var(--est-border); border-left-color: var(--est); background: var(--est-bg); }
+.callout-info { border-color: var(--primary-border); border-left-color: var(--primary); background: var(--primary-bg); }
+.callout strong { color: var(--fg); }
+
+/* Executive Conclusion List */
+.exec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.exec-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.exec-card-title {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.exec-card p {
+  margin: 0;
+  font-size: 13.2px;
+  color: var(--fg-secondary);
+}
+
+/* Diagram Sheet */
+.diagram-sheet {
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow-x: auto;
+  padding: 10px;
+  margin: 14px 0;
+}
+.diagram-sheet svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 820px;
+}
+.diagram-cap {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 12px 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.3px;
+}
+th, td {
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: var(--surface-alt);
+  color: var(--fg-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+tbody tr:hover { background: var(--surface-hover); }
+tbody tr:last-child td { border-bottom: 0; }
+tr.row-hl {
+  background: var(--primary-bg) !important;
+  font-weight: 700;
+}
+td.cell-hl {
+  background: var(--primary-bg);
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* Filter Toolbar */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.search-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 13.5px;
+}
+.search-input:focus {
+  outline: 2px solid var(--primary);
+  border-color: var(--primary);
+}
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pill {
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--fg-secondary);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pill:hover { background: var(--surface-hover); }
+.pill.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+/* BOM Calculator */
+.bom-panel {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+.bom-controls {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ctrl-group label.ctrl-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.seg-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+.seg-group.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.seg-btn {
+  padding: 8px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--fg);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.3;
+}
+.seg-btn:hover { border-color: var(--primary); }
+.seg-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.chk-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+}
+.chk-row input { margin-top: 3px; accent-color: var(--primary); }
+.chk-row.disabled { opacity: 0.48; pointer-events: none; }
+.qty-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qty-row input[type="range"] { flex: 1; accent-color: var(--primary); }
+.qty-val {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 800;
+  min-width: 44px;
+  text-align: center;
+  color: var(--primary);
+}
+
+.bom-summary-bar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.bom-kpi {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.bom-kpi.total {
+  background: var(--primary-bg);
+  border-color: var(--primary);
+}
+.bom-kpi-label { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+.bom-kpi-num {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg);
+  margin-top: 2px;
+}
+.bom-kpi.total .bom-kpi-num { color: var(--primary); }
+.bom-kpi-sub { font-size: 11.5px; color: var(--fg-secondary); margin-top: 2px; }
+
+/* Steps / Cards */
+.card-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 14px;
+}
+.guide-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 15px 16px;
+  border-top: 3px solid var(--primary);
+}
+.guide-card.warn { border-top-color: var(--unk); }
+.guide-card.opt { border-top-color: var(--muted); border-style: dashed; }
+.guide-card h4 { margin: 0 0 8px; font-size: 14.5px; }
+.guide-card ul { margin: 0 0 10px; padding-left: 18px; font-size: 13.3px; }
+.guide-card li { margin-bottom: 4px; }
+.unblock-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ok);
+  background: var(--ok-bg);
+  border: 1px solid var(--ok-border);
+  border-radius: 6px;
+  padding: 5px 9px;
+  display: inline-block;
+}
+
+/* Photo Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.photo-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.14s, border-color 0.14s;
+  display: flex;
+  flex-direction: column;
+}
+.photo-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+.photo-thumb-wrap {
+  aspect-ratio: 4 / 3;
+  background: var(--grid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.photo-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-fallback {
+  padding: 14px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.photo-meta {
+  padding: 9px 11px;
+  font-size: 12.2px;
+}
+.photo-meta strong { display: block; font-size: 12.8px; margin-bottom: 2px; }
+.photo-meta span { color: var(--muted); }
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.86);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+.lightbox.open { display: flex; }
+.lightbox-inner {
+  max-width: 92vw;
+  max-height: 92vh;
+  background: var(--surface);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+.lightbox-inner img {
+  max-width: 88vw;
+  max-height: 76vh;
+  object-fit: contain;
+  background: #0f172a;
+}
+.lightbox-bar {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Vendor Tabs */
+.tab-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+.tab-btn {
+  padding: 7px 13px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--fg-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.tab-btn.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+.inquiry-box {
+  position: relative;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+.inquiry-pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--mono);
+  font-size: 12.8px;
+  line-height: 1.65;
+  color: var(--fg);
+}
+.inquiry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Checklist */
+.progress-wrap {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.progress-bar-bg {
+  height: 10px;
+  background: var(--border-subtle);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--ok));
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+.phase-block {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.phase-block.phase-rollback { border-color: var(--unk-border); }
+.phase-head {
+  background: var(--surface-alt);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+.phase-items {
+  padding: 8px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.chk-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13.4px;
+}
+.chk-item:hover { background: var(--surface-hover); }
+.chk-item input { margin-top: 3px; width: 16px; height: 16px; accent-color: var(--ok); flex-shrink: 0; }
+.chk-item.done span { text-decoration: line-through; color: var(--muted); }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--fg);
+  color: var(--surface);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 200;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 1120px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-head, .sidebar-foot { display: none; }
+  .toc-list {
+    display: flex;
+    overflow-x: auto;
+    padding: 8px 12px;
+    gap: 4px;
+  }
+  .toc-list li { margin: 0; flex-shrink: 0; }
+  .app-shell { flex-direction: column; }
+  .main { margin-left: 0; padding: 16px 14px 60px; }
+  .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bom-panel { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+  .bom-summary-bar { grid-template-columns: 1fr; }
+}
+
+/* Print Optimization */
+@media print {
+  :root, [data-theme="dark"] {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-alt: #f8fafc;
+    --fg: #0f172a;
+    --fg-secondary: #334155;
+    --muted: #475569;
+    --border: #94a3b8;
+    --border-subtle: #cbd5e1;
+  }
+  .sidebar, .topbar-actions, .toolbar, .bom-controls, .tab-bar, .no-print, .lightbox, .toast { display: none !important; }
+  .main { margin-left: 0 !important; padding: 0 !important; max-width: 100% !important; }
+  .section, .hero, .diagram-sheet, .guide-card, .phase-block {
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .diagram-sheet svg { min-width: 0 !important; }
+  .bom-panel { grid-template-columns: 1fr !important; }
+  body { font-size: 11pt; }
+}
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <!-- Fixed Sidebar Navigation -->
+  <nav class="sidebar" aria-label="문서 목차">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">TUSK T10 · MC-40 SWAP</div>
+      <div class="sidebar-title">L-type 메인보드 교체 계획</div>
+      <div class="sidebar-meta">교차 검수 통합본 · 2026-11-22</div>
+    </div>
+    <ul class="toc-list" id="tocList">
+      <li><a class="toc-link active" href="#sec-overview"><span class="toc-num">00</span>한눈에 보는 결론</a></li>
+      <li><a class="toc-link" href="#sec-wiring"><span class="toc-num">01</span>배선·ENET 교차 경보도</a></li>
+      <li><a class="toc-link" href="#sec-imu"><span class="toc-num">02</span>IMU 세로 장착 기하</a></li>
+      <li><a class="toc-link" href="#sec-size"><span class="toc-num">03</span>1:1 mm 보드 크기 비교</a></li>
+      <li><a class="toc-link" href="#sec-power"><span class="toc-num">04</span>T10 전원 레일·부하 예산</a></li>
+      <li><a class="toc-link" href="#sec-os"><span class="toc-num">05</span>OS 방안 B·ELF·드롭인</a></li>
+      <li><a class="toc-link" href="#sec-bom"><span class="toc-num">06</span>인터랙티브 BOM 계산기</a></li>
+      <li><a class="toc-link" href="#sec-audit"><span class="toc-num">07</span>교차 검수 24건 (X1~X24)</a></li>
+      <li><a class="toc-link" href="#sec-spec"><span class="toc-num">08</span>ORNX-LAN·I2C·MOXA 절차</a></li>
+      <li><a class="toc-link" href="#sec-decision"><span class="toc-num">09</span>의사결정 매트릭스·추천</a></li>
+      <li><a class="toc-link" href="#sec-physical"><span class="toc-num">10</span>물리 확인 3(+1)건·사진</a></li>
+      <li><a class="toc-link" href="#sec-inquiry"><span class="toc-num">11</span>업체 압축 문의문 5종</a></li>
+      <li><a class="toc-link" href="#sec-checklist"><span class="toc-num">12</span>P0~P6 실행 체크리스트</a></li>
+      <li><a class="toc-link" href="#sec-unknowns"><span class="toc-num">13</span>남은 미확인·근거 경로</a></li>
+    </ul>
+    <div class="sidebar-foot">
+      100% 오프라인 단일 HTML<br>
+      기준: MASTER_PLAN_BOARD_SWAP.md
+    </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="main">
+    <!-- Top Utility Bar -->
+    <div class="topbar">
+      <div class="topbar-badges">
+        <span class="badge badge-ok">[확인] 파일·사진·코드·공식 사양 직접 검증</span>
+        <span class="badge badge-est">[추정] 근거 있는 공학적 판단</span>
+        <span class="badge badge-unk">[미확인] 실물 측정·업체 회신 필요</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn" id="themeToggle" type="button" title="라이트/다크 테마 전환">🌙 다크모드</button>
+        <button class="btn" type="button" onclick="window.print()" title="인쇄 또는 PDF 저장">🖨️ 인쇄/PDF</button>
+      </div>
+    </div>
+
+    <!-- Hero & 5 KPI Cards -->
+    <header class="hero" id="sec-overview">
+      <div class="hero-eyebrow">L-TYPE (TUSK T10 · 34960 우선 / 34937 기준) · INDEPENDENT CROSS-AUDIT MASTER PLAN</div>
+      <h1>L-type 메인보드 MC-40 교체 — 교차 검수 통합 엔지니어링 계획</h1>
+      <p class="hero-sub">
+        4개 독립 조사 트랙(<code>research_01~04</code>)과 실물 사진·ELF 9종 직접 파싱·<code>oneweave-native</code> 소스·웹 공식 데이터시트를 교차 검수하여
+        모순·누락·신규 위험 24건(X1~X24)을 전수 보정한 단일 의사결정·실행 대시보드입니다.
+      </p>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">애플리케이션 호환</div>
+          <div class="kpi-val">native 소스 0줄 수정</div>
+          <div class="kpi-desc"><span class="badge badge-ok">[확인]</span> 정적 aarch64 · 기반 이미지 1회로 완결</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">독립 교차 검수</div>
+          <div class="kpi-val">교차 검수 24건 보정</div>
+          <div class="kpi-desc"><span class="badge badge-ok">[확인]</span> X1~X24 모순·성별·치수·전원 오류 해소</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">현장 안전 복구</div>
+          <div class="kpi-val">15분 비파괴 원복</div>
+          <div class="kpi-desc"><span class="badge badge-ok">[확인]</span> 로봇 배선 절단 0 · 기존 MC-40 원상 복귀</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">사전 실측 부담</div>
+          <div class="kpi-val">물리 확인 8→3건 축소</div>
+          <div class="kpi-desc"><span class="badge badge-ok">[확인]</span> 필수 3건(+선택 1건)으로 발주 차단 해소</div>
+        </div>
+        <div class="kpi-card kpi-accent">
+          <div class="kpi-label">최종 아키텍처 추천</div>
+          <div class="kpi-val">조건부 후보 1</div>
+          <div class="kpi-desc">공간 부족 시 <strong>후보 3-B</strong> (1대당 1,231,800원 차)</div>
+        </div>
+      </div>
+
+      <div class="exec-grid">
+        <div class="exec-card">
+          <div class="exec-card-title">1. native 0줄 + tusk-boot 바이트 유지 <span class="badge badge-ok">[확인]</span></div>
+          <p><code>tusk_native</code>는 완전 정적 aarch64. 보드 기종당 1회 만드는 기반 이미지(Ubuntu 22.04 + Tusk 호환 계층)에 빈 <code>wch.ko</code>와 <code>rpcbind</code>(비활성)만 넣으면 <code>prepare.sh</code> 패치 없이 동작 <span class="badge badge-est">[추정, 벤치 확정]</span>.</p>
+        </div>
+        <div class="exec-card">
+          <div class="exec-card-title">2. hard-config 0줄 = IMU 세로 장착 <span class="badge badge-ok">[확인]</span></div>
+          <p>칩 <strong>−Y축이 하늘</strong>(MC-40 동일) + <code>/dev/i2c-2</code> + <code>can1</code>. HANDOFF 8절의 "평평 장착"은 <code>z_acc≈0</code>으로 <code>D0303</code> 측위 거부 발생(X1 보정).</p>
+        </div>
+        <div class="exec-card">
+          <div class="exec-card-title">3. 헬퍼 5종 ELF 전수 통과 <span class="badge badge-ok">[확인]</span></div>
+          <p>Ubuntu 22.04 / Debian 12 기본 라이브러리 링크 확인. 필수 3건: <code>/dev/ttysWK0</code> 가짜 PTY, <code>00-tusk.conf</code>(X6), <code>/home/agvupg-web</code> 복사(X7). 원본 nginx는 <code>libxcrypt</code> 호환 심볼로 실행 유력 <span class="badge badge-est">[추정·높음]</span>.</p>
+        </div>
+        <div class="exec-card">
+          <div class="exec-card-title">4. 최대 신규 위험 = 보드 크기 간섭 <span class="badge badge-est">[추정]</span></div>
+          <p>MC-40(≈142×91 mm)은 커넥터를 위로 세워져 배선 다발 사이 폭을 거의 다 차지. 후보 1 <code>OK3588J-C</code>(190×130, 케이스 ≈210×150)는 같은 자리 폭 초과 유력 → <strong>실측 #2 전 발주 금지</strong>.</p>
+        </div>
+        <div class="exec-card">
+          <div class="exec-card-title">5. 전원 통일안 (48V→IC-40→24V) <span class="badge badge-ok">[확인]</span></div>
+          <p>T10은 24V 리튬 직결이 아닌 정전압 24V 레일(X9). 후보 1 = <code>RSD-60G-12</code> 보드 전용(≤33%), 후보 3 = 24V 직결, <strong>Mid-360S = 24V+2A 퓨즈 독립 분기</strong>(DDR-120 불필요).</p>
+        </div>
+        <div class="exec-card">
+          <div class="exec-card-title">6. 통일 BOM (1대, VAT 포함) <span class="badge badge-ok">[확인]</span></div>
+          <p>교체 세트: 후보 1 <strong>1,390,806원</strong> · 후보 3-B <strong>2,622,606원</strong> · 후보 3-A <strong>2,712,033원</strong>. +Mid-360S 국내(+1,600,000) / 해외(+1,358,533). 후보 3-A는 3-B 대비 +89,427원 및 배선 위험으로 비권장.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: SVG 1 — System Wiring & ENET0/1 Crossover Alert -->
+    <section class="section" id="sec-wiring">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">DIAGRAM 01 · SECTION 8</span>
+          <h2>전체 시스템 배선 &amp; ENET0/1 교차 경보도</h2>
+        </div>
+        <div class="topbar-badges">
+          <span class="badge badge-ok">[확인] X2 성별 보정 (M12 암↔RJ45 수)</span>
+          <span class="badge badge-ok">[확인] X3 하늘색(ENET1)→eth0 / 검정(ENET0)→eth1</span>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <strong>⚠ 핵심 실수 방지 경고 [확인 X3]:</strong> MC-40 외함 실크(커넥터 정면 왼쪽부터 <code>ENET1 · ENET0 · USB1 · USB0 · COM</code>)와 리눅스 인터페이스 번호가 <strong>서로 교차</strong>되어 있습니다.
+        교체 시 외함 글자를 절대 믿지 말고 <strong>케이블 색·행선지</strong>로 라벨링하십시오:
+        <strong>하늘색(ENET1 → 스위치) = <code>eth0</code> (147 망, 1 Gbps)</strong> / <strong>검정(ENET0 → IC-40) = <code>eth1</code> (148 망, 100 Mbps)</strong>.
+      </div>
+
+      <div class="diagram-sheet">
+        <svg viewBox="0 0 1120 572" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="전체 시스템 배선 및 ENET0/1 교차 경보도">
+          <defs>
+            <marker id="arr-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706"/>
+            </marker>
+            <marker id="arr-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+            </marker>
+            <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669"/>
+            </marker>
+            <marker id="arr-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+            </marker>
+            <marker id="arr-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b"/>
+            </marker>
+          </defs>
+
+          <!-- Column Headers -->
+          <rect x="20" y="14" width="290" height="34" rx="6" fill="var(--surface-alt)" stroke="var(--border)"/>
+          <text x="165" y="36" text-anchor="middle" font-size="13" font-weight="700" fill="var(--fg)">1. 로봇 측 (T10 34960 — 절단 금지)</text>
+
+          <rect x="370" y="14" width="340" height="34" rx="6" fill="var(--primary-bg)" stroke="var(--primary-border)"/>
+          <text x="540" y="36" text-anchor="middle" font-size="13" font-weight="700" fill="var(--primary)">2. 비파괴 브리지 (15분 원복 경계)</text>
+
+          <rect x="770" y="14" width="330" height="34" rx="6" fill="var(--ok-bg)" stroke="var(--ok-border)"/>
+          <text x="935" y="36" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ok)">3. 새 보드 (OK3588J-C / ORNX-LAN)</text>
+
+          <!-- ROW 1: POWER -->
+          <rect x="20" y="64" width="290" height="92" rx="8" fill="var(--surface)" stroke="#d97706" stroke-width="1.6"/>
+          <text x="34" y="86" font-size="13" font-weight="700" fill="var(--fg)">48V 배터리 → IC-40 하단 전원판</text>
+          <text x="34" y="106" font-size="12" font-weight="600" fill="#b45309">정전압 24V 레일 출력 [확인]</text>
+          <text x="34" y="125" font-size="11.3" fill="var(--muted)">BAT_IN×2 · PGND×4 (24V 리튬 직결 아님)</text>
+          <text x="34" y="143" font-size="11.3" fill="var(--muted)">공용: 2D라이다 5대 · 스위치 · R818 · MOXA</text>
+
+          <line x1="310" y1="110" x2="368" y2="110" stroke="#d97706" stroke-width="3" marker-end="url(#arr-amber)"/>
+          <text x="339" y="102" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" fill="#d97706">24V</text>
+
+          <rect x="370" y="64" width="340" height="92" rx="8" fill="var(--est-bg)" stroke="#d97706" stroke-width="1.6"/>
+          <text x="384" y="86" font-size="13" font-weight="700" fill="var(--fg)">전원 보호 · 변환단 (5A 슬로우 퓨즈 + TVS)</text>
+          <text x="384" y="106" font-size="11.8" fill="var(--fg-secondary)">• 후보 1: TVS SMDJ30A → RSD-60G-12 (12V 60W)</text>
+          <text x="384" y="124" font-size="11.8" fill="var(--fg-secondary)">• 후보 3: IC-40 24V 분배점 18AWG → 24V 직결</text>
+          <text x="384" y="142" font-size="11.2" fill="#b45309">• Mid-360S: 24V 레일 + 2A 퓨즈 독립 분기</text>
+
+          <line x1="710" y1="110" x2="768" y2="110" stroke="#d97706" stroke-width="3" marker-end="url(#arr-amber)"/>
+          <text x="739" y="102" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="700" fill="#d97706">12V/24V</text>
+
+          <rect x="770" y="64" width="330" height="92" rx="8" fill="var(--surface)" stroke="#d97706" stroke-width="1.6"/>
+          <text x="784" y="86" font-size="13" font-weight="700" fill="var(--fg)">새 보드 전원 입력</text>
+          <text x="784" y="106" font-size="11.8" fill="var(--fg-secondary)">• 후보 1: 12V±5% DC005 잠금 플러그 (≤33%)</text>
+          <text x="784" y="124" font-size="11.8" fill="var(--fg-secondary)">• 후보 3-B: 9~32V 4핀 단자대 (25W 모드 기본)</text>
+          <text x="784" y="142" font-size="11.2" fill="var(--muted)">• 레일 실측 불량 시만 RSD-60G-24 추가</text>
+
+          <!-- ROW 2: COM + CAN + I2C IMU -->
+          <rect x="20" y="174" width="290" height="102" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="34" y="196" font-size="13" font-weight="700" fill="var(--fg)">COM 회색 40핀 암 플러그</text>
+          <text x="34" y="215" font-size="11.6" font-family="var(--mono)" fill="var(--primary)">JAE MX34040SF1 [추정] · LP202806-22-3</text>
+          <text x="34" y="234" font-size="11.5" fill="var(--fg-secondary)">실장 ~10가닥: 우측 끝 적·흑 24V 전원 +</text>
+          <text x="34" y="251" font-size="11.5" fill="var(--fg-secondary)">CAN1_H/L (Kinco FD144S) + ~8가닥 [미확인]</text>
+          <text x="34" y="267" font-size="11" fill="#b91c1c">※ 실측 #1 도통 검사로 8가닥 정체 전수 확인</text>
+
+          <line x1="310" y1="225" x2="368" y2="225" stroke="#475569" stroke-width="2.6" marker-end="url(#arr-slate)"/>
+          <text x="339" y="217" text-anchor="middle" font-family="var(--mono)" font-size="10.2" font-weight="700" fill="#475569">40P</text>
+
+          <rect x="370" y="174" width="340" height="102" rx="8" fill="var(--surface-alt)" stroke="#475569" stroke-width="1.6"/>
+          <text x="384" y="196" font-size="13" font-weight="700" fill="var(--fg)">COM 브레이크아웃 PCB (KiCad 제작)</text>
+          <text x="384" y="215" font-size="11.6" fill="var(--fg-secondary)">• JAE MX34040NF1 수 헤더 + 나사단자대</text>
+          <text x="384" y="233" font-size="11.6" fill="var(--fg-secondary)">• CAN1_H/L 분기 (+120Ω 종단 점퍼 선택)</text>
+          <text x="384" y="251" font-size="11.6" fill="var(--fg-secondary)">• 24V/GND 및 도통 확인된 추가 신호 인출</text>
+          <text x="384" y="267" font-size="11" fill="var(--ok)">원복 시 브레이크아웃만 분리 → 무손상 복귀</text>
+
+          <line x1="710" y1="205" x2="768" y2="205" stroke="#059669" stroke-width="2.6" marker-end="url(#arr-green)"/>
+          <text x="739" y="197" text-anchor="middle" font-family="var(--mono)" font-size="10.2" font-weight="700" fill="#059669">CAN1</text>
+
+          <rect x="770" y="174" width="330" height="102" rx="8" fill="var(--surface)" stroke="#059669" stroke-width="1.6"/>
+          <text x="784" y="196" font-size="13" font-weight="700" fill="var(--fg)">CAN1 &amp; 외부 IMU (hard-config 0줄)</text>
+          <text x="784" y="215" font-size="11.6" font-family="var(--mono)" fill="#047857">can1 (udev KERNELS 고정 · 500 kbps)</text>
+          <text x="784" y="234" font-size="11.6" font-family="var(--mono)" fill="#047857">/dev/i2c-2 (0x68 · OSTSen-6500 MPU-6500)</text>
+          <text x="784" y="252" font-size="11.4" fill="var(--fg-secondary)">세로 강체 브래킷 (−Y 하늘, ±5°) · 실드선 ≤15 cm</text>
+          <text x="784" y="267" font-size="11" fill="var(--muted)">HW I2C 400kHz 우선 / 대안 i2c-gpio delay-us=2</text>
+
+          <!-- ROW 3: ENET1 (Cyan) -> eth0 -->
+          <rect x="20" y="294" width="290" height="88" rx="8" fill="var(--cyan-bg)" stroke="#0284c7" stroke-width="2.2"/>
+          <text x="34" y="316" font-size="13" font-weight="800" fill="#0284c7">하늘색 케이블 [외함 실크: ENET1 / J6]</text>
+          <text x="34" y="335" font-size="11.8" font-weight="600" fill="var(--fg)">→ 상단 은색 이더넷 스위치 (1 Gbps)</text>
+          <text x="34" y="353" font-size="11.2" fill="var(--fg-secondary)">2D 라이다 5대 · R818 화면 · MOXA 무선</text>
+          <text x="34" y="370" font-size="11.2" fill="var(--muted)">향후 Mid-360S (192.168.147.30, S1/S2 확보)</text>
+
+          <line x1="310" y1="338" x2="368" y2="338" stroke="#0284c7" stroke-width="4" marker-end="url(#arr-cyan)"/>
+          <text x="339" y="328" text-anchor="middle" font-family="var(--mono)" font-size="10.2" font-weight="800" fill="#0284c7">ENET1</text>
+
+          <rect x="370" y="294" width="340" height="88" rx="8" fill="var(--cyan-bg)" stroke="#0284c7" stroke-width="2.2"/>
+          <text x="384" y="316" font-size="12.8" font-weight="700" fill="var(--fg)">M12 X-코드 8핀 암(F) ↔ RJ45 수(M) [X2]</text>
+          <text x="384" y="335" font-size="11.5" fill="var(--fg-secondary)">(또는 일반 Cat6 패치선으로 스위치 직결, 하늘색선 보관)</text>
+          <rect x="384" y="346" width="218" height="24" rx="4" fill="#0284c7"/>
+          <text x="493" y="362" text-anchor="middle" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="#ffffff">라벨: "eth0 / 147 / 스위치"</text>
+
+          <line x1="710" y1="338" x2="768" y2="338" stroke="#0284c7" stroke-width="4" marker-end="url(#arr-cyan)"/>
+          <text x="739" y="328" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="800" fill="#0284c7">eth0</text>
+
+          <rect x="770" y="294" width="330" height="88" rx="8" fill="var(--surface)" stroke="#0284c7" stroke-width="2.2"/>
+          <text x="784" y="316" font-size="13" font-weight="800" fill="#0284c7">eth0 · 192.168.147.1/24 (1 Gbps)</text>
+          <text x="784" y="335" font-size="11.5" font-family="var(--mono)" fill="var(--fg)">10-tusk-eth0.link [Match] Path=ID_PATH</text>
+          <text x="784" y="353" font-size="9.8" fill="var(--fg-secondary)">FMS: MOXA &lt;현장 MOXA WAN&gt; → &lt;현장 FMS 브로커&gt;:1883</text>
+          <text x="784" y="370" font-size="11.1" fill="var(--muted)">예비: arping -U → 실패 시 MACAddress= 복제</text>
+
+          <!-- ROW 4: ENET0 (Black) -> eth1 -->
+          <rect x="20" y="398" width="290" height="88" rx="8" fill="var(--surface-alt)" stroke="#334155" stroke-width="2.2"/>
+          <text x="34" y="420" font-size="13" font-weight="800" fill="var(--fg)">검정 케이블 [외함 실크: ENET0 / J4]</text>
+          <text x="34" y="439" font-size="11.8" font-weight="600" fill="var(--fg)">→ IC-40 윗면 M12 직결 (100 Mbps)</text>
+          <text x="34" y="457" font-size="11.3" fill="var(--fg-secondary)">IC-40 STM32 UDP: 192.168.148.158 / .159</text>
+          <text x="34" y="474" font-size="11.1" fill="var(--muted)">USB0/1 (M12 A-코드 8핀): dmesg 장치 0건 [확인]</text>
+
+          <line x1="310" y1="442" x2="368" y2="442" stroke="#1e293b" stroke-width="4" marker-end="url(#arr-dark)"/>
+          <text x="339" y="432" text-anchor="middle" font-family="var(--mono)" font-size="10.2" font-weight="800" fill="var(--fg)">ENET0</text>
+
+          <rect x="370" y="398" width="340" height="88" rx="8" fill="var(--surface-alt)" stroke="#334155" stroke-width="2.2"/>
+          <text x="384" y="420" font-size="12.8" font-weight="700" fill="var(--fg)">M12 X-코드 8핀 암(F) ↔ RJ45 수(M) [X2]</text>
+          <text x="384" y="439" font-size="11.5" fill="var(--fg-secondary)">로봇 검정 M12 수 플러그에 그대로 체결 (75,000원/개)</text>
+          <rect x="384" y="450" width="218" height="24" rx="4" fill="#1e293b"/>
+          <text x="493" y="466" text-anchor="middle" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="#ffffff">라벨: "eth1 / 148 / IC-40"</text>
+
+          <line x1="710" y1="442" x2="768" y2="442" stroke="#1e293b" stroke-width="4" marker-end="url(#arr-dark)"/>
+          <text x="739" y="432" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="800" fill="var(--fg)">eth1</text>
+
+          <rect x="770" y="398" width="330" height="88" rx="8" fill="var(--surface)" stroke="#334155" stroke-width="2.2"/>
+          <text x="784" y="420" font-size="13" font-weight="800" fill="var(--fg)">eth1 · 192.168.148.1/24 (100 Mbps)</text>
+          <text x="784" y="439" font-size="11.5" font-family="var(--mono)" fill="var(--fg)">11-tusk-eth1.link [Match] Path=ID_PATH</text>
+          <text x="784" y="457" font-size="11.3" fill="var(--fg-secondary)">벤치 확인: 선 1개씩 꽂아 ip -br link로 스티커 부착</text>
+          <text x="784" y="474" font-size="11.1" fill="#b91c1c">반대로 나오면 케이블 말고 .link Path를 서로 교환</text>
+
+          <!-- CROSSOVER ALERT FOOTER -->
+          <rect x="20" y="504" width="1080" height="54" rx="8" fill="var(--unk-bg)" stroke="#dc2626" stroke-width="2"/>
+          <text x="40" y="527" font-size="13.2" font-weight="800" fill="#b91c1c">⚠ ENET0/1 교차 경보 [확인 X3]: 외함 글자(ENET0/1)와 리눅스(eth0/1)가 반대!</text>
+          <text x="40" y="547" font-size="12" fill="var(--fg)">• 분리 전 플러그 라벨링 + 사진 촬영 필수  |  하늘색(ENET1, 스위치) → eth0  |  검정(ENET0, IC-40) → eth1  |  99-default.link → /dev/null 필수</text>
+        </svg>
+      </div>
+      <div class="diagram-cap">
+        <span>도식 1. 비파괴 브리지 아키텍처 및 ENET0/1 교차 방지 배선도</span>
+        <span>근거: MASTER_PLAN 1절(X2·X3), 5절, 8절 · 사진 01_ic40_in_robot.png</span>
+      </div>
+    </section>
+
+    <!-- SECTION 2: SVG 2 — IMU Vertical Mounting Geometry -->
+    <section class="section" id="sec-imu">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">DIAGRAM 02 · SECTION 2</span>
+          <h2>IMU 세로 장착 기하 도식 — 모순 해소 (X1·X4·X15)</h2>
+        </div>
+        <div class="topbar-badges">
+          <span class="badge badge-ok">[확인] hard-config 수식</span>
+          <span class="badge badge-est">[추정→정합] 사진 두 장 기하 일치</span>
+        </div>
+      </div>
+
+      <div class="diagram-sheet">
+        <svg viewBox="0 0 1060 448" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="IMU 평평 장착 오류와 세로 장착 표준 2패널 비교 도식">
+          <defs>
+            <marker id="imu-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+            </marker>
+            <marker id="imu-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+            </marker>
+            <marker id="imu-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669"/>
+            </marker>
+            <marker id="imu-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706"/>
+            </marker>
+          </defs>
+
+          <!-- LEFT PANEL: WRONG FLAT MOUNT -->
+          <rect x="16" y="16" width="500" height="416" rx="10" fill="var(--surface)" stroke="#dc2626" stroke-width="2"/>
+          <rect x="16" y="16" width="500" height="42" rx="10" fill="var(--unk-bg)"/>
+          <rect x="16" y="48" width="500" height="10" fill="var(--unk-bg)"/>
+          <text x="36" y="43" font-size="14.5" font-weight="800" fill="#b91c1c">❌ 평평 장착 (HANDOFF 8절 오류 — 사용 금지)</text>
+
+          <!-- Flat PCB Isometric -->
+          <polygon points="115,212 315,212 365,168 165,168" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1.8"/>
+          <polygon points="115,212 315,212 315,221 115,221" fill="#0f233d"/>
+          <polygon points="315,212 365,168 365,177 315,221" fill="#152e4f"/>
+          <!-- Chip on flat PCB -->
+          <polygon points="222,195 256,195 268,183 234,183" fill="#0f172a" stroke="#94a3b8" stroke-width="1.2"/>
+          <text x="245" y="236" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--muted)">수평으로 눕힌 IMU 모듈 (GY-6500 / OSTSen-6500)</text>
+
+          <!-- Axes on Flat PCB -->
+          <line x1="245" y1="189" x2="245" y2="95" stroke="#1d4ed8" stroke-width="2.6" marker-end="url(#imu-blue)"/>
+          <text x="255" y="102" font-size="12.2" font-weight="700" fill="#1d4ed8">칩 +Z (하늘)</text>
+          <text x="255" y="118" font-size="11" fill="var(--muted)">정지 +1g가 Z축에 인가</text>
+
+          <line x1="245" y1="189" x2="385" y2="189" stroke="#059669" stroke-width="2.2" marker-end="url(#imu-green)"/>
+          <text x="392" y="193" font-size="12" font-weight="700" fill="#059669">칩 +X</text>
+
+          <line x1="245" y1="189" x2="180" y2="242" stroke="#d97706" stroke-width="2.2" marker-end="url(#imu-amber)"/>
+          <text x="88" y="255" font-size="12" font-weight="700" fill="#b45309">칩 +Y (수평 → ACC_Y ≈ 0)</text>
+
+          <!-- Gravity Indicator -->
+          <line x1="65" y1="100" x2="65" y2="178" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#imu-red)"/>
+          <text x="65" y="92" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">중력 g ↓</text>
+
+          <!-- Fail Formula Box -->
+          <rect x="34" y="274" width="464" height="140" rx="8" fill="var(--unk-bg)" stroke="#fecaca" stroke-width="1.4"/>
+          <text x="50" y="297" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">hard-config: { x_addr:0, y_addr:4, z_addr:2, z_reverse:true }</text>
+          <text x="50" y="318" font-size="12.2" fill="var(--fg-secondary)">→ 로봇 Z = −칩 Y  (따라서 z_acc = −ACC_Y)</text>
+          <text x="50" y="340" font-size="12.5" font-weight="700" fill="#b91c1c">평평 장착 결과: ACC_Y ≈ 0  ⇒  z_acc ≈ 0 cm/s²</text>
+          <rect x="50" y="352" width="432" height="30" rx="5" fill="#dc2626"/>
+          <text x="266" y="372" text-anchor="middle" font-size="12.5" font-weight="800" fill="#ffffff">D0303 측위 초기화 거부! (통과 조건: 600 ≤ z_acc ≤ 1500)</text>
+          <text x="50" y="402" font-size="11.2" fill="var(--muted)">※ 책상에 눕혀 벤치 시험해도 FAIL이 정상 (X15). 수평 장착 시 설정 변경·승인 필수.</text>
+
+          <!-- RIGHT PANEL: CORRECT VERTICAL MOUNT -->
+          <rect x="544" y="16" width="500" height="416" rx="10" fill="var(--surface)" stroke="#059669" stroke-width="2"/>
+          <rect x="544" y="16" width="500" height="42" rx="10" fill="var(--ok-bg)"/>
+          <rect x="544" y="48" width="500" height="10" fill="var(--ok-bg)"/>
+          <text x="564" y="43" font-size="14.5" font-weight="800" fill="#047857">✅ 세로 장착 (MC-40 동일 자세 · hard-config 0줄)</text>
+
+          <!-- Rigid L-Bracket -->
+          <path d="M 730 112 L 742 112 L 742 252 L 856 252 L 856 264 L 730 264 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.2"/>
+          <text x="864" y="262" font-size="10.8" font-weight="700" fill="var(--muted)">강체 브래킷</text>
+
+          <!-- Vertical PCB -->
+          <rect x="752" y="118" width="92" height="128" rx="4" fill="#1e3a5f" stroke="#34d399" stroke-width="2"/>
+          <!-- M2.5 mounting screws -->
+          <circle cx="762" cy="128" r="4" fill="#cbd5e1" stroke="#334155"/>
+          <circle cx="834" cy="128" r="4" fill="#cbd5e1" stroke="#334155"/>
+          <circle cx="762" cy="236" r="4" fill="#cbd5e1" stroke="#334155"/>
+          <circle cx="834" cy="236" r="4" fill="#cbd5e1" stroke="#334155"/>
+          <!-- Top connector strip hint -->
+          <rect x="768" y="114" width="60" height="8" rx="2" fill="#e2e8f0" stroke="#475569"/>
+          <!-- U24 MPU-6500 QFN-24 -->
+          <rect x="780" y="164" width="36" height="36" rx="2" fill="#0f172a" stroke="#e2e8f0" stroke-width="1.4"/>
+          <circle cx="786" cy="194" r="2.5" fill="#fbbf24"/>
+          <text x="798" y="186" text-anchor="middle" font-family="var(--mono)" font-size="9.5" font-weight="700" fill="#ffffff">U24</text>
+
+          <!-- Axis UP: -Y = Robot +Z -->
+          <line x1="798" y1="112" x2="798" y2="68" stroke="#059669" stroke-width="3" marker-end="url(#imu-green)"/>
+          <text x="812" y="79" font-size="12.2" font-weight="800" fill="#047857">칩 −Y = 로봇 +Z (하늘)</text>
+          <text x="812" y="95" font-size="11" fill="var(--muted)">MC-40 커넥터 방향 · +1g 정렬</text>
+
+          <!-- CCW Rotation Arc -->
+          <path d="M 762 84 A 36 10 0 1 0 830 84" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#imu-blue)"/>
+          <text x="652" y="88" text-anchor="middle" font-size="11.2" font-weight="700" fill="#1d4ed8">좌회전(CCW) → z_w &gt; 0</text>
+
+          <!-- Axis DOWN: +Y = Ground -->
+          <line x1="798" y1="246" x2="798" y2="294" stroke="#d97706" stroke-width="3" marker-end="url(#imu-amber)"/>
+          <text x="812" y="286" font-size="12" font-weight="800" fill="#b45309">칩 +Y 화살표 = 땅 (수직 ±5°)</text>
+
+          <!-- Axis RIGHT: +X -->
+          <line x1="844" y1="182" x2="908" y2="182" stroke="#1d4ed8" stroke-width="2.4" marker-end="url(#imu-blue)"/>
+          <text x="914" y="178" font-size="11.8" font-weight="700" fill="#1d4ed8">칩 +X = 로봇 +X</text>
+          <text x="914" y="194" font-size="10.8" fill="var(--muted)">(COM 끝 방향)</text>
+
+          <!-- Left Mounting Notes -->
+          <rect x="560" y="114" width="158" height="146" rx="6" fill="var(--surface-alt)" stroke="var(--border)"/>
+          <text x="570" y="135" font-size="11.5" font-weight="700" fill="var(--fg)">실차 장착 규칙</text>
+          <text x="570" y="155" font-size="11" fill="var(--fg-secondary)">• 부품면(+Z) = 로봇 +Y</text>
+          <text x="570" y="172" font-size="11" fill="var(--fg-secondary)">• M2.5 스탠드오프+나사</text>
+          <text x="570" y="189" font-size="11" fill="var(--fg-secondary)">• 풀림 방지제 도포</text>
+          <text x="570" y="207" font-size="11" font-weight="700" fill="#b91c1c">• 폼 테이프 절대 금지</text>
+          <text x="570" y="223" font-size="10.3" fill="var(--muted)">  (노이즈 &gt;2°/s 시 bias 실패)</text>
+          <text x="570" y="242" font-size="11" fill="var(--fg-secondary)">• 실드 꼬임선 ≤ 15 cm</text>
+
+          <!-- Pass Formula Box -->
+          <rect x="562" y="308" width="464" height="106" rx="8" fill="var(--ok-bg)" stroke="#a7f3d0" stroke-width="1.4"/>
+          <text x="578" y="330" font-size="12.2" fill="var(--fg-secondary)">정지 가속도 +1g(위) → ACC_Y ≈ −980 → <tspan font-weight="800" fill="#047857">z_acc = −ACC_Y ≈ +980 cm/s²</tspan></text>
+          <text x="578" y="350" font-size="12.2" fill="var(--fg-secondary)">좌회전(−Y축 양회전) → GYRO_Y &lt; 0 → <tspan font-weight="800" fill="#047857">z_w = −GYRO_Y &gt; 0 (부호 일치)</tspan></text>
+          <rect x="578" y="362" width="432" height="30" rx="5" fill="#059669"/>
+          <text x="794" y="382" text-anchor="middle" font-size="12.5" font-weight="800" fill="#ffffff">D0303 통과! · cos 5° = 0.996 (요 틀어짐은 z_acc·z_w 무영향)</text>
+        </svg>
+      </div>
+      <div class="diagram-cap">
+        <span>도식 2. IMU 평평 장착 오류(D0303 거부) vs 세로 장착 표준(hard-config 0줄)</span>
+        <span>근거: MASTER_PLAN 2절 · native_imu.cpp:80-92 · original_navi_sensor.h:46,62</span>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SVG 3 — 1:1 Accurate mm Scale Board Comparison -->
+    <section class="section" id="sec-size">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">DIAGRAM 03 · SECTION 4</span>
+          <h2>1:1 정확한 mm 축척 보드 크기 비교도 (2.0 px = 1 mm)</h2>
+        </div>
+        <div class="topbar-badges">
+          <span class="badge badge-est">[추정] X22 신규 위험: 후보 1 폭 초과 유력</span>
+          <span class="badge badge-unk">[미확인] 실측 #2 완료 전 후보 1 발주 금지</span>
+        </div>
+      </div>
+
+      <div class="diagram-sheet">
+        <svg viewBox="0 0 1080 456" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="1대1 mm 축척 보드 외형 크기 비교도">
+          <defs>
+            <pattern id="hatch-warn" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+              <rect width="10" height="10" fill="rgba(220,38,38,0.08)"/>
+              <line x1="0" y1="0" x2="0" y2="10" stroke="rgba(220,38,38,0.34)" stroke-width="2.2"/>
+            </pattern>
+            <marker id="dim-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 8 4 L 0 7 z" fill="#475569"/>
+            </marker>
+          </defs>
+
+          <!-- Title -->
+          <text x="24" y="30" font-size="13.5" font-weight="800" fill="var(--fg)">좌측: 좌하단 기준점(0,0) 정렬 중첩 비교 (100% 비례 축척 2.0 px = 1 mm)</text>
+          <text x="560" y="30" font-size="13.5" font-weight="800" fill="var(--fg)">우측: RSD-60G-12 실축척 &amp; 장착 간섭 판정</text>
+
+          <!-- Y Axis Ruler (Origin x=75, y=380; 150mm = y=80) -->
+          <line x1="52" y1="380" x2="52" y2="74" stroke="var(--muted)" stroke-width="1.2"/>
+          <line x1="47" y1="380" x2="57" y2="380" stroke="var(--muted)"/><text x="42" y="384" text-anchor="end" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">0</text>
+          <line x1="47" y1="280" x2="57" y2="280" stroke="var(--muted)"/><text x="42" y="284" text-anchor="end" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">50</text>
+          <line x1="47" y1="180" x2="57" y2="180" stroke="var(--muted)"/><text x="42" y="184" text-anchor="end" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">100</text>
+          <line x1="47" y1="80" x2="57" y2="80" stroke="var(--muted)"/><text x="42" y="84" text-anchor="end" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">150</text>
+          <text x="36" y="64" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--muted)">mm</text>
+
+          <!-- X Axis Ruler -->
+          <line x1="75" y1="402" x2="505" y2="402" stroke="var(--muted)" stroke-width="1.2"/>
+          <line x1="75" y1="397" x2="75" y2="407" stroke="var(--muted)"/><text x="75" y="421" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">0</text>
+          <line x1="175" y1="397" x2="175" y2="407" stroke="var(--muted)"/><text x="175" y="421" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">50</text>
+          <line x1="275" y1="397" x2="275" y2="407" stroke="var(--muted)"/><text x="275" y="421" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">100</text>
+          <line x1="359" y1="397" x2="359" y2="407" stroke="#1d4ed8"/><text x="359" y="421" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" fill="#1d4ed8">142</text>
+          <line x1="455" y1="397" x2="455" y2="407" stroke="#d97706"/><text x="455" y="421" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" fill="#b45309">190</text>
+          <line x1="495" y1="397" x2="495" y2="407" stroke="#dc2626"/><text x="495" y="421" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="700" fill="#dc2626">210 mm</text>
+
+          <!-- 1. Candidate 1 Case: 210 x 150 mm -> 420 x 300 px (x=75, y=80) -->
+          <rect x="75" y="80" width="420" height="300" rx="4" fill="url(#hatch-warn)" stroke="#dc2626" stroke-width="2"/>
+          <rect x="278" y="86" width="210" height="24" rx="4" fill="var(--unk-bg)" stroke="#fecaca"/>
+          <text x="383" y="102" text-anchor="middle" font-size="11.5" font-weight="800" fill="#b91c1c">후보 1 케이스 ≈210×150 mm (초과)</text>
+
+          <!-- 2. Candidate 1 Bare: 190 x 130 mm -> 380 x 260 px (x=75, y=120) -->
+          <rect x="75" y="120" width="380" height="260" rx="3" fill="rgba(245,158,11,0.08)" stroke="#d97706" stroke-width="2" stroke-dasharray="6 3"/>
+          <rect x="268" y="127" width="180" height="23" rx="4" fill="var(--est-bg)" stroke="#fde68a"/>
+          <text x="358" y="143" text-anchor="middle" font-size="11.5" font-weight="700" fill="#b45309">후보 1 베어 190×130 mm</text>
+
+          <!-- Dimension callout for overflow width -->
+          <line x1="359" y1="340" x2="495" y2="340" stroke="#dc2626" stroke-width="1.6" marker-start="url(#dim-arr)" marker-end="url(#dim-arr)"/>
+          <rect x="372" y="314" width="112" height="20" rx="3" fill="var(--surface)" stroke="#fecaca"/>
+          <text x="428" y="328" text-anchor="middle" font-family="var(--mono)" font-size="10.8" font-weight="700" fill="#b91c1c">폭 +68mm 초과</text>
+
+          <!-- 3. MC-40 Reference: 142 x 91 mm -> 284 x 182 px (x=75, y=198) -->
+          <rect x="75" y="198" width="284" height="182" rx="3" fill="var(--surface)" stroke="#1d4ed8" stroke-width="2.6" stroke-dasharray="8 4"/>
+          <text x="317" y="274" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">MC-40</text>
+          <text x="317" y="291" text-anchor="middle" font-family="var(--mono)" font-size="11" font-weight="700" fill="#1d4ed8">142×91</text>
+          <text x="317" y="307" text-anchor="middle" font-size="10.5" fill="var(--muted)">기준 외함</text>
+
+          <!-- 4. Candidate 3-B ORNX-LAN: 100 x 100 mm -> 200 x 200 px (x=75, y=180) -->
+          <rect x="75" y="180" width="200" height="200" rx="3" fill="rgba(13,148,136,0.10)" stroke="#0d9488" stroke-width="2.4"/>
+          <text x="235" y="266" text-anchor="middle" font-size="11.8" font-weight="800" fill="#0f766e">후보 3-B</text>
+          <text x="235" y="283" text-anchor="middle" font-family="var(--mono)" font-size="10.8" font-weight="700" fill="#0f766e">ORNX-LAN</text>
+          <text x="235" y="299" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="#0f766e">100×100</text>
+          <text x="235" y="315" text-anchor="middle" font-size="10.5" font-weight="700" fill="#047857">폭 적합 ✓</text>
+
+          <!-- 5. Candidate 3-A ORNXS: 60.5 x 91 mm -> 121 x 182 px (x=75, y=198) -->
+          <rect x="75" y="198" width="121" height="182" rx="3" fill="rgba(109,40,217,0.10)" stroke="#6d28d9" stroke-width="2"/>
+          <text x="135" y="274" text-anchor="middle" font-size="11.8" font-weight="800" fill="#6d28d9">후보 3-A</text>
+          <text x="135" y="291" text-anchor="middle" font-family="var(--mono)" font-size="10.8" font-weight="700" fill="#6d28d9">ORNXS</text>
+          <text x="135" y="308" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="#6d28d9">60.5×91</text>
+          <text x="135" y="325" text-anchor="middle" font-size="10.5" fill="var(--muted)">여유 (배선 불리)</text>
+
+          <!-- RIGHT SIDE: RSD-60G-12 Exact Scale (128 x 60 mm -> 256 x 120 px) -->
+          <rect x="560" y="54" width="498" height="176" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="576" y="76" font-size="12.5" font-weight="700" fill="var(--fg)">Mean Well RSD-60G-12 / -24 (128 × 60 × H25 mm) [확인]</text>
+          <!-- Exact 256 x 120 box -->
+          <rect x="580" y="92" width="256" height="120" rx="4" fill="var(--est-bg)" stroke="#d97706" stroke-width="2"/>
+          <circle cx="592" cy="104" r="3.5" fill="#94a3b8"/>
+          <circle cx="824" cy="104" r="3.5" fill="#94a3b8"/>
+          <circle cx="592" cy="200" r="3.5" fill="#94a3b8"/>
+          <circle cx="824" cy="200" r="3.5" fill="#94a3b8"/>
+          <text x="708" y="144" text-anchor="middle" font-family="var(--mono)" font-size="13" font-weight="800" fill="#b45309">RSD-60G-12</text>
+          <text x="708" y="164" text-anchor="middle" font-family="var(--mono)" font-size="11.5" fill="var(--fg-secondary)">128 × 60 mm (높이 25 mm)</text>
+          <text x="708" y="182" text-anchor="middle" font-size="11" fill="var(--muted)">바닥 나사 고정 (DIN 레일 불필요)</text>
+
+          <!-- Notes next to RSD -->
+          <text x="854" y="114" font-size="11.5" font-weight="700" fill="var(--fg)">장착 위치</text>
+          <text x="854" y="134" font-size="11.2" fill="var(--fg-secondary)">• 고정판 뒷면 또는</text>
+          <text x="854" y="151" font-size="11.2" fill="var(--fg-secondary)">  전장함 칸 바닥 눕힘</text>
+          <text x="854" y="174" font-size="11" fill="var(--muted)">※ DDR-60G(DIN): 비권장</text>
+          <text x="854" y="191" font-size="11" fill="var(--muted)">※ DDR-120(32×125.2×102):</text>
+          <text x="854" y="207" font-size="11" fill="var(--muted)">  통일안에서 불필요 (X10)</text>
+
+          <!-- RIGHT BOTTOM: Mechanical Interference Summary -->
+          <rect x="560" y="246" width="498" height="190" rx="8" fill="var(--surface-alt)" stroke="var(--border)"/>
+          <text x="576" y="270" font-size="13" font-weight="800" fill="var(--fg)">전장함 장착성 판정 요약 (MC-40 세로 자리 기준)</text>
+          <text x="576" y="294" font-size="11.8" fill="var(--fg-secondary)">• <tspan font-weight="700" fill="#1d4ed8">MC-40 기준</tspan>: ≈142×91 (+커넥터·플러그 위 ≈50 mm) [추정 ±1.5]</text>
+          <text x="576" y="317" font-size="11.8" fill="var(--fg-secondary)">• <tspan font-weight="700" fill="#b91c1c">후보 1 OK3588J-C</tspan>: 190×130 (케이스 ≈210×150×45) → 같은 자세</text>
+          <text x="588" y="335" font-size="11.5" fill="#b91c1c">폭 초과 유력. 90° 세우면 높이 190+RJ45 ≈ 230 mm 필요</text>
+          <text x="576" y="358" font-size="11.8" fill="var(--fg-secondary)">• <tspan font-weight="700" fill="#047857">후보 3-B ORNX-LAN</tspan>: 100×100 (+쿨러 ≈35~50) → 폭 100&lt;142,</text>
+          <text x="588" y="376" font-size="11.5" fill="#047857">높이 100+RJ45 ≈ 140 mm → 같은 자리 세워 장착 가능성 높음</text>
+          <text x="576" y="399" font-size="11.8" fill="var(--fg-secondary)">• <tspan font-weight="700" fill="var(--fg)">대안(후보 1 선택 시)</tspan>: ① 뚜껑 안쪽 등 다른 평면 눕혀 장착 + 연장,</text>
+          <text x="588" y="417" font-size="11.5" fill="var(--fg-secondary)">② Forlinx FCU3501(196.5×140.5×56.5, 24V 팬리스) CAN/I2C 문의</text>
+        </svg>
+      </div>
+      <div class="diagram-cap">
+        <span>도식 3. 1:1 mm 정밀 축척 보드·전원부 외형 비교 (MC-40 외함 142×91 mm 기준)</span>
+        <span>근거: MASTER_PLAN 4절 · 사진 캘리브레이션 03_grid_measure.jpg (오차 &lt;1.1%)</span>
+      </div>
+    </section>
+
+    <!-- SECTION 4: SVG 4 — T10 Power Rail & Load Budget -->
+    <section class="section" id="sec-power">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">DIAGRAM 04 · SECTION 5</span>
+          <h2>T10 전원 레일 &amp; 부하 예산 아키텍처 (X9·X19·X23 보정)</h2>
+        </div>
+        <div class="topbar-badges">
+          <span class="badge badge-ok">[확인] 48V→IC-40→정전압 24V 레일</span>
+          <span class="badge badge-unk">[미확인] 레일 최대값·COM 선 굵기 (실측 #3)</span>
+        </div>
+      </div>
+
+      <div class="diagram-sheet">
+        <svg viewBox="0 0 1100 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="T10 전원 레일 아키텍처 및 평상 최악 전력 부하 예산 차트">
+          <defs>
+            <marker id="p-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706"/>
+            </marker>
+            <marker id="p-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#0d9488"/>
+            </marker>
+            <marker id="p-purp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#6d28d9"/>
+            </marker>
+          </defs>
+
+          <!-- Top Callout Badge -->
+          <rect x="20" y="12" width="465" height="26" rx="5" fill="var(--ok-bg)" stroke="var(--ok-border)"/>
+          <text x="32" y="29" font-size="11.8" font-weight="700" fill="#047857">T10 전원 구조 [확인]: 48V → IC-40 → 정전압 24V (24V 리튬 직결 아님 · X9)</text>
+
+          <!-- 48V Battery -->
+          <rect x="20" y="114" width="112" height="84" rx="8" fill="var(--surface)" stroke="#d97706" stroke-width="2"/>
+          <text x="76" y="144" text-anchor="middle" font-size="13.5" font-weight="800" fill="var(--fg)">48V 배터리</text>
+          <text x="76" y="164" text-anchor="middle" font-size="11.2" fill="var(--muted)">주전원 입력</text>
+          <text x="76" y="182" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="#b45309">BAT_IN × 2</text>
+
+          <line x1="132" y1="156" x2="162" y2="156" stroke="#d97706" stroke-width="3" marker-end="url(#p-arr)"/>
+
+          <!-- IC-40 Bottom Power Board -->
+          <rect x="164" y="102" width="144" height="108" rx="8" fill="var(--surface-alt)" stroke="#d97706" stroke-width="2"/>
+          <text x="236" y="130" text-anchor="middle" font-size="13" font-weight="800" fill="var(--fg)">IC-40 전원판</text>
+          <text x="236" y="149" text-anchor="middle" font-size="11.3" fill="var(--fg-secondary)">하단 48V→24V</text>
+          <text x="236" y="166" text-anchor="middle" font-size="11.3" fill="var(--fg-secondary)">정전압 강압단</text>
+          <text x="236" y="186" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">PGND × 4 [확인]</text>
+          <text x="236" y="201" text-anchor="middle" font-size="10.2" fill="#b91c1c">최대값 실측 #3</text>
+
+          <line x1="308" y1="156" x2="342" y2="156" stroke="#d97706" stroke-width="3.2" marker-end="url(#p-arr)"/>
+
+          <!-- Vertical 24V Busbar -->
+          <rect x="344" y="48" width="28" height="222" rx="5" fill="#f59e0b" stroke="#b45309" stroke-width="1.6"/>
+          <text x="358" y="159" text-anchor="middle" font-family="var(--mono)" font-size="12" font-weight="800" fill="#ffffff" transform="rotate(-90 358 159)">정전압 24V 레일</text>
+
+          <!-- BRANCH 1: Candidate 1 -->
+          <line x1="372" y1="78" x2="412" y2="78" stroke="#d97706" stroke-width="2.6" marker-end="url(#p-arr)"/>
+          <rect x="414" y="48" width="186" height="60" rx="7" fill="var(--surface)" stroke="#d97706" stroke-width="1.6"/>
+          <text x="507" y="71" text-anchor="middle" font-size="12" font-weight="700" fill="var(--fg)">5A 슬로우 퓨즈 + TVS</text>
+          <text x="507" y="90" text-anchor="middle" font-family="var(--mono)" font-size="10.8" fill="var(--muted)">SMDJ30A (VRWM 30V)</text>
+
+          <line x1="600" y1="78" x2="628" y2="78" stroke="#d97706" stroke-width="2.6" marker-end="url(#p-arr)"/>
+          <rect x="630" y="48" width="206" height="60" rx="7" fill="var(--est-bg)" stroke="#d97706" stroke-width="1.8"/>
+          <text x="733" y="71" text-anchor="middle" font-size="12.2" font-weight="800" fill="#b45309">Mean Well RSD-60G-12</text>
+          <text x="733" y="90" text-anchor="middle" font-size="11" fill="var(--fg-secondary)">9~36V→12V 60W · EN50155 [확인]</text>
+
+          <line x1="836" y1="78" x2="864" y2="78" stroke="#d97706" stroke-width="2.6" marker-end="url(#p-arr)"/>
+          <rect x="866" y="48" width="214" height="60" rx="7" fill="var(--surface)" stroke="#d97706" stroke-width="1.8"/>
+          <text x="973" y="70" text-anchor="middle" font-size="12.2" font-weight="800" fill="var(--fg)">후보 1 OK3588J-C (12V)</text>
+          <text x="973" y="88" text-anchor="middle" font-size="11.2" font-weight="700" fill="#047857">보드 전용 · 부하율 ≤ 33% (20W/60W)</text>
+
+          <!-- BRANCH 2: Candidate 3 -->
+          <line x1="372" y1="158" x2="412" y2="158" stroke="#0d9488" stroke-width="2.6" marker-end="url(#p-teal)"/>
+          <rect x="414" y="128" width="186" height="60" rx="7" fill="var(--surface)" stroke="#0d9488" stroke-width="1.6"/>
+          <text x="507" y="150" text-anchor="middle" font-size="11.8" font-weight="700" fill="var(--fg)">IC-40 분배점 18AWG (X23)</text>
+          <text x="507" y="169" text-anchor="middle" font-size="11" fill="var(--muted)">5A 슬로우 퓨즈 + TVS</text>
+
+          <line x1="600" y1="158" x2="628" y2="158" stroke="#0d9488" stroke-width="2.6" marker-end="url(#p-teal)"/>
+          <rect x="630" y="128" width="206" height="60" rx="7" fill="var(--ok-bg)" stroke="#0d9488" stroke-width="1.6" stroke-dasharray="5 3"/>
+          <text x="733" y="150" text-anchor="middle" font-size="12.2" font-weight="800" fill="#0f766e">24V 직결 (DC-DC 없음)</text>
+          <text x="733" y="169" text-anchor="middle" font-size="10.8" fill="var(--fg-secondary)">레일 불량 시만 RSD-60G-24 (+6.5만)</text>
+
+          <line x1="836" y1="158" x2="864" y2="158" stroke="#0d9488" stroke-width="2.6" marker-end="url(#p-teal)"/>
+          <rect x="866" y="128" width="214" height="60" rx="7" fill="var(--surface)" stroke="#0d9488" stroke-width="1.8"/>
+          <text x="973" y="150" text-anchor="middle" font-size="12.2" font-weight="800" fill="var(--fg)">후보 3 Orin NX (25W 모드)</text>
+          <text x="973" y="169" text-anchor="middle" font-size="10.8" fill="var(--fg-secondary)">ORNX-LAN ≤30V · ORNXS ≤27V</text>
+
+          <!-- BRANCH 3: Mid-360S -->
+          <line x1="372" y1="238" x2="412" y2="238" stroke="#6d28d9" stroke-width="2.6" marker-end="url(#p-purp)"/>
+          <rect x="414" y="208" width="186" height="60" rx="7" fill="var(--surface)" stroke="#6d28d9" stroke-width="1.6"/>
+          <text x="507" y="230" text-anchor="middle" font-size="12" font-weight="700" fill="var(--fg)">24V 독립 분기 + 2A 퓨즈</text>
+          <text x="507" y="249" text-anchor="middle" font-size="11" fill="var(--muted)">기존 2D 라이다와 동일 방식</text>
+
+          <line x1="600" y1="238" x2="628" y2="238" stroke="#6d28d9" stroke-width="2.6" marker-end="url(#p-purp)"/>
+          <rect x="630" y="208" width="206" height="60" rx="7" fill="var(--purple-bg)" stroke="#6d28d9" stroke-width="1.6"/>
+          <text x="733" y="230" text-anchor="middle" font-size="12" font-weight="800" fill="#6d28d9">보드 12V와 완전 격리</text>
+          <text x="733" y="249" text-anchor="middle" font-size="10.8" fill="var(--fg-secondary)">돌입·잡음 분리 · DDR-120 불필요</text>
+
+          <line x1="836" y1="238" x2="864" y2="238" stroke="#6d28d9" stroke-width="2.6" marker-end="url(#p-purp)"/>
+          <rect x="866" y="208" width="214" height="60" rx="7" fill="var(--surface)" stroke="#6d28d9" stroke-width="1.8"/>
+          <text x="973" y="230" text-anchor="middle" font-size="12.2" font-weight="800" fill="var(--fg)">Livox Mid-360S (9~27V)</text>
+          <text x="973" y="249" text-anchor="middle" font-size="10.8" fill="var(--fg-secondary)">평상 6.5W · 저온 14W · 기동 18W[추정]</text>
+
+          <!-- DIVIDER -->
+          <line x1="20" y1="292" x2="1080" y2="292" stroke="var(--border)" stroke-dasharray="4 4"/>
+
+          <!-- BOTTOM HALF: POWER BUDGET BAR CHART (scale: 9px = 1W, origin x=255, max 50W = 450px -> x=705) -->
+          <text x="20" y="318" font-size="13.5" font-weight="800" fill="var(--fg)">24V 입력 환산 전력 예산 (평상 vs 최악 W · 전류 A)</text>
+          <!-- Legend -->
+          <rect x="440" y="306" width="14" height="12" rx="2" fill="#1d4ed8"/>
+          <text x="459" y="317" font-size="11.2" fill="var(--fg-secondary)">평상 전력</text>
+          <rect x="526" y="306" width="14" height="12" rx="2" fill="#93c5fd"/>
+          <text x="545" y="317" font-size="11.2" fill="var(--fg-secondary)">최악(피크) 전력</text>
+          <line x1="646" y1="305" x2="646" y2="319" stroke="#dc2626" stroke-width="2" stroke-dasharray="3 2"/>
+          <text x="654" y="317" font-size="11.2" fill="#b91c1c">MAXN 참고(47W)</text>
+
+          <!-- Vertical Grid Lines (0, 10, 20, 30, 40, 50W) -->
+          <line x1="255" y1="332" x2="255" y2="466" stroke="var(--border)"/>
+          <line x1="345" y1="332" x2="345" y2="466" stroke="var(--grid)"/>
+          <line x1="435" y1="332" x2="435" y2="466" stroke="var(--grid)"/>
+          <line x1="525" y1="332" x2="525" y2="466" stroke="var(--grid)"/>
+          <line x1="615" y1="332" x2="615" y2="466" stroke="var(--grid)"/>
+          <line x1="705" y1="332" x2="705" y2="466" stroke="var(--grid)"/>
+          <text x="255" y="482" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">0W</text>
+          <text x="345" y="482" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">10W</text>
+          <text x="435" y="482" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">20W</text>
+          <text x="525" y="482" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">30W</text>
+          <text x="615" y="482" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">40W</text>
+          <text x="705" y="482" text-anchor="middle" font-family="var(--mono)" font-size="10.5" fill="var(--muted)">50W</text>
+
+          <!-- Bar 1: MC-40 (5~8W, worst 8W = 72px) -->
+          <text x="245" y="354" text-anchor="end" font-size="12" font-weight="600" fill="var(--muted)">MC-40 (기존·제거)</text>
+          <rect x="255" y="339" width="72" height="20" rx="3" fill="#cbd5e1"/>
+          <rect x="255" y="339" width="54" height="20" rx="3" fill="#64748b"/>
+          <text x="335" y="354" font-family="var(--mono)" font-size="11.2" fill="var(--muted)">5~8W / 최악 8W (0.33A)</text>
+
+          <!-- Bar 2: Candidate 1 (3.4~6.6W, worst 22.7W = 204px) -->
+          <text x="245" y="388" text-anchor="end" font-size="12" font-weight="700" fill="var(--fg)">후보 1 (RSD 효율 88%)</text>
+          <rect x="255" y="373" width="204" height="20" rx="3" fill="#fcd34d"/>
+          <rect x="255" y="373" width="60" height="20" rx="3" fill="#d97706"/>
+          <text x="467" y="388" font-family="var(--mono)" font-size="11.2" font-weight="700" fill="var(--fg)">3.4~6.6W / 최악 22.7W (0.95A)</text>
+
+          <!-- Bar 3: Candidate 3 25W (15~25W, worst 32W = 288px, MAXN 47W = 423px) -->
+          <text x="245" y="422" text-anchor="end" font-size="12" font-weight="700" fill="var(--fg)">후보 3 (25W 모드 직결)</text>
+          <rect x="255" y="407" width="288" height="20" rx="3" fill="#99f6e4"/>
+          <rect x="255" y="407" width="225" height="20" rx="3" fill="#0d9488"/>
+          <line x1="678" y1="403" x2="678" y2="431" stroke="#dc2626" stroke-width="2.2" stroke-dasharray="4 2"/>
+          <text x="551" y="422" font-family="var(--mono)" font-size="11.2" font-weight="700" fill="var(--fg)">15~25W / 32W (1.33A)</text>
+
+          <!-- Bar 4: Mid-360S (6.5W = 58.5px, 14W = 126px, 18W = 162px) -->
+          <text x="245" y="456" text-anchor="end" font-size="12" font-weight="700" fill="var(--fg)">Mid-360S (24V 독립)</text>
+          <rect x="255" y="441" width="162" height="20" rx="3" fill="#ddd6fe"/>
+          <rect x="255" y="441" width="126" height="20" rx="3" fill="#a78bfa"/>
+          <rect x="255" y="441" width="58.5" height="20" rx="3" fill="#6d28d9"/>
+          <text x="425" y="456" font-family="var(--mono)" font-size="11.2" font-weight="700" fill="var(--fg)">6.5W · 저온 14W · 기동 18W (0.75A)</text>
+
+          <!-- Net Increase Summary Box -->
+          <rect x="756" y="330" width="324" height="148" rx="8" fill="var(--surface-alt)" stroke="var(--border)"/>
+          <text x="772" y="354" font-size="12.8" font-weight="800" fill="var(--fg)">24V 레일 순증가 (기존 MC-40 8W 차감)</text>
+          <rect x="772" y="366" width="292" height="32" rx="5" fill="var(--est-bg)" stroke="#fde68a"/>
+          <text x="784" y="387" font-size="12" font-weight="700" fill="#b45309">후보 1 + Mid-360S : ≈ +33 W (≈ +1.4 A)</text>
+          <rect x="772" y="405" width="292" height="32" rx="5" fill="var(--ok-bg)" stroke="#a7f3d0"/>
+          <text x="784" y="426" font-size="12" font-weight="700" fill="#047857">후보 3(25W) + 라이다 : ≈ +42 W (≈ +1.8 A)</text>
+          <text x="772" y="456" font-size="11" fill="var(--muted)">※ 후보 3은 MAXN(40W급) 금지 → 25W 모드 기본 (X14)</text>
+          <text x="772" y="471" font-size="11" fill="var(--muted)">※ 12V 공용 묶기 비권장 (돌입·잡음·단일고장점)</text>
+        </svg>
+      </div>
+      <div class="diagram-cap">
+        <span>도식 4. T10 48V→24V 정전압 레일 분배 및 부하 예산 비교</span>
+        <span>근거: MASTER_PLAN 5절 · X9, X14, X19, X23 보정</span>
+      </div>
+    </section>
+
+    <!-- SECTION 5: SVG 5-A — OS Stack & 9 ELF Audit & Drop-in -->
+    <section class="section" id="sec-os">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">DIAGRAM 05-A · SECTIONS 3 &amp; 10</span>
+          <h2>OS 방안 B (Ubuntu 22.04 + Tusk 호환 레이어) 스택 &amp; 9종 ELF 판정</h2>
+        </div>
+        <div class="topbar-badges">
+          <span class="badge badge-ok">[확인] ELF 9종 직접 파싱</span>
+          <span class="badge badge-ok">[확인] native 소스 0줄 수정</span>
+        </div>
+      </div>
+
+      <div class="diagram-sheet">
+        <svg viewBox="0 0 1080 436" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OS 방안 B 계층 스택 및 9종 ELF 판정 시각화">
+          <!-- Left Column Title -->
+          <text x="18" y="32" font-size="13.5" font-weight="800" fill="var(--fg)">OS 방안 B 계층 아키텍처 (보드 기종당 1회 골든 이미지 제작)</text>
+          <!-- Right Column Title -->
+          <text x="546" y="32" font-size="13.5" font-weight="800" fill="var(--fg)">34937 실물 ELF 9종 직접 파싱 판정 [확인]</text>
+
+          <!-- LAYER 4 -->
+          <rect x="18" y="48" width="500" height="78" rx="8" fill="var(--ok-bg)" stroke="#059669" stroke-width="2"/>
+          <text x="34" y="70" font-size="12.8" font-weight="800" fill="#047857">L4. 무수정 애플리케이션 계층 — 드롭인 완료</text>
+          <text x="34" y="91" font-size="11.6" fill="var(--fg)">• tusk_native (정적 aarch64 · 소스 0줄) · tusk-boot (바이트 그대로)</text>
+          <text x="34" y="110" font-size="11.6" fill="var(--fg-secondary)">• hard-config.json (0줄 조건부) · 헬퍼 5종 (supervisor.py 기동)</text>
+
+          <!-- LAYER 3 -->
+          <rect x="18" y="138" width="500" height="78" rx="8" fill="var(--primary-bg)" stroke="#2563eb" stroke-width="1.8"/>
+          <text x="34" y="160" font-size="12.8" font-weight="800" fill="var(--primary)">L3. Tusk 호환 Shim 계층 (X5 · X6 · X7 · X8 보정)</text>
+          <text x="34" y="181" font-size="11.6" fill="var(--fg)">• /opt/tusk-libs + /etc/ld.so.conf.d/00-tusk.conf (배포판 mosquitto 금지)</text>
+          <text x="34" y="200" font-size="11.6" fill="var(--fg-secondary)">• tusk-hmi-pty (/dev/ttysWK0) · rpcbind(비활성) · /home/agvupg-web</text>
+
+          <!-- LAYER 2 -->
+          <rect x="18" y="228" width="500" height="78" rx="8" fill="var(--cyan-bg)" stroke="#0284c7" stroke-width="1.8"/>
+          <text x="34" y="250" font-size="12.8" font-weight="800" fill="#0284c7">L2. 장치 이름 · 네트워크 · 저장소 · SSH 고정</text>
+          <text x="34" y="271" font-size="11.6" fill="var(--fg)">• 99-default.link→/dev/null · 10/11-tusk-eth*.link (ID_PATH 고정)</text>
+          <text x="34" y="290" font-size="11.6" fill="var(--fg-secondary)">• can1 udev(KERNELS) · /dev/i2c-2 · /dev/rtc · /LOG_FILE · dropbear</text>
+
+          <!-- LAYER 1 -->
+          <rect x="18" y="318" width="500" height="78" rx="8" fill="var(--surface-alt)" stroke="#475569" stroke-width="1.8"/>
+          <text x="34" y="340" font-size="12.8" font-weight="800" fill="var(--fg)">L1. 제조사 Ubuntu 22.04 arm64 + 커널 (빈 wch.ko)</text>
+          <text x="34" y="361" font-size="11.6" fill="var(--fg)">• 커널: I2C_CHARDEV · I2C_GPIO · CAN_RAW · mttcan · EXT4 · 빈 wch.ko</text>
+          <text x="34" y="380" font-size="11.6" fill="var(--fg-secondary)">• hostname=imx8mpevk · root=/home/root · NM에서 eth*/can* 제외</text>
+
+          <!-- 9 ELF BARS ON RIGHT -->
+          <!-- 1 -->
+          <rect x="546" y="48" width="516" height="33" rx="5" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="558" y="69" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">1. home/agvUPG</text>
+          <text x="720" y="69" font-family="var(--mono)" font-size="10.8" fill="var(--muted)">GLIBC 2.17 · GLIBCXX 3.4.14</text>
+          <rect x="920" y="54" width="134" height="21" rx="10" fill="var(--ok-bg)" stroke="var(--ok-border)"/>
+          <text x="987" y="68" text-anchor="middle" font-size="10.5" font-weight="700" fill="#047857">OK · agvupg-web</text>
+          <!-- 2 -->
+          <rect x="546" y="87" width="516" height="33" rx="5" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="558" y="108" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">2. agvMain/LogServer</text>
+          <text x="720" y="108" font-family="var(--mono)" font-size="10.8" fill="var(--muted)">libz.so.1 · GLIBC 2.17</text>
+          <rect x="920" y="93" width="134" height="21" rx="10" fill="var(--ok-bg)" stroke="var(--ok-border)"/>
+          <text x="987" y="107" text-anchor="middle" font-size="10.5" font-weight="700" fill="#047857">OK · zlib1g 기본</text>
+          <!-- 3 -->
+          <rect x="546" y="126" width="516" height="33" rx="5" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="558" y="147" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">3. agvMain/agvHMI</text>
+          <text x="720" y="147" font-family="var(--mono)" font-size="10.8" fill="var(--muted)">mosquitto* · GLIBCXX 3.4.21</text>
+          <rect x="920" y="132" width="134" height="21" rx="10" fill="var(--primary-bg)" stroke="var(--primary-border)"/>
+          <text x="987" y="146" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--primary)">OK · PTY+00-tusk</text>
+          <!-- 4 -->
+          <rect x="546" y="165" width="516" height="33" rx="5" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="558" y="186" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">4. libmosquitto.so.1</text>
+          <text x="720" y="186" font-family="var(--mono)" font-size="10.8" fill="var(--muted)">2.0.15 · GLIBC 2.25 (no SSL)</text>
+          <rect x="920" y="171" width="134" height="21" rx="10" fill="var(--ok-bg)" stroke="var(--ok-border)"/>
+          <text x="987" y="185" text-anchor="middle" font-size="10.5" font-weight="700" fill="#047857">OK · 우선 등록</text>
+          <!-- 5 -->
+          <rect x="546" y="204" width="516" height="33" rx="5" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="558" y="225" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">5. libmosquittopp.so.1</text>
+          <text x="720" y="225" font-family="var(--mono)" font-size="10.8" fill="var(--muted)">CXXABI 1.3.9 · MOSQ 1.0~1.5</text>
+          <rect x="920" y="210" width="134" height="21" rx="10" fill="var(--ok-bg)" stroke="var(--ok-border)"/>
+          <text x="987" y="224" text-anchor="middle" font-size="10.5" font-weight="700" fill="#047857">OK</text>
+          <!-- 6 -->
+          <rect x="546" y="243" width="516" height="33" rx="5" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="558" y="264" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">6. mosquitto (브로커)</text>
+          <text x="720" y="264" font-family="var(--mono)" font-size="10.8" fill="var(--muted)">GLIBC 2.25 · sock + 1883</text>
+          <rect x="920" y="249" width="134" height="21" rx="10" fill="var(--ok-bg)" stroke="var(--ok-border)"/>
+          <text x="987" y="263" text-anchor="middle" font-size="10.5" font-weight="700" fill="#047857">OK · apt설치 금지</text>
+          <!-- 7 -->
+          <rect x="546" y="282" width="516" height="33" rx="5" fill="var(--est-bg)" stroke="#fde68a"/>
+          <text x="558" y="303" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">7. agvMain/nginx (1.28)</text>
+          <text x="720" y="303" font-family="var(--mono)" font-size="10.8" fill="#b45309">libcrypt GLIBC_2.17 (X5)</text>
+          <rect x="920" y="288" width="134" height="21" rx="10" fill="#fef3c7" stroke="#f59e0b"/>
+          <text x="987" y="302" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">유력 · 예비 래퍼</text>
+          <!-- 8 -->
+          <rect x="546" y="321" width="516" height="33" rx="5" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="558" y="342" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">8. agvMain/libdetect.so</text>
+          <text x="720" y="342" font-family="var(--mono)" font-size="10.8" fill="var(--muted)">GLIBCXX 3.4.22 · CXXABI 1.3.9</text>
+          <rect x="920" y="327" width="134" height="21" rx="10" fill="var(--ok-bg)" stroke="var(--ok-border)"/>
+          <text x="987" y="341" text-anchor="middle" font-size="10.5" font-weight="700" fill="#047857">OK</text>
+          <!-- 9 -->
+          <rect x="546" y="360" width="516" height="33" rx="5" fill="var(--surface)" stroke="var(--border)"/>
+          <text x="558" y="381" font-family="var(--mono)" font-size="11.5" font-weight="700" fill="var(--fg)">9. agvMain/libomni.so</text>
+          <text x="720" y="381" font-family="var(--mono)" font-size="10.8" fill="var(--muted)">GLIBCXX 3.4.22 (native 미사용)</text>
+          <rect x="920" y="366" width="134" height="21" rx="10" fill="var(--ok-bg)" stroke="var(--ok-border)"/>
+          <text x="987" y="380" text-anchor="middle" font-size="10.5" font-weight="700" fill="#047857">OK</text>
+
+          <!-- Footer note -->
+          <text x="18" y="422" font-size="11.5" fill="var(--muted)">※ PT_INTERP=/lib/ld-linux-aarch64.so.1 · glibc 2.34+ 빈 호환(pthread/dl/rt) · Ubuntu 22.04 GLIBCXX_3.4.30 전수 포함 [확인]. /agvMain/libcrypt.so.1의 /lib 복사 금지 유지.</text>
+        </svg>
+      </div>
+
+      <h3>드롭인("보드를 꽂고 native만 올리면") 판정표</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>계층</th><th>수정 여부</th><th>세부 내용</th><th>판정</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>oneweave-native</code> 소스</td><td><strong>0줄</strong></td><td>CPU·보드 분기 없음, 장치 경로는 <code>hard-config.json</code>에서 읽음</td><td><span class="badge badge-ok">[확인]</span></td></tr>
+            <tr><td><code>tusk_native</code> 바이너리</td><td><strong>그대로</strong></td><td>완전 정적 aarch64, NSS 래핑</td><td><span class="badge badge-ok">[확인]</span></td></tr>
+            <tr><td><code>tusk-boot</code> 패키지(<code>prepare.sh</code> 등)</td><td><strong>0줄 가능</strong></td><td>기반 이미지에 빈 <code>wch.ko</code>·<code>rpcbind</code>(비활성)·<code>systemd-timesyncd</code>·hostname <code>imx8mpevk</code>·<code>/home/root</code>·rc-local 구비. 2줄 패치(r02)는 예비안</td><td><span class="badge badge-est">[추정]</span> 벤치 확정</td></tr>
+            <tr><td><code>hard-config.json</code> (로봇 설정)</td><td><strong>0줄 조건부</strong></td><td>IMU 세로(칩 −Y 하늘) + <code>/dev/i2c-2</code> + <code>can1</code>. 하나라도 못 맞추면 변경 필요 → 사용자 승인</td><td><span class="badge badge-ok">[확인]</span> 조건</td></tr>
+            <tr><td>native run config</td><td>선택</td><td><code>avoidance.control_cpu</code> 등 기본 −1로 동작. 성능 조정은 이후 A/B</td><td><span class="badge badge-ok">[확인]</span></td></tr>
+            <tr><td>34960 <code>/agvMain</code></td><td>복사</td><td>34960 실물에서 받은 최신본만 사용 (34937 것 금지, r02 1.5)</td><td><span class="badge badge-ok">[확인]</span></td></tr>
+            <tr><td>기반 이미지 (보드 기종당 1회)</td><td><strong>필수</strong></td><td>커널 옵션, <code>.link</code>·<code>can1</code> udev, I2C alias/i2c-gpio, <code>/dev/rtc</code>, <code>/LOG_FILE</code>→<code>/run/media/mmcblk1p1</code>, <code>tfcard_setup.sh</code> 무해화, dropbear, 패키지 11종, <code>00-tusk.conf</code>+libmosquitto, PTY 심, NM 제외</td><td><span class="badge badge-ok">[확인]</span> 목록</td></tr>
+            <tr><td>검증 스크립트</td><td>신규 보강</td><td><code>tusk_bench_verify.sh</code> + X15 보정(IMU 브래킷 장착), nginx 원본 우선 판정, <code>/home/agvupg-web</code>·<code>00-tusk.conf</code>·<code>/run/logserver.sock</code> 확인</td><td><span class="badge badge-est">[추정]</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 6: INTERACTIVE BOM CALCULATOR -->
+    <section class="section" id="sec-bom">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">INTERACTIVE TOOL · SECTION 7</span>
+          <h2>인터랙티브 통일 BOM 계산기 (1원 단위 정합)</h2>
+        </div>
+        <div class="topbar-badges">
+          <span class="badge badge-ok">기준: 1 USD=1,330원 · 1 EUR=1,476원 · 해외분 VAT 10%(운임 포함)</span>
+          <span class="badge badge-info">공통 6줄 = 428,600원/대</span>
+        </div>
+      </div>
+
+      <div class="bom-panel">
+        <!-- Controls -->
+        <div class="bom-controls">
+          <div class="ctrl-group">
+            <label class="ctrl-title">1. 메인보드 후보 선택</label>
+            <div class="seg-group" id="bomCandGroup">
+              <button type="button" class="seg-btn active" data-cand="c1">후보 1<br><small>OK3588J-C</small></button>
+              <button type="button" class="seg-btn" data-cand="c3b">후보 3-B<br><small>ORNX-LAN</small></button>
+              <button type="button" class="seg-btn" data-cand="c3a">후보 3-A<br><small>ORNXS</small></button>
+            </div>
+          </div>
+
+          <div class="ctrl-group" id="ctrlRamWrap">
+            <label class="ctrl-title">2. 후보 1 RAM / eMMC 선택</label>
+            <div class="seg-group cols-2" id="bomRamGroup">
+              <button type="button" class="seg-btn active" data-ram="16">16GB/128GB<br><small>기준 ($512)</small></button>
+              <button type="button" class="seg-btn" data-ram="8">8GB/64GB<br><small>-83,391원/대</small></button>
+            </div>
+          </div>
+
+          <div class="ctrl-group" id="ctrlCand3Wrap" style="display:none">
+            <label class="ctrl-title">2. 후보 3 전원·구매처 옵션</label>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label class="chk-row">
+                <input type="checkbox" id="chkRsd24">
+                <span><strong>RSD-60G-24 전원 보강</strong> (+65,000원/대)<br><small style="color:var(--muted)">24V 레일 실측 불량 시에만 추가</small></span>
+              </label>
+              <label class="chk-row">
+                <input type="checkbox" id="chkEleparts">
+                <span><strong>엘레파츠 Orin NX 단가 적용</strong> (+235,183원/대)<br><small style="color:var(--muted)">디바이스마트 1,444,817 → 1,680,000원</small></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-title">3. Livox Mid-360S (3D 라이다)</label>
+            <div class="seg-group" id="bomLidarGroup">
+              <button type="button" class="seg-btn active" data-lidar="none">미포함<br><small>0원</small></button>
+              <button type="button" class="seg-btn" data-lidar="kr">국내<br><small>+1,600,000</small></button>
+              <button type="button" class="seg-btn" data-lidar="overseas">해외 직구<br><small>+1,358,533</small></button>
+            </div>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-title">4. 이더넷 스위치 (빈 포트 부족 시)</label>
+            <div class="seg-group" id="bomSwitchGroup">
+              <button type="button" class="seg-btn active" data-sw="none">없음<br><small>0원</small></button>
+              <button type="button" class="seg-btn" data-sw="s1">S1 5포트<br><small>+70,000</small></button>
+              <button type="button" class="seg-btn" data-sw="s2">S2 16포트<br><small>+300,000</small></button>
+            </div>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-title">5. 추가 1회성 항목</label>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label class="chk-row">
+                <input type="checkbox" id="chkBench">
+                <span><strong>벤치 세트 1개 추가</strong> (<span id="benchPriceHint">+930,856원</span>)<br><small style="color:var(--muted)">배송 공유 · 책상 시험용 전자부품만 (1회)</small></span>
+              </label>
+              <label class="chk-row">
+                <input type="checkbox" id="chkTools">
+                <span><strong>미보유 공구 1회 추가</strong> (+115,000원)<br><small style="color:var(--muted)">압착기 60,000 + 페룰 25,000 + CANable 30,000</small></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-title">6. 적용 로봇 대수 (1~5대)</label>
+            <div class="qty-row">
+              <input type="range" id="bomQty" min="1" max="5" step="1" value="1">
+              <span class="qty-val" id="bomQtyVal">1대</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output -->
+        <div>
+          <div class="bom-summary-bar">
+            <div class="bom-kpi total">
+              <div class="bom-kpi-label">총 예상 견적 (VAT 포함)</div>
+              <div class="bom-kpi-num" id="bomGrandTotal">1,390,806원</div>
+              <div class="bom-kpi-sub" id="bomSummaryDesc">후보 1 × 1대</div>
+            </div>
+            <div class="bom-kpi">
+              <div class="bom-kpi-label">로봇 1대당 단가</div>
+              <div class="bom-kpi-num" id="bomPerUnit">1,390,806원</div>
+              <div class="bom-kpi-sub" id="bomOneTimeSub">1회성 추가: 0원</div>
+            </div>
+            <div class="bom-kpi">
+              <div class="bom-kpi-label">후보 1 (기본 교체세트) 대비 차액</div>
+              <div class="bom-kpi-num" id="bomDelta">0원</div>
+              <div class="bom-kpi-sub">교체 세트 기준 3-B − 1 = +1,231,800원/대</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:42px">#</th>
+                  <th style="width:76px">구분</th>
+                  <th>품목</th>
+                  <th class="num" style="width:54px">수량</th>
+                  <th class="num" style="width:110px">단가(원)</th>
+                  <th class="num" style="width:116px">소계(원)</th>
+                  <th style="width:180px">근거</th>
+                </tr>
+              </thead>
+              <tbody id="bomTableBody"></tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="5" style="font-weight:800;text-align:right">합계 (부가세 포함 · 인건비 제외)</td>
+                  <td class="num" style="font-weight:800;color:var(--primary);font-size:14.5px" id="bomTableTotal">1,390,806</td>
+                  <td><span class="badge badge-ok">1원 단위 정합</span></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <h3>통일 BOM 총괄표 (로봇 1대 기준, 원화 · VAT 포함)</h3>
+      <div class="table-wrap">
+        <table id="bomMatrixTable">
+          <thead>
+            <tr>
+              <th>구성</th>
+              <th class="num">교체 세트</th>
+              <th class="num">+ Mid-360S 국내</th>
+              <th class="num">+ Mid-360S 해외</th>
+              <th class="num">벤치 세트*</th>
+              <th class="num">교체+국내라이다+벤치</th>
+              <th class="num">위 + S1 (5P)</th>
+              <th class="num">위 대신 S2 (16P)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-row="c1">
+              <td><strong>후보 1 (OK3588J-C 16GB)</strong></td>
+              <td class="num" data-cell="c1-base">1,390,806</td>
+              <td class="num" data-cell="c1-kr">2,990,806</td>
+              <td class="num" data-cell="c1-ov">2,749,339</td>
+              <td class="num" data-cell="c1-bench">930,856</td>
+              <td class="num" data-cell="c1-full">3,921,662</td>
+              <td class="num" data-cell="c1-s1">3,991,662</td>
+              <td class="num" data-cell="c1-s2">4,221,662</td>
+            </tr>
+            <tr data-row="c3b">
+              <td><strong>후보 3-B (Orin NX + ORNX-LAN)</strong></td>
+              <td class="num" data-cell="c3b-base">2,622,606</td>
+              <td class="num" data-cell="c3b-kr">4,222,606</td>
+              <td class="num" data-cell="c3b-ov">3,981,139</td>
+              <td class="num" data-cell="c3b-bench">2,165,806</td>
+              <td class="num" data-cell="c3b-full">6,388,412</td>
+              <td class="num" data-cell="c3b-s1">6,458,412</td>
+              <td class="num" data-cell="c3b-s2">6,688,412</td>
+            </tr>
+            <tr data-row="c3a">
+              <td><strong>후보 3-A (Orin NX + ORNXS)</strong></td>
+              <td class="num" data-cell="c3a-base">2,712,033</td>
+              <td class="num" data-cell="c3a-kr">4,312,033</td>
+              <td class="num" data-cell="c3a-ov">4,070,566</td>
+              <td class="num" data-cell="c3a-bench">2,255,233</td>
+              <td class="num" data-cell="c3a-full">6,567,266</td>
+              <td class="num" data-cell="c3a-s1">6,637,266</td>
+              <td class="num" data-cell="c3a-s2">6,867,266</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">
+        * 벤치 세트 = 교체 세트와 함께 주문(배송 공유)하는 책상 시험용 전자부품만(보드 + 저장장치 + IMU 1 + 후보1 RSD-60G-12 / 후보3 쿨러·RTC + 배선 소모품). M12·COM·외함 제외.
+        Mid-360S 상세: 국내 1,600,000원(본체 1,350,000 + 분기 195,000 + 브래킷 40,000 + 2A 퓨즈·배선 15,000) / 해외 1,358,533원(본체 1,095,787 + 분기 102,410 + 과세 배송 105,336 + 브래킷 40,000 + 2A 퓨즈·배선 15,000).
+      </p>
+    </section>
+
+    <!-- SECTION 7: CROSS-AUDIT 24 ITEMS (X1~X24) -->
+    <section class="section" id="sec-audit">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">CROSS-AUDIT LOG · SECTION 1</span>
+          <h2>독립 교차 검수 24건 보정 내역 (X1~X24)</h2>
+        </div>
+        <span class="badge badge-info" id="auditCountBadge">24 / 24건 표시</span>
+      </div>
+
+      <div class="toolbar">
+        <input type="search" id="auditSearch" class="search-input" placeholder="키워드 검색 (예: IMU, M12, nginx, 24V, ORNX-LAN, COM, X22...)">
+        <div class="pill-group" id="auditFilterGroup">
+          <button type="button" class="pill active" data-filter="all">전체 (24)</button>
+          <button type="button" class="pill" data-filter="ok">[확인]</button>
+          <button type="button" class="pill" data-filter="est">[추정]</button>
+          <button type="button" class="pill" data-filter="unk">[미확인]</button>
+          <button type="button" class="pill" data-filter="new">신규 위험</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:54px">#</th>
+              <th style="width:24%">원래 주장 (출처)</th>
+              <th style="width:42%">교차 검수 결과</th>
+              <th style="width:18%">근거</th>
+              <th style="width:110px">판정</th>
+            </tr>
+          </thead>
+          <tbody id="auditTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 8: ORNX-LAN AUDIT + I2C QUANTIFICATION + ENET/MOXA ZERO-ERROR PROCEDURE -->
+    <section class="section" id="sec-spec">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">TECHNICAL SPECS · SECTIONS 6, 8 &amp; 9</span>
+          <h2>후보 3-B 독립 검증 · I2C 타이밍 정량 · ENET/MOXA 실수 0 절차</h2>
+        </div>
+      </div>
+
+      <h3>6절. 후보 3-B <code>DSBOARD-ORNX-LAN</code> 독립 검증 (웹 공식 사양 대조)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:170px">항목</th><th>검증 결과</th><th style="width:150px">상태</th></tr></thead>
+          <tbody>
+            <tr><td>지원 모듈</td><td>Jetson Orin NX 8/16GB, Orin Nano</td><td><span class="badge badge-ok">[확인]</span> forecr.io</td></tr>
+            <tr><td>입력 전압</td><td><strong>+9~32 VDC, 4핀 단자대</strong> (일부 문서 9~28 V 언급 → 문의로 최종 확인)</td><td><span class="badge badge-ok">[확인]</span> <span class="badge badge-unk">[미확인]</span></td></tr>
+            <tr><td>이더넷</td><td><strong>2× 기가비트 RJ45</strong> (2번째 칩 품번·MAC 고정 여부 미공개)</td><td><span class="badge badge-ok">[확인]</span> <span class="badge badge-unk">[미확인]</span></td></tr>
+            <tr><td>CAN</td><td><strong>1× CAN-FD, 14핀 Phoenix 단자대</strong> (짝 <code>1790344</code>, <code>DFMC 1,5/7-STF-3,5</code>)</td><td><span class="badge badge-ok">[확인]</span></td></tr>
+            <tr><td>CAN 절연·트랜시버·120Ω</td><td>120Ω 자리 있음(기본 미실장 가능성), 절연 여부·트랜시버 품번 미공개</td><td><span class="badge badge-unk">[미확인]</span></td></tr>
+            <tr><td>I2C (과장 정정)</td><td><strong>DF11-16DP-2DSA(24) 헤더</strong> (짝 <code>DF11-16DS-2C</code>), <strong>3.3 V I2C 1채널</strong>·SPI 1·UART 1 (IMU 1개에 충분). 핀 번호·<code>/dev/i2c-N</code>·풀업 미공개</td><td><span class="badge badge-ok">[확인]</span> <span class="badge badge-unk">[미확인]</span></td></tr>
+            <tr><td>기타 인터페이스</td><td>RS232/422/485 1, DI 2·DO 2, HDMI, USB-C 3, <strong>M.2 Key-M 2280+2230</strong>, Key-E, 5 V 팬 단자</td><td><span class="badge badge-ok">[확인]</span></td></tr>
+            <tr><td>크기·온도·가격</td><td><strong>100×100 mm</strong> · <strong>−40~85 °C</strong> (ORNXS −25~85) · 캐리어 <strong>€283</strong> (3-A 대비 89,427원 저렴)</td><td><span class="badge badge-ok">[확인]</span></td></tr>
+            <tr><td>RTC 전지·microSD</td><td>공개 사양 미확인 → NVMe에 <code>/LOG_FILE</code> 파티션 구성</td><td><span class="badge badge-unk">[미확인]</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>9절. I2C 속도·타이밍 정량 (1회 읽기 = 153클럭 + 약 1.5클럭)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>방식</th><th>클럭</th><th class="num">전송 시간</th><th class="num">IMU 루프 주기</th><th class="num">샘플율</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>MC-40 현재 HW I2C <span class="badge badge-ok">[확인 DTB]</span></td><td>400 kHz</td><td class="num">≈ 0.39 ms (+0.05)</td><td class="num">≈ 10.5 ms</td><td class="num">≈ 95 Hz</td><td>기준선</td></tr>
+            <tr><td>새 보드 HW I2C 400 kHz (1순위)</td><td>400 kHz</td><td class="num">≈ 0.39 ms</td><td class="num">≈ 10.5 ms</td><td class="num">≈ 95 Hz</td><td>DT alias로 <code>/dev/i2c-2</code> 고정</td></tr>
+            <tr><td>새 보드 HW I2C 100 kHz</td><td>100 kHz</td><td class="num">≈ 1.55 ms</td><td class="num">≈ 11.6 ms</td><td class="num">≈ 86 Hz</td><td>방위각 치우침 없음</td></tr>
+            <tr><td><code>i2c-gpio</code>, <code>delay-us=2</code> (2순위)</td><td>≈ 180~220 kHz <span class="badge badge-est">[추정]</span></td><td class="num">≈ 0.8 ms</td><td class="num">≈ 10.9 ms</td><td class="num">≈ 92 Hz</td><td>선 ≤ 15 cm, 외부 4.7 kΩ 풀업</td></tr>
+            <tr><td><code>i2c-gpio</code>, <code>delay-us=5</code> (예비)</td><td>≈ 85~95 kHz <span class="badge badge-est">[추정]</span></td><td class="num">≈ 1.65~1.85 ms</td><td class="num">≈ 11.8~12.0 ms</td><td class="num">≈ 84 Hz</td><td>CPU 1코어 15%(전체 ≈1.9%)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout callout-ok">
+        <strong>native 영향 정량 검증 [확인, X24]:</strong> 소비자 루프가 최신 각속도(<code>z_w</code>)를 <strong>자기 루프가 잰 dt로 적분</strong>(<code>native_runtime_navi_slip.cpp:77</code>, <code>original_odo_imu.h:311</code>)하므로 샘플율이 95→84 Hz로 줄어도 방위각이 치우치지 않습니다. 자이로 DLPF 20 Hz &lt; 나이퀴스트 42 Hz로 에일리어싱 없음, <code>D0301</code> 경보는 2.1 s→2.4 s로 무해합니다.
+      </div>
+
+      <h3>8절. ENET0/1 배선 교차 · MAC 불변 · MOXA 실수 0 절차</h3>
+      <div class="card-grid-2">
+        <div class="guide-card">
+          <h4>1~3단계: 교체 전 기록 · 라벨링 · 비파괴 연결</h4>
+          <ul>
+            <li><strong>교체 전 34960 기록(승인 후, 읽기 전용)</strong>: <code>ip -br link</code>(eth0/1 MAC), <code>ethtool</code>(1000/100 확인), <code>dropbear_rsa_host_key</code>(동의 시), <code>/agvMain</code> 최신 덤프, 좌회전 <code>z_w</code> 부호.</li>
+            <li><strong>행선지 라벨링</strong>: 하늘색(ENET1/J6) → <code>"eth0 / 147 / 스위치"</code> · 검정(ENET0/J4) → <code>"eth1 / 148 / IC-40"</code> (분리 전 부착·사진).</li>
+            <li><strong>변환 체결</strong>: 로봇 M12 수 플러그에 X-코드 암↔RJ45 수 변환기 체결 (배선 무절단). eth0는 일반 패치선 대체 가능(하늘색선 원복 보관).</li>
+          </ul>
+        </div>
+        <div class="guide-card">
+          <h4>4~7단계: 경로 기반 이름 고정 · 벤치 판정 · MOXA/FMS</h4>
+          <ul>
+            <li><strong>ID_PATH 고정</strong>: <code>99-default.link → /dev/null</code> + <code>10/11-tusk-eth*.link</code> <code>[Match] Path=</code>. 선 1개씩 꽂아 <code>ip -br link</code> 확인 후 RJ45 스티커 부착.</li>
+            <li><strong>벤치 판정</strong>: eth0→라이다 <code>.16</code> ping, eth1→STM32 <code>.158/.159</code> UDP. 반대면 케이블 대신 <code>.link</code> Path 교환.</li>
+            <li><strong>MOXA 복구</strong>: 주전원 재투입 시 ARP 재학습. FMS 미연결 시 ① <code>arping -U -c 3 -I eth0 192.168.147.1</code> ② 실패 시 <code>10-tusk-eth0.link</code>에 <code>MACAddress=&lt;34960 MAC&gt;</code> 추가 (MOXA 설정 무접촉).</li>
+            <li><strong>FMS 불변</strong>: MOXA WAN <code>&lt;현장 MOXA WAN&gt;</code> → 브로커 <code>&lt;현장 FMS 브로커&gt;:1883</code>, <code>tusk34960-native</code> 유지 <span class="badge badge-ok">[확인]</span>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: SVG 5-B — DECISION MATRIX & FINAL RECOMMENDATION -->
+    <section class="section" id="sec-decision">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">DIAGRAM 05-B · SECTION 14</span>
+          <h2>의사결정 매트릭스 &amp; 최종 추천 (가중치 합 100)</h2>
+        </div>
+        <span class="badge badge-ok">추천: 조건부 후보 1 / 공간 부족 시 후보 3-B</span>
+      </div>
+
+      <div class="diagram-sheet">
+        <svg viewBox="0 0 1060 318" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="후보별 가중 의사결정 매트릭스 점수 막대 차트">
+          <text x="20" y="28" font-size="13.5" font-weight="800" fill="var(--fg)">후보별 가중 종합 점수 (5.00 만점 · 가중치 합 100 기준)</text>
+
+          <!-- Vertical Grid (origin x=265, scale 110px = 1.00 -> 5.00 at x=815) -->
+          <line x1="265" y1="46" x2="265" y2="274" stroke="var(--border)" stroke-width="1.4"/>
+          <line x1="375" y1="46" x2="375" y2="274" stroke="var(--grid)"/>
+          <line x1="485" y1="46" x2="485" y2="274" stroke="var(--grid)"/>
+          <line x1="595" y1="46" x2="595" y2="274" stroke="var(--grid)"/>
+          <line x1="705" y1="46" x2="705" y2="274" stroke="var(--grid)"/>
+          <line x1="815" y1="46" x2="815" y2="274" stroke="var(--grid)"/>
+          <text x="265" y="294" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--muted)">0.0</text>
+          <text x="375" y="294" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--muted)">1.0</text>
+          <text x="485" y="294" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--muted)">2.0</text>
+          <text x="595" y="294" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--muted)">3.0</text>
+          <text x="705" y="294" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--muted)">4.0</text>
+          <text x="815" y="294" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="var(--muted)">5.0</text>
+
+          <!-- Row 1: Candidate 3-B (3.90 -> 429px) -->
+          <text x="252" y="84" text-anchor="end" font-size="12.5" font-weight="800" fill="var(--fg)">후보 3-B (ORNX-LAN)</text>
+          <rect x="265" y="61" width="429" height="34" rx="5" fill="#0d9488"/>
+          <text x="682" y="83" text-anchor="end" font-family="var(--mono)" font-size="13" font-weight="800" fill="#ffffff">3.90</text>
+          <text x="708" y="76" font-size="12" font-weight="700" fill="#0f766e">최고점 · 24V 직결 · 세워 장착 유력</text>
+          <text x="708" y="92" font-size="11.2" fill="var(--muted)">교체 세트 2,622,606원 (일정·확실성 최우선 시)</text>
+
+          <!-- Row 2: Candidate 1 with space confirmed (3.45 -> 379.5px + 0.40 -> 44px = 423.5px) -->
+          <text x="252" y="140" text-anchor="end" font-size="12.5" font-weight="800" fill="var(--primary)">후보 1 (공간 확보 시 ★)</text>
+          <rect x="265" y="117" width="379.5" height="34" rx="5" fill="#2563eb"/>
+          <rect x="644.5" y="117" width="44" height="34" rx="4" fill="#10b981" stroke="#047857" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <text x="634" y="139" text-anchor="end" font-family="var(--mono)" font-size="12.5" font-weight="800" fill="#ffffff">3.45</text>
+          <text x="666.5" y="139" text-anchor="middle" font-family="var(--mono)" font-size="11" font-weight="800" fill="#ffffff">+.40</text>
+          <text x="708" y="132" font-size="12" font-weight="800" fill="#047857">3.85 (3-B와 동급 + 1,231,800원/대 절감!)</text>
+          <text x="708" y="148" font-size="11.2" fill="var(--muted)">교체 세트 1,390,806원 · 다수 대수 확장 시 압도적</text>
+
+          <!-- Row 3: Candidate 3-A (3.85 -> 423.5px) -->
+          <text x="252" y="196" text-anchor="end" font-size="12.5" font-weight="700" fill="var(--muted)">후보 3-A (ORNXS)</text>
+          <rect x="265" y="173" width="423.5" height="34" rx="5" fill="#94a3b8"/>
+          <text x="676" y="195" text-anchor="end" font-family="var(--mono)" font-size="13" font-weight="800" fill="#ffffff">3.85</text>
+          <text x="708" y="188" font-size="12" font-weight="700" fill="var(--muted)">비권장 (3-B 대비 +89,427원)</text>
+          <text x="708" y="204" font-size="11.2" fill="var(--muted)">1.25 mm 마이크로 커넥터 배선·진동 위험 (2점)</text>
+
+          <!-- Row 4: Candidate 1 Current (3.45 -> 379.5px) -->
+          <text x="252" y="252" text-anchor="end" font-size="12.5" font-weight="700" fill="#b45309">후보 1 (미실측 현재)</text>
+          <rect x="265" y="229" width="379.5" height="34" rx="5" fill="#f59e0b"/>
+          <text x="634" y="251" text-anchor="end" font-family="var(--mono)" font-size="13" font-weight="800" fill="#ffffff">3.45</text>
+          <text x="708" y="244" font-size="12" font-weight="700" fill="#b45309">장착성 2점 반영 (실측 #2 필수 선행)</text>
+          <text x="708" y="260" font-size="11.2" fill="var(--muted)">공간 확인 시 2→4점 상승하여 3.85 도달</text>
+        </svg>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>평가 기준</th>
+              <th class="num">가중치</th>
+              <th>후보 1 (OK3588J-C)</th>
+              <th>후보 3-B (ORNX-LAN)</th>
+              <th>후보 3-A (ORNXS)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>지금 자리 장착성 (공간)</td><td class="num">20</td><td><strong>2</strong> (190×130, 실측 필요 → 확보 시 4)</td><td><strong>4</strong> (100×100 세워 장착 유력)</td><td><strong>5</strong> (60.5×91 여유)</td></tr>
+            <tr><td>인터페이스 확실성 (I2C·CAN·2LAN)</td><td class="num">20</td><td><strong>3</strong> (I2C 헤더 미확인, i2c-gpio 확실)</td><td><strong>4</strong> (I2C·CAN·RJ45 확인, CAN 절연 미확인)</td><td><strong>4</strong> (확인 많음, Molex 배선)</td></tr>
+            <tr><td>전원 단순성</td><td class="num">10</td><td><strong>3</strong> (12 V DC-DC 필수)</td><td><strong>5</strong> (24 V 직결 9~32 V)</td><td><strong>4</strong> (9~28 V, 여유 4 V)</td></tr>
+            <tr><td>기반 이미지 난이도</td><td class="num">10</td><td><strong>4</strong> (Forlinx Ubuntu, 메인라인 DTS)</td><td><strong>4</strong> (JetPack 6 = Ubuntu 22.04 정식)</td><td><strong>4</strong></td></tr>
+            <tr><td>비용 (교체 세트)</td><td class="num">20</td><td><strong>5</strong> (1,390,806원)</td><td><strong>2</strong> (2,622,606원)</td><td><strong>2</strong> (2,712,033원)</td></tr>
+            <tr><td>3D 라이다 기하 처리 여유</td><td class="num">10</td><td><strong>4</strong></td><td><strong>5</strong></td><td><strong>5</strong></td></tr>
+            <tr><td>장래 카메라·학습형 인식</td><td class="num">5</td><td><strong>3</strong> (NPU 6 TOPS)</td><td><strong>5</strong> (GPU)</td><td><strong>5</strong></td></tr>
+            <tr><td>배선 신뢰성 (진동)</td><td class="num">5</td><td><strong>4</strong> (RJ45·피닉스)</td><td><strong>5</strong> (RJ45·단자대)</td><td><strong>2</strong> (1.25 mm 마이크로 커넥터)</td></tr>
+            <tr class="row-hl"><td>가중 합계 (가중×점수/100)</td><td class="num">100</td><td>3.45 <span style="color:var(--ok)">(공간 확보 시 3.85)</span></td><td>3.90</td><td>3.85</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-info">
+        <strong>최종 추천 결정 규칙 4원칙:</strong><br>
+        ① <strong>실측 #2에서 OK3588J-C(케이스 ≈210×150×45) 자리가 확인되면 → 후보 1</strong> (가중 합 3.85로 3-B와 동급, 1대당 <strong>1,231,800원</strong> 절감).<br>
+        ② <strong>자리가 없거나 일정·확실성을 우선하면 → 후보 3-B</strong> (24V 직결, RJ45, 3.3V I2C 확인, 세워 장착 가능).<br>
+        ③ <strong>후보 3-A는 제외 권장</strong> (3-B보다 89,427원 비싸고 1.25 mm 배선 위험 큼; 극단적 협소 공간 한정).<br>
+        ④ <strong>발주 순서</strong>: 어느 쪽이든 <strong>1세트 먼저</strong> 구매해 벤치 → 34960 실차 검증 통과 후 2번째 세트 발주. Mid-360S는 보드 교체 1주 이상 안정 후 통합.
+      </div>
+    </section>
+
+    <!-- SECTION 10: PHYSICAL VERIFICATION 3(+1) & REAL PHOTO GALLERY -->
+    <section class="section" id="sec-physical">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">FIELD CHECK &amp; EVIDENCE · SECTION 11</span>
+          <h2>사용자 물리 확인 3(+1)건 가이드 &amp; 실물 참고 사진</h2>
+        </div>
+        <span class="badge badge-ok">기존 8건 → 필수 3건(+선택 1건) 축소</span>
+      </div>
+
+      <div class="card-grid-2">
+        <div class="guide-card warn">
+          <h4>#1. COM 40핀: 꽂힌 핀 전부 정체 + 플러그 품번</h4>
+          <ul>
+            <li>로봇 회색 플러그(라벨 <code>LP202806-22-3</code>) 정면 1장: 몰딩 각인(예: <code>MX34040SF1</code>)과 <strong>선이 꽂힌 구멍 위치·선 색</strong>이 선명하게.</li>
+            <li>분리해 둔(무전원) MC-40 테스터 도통: 100 µF 50V 콘덴서 +/−와 COM 핀, 캐리어 뒷면 CAN 트랜시버 6·7번과 COM 핀.</li>
+            <li><strong>나머지 신호선 약 8가닥도</strong> UM3232(RS-232)·RS-485 칩 핀과 도통 확인 (X16 보정).</li>
+            <li>캐리어 뒷면 전체 사진 1장 추가 촬영.</li>
+          </ul>
+          <span class="unblock-tag">해소 항목: COM 브레이크아웃 PCB 설계 · 누락 신호 0</span>
+        </div>
+
+        <div class="guide-card warn">
+          <h4>#2. MC-40 장착 방식과 주변 빈 공간 (최우선 발주 관문)</h4>
+          <ul>
+            <li>MC-40 날개 4개 구멍에 자를 대고 정면·위에서 각 1장 (구멍 중심 간격, M3/M4 확인).</li>
+            <li><strong>주변 여유 3축 실측</strong>: 좌우(배선 다발까지), 앞뒤(IC-40까지), 위(커넥터 끝~뚜껑·덮개까지) 줄자 측정값 3개 + 사진 1장.</li>
+            <li>MC-40이 세로(커넥터 위)로 서 있는지 측면 1장.</li>
+          </ul>
+          <span class="unblock-tag">해소 항목: 고정판 도면 · 후보 1 장착 가부(X22) · IMU 자세 재확인</span>
+        </div>
+
+        <div class="guide-card">
+          <h4>#3. 24 V 레일 전압·전류 + 스위치 빈 포트</h4>
+          <ul>
+            <li>멀티미터 MIN/MAX 모드로 COM 24V 선(또는 IC-40 24V 출력) 전압을 대기→주행→리프트 승하강→(가능 시) 충전 중까지 기록.</li>
+            <li>DC 클램프미터로 MC-40 24V 선 전류 1회 측정.</li>
+            <li>24V 선 굵기 표기(피복 인쇄 AWG) 근접 사진 1장 (X23).</li>
+            <li>IC-40 위 은색 스위치 전체(모델명·총 포트 수·빈 포트) 사진 1장.</li>
+          </ul>
+          <span class="unblock-tag">해소 항목: 후보 3 직결/DC-DC 가부 · 18AWG 분배점 · S1/S2 결정</span>
+        </div>
+
+        <div class="guide-card opt">
+          <h4>(+1, 선택) U24 윗면 매크로 접사</h4>
+          <ul>
+            <li>휴대폰 매크로 모드로 캐리어 <code>U24</code> (3×3 mm QFN-24) 윗면 레이저 각인과 핀1 점 1장 촬영.</li>
+            <li>안 찍어도 Z축 동작(<code>z_acc</code>·<code>z_w</code>)은 2.1절 수식으로 이미 100% 확정되어 있습니다.</li>
+          </ul>
+          <span class="unblock-tag">해소 항목: IMU X/Y 수평축 정합 최종 확인</span>
+        </div>
+      </div>
+
+      <p style="font-size:12.8px;color:var(--muted);margin:10px 0 4px">
+        ※ 34960 교체 전 소프트웨어 기록(8절 1번: MAC·ethtool·호스트키·<code>/agvMain</code>·좌회전 부호)은 사진이 아니라 현장 접속 승인 후 수행하는 SSH 읽기 작업입니다.
+      </p>
+
+      <h3>실물 참고 사진 안내 (웹 공개판)</h3>
+      <div class="callout callout-info" id="photoGalleryNotice" style="margin-top:10px">
+        <strong>🔒 실물 사진 8장은 보안상 로컬 파일 <code>L_TYPE_BOARD_SWAP_PLAN.html</code>에서만 표시됩니다.</strong>
+        <p style="margin:6px 0 8px;font-size:13px;color:var(--fg-secondary)">
+          공장 내부·로봇 실물 분해 사진(<code>./photos/01~04</code>, <code>./crops/zoom_u24_qfn24_imu.jpg</code> 등 8장)은 공개 저장소에 업로드하지 않았으며, 웹 페이지에서 이미지 404가 발생하지 않도록 텍스트 목록으로 대체했습니다.
+        </p>
+        <ul id="photoListWeb" style="margin:0;padding-left:18px;font-size:12.8px;color:var(--fg-secondary)"></ul>
+      </div>
+    </section>
+
+    <!-- SECTION 11: VENDOR INQUIRY TEMPLATES 5 TABS -->
+    <section class="section" id="sec-inquiry">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">VENDOR TEMPLATES · SECTION 12</span>
+          <h2>바로 보낼 수 있는 업체 압축 문의문 5종 (개인정보 0)</h2>
+        </div>
+        <span class="badge badge-info">이미 확인된 항목 제외 · 서명/수량만 기입</span>
+      </div>
+
+      <div class="tab-bar" id="inquiryTabs" role="tablist">
+        <button type="button" class="tab-btn active" data-tab="forlinx_ko">Forlinx (한국어)</button>
+        <button type="button" class="tab-btn" data-tab="forlinx_en">Forlinx (English)</button>
+        <button type="button" class="tab-btn" data-tab="forlinx_zh">Forlinx (中文)</button>
+        <button type="button" class="tab-btn" data-tab="forecr_en">Forecr (English)</button>
+        <button type="button" class="tab-btn" data-tab="kr_local">국내 Livox · Orin NX</button>
+      </div>
+
+      <div class="inquiry-box">
+        <div class="inquiry-head">
+          <strong id="inquiryTitle">12.1 Forlinx (후보 1) — 한국어 (국내 대리점 에이아이테크 등)</strong>
+          <button type="button" class="btn btn-primary" id="btnCopyInquiry">📋 원클릭 복사</button>
+        </div>
+        <pre class="inquiry-pre" id="inquiryText"></pre>
+      </div>
+    </section>
+
+    <!-- SECTION 12: P0~P6 EXECUTION CHECKLIST -->
+    <section class="section" id="sec-checklist">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">EXECUTION RUNBOOK · SECTION 13</span>
+          <h2>P0~P6 단계별 실행 체크리스트 (자동 저장)</h2>
+        </div>
+        <div class="topbar-actions no-print">
+          <button type="button" class="btn" id="btnResetChecklist">↺ 체크 초기화</button>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-top">
+          <strong id="chkProgressLabel">전체 진행률: 0 / 40 완료 (0%)</strong>
+          <span style="font-size:12px;color:var(--muted)">브라우저 localStorage 자동 저장</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="chkProgressBar"></div>
+        </div>
+      </div>
+
+      <div id="checklistContainer"></div>
+    </section>
+
+    <!-- SECTION 13: REMAINING UNKNOWNS & SOURCE PATHS -->
+    <section class="section" id="sec-unknowns">
+      <div class="sec-head">
+        <div>
+          <span class="sec-num">OPEN ITEMS · SECTION 15</span>
+          <h2>남은 미확인 9건 &amp; 원자료 근거 경로</h2>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>미확인 항목</th><th style="width:260px">닫는 방법 (검증 게이트)</th></tr></thead>
+          <tbody>
+            <tr><td>COM 나머지 약 8가닥 신호 정체</td><td>11절 물리 확인 #1 (도통 검사)</td></tr>
+            <tr><td>MC-40 주변 공간, 날개 구멍 간격</td><td>11절 물리 확인 #2 (줄자 실측)</td></tr>
+            <tr><td>24 V 레일 최대값·여유, 선 굵기, 스위치 빈 포트</td><td>11절 물리 확인 #3 (MIN/MAX·사진)</td></tr>
+            <tr><td>OK3588J-C 헤더 HW I2C, CAN 종단, MAC, 공식 Ubuntu 커널 옵션</td><td>12.1~12.3 Forlinx 문의 회신</td></tr>
+            <tr><td>ORNX-LAN 입력 9~32 확정, CAN 절연·종단, DF11 핀·버스, 2번째 LAN 칩·MAC, RTC 전지</td><td>12.4 Forecr 문의 회신</td></tr>
+            <tr><td>원본 nginx가 Ubuntu 22.04 libxcrypt에서 링크되는지</td><td>P2 벤치 <code>ldd</code> · <code>nginx -t</code></td></tr>
+            <tr><td>빈 <code>wch.ko</code>·<code>rpcbind</code> 방식이 <code>prepare.sh</code>를 통과하는지</td><td>P2 벤치 <code>manage.py install</code> 후 재부팅</td></tr>
+            <tr><td>34960에 <code>/home/agvupg-web</code> 디렉터리가 존재하는지</td><td>P4 교체 전 기록 시 <code>ls</code> 확인</td></tr>
+            <tr><td>리얼리스토어 Mid-360S 가격(1,350,000원)의 부가세 포함 여부</td><td>12.5 국내 판매처 문의</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>원자료 근거 경로</h3>
+      <ul style="font-size:13px;color:var(--fg-secondary);padding-left:20px;margin:8px 0 0">
+        <li>통합 마스터 문서: <code>E:/fms_build/l-board-swap-1121/MASTER_PLAN_BOARD_SWAP.md</code></li>
+        <li>사진 원자료: <code>E:/Tusk_board_udp_capture_20261012/photos/01_ic40_in_robot.png</code>, <code>./photos/01~04</code>, <code>./crops/zoom_u24_qfn24_imu.jpg</code></li>
+        <li>ELF 검증 대상: <code>./tmp_rootfs_inspect/extracted/{agvMain,home}/…</code>, <code>arc_p01_agvMain.tar.gz</code> (mosquitto)</li>
+        <li>native 소스 근거: <code>oneweave-native/src/native_imu.cpp:156-196</code>, <code>native_runtime_n2.cpp:47,63</code>, <code>native_runtime_navi_slip.cpp:62-80</code>, <code>include/tusk/original_odo_imu.h:306-312</code></li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ===== SAFE STORAGE ===== */
+  const store = {
+    get(k, fallback) {
+      try { const v = localStorage.getItem(k); return v === null ? fallback : v; } catch (_) { return fallback; }
+    },
+    set(k, v) {
+      try { localStorage.setItem(k, v); } catch (_) {}
+    },
+    remove(k) {
+      try { localStorage.removeItem(k); } catch (_) {}
+    }
+  };
+
+  /* ===== TOAST ===== */
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+  }
+
+  /* ===== FORMAT HELPERS ===== */
+  function fmtKRW(n) {
+    return (n < 0 ? '-' : '') + Math.abs(Math.round(n)).toLocaleString('ko-KR');
+  }
+  function badgeHTML(type, text) {
+    const cls = type === 'ok' ? 'badge-ok' : type === 'est' ? 'badge-est' : type === 'unk' ? 'badge-unk' : 'badge-info';
+    return '<span class="badge ' + cls + '">' + text + '</span>';
+  }
+  function escHTML(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* ===== THEME TOGGLE (Light default) ===== */
+  const themeBtn = document.getElementById('themeToggle');
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? '☀️ 라이트모드' : '🌙 다크모드';
+    store.set('tusk_swap_theme', t);
+  }
+  applyTheme(store.get('tusk_swap_theme', 'light'));
+  themeBtn.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme') || 'light';
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ===== 1. INTERACTIVE BOM CALCULATOR ===== */
+  const COMMON_ITEMS = [
+    { cat: '공통', name: '외부 퓨즈홀더+퓨즈+TVS(SMDJ30A급)', qty: 1, unit: 15000, tag: 'est', note: '[추정]' },
+    { cat: '공통', name: '알루미늄 외함/고정판 가공+열전도 패드', qty: 1, unit: 115000, tag: 'est', note: '[추정]' },
+    { cat: '공통', name: '스탠드오프·방진 와셔·나사', qty: 1, unit: 10000, tag: 'est', note: '[추정]' },
+    { cat: '공통', name: 'IMU OSTSen-6500(MPU-6500) 장착1+예비1', qty: 2, unit: 41800, tag: 'ok', note: '[확인 r03 디바이스마트]' },
+    { cat: '공통', name: 'M12 X-코드 8핀 암(F)↔RJ45 수(M) 변환 1m', qty: 2, unit: 75000, tag: 'est', note: '[추정 r04 6~9만 중간값]' },
+    { cat: '공통', name: 'COM 브레이크아웃(JAE MX34040NF1 헤더+PCB+단자+120Ω)', qty: 1, unit: 55000, tag: 'est', note: '[추정]' }
+  ];
+
+  const CAND_DATA = {
+    c1: {
+      label: '후보 1 (OK3588J-C)',
+      benchPrice: 930856,
+      benchDesc: '벤치 세트 1개 (OK3588J-C 16GB + RSD-60G-12 + microSD + IMU 1 + 배선, 배송 공유)',
+      items: [
+        { cat: '보드', name: 'Forlinx OK3588J-C 16GB/128GB 산업용 ($512)', qty: 1, unit: 749056, tag: 'ok', note: '[확인 r03 DigiKey $512]' },
+        { cat: '배송', name: 'DigiKey Marketplace 배송 ($50)', qty: 1, unit: 73150, tag: 'est', note: '[추정]' },
+        { cat: '전원', name: 'Mean Well RSD-60G-12 (9~36V→12V 60W, EN50155)', qty: 1, unit: 65000, tag: 'est', note: '[추정 r03 5.5~7.5만]' },
+        { cat: '저장', name: '산업용 microSD 32GB (/LOG_FILE)', qty: 1, unit: 40000, tag: 'est', note: '[추정]' },
+        { cat: '배선', name: '배선 소모품+USB-TTL+I2C 실드선+4.7kΩ', qty: 1, unit: 35000, tag: 'est', note: '[추정]' }
+      ]
+    },
+    c3b: {
+      label: '후보 3-B (Orin NX + ORNX-LAN)',
+      benchPrice: 2165806,
+      benchDesc: '벤치 세트 1개 (Orin NX 16GB + ORNX-LAN + 쿨러 + NVMe + RTC + IMU 1 + 배선, 배송 공유)',
+      items: [
+        { cat: '모듈', name: 'Jetson Orin NX 16GB (디바이스마트)', qty: 1, unit: 1444817, tag: 'ok', note: '[확인 HANDOFF]' },
+        { cat: '캐리어', name: 'Forecr DSBOARD-ORNX-LAN (€283)', qty: 1, unit: 459479, tag: 'ok', note: '[확인 forecr.io]' },
+        { cat: '배송', name: 'Forecr 해외 특송', qty: 1, unit: 70000, tag: 'est', note: '[추정]' },
+        { cat: '쿨러', name: 'Seeed 방열판+팬 110991904', qty: 1, unit: 39710, tag: 'ok', note: '[확인 r04]' },
+        { cat: '저장', name: '산업용 NVMe 256GB (OS+/LOG_FILE)', qty: 1, unit: 120000, tag: 'est', note: '[추정]' },
+        { cat: 'RTC', name: 'RTC 코인전지+짝 커넥터', qty: 1, unit: 10000, tag: 'est', note: '[추정]' },
+        { cat: '배선', name: '배선 소모품+USB-TTL+DF11-16DS-2C I2C 하네스', qty: 1, unit: 50000, tag: 'est', note: '[추정]' }
+      ]
+    },
+    c3a: {
+      label: '후보 3-A (Orin NX + ORNXS)',
+      benchPrice: 2255233,
+      benchDesc: '벤치 세트 1개 (Orin NX 16GB + ORNXS + Cable Set + 쿨러 + NVMe + RTC + IMU 1 + 배선)',
+      items: [
+        { cat: '모듈', name: 'Jetson Orin NX 16GB (디바이스마트)', qty: 1, unit: 1444817, tag: 'ok', note: '[확인 HANDOFF]' },
+        { cat: '캐리어', name: 'Forecr DSBOARD-ORNXS (€220)', qty: 1, unit: 357192, tag: 'ok', note: '[확인 r04]' },
+        { cat: '케이블', name: 'Forecr Cable Set for DSBOARD-ORNXS (€115)', qty: 1, unit: 186714, tag: 'ok', note: '[확인 r04]' },
+        { cat: '배송', name: 'Forecr 해외 특송', qty: 1, unit: 70000, tag: 'est', note: '[추정]' },
+        { cat: '쿨러', name: 'Seeed 방열판+팬 110991904', qty: 1, unit: 39710, tag: 'ok', note: '[확인 r04]' },
+        { cat: '저장', name: '산업용 NVMe 2230 256GB', qty: 1, unit: 120000, tag: 'est', note: '[추정]' },
+        { cat: 'RTC', name: 'RTC 코인전지+Molex 5055650201 리드', qty: 1, unit: 10000, tag: 'est', note: '[추정]' },
+        { cat: '배선', name: '배선 소모품+USB-TTL+Molex 79758 프리크림프 리드', qty: 1, unit: 55000, tag: 'est', note: '[추정]' }
+      ]
+    }
+  };
+
+  const LIDAR_ITEMS = {
+    none: [],
+    kr: [
+      { cat: '라이다', name: 'Livox Mid-360S 본체 (국내 리얼리스토어)', qty: 1, unit: 1350000, tag: 'ok', note: '[확인, VAT포함 미확인]' },
+      { cat: '라이다', name: 'Mid-360S 1-to-3 분기 케이블 (별매)', qty: 1, unit: 195000, tag: 'ok', note: '[확인]' },
+      { cat: '라이다', name: 'Mid-360S 브래킷·방진 + 24V 2A 퓨즈·배선', qty: 1, unit: 55000, tag: 'est', note: '[추정 40k+15k]' }
+    ],
+    overseas: [
+      { cat: '라이다', name: 'Livox Mid-360S 본체 (해외 직구 $749)', qty: 1, unit: 1095787, tag: 'ok', note: '[확인, 과세 반영]' },
+      { cat: '라이다', name: 'Mid-360S 1-to-3 분기 케이블 (~$70)', qty: 1, unit: 102410, tag: 'est', note: '[추정]' },
+      { cat: '라이다', name: 'Mid-360S 해외 배송 ($72, 과세 포함 X18)', qty: 1, unit: 105336, tag: 'ok', note: '[확인 X18 보정]' },
+      { cat: '라이다', name: 'Mid-360S 브래킷·방진 + 24V 2A 퓨즈·배선', qty: 1, unit: 55000, tag: 'est', note: '[추정 40k+15k]' }
+    ]
+  };
+
+  const SWITCH_ITEMS = {
+    none: null,
+    s1: { cat: '스위치', name: 'S1 5포트 산업용 기가비트 스위치 (24V 추가)', qty: 1, unit: 70000, tag: 'est', note: '[추정]' },
+    s2: { cat: '스위치', name: 'S2 16포트 산업용 기가비트 스위치 (교체)', qty: 1, unit: 300000, tag: 'est', note: '[추정]' }
+  };
+
+  const bomState = {
+    cand: 'c1',
+    ram: '16',
+    rsd24: false,
+    eleparts: false,
+    lidar: 'none',
+    sw: 'none',
+    bench: false,
+    tools: false,
+    qty: 1
+  };
+
+  function computeBOM(st) {
+    const c = CAND_DATA[st.cand];
+    const rows = [];
+    let perUnit = 0;
+
+    c.items.forEach(it => {
+      let name = it.name;
+      let unit = it.unit;
+      let note = it.note;
+      if (st.cand === 'c1' && it.cat === '보드' && st.ram === '8') {
+        name = 'Forlinx OK3588J-C 8GB/64GB 산업용 ($455 가정, -83,391)';
+        unit = it.unit - 83391;
+        note = '[추정 X21 8GB 선택]';
+      }
+      if ((st.cand === 'c3b' || st.cand === 'c3a') && it.cat === '모듈' && st.eleparts) {
+        name = 'Jetson Orin NX 16GB (엘레파츠 단가 +235,183)';
+        unit = it.unit + 235183;
+        note = '[확인 엘레파츠]';
+      }
+      const sub = unit * it.qty * st.qty;
+      perUnit += unit * it.qty;
+      rows.push({ cat: it.cat, name, qty: it.qty * st.qty, unit, sub, tag: it.tag, note });
+    });
+
+    if ((st.cand === 'c3b' || st.cand === 'c3a') && st.rsd24) {
+      const unit = 65000;
+      perUnit += unit;
+      rows.push({ cat: '전원옵션', name: 'Mean Well RSD-60G-24 (레일 실측 불량 시)', qty: st.qty, unit, sub: unit * st.qty, tag: 'est', note: '[추정 5.3절]' });
+    }
+
+    COMMON_ITEMS.forEach(it => {
+      const sub = it.unit * it.qty * st.qty;
+      perUnit += it.unit * it.qty;
+      rows.push({ cat: it.cat, name: it.name, qty: it.qty * st.qty, unit: it.unit, sub, tag: it.tag, note: it.note });
+    });
+
+    LIDAR_ITEMS[st.lidar].forEach(it => {
+      const sub = it.unit * it.qty * st.qty;
+      perUnit += it.unit * it.qty;
+      rows.push({ cat: it.cat, name: it.name, qty: it.qty * st.qty, unit: it.unit, sub, tag: it.tag, note: it.note });
+    });
+
+    if (SWITCH_ITEMS[st.sw]) {
+      const it = SWITCH_ITEMS[st.sw];
+      const sub = it.unit * st.qty;
+      perUnit += it.unit;
+      rows.push({ cat: it.cat, name: it.name, qty: st.qty, unit: it.unit, sub, tag: it.tag, note: it.note });
+    }
+
+    let oneTime = 0;
+    if (st.bench) {
+      oneTime += c.benchPrice;
+      rows.push({ cat: '벤치(1회)', name: c.benchDesc, qty: 1, unit: c.benchPrice, sub: c.benchPrice, tag: 'ok', note: '[총괄표 기준 1회]' });
+    }
+    if (st.tools) {
+      oneTime += 115000;
+      rows.push({ cat: '공구(1회)', name: '미보유 공구 (압착기 60,000 + 페룰 25,000 + CANable 30,000)', qty: 1, unit: 115000, tag: 'est', sub: 115000, note: '[추정 1회]' });
+    }
+
+    const total = perUnit * st.qty + oneTime;
+    return { rows, perUnit, oneTime, total };
+  }
+
+  function renderBOM() {
+    const c = CAND_DATA[bomState.cand];
+    document.getElementById('ctrlRamWrap').style.display = bomState.cand === 'c1' ? '' : 'none';
+    document.getElementById('ctrlCand3Wrap').style.display = bomState.cand === 'c1' ? 'none' : '';
+    document.getElementById('benchPriceHint').textContent = '+' + fmtKRW(c.benchPrice) + '원';
+    document.getElementById('bomQtyVal').textContent = bomState.qty + '대';
+
+    const res = computeBOM(bomState);
+    document.getElementById('bomGrandTotal').textContent = fmtKRW(res.total) + '원';
+    document.getElementById('bomPerUnit').textContent = fmtKRW(res.perUnit) + '원';
+    document.getElementById('bomOneTimeSub').textContent = '1회성 추가: ' + fmtKRW(res.oneTime) + '원';
+    document.getElementById('bomTableTotal').textContent = fmtKRW(res.total);
+
+    const opts = [];
+    if (bomState.cand === 'c1' && bomState.ram === '8') opts.push('8GB');
+    if (bomState.cand !== 'c1' && bomState.rsd24) opts.push('RSD-60G-24');
+    if (bomState.lidar === 'kr') opts.push('Mid-360S 국내');
+    if (bomState.lidar === 'overseas') opts.push('Mid-360S 해외');
+    if (bomState.sw === 's1') opts.push('S1');
+    if (bomState.sw === 's2') opts.push('S2');
+    if (bomState.bench) opts.push('벤치 1개');
+    document.getElementById('bomSummaryDesc').textContent =
+      c.label + ' × ' + bomState.qty + '대' + (opts.length ? ' · ' + opts.join(' + ') : '');
+
+    const delta = res.total - 1390806 * bomState.qty;
+    document.getElementById('bomDelta').textContent = (delta > 0 ? '+' : '') + fmtKRW(delta) + '원';
+
+    const tbody = document.getElementById('bomTableBody');
+    tbody.innerHTML = res.rows.map((r, i) =>
+      '<tr>' +
+        '<td class="mono">' + (i + 1) + '</td>' +
+        '<td>' + escHTML(r.cat) + '</td>' +
+        '<td>' + escHTML(r.name) + '</td>' +
+        '<td class="num">' + r.qty + '</td>' +
+        '<td class="num">' + fmtKRW(r.unit) + '</td>' +
+        '<td class="num"><strong>' + fmtKRW(r.sub) + '</strong></td>' +
+        '<td>' + badgeHTML(r.tag, r.note) + '</td>' +
+      '</tr>'
+    ).join('');
+
+    // Highlight matching cell in summary matrix when qty=1 and no extra modifiers
+    document.querySelectorAll('#bomMatrixTable td').forEach(td => td.classList.remove('cell-hl'));
+    if (bomState.qty === 1 && !bomState.tools && !(bomState.cand === 'c1' && bomState.ram === '8') && !(bomState.cand !== 'c1' && (bomState.rsd24 || bomState.eleparts))) {
+      let col = null;
+      if (!bomState.bench && bomState.sw === 'none') {
+        if (bomState.lidar === 'none') col = 'base';
+        else if (bomState.lidar === 'kr') col = 'kr';
+        else if (bomState.lidar === 'overseas') col = 'ov';
+      } else if (bomState.bench && bomState.lidar === 'kr') {
+        if (bomState.sw === 'none') col = 'full';
+        else if (bomState.sw === 's1') col = 's1';
+        else if (bomState.sw === 's2') col = 's2';
+      }
+      if (col) {
+        const cell = document.querySelector('#bomMatrixTable td[data-cell="' + bomState.cand + '-' + col + '"]');
+        if (cell) cell.classList.add('cell-hl');
+      }
+    }
+  }
+
+  function bindSeg(groupId, prop, attr) {
+    const grp = document.getElementById(groupId);
+    grp.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-' + attr + ']');
+      if (!btn) return;
+      grp.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      bomState[prop] = btn.getAttribute('data-' + attr);
+      renderBOM();
+    });
+  }
+  bindSeg('bomCandGroup', 'cand', 'cand');
+  bindSeg('bomRamGroup', 'ram', 'ram');
+  bindSeg('bomLidarGroup', 'lidar', 'lidar');
+  bindSeg('bomSwitchGroup', 'sw', 'sw');
+
+  document.getElementById('chkRsd24').addEventListener('change', (e) => { bomState.rsd24 = e.target.checked; renderBOM(); });
+  document.getElementById('chkEleparts').addEventListener('change', (e) => { bomState.eleparts = e.target.checked; renderBOM(); });
+  document.getElementById('chkBench').addEventListener('change', (e) => { bomState.bench = e.target.checked; renderBOM(); });
+  document.getElementById('chkTools').addEventListener('change', (e) => { bomState.tools = e.target.checked; renderBOM(); });
+  document.getElementById('bomQty').addEventListener('input', (e) => { bomState.qty = Number(e.target.value); renderBOM(); });
+  renderBOM();
+
+  /* ===== 2. CROSS-AUDIT 24 ITEMS (X1~X24) ===== */
+  const AUDIT_ITEMS = [
+    { id: 'X1', orig: 'HANDOFF 8절 4: "IMU는 평평하게, 캐리어 IMU 칩과 같은 축" / r03 4.5: "수평면과 동일하게"', res: '모순·위험. hard-config z_addr:2, z_reverse:true이면 로봇 Z = −칩 Y. 정지 상태에서 칩 −Y가 하늘이어야 z_acc≈+980으로 D0303 통과. 평평 장착 시 z_acc≈0 → 측위 초기화 거부. 세워서 달아야 한다.', ev: 'r02 1.3 수식, 2절(사진 두 장 정합)', tags: ['ok'], verdict: '[확인] 보정' },
+    { id: 'X2', orig: 'r01 0절 1·5.1: "M12 8핀 X-코드 수(Male) ↔ RJ45 필요"', res: '성별이 틀렸다. 로봇 쪽 케이블 끝이 M12 수 플러그다. 새 보드에 이으려면 M12 X-코드 8핀 암(Female) ↔ RJ45 수가 필요하다. 스위치 쪽 하늘색 선은 반대쪽 끝이 RJ45라 일반 패치선 대체 가능.', ev: '사진 01_ic40_in_robot.png, r04 3.1 주의문', tags: ['ok'], verdict: '[확인] 보정' },
+    { id: 'X3', orig: 'r01: "왼쪽부터 COM·USB0·USB1·ENET0·ENET1" vs "하늘색은 맨 왼쪽 ENET1"', res: '보는 방향 차이. 로봇 사진(커넥터 정면, 뚜껑 위) 기준 왼쪽부터 ENET1·ENET0·USB1·USB0·COM. 하늘색(스위치행)=ENET1(J6), 검정(IC-40행)=ENET0(J4). 외함 글자 ENET1 = 리눅스 eth0.', ev: '사진 직접 판독 + r01 dmesg 속도', tags: ['ok', 'est'], verdict: '배선 [확인] / 내부 [추정]' },
+    { id: 'X4', orig: 'r02 1.3: MC-40 "세워져 장착"을 [확인]으로 적음(근거는 수식뿐)', res: '사진으로 기하 정합 확인: 커넥터 면이 위(하늘), 뚜껑(부품면)이 IC-40 쪽, COM 끝이 사진 오른쪽. 오른손 좌표계(X=우, Y=위, Z=카메라) 완벽 일치.', ev: '01_ic40_in_robot.png, 02_tusk_carrier_board.jpg, zoom_u24', tags: ['ok', 'est'], verdict: '수식 [확인] + 정합' },
+    { id: 'X5', orig: 'r02 0절·2.2: nginx libcrypt.so.1(GLIBC_2.17) vs Ubuntu XCRYPT_2.0 → "래퍼 필수"', res: '과장. Debian·Ubuntu의 libcrypt1(libxcrypt)은 옛 glibc용 호환 심볼 crypt@GLIBC_2.17(arm64)을 내보내 원본 nginx 실행 유력. /agvMain/libcrypt.so.1을 /lib에 복사 금지는 유지. 래퍼는 예비책.', ev: '웹 libxcrypt 호환 설계, ELF VERNEED', tags: ['est'], verdict: '[추정·높음] 보정' },
+    { id: 'X6', orig: 'r02 3.4(3) Shim①: /etc/ld.so.conf.d/tusk.conf', res: '이름 순서 함정. aarch64-linux-gnu.conf가 tusk.conf보다 먼저 읽혀 배포판 libmosquitto1이 먼저 잡힘. 00-tusk.conf로 개명. 배포판 mosquitto 브로커 패키지는 설치 금지(1883 충돌).', ev: 'ld.so.conf glob 순서, ELF MOSQ_1.0~1.5', tags: ['ok'], verdict: '[확인] 보정' },
+    { id: 'X7', orig: 'r02 3.4(3) 4: /agvMain + /home/agvUPG만 복사', res: '누락. agvUPG 내부에 /home/agvupg-web(index.html)와 /agvMain/MCU/ 문자열 존재. 34960에 있으면 함께 복사. agvHMI는 /run/logserver.sock·/LOG_FILE/HMI/·/dev/ttysWK0 사용.', ev: 'ELF 문자열 직접 추출', tags: ['ok', 'unk'], verdict: '경로 [확인] / 유무 [미확인]' },
+    { id: 'X8', orig: 'r02 1.4·3.4(5): prepare.sh:555/580 → 2줄 패치 또는 /sbin/insmod 래퍼', res: '더 깔끔한 3안: ① 새 커널용 빈 커널 모듈 wch.ko(10줄) 빌드·배치 → insmod 성공 & /sys/module/wch 생성. ② rpcbind 설치 후 disable → systemctl stop 0 반환. tusk-boot 바이트 그대로.', ev: '셸 set -eu 동작', tags: ['est'], verdict: '[추정] 벤치 확정' },
+    { id: 'X9', orig: 'r03 3.1·r04 0절/1.1: "24V 리튬 배터리 21~29.4V 직결 → 소손"', res: 'T10에는 해당 안 함. T10은 48V 배터리 → IC-40 하단 전원판이 정전압 24V 레일 생성(BAT_IN×2, PGND×4). 남는 위험은 레일 정격 오차·과도 전압 → 실측 #3.', ev: 'r01 3.1, 사진 05/06_ic40_*', tags: ['ok', 'unk'], verdict: '구조 [확인] / 최대값 [미확인]' },
+    { id: 'X10', orig: '브리프 3번: DDR-120이 "DIN 폭 85.5×125.2×113.5 mm"', res: '틀린 치수. DDR-120 계열은 32×125.2×102 mm(W×H×D). 어차피 통일안에서는 DDR-120이 불필요.', ev: 'Mean Well 데이터시트(웹)', tags: ['ok'], verdict: '[확인] 보정' },
+    { id: 'X11', orig: 'r04: DSBOARD-ORNX-LAN 입력 "9–28 VDC(일부 32V)"', res: 'Forecr 기준 9–32 VDC 4핀 단자대, −40~85°C. CAN은 14핀 Phoenix(짝 DFMC 1,5/7-STF-3,5). I2C는 DF11-16DP-2DSA 1채널 3.3V. M.2 Key-M 2280+2230. CAN 절연·종단·RTC 전지는 [미확인].', ev: 'forecr.io 공식 페이지(웹)', tags: ['ok', 'unk'], verdict: '[확인]/[미확인] 보정' },
+    { id: 'X12', orig: 'HANDOFF 6절: ORNXS 입력 "9–36 V"', res: '9–28 VDC (r04에서 수정, 웹으로 재확인).', ev: 'forecr.io', tags: ['ok'], verdict: '[확인]' },
+    { id: 'X13', orig: 'HANDOFF 6절: OK3588J-C "12 V DC005(5–13 V)"', res: '5–13 V는 SoM 사양. 캐리어 입력은 12 V ±5% (r03에서 정정).', ev: 'r03 1.1', tags: ['ok'], verdict: '[확인]' },
+    { id: 'X14', orig: 'r02 3.5·3.6: Orin NX nvpmodel -m 0 (MAXN) 권장', res: '40°C 밀폐 전장함에서 MAXN(40W급)은 열·전원 부담 큼. 25W 모드(nproc=8 확인)를 기본으로 설정. 모드 ID는 BSP별 상이하므로 nvpmodel -q --verbose로 확인.', ev: 'r04 1.5 열설계 모순 해소', tags: ['est'], verdict: '[추정] 보정' },
+    { id: 'X15', orig: 'r02 4.2 #4·스크립트 5단계: "보드를 책상에서 반시계로 돌려 z_w>0"', res: 'IMU 모듈이 세운 브래킷에 붙은 상태에서만 유효. 책상에 눕혀 두면 z_acc≈0으로 FAIL이 정상 → 검사 조건에 "IMU 브래킷 장착 자세" 명시.', ev: 'X1과 동일 수식', tags: ['ok'], verdict: '[확인] 보정' },
+    { id: 'X16', orig: 'r01 5.2 1번: COM은 "24V·GND·CAN1_H/L 도통"', res: '누락. COM에는 선이 약 10가닥(전원 2 + 신호 약 8) 꽂혀 있음. 나머지 8가닥(UM3232 RS-232 3칩, RS-485, can0 등)의 행선을 전부 도통 확인해야 누락 없음.', ev: 'r01 1.3·1.4, hard-config uart/can', tags: ['ok'], verdict: '[확인] 보정' },
+    { id: 'X17', orig: 'r01 0절 1: "X-코드 견적 +4만 원 확정"', res: '가격 확정 아님. 통일 BOM은 1개 75,000원(r04 6~9만 중간값)으로 [추정] 통일.', ev: 'r04 3.1', tags: ['est'], verdict: '[추정] 보정' },
+    { id: 'X18', orig: 'r04 4.3: 해외 배송 $72 → 96,000원(부가세 제외)', res: '수입 부가세는 (물품+운임) 과세가격에 부과 → 105,336원으로 정정.', ev: '관세법 과세가격 기준', tags: ['ok'], verdict: '[확인] 보정' },
+    { id: 'X19', orig: 'r04 2.1: Mid-360S 기동 피크 18W [확인]', res: '웹 재확인에서는 평균 6.5W·저온 자가가열 14W만 공식 확인. 18W는 r04 인용 [추정]으로 하향(설계는 18W 기준 보수 유지).', ev: 'Livox 공식 사양(웹)', tags: ['est'], verdict: '[추정] 보정' },
+    { id: 'X20', orig: 'r01 3.3·5.1: "MOXA MAC 이슈 해소"', res: '보강. 교체 시 주전원 차단으로 MOXA도 재부팅되어 ARP 재학습. 남는 위험은 내부 MAC 필터(미확인) → 예비책 MACAddress=. 교체 전 34960 eth0/eth1 MAC 기록 필수.', ev: 'r01·r02', tags: ['est'], verdict: '[추정] 보강' },
+    { id: 'X21', orig: 'HANDOFF 7절·r04: 후보 1 보드 666,000원(8GB, 웹가 엇갈림)', res: '가격이 확인된 SKU는 DigiKey 16GB/128GB $512(재고 있음) → 749,056원으로 통일. 8GB/64GB($455 가정)는 −83,391원 선택지로 표기. Orin NX 16GB와 공정 비교.', ev: 'r03 1.3 DigiKey SKU', tags: ['ok'], verdict: '[확인] 보정' },
+    { id: 'X22', orig: '신규 위험 (기존 4개 보고서 미언급)', res: '후보 1의 기계적 간섭. 사진 축척상 MC-40(≈142 mm)이 배선 다발 사이 폭을 거의 다 써 190 mm 보드(케이스 210 mm)를 같은 자세로 넣기 어려움 → 실측 #2 필수.', ev: '01_ic40_in_robot.png', tags: ['est', 'new'], verdict: '[추정] 신규 위험' },
+    { id: 'X23', orig: '신규 위험 (기존 4개 보고서 미언급)', res: 'COM 24V 선·접점 전류 여유. MC-40 ≈0.33A 대비 후보 3은 1.3~2.0A. COM 24V 선 굵기·MX34 정격 미확인 → 실측 #3 확인 또는 IC-40 분배점에서 18AWG 별도 퓨즈선 권장.', ev: 'r01 사진(적·흑 2가닥)', tags: ['unk', 'new'], verdict: '[미확인] 신규 위험' },
+    { id: 'X24', orig: 'r02 1.3, r03 1.2: I2C 전송 시간만 계산', res: '정량 보강. IMU 소비자 루프가 자기 루프 dt로 각속도를 적분 → i2c-gpio로 샘플율이 95→84 Hz로 줄어도 방위각 치우침 없음.', ev: 'native_runtime_navi_slip.cpp:77 등', tags: ['ok'], verdict: '[확인] 보강' }
+  ];
+
+  let auditFilter = 'all';
+  function renderAudit() {
+    const q = (document.getElementById('auditSearch').value || '').trim().toLowerCase();
+    const list = AUDIT_ITEMS.filter(it => {
+      if (auditFilter !== 'all' && !it.tags.includes(auditFilter)) return false;
+      if (!q) return true;
+      return (it.id + ' ' + it.orig + ' ' + it.res + ' ' + it.ev + ' ' + it.verdict).toLowerCase().includes(q);
+    });
+    document.getElementById('auditCountBadge').textContent = list.length + ' / 24건 표시';
+    const tbody = document.getElementById('auditTableBody');
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">검색 조건에 일치하는 검수 항목이 없습니다.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list.map(it => {
+      const mainTag = it.tags.includes('unk') ? 'unk' : it.tags.includes('ok') && !it.tags.includes('est') ? 'ok' : it.tags.includes('new') ? 'unk' : 'est';
+      return '<tr>' +
+        '<td class="mono"><strong>' + it.id + '</strong></td>' +
+        '<td>' + escHTML(it.orig) + '</td>' +
+        '<td>' + escHTML(it.res) + '</td>' +
+        '<td style="color:var(--muted);font-size:12.5px">' + escHTML(it.ev) + '</td>' +
+        '<td>' + badgeHTML(mainTag, it.verdict) + '</td>' +
+      '</tr>';
+    }).join('');
+  }
+  document.getElementById('auditSearch').addEventListener('input', renderAudit);
+  document.getElementById('auditFilterGroup').addEventListener('click', (e) => {
+    const p = e.target.closest('button[data-filter]');
+    if (!p) return;
+    document.querySelectorAll('#auditFilterGroup .pill').forEach(b => b.classList.remove('active'));
+    p.classList.add('active');
+    auditFilter = p.getAttribute('data-filter');
+    renderAudit();
+  });
+  renderAudit();
+
+  /* ===== 3. REAL PHOTO GALLERY NOTICE (WEB PUBLIC EDITION — NO 404 IMAGES) ===== */
+  const PHOTOS_WEB_META = [
+    { title: '01. 코어보드 뒷면 (IAC-IMX8MP-CM)', cap: '60×63 mm 기준자 · 140핀 B2B 2개(J1·J2) · QC 26/7' },
+    { title: '02. MC-40 캐리어 보드 윗면 전체', cap: 'TUSKROBOTS IMX8MP Board V1.0 · U24 IMU·G4812S·COM·M12 배치' },
+    { title: '03. 외함 내 조립 상태 (캘리브레이션 기준)', cap: 'IMX8MP-CM-V2_10 · 외함 ≈142×91 mm 산출 기준 사진' },
+    { title: '04. 외함 뚜껑 방열핀 & 포트 실크', cap: 'TUSKROBOTS MC-40 · 24V/5V/RUN/ETH0/ETH1 LED · 포트 실크' },
+    { title: '크롭: U24 QFN-24 (MPU-6500 최유력)', cap: '3.04×3.04 mm 실측 · 핀1 도트 좌하단 → −Y 하늘(커넥터 방향) 정합' },
+    { title: '크롭: 로봇 전장함 MC-40 체결 상태', cap: '하늘색(ENET1/스위치) · 검정(ENET0/IC-40) · 회색 COM 40핀' },
+    { title: '크롭: COM 40핀 플러그 (LP202806-22-3)', cap: '실장 ~10가닥 · 우측 끝 적·흑 24V 전원 + 신호선 ~8가닥' },
+    { title: '크롭: 전장함 상단 은색 이더넷 스위치', cap: '하반부 5포트 점유 · 8대 연결 중 → 실측 #3 빈 포트 확인 필수' }
+  ];
+  const photoListWeb = document.getElementById('photoListWeb');
+  if (photoListWeb) {
+    photoListWeb.innerHTML = PHOTOS_WEB_META.map(it =>
+      '<li><strong>' + escHTML(it.title) + '</strong> — ' + escHTML(it.cap) + '</li>'
+    ).join('');
+  }
+
+  /* ===== 4. VENDOR INQUIRY 5 TABS + COPY ===== */
+  const INQUIRIES = {
+    forlinx_ko: {
+      title: '12.1 Forlinx (후보 1) — 한국어 (국내 대리점 에이아이테크 등)',
+      body: [
+        '제목: OK3588J-C(산업용 RK3588J) 기술 확인 및 견적 문의',
+        '',
+        '1. OK3588J-C 16GB/128GB, 8GB/64GB 산업용 1·2·5대 단가와 납기(부가세 구분).',
+        '2. 기본 구성품: 방열판·팬, 12V 어댑터, RTC 코인전지 포함 여부. 전용 금속 케이스 별매 여부.',
+        '3. 2.54mm 확장 헤더에 하드웨어 I2C(SDA/SCL)가 나와 있는지 — 핀 번호, 3.3V 여부, 풀업, 리눅스 /dev/i2c-N 번호. 없으면 3.3V GPIO 2핀을 i2c-gpio로 써도 되는지(MPU-6500, 0x68).',
+        '4. CAN 2포트: 120Ω 종단 기본 실장 여부(점퍼/스위치), 3.81mm 단자 핀 순서.',
+        '5. 이더넷 2포트 MAC이 공장에서 기록돼 고정인지, 직접 기록해야 하는지.',
+        '6. DC005 입력 허용 범위(12V±5%로 엄격한지), 2GbE+CAN+TF+팬만 연결하고 CPU 100%일 때 최대 소비전력.',
+        '7. 공식 Ubuntu 22.04(또는 Debian 12) 이미지 제공 여부와 그 커널에 CAN_RAW, I2C_CHARDEV, I2C_GPIO가 켜져 있는지.',
+        '8. (선택) FCU3501 산업용 RK3588J 판에 CAN과 내부 3.3V I2C/GPIO를 낼 수 있는지, 가능하면 같은 수량 견적.'
+      ].join('\n')
+    },
+    forlinx_en: {
+      title: '12.2 Forlinx (Candidate 1) — English',
+      body: [
+        'Subject: OK3588J-C (industrial RK3588J) – technical questions and quotation',
+        '',
+        '1. Price and lead time for OK3588J-C industrial 16GB/128GB and 8GB/64GB, qty 1/2/5, shipped to South Korea.',
+        '2. Kit contents: heatsink/fan, 12V adapter, RTC coin cell? Optional metal enclosure?',
+        '3. Is hardware I2C (SDA/SCL) routed to the 2.54mm expansion header? Please give pin numbers, voltage (3.3V?), pull-ups and Linux /dev/i2c-N. If not, may two 3.3V GPIOs be used with i2c-gpio for an MPU-6500 (0x68)?',
+        '4. CAN x2: is the 120-ohm termination populated by default or selectable (jumper/DIP)? Pinout of the 3.81mm terminals?',
+        '5. Are both Ethernet MAC addresses factory-programmed and persistent, or must we program them?',
+        '6. Allowed DC005 input range (strictly 12V±5%?) and max power at 100% CPU with only 2xGbE, CAN, TF card and fan.',
+        '7. Do you provide an official Ubuntu 22.04 (or Debian 12) image, and does its kernel enable CAN_RAW, I2C_CHARDEV and I2C_GPIO?',
+        '8. (Optional) Can the industrial RK3588J FCU3501 expose CAN and an internal 3.3V I2C/GPIO header? If yes, please quote the same quantities.'
+      ].join('\n')
+    },
+    forlinx_zh: {
+      title: '12.3 Forlinx (候选 1) — 中文',
+      body: [
+        '主题：OK3588J-C（工业级 RK3588J）技术确认及报价',
+        '',
+        '1. OK3588J-C 工业级 16GB/128GB 与 8GB/64GB，1/2/5 台发往韩国的报价及交期。',
+        '2. 标配是否含散热片/风扇、12V 适配器、RTC 纽扣电池？是否有可选金属外壳？',
+        '3. 2.54mm 扩展排针是否引出硬件 I2C（SDA/SCL）？请告知引脚号、电平（3.3V?）、上拉及 Linux /dev/i2c-N。若无，能否用两路 3.3V GPIO 配置 i2c-gpio 连接 MPU-6500（0x68）？',
+        '4. 两路 CAN：120Ω 终端电阻是否默认焊接或可跳线/拨码选择？3.81mm 端子引脚顺序？',
+        '5. 两个网口 MAC 是否出厂烧录且固定，还是需客户自行写入？',
+        '6. DC005 允许输入范围（是否严格 12V±5%）？仅接双网口+CAN+TF卡+风扇、CPU 满载时最大功耗？',
+        '7. 是否提供官方 Ubuntu 22.04（或 Debian 12）镜像？其内核是否开启 CAN_RAW、I2C_CHARDEV、I2C_GPIO？',
+        '8. （可选）工业级 RK3588J 版 FCU3501 能否引出 CAN 及内部 3.3V I2C/GPIO？如可以请按相同数量报价。'
+      ].join('\n')
+    },
+    forecr_en: {
+      title: '12.4 Forecr (후보 3) — English (한국어 요지: ORNX-LAN 가격·납기, 9-32V, CAN 절연·종단, DF11 I2C, 2번째 LAN·MAC, RTC, 방열, JetPack)',
+      body: [
+        'Subject: DSBOARD-ORNX-LAN (and DSBOARD-ORNXS) for Jetson Orin NX 16GB – questions and quotation',
+        '',
+        '1. Price and lead time, qty 1/2/5, shipped to South Korea: DSBOARD-ORNX-LAN; DSBOARD-ORNXS + its cable set; a heatsink/fan you recommend for Orin NX 16GB at 25W in a closed 40°C cabinet.',
+        '2. ORNX-LAN power input: is the official range 9-32 VDC? Pinout of the 4-pin terminal, reverse-polarity/surge protection, and max board power with Orin NX 16GB at 25W.',
+        '3. ORNX-LAN CAN: transceiver part number, isolated or not, and is the 120-ohm termination populated by default?',
+        '4. ORNX-LAN DF11-16 header: pin numbers of the 3.3V I2C, Linux /dev/i2c-N under JetPack 6.x, and pull-up values (MPU-6500 at 0x68).',
+        '5. Second Gigabit Ethernet controller part number, driver included in your JetPack 6.x BSP, and are both MAC addresses factory-programmed and persistent?',
+        '6. RTC backup battery: connector part number and recommended cell (ORNX-LAN and ORNXS).',
+        '7. Supported JetPack versions for these boards and the flashing procedure for NVMe boot.',
+        '8. Any shock/vibration test reports (e.g., IEC 60068-2)?'
+      ].join('\n')
+    },
+    kr_local: {
+      title: '12.5 국내 — Livox Mid-360S 판매처 / Orin NX 판매처',
+      body: [
+        '[Livox Mid-360S]',
+        '1. Mid-360S 본체 단가(부가세 포함 여부 명시)와 재고·납기, 1-to-3 분기 케이블 단가.',
+        '2. 국내 보증 기간과 수리 절차.',
+        '3. 24V 정전압 레일에 직결할 때 기동 피크 전류(설계용).',
+        '',
+        '[Jetson Orin NX]',
+        '1. Orin NX 16GB 모듈 1·2·5대 단가(부가세 구분), 재고·납기, 보증.',
+        '2. 8GB 모듈 단가·납기.'
+      ].join('\n')
+    }
+  };
+
+  let curTab = 'forlinx_ko';
+  function renderInquiry() {
+    const item = INQUIRIES[curTab];
+    document.getElementById('inquiryTitle').textContent = item.title;
+    document.getElementById('inquiryText').textContent = item.body;
+  }
+  document.getElementById('inquiryTabs').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-tab]');
+    if (!btn) return;
+    document.querySelectorAll('#inquiryTabs .tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    curTab = btn.getAttribute('data-tab');
+    renderInquiry();
+  });
+  document.getElementById('btnCopyInquiry').addEventListener('click', () => {
+    const text = INQUIRIES[curTab].body;
+    const fallbackCopy = () => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('문의문이 클립보드에 복사되었습니다 ✓');
+      } catch (_) {
+        showToast('복사 실패 — 본문을 직접 선택해 복사해 주세요');
+      }
+      document.body.removeChild(ta);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        () => showToast('문의문이 클립보드에 복사되었습니다 ✓'),
+        fallbackCopy
+      );
+    } else {
+      fallbackCopy();
+    }
+  });
+  renderInquiry();
+
+  /* ===== 5. P0~P6 EXECUTION CHECKLIST (localStorage) ===== */
+  const PHASES = [
+    {
+      id: 'P0', title: 'P0. 결정·준비 (보드 없이)',
+      items: [
+        '11절 물리 확인 1~3 받기 → 4절(공간)·5절(전원)·COM 핀 표 확정',
+        '12절 문의 발송(사용자) → 답으로 7절 단가 갱신',
+        '후보 결정(14절 규칙) → 1세트 먼저 주문(벤치→34960 장착) / 두 번째 세트는 벤치 통과 뒤',
+        'IMU 4~5개 입고 → WHO_AM_I=0x70, 0x1d 되읽기, 정지 노이즈 선별(r03 4.3)'
+      ]
+    },
+    {
+      id: 'P1', title: 'P1. 기반 이미지 제작 (보드 도착 후, 보드 기종당 1회)',
+      items: [
+        '제조사 Ubuntu 22.04 이미지 굽기(후보 1: eMMC / 후보 3: NVMe, OS + TUSK_LOG 파티션)',
+        '/proc/config.gz 확인: I2C_CHARDEV, (I2C_GPIO), CAN/CAN_RAW/보드 CAN 드라이버, RTC, EXT4, INPUT_EVDEV/JOYSTICK_XPAD, THERMAL',
+        '후보 3: 25 W 모드 + nproc=8 확인, mttcan 모듈 자동 로드',
+        '패키지(10절 목록) 설치, NetworkManager에서 eth*/can* 제외, netplan 정리',
+        'hostname imx8mpevk, root HOME /home/root, /etc/rc.local + rc-local.service, python3, field-loop 경로 심볼릭 링크(r02 3.4)',
+        '99-default.link 무효화 + 10/11-tusk-eth*.link(Path) + 10-static-eth0/1.network(r02 3.3)',
+        'can1 udev(KERNELS), IMU 버스 → /dev/i2c-2(DT alias 우선, i2c-gpio overlay 대안), /dev/rtc 심볼릭 링크',
+        '/LOG_FILE → /run/media/mmcblk1p1(fstab nofail), /agvMain/tfcard_setup.sh 무해화 래퍼',
+        '빈 wch.ko 빌드·배치, rpcbind disable, systemd-timesyncd',
+        'dropbear 소켓 유닛 + keep-open.conf, openssh 끄거나 포트 이동',
+        '/opt/tusk-libs + 00-tusk.conf, tusk-hmi-pty.service',
+        '34960 /agvMain·/home/agvUPG·(있으면)/home/agvupg-web 복사',
+        '완성 이미지 통째 백업(골든 이미지 — 다음 대수는 이것만 굽고 .link Path만 확인)'
+      ]
+    },
+    {
+      id: 'P2', title: 'P2. 벤치 자동 검증 (로봇 장착 전 100% 통과)',
+      items: [
+        'tusk_bench_verify.sh FAIL=0 (X15 보정: IMU는 세운 브래킷에 단 상태)',
+        'nginx 원본 ldd/-t 통과 여부 기록(실패 시 래퍼로 전환)',
+        '헬퍼 5종 60초 동시 생존, curl -I http://127.0.0.1/ 200, 로컬 MQTT 송수신, /run/logserver.sock 존재',
+        'tusk_detect TDH1 rc=0, tusk_native check-config run_refusals: [], manage.py install → 재부팅 후 supervisor 기동',
+        '콜드 부팅 3회 이름 불변(eth0/eth1/can1/i2c-2), 전원 차단 5분 후 RTC 유지',
+        'CANable로 can1 500 kbps 송수신',
+        'stress-ng 15분: 온도 < 75 °C, 실제 전원 경로(24V→퓨즈→(RSD)→보드) 입력 전류 기록'
+      ]
+    },
+    {
+      id: 'P3', title: 'P3. 하네스·고정판 제작',
+      items: [
+        'COM 브레이크아웃 PCB(KiCad, D:/tools/hw-design): MX34040NF1 헤더 → 24V(퓨즈)·GND·CAN H/L(+120Ω) + #1 확인 신호',
+        '고정판(build123d/draftwright): MC-40 날개 구멍 간격, 새 보드·RSD·IMU 세로 브래킷',
+        'M12 X-코드 변환기 2개 + 라벨 "eth0/147/스위치", "eth1/148/IC-40"',
+        '24 V 별도 퓨즈선(후보 3·라이다)'
+      ]
+    },
+    {
+      id: 'P4', title: 'P4. 34960 실차 교체 (사용자 허락·입회, 약 1시간)',
+      items: [
+        '8절 1번 기록(MAC·속도·호스트키·/agvMain·좌회전 z_w 부호), 24V 전압 MIN/MAX',
+        '안전: 포크 내림·비상정지·주전원 차단·MC-40 24V LED 꺼짐',
+        '모든 플러그 라벨 → 사진 → 분리 → MC-40 보관(eMMC 덮어쓰지 않음)',
+        '고정판·새 보드·IMU(세로) 장착 → COM 브레이크아웃·변환기·전원 연결',
+        '전원 투입 후 순서 확인: eth0 → 라이다 5대 ping → eth1 STM32 .158/.159 → Kinco 하트비트 → D0303 없음·bias 통과 → 웹 → FMS(실패 시 8절 6번)',
+        '저속 수동 → 제자리 좌회전 z_w 부호 비교 → 측위 → 짧은 경로 → 픽·드롭(짐 센서 R10 점검 유지)'
+      ]
+    },
+    {
+      id: 'P5', title: 'P5. 15분 비파괴 원복 (비상 시 즉시 수행)',
+      rollback: true,
+      note: '원복 조건: D0301/D0303 지속, eth1 STM32 무응답, Kinco 하트비트 없음, FMS 연결 불가 30분, 측위 실패, 이상 거동 (로봇 배선 무절단)',
+      items: [
+        '주전원 차단 → 변환기·브레이크아웃 분리 → 기존 M12·COM 플러그를 MC-40에 그대로 재결합 → MC-40 날개 4개 고정 → 전원 투입 후 정상 동작 확인'
+      ]
+    },
+    {
+      id: 'P6', title: 'P6. 3D 라이다(Mid-360S) 후속 통합 (보드 교체 1주 이상 안정 뒤)',
+      items: [
+        '스위치 빈 포트 확보(S1/S2)',
+        '24 V + 2 A 퓨즈 단독 분기',
+        'Livox Viewer 2로 IP 192.168.147.30(ARP 충돌 확인), 게이트웨이 .254',
+        '새 보드에서 Livox-SDK2 빌드 → 점군 수신 시험(약 25 Mbps)',
+        'native 장애물 회피 연동은 별도 설계·시험(이 문서 범위 밖)'
+      ]
+    }
+  ];
+
+  const CHK_KEY = 'tusk_mc40_swap_checklist_v1';
+  let chkState = {};
+  try { chkState = JSON.parse(store.get(CHK_KEY, '{}')) || {}; } catch (_) { chkState = {}; }
+
+  const chkContainer = document.getElementById('checklistContainer');
+  function updateChecklistProgress() {
+    let total = 0, done = 0;
+    PHASES.forEach(ph => {
+      let pDone = 0;
+      ph.items.forEach((_, idx) => {
+        total++;
+        if (chkState[ph.id + '_' + idx]) { done++; pDone++; }
+      });
+      const badge = document.getElementById('phBadge_' + ph.id);
+      if (badge) badge.textContent = pDone + ' / ' + ph.items.length;
+    });
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('chkProgressLabel').textContent = '전체 진행률: ' + done + ' / ' + total + ' 완료 (' + pct + '%)';
+    document.getElementById('chkProgressBar').style.width = pct + '%';
+  }
+
+  function renderChecklist() {
+    chkContainer.innerHTML = '';
+    PHASES.forEach(ph => {
+      const block = document.createElement('div');
+      block.className = 'phase-block' + (ph.rollback ? ' phase-rollback' : '');
+      const head = document.createElement('div');
+      head.className = 'phase-head';
+      head.innerHTML = '<span>' + escHTML(ph.title) + '</span><span class="badge ' + (ph.rollback ? 'badge-unk' : 'badge-info') + '" id="phBadge_' + ph.id + '">0 / ' + ph.items.length + '</span>';
+      const itemsDiv = document.createElement('div');
+      itemsDiv.className = 'phase-items';
+      if (ph.note) {
+        const noteEl = document.createElement('div');
+        noteEl.className = 'callout callout-warn';
+        noteEl.style.margin = '4px 0 6px';
+        noteEl.style.fontSize = '12.5px';
+        noteEl.textContent = ph.note;
+        itemsDiv.appendChild(noteEl);
+      }
+      ph.items.forEach((txt, idx) => {
+        const key = ph.id + '_' + idx;
+        const checked = !!chkState[key];
+        const label = document.createElement('label');
+        label.className = 'chk-item' + (checked ? ' done' : '');
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = checked;
+        cb.addEventListener('change', () => {
+          chkState[key] = cb.checked;
+          label.classList.toggle('done', cb.checked);
+          store.set(CHK_KEY, JSON.stringify(chkState));
+          updateChecklistProgress();
+        });
+        const sp = document.createElement('span');
+        sp.textContent = txt;
+        label.appendChild(cb);
+        label.appendChild(sp);
+        itemsDiv.appendChild(label);
+      });
+      head.addEventListener('click', () => {
+        itemsDiv.style.display = itemsDiv.style.display === 'none' ? '' : 'none';
+      });
+      block.appendChild(head);
+      block.appendChild(itemsDiv);
+      chkContainer.appendChild(block);
+    });
+    updateChecklistProgress();
+  }
+  document.getElementById('btnResetChecklist').addEventListener('click', () => {
+    chkState = {};
+    store.remove(CHK_KEY);
+    renderChecklist();
+    showToast('체크리스트가 초기화되었습니다');
+  });
+  renderChecklist();
+
+  /* ===== 6. TOC SCROLL-SPY ===== */
+  const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+  const secTargets = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          const id = '#' + en.target.id;
+          tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+        }
+      });
+    }, { rootMargin: '-18% 0px -70% 0px', threshold: 0 });
+    secTargets.forEach(s => io.observe(s));
+  }
+})();
+</script>
+</body>
+</html>
