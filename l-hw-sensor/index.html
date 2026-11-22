@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>신규 L-type (1680×1530) 로봇의 눈 — 실기구 기반 내장 매립 설계안</title>
+<title>신규 L-type 센서 조합 결정 시뮬레이터 (폭 1200 · 4대 구성 비교)</title>
 <style>
 :root {
   --bg: #f4f6f9;
@@ -28,8 +28,10 @@
   --bad: #b91c1c;
   --bad-bg: #fef2f2;
   --bad-border: #fecaca;
+  --purple: #7c3aed;
+  --purple-bg: #f5f3ff;
   --canvas-bg: #0b1220;
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
   --radius: 12px;
 }
 
@@ -55,186 +57,240 @@
   --bad: #f87171;
   --bad-bg: rgba(239, 68, 68, 0.14);
   --bad-border: rgba(248, 113, 113, 0.35);
+  --purple: #a78bfa;
+  --purple-bg: rgba(167, 139, 250, 0.14);
   --canvas-bg: #070c17;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--fg);
-  line-height: 1.55;
-  font-size: 14.5px;
+  line-height: 1.5;
+  font-size: 14px;
 }
 
 .topbar {
   position: sticky; top: 0; z-index: 50;
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-subtle);
 }
 .topbar-inner {
-  max-width: 1260px; margin: 0 auto; padding: 10px 20px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  max-width: 1280px; margin: 0 auto; padding: 10px 18px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
 }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; letter-spacing: -0.02em; }
+.brand { display: flex; align-items: center; gap: 9px; font-weight: 800; font-size: 15px; }
 .brand-badge { padding: 3px 8px; border-radius: 6px; background: var(--ok); color: #fff; font-size: 11px; font-weight: 800; }
-.nav-pills { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.nav-pills a {
-  text-decoration: none; color: var(--fg-secondary); font-size: 12.5px; font-weight: 600;
-  padding: 5px 10px; border-radius: 999px; border: 1px solid transparent;
+.preset-bar { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.preset-btn {
+  border: 1px solid var(--border); background: var(--surface-alt); color: var(--fg);
+  padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
 }
-.nav-pills a:hover { background: var(--surface-hover); border-color: var(--border-subtle); color: var(--fg); }
+.preset-btn:hover { background: var(--surface-hover); }
+.preset-btn.hot { border-color: var(--ok-border); background: var(--ok-bg); color: var(--ok); }
 .theme-btn {
   border: 1px solid var(--border); background: var(--surface-alt); color: var(--fg);
-  padding: 5px 11px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;
+  padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;
 }
 
-.wrap { max-width: 1260px; margin: 0 auto; padding: 20px 20px 64px; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 16px 18px 56px; }
 
-.hero, .section {
+.panel {
   background: var(--surface);
   border: 1px solid var(--border-subtle);
-  border-radius: 16px;
-  padding: 20px 22px;
+  border-radius: 14px;
+  padding: 16px 18px;
   box-shadow: var(--shadow-sm);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
-.hero-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
-.hero h1 { margin: 0 0 6px; font-size: 22.5px; letter-spacing: -0.03em; line-height: 1.25; }
-.hero-sub { margin: 0; color: var(--fg-secondary); font-size: 13.8px; }
-.hero-meta { display: flex; gap: 7px; flex-wrap: wrap; }
-.chip {
-  display: inline-flex; align-items: center; gap: 5px; font-size: 11.8px; font-weight: 700;
-  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border-subtle); background: var(--surface-alt);
-}
-.chip.ok { background: var(--ok-bg); border-color: var(--ok-border); color: var(--ok); }
-.chip.bad { background: var(--bad-bg); border-color: var(--bad-border); color: var(--bad); }
-.chip.warn { background: var(--warn-bg); border-color: var(--warn-border); color: var(--warn); }
-.chip.primary { background: var(--primary-bg); border-color: var(--primary-border); color: var(--primary); }
 
-.cut-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;
+/* Control Board */
+.ctrl-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
-.cut-box {
-  border-radius: var(--radius); padding: 14px 16px; border: 1.5px solid var(--border-subtle); font-size: 13px;
+.ctrl-group {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 10px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.cut-box.bad { background: var(--bad-bg); border-color: var(--bad-border); }
-.cut-box.ok { background: var(--ok-bg); border-color: var(--ok-border); }
-.cut-box h3 { margin: 0 0 7px; font-size: 14.2px; font-weight: 800; }
-.cut-box ul { margin: 0; padding-left: 18px; color: var(--fg-secondary); }
-.cut-box li { margin-bottom: 4px; }
-.cut-box strong { color: var(--fg); }
+.ctrl-label {
+  font-size: 11.8px;
+  font-weight: 800;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.seg { display: flex; flex-direction: column; gap: 4px; }
+.seg button {
+  text-align: left;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+  color: var(--fg-secondary);
+  padding: 6px 9px;
+  border-radius: 7px;
+  font-size: 12.2px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.12s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+.seg button:hover { background: var(--surface-hover); color: var(--fg); }
+.seg button.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.seg button.active.ok { background: var(--ok); border-color: var(--ok); }
+.seg button.active.purple { background: var(--purple); border-color: var(--purple); }
+.seg button small { font-weight: 600; opacity: 0.85; font-size: 10.8px; }
 
-.section-head {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  margin-bottom: 13px; padding-bottom: 9px; border-bottom: 1px solid var(--border-subtle);
+.env-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
 }
-.section-head h2 { margin: 0; font-size: 17.5px; font-weight: 800; letter-spacing: -0.02em; }
-.section-desc { font-size: 12.4px; color: var(--muted); }
-
-.sim-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-.tabs {
-  display: inline-flex; background: var(--surface-alt); border: 1px solid var(--border-subtle);
-  border-radius: 10px; padding: 3px; gap: 3px; flex-wrap: wrap;
-}
-.tab-btn {
-  border: none; background: transparent; color: var(--fg-secondary);
-  padding: 7px 12px; border-radius: 8px; font-size: 12.6px; font-weight: 700; cursor: pointer;
-}
-.tab-btn:hover { color: var(--fg); background: var(--surface-hover); }
-.tab-btn.active { background: var(--primary); color: #fff; }
-.tab-btn.active.opt-ok { background: var(--ok); }
-.tab-btn.active.opt-bad { background: var(--bad); }
-
-.toggles { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.toggles { display: flex; gap: 8px; flex-wrap: wrap; }
 .toggle-pill {
-  display: inline-flex; align-items: center; gap: 6px; font-size: 12.2px; font-weight: 600;
-  padding: 5px 9px; border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--surface-alt);
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12.2px; font-weight: 700; padding: 5px 10px;
+  border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--surface-alt);
   cursor: pointer; user-select: none;
 }
-.toggle-pill input { accent-color: var(--primary); margin: 0; cursor: pointer; }
+.toggle-pill input { margin: 0; accent-color: var(--primary); }
+
+/* Live Scorecard Strip */
+.score-strip {
+  display: grid;
+  grid-template-columns: 190px repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.total-box {
+  background: var(--ok-bg);
+  border: 1.5px solid var(--ok-border);
+  border-radius: 12px;
+  padding: 10px 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.total-num { font-size: 21px; font-weight: 900; color: var(--ok); line-height: 1.15; }
+.total-sub { font-size: 11.4px; color: var(--fg-secondary); font-weight: 600; margin-top: 2px; }
+
+.goal-pill {
+  border-radius: 11px;
+  padding: 9px 10px;
+  border: 1.5px solid var(--border-subtle);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+}
+.goal-pill.ok { border-color: var(--ok-border); background: var(--ok-bg); }
+.goal-pill.warn { border-color: var(--warn-border); background: var(--warn-bg); }
+.goal-pill.bad { border-color: var(--bad-border); background: var(--bad-bg); }
+.goal-name { font-size: 11.4px; font-weight: 800; color: var(--fg); line-height: 1.25; }
+.goal-stat { font-size: 12px; font-weight: 900; }
+.goal-pill.ok .goal-stat { color: var(--ok); }
+.goal-pill.warn .goal-stat { color: var(--warn); }
+.goal-pill.bad .goal-stat { color: var(--bad); }
+.goal-why { font-size: 10.8px; color: var(--fg-secondary); line-height: 1.3; }
+
+/* Canvases */
+.view-title {
+  display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 8px;
+}
+.view-title h2 { margin: 0; font-size: 16px; font-weight: 800; }
+.view-title span { font-size: 12px; color: var(--muted); }
 
 .canvas-box {
-  background: var(--canvas-bg); border-radius: 12px; border: 1px solid var(--border);
-  padding: 12px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;
+  background: var(--canvas-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  overflow: hidden;
 }
 .canvas-box svg { width: 100%; height: auto; display: block; }
 .legend-bar {
-  display: flex; gap: 12px; flex-wrap: wrap; padding: 8px 6px 2px;
-  font-size: 11.4px; color: #cbd5e1; border-top: 1px solid #1e293b; margin-top: 8px;
+  display: flex; gap: 12px; flex-wrap: wrap; padding: 7px 6px 1px;
+  font-size: 11.3px; color: #cbd5e1; border-top: 1px solid #1e293b; margin-top: 6px;
 }
 .lg-item { display: inline-flex; align-items: center; gap: 5px; }
 .lg-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .lg-rect { width: 14px; height: 7px; border-radius: 2px; display: inline-block; }
 
-.sim-grid { display: grid; grid-template-columns: minmax(340px, 1.12fr) minmax(300px, 0.88fr); gap: 16px; align-items: stretch; }
-.diag-panel {
-  background: var(--surface-alt); border: 1px solid var(--border-subtle); border-radius: 12px;
-  padding: 15px 17px; display: flex; flex-direction: column; gap: 11px;
+.two-views {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
 }
-.diag-title { font-size: 15.2px; font-weight: 800; margin: 0; }
-.score-list { display: flex; flex-direction: column; gap: 7px; }
-.score-row { display: grid; grid-template-columns: 112px 1fr 36px; align-items: center; gap: 8px; font-size: 12.3px; font-weight: 600; }
-.bar-track { height: 8px; background: var(--border-subtle); border-radius: 999px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 999px; }
-.bar-fill.ok { background: #10b981; }
-.bar-fill.warn { background: #f59e0b; }
-.bar-fill.bad { background: #ef4444; }
 
-.bullet-box { border-radius: 10px; padding: 10px 12px; font-size: 12.5px; border: 1px solid var(--border-subtle); background: var(--surface); }
-.bullet-box.bad { border-color: var(--bad-border); background: var(--bad-bg); }
-.bullet-box.ok { border-color: var(--ok-border); background: var(--ok-bg); }
-.bullet-box.warn { border-color: var(--warn-border); background: var(--warn-bg); }
-.bullet-box h4 { margin: 0 0 5px; font-size: 12.3px; font-weight: 800; }
-.bullet-box ul { margin: 0; padding-left: 17px; }
-.bullet-box li { margin-bottom: 4px; }
-
-.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.compare4-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.mini-card { background: var(--canvas-bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; color: #e2e8f0; }
-.mini-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12.8px; font-weight: 800; }
-.v-tag { font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 999px; color: #fff; }
-.v-tag.bad { background: var(--bad); }
-.v-tag.ok { background: var(--ok); }
-.v-tag.primary { background: var(--primary); }
-
-.info-card { background: var(--surface-alt); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 13px 15px; }
-.info-card h3 { margin: 0 0 6px; font-size: 14px; font-weight: 800; }
-.info-card p, .info-card ul { margin: 0; font-size: 12.7px; color: var(--fg-secondary); }
-.info-card ul { padding-left: 17px; }
-.info-card li { margin-bottom: 4px; }
-
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 12.8px; }
-th, td { padding: 9px 11px; border-bottom: 1px solid var(--border-subtle); text-align: left; vertical-align: top; }
-th { background: var(--surface-alt); font-weight: 800; font-size: 12.2px; white-space: nowrap; }
-td.col-ok { background: color-mix(in srgb, var(--ok-bg) 55%, transparent); }
-td.col-pri { background: color-mix(in srgb, var(--primary-bg) 55%, transparent); }
-.badge { display: inline-block; font-size: 10.8px; font-weight: 800; padding: 2px 7px; border-radius: 6px; margin-bottom: 3px; }
-.badge.ok { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok-border); }
-.badge.warn { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn-border); }
-.badge.bad { background: var(--bad-bg); color: var(--bad); border: 1px solid var(--bad-border); }
-.badge.info { background: var(--primary-bg); color: var(--primary); border: 1px solid var(--primary-border); }
-
-.cad-box { background: #0b1220; border-radius: 12px; padding: 14px; text-align: center; border: 1px solid var(--border); }
-.cad-box img { max-width: 100%; height: auto; border-radius: 8px; }
-.cad-cap { margin-top: 8px; font-size: 12.3px; color: #cbd5e1; }
-
-footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 24px; }
-.hidden { display: none !important; }
-
-@media (max-width: 960px) {
-  .cut-grid, .sim-grid, .grid-2, .grid-3, .compare4-grid { grid-template-columns: 1fr; }
+/* Front sensor 3-way visual strip */
+.front3-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
-@media print {
-  .topbar, .sim-toolbar .toggles { display: none; }
-  body { background: #fff; }
-  .section, .hero { box-shadow: none; break-inside: avoid; }
+.f3-card {
+  background: var(--surface-alt);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+.f3-card:hover { border-color: var(--primary); }
+.f3-card.selected { border-color: var(--ok); background: var(--ok-bg); }
+.f3-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-weight: 800; font-size: 13.5px; }
+.f3-svg { background: #0b1220; border-radius: 8px; padding: 6px; margin-bottom: 8px; }
+.f3-svg svg { width: 100%; height: auto; display: block; }
+.f3-list { margin: 0; padding-left: 16px; font-size: 12.2px; color: var(--fg-secondary); }
+.f3-list li { margin-bottom: 3px; }
+.tag { font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 999px; color: #fff; }
+.tag.ok { background: var(--ok); }
+.tag.purple { background: var(--purple); }
+.tag.warn { background: var(--warn); }
+
+details {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+summary { font-weight: 800; font-size: 14px; cursor: pointer; }
+.cad-img { margin-top: 12px; background: #0b1220; padding: 12px; border-radius: 10px; text-align: center; }
+.cad-img img { max-width: 100%; height: auto; border-radius: 8px; }
+
+footer { text-align: center; font-size: 11.8px; color: var(--muted); margin-top: 22px; }
+
+@media (max-width: 1040px) {
+  .ctrl-grid { grid-template-columns: repeat(2, 1fr); }
+  .score-strip { grid-template-columns: repeat(2, 1fr); }
+  .two-views, .front3-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .ctrl-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -243,977 +299,693 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <span class="brand-badge">실기구 검증판</span>
-      <span>신규 L-type (1680×1530) — 되는 것만 남긴 내장 매립 설계</span>
+      <span class="brand-badge">인터랙티브 결정판</span>
+      <span>신규 L-type 센서 조합 시뮬레이터 (버튼 눌러 3면도 즉시 비교)</span>
     </div>
-    <nav class="nav-pills">
-      <a href="#cut">버린 것 vs 되는 것</a>
-      <a href="#sidefront">★ 측면도 · 정면도</a>
-      <a href="#topview">평면 시뮬레이터</a>
-      <a href="#compare">S1(5대) vs S2(4대)</a>
-      <button class="theme-btn" id="themeBtn" type="button">다크 모드</button>
-    </nav>
+    <div class="preset-bar">
+      <button class="preset-btn hot" data-preset="p1" type="button">★ 추천1: 4대 풀3D</button>
+      <button class="preset-btn hot" data-preset="p2" type="button">★ 추천2: 4대 안정형(타워2D)</button>
+      <button class="preset-btn" data-preset="p3" type="button">4대 20mm턱형(RGB-D)</button>
+      <button class="preset-btn" data-preset="p4" type="button">5대 libdetect 무수정</button>
+      <button class="theme-btn" id="themeBtn" type="button">다크</button>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
 
-  <!-- HERO: REAL MECHANICAL CONSTRAINTS -->
-  <section class="hero" id="cut">
-    <div class="hero-top">
+  <!-- 4-COLUMN INTERACTIVE SWITCHBOARD -->
+  <section class="panel">
+    <div class="ctrl-grid">
+      <div class="ctrl-group">
+        <div class="ctrl-label"><span>① 차체 폭</span><span id="lblSweep">R=0.97m</span></div>
+        <div class="seg" data-key="width">
+          <button class="active ok" data-val="1200" type="button"><span>1200 mm (권장)</span><small>회전 1.94m</small></button>
+          <button data-val="1680" type="button"><span>1680 mm (원본도면)</span><small>회전 2.27m</small></button>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-label"><span>② 전방 등뼈 끝 (Z=140mm)</span><span>포크 가림 0%</span></div>
+        <div class="seg" data-key="front">
+          <button class="active purple" data-val="E1R" type="button"><span>정면 광각 3D (E1R급)</span><small>+10° · 120×90°</small></button>
+          <button data-val="MID360" type="button"><span>틸트 3D (Mid-360)</span><small>-15° · -22~+37°</small></button>
+          <button data-val="RGBD" type="button"><span>RGB-D (Gemini 335L)</span><small>-20° · 20mm턱</small></button>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-label"><span>③ 뒤쪽 타워 상부 (Z=520mm)</span><span>H530 호환</span></div>
+        <div class="seg" data-key="tower">
+          <button class="active ok" data-val="T3D" type="button"><span>광각 3D 1대</span><small>후진 오버행 OK</small></button>
+          <button data-val="T2D" type="button"><span>기존 고정밀 2D 1대</span><small>반사판 100%검증</small></button>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-label"><span>④ 하부 매립 2D (Z=115mm)</span><span>돌출 0 mm</span></div>
+        <div class="seg" data-key="low2d">
+          <button class="active ok" data-val="DIAG2" type="button"><span>대각 2대 (최소)</span><small>좌하+우상 360°</small></button>
+          <button data-val="TRI3" type="button"><span>앞2 + 뒤1 (3대)</span><small>libdetect 무수정</small></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="env-bar">
+      <div class="toggles">
+        <label class="toggle-pill"><input type="checkbox" id="tCargo" checked> 📦 파레트+화물 적재 (1200폭 · 1.5m 높)</label>
+        <label class="toggle-pill"><input type="checkbox" id="tOverhang" checked> 🚧 전·후방 공중 오버행 (랙 빔 1.35m)</label>
+        <label class="toggle-pill"><input type="checkbox" id="tBump" checked> 🧱 전방 바닥 20mm 턱</label>
+        <label class="toggle-pill"><input type="checkbox" id="tSweep"> 🔄 제자리 회전 스윕 원</label>
+      </div>
+      <div style="font-size:12px;color:var(--muted);font-weight:700">※ 모든 센서는 초록 외곽선 안쪽 완전 매립(돌출 0 mm) · 포크 끝단 ToF×2 공통</div>
+    </div>
+  </section>
+
+  <!-- LIVE SCORECARD -->
+  <section class="score-strip" id="scoreStrip"></section>
+
+  <!-- MAIN 1:1 SIDE ELEVATION + TOP/FRONT SYNCHRONIZED -->
+  <section class="panel">
+    <div class="view-title">
+      <h2>① 1:1 등축 측면도 — 전방 3D vs RGB-D 오버행·바닥 시야 &amp; 타워 3D vs 2D 실시간 비교</h2>
+      <span>X·Z축 동일 축척(1:1) · 위 버튼을 누르면 광선 각도와 충돌/감지 판정이 바로 바뀝니다</span>
+    </div>
+    <div class="canvas-box">
+      <svg id="sideSvg" viewBox="0 0 980 415" aria-label="1:1 등축 측면도"></svg>
+      <div class="legend-bar">
+        <span class="lg-item"><span class="lg-rect" style="background:transparent;border:1.5px dashed #22c55e"></span>차체 외곽 (돌출 0 mm)</span>
+        <span class="lg-item"><span class="lg-rect" style="background:#a855f7"></span>전방 등뼈 광각 3D</span>
+        <span class="lg-item"><span class="lg-rect" style="background:#ef4444"></span>전방 등뼈 RGB-D</span>
+        <span class="lg-item"><span class="lg-dot" style="background:#facc15"></span>타워 상부 3D (Z=520)</span>
+        <span class="lg-item"><span class="lg-dot" style="background:#38bdf8"></span>매립 2D (하부 Z=115 / 타워 Z=520)</span>
+        <span class="lg-item"><span class="lg-rect" style="background:rgba(245,158,11,0.35);border:1px dashed #f59e0b"></span>적재 화물</span>
+      </div>
+    </div>
+
+    <div class="two-views">
       <div>
-        <h1>실제 L-type 기구 구조 기준 — 3D로 안 되는 건 버리고, 되는 것만 남긴 센서안</h1>
-        <p class="hero-sub">실측 T10/신규차체 3D 기구(<strong>앞·중간 평판 데크 Z≈170~192 mm + 뒤쪽 타워 Z≈590 mm + 중앙 고정 등뼈 Z≈174 mm</strong>) 기반 전면 재검토</p>
-      </div>
-      <div class="hero-meta">
-        <span class="chip ok">★ 3D 완성안 S1 (5대 · 돌출 0 mm)</span>
-        <span class="chip primary">✂️ 최소 실용안 S2 (4대 · 돌출 0 mm)</span>
-        <span class="chip bad">도면 A · B 원안 불가</span>
-      </div>
-    </div>
-
-    <div class="cut-grid">
-      <div class="cut-box bad">
-        <h3>❌ 3D LiDAR로 안 되는 것 — 과감히 폐기</h3>
-        <ul>
-          <li><strong>앞쪽(포크 측) 코너에 3D LiDAR 달기 폐기:</strong> 앞~중간 포드는 높이 <strong>170~192 mm의 평판(파레트가 얹히는 면)</strong>이라 타워가 없음. 포드 안에 매립하면 철제 상판이 상방 시야를 싹 잘라 <strong>비싼 10 Hz짜리 2D로 전락</strong>하고, 위에 올리면 파레트와 충돌 → <strong>도면 A 대각 3D 및 3D-only(2D 0대) 모두 기구적으로 불가!</strong></li>
-          <li><strong>도면 B처럼 타워 중앙(±250 mm)에 3D 2대 붙이기 폐기:</strong> 폭 1680 mm 차체에서 화물(1200 mm, ±600 mm) 바로 뒤에 2대를 몰아넣으면 <strong>적재 시 2대 동시 전방 실명</strong>(2대 값 쓰고 1대도 못 함).</li>
-          <li><strong>RGB-D를 포크 사이 뒤쪽 허공에 두기 폐기:</strong> 포크 사이 빈 공간은 파레트/화물 자리이고, 낮게 밀어 넣으면 양쪽 포크가 시야를 막음.</li>
-        </ul>
-      </div>
-
-      <div class="cut-box ok">
-        <h3>✅ 이 차체 기구에서 실제로 되는 것만 남김 (전 센서 외곽 안쪽 완전 매립)</h3>
-        <ul>
-          <li><strong>① 하부 대각 매립 2D LiDAR × 2 (좌하 + 우상, Z=105~125 mm):</strong> 범퍼(46~81 mm) 위·포드 상판(192 mm) 아래 <strong>외곽 안쪽 35 mm 수평 슬롯 매립</strong>. 기존 T10 4대 → <strong>대각 2대로 축소</strong>해도 360° 4면 저상 안전(L2/L3·스윕 R=1.136 m·횡이동) 100% 폐합.</li>
-          <li><strong>② 중앙 고정 등뼈 맨 앞 끝단 매립 RGB-D × 1 (Orbbec Gemini 335L):</strong> 290 mm 포크 사이 <strong>고정 등뼈 끝단(x≈+720, Z≈152 mm, 하향 20°)</strong>에 매립. 포크 날은 양옆 낮은 레인(Z=51~95 mm)에 있어 <strong>포크 가림 0%</strong>, Min-Range 0.17 m로 범퍼 앞 84 mm부터 20 mm 턱·팔레트 포켓 인식.</li>
-          <li><strong>③ 뒤쪽 상단 타워 매립 3D LiDAR (Z≈510 mm, 타워 지붕 590 mm 안쪽):</strong> 상단 구조물이 있는 <strong>뒤쪽 타워에만</strong> 수납. <strong>S1(5대)</strong>은 타워 양끝(<strong>±710 mm, 화물 ±600 mm 바깥·외곽 ±840 mm 안쪽 130 mm!</strong>)에 2대 매립해 적재 시에도 전방 양옆 오버행+반사판 확보. <strong>S2(4대)</strong>는 적재 전방 3D가 불필요할 때 타워 중앙 1대(또는 2D 항법 1대)로 축소.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- SIDE VIEW + FRONT VIEW (TRUE REAL CHASSIS GEOMETRY) -->
-  <section class="section" id="sidefront">
-    <div class="section-head">
-      <h2>1. ★ 실기구 1:1 등축 측면도 &amp; 정면도 (상단 타워 · 낮은 192 mm 데크 · 등뼈 RGB-D)</h2>
-      <span class="section-desc">실제 L-type의 "L자형 측면 실루엣(뒤 타워 590 mm + 앞 평판 192 mm)"과 "정면 포크·등뼈·화물 폭"을 1:1 mm 축척으로 시각화</span>
-    </div>
-
-    <div class="sim-toolbar">
-      <div class="tabs" role="tablist">
-        <button class="tab-btn opt-ok active" data-elev="SIDE_S1" type="button">📐 측면도 — S1 (타워 3D×2 + 대각 2D×2 + 등뼈 RGB-D)</button>
-        <button class="tab-btn" data-elev="FRONT" type="button">👁️ 정면도 — 포크 가림 0 &amp; 화물 바깥 ±710 mm 3D 검증</button>
-        <button class="tab-btn" data-elev="SIDE_S2" type="button">✂️ 측면도 — 최소안 S2 (총 4대 · 타워 1대)</button>
-        <button class="tab-btn" data-elev="POCKET" type="button">🔍 타워 3D · 하부 2D · 등뼈 RGB-D 매립 단면 4×</button>
-      </div>
-
-      <div class="toggles" id="elevToggles">
-        <label class="toggle-pill"><input type="checkbox" id="eCargo" checked> 파레트+화물 적재(1200 폭 · 1.5 m 높)</label>
-        <label class="toggle-pill"><input type="checkbox" id="e3D" checked> 타워 3D 광선</label>
-        <label class="toggle-pill"><input type="checkbox" id="e2D" checked> 하부 2D 평면(Z=115mm)</label>
-        <label class="toggle-pill"><input type="checkbox" id="eRGBD" checked> 등뼈 RGB-D(Z=152mm, -20°)</label>
-        <label class="toggle-pill"><input type="checkbox" id="eOldB"> 도면 B(±220mm) 실명 비교</label>
-      </div>
-    </div>
-
-    <div id="elevMainBox">
-      <div class="canvas-box">
-        <svg id="elevSvg" viewBox="0 0 980 430" aria-label="실기구 측면도 및 정면도"></svg>
-        <div class="legend-bar">
-          <span class="lg-item"><span class="lg-rect" style="background:transparent;border:1.5px dashed #22c55e"></span>외곽 한계 (1680×1530 · 돌출 0 mm)</span>
-          <span class="lg-item"><span class="lg-dot" style="background:#facc15;border:1.5px solid #854d0e"></span>타워 매립 3D LiDAR (Z=510 mm)</span>
-          <span class="lg-item"><span class="lg-dot" style="background:#38bdf8;border:1.5px solid #0369a1"></span>하부 슬롯 2D LiDAR (Z=115 mm)</span>
-          <span class="lg-item"><span class="lg-rect" style="background:#ef4444"></span>등뼈 앞끝 RGB-D (Z=152 mm, -20°)</span>
-          <span class="lg-item"><span class="lg-rect" style="background:#64748b"></span>포크 날 (Z=51~95 mm, 등뼈 양옆)</span>
-          <span class="lg-item"><span class="lg-rect" style="background:rgba(245,158,11,0.3);border:1px dashed #f59e0b"></span>파레트·적재 화물 (Z=192 mm 위)</span>
+        <div class="view-title">
+          <h2>② 평면도 (폭 <span id="topWidthLbl">1200</span> × 길이 1530 mm)</h2>
+          <span>하부 대각 2D 360° + 전방 등뼈 120°/90° + 타워 1대</span>
+        </div>
+        <div class="canvas-box">
+          <svg id="topSvg" viewBox="0 0 460 430" aria-label="평면도"></svg>
         </div>
       </div>
-      <div class="grid-3" style="margin-top:12px" id="elevNotes"></div>
-    </div>
 
-    <!-- 4x Pocket Detail -->
-    <div class="grid-2 hidden" id="pocketBox">
-      <div class="canvas-box">
-        <svg viewBox="0 0 470 350" aria-label="뒤쪽 상단 타워 3D LiDAR 매립 단면">
-          <rect x="0" y="0" width="470" height="350" fill="#0b1220"/>
-          <text x="16" y="23" fill="#fde047" font-size="13" font-weight="800">① 뒤쪽 상단 타워 양끝 3D LiDAR 매립 단면 (Z=510 mm)</text>
-          <text x="16" y="40" fill="#94a3b8" font-size="10.8">타워 지붕(Z=590) 아래 + 외곽선 안쪽 100~130 mm 완전 수납 · 돌출 0 mm</text>
-
-          <!-- Outer envelope lines: rear/side wall x=335, tower top roof y=72 -->
-          <line x1="335" y1="54" x2="335" y2="330" stroke="#22c55e" stroke-width="2" stroke-dasharray="6 4"/>
-          <line x1="30" y1="72" x2="350" y2="72" stroke="#22c55e" stroke-width="1.6" stroke-dasharray="6 4"/>
-          <text x="342" y="68" fill="#4ade80" font-size="10.5" font-weight="800">타워 외곽선 (돌출 0 mm)</text>
-
-          <!-- Tower Upper Steel Hood (chamfered at 35 deg) -->
-          <polygon points="40,72 315,72 282,102 40,102" fill="#1e293b" stroke="#94a3b8" stroke-width="1.8"/>
-          <text x="160" y="91" fill="#cbd5e1" font-size="10.5" font-weight="700" text-anchor="middle">타워 상부 보호 지붕 (Z=590 mm, 경사 절삭)</text>
-
-          <!-- Tower inner structure -->
-          <rect x="40" y="102" width="150" height="225" fill="#172033" stroke="#475569" stroke-width="1.5"/>
-          <text x="115" y="210" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">타워 내부 기구</text>
-          <text x="115" y="226" fill="#64748b" font-size="9.8" text-anchor="middle">(캐리지/HMI/배선)</text>
-
-          <!-- Tower lower skirt wall at x=335 -->
-          <polygon points="190,222 258,222 335,282 335,327 190,327" fill="#1e293b" stroke="#94a3b8" stroke-width="1.8"/>
-          <text x="262" y="308" fill="#cbd5e1" font-size="10.5" font-weight="700" text-anchor="middle">타워 측벽 (외곽 한계 내)</text>
-
-          <!-- Recessed rigid mount -->
-          <rect x="190" y="200" width="90" height="12" fill="#334155" stroke="#cbd5e1" stroke-width="1.2"/>
-          <!-- 3D LiDAR strictly inside x=212..266 (69px inside x=335!) -->
-          <rect x="212" y="146" width="54" height="54" rx="10" fill="#facc15" stroke="#854d0e" stroke-width="2"/>
-          <rect x="212" y="156" width="54" height="26" fill="#0f172a" opacity="0.85"/>
-          <text x="239" y="173" fill="#fde047" font-size="9.5" font-weight="800" text-anchor="middle">3D 광학창</text>
-
-          <!-- Recess arrow -->
-          <line x1="266" y1="126" x2="335" y2="126" stroke="#38bdf8" stroke-width="1.8"/>
-          <text x="300" y="120" fill="#7dd3fc" font-size="10" font-weight="800" text-anchor="middle">안쪽 70~130mm</text>
-
-          <!-- Optical FOV from (239, 169): +25..35 deg up, 0 deg horizontal, -38 deg down -->
-          <polygon points="239,169 445,62 456,169 415,310" fill="rgba(250,204,21,0.14)"/>
-          <line x1="239" y1="169" x2="445" y2="62" stroke="#fde047" stroke-width="1.5" stroke-dasharray="4 3"/>
-          <line x1="239" y1="169" x2="456" y2="169" stroke="#facc15" stroke-width="2.2"/>
-          <line x1="239" y1="169" x2="415" y2="310" stroke="#fde047" stroke-width="1.5" stroke-dasharray="4 3"/>
-          <text x="452" y="162" fill="#facc15" font-size="10.2" font-weight="800" text-anchor="end">0° (Z=510 · 반사판+H530)</text>
-          <text x="415" y="57" fill="#fde047" font-size="10" font-weight="800" text-anchor="middle">+30~35° (오버행)</text>
-          <text x="412" y="324" fill="#fde047" font-size="10" font-weight="800" text-anchor="middle">-35~40° (중거리)</text>
-        </svg>
-      </div>
-
-      <div class="canvas-box">
-        <svg viewBox="0 0 470 350" aria-label="등뼈 앞끝 RGB-D 및 하부 슬롯 2D 매립 단면">
-          <rect x="0" y="0" width="470" height="350" fill="#0b1220"/>
-          <text x="16" y="23" fill="#7dd3fc" font-size="13" font-weight="800">② 중앙 등뼈 앞끝 RGB-D(상) &amp; 하부 슬롯 2D(하)</text>
-          <text x="16" y="40" fill="#94a3b8" font-size="10.8">실제 구조물(등뼈 Z=174 · 포드 Z=192) 안에 딱 맞게 매립 · 포크 가림 0%</text>
-
-          <line x1="16" y1="194" x2="454" y2="194" stroke="#1e293b" stroke-width="1.5"/>
-
-          <!-- TOP HALF: Center Spine Front Tip RGB-D -->
-          <text x="18" y="61" fill="#fca5a5" font-size="11.2" font-weight="800">[A] 중앙 등뼈 앞끝 매립 RGB-D (Orbbec Gemini 335L · Z=152, -20°)</text>
-          <!-- Outer bumper x=235 -->
-          <line x1="235" y1="68" x2="235" y2="184" stroke="#22c55e" stroke-width="1.6" stroke-dasharray="5 4"/>
-          <!-- Center Spine Body (x=35..228, Z=46..174 -> y=166..98) -->
-          <rect x="35" y="98" width="193" height="68" rx="4" fill="#1e293b" stroke="#94a3b8" stroke-width="1.6"/>
-          <text x="115" y="135" fill="#cbd5e1" font-size="10.5" font-weight="700" text-anchor="middle">중앙 고정 등뼈 (폭 290mm)</text>
-          <text x="115" y="150" fill="#94a3b8" font-size="9.5" text-anchor="middle">(배터리·충전접점 수납, 포크와 분리)</text>
-          <!-- Fork tine silhouette beside spine (dashed, LOWER Z=51..95 -> y=163..140) -->
-          <rect x="35" y="140" width="190" height="23" fill="rgba(100,116,139,0.28)" stroke="#94a3b8" stroke-dasharray="3 2"/>
-          <text x="242" y="156" fill="#94a3b8" font-size="9.5">양옆 포크 (Z=51~95, 아래라 안 가림)</text>
-
-          <!-- RGB-D recessed at tip (x=214, y=109, tilted -20 deg) -->
-          <g transform="translate(216,110) rotate(20)">
-            <rect x="-11" y="-9" width="22" height="18" rx="3" fill="#ef4444" stroke="#fff" stroke-width="1.2"/>
-          </g>
-          <!-- Floor line y=182 -->
-          <line x1="25" y1="182" x2="452" y2="182" stroke="#64748b" stroke-width="1.8"/>
-          <!-- FOV +12.5 deg up, -52.5 deg down -> hits floor 84mm ahead of bumper (x=270)! -->
-          <polygon points="222,112 448,62 448,182 268,182" fill="rgba(16,185,129,0.18)" stroke="#34d399" stroke-width="1.2"/>
-          <!-- 20mm bump at floor -->
-          <rect x="365" y="172" width="38" height="10" fill="#fbbf24"/>
-          <text x="384" y="166" fill="#fde047" font-size="9.5" font-weight="800" text-anchor="middle">20mm 턱·팔레트 포켓</text>
-          <text x="350" y="98" fill="#6ee7b7" font-size="9.8" font-weight="800" text-anchor="middle">Min-Range 0.17m → 앞 0.25~2m 완벽 감지</text>
-
-          <!-- BOTTOM HALF: Lower Pod 2D Recessed Slot -->
-          <text x="18" y="214" fill="#7dd3fc" font-size="11.2" font-weight="800">[B] 하부 포드 코너 슬롯 매립 2D LiDAR (Z=115 mm · 안쪽 35 mm)</text>
-          <line x1="265" y1="224" x2="265" y2="338" stroke="#22c55e" stroke-width="1.6" stroke-dasharray="5 4"/>
-          <!-- Pod upper deck (Z=192, palette sits right on top!) -->
-          <rect x="45" y="232" width="220" height="22" fill="#334155" stroke="#cbd5e1" stroke-width="1.4"/>
-          <text x="155" y="247" fill="#e2e8f0" font-size="10" font-weight="800" text-anchor="middle">포드 상판 (Z=192 mm · 파레트 적재면)</text>
-          <!-- Bumper band below slot (Z=46..81) -->
-          <rect x="45" y="302" width="220" height="20" fill="#78350f" stroke="#fbbf24" stroke-width="1.4"/>
-          <text x="155" y="316" fill="#fde68a" font-size="10" font-weight="800" text-anchor="middle">접촉 범퍼 띠 (Z=46~81 mm)</text>
-          <!-- Floor -->
-          <line x1="25" y1="336" x2="452" y2="336" stroke="#64748b" stroke-width="1.8"/>
-
-          <!-- 2D LiDAR recessed 35mm inside x=265 -->
-          <rect x="172" y="258" width="54" height="40" rx="5" fill="#38bdf8" stroke="#0c4a6e" stroke-width="2"/>
-          <rect x="172" y="268" width="54" height="14" fill="#0f172a" opacity="0.85"/>
-          <text x="199" y="278" fill="#7dd3fc" font-size="9" font-weight="800" text-anchor="middle">2D 스캔창</text>
-
-          <!-- Horizontal beam at Z=115mm -->
-          <line x1="226" y1="275" x2="452" y2="275" stroke="#38bdf8" stroke-width="2.2" stroke-dasharray="6 3"/>
-          <text x="360" y="268" fill="#7dd3fc" font-size="10.2" font-weight="800" text-anchor="middle">Z=115 mm (3점 레벨링 ±0.1°)</text>
-          <text x="360" y="294" fill="#fca5a5" font-size="9.5" text-anchor="middle">※ 여긴 위가 상판이라 3D 불가 → 2D 전용</text>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- TOP-DOWN SIMULATOR -->
-  <section class="section" id="topview">
-    <div class="section-head">
-      <h2>2. 평면도(Top View) 커버리지 비교 — S1(5대) · S2(4대) vs 도면 A · B</h2>
-      <span class="section-desc">모든 센서가 초록 외곽선(1680×1530) 안쪽에 매립 · 화물 적재 토글로 타워 양끝(±710 mm) vs 도면 B 중앙(±220 mm) 차이를 비교하세요</span>
-    </div>
-
-    <div class="sim-toolbar">
-      <div class="tabs" role="tablist">
-        <button class="tab-btn opt-ok active" data-view="S1" type="button">★ S1 실기구 완성안 (5대)</button>
-        <button class="tab-btn" data-view="S2" type="button">✂️ S2 최소 실용안 (4대)</button>
-        <button class="tab-btn opt-bad" data-view="A" type="button">도면 A (4대)</button>
-        <button class="tab-btn opt-bad" data-view="B" type="button">도면 B (5대)</button>
-        <button class="tab-btn" data-view="ALL" type="button">4안 동시 비교</button>
-        <button class="tab-btn" data-view="CAD" type="button">원본 CAD</button>
-      </div>
-
-      <div class="toggles" id="topToggles">
-        <label class="toggle-pill"><input type="checkbox" id="chkPallet" checked> 팔레트 적재(1200×1100)</label>
-        <label class="toggle-pill"><input type="checkbox" id="chk2D" checked> 하부 2D FOV</label>
-        <label class="toggle-pill"><input type="checkbox" id="chk3D" checked> 타워 상부 FOV</label>
-        <label class="toggle-pill"><input type="checkbox" id="chkRGBD" checked> 등뼈 RGB-D</label>
-        <label class="toggle-pill"><input type="checkbox" id="chkBlind" checked> 사각/판정 표시</label>
-        <label class="toggle-pill"><input type="checkbox" id="chkSweep"> 회전 스윕(R=1.136 m)</label>
-      </div>
-    </div>
-
-    <div class="sim-grid" id="singleTop">
-      <div class="canvas-box">
-        <svg id="topSvg" viewBox="0 0 560 500" aria-label="평면도 커버리지 시뮬레이터"></svg>
-        <div class="legend-bar">
-          <span class="lg-item"><span class="lg-rect" style="background:transparent;border:1.5px dashed #22c55e"></span>외곽 1680×1530 (돌출 0)</span>
-          <span class="lg-item"><span class="lg-dot" style="background:#facc15;border:1.5px solid #854d0e"></span>타워 3D (Z=510)</span>
-          <span class="lg-item"><span class="lg-dot" style="background:#38bdf8;border:1.5px solid #0369a1"></span>하부 2D (Z=115)</span>
-          <span class="lg-item"><span class="lg-rect" style="background:#ef4444"></span>등뼈 끝 RGB-D (Z=152)</span>
-          <span class="lg-item"><span class="lg-rect" style="background:rgba(245,158,11,0.35);border:1px dashed #f59e0b"></span>적재 화물</span>
+      <div>
+        <div class="view-title">
+          <h2>③ 정면도 (포크 끝단에서 정면)</h2>
+          <span>등뼈 끝 센서(Z=140~152) &gt; 양옆 포크(Z=95) → 가림 0%</span>
+        </div>
+        <div class="canvas-box">
+          <svg id="frontSvg" viewBox="0 0 460 430" aria-label="정면도"></svg>
         </div>
       </div>
-      <div class="diag-panel" id="topDiag"></div>
-    </div>
-
-    <div class="compare4-grid hidden" id="comp4Box">
-      <div class="mini-card" style="border-color:#10b981"><div class="mini-head"><span>★ S1 실기구 완성안 (5대)</span><span class="v-tag ok">권장</span></div><svg id="miniS1" viewBox="0 0 560 500"></svg></div>
-      <div class="mini-card" style="border-color:#3b82f6"><div class="mini-head"><span>✂️ S2 최소 실용안 (4대)</span><span class="v-tag primary">최소</span></div><svg id="miniS2" viewBox="0 0 560 500"></svg></div>
-      <div class="mini-card"><div class="mini-head"><span>도면 좌측안 A (4대)</span><span class="v-tag bad">기구 불가</span></div><svg id="miniA" viewBox="0 0 560 500"></svg></div>
-      <div class="mini-card"><div class="mini-head"><span>도면 우측안 B (5대)</span><span class="v-tag bad">적재 실명·후방 공백</span></div><svg id="miniB" viewBox="0 0 560 500"></svg></div>
-    </div>
-
-    <div class="cad-box hidden" id="cadBox">
-      <img src="sensor_layout_compare.png" alt="원본 CAD 도면">
-      <div class="cad-cap">원본 첨부 도면 — 차체 1680×1530 mm, 포크 120×2, 내폭 290 mm</div>
     </div>
   </section>
 
-  <!-- S1 vs S2 DECISION TABLE -->
-  <section class="section" id="compare">
-    <div class="section-head">
-      <h2>3. 최종 선택지 2안 비교 — 목표에 맞춰 불필요한 센서만 빼면 끝</h2>
-      <span class="section-desc">실제 기구(앞 데크 192 mm + 뒤 타워 590 mm + 중앙 등뼈) 위에서 물리적으로 성립하는 유일한 2가지 답</span>
+  <!-- DIRECT 3-WAY VISUAL COMPARISON FOR FRONT SPINE SENSOR -->
+  <section class="panel">
+    <div class="view-title">
+      <h2>한눈에 보는 핵심 결정: 전방 등뼈 끝(Z=140 mm)에 뭘 넣을까? (카드 클릭 시 위 시뮬레이터 반영)</h2>
+      <span>같은 자리(포크 가림 0%)에 3D vs RGB-D를 넣었을 때의 결정적 차이</span>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:16%">센서 / 항목</th>
-            <th style="width:28%">★ S1 실기구 완성안 (5대)</th>
-            <th style="width:28%">✂️ S2 최소 실용안 (4대)</th>
-            <th style="width:28%">선택 판단 기준</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>하부 매립 2D</strong><br>(Z=105~125 mm)</td>
-            <td class="col-ok"><strong>2대 (대각 코너: 좌하 + 우상)</strong><br>외곽 안쪽 35 mm 슬롯 매립 · 360° 저상 완전 폐합</td>
-            <td class="col-pri"><strong>2대 (대각 코너: 좌하 + 우상)</strong><br>동일 (기존 T10 4대 → 2대로 절감!)</td>
-            <td>낮은 포드(192 mm)에서 3D가 불가하므로 <strong>대각 2D 2대는 최저 하한선</strong>(삭제 불가).</td>
-          </tr>
-          <tr>
-            <td><strong>중앙 등뼈 RGB-D</strong><br>(Z=152 mm, -20°)</td>
-            <td class="col-ok"><strong>1대 (Orbbec Gemini 335L)</strong><br>등뼈 맨 앞 끝단 매립 · 포크 가림 0%</td>
-            <td class="col-pri"><strong>1대 (Orbbec Gemini 335L)</strong><br>동일 (전방 20 mm 턱·팔레트 포켓 전담)</td>
-            <td>팔레트 포켓 인식 + 20 mm 턱 감지가 목표면 필수(단순 표준 팔레트만 쓰면 조건부 생략 가능).</td>
-          </tr>
-          <tr>
-            <td><strong>뒤쪽 상단 타워</strong><br>(Z=510 mm · H530)</td>
-            <td class="col-ok"><strong>3D LiDAR × 2 (타워 양끝 ±710 mm)</strong><br>외곽 ±840보다 130 mm 안쪽 매립 · 화물 ±600 바깥</td>
-            <td class="col-pri"><strong>3D(또는 고정밀 2D) × 1 (타워 중앙)</strong><br>센서 1대·연산·단가 대폭 절감</td>
-            <td>• <strong>적재 중에도 전방 양옆 오버행 3D 회피 + 동/서향 양방향 반사판</strong> 필요 → <strong>S1 (5대)</strong><br>• <strong>후방/측면 200° SLAM + 공차 3D(또는 2D 항법)면 충분</strong> → <strong>S2 (4대)</strong></td>
-          </tr>
-          <tr>
-            <td><strong>필수 소형 보조</strong></td>
-            <td class="col-ok" colspan="2"><strong>포크 끝단 매립 ToF/광전 × 2</strong> (포켓 내부 충돌 방지) + <strong>범퍼 띠(Z=46~81 mm) / STO 직결</strong> + <strong>6축 IMU</strong></td>
-            <td>3D/2D/RGB-D가 못 보는 포켓 내부와 접촉 비상정지 담당.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="front3-grid" id="front3Grid"></div>
   </section>
+
+  <!-- COLLAPSIBLE ORIGINAL CAD REFERENCE -->
+  <details>
+    <summary>📎 참고: 원본 첨부 CAD 도면 (1680×1530 좌측안 A vs 우측안 B) 열어보기</summary>
+    <div class="cad-img">
+      <img src="sensor_layout_compare.png" alt="원본 첨부 CAD 도면">
+      <div style="margin-top:8px;font-size:12px;color:#cbd5e1">폭 1680 → 1200 mm 축소 시 파레트(1200) 바깥 윙이 사라지므로, 타워 상부 1대 + 하부 대각 2D×2 + 전방 등뼈 1대 = 총 4대 구조가 가장 깔끔합니다.</div>
+    </div>
+  </details>
 
   <footer>
-    신규 L-type (1680×1530 mm) 실기구 검증판 · 2026-11-22 · T10/신규차체 3D 기구 실측 기준 반영
+    신규 L-type 센서 조합 결정 시뮬레이터 · 2026-11-22 · 결정 확정 후 최종 도면으로 고정
   </footer>
 </main>
 
 <script>
-// ======================== ELEVATION (SIDE & FRONT) ========================
-const ELEV = {
-  tab: 'SIDE_S1',
+const CFG = {
+  width: 1200,      // 1200 | 1680
+  front: 'E1R',     // E1R | MID360 | RGBD
+  tower: 'T3D',     // T3D | T2D
+  low2d: 'DIAG2',   // DIAG2 | TRI3
   cargo: true,
-  show3D: true,
-  show2D: true,
-  showRGBD: true,
-  showOldB: false
+  overhang: true,
+  bump: true,
+  sweep: false
 };
 
-function renderRealSide(isS2, s) {
-  // 1:1 ISOTROPIC SCALE: 0.16 px/mm!
-  // Floor Z=0 -> y=370. Top Z=2000 -> y=50.
-  // Rear bumper (-765mm) -> x=150, Front fork-tip bumper (+765mm) -> x=395 (244.8px = 1530mm!)
-  // Rear tower depth ~210mm -> x=150..184 (34px), height Z=590 -> y=275.6
-  // Front/Mid low deck height Z=192 -> y=339.3!
-  const fY = 370, sc = 0.16;
+// ======================== 1:1 SIDE VIEW ========================
+function drawSide(c) {
+  // Isotropic scale: 0.15 px/mm (1000mm = 150px)
+  // Floor Z=0 -> y=362. Top Z=2200 -> y=32.
+  // Rear bumper xR=295, Front bumper xF=525 (1530mm = 229.5px)
+  const fY = 362, sc = 0.15;
   const yZ = z => +(fY - z * sc).toFixed(1);
-  const xR = 150, xF = 395; // length 245px ~ 1530mm
-  const xTowerEnd = xR + 36; // 225mm rear tower depth!
-  const xAhead = mm => +(xF + mm * sc).toFixed(1);
+  const xR = 295, xF = 525;
+  const xTowEnd = xR + 33; // 220mm rear tower depth
+  const xA = mm => +(xF + mm * sc).toFixed(1);
+  const xB = mm => +(xR - mm * sc).toFixed(1);
 
-  let out = `<rect x="0" y="0" width="980" height="430" fill="#0b1220"/>`;
+  let out = `<rect x="0" y="0" width="980" height="415" fill="#0b1220"/>`;
 
-  // 1:1 grid (every 500mm = 80px)
+  // Grid
   out += `<g stroke="#142033" stroke-width="1">`;
   for (let z = 500; z <= 2000; z += 500) {
     const yy = yZ(z);
-    out += `<line x1="48" y1="${yy}" x2="948" y2="${yy}"/>`;
-    out += `<text x="42" y="${yy+4}" fill="#64748b" font-size="10" text-anchor="end">${z}</text>`;
+    out += `<line x1="42" y1="${yy}" x2="948" y2="${yy}"/>`;
+    out += `<text x="38" y="${yy+4}" fill="#64748b" font-size="9.8" text-anchor="end">${z}</text>`;
   }
-  for (let d = -1500; d <= 3000; d += 500) {
-    const xx = xAhead(d);
-    out += `<line x1="${xx}" y1="44" x2="${xx}" y2="${fY}"/>`;
-    if (d >= 0) out += `<text x="${xx}" y="${fY+16}" fill="#64748b" font-size="10" text-anchor="middle">+${(d/1000).toFixed(1)}m</text>`;
+  for (let m = 500; m <= 2500; m += 500) {
+    const xx = xA(m);
+    out += `<line x1="${xx}" y1="36" x2="${xx}" y2="${fY}"/>`;
+    out += `<text x="${xx}" y="${fY+15}" fill="#64748b" font-size="9.8" text-anchor="middle">+${(m/1000).toFixed(1)}m</text>`;
+  }
+  for (let m = 500; m <= 1500; m += 500) {
+    const xx = xB(m);
+    out += `<line x1="${xx}" y1="36" x2="${xx}" y2="${fY}"/>`;
+    out += `<text x="${xx}" y="${fY+15}" fill="#64748b" font-size="9.8" text-anchor="middle">-${(m/1000).toFixed(1)}m</text>`;
   }
   out += `</g>`;
-  out += `<text x="14" y="40" fill="#64748b" font-size="10">Z(mm)</text>`;
-  out += `<line x1="36" y1="${fY}" x2="952" y2="${fY}" stroke="#64748b" stroke-width="2.2"/>`;
+  out += `<text x="12" y="34" fill="#64748b" font-size="9.5">Z(mm)</text>`;
+  out += `<line x1="35" y1="${fY}" x2="950" y2="${fY}" stroke="#64748b" stroke-width="2.2"/>`;
 
-  // Reflector band Z=300..610mm
-  const yRefTop = yZ(610), yRefBot = yZ(300);
-  out += `<rect x="48" y="${yRefTop}" width="845" height="${yRefBot - yRefTop}" fill="rgba(250,204,21,0.07)"/>`;
-  out += `<rect x="893" y="55" width="46" height="${fY - 55}" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>`;
-  out += `<rect x="887" y="${yRefTop}" width="8" height="${yRefBot - yRefTop}" fill="#facc15"/>`;
-  out += `<text x="884" y="${yRefTop - 7}" fill="#fde047" font-size="10.8" font-weight="800" text-anchor="end">반사판 300~610 mm</text>`;
+  // Reflector band Z=300..610mm on front & rear pillars
+  const yRefT = yZ(610), yRefB = yZ(300);
+  out += `<rect x="64" y="${yRefT}" width="844" height="${yRefB - yRefT}" fill="rgba(250,204,21,0.055)"/>`;
+  // Rear pillar at -1600mm (x=55)
+  out += `<rect x="38" y="45" width="24" height="${fY-45}" fill="#1e293b" stroke="#475569"/>`;
+  out += `<rect x="60" y="${yRefT}" width="6" height="${yRefB-yRefT}" fill="#facc15"/>`;
+  // Front pillar at +2550mm (x=908)
+  out += `<rect x="908" y="45" width="32" height="${fY-45}" fill="#1e293b" stroke="#475569"/>`;
+  out += `<rect x="903" y="${yRefT}" width="6" height="${yRefB-yRefT}" fill="#facc15"/>`;
+  out += `<text x="900" y="${yRefT - 6}" fill="#fde047" font-size="10" font-weight="800" text-anchor="end">반사판 30~61cm</text>`;
 
-  // Overhead rack beam at +1600mm, Z=1300..1500mm
-  out += `<rect x="${xAhead(1600)}" y="${yZ(1500)}" width="90" height="${200*sc}" rx="3" fill="#334155" stroke="#f87171" stroke-width="1.5"/>`;
-  out += `<text x="${xAhead(1880)}" y="${yZ(1560)}" fill="#fca5a5" font-size="10.8" font-weight="800" text-anchor="middle">공중 오버행 (랙 빔 · Z=1.4m)</text>`;
+  // Front Pallet ahead (+550..+1650mm)
+  out += `<rect x="${xA(550)}" y="${yZ(145)}" width="${1100*sc}" height="${145*sc}" fill="rgba(245,158,11,0.14)" stroke="#f59e0b" stroke-width="1.3" stroke-dasharray="4 3"/>`;
+  out += `<text x="${xA(1100)}" y="${yZ(165)}" fill="#fbbf24" font-size="10" font-weight="800" text-anchor="middle">전방 팔레트</text>`;
 
-  // Approaching pallet ahead at +550mm + 20mm bump at +1100mm
-  out += `<rect x="${xAhead(450)}" y="${yZ(145)}" width="${1100*sc}" height="${145*sc}" fill="rgba(245,158,11,0.14)" stroke="#f59e0b" stroke-width="1.3" stroke-dasharray="4 3"/>`;
-  out += `<text x="${xAhead(1000)}" y="${yZ(168)}" fill="#fbbf24" font-size="10.5" font-weight="800" text-anchor="middle">전방 팔레트 (인식 0.45~1.5 m)</text>`;
-  // 20mm floor bump
-  out += `<rect x="${xAhead(220)}" y="${yZ(28)}" width="24" height="5" fill="#fbbf24"/>`;
-  out += `<text x="${xAhead(240)}" y="${fY+32}" fill="#fde047" font-size="10" font-weight="700" text-anchor="middle">20mm 턱</text>`;
+  // Front 20mm floor bump (+380mm)
+  if (c.bump) {
+    const bumpOk = c.front === 'RGBD';
+    out += `<rect x="${xA(320)}" y="${yZ(32)}" width="22" height="5" fill="${bumpOk ? '#34d399' : '#f59e0b'}"/>`;
+    out += `<text x="${xA(340)}" y="${fY + 32}" fill="${bumpOk ? '#6ee7b7' : '#fbbf24'}" font-size="10.2" font-weight="800" text-anchor="middle">${bumpOk ? '✓ 20mm 턱 감지' : '△ 20mm 턱 한계'}</text>`;
+  }
 
-  // Tower 3D LiDAR optical center: recessed inside rear tower!
-  // x = xR + 16 (100mm inside rear bumper!), Z = 510 -> y = 288.4 (80mm below tower roof Z=590!)
-  const x3D = xR + 16, y3D = yZ(510);
-
-  if (s.show3D) {
-    // Forward rays (+35 deg up, 0 deg horizontal, -30 deg down)
-    // Note: in S1 (±710mm), 3D peeks PAST the ±600mm cargo! In S2 (center), cargo blocks forward!
-    const blocked = isS2 && s.cargo;
-    if (!blocked) {
-      const dxUp = (y3D - 55) / Math.tan(32 * Math.PI / 180);
-      const xUp = Math.min(887, x3D + dxUp);
-      const yUp = +(y3D - (xUp - x3D) * Math.tan(32 * Math.PI / 180)).toFixed(1);
-      const xDn = +(x3D + (fY - y3D) / Math.tan(32 * Math.PI / 180)).toFixed(1);
-      out += `<polygon points="${x3D},${y3D} ${xUp},${yUp} 887,${y3D} ${xDn},${fY}" fill="rgba(250,204,21,0.12)" stroke="rgba(250,204,21,0.45)" stroke-dasharray="4 3"/>`;
-      out += `<line x1="${x3D}" y1="${y3D}" x2="887" y2="${y3D}" stroke="#facc15" stroke-width="2.2"/>`;
-      out += `<text x="720" y="${y3D - 7}" fill="#fde047" font-size="10.5" font-weight="800">타워 3D (Z=510 · H530 · 화물 옆 통과!)</text>`;
+  // TOWER SENSOR RAYS (xT=310, Z=520 -> yT=284)
+  const xT = xR + 15, yT = yZ(520);
+  if (c.tower === 'T3D') {
+    // Rearward 3D cone (+38 deg up, -38 deg down)
+    const yRUp = Math.max(38, +(yT - (xT - 66) * Math.tan(38 * Math.PI / 180)).toFixed(1));
+    const xRDn = Math.max(66, +(xT - (fY - yT) / Math.tan(38 * Math.PI / 180)).toFixed(1));
+    out += `<polygon points="${xT},${yT} 66,${yRUp} 66,${yT} ${xRDn},${fY}" fill="rgba(250,204,21,0.16)" stroke="#facc15" stroke-width="1.1" stroke-dasharray="4 3"/>`;
+    out += `<line x1="${xT}" y1="${yT}" x2="66" y2="${yT}" stroke="#facc15" stroke-width="2"/>`;
+    // Forward rays: blocked if cargo!
+    if (!c.cargo) {
+      const yFUp = 38, xFUp = +(xT + (yT - 38) / Math.tan(35 * Math.PI / 180)).toFixed(1);
+      out += `<polygon points="${xT},${yT} ${xFUp},${yFUp} 903,${yT} ${xT+120},${fY}" fill="rgba(250,204,21,0.09)" stroke="rgba(250,204,21,0.35)" stroke-dasharray="4 3"/>`;
     } else {
-      // Blocked at cargo front face (xTowerEnd + 8)
-      out += `<line x1="${x3D}" y1="${y3D}" x2="${xTowerEnd + 8}" y2="${y3D}" stroke="#ef4444" stroke-width="2.2"/>`;
-      out += `<text x="480" y="${y3D - 8}" fill="#fca5a5" font-size="10.8" font-weight="800">⚠ S2(중앙 1대): 적재 시 전방 화물에 가림 (후방·측면 200°로 측위)</text>`;
+      out += `<line x1="${xT}" y1="${yT}" x2="${xTowEnd + 8}" y2="${yT}" stroke="#ef4444" stroke-width="2"/>`;
     }
-    // Rearward rays (always clear!)
-    const yRUp = +(y3D - (x3D - 48) * Math.tan(32 * Math.PI / 180)).toFixed(1);
-    const xRDn = Math.max(48, +(x3D - (fY - y3D) / Math.tan(38 * Math.PI / 180)).toFixed(1));
-    out += `<polygon points="${x3D},${y3D} 48,${yRUp} 48,${y3D} ${xRDn},${fY}" fill="rgba(250,204,21,0.13)" stroke="rgba(250,204,21,0.45)" stroke-dasharray="4 3"/>`;
-    out += `<line x1="${x3D}" y1="${y3D}" x2="48" y2="${y3D}" stroke="#facc15" stroke-width="2"/>`;
+  } else {
+    // Fixed high-precision 2D nav lidar (0 deg horizontal only!)
+    out += `<line x1="${xT}" y1="${yT}" x2="66" y2="${yT}" stroke="#38bdf8" stroke-width="2.3"/>`;
+    if (!c.cargo) {
+      out += `<line x1="${xT}" y1="${yT}" x2="903" y2="${yT}" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="5 3"/>`;
+    } else {
+      out += `<line x1="${xT}" y1="${yT}" x2="${xTowEnd + 8}" y2="${yT}" stroke="#ef4444" stroke-width="2"/>`;
+    }
+    out += `<text x="175" y="${yT - 8}" fill="#7dd3fc" font-size="10.2" font-weight="800" text-anchor="middle">타워 2D (0.1° 반사판 검증)</text>`;
   }
 
-  // Lower 2D LiDAR horizontal plane (Z=115mm, recessed 35mm inside!)
-  if (s.show2D) {
-    const y2D = yZ(115);
-    out += `<line x1="${xF - 6}" y1="${y2D}" x2="887" y2="${y2D}" stroke="#38bdf8" stroke-width="2.2" stroke-dasharray="6 3"/>`;
-    out += `<line x1="${xR + 6}" y1="${y2D}" x2="48" y2="${y2D}" stroke="#38bdf8" stroke-width="2.2" stroke-dasharray="6 3"/>`;
-    out += `<text x="720" y="${y2D - 6}" fill="#7dd3fc" font-size="10.5" font-weight="800">대각 매립 2D 평면 (Z=115 mm · 360° 저상 폐합)</text>`;
+  // LOWER 2D HORIZONTAL SAFETY PLANE (Z=115mm -> y=344.8)
+  const y2D = yZ(115);
+  out += `<line x1="${xF - 5}" y1="${y2D}" x2="903" y2="${y2D}" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="6 3"/>`;
+  out += `<line x1="${xR + 5}" y1="${y2D}" x2="66" y2="${y2D}" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="6 3"/>`;
+
+  // FRONT SPINE SENSOR RAYS! (xS = xF - 7 = 518)
+  const xS = xF - 7;
+  let frontSeesOverhang = false;
+  if (c.front === 'E1R') {
+    // E1R Solid-State 120x90, tilted +10 deg up -> -35 deg down to +55 deg up! Z=140 -> yS=341
+    const yS = yZ(140);
+    const xUpTop = +(xS + (yS - 36) / Math.tan(55 * Math.PI / 180)).toFixed(1);
+    const xFlr = +(xS + (fY - yS) / Math.tan(35 * Math.PI / 180)).toFixed(1); // ~200mm!
+    out += `<polygon points="${xS},${yS} ${xUpTop},36 903,36 903,${fY} ${xFlr},${fY}" fill="rgba(168,85,247,0.17)" stroke="#c084fc" stroke-width="1.4"/>`;
+    out += `<text x="${xA(850)}" y="${yZ(1850)}" fill="#d8b4fe" font-size="11" font-weight="800">전방 E1R 3D (+10°): 상방 +55° / 하방 -35°</text>`;
+    frontSeesOverhang = true;
+  } else if (c.front === 'MID360') {
+    // Mid-360 tilted -15 deg -> -22 deg down to +37 deg up! Z=135 -> yS=341.8
+    const yS = yZ(135);
+    const yUpEnd = Math.max(36, +(yS - (903 - xS) * Math.tan(37 * Math.PI / 180)).toFixed(1));
+    const xFlr = +(xS + (fY - yS) / Math.tan(22 * Math.PI / 180)).toFixed(1); // ~334mm!
+    out += `<polygon points="${xS},${yS} 903,${yUpEnd} 903,${fY} ${xFlr},${fY}" fill="rgba(250,204,21,0.16)" stroke="#facc15" stroke-width="1.4"/>`;
+    out += `<text x="${xA(1350)}" y="${yZ(1000)}" fill="#fde047" font-size="10.8" font-weight="800" text-anchor="middle">전방 Mid-360 (-15°): +37° / -22°</text>`;
+    frontSeesOverhang = true;
+  } else {
+    // RGB-D Gemini 335L tilted -20 deg -> -52.5 deg down to +12.5 deg up! Z=152 -> yS=339.2
+    const yS = yZ(152);
+    const yUpEnd = +(yS - (903 - xS) * Math.tan(12.5 * Math.PI / 180)).toFixed(1);
+    const xFlr = +(xS + (fY - yS) / Math.tan(52.5 * Math.PI / 180)).toFixed(1); // ~84mm!
+    out += `<polygon points="${xS},${yS} 903,${yUpEnd} 903,${fY} ${xFlr},${fY}" fill="rgba(239,68,68,0.17)" stroke="#f87171" stroke-width="1.4"/>`;
+    out += `<text x="${xA(1250)}" y="${yZ(430)}" fill="#fca5a5" font-size="10.8" font-weight="800" text-anchor="middle">전방 RGB-D (-20°): 위 +12.5° 한계 (1.5m서 높이 48cm)</text>`;
+    frontSeesOverhang = false;
   }
 
-  // RGB-D at Front Tip of Center Spine (x = xF - 6 = 389, Z=152mm -> y=345.7, pitch -20 deg, VFOV 65 deg -> +12.5 up, -52.5 down!)
-  if (s.showRGBD) {
-    const xC = xF - 6, yC = yZ(152);
-    const xEnd = xAhead(1500);
-    const yUp = +(yC - (xEnd - xC) * Math.tan(12.5 * Math.PI / 180)).toFixed(1);
-    const xFloor = +(xC + (fY - yC) / Math.tan(52.5 * Math.PI / 180)).toFixed(1); // ~84mm ahead of bumper!
-    out += `<polygon points="${xC},${yC} ${xEnd},${yUp} ${xEnd},${fY} ${xFloor},${fY}" fill="rgba(16,185,129,0.17)" stroke="#34d399" stroke-width="1.3"/>`;
-    out += `<text x="${xAhead(820)}" y="${yZ(360)}" fill="#6ee7b7" font-size="10.5" font-weight="800" text-anchor="middle">등뼈 끝 RGB-D (Z=152, -20°): 범퍼 앞 84mm~2m 포크 가림 0%</text>`;
+  // OVERHEAD RACK BEAMS (FRONT & REAR!)
+  if (c.overhang) {
+    // Front overhead beam at +1500mm (x=750..825), Z=1250..1450mm
+    const fCol = frontSeesOverhang ? '#10b981' : '#ef4444';
+    out += `<rect x="${xA(1500)}" y="${yZ(1450)}" width="75" height="${200*sc}" rx="3" fill="#334155" stroke="${fCol}" stroke-width="2.2"/>`;
+    out += `<text x="${xA(1750)}" y="${yZ(1520)}" fill="${frontSeesOverhang ? '#6ee7b7' : '#fca5a5'}" font-size="11" font-weight="900" text-anchor="middle">${frontSeesOverhang ? '✓ 전방 오버행 감지!' : '❌ 전방 오버행 충돌!'}</text>`;
+
+    // Rear overhead beam at -1150mm (x=105..170), Z=1250..1450mm
+    const rOk = c.tower === 'T3D';
+    out += `<rect x="${xB(1250)}" y="${yZ(1450)}" width="65" height="${200*sc}" rx="3" fill="#334155" stroke="${rOk ? '#10b981' : '#ef4444'}" stroke-width="2.2"/>`;
+    out += `<text x="${xB(1030)}" y="${yZ(1520)}" fill="${rOk ? '#6ee7b7' : '#fca5a5'}" font-size="11" font-weight="900" text-anchor="middle">${rOk ? '✓ 후진 오버행 감지!' : '❌ 후진 오버행 미감지'}</text>`;
   }
 
-  // Loaded Pallet + Cargo ON TOP OF 192 mm DECK! (xTowerEnd+6 .. xF-8, Z=202..1700mm)
-  if (s.cargo) {
-    // Pallet base (Z=202..346)
-    out += `<rect x="${xTowerEnd + 8}" y="${yZ(346)}" width="${1200*sc}" height="${144*sc}" fill="rgba(180,83,9,0.35)" stroke="#f59e0b" stroke-width="1.4"/>`;
-    // Cargo box above pallet (Z=346..1650)
-    out += `<rect x="${xTowerEnd + 12}" y="${yZ(1650)}" width="${1150*sc}" height="${1304*sc}" rx="4" fill="rgba(245,158,11,0.12)" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4"/>`;
-    out += `<text x="${xTowerEnd + 102}" y="${yZ(1040)}" fill="#fbbf24" font-size="12" font-weight="800" text-anchor="middle">적재 파레트 + 화물</text>`;
-    out += `<text x="${xTowerEnd + 102}" y="${yZ(910)}" fill="#fde68a" font-size="10" text-anchor="middle">데크(Z=192) 위에 올라탐</text>`;
-    out += `<text x="${xTowerEnd + 102}" y="${yZ(780)}" fill="#fde68a" font-size="9.8" text-anchor="middle">${isS2 ? '(중앙 타워 앞 가림)' : '(S1 3D는 화물 양옆 ±710mm!)'}</text>`;
+  // LOADED CARGO ON TOP OF 192mm DECK
+  if (c.cargo) {
+    out += `<rect x="${xTowEnd + 6}" y="${yZ(346)}" width="${1150*sc}" height="${144*sc}" fill="rgba(180,83,9,0.38)" stroke="#f59e0b" stroke-width="1.4"/>`;
+    out += `<rect x="${xTowEnd + 10}" y="${yZ(1600)}" width="${1100*sc}" height="${1254*sc}" rx="4" fill="rgba(245,158,11,0.13)" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="6 4"/>`;
+    out += `<text x="${xTowEnd + 92}" y="${yZ(980)}" fill="#fbbf24" font-size="11.5" font-weight="800" text-anchor="middle">적재 화물 (1.5 m)</text>`;
+    out += `<text x="${xTowEnd + 92}" y="${yZ(840)}" fill="#fde68a" font-size="9.8" text-anchor="middle">타워 전방 가림 → 등뼈 센서가 전방 담당!</text>`;
   }
 
-  // REAL L-SHAPED L-TYPE CHASSIS SILHOUETTE!
-  // Rear Tower: xR..xTowerEnd, Z=46..590mm (y=362.6..275.6)
-  // Front/Mid Flat Deck: xTowerEnd..xF, Z=46..192mm (y=362.6..339.3)
+  // REAL L-TYPE CHASSIS SILHOUETTE (Rear tower 590mm + Flat deck 192mm)
   out += `
-    <path d="M ${xR},${yZ(590)} L ${xTowerEnd},${yZ(590)} L ${xTowerEnd},${yZ(192)} L ${xF},${yZ(192)} L ${xF},${yZ(46)} L ${xR},${yZ(46)} Z"
+    <path d="M ${xR},${yZ(590)} L ${xTowEnd},${yZ(590)} L ${xTowEnd},${yZ(192)} L ${xF},${yZ(192)} L ${xF},${yZ(46)} L ${xR},${yZ(46)} Z"
           fill="#172033" stroke="#cbd5e1" stroke-width="2"/>
-    <!-- Bumper strip Z=46..81 -->
     <rect x="${xR}" y="${yZ(81)}" width="${xF - xR}" height="${35*sc}" fill="rgba(245,158,11,0.35)" stroke="#fbbf24" stroke-width="1"/>
-    <!-- Low Fork Tine Z=51..95 -->
-    <rect x="${xTowerEnd}" y="${yZ(95)}" width="${xF - xTowerEnd - 4}" height="${44*sc}" rx="1.5" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
-    <!-- Drive wheel (center x=272, dia 185mm) & casters -->
+    <rect x="${xTowEnd}" y="${yZ(95)}" width="${xF - xTowEnd - 3}" height="${44*sc}" rx="1.5" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
     <circle cx="${(xR+xF)/2}" cy="${yZ(92)}" r="${92*sc}" fill="#0f172a" stroke="#cbd5e1" stroke-width="2"/>
-    <circle cx="${xR+42}" cy="${yZ(50)}" r="${50*sc}" fill="#0f172a" stroke="#94a3b8" stroke-width="1.5"/>
-    <circle cx="${xF-38}" cy="${yZ(50)}" r="${50*sc}" fill="#0f172a" stroke="#94a3b8" stroke-width="1.5"/>
-    <!-- Outer zero-protrusion boundary -->
+    <circle cx="${xR+36}" cy="${yZ(50)}" r="${50*sc}" fill="#0f172a" stroke="#94a3b8" stroke-width="1.4"/>
+    <circle cx="${xF-34}" cy="${yZ(50)}" r="${50*sc}" fill="#0f172a" stroke="#94a3b8" stroke-width="1.4"/>
     <rect x="${xR}" y="${yZ(590)}" width="${xF - xR}" height="${590*sc}" fill="none" stroke="#22c55e" stroke-width="1.4" stroke-dasharray="5 4"/>
-    <text x="${xR - 8}" y="${yZ(590) + 4}" fill="#4ade80" font-size="10" font-weight="800" text-anchor="end">타워 590</text>
-    <text x="${xF + 6}" y="${yZ(192) - 4}" fill="#cbd5e1" font-size="10" font-weight="800">평판 데크 192</text>
-    <text x="${(xR+xF)/2}" y="${fY + 32}" fill="#4ade80" font-size="11" font-weight="800" text-anchor="middle">차체 길이 1530 mm (전 센서 외곽 안쪽 매립)</text>
+    <text x="${(xR+xF)/2}" y="${fY + 32}" fill="#4ade80" font-size="10.8" font-weight="800" text-anchor="middle">차체 1530 mm (전 센서 내장 · 돌출 0)</text>
   `;
 
-  // Sensors strictly INSIDE chassis!
-  // Rear tower 3D
-  out += `<circle cx="${x3D}" cy="${y3D}" r="6.5" fill="#facc15" stroke="#854d0e" stroke-width="2"/>`;
-  out += `<text x="${x3D - 10}" y="${y3D - 12}" fill="#fde047" font-size="10" font-weight="800" text-anchor="end">${isS2 ? '타워 1대' : '타워 3D×2'}</text>`;
-  // Lower 2D x2 (recessed at front-left & rear-right)
-  out += `<rect x="${xF - 11}" y="${yZ(115) - 4.5}" width="9" height="9" rx="2" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.5"/>`;
-  out += `<rect x="${xR + 2}" y="${yZ(115) - 4.5}" width="9" height="9" rx="2" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.5"/>`;
-  // Center spine front-tip RGB-D
-  out += `<rect x="${xF - 11}" y="${yZ(152) - 3.5}" width="9" height="7" rx="1.5" fill="#ef4444" stroke="#fff" stroke-width="1"/>`;
-  // Fork-tip ToF
-  out += `<circle cx="${xF - 2}" cy="${yZ(72)}" r="3.2" fill="#34d399"/>`;
+  // Sensors inside chassis
+  out += `<circle cx="${xT}" cy="${yT}" r="6.5" fill="${c.tower === 'T3D' ? '#facc15' : '#38bdf8'}" stroke="#0f172a" stroke-width="2"/>`;
+  out += `<rect x="${xF - 11}" y="${y2D - 4}" width="8" height="8" rx="1.5" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.4"/>`;
+  out += `<rect x="${xR + 2}" y="${y2D - 4}" width="8" height="8" rx="1.5" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.4"/>`;
+
+  const fColor = c.front === 'E1R' ? '#a855f7' : (c.front === 'MID360' ? '#facc15' : '#ef4444');
+  const ySBox = c.front === 'RGBD' ? yZ(152) : yZ(140);
+  out += `<rect x="${xF - 11}" y="${ySBox - 4}" width="9" height="8" rx="2" fill="${fColor}" stroke="#fff" stroke-width="1.2"/>`;
+  out += `<circle cx="${xF - 2}" cy="${yZ(72)}" r="3" fill="#34d399"/>`;
 
   return out;
 }
 
-function renderFrontView(s) {
-  // 1:1 ISOTROPIC FRONT VIEW (Looking straight at the fork front!)
-  // Width 1680mm (+-840mm), scale 0.36 px/mm -> 604.8 px wide!
-  // Center cx=490, Floor fY=375.
-  const cx = 490, fY = 375, sc = 0.36;
+// ======================== TOP VIEW ========================
+function drawTop(c) {
+  // Center (230, 215), scale 0.175 px/mm -> length 1530 = 267.8px (y:81..349)
+  const cx = 230, cy = 215, sc = 0.175;
+  const hw = (c.width / 2) * sc;
+  const hl = (1530 / 2) * sc;
+  const xL = cx - hw, xR = cx + hw, yT = cy - hl, yB = cy + hl;
+  const towH = 220 * sc; // 38.5px
+
+  let out = `<rect x="0" y="0" width="460" height="430" fill="#0b1220"/>`;
+  out += `<g stroke="#142033" stroke-width="1">`;
+  for (let x = 30; x < 460; x += 40) out += `<line x1="${x}" y1="0" x2="${x}" y2="430"/>`;
+  for (let y = 30; y < 430; y += 40) out += `<line x1="0" y1="${y}" x2="460" y2="${y}"/>`;
+  out += `</g>`;
+  out += `<text x="230" y="18" fill="#94a3b8" font-size="10.5" font-weight="700" text-anchor="middle">▲ 뒤쪽 타워 (Z=590)</text>`;
+  out += `<text x="230" y="421" fill="#38bdf8" font-size="10.5" font-weight="700" text-anchor="middle">▼ 앞쪽 포크·등뼈 (전방 +X)</text>`;
+
+  if (c.sweep) {
+    const rMm = Math.hypot(c.width / 2, 765);
+    out += `<circle cx="${cx}" cy="${cy}" r="${(rMm*sc).toFixed(1)}" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-dasharray="6 5"/>`;
+    out += `<text x="444" y="36" fill="#c084fc" font-size="10.5" font-weight="800" text-anchor="end">스윕 R=${(rMm/1000).toFixed(2)}m</text>`;
+  }
+
+  out += `<defs><clipPath id="vpTop"><rect x="10" y="24" width="440" height="382" rx="6"/></clipPath></defs>`;
+  out += `<g clip-path="url(#vpTop)">`;
+
+  // Lower 2D FOV (270 deg)
+  const blX = xL + 13, blY = yB - 13;
+  const trX = xR - 13, trY = yT + 13;
+  const brX = xR - 13, brY = yB - 13;
+
+  // Bottom-Left 2D (always present)
+  out += `<path d="M ${blX},${blY} L ${blX},${blY-340} A 340,340 0 1,0 ${blX+340},${blY} Z" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.2"/>`;
+  // Top-Right 2D (always present)
+  out += `<path d="M ${trX},${trY} L ${trX},${trY+340} A 340,340 0 1,0 ${trX-340},${trY} Z" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.2"/>`;
+  if (c.low2d === 'TRI3') {
+    // Extra Bottom-Right 2D for unchanged 2-front-corner libdetect!
+    out += `<path d="M ${brX},${brY} L ${brX-340},${brY} A 340,340 0 1,0 ${brX},${brY-340} Z" fill="rgba(56,189,248,0.11)" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3 2"/>`;
+  }
+
+  // Rear Tower center sensor FOV (cx, yT + 18)
+  const tx = cx, ty = yT + 18;
+  const tCol = c.tower === 'T3D' ? '250,204,21' : '56,189,248';
+  if (c.cargo) {
+    out += `<path d="M ${tx},${ty} L ${tx-145},${ty+65} A 160,160 0 1,1 ${tx+145},${ty+65} Z" fill="rgba(${tCol},0.16)" stroke="rgb(${tCol})" stroke-dasharray="4 3"/>`;
+  } else {
+    out += `<circle cx="${tx}" cy="${ty}" r="165" fill="rgba(${tCol},0.12)" stroke="rgb(${tCol})" stroke-dasharray="4 3"/>`;
+  }
+
+  // Front center-spine sensor FOV (cx, yB - 10)
+  const fy = yB - 10;
+  const halfAng = c.front === 'RGBD' ? 45 : 60; // RGB-D 90 deg, E1R/Mid-360 120 deg clear forward!
+  const dxF = 160 * Math.tan(halfAng * Math.PI / 180);
+  const fRGB = c.front === 'E1R' ? '168,85,247' : (c.front === 'MID360' ? '250,204,21' : '239,68,68');
+  out += `<path d="M ${cx},${fy} L ${cx - dxF},${fy + 160} L ${cx + dxF},${fy + 160} Z" fill="rgba(${fRGB},0.24)" stroke="rgb(${fRGB})" stroke-width="1.5"/>`;
+  out += `</g>`;
+
+  // Chassis base & forks
+  const spHalf = 145 * sc; // 25.4px
+  const fkW = 120 * sc;    // 21px
+  out += `
+    <rect x="${xL}" y="${yT}" width="${hw*2}" height="${hl*2}" rx="16" fill="#111827" stroke="#94a3b8" stroke-width="1.6"/>
+    <path d="M ${xL+16},${yT} L ${xR-16},${yT} Q ${xR},${yT} ${xR},${yT+16} L ${xR},${yT+towH} L ${xL},${yT+towH} L ${xL},${yT+16} Q ${xL},${yT} ${xL+16},${yT} Z" fill="#273549" stroke="#cbd5e1" stroke-width="1.2"/>
+    <rect x="${cx - spHalf - fkW - 3}" y="${yT+towH}" width="${fkW+4}" height="${hl*2 - towH}" fill="#0b1220"/>
+    <rect x="${cx + spHalf - 1}" y="${yT+towH}" width="${fkW+4}" height="${hl*2 - towH}" fill="#0b1220"/>
+    <rect x="${cx - spHalf - fkW - 2}" y="${yT+towH+2}" width="${fkW}" height="${hl*2 - towH - 5}" rx="2" fill="#475569" stroke="#cbd5e1" stroke-width="1"/>
+    <rect x="${cx + spHalf + 2}" y="${yT+towH+2}" width="${fkW}" height="${hl*2 - towH - 5}" rx="2" fill="#475569" stroke="#cbd5e1" stroke-width="1"/>
+    <rect x="${cx - spHalf}" y="${yT+towH}" width="${spHalf*2}" height="${hl*2 - towH - 3}" rx="2" fill="#1e293b" stroke="#94a3b8" stroke-width="1.1"/>
+    <rect x="${xL}" y="${yT}" width="${hw*2}" height="${hl*2}" rx="16" fill="none" stroke="#22c55e" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <text x="${cx}" y="${yT - 8}" fill="#4ade80" font-size="10.8" font-weight="800" text-anchor="middle">폭 ${c.width} mm (외곽 한계 · 돌출 0)</text>
+  `;
+
+  // Loaded pallet (1200 x 1100 mm)
+  if (c.cargo) {
+    const pW = 1200 * sc, pH = 1100 * sc;
+    out += `<rect x="${cx - pW/2}" y="${yT + towH + 6}" width="${pW}" height="${pH}" rx="5" fill="rgba(245,158,11,0.16)" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="6 4"/>`;
+    out += `<text x="${cx}" y="${cy + 14}" fill="#fbbf24" font-size="11.2" font-weight="800" text-anchor="middle">적재 파레트 (1200×1100)</text>`;
+    if (c.width === 1200) {
+      out += `<text x="${cx}" y="${cy + 29}" fill="#fde68a" font-size="9.5" text-anchor="middle">차폭=파레트폭 → 타워는 1대가 최적!</text>`;
+    }
+  }
+
+  // Sensors (all strictly INSIDE!)
+  out += dot(tx, ty, 11, c.tower === 'T3D' ? '#facc15' : '#38bdf8', c.tower === 'T3D' ? '3D' : '2D');
+  out += dot(blX, blY, 10, '#38bdf8', '2D');
+  out += dot(trX, trY, 10, '#38bdf8', '2D');
+  if (c.low2d === 'TRI3') out += dot(brX, brY, 10, '#38bdf8', '2D');
+
+  const fCol = c.front === 'E1R' ? '#a855f7' : (c.front === 'MID360' ? '#facc15' : '#ef4444');
+  const fLbl = c.front === 'E1R' ? '3D' : (c.front === 'MID360' ? '3D' : 'RGBD');
+  out += `<rect x="${cx-15}" y="${fy-6}" width="30" height="12" rx="3" fill="${fCol}" stroke="#fff" stroke-width="1.2"/><text x="${cx}" y="${fy+3}" fill="${c.front==='MID360'?'#0f172a':'#fff'}" font-size="8" font-weight="900" text-anchor="middle">${fLbl}</text>`;
+
+  return out;
+}
+
+// ======================== FRONT VIEW ========================
+function drawFront(c) {
+  // Center cx=230, floor fY=392, isotropic sc=0.22 px/mm
+  const cx = 230, fY = 392, sc = 0.22;
   const xM = mm => +(cx + mm * sc).toFixed(1);
   const yZ = mm => +(fY - mm * sc).toFixed(1);
+  const hw = c.width / 2; // 600 or 840
 
-  let out = `<rect x="0" y="0" width="980" height="430" fill="#0b1220"/>`;
-
-  // Height grid (100, 200, 400, 600, 800mm)
+  let out = `<rect x="0" y="0" width="460" height="430" fill="#0b1220"/>`;
   out += `<g stroke="#142033" stroke-width="1">`;
-  for (let z = 200; z <= 800; z += 200) {
+  for (let z = 200; z <= 1400; z += 300) {
     const yy = yZ(z);
-    out += `<line x1="55" y1="${yy}" x2="945" y2="${yy}"/>`;
-    out += `<text x="48" y="${yy+4}" fill="#64748b" font-size="10" text-anchor="end">${z}mm</text>`;
+    out += `<line x1="36" y1="${yy}" x2="444" y2="${yy}"/>`;
+    out += `<text x="32" y="${yy+3.5}" fill="#64748b" font-size="9.2" text-anchor="end">${z}</text>`;
   }
   out += `</g>`;
-  out += `<line x1="40" y1="${fY}" x2="950" y2="${fY}" stroke="#64748b" stroke-width="2.2"/>`;
-  out += `<text x="490" y="24" fill="#e2e8f0" font-size="13" font-weight="800" text-anchor="middle">정면도 (포크 끝단에서 정면으로 본 1:1 등축 단면 · 차체 폭 1680 mm)</text>`;
+  out += `<line x1="25" y1="${fY}" x2="445" y2="${fY}" stroke="#64748b" stroke-width="2"/>`;
 
-  // Reflector band 300..610mm background tint
-  out += `<rect x="55" y="${yZ(610)}" width="890" height="${310*sc}" fill="rgba(250,204,21,0.05)"/>`;
-  out += `<text x="942" y="${yZ(610) + 14}" fill="#fde047" font-size="10.2" font-weight="700" text-anchor="end">반사판 대역 300~610 mm</text>`;
+  // Reflector band 300..610
+  out += `<rect x="36" y="${yZ(610)}" width="408" height="${310*sc}" fill="rgba(250,204,21,0.06)"/>`;
+  out += `<text x="440" y="${yZ(610)+12}" fill="#fde047" font-size="9.5" font-weight="700" text-anchor="end">반사판 30~61cm</text>`;
 
-  // REAR TOWER SILHOUETTE (behind the low pods: ±840mm wide, Z=192..590mm)
-  out += `<rect x="${xM(-840)}" y="${yZ(590)}" width="${1680*sc}" height="${398*sc}" rx="8" fill="#131c2e" stroke="#475569" stroke-width="1.6"/>`;
-  out += `<text x="490" y="${yZ(562)}" fill="#94a3b8" font-size="11" font-weight="700" text-anchor="middle">뒤쪽 상단 타워 구조물 (높이 590 mm · 외곽 ±840 mm)</text>`;
+  // Rear tower behind (±hw, Z=192..590)
+  out += `<rect x="${xM(-hw)}" y="${yZ(590)}" width="${c.width*sc}" height="${398*sc}" rx="6" fill="#131c2e" stroke="#475569" stroke-width="1.4"/>`;
+  // Side pods (±290..±hw, Z=46..192)
+  const podW = (hw - 290) * sc;
+  out += `<rect x="${xM(-hw)}" y="${yZ(192)}" width="${podW}" height="${146*sc}" rx="3" fill="#1e293b" stroke="#cbd5e1" stroke-width="1.6"/>`;
+  out += `<rect x="${xM(290)}" y="${yZ(192)}" width="${podW}" height="${146*sc}" rx="3" fill="#1e293b" stroke="#cbd5e1" stroke-width="1.6"/>`;
+  // Center spine (±145, Z=46..174)
+  out += `<rect x="${xM(-145)}" y="${yZ(174)}" width="${290*sc}" height="${128*sc}" rx="3" fill="#273549" stroke="#cbd5e1" stroke-width="1.6"/>`;
+  // Forks (±155..±275, Z=51..95)
+  out += `<rect x="${xM(-275)}" y="${yZ(95)}" width="${120*sc}" height="${44*sc}" rx="2" fill="#64748b" stroke="#e2e8f0" stroke-width="1.3"/>`;
+  out += `<rect x="${xM(155)}" y="${yZ(95)}" width="${120*sc}" height="${44*sc}" rx="2" fill="#64748b" stroke="#e2e8f0" stroke-width="1.3"/>`;
+  // Bumper strip Z=46..81
+  out += `<rect x="${xM(-hw)}" y="${yZ(81)}" width="${podW}" height="${35*sc}" fill="rgba(245,158,11,0.35)" stroke="#fbbf24" stroke-width="1"/>`;
+  out += `<rect x="${xM(290)}" y="${yZ(81)}" width="${podW}" height="${35*sc}" fill="rgba(245,158,11,0.35)" stroke="#fbbf24" stroke-width="1"/>`;
 
-  // LEFT & RIGHT LOW SIDE PODS (Z=46..192mm, ±290..±840mm)
-  out += `<rect x="${xM(-840)}" y="${yZ(192)}" width="${550*sc}" height="${146*sc}" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="1.8"/>`;
-  out += `<rect x="${xM(290)}" y="${yZ(192)}" width="${550*sc}" height="${146*sc}" rx="4" fill="#1e293b" stroke="#cbd5e1" stroke-width="1.8"/>`;
-  out += `<text x="${xM(-565)}" y="${yZ(115)}" fill="#cbd5e1" font-size="11" font-weight="700" text-anchor="middle">좌측 포드 (높이 192 mm)</text>`;
-  out += `<text x="${xM(565)}" y="${yZ(115)}" fill="#cbd5e1" font-size="11" font-weight="700" text-anchor="middle">우측 포드 (높이 192 mm)</text>`;
-
-  // CENTER FIXED SPINE (폭 290mm = ±145mm, Z=46..174mm!)
-  out += `<rect x="${xM(-145)}" y="${yZ(174)}" width="${290*sc}" height="${128*sc}" rx="3" fill="#273549" stroke="#cbd5e1" stroke-width="1.8"/>`;
-  out += `<text x="${cx}" y="${yZ(98)}" fill="#e2e8f0" font-size="10.2" font-weight="800" text-anchor="middle">중앙 고정 등뼈</text>`;
-  out += `<text x="${cx}" y="${yZ(68)}" fill="#94a3b8" font-size="9.5" text-anchor="middle">(290 mm · Z=174)</text>`;
-
-  // TWO FORK TINES in low lanes beside spine (±155..±275mm, width 120mm, Z=51..95mm!)
-  out += `<rect x="${xM(-275)}" y="${yZ(95)}" width="${120*sc}" height="${44*sc}" rx="2" fill="#64748b" stroke="#e2e8f0" stroke-width="1.5"/>`;
-  out += `<rect x="${xM(155)}" y="${yZ(95)}" width="${120*sc}" height="${44*sc}" rx="2" fill="#64748b" stroke="#e2e8f0" stroke-width="1.5"/>`;
-  out += `<text x="${xM(-215)}" y="${yZ(22)}" fill="#cbd5e1" font-size="9.8" font-weight="800" text-anchor="middle">좌 포크</text>`;
-  out += `<text x="${xM(215)}" y="${yZ(22)}" fill="#cbd5e1" font-size="9.8" font-weight="800" text-anchor="middle">우 포크</text>`;
-
-  // Drive wheels & casters
-  out += `<rect x="${xM(-440)}" y="${yZ(185)}" width="${80*sc}" height="${185*sc}" rx="4" fill="#0f172a" stroke="#64748b" stroke-width="1.4" opacity="0.7"/>`;
-  out += `<rect x="${xM(360)}" y="${yZ(185)}" width="${80*sc}" height="${185*sc}" rx="4" fill="#0f172a" stroke="#64748b" stroke-width="1.4" opacity="0.7"/>`;
-
-  // Lower bumper strip (Z=46..81)
-  out += `<rect x="${xM(-840)}" y="${yZ(81)}" width="${550*sc}" height="${35*sc}" fill="rgba(245,158,11,0.35)" stroke="#fbbf24" stroke-width="1"/>`;
-  out += `<rect x="${xM(290)}" y="${yZ(81)}" width="${550*sc}" height="${35*sc}" fill="rgba(245,158,11,0.35)" stroke="#fbbf24" stroke-width="1"/>`;
-
-  // RGB-D ON TOP FRONT OF CENTER SPINE (Z=152mm, width 124mm = ±62mm)!
-  // Clearly 57mm ABOVE the forks (Z=95mm) on both sides -> ZERO FORK OCCLUSION!
-  if (s.showRGBD) {
-    out += `<rect x="${xM(-62)}" y="${yZ(166)}" width="${124*sc}" height="${28*sc}" rx="3" fill="#ef4444" stroke="#fff" stroke-width="1.5"/>`;
-    out += `<text x="${cx}" y="${yZ(148)}" fill="#fff" font-size="8.5" font-weight="900" text-anchor="middle">RGB-D</text>`;
-    // Elevation clearance callout between fork top (95) and RGB-D (152)
-    out += `<line x1="${xM(-150)}" y1="${yZ(95)}" x2="${xM(150)}" y2="${yZ(95)}" stroke="#34d399" stroke-width="1.2" stroke-dasharray="3 2"/>`;
-    out += `<text x="${cx}" y="${yZ(180)}" fill="#6ee7b7" font-size="10.2" font-weight="800" text-anchor="middle">▲ RGB-D (Z=152) > 포크 상단(Z=95) → 포크 가림 0%!</text>`;
+  // Loaded cargo (±600, Z=202..1550)
+  if (c.cargo) {
+    out += `<rect x="${xM(-600)}" y="${yZ(346)}" width="${1200*sc}" height="${144*sc}" fill="rgba(180,83,9,0.42)" stroke="#f59e0b" stroke-width="1.4"/>`;
+    out += `<rect x="${xM(-600)}" y="${yZ(1550)}" width="${1200*sc}" height="${1204*sc}" rx="4" fill="rgba(245,158,11,0.13)" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="6 4"/>`;
+    out += `<text x="${cx}" y="${yZ(1050)}" fill="#fbbf24" font-size="12" font-weight="800" text-anchor="middle">적재 화물 (폭 1200 mm)</text>`;
+    out += `<text x="${cx}" y="${yZ(930)}" fill="#fde68a" font-size="9.8" text-anchor="middle">${c.width===1200 ? '차폭 1200과 일치 → 타워 1대 뒤 가림 동일' : '폭 1680은 양옆 240mm 여유'}</text>`;
   }
 
-  // LOADED PALLET + CARGO (Width 1200mm = ±600mm, sitting ON TOP of Z=192mm pods!)
-  if (s.cargo) {
-    out += `<rect x="${xM(-600)}" y="${yZ(346)}" width="${1200*sc}" height="${144*sc}" fill="rgba(180,83,9,0.42)" stroke="#f59e0b" stroke-width="1.6"/>`;
-    out += `<rect x="${xM(-600)}" y="${yZ(900)}" width="${1200*sc}" height="${554*sc}" fill="rgba(245,158,11,0.14)" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="6 4"/>`;
-    out += `<text x="${cx}" y="${yZ(670)}" fill="#fbbf24" font-size="13" font-weight="800" text-anchor="middle">적재 파레트 + 화물 (폭 1200 mm = ±600 mm)</text>`;
-    out += `<text x="${cx}" y="${yZ(620)}" fill="#fde68a" font-size="10.8" text-anchor="middle">← 이 화물 폭 바깥(±710 mm)으로 3D를 벌려야 전방이 보임! →</text>`;
+  // Rear tower center sensor (Z=520)
+  out += dot(cx, yZ(520), 10, c.tower === 'T3D' ? '#facc15' : '#38bdf8', c.tower === 'T3D' ? '3D' : '2D');
+
+  // Lower recessed 2D in Left Pod (Z=115, 55mm inside -hw)
+  out += `<rect x="${xM(-hw + 30)}" y="${yZ(132)}" width="12" height="10" rx="2" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.5"/>`;
+  if (c.low2d === 'TRI3') {
+    out += `<rect x="${xM(hw - 85)}" y="${yZ(132)}" width="12" height="10" rx="2" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.5"/>`;
   }
 
-  // S1 RECESSED TOWER 3D LIDARS AT ±710 mm (Z=510mm)!
-  // Strictly INSIDE ±840mm (130mm recessed!) AND strictly OUTSIDE ±600mm cargo (110mm clear!)
-  if (s.show3D) {
-    // Pocket frames inside tower corners
-    out += `<rect x="${xM(-760)}" y="${yZ(560)}" width="${100*sc}" height="${100*sc}" rx="4" fill="#0b1220" stroke="#facc15" stroke-width="1.2" stroke-dasharray="3 2"/>`;
-    out += `<rect x="${xM(660)}" y="${yZ(560)}" width="${100*sc}" height="${100*sc}" rx="4" fill="#0b1220" stroke="#facc15" stroke-width="1.2" stroke-dasharray="3 2"/>`;
-    out += `<circle cx="${xM(-710)}" cy="${yZ(510)}" r="12" fill="#facc15" stroke="#854d0e" stroke-width="2.2"/>`;
-    out += `<circle cx="${xM(710)}" cy="${yZ(510)}" r="12" fill="#facc15" stroke="#854d0e" stroke-width="2.2"/>`;
-    out += `<text x="${xM(-710)}" y="${yZ(510)+3.5}" fill="#0f172a" font-size="8.5" font-weight="900" text-anchor="middle">3D#1</text>`;
-    out += `<text x="${xM(710)}" y="${yZ(510)+3.5}" fill="#0f172a" font-size="8.5" font-weight="900" text-anchor="middle">3D#2</text>`;
-    // Clear sightlines past cargo
-    out += `<text x="${xM(-710)}" y="${yZ(420)}" fill="#6ee7b7" font-size="10" font-weight="800" text-anchor="middle">화물 바깥</text>`;
-    out += `<text x="${xM(-710)}" y="${yZ(385)}" fill="#6ee7b7" font-size="9.5" text-anchor="middle">+110mm 열림</text>`;
-    out += `<text x="${xM(710)}" y="${yZ(420)}" fill="#6ee7b7" font-size="10" font-weight="800" text-anchor="middle">화물 바깥</text>`;
-    out += `<text x="${xM(710)}" y="${yZ(385)}" fill="#6ee7b7" font-size="9.5" text-anchor="middle">+110mm 열림</text>`;
-  }
+  // Front spine sensor (Z=140..152, strictly ABOVE forks Z=95!)
+  const fCol = c.front === 'E1R' ? '#a855f7' : (c.front === 'MID360' ? '#facc15' : '#ef4444');
+  const fZ = c.front === 'RGBD' ? 152 : 140;
+  out += `<rect x="${xM(-58)}" y="${yZ(fZ+15)}" width="${116*sc}" height="${30*sc}" rx="3" fill="${fCol}" stroke="#fff" stroke-width="1.3"/>`;
+  out += `<line x1="${xM(-280)}" y1="${yZ(95)}" x2="${xM(280)}" y2="${yZ(95)}" stroke="#34d399" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+  out += `<text x="${cx}" y="${yZ(215)}" fill="#6ee7b7" font-size="10" font-weight="800" text-anchor="middle">▲ 등뼈 센서(Z=${fZ}) &gt; 포크(Z=95) 가림 0%</text>`;
 
-  // Option B comparison ghost (±220mm -> completely blocked behind cargo!)
-  if (s.showOldB) {
-    out += `<circle cx="${xM(-220)}" cy="${yZ(510)}" r="12" fill="rgba(239,68,68,0.45)" stroke="#ef4444" stroke-width="2" stroke-dasharray="3 2"/>`;
-    out += `<circle cx="${xM(220)}" cy="${yZ(510)}" r="12" fill="rgba(239,68,68,0.45)" stroke="#ef4444" stroke-width="2" stroke-dasharray="3 2"/>`;
-    out += `<text x="${cx}" y="${yZ(455)}" fill="#fca5a5" font-size="11" font-weight="800" text-anchor="middle">❌ 도면 B(±220mm): 화물 한가운데 갇혀 2대 동시 실명!</text>`;
-  }
-
-  // Lower recessed 2D LiDAR in Left Pod slot (Z=115mm, 55mm inside outer wall -840mm!)
-  if (s.show2D) {
-    out += `<rect x="${xM(-815)}" y="${yZ(142)}" width="${60*sc}" height="${54*sc}" rx="3" fill="#0b1220" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="2 2"/>`;
-    out += `<rect x="${xM(-800)}" y="${yZ(132)}" width="${34*sc}" height="${34*sc}" rx="3" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.8"/>`;
-    out += `<line x1="${xM(-800)}" y1="${yZ(115)}" x2="55" y2="${yZ(115)}" stroke="#38bdf8" stroke-width="2" stroke-dasharray="5 3"/>`;
-    out += `<text x="${xM(-860)}" y="${yZ(132)}" fill="#7dd3fc" font-size="10" font-weight="800" text-anchor="end">좌하 매립 2D</text>`;
-    out += `<text x="${xM(-860)}" y="${yZ(98)}" fill="#7dd3fc" font-size="9.5" text-anchor="end">(Z=115 · 안쪽 35mm)</text>`;
-  }
-
-  // Outer zero-protrusion dashed envelope (±840mm, Z=0..590mm)
-  out += `<rect x="${xM(-840)}" y="${yZ(590)}" width="${1680*sc}" height="${590*sc}" fill="none" stroke="#22c55e" stroke-width="1.8" stroke-dasharray="6 4"/>`;
-  out += `<text x="${cx}" y="${fY + 26}" fill="#4ade80" font-size="11.2" font-weight="800" text-anchor="middle">◀────────── 차체 외곽 폭 1680 mm (모든 센서 외곽 안쪽 매립 · 돌출 0 mm) ──────────▶</text>`;
+  // Outer zero-protrusion dashed envelope
+  out += `<rect x="${xM(-hw)}" y="${yZ(590)}" width="${c.width*sc}" height="${590*sc}" fill="none" stroke="#22c55e" stroke-width="1.6" stroke-dasharray="5 4"/>`;
+  out += `<text x="${cx}" y="${fY + 24}" fill="#4ade80" font-size="10.5" font-weight="800" text-anchor="middle">차체 외곽 폭 ${c.width} mm (돌출 0 mm)</text>`;
 
   return out;
 }
 
-function updateElevUI() {
-  const mainBox = document.getElementById('elevMainBox');
-  const pocketBox = document.getElementById('pocketBox');
-  const toggles = document.getElementById('elevToggles');
-
-  if (ELEV.tab === 'POCKET') {
-    mainBox.classList.add('hidden');
-    toggles.classList.add('hidden');
-    pocketBox.classList.remove('hidden');
-    return;
-  }
-
-  pocketBox.classList.add('hidden');
-  mainBox.classList.remove('hidden');
-  toggles.classList.remove('hidden');
-
-  const svg = document.getElementById('elevSvg');
-  const notes = document.getElementById('elevNotes');
-
-  if (ELEV.tab === 'FRONT') {
-    svg.innerHTML = renderFrontView(ELEV);
-    notes.innerHTML = `
-      <div class="info-card" style="border-color:var(--ok-border);background:var(--ok-bg)">
-        <h3>👁️ RGB-D 위치: 포크에 절대 안 가려짐!</h3>
-        <p>포크 사이 290 mm <strong>중앙 고정 등뼈 끝단(Z=152 mm)</strong>에 수납합니다. 포크 날 2개는 양옆 낮은 레인(<strong>Z=51~95 mm</strong>)에 있어 RGB-D보다 <strong>57 mm 아래</strong>입니다.</p>
-      </div>
-      <div class="info-card" style="border-color:var(--primary-border);background:var(--primary-bg)">
-        <h3>📐 타워 양끝 ±710 mm의 기하학</h3>
-        <p>차체 반폭 840 mm와 화물 반폭 600 mm 사이의 <strong>240 mm 여유 구간 정중앙(±710 mm)</strong>에 3D를 매립해, <strong>외곽 안쪽 130 mm 보호 + 화물 바깥 110 mm 시야</strong>를 동시에 잡습니다.</p>
-      </div>
-      <div class="info-card">
-        <h3>❌ 도면 B 비교 토글을 켜 보세요</h3>
-        <p>도면 B(±220 mm)는 화물(±600 mm) 한가운데 갇혀 2대 모두 전방이 막힙니다. 같은 3D 2대라도 <strong>타워 양끝으로 벌려야 제값</strong>을 합니다.</p>
-      </div>
-    `;
-  } else {
-    const isS2 = ELEV.tab === 'SIDE_S2';
-    svg.innerHTML = renderRealSide(isS2, ELEV);
-    notes.innerHTML = isS2 ? `
-      <div class="info-card" style="border-color:var(--primary-border);background:var(--primary-bg)">
-        <h3>✂️ 최소 실용안 S2 (총 4대)</h3>
-        <p>적재 중 전방 공중 오버행 3D가 필수 목표가 아니라면 <strong>타워 상부 센서를 중앙 1대</strong>로 줄여 총 4대(하부 대각 2D×2 + 등뼈 RGB-D×1 + 타워 1대)로 완성합니다.</p>
-      </div>
-      <div class="info-card">
-        <h3>🛡️ 전 센서 외곽 안쪽 매립</h3>
-        <p>타워 지붕(590 mm) 아래·앞 평판(192 mm) 아래·등뼈 끝단 안쪽에 모두 수납해 <strong>사방 어디로도 1 mm도 튀어나오지 않습니다.</strong></p>
-      </div>
-      <div class="info-card">
-        <h3>🎯 기존 T10 / 신규차체 SW 호환</h3>
-        <p>타워 스캔 높이 Z=510~560 mm(H530 등급) + 하부 2D Z=115 mm + 등뼈 끝 RGB-D(Gemini 335L)는 기존 <code>oneweave-native</code> 구조와 매끄럽게 이어집니다.</p>
-      </div>
-    ` : `
-      <div class="info-card" style="border-color:var(--ok-border);background:var(--ok-bg)">
-        <h3>🏗️ 실제 상단 구조물(뒤 타워 590 mm)에만 3D 매립</h3>
-        <p>앞·중간(192 mm 평판)은 파레트가 올라타므로 3D를 포기하고, <strong>실제 타워가 서 있는 뒤쪽 상단 양끝(Z=510 mm, 지붕 590 mm 아래)</strong>에 3D 2대를 완전 매립합니다.</p>
-      </div>
-      <div class="info-card">
-        <h3>🔵 하부 대각 2D×2 (Z=115 mm 슬롯)</h3>
-        <p>낮은 포드(192 mm) 안에 3D 대신 <strong>대각 2D 2대</strong>를 외곽 안쪽 35 mm 슬롯으로 매립 → 기존 4대 대비 2대 절감하면서 360° 저상 안전(발목·스윕) 100% 폐합.</p>
-      </div>
-      <div class="info-card">
-        <h3>🔴 등뼈 앞끝 RGB-D (Z=152 mm, -20°)</h3>
-        <p>포크 양옆 밖 중앙 등뼈 끝단에 매립(Gemini 335L, Min-Range 0.17 m) → 범퍼 앞 84 mm부터 20 mm 턱·팔레트 포켓을 포크 가림 없이 정밀 감지.</p>
-      </div>
-    `;
-  }
+function dot(x, y, r, fill, lbl) {
+  return `<g><circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="#0f172a" stroke-width="1.8"/><text x="${x}" y="${y+3}" fill="#0f172a" font-size="7.8" font-weight="900" text-anchor="middle">${lbl}</text></g>`;
 }
 
-// ======================== TOP VIEW SIMULATOR ========================
-const TOP = {
-  view: 'S1',
-  pallet: true,
-  show2D: true,
-  show3D: true,
-  showRGBD: true,
-  showBlind: true,
-  showSweep: false
-};
+// ======================== LIVE SCORECARD ========================
+function renderScorecard(c) {
+  const n2d = c.low2d === 'DIAG2' ? 2 : 3;
+  const total = n2d + 1 + 1; // lower 2D + tower 1 + front 1
+  const sweepR = Math.hypot(c.width / 2, 765) / 1000;
+  document.getElementById('lblSweep').textContent = `R=${sweepR.toFixed(2)}m`;
+  document.getElementById('topWidthLbl').textContent = c.width;
 
-const TOP_DIAG = {
-  S1: {
-    title: '★ S1 실기구 완성안 (5대) — 타워 양끝 3D×2 + 하부 대각 2D×2 + 등뼈 RGB-D',
-    verdict: 'ok',
-    scores: [
-      ['기구 실현성·매립', 100, 'ok'],
-      ['360° 저상 안전', 100, 'ok'],
-      ['적재 시 3D·측위', 92, 'ok'],
-      ['팔레트·턱 인식', 95, 'ok'],
-      ['불필요 센서 절감', 90, 'ok']
-    ],
-    pros: [
-      '<strong>실제 L-type 상단 구조물(뒤 타워)에만 3D 매립:</strong> 앞쪽 낮은 192 mm 데크에 무리하게 3D를 넣지 않고, 타워 양끝(±710 mm, 외곽 130 mm 안쪽·화물 110 mm 바깥)에 2대 완전 매립.',
-      '<strong>하부 대각 2D×2(좌하+우상, Z=115 mm):</strong> 기존 T10 4대→2대로 줄이고도 4면 저상 360° 안전(L2/L3·횡이동) 완전 폐합.',
-      '<strong>중앙 등뼈 앞끝 RGB-D(Z=152, -20°):</strong> 포크 가림 0%, 범퍼 앞 84 mm부터 20 mm 턱·팔레트 포켓 인식.'
-    ],
-    cons: [
-      '<strong>정직한 물리 한계 1가지:</strong> 적재 화물(폭 1.2 m) 바로 앞 정중앙 공중(Z=0.5~1.5 m, 거리 0~2 m)은 화물 자체 그림자(전방 저상·포켓은 하부 2D + 등뼈 RGB-D가 커버).'
-    ]
-  },
-  S2: {
-    title: '✂️ S2 최소 실용안 (4대) — 타워 중앙 1대 + 하부 대각 2D×2 + 등뼈 RGB-D',
-    verdict: 'ok',
-    scores: [
-      ['기구 실현성·매립', 100, 'ok'],
-      ['360° 저상 안전', 100, 'ok'],
-      ['적재 시 3D·측위', 68, 'warn'],
-      ['팔레트·턱 인식', 95, 'ok'],
-      ['원가·단순성', 98, 'ok']
-    ],
-    pros: [
-      '<strong>가장 적은 4대 구성:</strong> 타워 상부 센서를 1대(3D 또는 기존 T10 고정밀 2D 항법)로 줄여 원가·배선·연산량 최소화.',
-      '하부 대각 2D×2(360° 저상) + 등뼈 앞끝 RGB-D(팔레트·20 mm 턱)는 S1과 동일하게 전량 외곽 안쪽 매립.'
-    ],
-    cons: [
-      '<strong>포기하는 목표(트레이드오프):</strong> 화물 적재 시 타워 중앙 1대가 전방 ~150°를 가려 후방·측면 200°로만 측위(기존 T10과 동일 수준). 적재 중 전방 오버행 회피나 양방향 반사판이 꼭 필요하면 S1 선택.'
-    ]
-  },
-  A: {
-    title: '도면 좌측안 A (4대) — 낮은 앞 코너에 3D 배치 (기구적 불가)',
-    verdict: 'bad',
-    scores: [
-      ['기구 실현성·매립', 15, 'bad'],
-      ['360° 저상 안전', 25, 'bad'],
-      ['적재 시 3D·측위', 80, 'ok'],
-      ['팔레트 인식', 20, 'bad'],
-      ['파손 보호', 20, 'bad']
-    ],
-    pros: ['대각 3D 시야 아이디어 자체는 이론상 넓음.'],
-    cons: [
-      '<strong>[기구 불가] 좌하단(앞)은 192 mm 평판이라 상단 타워가 없음:</strong> 위에 올리면 파레트 충돌·돌출, 아래 매립하면 상판이 3D 상방 시야를 싹 차단.',
-      '<strong>[치명] 포크 틈새 2D+RGB-D 직렬:</strong> 앞 2D가 뒤 RGB-D를 막고 우하단·좌상단 저상 사각 발생.'
-    ]
-  },
-  B: {
-    title: '도면 우측안 B (5대) — 타워 중앙 병렬 3D + 하단 2D×2 (후방 공백)',
-    verdict: 'bad',
-    scores: [
-      ['기구 실현성·매립', 65, 'warn'],
-      ['360° 저상 안전', 40, 'bad'],
-      ['적재 시 3D·측위', 20, 'bad'],
-      ['팔레트 인식', 82, 'ok'],
-      ['가성비', 30, 'bad']
-    ],
-    pros: ['뒤쪽 타워에 3D를 올린 방향과 등뼈 앞끝 RGB-D 위치 자체는 실제 기구와 맞음.'],
-    cons: [
-      '<strong>[치명] 타워 중앙(±220 mm) 병렬 3D 낭비:</strong> 화물(±600 mm) 뒤에 2대가 같이 갇혀 적재 시 동시 실명 → <strong>양끝(±710 mm)으로 벌리는 게 S1!</strong>',
-      '<strong>[치명] 2D 2대를 하단에만 몰아 후방(상단) 180° 저상 완전 공백:</strong> 1대를 우상단으로 옮겨 대각 배치하면 같은 2대로 360° 폐합!'
-    ]
-  }
-};
-
-function renderTop(mode, opts) {
-  let out = `<rect x="0" y="0" width="560" height="500" fill="#0b1220"/>`;
-  out += `<g stroke="#162133" stroke-width="1">`;
-  for (let x = 40; x < 560; x += 40) out += `<line x1="${x}" y1="0" x2="${x}" y2="500"/>`;
-  for (let y = 40; y < 500; y += 40) out += `<line x1="0" y1="${y}" x2="560" y2="${y}"/>`;
-  out += `</g>`;
-  out += `<text x="280" y="21" fill="#94a3b8" font-size="11.2" font-weight="700" text-anchor="middle">▲ 상단: 뒤쪽 상단 타워 (Z=590 mm)</text>`;
-  out += `<text x="280" y="489" fill="#38bdf8" font-size="11.2" font-weight="700" text-anchor="middle">▼ 하단: 포크 끝단 · 중앙 등뼈 (Z=192 mm 평판)</text>`;
-
-  if (opts.showSweep) {
-    out += `<circle cx="280" cy="250" r="227.2" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-dasharray="6 5" opacity="0.85"/>`;
-  }
-
-  out += `<defs><clipPath id="vpT_${mode}"><rect x="14" y="28" width="532" height="444" rx="8"/></clipPath></defs>`;
-  out += `<g clip-path="url(#vpT_${mode})">`;
-
-  // 3D / Tower FOV
-  if (opts.show3D) {
-    if (mode === 'S1') {
-      // Tower ends at (138, 122) [y=-710mm] & (422, 122) [y=+710mm] -> BOTH peek cleanly OUTSIDE pallet (x:160..400)!
-      if (opts.pallet) {
-        // Left tower 3D (138,122): blocked only toward interior-right pallet (angle ~15..78 deg) -> sees ALL left, top, rear, and DOWN-LEFT past pallet!
-        out += `<path d="M 138,122 L 154,480 A 360,360 0 1,1 498,122 Z" fill="rgba(250,204,21,0.12)" stroke="rgba(250,204,21,0.45)" stroke-dasharray="4 4"/>`;
-        // Right tower 3D (422,122): sees ALL right, top, rear, and DOWN-RIGHT past pallet!
-        out += `<path d="M 422,122 L 62,122 A 360,360 0 1,1 406,480 Z" fill="rgba(250,204,21,0.12)" stroke="rgba(250,204,21,0.45)" stroke-dasharray="4 4"/>`;
-      } else {
-        out += `<circle cx="138" cy="122" r="200" fill="rgba(250,204,21,0.12)" stroke="rgba(250,204,21,0.4)" stroke-dasharray="4 4"/>`;
-        out += `<circle cx="422" cy="122" r="200" fill="rgba(250,204,21,0.12)" stroke="rgba(250,204,21,0.4)" stroke-dasharray="4 4"/>`;
-      }
-    } else if (mode === 'S2') {
-      // Single tower center sensor (280, 122)
-      if (opts.pallet) {
-        out += `<path d="M 280,122 L 105,195 A 190,190 0 1,1 455,195 Z" fill="rgba(250,204,21,0.13)" stroke="rgba(250,204,21,0.45)" stroke-dasharray="4 4"/>`;
-      } else {
-        out += `<circle cx="280" cy="122" r="190" fill="rgba(250,204,21,0.12)" stroke="rgba(250,204,21,0.4)" stroke-dasharray="4 4"/>`;
-      }
-    } else if (mode === 'A') {
-      out += `<circle cx="442" cy="105" r="185" fill="rgba(250,204,21,0.10)" stroke="rgba(250,204,21,0.35)" stroke-dasharray="4 4"/>`;
-      out += `<circle cx="118" cy="395" r="185" fill="rgba(250,204,21,0.10)" stroke="rgba(250,204,21,0.35)" stroke-dasharray="4 4"/>`;
-    } else if (mode === 'B') {
-      if (opts.pallet) {
-        out += `<path d="M 242,118 L 102,191 A 160,160 0 1,1 396,157 Z" fill="rgba(250,204,21,0.11)" stroke="rgba(250,204,21,0.4)" stroke-dasharray="4 4"/>`;
-        out += `<path d="M 318,118 L 164,157 A 160,160 0 1,1 458,191 Z" fill="rgba(250,204,21,0.11)" stroke="rgba(250,204,21,0.4)" stroke-dasharray="4 4"/>`;
-      } else {
-        out += `<circle cx="242" cy="118" r="165" fill="rgba(250,204,21,0.10)" stroke="rgba(250,204,21,0.35)" stroke-dasharray="4 4"/>`;
-        out += `<circle cx="318" cy="118" r="165" fill="rgba(250,204,21,0.10)" stroke="rgba(250,204,21,0.35)" stroke-dasharray="4 4"/>`;
-      }
+  const goals = [
+    {
+      name: '360° 저상 안전\n(발·스윕)',
+      cls: 'ok',
+      stat: '✅ 완벽',
+      why: c.low2d === 'DIAG2' ? '대각 2D×2 매립 폐합' : '하부 2D×3 매립 폐합'
+    },
+    {
+      name: '적재 전진\n공중 오버행',
+      cls: c.front === 'RGBD' ? 'bad' : 'ok',
+      stat: c.front === 'E1R' ? '✅ 최상 (2.28m)' : (c.front === 'MID360' ? '✅ 양호 (1.64m)' : '❌ 불가 (48cm)'),
+      why: c.front === 'RGBD' ? '-20° 숙임 → 랙 빔 못 봄' : '화물 앞 등뼈 3D가 직시'
+    },
+    {
+      name: '후진 주행\n공중 오버행',
+      cls: c.tower === 'T3D' ? 'ok' : 'warn',
+      stat: c.tower === 'T3D' ? '✅ 완벽' : '❌ 미지원',
+      why: c.tower === 'T3D' ? '타워 3D가 후방 입체 커버' : '타워 2D는 수평 한 줄만'
+    },
+    {
+      name: '팔레트 포켓\n인식 호환',
+      cls: c.low2d === 'TRI3' ? 'ok' : 'ok',
+      stat: c.low2d === 'TRI3' ? '✅ 기존 무수정' : '✅ 정중앙 3D/깊이',
+      why: c.low2d === 'TRI3' ? '앞2D×2 libdetect 그대로' : '등뼈 센서 입력 연동 1회'
+    },
+    {
+      name: 'SLAM · 반사판\n(5cm 코드)',
+      cls: c.tower === 'T2D' ? 'ok' : 'warn',
+      stat: c.tower === 'T2D' ? '✅ 100% 검증' : '△ 8m 실측 필요',
+      why: c.tower === 'T2D' ? '기존 0.1° H530 그대로' : '3D 수평 ≤0.15° 모델 선정'
+    },
+    {
+      name: '바닥 20mm\n미세 턱 감지',
+      cls: c.front === 'RGBD' ? 'ok' : 'warn',
+      stat: c.front === 'RGBD' ? '✅ 가능 (±3mm)' : '△ 노이즈 한계',
+      why: c.front === 'RGBD' ? '84mm 앞부터 깊이 정밀' : '3D ±2~3cm 오차(불필요 시 OK)'
     }
-  }
+  ];
 
-  // Lower 2D FOV
-  if (opts.show2D) {
-    if (mode === 'S1' || mode === 'S2') {
-      // Recessed diagonal 2D at Bottom-Left (127, 388) & Top-Right (433, 112) -> 360 deg closed!
-      out += `<path d="M 127,388 L 127,28 A 360,360 0 1,0 487,388 Z" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.3"/>`;
-      out += `<path d="M 433,112 L 433,472 A 360,360 0 1,0 73,112 Z" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.3"/>`;
-    } else if (mode === 'A') {
-      out += `<path d="M 280,382 L 185,480 L 375,480 Z" fill="rgba(56,189,248,0.22)" stroke="#38bdf8" stroke-width="1.4"/>`;
-    } else if (mode === 'B') {
-      out += `<path d="M 128,388 L 128,28 A 360,360 0 1,0 488,388 Z" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.2"/>`;
-      out += `<path d="M 432,388 L 72,388 A 360,360 0 1,0 432,28 Z" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.2"/>`;
-    }
-  }
-  out += `</g>`;
-
-  // REAL CHASSIS GEOMETRY (1680 x 1530 -> x:112..448, y:97..403)
-  // Rear Tower strip at TOP (y:97..142), Left/Right low pods, Center Fixed Spine (x:251..309, y:142..397), Two Fork Tines beside spine!
-  out += `
-    <g>
-      <!-- Full chassis base -->
-      <rect x="112" y="97" width="336" height="306" rx="20" fill="#111827" stroke="#94a3b8" stroke-width="1.6"/>
-      <!-- Rear Tower (top band y=97..142, shaded taller) -->
-      <path d="M 132,97 L 428,97 Q 448,97 448,117 L 448,142 L 112,142 L 112,117 Q 112,97 132,97 Z" fill="#273549" stroke="#cbd5e1" stroke-width="1.4"/>
-      <text x="280" y="114" fill="#cbd5e1" font-size="9.5" font-weight="700" text-anchor="middle">뒤쪽 상단 타워 (Z=590)</text>
-      <!-- Left & Right low pods (Z=192) -->
-      <rect x="116" y="146" width="104" height="252" rx="8" fill="#172033" stroke="#334155" stroke-width="1"/>
-      <rect x="340" y="146" width="104" height="252" rx="8" fill="#172033" stroke="#334155" stroke-width="1"/>
-      <!-- Fork lanes (empty slots) -->
-      <rect x="223" y="144" width="28" height="258" fill="#0b1220"/>
-      <rect x="309" y="144" width="28" height="258" fill="#0b1220"/>
-      <!-- Fork tines (width 120mm = 24px, Z=51..95) -->
-      <polygon points="225,146 249,146 249,384 244,399 230,399 225,384" fill="#475569" stroke="#cbd5e1" stroke-width="1.1"/>
-      <polygon points="311,146 335,146 335,384 330,399 316,399 311,384" fill="#475569" stroke="#cbd5e1" stroke-width="1.1"/>
-      <!-- Center FIXED SPINE (width 290mm = 58px -> x=251..309, Z=174!) -->
-      <rect x="253" y="144" width="54" height="254" rx="3" fill="#1e293b" stroke="#94a3b8" stroke-width="1.2"/>
-      <!-- Outer zero-protrusion boundary -->
-      <rect x="112" y="97" width="336" height="306" rx="20" fill="none" stroke="#22c55e" stroke-width="1.6" stroke-dasharray="5 4"/>
-      <text x="280" y="72" fill="#4ade80" font-size="11" font-weight="700" text-anchor="middle">1680 mm (외곽 한계 · 돌출 0 mm)</text>
-      <text x="84" y="254" fill="#4ade80" font-size="11" font-weight="700" text-anchor="middle" transform="rotate(-90 84 254)">1530 mm</text>
-    </g>
+  const html = `
+    <div class="total-box">
+      <div class="total-num">총 ${total}대 <span style="font-size:13px;font-weight:700">(${c.width}mm)</span></div>
+      <div class="total-sub">회전 직경 ${(sweepR*2).toFixed(2)}m · 돌출 0mm<br>2D×${n2d + (c.tower==='T2D'?1:0)} · 3D×${(c.tower==='T3D'?1:0) + (c.front!=='RGBD'?1:0)}${c.front==='RGBD'?' · RGB-D×1':''}</div>
+    </div>
+    ${goals.map(g => `
+      <div class="goal-pill ${g.cls}">
+        <div class="goal-name">${g.name.replace('\n','<br>')}</div>
+        <div class="goal-stat">${g.stat}</div>
+        <div class="goal-why">${g.why}</div>
+      </div>
+    `).join('')}
   `;
+  document.getElementById('scoreStrip').innerHTML = html;
+}
 
-  // Loaded Pallet (1200 x 1100 -> x:160..400, y:154..374)
-  if (opts.pallet) {
-    out += `
-      <rect x="160" y="154" width="240" height="220" rx="6" fill="rgba(245,158,11,0.16)" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="6 4"/>
-      <text x="280" y="256" fill="#fbbf24" font-size="12" font-weight="800" text-anchor="middle">적재 파레트 + 화물</text>
-      <text x="280" y="272" fill="#fde68a" font-size="10" text-anchor="middle">(1200×1100 · 데크 Z=192 위)</text>
-    `;
-  }
-
-  // RGB-D FOV
-  if (opts.showRGBD) {
-    if (mode === 'S1' || mode === 'S2' || mode === 'B') {
-      // Mounted at tip of Center Spine (280, 391), Z=152mm, HFOV 90 deg -> completely clear of forks!
-      out += `<path d="M 280,391 L 195,474 L 365,474 Z" fill="rgba(16,185,129,0.22)" stroke="#34d399" stroke-width="1.3"/>`;
-    } else if (mode === 'A') {
-      out += `<path d="M 280,354 L 252,445 L 308,445 Z" fill="rgba(239,68,68,0.18)" stroke="#f87171" stroke-dasharray="3 2"/>`;
-      out += `<path d="M 280,382 L 260,445 L 300,445 Z" fill="rgba(239,68,68,0.45)"/>`;
+// ======================== 3-WAY FRONT COMPARISON CARDS ========================
+function renderFront3(c) {
+  const items = [
+    {
+      id: 'E1R',
+      title: '① 정면 광각 3D (E1R급 · +10°)',
+      badge: '★ 회피 최강',
+      bCls: 'purple',
+      svg: `
+        <svg viewBox="0 0 280 120">
+          <rect width="280" height="120" fill="#0b1220"/>
+          <line x1="10" y1="105" x2="270" y2="105" stroke="#64748b" stroke-width="1.5"/>
+          <rect x="14" y="75" width="46" height="24" fill="#1e293b" stroke="#94a3b8"/>
+          <polygon points="58,83 125,8 265,8 265,105 78,105" fill="rgba(168,85,247,0.22)" stroke="#c084fc"/>
+          <rect x="180" y="34" width="38" height="12" fill="#334155" stroke="#10b981" stroke-width="1.8"/>
+          <text x="199" y="28" fill="#6ee7b7" font-size="9" font-weight="800" text-anchor="middle">✓ 오버행(2.3m)</text>
+          <rect x="108" y="95" width="52" height="10" fill="rgba(245,158,11,0.3)" stroke="#f59e0b"/>
+          <text x="134" y="91" fill="#fde68a" font-size="8.5" text-anchor="middle">팔레트(Min 0.1m)</text>
+          <rect x="52" y="79" width="7" height="7" fill="#a855f7" stroke="#fff"/>
+        </svg>`,
+      pts: [
+        '<strong>시야:</strong> 수평 120° × 수직 90° (+55° ~ -35°)',
+        '<strong>장점:</strong> 적재 중 <strong>전방 랙·포크 오버행 완벽 회피</strong> + 20 cm 앞 바닥 + 이더넷·IP67 + 0.1 m 근거리 팔레트 인식',
+        '<strong>단점:</strong> 바닥 20 mm 미세 턱 감지 어려움, 단가 RGB-D 대비 높음'
+      ]
+    },
+    {
+      id: 'MID360',
+      title: '② 틸트 3D (Mid-360 · -15°)',
+      badge: '균형형',
+      bCls: 'warn',
+      svg: `
+        <svg viewBox="0 0 280 120">
+          <rect width="280" height="120" fill="#0b1220"/>
+          <line x1="10" y1="105" x2="270" y2="105" stroke="#64748b" stroke-width="1.5"/>
+          <rect x="14" y="75" width="46" height="24" fill="#1e293b" stroke="#94a3b8"/>
+          <polygon points="58,83 265,24 265,105 92,105" fill="rgba(250,204,21,0.20)" stroke="#facc15"/>
+          <rect x="180" y="34" width="38" height="12" fill="#334155" stroke="#10b981" stroke-width="1.8"/>
+          <text x="199" y="28" fill="#6ee7b7" font-size="9" font-weight="800" text-anchor="middle">✓ 오버행(1.6m)</text>
+          <rect x="108" y="95" width="52" height="10" fill="rgba(245,158,11,0.3)" stroke="#f59e0b"/>
+          <text x="134" y="91" fill="#fde68a" font-size="8.5" text-anchor="middle">앞 33cm 바닥</text>
+          <rect x="52" y="79" width="7" height="7" fill="#facc15" stroke="#0f172a"/>
+        </svg>`,
+      pts: [
+        '<strong>시야:</strong> -15° 숙임 시 상방 +37° ~ 하방 -22°',
+        '<strong>장점:</strong> 초소형(65×65×60), IP67·이더넷, 전방 오버행(1.5~2 m) + 33 cm 저상 균형',
+        '<strong>단점:</strong> 비반복 스캔(정밀 에지 누적 ~100 ms), E1R보다 근거리 상·하 화각 좁음'
+      ]
+    },
+    {
+      id: 'RGBD',
+      title: '③ RGB-D (Gemini 335L · -20°)',
+      badge: '20mm 턱 전용',
+      bCls: 'ok',
+      svg: `
+        <svg viewBox="0 0 280 120">
+          <rect width="280" height="120" fill="#0b1220"/>
+          <line x1="10" y1="105" x2="270" y2="105" stroke="#64748b" stroke-width="1.5"/>
+          <rect x="14" y="75" width="46" height="24" fill="#1e293b" stroke="#94a3b8"/>
+          <polygon points="58,82 265,64 265,105 68,105" fill="rgba(239,68,68,0.22)" stroke="#f87171"/>
+          <rect x="180" y="34" width="38" height="12" fill="#334155" stroke="#ef4444" stroke-width="1.8"/>
+          <text x="199" y="28" fill="#fca5a5" font-size="9" font-weight="800" text-anchor="middle">❌ 오버행 못 봄!</text>
+          <rect x="86" y="101" width="16" height="4" fill="#34d399"/>
+          <text x="112" y="96" fill="#6ee7b7" font-size="8.5" font-weight="800">✓ 20mm 턱 정밀</text>
+          <rect x="52" y="78" width="7" height="7" fill="#ef4444" stroke="#fff"/>
+        </svg>`,
+      pts: [
+        '<strong>시야:</strong> 수평 90° × 수직 65° (+12.5° ~ -52.5°)',
+        '<strong>장점:</strong> 단가 저렴(~55만 원), <strong>바닥 20 mm 턱 정밀 감지</strong>, RGB 영상 활용 가능',
+        '<strong>단점:</strong> <strong>공중 오버행 불가(높이 48 cm 한계)</strong>, 역광·비닐·USB 진동 취약'
+      ]
     }
-  }
+  ];
 
-  // Blind / Status callouts
-  if (opts.showBlind) {
-    if (mode === 'S1') {
-      out += `<rect x="292" y="34" width="242" height="24" rx="6" fill="rgba(16,185,129,0.24)" stroke="#10b981" stroke-width="1.2"/>`;
-      out += `<text x="413" y="50" fill="#6ee7b7" font-size="10.5" font-weight="800" text-anchor="middle">✓ 돌출 0 · 360° 저상 · 화물 양옆 3D 시야</text>`;
-    } else if (mode === 'S2') {
-      out += `<rect x="306" y="34" width="228" height="24" rx="6" fill="rgba(59,130,246,0.24)" stroke="#60a5fa" stroke-width="1.2"/>`;
-      out += `<text x="420" y="50" fill="#93c5fd" font-size="10.5" font-weight="800" text-anchor="middle">✓ 최소 4대 · 돌출 0 · 360° 저상 폐합</text>`;
-    } else if (mode === 'A') {
-      out += `<text x="148" y="424" fill="#fca5a5" font-size="10.5" font-weight="800" text-anchor="middle">❌ 앞 평판(192mm)에 3D 기구 불가!</text>`;
-      out += `<ellipse cx="446" cy="400" rx="54" ry="38" fill="rgba(239,68,68,0.32)" stroke="#ef4444" stroke-width="1.6" stroke-dasharray="4 3"/>`;
-      out += `<text x="448" y="403" fill="#fecaca" font-size="10.2" font-weight="800" text-anchor="middle">우하단 사각</text>`;
-    } else if (mode === 'B') {
-      out += `<rect x="78" y="34" width="404" height="50" rx="8" fill="rgba(239,68,68,0.32)" stroke="#ef4444" stroke-width="1.6" stroke-dasharray="4 3"/>`;
-      out += `<text x="280" y="56" fill="#fecaca" font-size="11" font-weight="800" text-anchor="middle">❌ 후방(상단) 180° 저상 2D 전무!</text>`;
-      if (opts.pallet) {
-        out += `<polygon points="242,118 160,390 400,390 318,118" fill="rgba(239,68,68,0.25)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4 3"/>`;
-        out += `<text x="280" y="318" fill="#fecaca" font-size="11.2" font-weight="800" text-anchor="middle">❌ 타워 중앙 3D 2대 동시 전방 실명!</text>`;
-      }
-    }
-  }
-
-  // Sensors (Strictly INSIDE x:112..448, y:97..403 for S1 & S2!)
-  if (mode === 'S1') {
-    out += sensor3D(146, 128, '3D#1');
-    out += sensor3D(414, 128, '3D#2');
-    out += sensor2D(127, 388, '2D#1');
-    out += sensor2D(433, 112, '2D#2');
-    out += sensorRGBD(280, 391, 'RGB-D');
-  } else if (mode === 'S2') {
-    out += sensor3D(280, 122, '상부1');
-    out += sensor2D(127, 388, '2D#1');
-    out += sensor2D(433, 112, '2D#2');
-    out += sensorRGBD(280, 391, 'RGB-D');
-  } else if (mode === 'A') {
-    out += sensor3D(442, 105, '3D#1');
-    out += sensor3D(118, 395, '3D#2');
-    out += sensor2D(280, 382, '2D');
-    out += sensorRGBD(280, 354, 'RGB-D');
-  } else if (mode === 'B') {
-    out += sensor3D(242, 118, '3D');
-    out += sensor3D(318, 118, '3D');
-    out += sensor2D(128, 388, '2D#1');
-    out += sensor2D(432, 388, '2D#2');
-    out += sensorRGBD(280, 391, 'RGB-D');
-  }
-
-  return out;
-}
-
-function sensor3D(x, y, lbl) {
-  return `<g><circle cx="${x}" cy="${y}" r="12" fill="#facc15" stroke="#854d0e" stroke-width="2"/><text x="${x}" y="${y+3.2}" fill="#1e293b" font-size="8" font-weight="900" text-anchor="middle">${lbl}</text></g>`;
-}
-function sensor2D(x, y, lbl) {
-  return `<g><circle cx="${x}" cy="${y}" r="10.5" fill="#38bdf8" stroke="#0c4a6e" stroke-width="2"/><text x="${x}" y="${y+3.2}" fill="#0f172a" font-size="7.6" font-weight="900" text-anchor="middle">${lbl}</text></g>`;
-}
-function sensorRGBD(x, y, lbl) {
-  return `<g><rect x="${x-17}" y="${y-6}" width="34" height="12" rx="3" fill="#ef4444" stroke="#fff" stroke-width="1.2"/><text x="${x}" y="${y+3}" fill="#fff" font-size="7.6" font-weight="800" text-anchor="middle">${lbl}</text></g>`;
-}
-
-function renderTopDiag(mode) {
-  const d = TOP_DIAG[mode];
-  const scoreHtml = d.scores.map(([label, val, cls]) => `
-    <div class="score-row">
-      <span>${label}</span>
-      <div class="bar-track"><div class="bar-fill ${cls}" style="width:${val}%"></div></div>
-      <span style="text-align:right;font-weight:800">${val}</span>
+  document.getElementById('front3Grid').innerHTML = items.map(it => `
+    <div class="f3-card ${c.front === it.id ? 'selected' : ''}" data-pick-front="${it.id}">
+      <div class="f3-head"><span>${it.title}</span><span class="tag ${it.bCls}">${it.badge}</span></div>
+      <div class="f3-svg">${it.svg}</div>
+      <ul class="f3-list">${it.pts.map(p => `<li>${p}</li>`).join('')}</ul>
     </div>
   `).join('');
-  const prosHtml = d.pros.map(p => `<li>${p}</li>`).join('');
-  const consHtml = d.cons.map(c => `<li>${c}</li>`).join('');
-  const boxCls = d.verdict === 'ok' ? 'warn' : 'bad';
-  const conTitle = d.verdict === 'ok' ? '⚠ 트레이드오프 / 한계 (정직 명시)' : '🔴 기구 불가 · 치명적 약점';
 
-  document.getElementById('topDiag').innerHTML = `
-    <h3 class="diag-title">${d.title}</h3>
-    <div class="score-list">${scoreHtml}</div>
-    <div class="bullet-box ok"><h4>✅ 핵심 장점</h4><ul>${prosHtml}</ul></div>
-    <div class="bullet-box ${boxCls}"><h4>${conTitle}</h4><ul>${consHtml}</ul></div>
-  `;
+  document.querySelectorAll('[data-pick-front]').forEach(card => {
+    card.addEventListener('click', () => {
+      CFG.front = card.dataset.pickFront;
+      syncButtons();
+      renderAll();
+    });
+  });
 }
 
-function updateTopUI() {
-  const single = document.getElementById('singleTop');
-  const comp4 = document.getElementById('comp4Box');
-  const cad = document.getElementById('cadBox');
-  const toggles = document.getElementById('topToggles');
-
-  single.classList.add('hidden');
-  comp4.classList.add('hidden');
-  cad.classList.add('hidden');
-  toggles.classList.remove('hidden');
-
-  if (TOP.view === 'CAD') {
-    cad.classList.remove('hidden');
-    toggles.classList.add('hidden');
-  } else if (TOP.view === 'ALL') {
-    comp4.classList.remove('hidden');
-    document.getElementById('miniS1').innerHTML = renderTop('S1', TOP);
-    document.getElementById('miniS2').innerHTML = renderTop('S2', TOP);
-    document.getElementById('miniA').innerHTML = renderTop('A', TOP);
-    document.getElementById('miniB').innerHTML = renderTop('B', TOP);
-  } else {
-    single.classList.remove('hidden');
-    document.getElementById('topSvg').innerHTML = renderTop(TOP.view, TOP);
-    renderTopDiag(TOP.view);
-  }
+function syncButtons() {
+  document.querySelectorAll('.seg').forEach(seg => {
+    const key = seg.dataset.key;
+    seg.querySelectorAll('button').forEach(btn => {
+      const val = key === 'width' ? Number(btn.dataset.val) : btn.dataset.val;
+      const on = CFG[key] === val;
+      btn.classList.toggle('active', on);
+      btn.classList.toggle('ok', on && !(key === 'front' && val === 'E1R'));
+      btn.classList.toggle('purple', on && key === 'front' && val === 'E1R');
+    });
+  });
 }
 
-// Events — Elevation
-document.querySelectorAll('[data-elev]').forEach(btn => {
+function renderAll() {
+  document.getElementById('sideSvg').innerHTML = drawSide(CFG);
+  document.getElementById('topSvg').innerHTML = drawTop(CFG);
+  document.getElementById('frontSvg').innerHTML = drawFront(CFG);
+  renderScorecard(CFG);
+  renderFront3(CFG);
+}
+
+// Segment clicks
+document.querySelectorAll('.seg button').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-elev]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    ELEV.tab = btn.dataset.elev;
-    updateElevUI();
+    const key = btn.parentElement.dataset.key;
+    CFG[key] = key === 'width' ? Number(btn.dataset.val) : btn.dataset.val;
+    syncButtons();
+    renderAll();
   });
-});
-[['eCargo','cargo'],['e3D','show3D'],['e2D','show2D'],['eRGBD','showRGBD'],['eOldB','showOldB']].forEach(([id,k]) => {
-  document.getElementById(id).addEventListener('change', e => { ELEV[k] = e.target.checked; updateElevUI(); });
 });
 
-// Events — Top View
-document.querySelectorAll('[data-view]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-view]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    TOP.view = btn.dataset.view;
-    updateTopUI();
-  });
+// Toggles
+[['tCargo','cargo'],['tOverhang','overhang'],['tBump','bump'],['tSweep','sweep']].forEach(([id,k]) => {
+  document.getElementById(id).addEventListener('change', e => { CFG[k] = e.target.checked; renderAll(); });
 });
-[['chkPallet','pallet'],['chk2D','show2D'],['chk3D','show3D'],['chkRGBD','showRGBD'],['chkBlind','showBlind'],['chkSweep','showSweep']].forEach(([id,k]) => {
-  document.getElementById(id).addEventListener('change', e => { TOP[k] = e.target.checked; updateTopUI(); });
+
+// Presets
+const PRESETS = {
+  p1: { width: 1200, front: 'E1R',  tower: 'T3D', low2d: 'DIAG2' },
+  p2: { width: 1200, front: 'E1R',  tower: 'T2D', low2d: 'DIAG2' },
+  p3: { width: 1200, front: 'RGBD', tower: 'T2D', low2d: 'DIAG2' },
+  p4: { width: 1200, front: 'E1R',  tower: 'T2D', low2d: 'TRI3'  }
+};
+document.querySelectorAll('[data-preset]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    Object.assign(CFG, PRESETS[btn.dataset.preset]);
+    syncButtons();
+    renderAll();
+  });
 });
 
 document.getElementById('themeBtn').addEventListener('click', () => {
-  const root = document.documentElement;
-  const dark = root.getAttribute('data-theme') === 'dark';
-  root.setAttribute('data-theme', dark ? 'light' : 'dark');
-  document.getElementById('themeBtn').textContent = dark ? '다크 모드' : '라이트 모드';
+  const r = document.documentElement;
+  const dark = r.getAttribute('data-theme') === 'dark';
+  r.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = dark ? '다크' : '라이트';
 });
 
-updateElevUI();
-updateTopUI();
+syncButtons();
+renderAll();
 </script>
 </body>
 </html>
