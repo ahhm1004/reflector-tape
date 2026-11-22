@@ -308,8 +308,8 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
           <span class="s-title">① 하부 대각 2D LiDAR</span>
           <span class="s-qty cyan">× 2대</span>
         </div>
-        <div class="s-spec">좌하 + 우상 · Z=115 mm · 안쪽 35 mm 슬롯</div>
-        <p class="s-desc"><strong>360° 저상 PLd 안전 + 하부 반사판 백업.</strong> <code>SICK nanoScan3 Pro</code>(0.17°·RSSI) 호환 슬롯 → 0~61 cm 테이프 시 <strong>적재 중에도 전방 반사판 직시</strong>.</p>
+        <div class="s-spec">양산: SICK nanoScan3 Pro · 시제품: Focusray 0.1° / FreeOptics C2</div>
+        <p class="s-desc"><strong>좌하+우상 · Z=115 mm · 안쪽 35 mm 슬롯.</strong> 360° 저상 안전 + 0~61 cm 반사판 백업. 슬롯은 <strong>nanoScan3(106×106×80)</strong> 호환 치수.</p>
       </div>
 
       <div class="s-card purple">
@@ -317,8 +317,8 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
           <span class="s-title">② 전방 등뼈 광각 3D</span>
           <span class="s-qty purple">× 1대</span>
         </div>
-        <div class="s-spec">중앙 등뼈 끝 · Z=140 mm · 위로 +10°</div>
-        <p class="s-desc"><strong>적재 중 전방 오버행(2.28 m) + 정중앙 3D 팔레트 인식.</strong> <code>E1R</code>급(120°×90°, Min 0.1 m, IP67·이더넷). 포크(Z=95) 위라 <strong>가림 0%</strong>.</p>
+        <div class="s-spec">1픽: RoboSense E1R (대안: Livox Mid-360)</div>
+        <p class="s-desc"><strong>등뼈 끝 · Z=140 mm · 위로 +10° · 포크 가림 0%.</strong> 적재 중 전방 오버행(2.28 m) + 정중앙 3D 팔레트 인식(120°×90°, Min 0.1 m, IP67).</p>
       </div>
 
       <div class="s-card warn">
@@ -326,17 +326,17 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
           <span class="s-title">③ 뒤 타워 고정밀 3D</span>
           <span class="s-qty warn">× 1대</span>
         </div>
-        <div class="s-spec">타워 중앙 · Z=520 mm · 지붕(590) 아래</div>
-        <p class="s-desc"><strong>후진·측면 오버행 3D 회피 + 다중 링 반사판 SLAM.</strong> <strong>수평 ≤0.18° + 보정 반사율</strong>(<code>Hesai XT16/XT32</code>급 · <code>Ouster OS0</code>) → <code>H530</code> 가상 2D 호환.</p>
+        <div class="s-spec">가성비: Hesai XT16/XT32 · 고성능: Ouster OS0-32</div>
+        <p class="s-desc"><strong>타워 중앙 · Z=520 mm · 지붕(590) 아래.</strong> 후진·측면 오버행 3D + <strong>≤0.18° 보정 반사율</strong>로 30~61 cm 다중 링 반사판 &amp; <code>H530</code> 호환.</p>
       </div>
 
       <div class="s-card ok">
         <div class="s-head">
-          <span class="s-title">④ 필수 안전 보조</span>
+          <span class="s-title">④ 보조·안전·연산</span>
           <span class="s-qty ok">공통 1식</span>
         </div>
-        <div class="s-spec">포크 끝 ToF×2 · 범퍼/STO · 6축 IMU</div>
-        <p class="s-desc">포크 1250 mm 신축 중 <strong>포켓 내부 충돌 정지</strong> + 접촉 범퍼(Z=46~81)·독립 STO 직결 + 6축 IMU(≥200 Hz, PTP 동기).</p>
+        <div class="s-spec">SICK WTB4FP · Xsens MTi-630 · Pilz/Flexi Soft · Orin NX</div>
+        <p class="s-desc">포크 끝 매립 광전×2 + Tuofei 와이어 + Mayser 범퍼/STO + 6축 IMU(PTP) + Moxa PTP 스위치 + Orin NX/산업용 x86.</p>
       </div>
     </div>
 
@@ -359,8 +359,8 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
       <div class="opt-group">
         <span class="opt-label">보기 모드:</span>
         <button class="opt-btn active" data-mode="BASE" type="button">★ 최종 확정안 (4대 풀 3D + 반사판)</button>
-        <button class="opt-btn" data-mode="OPT_T2D" type="button">원가 대안: 타워 고정밀 2D (후진 3D 생략)</button>
-        <button class="opt-btn" data-mode="OPT_RGBD" type="button">턱 대안: 전방 광각 RGB-D (20mm 턱)</button>
+        <button class="opt-btn" data-mode="OPT_T2D" type="button">원가 대안: 타워 2D (FreeOptics R2 / Focusray 0.1°)</button>
+        <button class="opt-btn" data-mode="OPT_RGBD" type="button">턱 대안: 전방 광각 RGB-D (ZED X Mini)</button>
         <button class="opt-btn" data-mode="OPT_LIBD" type="button">무수정 대안: 5대 (libdetect 무수정)</button>
       </div>
       <div class="opt-group">
@@ -371,16 +371,16 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
     </div>
 
     <div class="sub-title">
-      <span>① 1:1 등축 측면도 (전방 E1R 3D + 뒤 타워 XT/OS0 3D + 하부 대각 2D · 전·후방 오버행 모두 초록 통과!)</span>
+      <span>① 1:1 등축 측면도 (전방 RoboSense E1R + 뒤 타워 Hesai XT16/XT32·Ouster OS0 + 하부 SICK nanoScan3 Pro · 전·후방 오버행 모두 초록 통과!)</span>
       <span>X·Z 동일 축척 · 돌출 0 mm</span>
     </div>
     <div class="canvas-box">
       <svg id="sideSvg" viewBox="0 0 980 410" aria-label="최종 확정안 1:1 등축 측면도"></svg>
       <div class="legend-bar">
         <span class="lg-item"><span class="lg-rect" style="background:transparent;border:1.5px dashed #22c55e"></span>외곽 한계선 (돌출 0 mm)</span>
-        <span class="lg-item"><span class="lg-rect" style="background:#a855f7"></span>전방 등뼈 광각 3D (E1R급, +10°)</span>
-        <span class="lg-item"><span class="lg-dot" style="background:#facc15"></span>뒤 타워 고정밀 3D (XT32/OS0급, Z=520)</span>
-        <span class="lg-item"><span class="lg-dot" style="background:#38bdf8"></span>하부 대각 매립 2D (nanoScan3 호환, Z=115)</span>
+        <span class="lg-item"><span class="lg-rect" style="background:#a855f7"></span>전방 등뼈 광각 3D (RoboSense E1R, +10°)</span>
+        <span class="lg-item"><span class="lg-dot" style="background:#facc15"></span>뒤 타워 고정밀 3D (Hesai XT16/XT32 · Ouster OS0, Z=520)</span>
+        <span class="lg-item"><span class="lg-dot" style="background:#38bdf8"></span>하부 대각 매립 2D (SICK nanoScan3 Pro · FreeOptics C2 · Focusray 0.1°, Z=115)</span>
         <span class="lg-item"><span class="lg-rect" style="background:rgba(250,204,21,0.38);border:1px solid #facc15"></span>기둥 반사판 0~61 cm (이중 판독)</span>
         <span class="lg-item"><span class="lg-rect" style="background:rgba(245,158,11,0.35);border:1px dashed #f59e0b"></span>적재 화물</span>
       </div>
@@ -487,7 +487,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
         <svg viewBox="0 0 380 280" aria-label="하부 대각 2D 매립 슬롯 단면">
           <rect width="380" height="280" fill="#0b1220"/>
           <text x="14" y="22" fill="#7dd3fc" font-size="12.5" font-weight="800">① 하부 대각 2D 슬롯 (Z=115 mm)</text>
-          <text x="14" y="38" fill="#94a3b8" font-size="10.2">nanoScan3 Pro(106×106×80 · 0.17° RSSI)</text>
+          <text x="14" y="38" fill="#94a3b8" font-size="10.2">SICK nanoScan3 Pro (호환: FreeOptics C2 / Focusray 0.1°)</text>
           <line x1="228" y1="50" x2="228" y2="262" stroke="#22c55e" stroke-width="1.8" stroke-dasharray="5 4"/>
           <text x="234" y="62" fill="#4ade80" font-size="9.8" font-weight="800">외곽 한계(돌출 0)</text>
           <rect x="28" y="68" width="200" height="28" fill="#334155" stroke="#cbd5e1" stroke-width="1.4"/>
@@ -515,7 +515,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
         <svg viewBox="0 0 380 280" aria-label="전방 중앙 등뼈 끝 광각 3D 매립 단면">
           <rect width="380" height="280" fill="#0b1220"/>
           <text x="14" y="22" fill="#d8b4fe" font-size="12.5" font-weight="800">② 전방 등뼈 끝 광각 3D (Z=140 mm)</text>
-          <text x="14" y="38" fill="#94a3b8" font-size="10.2">E1R급 (70×35×75 mm) · +10° · 포크 가림 0%</text>
+          <text x="14" y="38" fill="#94a3b8" font-size="10.2">RoboSense E1R (70×35×75 mm) · +10° · 포크 가림 0%</text>
           <line x1="196" y1="50" x2="196" y2="262" stroke="#22c55e" stroke-width="1.8" stroke-dasharray="5 4"/>
           <text x="202" y="62" fill="#4ade80" font-size="9.8" font-weight="800">외곽 한계</text>
           <rect x="24" y="114" width="172" height="114" rx="4" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
@@ -540,7 +540,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
         <svg viewBox="0 0 380 280" aria-label="뒤쪽 상단 타워 고정밀 3D 매립 단면">
           <rect width="380" height="280" fill="#0b1220"/>
           <text x="14" y="22" fill="#fde047" font-size="12.5" font-weight="800">③ 뒤 타워 고정밀 3D (Z=520 mm)</text>
-          <text x="14" y="38" fill="#94a3b8" font-size="10.2">XT16/XT32(0.18° · +5~10°) · OS0(0.176°)</text>
+          <text x="14" y="38" fill="#94a3b8" font-size="10.2">Hesai XT16/XT32(0.18° · +5~10°) · Ouster OS0-32(0.176°)</text>
           <line x1="232" y1="50" x2="232" y2="262" stroke="#22c55e" stroke-width="1.8" stroke-dasharray="5 4"/>
           <line x1="20" y1="66" x2="248" y2="66" stroke="#22c55e" stroke-width="1.4" stroke-dasharray="5 4"/>
           <text x="238" y="62" fill="#4ade80" font-size="9.6" font-weight="800">타워 외곽(Z=590)</text>
@@ -568,94 +568,130 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
     </div>
   </section>
 
-  <!-- SAFETY LIDAR VS STANDARD -->
+  <!-- SAFETY LIDAR VS STANDARD + REAL BENCHMARK OF GENERAL 2D -->
   <section class="section" id="safety">
     <div class="section-head">
-      <h2>4. 안전용 라이다 vs 일반 라이다 차이 &amp; 단계별 교체 전략</h2>
-      <span class="section-desc">PC가 멈춰도 모터 전원을 하드웨어로 직접 끊는 Fail-Safe(PLd/STO) 여부</span>
+      <h2>4. 하부 2D 라이다 선정: 일반용(실측 비교) vs 안전용(PLd)</h2>
+      <span class="section-desc">코스메카 실측 기준 일반용 2D 반사판 성능 비교 + 안전용(Fail-Safe/STO) 전환 전략</span>
     </div>
-    <div class="table-wrap">
+    <div class="table-wrap" style="margin-bottom:14px">
       <table>
         <thead>
           <tr>
-            <th style="width:18%">구분</th>
-            <th style="width:41%">일반 2D 라이다 *(Focusray · Vanjee · Hokuyo UST)*</th>
-            <th style="width:41%">안전용 2D 라이다 *(SICK nanoScan3 Pro · Hokuyo UAM)*</th>
+            <th style="width:18%">구분 / 추천 모델명</th>
+            <th style="width:17%">분해능 · 거리</th>
+            <th style="width:24%">5 cm 반사판 인식 성능 (실측)</th>
+            <th style="width:24%">특징 · 안전 정지</th>
+            <th style="width:17%">추천 용도</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>정지 방식</strong></td>
-            <td>메인 PC(SW)로 스캔만 전송 → PC 멈춤·버그 시 충돌 위험.</td>
-            <td class="hi-ok"><span class="badge ok">Fail-Safe 하드웨어 직결</span><br>내부 이중 MCU → <strong>OSSD → Safety Relay → 서보 STO</strong>로 0.06~0.08초 강제 정지.</td>
+            <td><strong>[일반 1픽 · SW 무수정]</strong><br><strong>Focusray 0.1°</strong><br><small>(기존 L-type 타워 동일품)</small></td>
+            <td>270° · <strong>0.1°</strong><br>30 Hz · 40 m</td>
+            <td><strong>✅ 6~8 m 100% 분리 검증</strong><br><small>※ 주의: 기존 T10 하부 저가형(0.333°)이 아닌 타워용 0.1°(2701점) 사용 필수</small></td>
+            <td>기존 <code>oneweave-native</code> 드라이버 100% 무수정 즉시 사용. 비안전형(SW 정지).</td>
+            <td><span class="badge info">시제품 즉시 호환</span><br><small>명판 품번 확인 발주</small></td>
           </tr>
           <tr>
-            <td><strong>인증 · 반사판</strong></td>
-            <td>안전 인증 없음. 모델에 따라 반사 강도 편차 큼.</td>
-            <td class="hi-ok"><strong>PLd / SIL2 / Type 3</strong> 인증 · 렌즈 오염 시 강제 정지 + <strong>0.17° RSSI 반사판 출력</strong> 겸용.</td>
+            <td><strong>[일반 1픽 · 반사판 최고]</strong><br><strong>FreeOptics C2 / R2</strong><br><small>(C2: 50×76×50mm, 130g)</small></td>
+            <td>270° · <strong>0.1°</strong><br>30 Hz · 45 m</td>
+            <td class="hi-ok"><strong>✅ 코스메카 실측 1위!</strong><br>12-bit(0~4095) 밝기로 <strong>8.9 m 3줄 40/40 완벽 분리</strong>(T10 타워보다 우수, 41 m까지 감지)</td>
+            <td class="hi-ok">초소형(50×76×50 mm)·저전력(≤3 W)·IP65/TCP + I/O 16×3. <br><strong>⚠ 같은 사 <code>H1</code>은 8-bit 오버플로우(255→0)로 반사판 금지!</strong></td>
+            <td class="hi-ok"><span class="badge ok">일반용 성능 최강</span><br><small>가성비 + 초소형</small></td>
           </tr>
           <tr>
-            <td><strong>단가 (대당)</strong></td>
-            <td>약 <strong>30 ~ 150만 원</strong></td>
-            <td class="hi-ok">약 <strong>250 ~ 550만 원</strong> *(+ Safety Relay/PLC · STO 서보)*</td>
+            <td><strong>[양산 · 안전용 1픽]</strong><br><strong>SICK nanoScan3 Pro I/O</strong><br><small>(NANS3-CAAZ30AN1)<br>대안: Hokuyo UAM-05LP-T301</small></td>
+            <td>275° · <strong>0.17°</strong><br>~25~33 Hz · 40 m</td>
+            <td class="hi-ok"><strong>✅ 0.17° + 이더넷 RSSI 출력</strong><br>8 m서 2.4 cm 간격 → 0~61 cm 반사판 전방 적재 백업 겸용</td>
+            <td class="hi-ok"><span class="badge ok">PLd / SIL2 / Type 3 인증</span><br>PC가 죽어도 <strong>OSSD → Safety Relay → STO</strong> 0.06~0.08초 하드웨어 정지 + 오염 자동 감지.</td>
+            <td class="hi-ok"><span class="badge ok">양산 · 대기업 납품</span><br><small>~250~550만/대</small></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="tip-box">
-      <strong>💡 이중 투자 방지 설계:</strong> 시제품을 일반 2D로 먼저 만들더라도 <strong>하부 대각 슬롯을 <code>SICK nanoScan3 Pro</code>(106×106×80 mm) 치수로 사전 가공</strong>해 두면, 양산·대기업 납품 시 차체 수정 없이 나사만 풀어 안전용으로 바로 업그레이드됩니다.
+      <strong>💡 이중 투자 방지 설계:</strong> 초기 시제품을 <strong>Focusray 0.1°(타워 동일품)</strong> 또는 <strong>FreeOptics C2/R2</strong>로 시작하더라도, <strong>하부 대각 슬롯만 <code>SICK nanoScan3 Pro</code>(106×106×80 mm) 치수로 사전 가공</strong>해 두면 양산·대기업 납품 시 차체 수정 없이 바로 교체됩니다.
     </div>
   </section>
 
-  <!-- BOM & CHECKLIST -->
+  <!-- FULL MODEL-BY-MODEL BOM & CHECKLIST -->
   <section class="section" id="bom">
     <div class="section-head">
-      <h2>5. 최종 부품 구성표(BOM) &amp; 기구·전장 전달 체크리스트</h2>
-      <span class="section-desc">동일한 차체·매립 포켓 위에서 시제품(Tier 1) → 양산 PLd(Tier 2) 단계적 업그레이드</span>
+      <h2>5. 전 슬롯 추천 모델명 풀 BOM (시제품 Tier 1 vs 양산 PLd Tier 2) &amp; 전달 체크리스트</h2>
+      <span class="section-desc">주센서 4대부터 포크 센서 · IMU · 안전 릴레이 · 컴퓨팅 · PTP 스위치까지 빠짐없이 모델명 확정</span>
     </div>
 
     <div class="table-wrap" style="margin-bottom:16px">
       <table>
         <thead>
           <tr>
-            <th style="width:18%">위치</th>
-            <th style="width:31%">Tier 1 — 시제품 · 검증형</th>
-            <th style="width:31%">Tier 2 — 양산 · 납품(PLd)형</th>
-            <th style="width:20%">비고 / 조건부 대안</th>
+            <th style="width:17%">품목 / 위치</th>
+            <th style="width:28%">★ 1픽 추천 모델명 (양산 기준)</th>
+            <th style="width:28%">시제품 / 가성비 · 대체 모델명</th>
+            <th style="width:27%">핵심 사양 · 선정 근거</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>① 하부 대각 2D × 2</strong><br>(Z=115, 안쪽 35 mm)</td>
-            <td><strong>일반 2D × 2</strong> *(270°, 25 Hz)*<br><small>※ 슬롯은 nanoScan3 치수 사전 가공</small></td>
-            <td class="hi-ok"><strong>안전용 2D × 2</strong> *(SICK nanoScan3 Pro, 0.17° RSSI)* + <strong>Safety Relay/STO</strong></td>
-            <td><code>0~61 cm</code> 테이프 적용 시 적재 전방 반사판 백업</td>
+            <td class="hi-ok"><strong>SICK nanoScan3 Pro I/O</strong><br><small>(NANS3-CAAZ30AN1, PLd/SIL2)</small></td>
+            <td>• SW 무수정: <strong>Focusray 0.1°</strong> <small>(T10 타워 동일품)</small><br>• 반사판 최고: <strong>FreeOptics C2 / R2</strong> <small>(⚠ H1 금지)</small><br>• 안전 대안: <strong>Hokuyo UAM-05LP-T301</strong></td>
+            <td>270~275°, ≤0.17°, 반사강도(RSSI) 지원.<br>360° 저상 안전 + 0~61 cm 적재 전방 반사판 백업.</td>
           </tr>
           <tr>
-            <td><strong>② 전방 등뼈 × 1</strong><br>(Z=140, 위로 +10°)</td>
-            <td colspan="2" class="hi-pri"><strong>고정형 광각 3D × 1</strong> *(RoboSense E1R급, 120°×90°, Min 0.1 m, IP67, 이더넷)*<br>적재 중 전방 오버행(2.28 m) + 20 cm 앞 바닥 + 정중앙 3D 팔레트 인식(포크 가림 0%)</td>
-            <td>20 mm 턱 필수 시에만 광각 RGB-D(<code>ZED X Mini</code>)</td>
+            <td><strong>② 전방 등뼈 3D × 1</strong><br>(Z=140, 위로 +10°)</td>
+            <td class="hi-pri"><strong>RoboSense E1R</strong><br><small>(고체형 120°×90°, 70×35×75 mm)</small></td>
+            <td>• 소형 회전 대안: <strong>Livox Mid-360</strong> <small>(-15° 틸트)</small><br>• 20 mm 턱 필수 시: <strong>Stereolabs ZED X Mini (2.2 mm)</strong> 또는 <strong>LUCID Helios2 Wide</strong></td>
+            <td>Min 0.1 m, IP67/IP69K, Ethernet.<br>적재 중 전방 오버행(2.28 m) + 정중앙 3D 팔레트 인식(포크 가림 0%).</td>
           </tr>
           <tr>
-            <td><strong>③ 뒤 타워 × 1</strong><br>(Z=520, 지붕 590 아래)</td>
-            <td colspan="2" class="hi-ok"><strong>고정밀 회전 3D × 1</strong> *(가성비: <strong>Hesai XT16/XT32</strong> 0.18° · +5~10° / 고성능: <strong>Ouster OS0</strong> 0.176° · 90°)*<br>후진·측면 오버행 3D 회피 + 30~61 cm 다중 링 반사판 + <code>H530</code> 가상 2D SLAM</td>
-            <td>후진 오버행 불필요 시 고정밀 2D(0.1°)로 원가 절감</td>
+            <td><strong>③ 뒤 타워 3D × 1</strong><br>(Z=520, 지붕 590 아래)</td>
+            <td class="hi-ok"><strong>Hesai XT16</strong> 또는 <strong>Hesai XT32</strong><br><small>(0.18°@10Hz, +5~10° 틸트)</small></td>
+            <td>• 고성능(90° 광각): <strong>Ouster OS0-32 / OS0-64</strong> <small>(2048모드 0.176°)</small><br>• 원가절감(후진3D 생략): <strong>FreeOptics R2 / Focusray 0.1°</strong><br>• <s>RoboSense Airy / Hesai JT128 (0.40° 반사판 탈락)</s></td>
+            <td><strong>수평 ≤0.18° + 보정 반사율 + PTP</strong>.<br>후진 오버행 + 3~5개 다중 링 반사판 + <code>H530</code> 가상 2D SLAM.</td>
           </tr>
           <tr>
-            <td><strong>④ 필수 보조 · 연산</strong></td>
-            <td colspan="3"><strong>포크 끝단 매립 ToF/광전 × 2</strong> + 화물 안착/스트로크 + <strong>범퍼(Z=46~81)/STO</strong> + <strong>6축 IMU(≥200 Hz, PTP)</strong> + <strong>Jetson Orin NX / 산업용 x86</strong> + <strong>물리 NIC 분리(센서 PTP 스위치 vs 제어망)</strong></td>
+            <td><strong>④ 포크 끝단 감지 × 2</strong><br>(좌·우 포크 선단 매립)</td>
+            <td><strong>SICK WTB4FP-22161120A00</strong><br><small>(초소형 배경억제 광전, IP67)</small></td>
+            <td>• 대안: <strong>Keyence LR-TB2000C</strong> / <strong>Omron E3Z-LS61</strong><br>• 화물 안착×2: <strong>Omron E3Z-D82</strong> / <strong>Autonics BJ100-DDT</strong></td>
+            <td>0.02~0.8 m, 24 V PNP/NPN, 검정 팔레트 강인.<br>포크 1250 mm 신축 중 포켓 내부 충돌 정지.</td>
+          </tr>
+          <tr>
+            <td><strong>⑤ 포크 길이 센서 × 1</strong><br>(와이어 엔코더)</td>
+            <td><strong>Tuofei (拓飞) 와이어 센서</strong><br><small>(기존 T10 동일 Modbus RTU)</small></td>
+            <td>• 산업용 대체: <strong>SICK BTF08</strong> / <strong>Turck WDS</strong></td>
+            <td>스트로크 ≥1300 mm. 기존 T10 Modbus reg <code>0x4A</code> 호환 유지 시 SW 무수정.</td>
+          </tr>
+          <tr>
+            <td><strong>⑥ 6축 산업용 IMU × 1</strong><br>(차체 중심 강성 마운트)</td>
+            <td><strong>Xsens MTi-630</strong><br><small>(200~400 Hz, IP68, CAN/UART)</small></td>
+            <td>• 대안: <strong>MicroStrain 3DM-CV7-AHRS</strong><br>• 가성비: <strong>Wheeltec HFI-A9 / N100</strong></td>
+            <td>3D LiDAR 모션 왜곡 보정(Deskew) 및 회전 오도메트리 융합 필수.</td>
+          </tr>
+          <tr>
+            <td><strong>⑦ 안전 제어 · 범퍼</strong><br>(STO 하드와이어)</td>
+            <td class="hi-ok"><strong>SICK Flexi Soft (FX3-CPU3)</strong><br>+ <strong>Mayser SL/W</strong> 안전 범퍼 띠</td>
+            <td>• 시제품 심플 STO: <strong>Pilz PNOZ s4</strong> (또는 <strong>SICK ReLy OSSD2</strong>)<br>• 안전 PLC 대안: <strong>Pilz PNOZmulti 2 (m B0)</strong><br>• 범퍼 대안: <strong>ASO Sentir</strong></td>
+            <td>비상정지·범퍼(Z=46~81)·nanoScan3 OSSD를 서보 <strong>STO 단자에 직결</strong>(Kinco DI 의존 폐기).</td>
+          </tr>
+          <tr>
+            <td><strong>⑧ 메인 PC · PTP 스위치</strong><br>(센서망/제어망 분리)</td>
+            <td><strong>Jetson Orin NX 16 GB</strong> 캐리어<br><small>(Advantech MIC-711-ON)</small><br>+ <strong>Moxa EDS-G2008-ELP</strong> (PTP)</td>
+            <td>• x86 대안: <strong>Advantech ARK-3534</strong> / <strong>Neousys Nuvo-9000</strong> (Core i5/i7, 듀얼 2.5 GbE)<br>• 스위치 대안: <strong>Moxa EDS-4008</strong> (IEEE 1588)</td>
+            <td>3D×2 + 2D×2 점군 연산(기존 i.MX8MP 불가) + <strong>PTP 시각 동기</strong> + <code>eth0</code>(센서)/<code>eth1</code>(제어) 분리.</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="chk-grid">
-      <div class="chk"><span class="chk-n">1</span><div><h4>하부 슬롯: nanoScan3 호환(110×110×85) + 3점 레벨링</h4><p>좌하·우상 코너 외곽 안쪽 35 mm 매립, ±0.1° 수평 미세조절 볼트로 바닥 맞음 원천 차단.</p></div></div>
-      <div class="chk"><span class="chk-n">2</span><div><h4>등뼈 앞끝: E1R급(+10°) 경사 포켓 + 충전접점 분리</h4><p>290 mm 등뼈 맨 앞 Z=140 mm 수납, 상방 +55°·하방 -35° 광선과 충전 접점(Z=85~125) 간섭 제로 확인.</p></div></div>
-      <div class="chk"><span class="chk-n">3</span><div><h4>뒤 타워 중앙: 경사 지붕(Z=590) 아래 Z=520 매립</h4><p>XT16/XT32(또는 OS0) 수납 + 지붕 앞뒤 경사 절삭으로 후진 상방 오버행 FOV 확보 및 H530(451~600 mm) 유지.</p></div></div>
+      <div class="chk"><span class="chk-n">1</span><div><h4>하부 슬롯: SICK nanoScan3 Pro 호환(110×110×85) + 3점 레벨링</h4><p>좌하·우상 코너 외곽 안쪽 35 mm 매립(시제품 FreeOptics C2 / Focusray 0.1° 공용), ±0.1° 수평 볼트로 바닥 맞음 차단.</p></div></div>
+      <div class="chk"><span class="chk-n">2</span><div><h4>등뼈 앞끝: RoboSense E1R(+10°) 경사 포켓 + 충전접점 분리</h4><p>290 mm 등뼈 맨 앞 Z=140 mm 수납, 상방 +55°·하방 -35° 광선과 충전 접점(Z=85~125) 간섭 제로 확인.</p></div></div>
+      <div class="chk"><span class="chk-n">3</span><div><h4>뒤 타워 중앙: 경사 지붕(Z=590) 아래 Z=520 매립</h4><p>Hesai XT16/XT32(또는 Ouster OS0-32) 수납 + 지붕 앞뒤 경사 절삭으로 후진 상방 오버행 FOV 확보 및 H530(451~600 mm) 유지.</p></div></div>
       <div class="chk"><span class="chk-n">4</span><div><h4>SW 어댑터 2건: 가상 2D 반사판 + 등뼈 3D 팔레트</h4><p>① 타워 3D의 0° 부근 링(Z=460~560)을 기존 <code>oneweave-native</code> 반사판/SLAM에 입력, ② 전방 등뼈 3D를 팔레트 인식에 연결.</p></div></div>
-      <div class="chk"><span class="chk-n">5</span><div><h4>출고 전 8 m 반사판 코드 1회 벤치마크</h4><p>선정한 타워 3D(<code>XT16/XT32</code> 또는 <code>OS0</code>)로 8 m 거리 5 cm 반사 코드(13/17/21/25 cm 간격) 분리율 사전 확인.</p></div></div>
-      <div class="chk"><span class="chk-n">6</span><div><h4>안전 배선: 독립 Safety Relay / STO 직결 + PTP 동기</h4><p>비상정지·범퍼(·양산 시 nanoScan3 OSSD)는 Kinco DI 의존 없이 서보 STO 직결. 3D×2+IMU는 IEEE 1588 PTP 동기화.</p></div></div>
+      <div class="chk"><span class="chk-n">5</span><div><h4>출고 전 8 m 반사판 코드 1회 벤치마크</h4><p>선정한 타워 3D(<code>Hesai XT16/XT32</code> 또는 <code>Ouster OS0-32</code>)로 8 m 거리 5 cm 반사 코드(13/17/21/25 cm 간격) 분리율 사전 확인.</p></div></div>
+      <div class="chk"><span class="chk-n">6</span><div><h4>안전 배선: SICK Flexi Soft / Pilz PNOZ s4 STO 직결 + PTP 동기</h4><p>비상정지·Mayser 범퍼·nanoScan3 OSSD는 서보 STO 직결. 3D×2 + Xsens MTi-630은 Moxa EDS-G2008-ELP로 PTP 동기화.</p></div></div>
     </div>
   </section>
 
@@ -753,17 +789,17 @@ function drawSide(c) {
     } else {
       out += `<line x1="${xT}" y1="${yT}" x2="${xTowEnd + 8}" y2="${yT}" stroke="#ef4444" stroke-width="1.8"/>`;
     }
-    out += `<text x="178" y="${yT - 12}" fill="#fde047" font-size="10" font-weight="800" text-anchor="middle">③ 타워 3D (0.18° · 다중 링 반사판)</text>`;
+    out += `<text x="178" y="${yT - 12}" fill="#fde047" font-size="9.8" font-weight="800" text-anchor="middle">③ Hesai XT32 / OS0 (0.18° · 다중 링)</text>`;
   } else {
     out += `<line x1="${xT}" y1="${yT}" x2="66" y2="${yT}" stroke="#38bdf8" stroke-width="2.4"/>`;
-    out += `<text x="178" y="${yT - 8}" fill="#7dd3fc" font-size="10" font-weight="800" text-anchor="middle">대안: 타워 2D (0.1° · 후진3D 없음)</text>`;
+    out += `<text x="178" y="${yT - 8}" fill="#7dd3fc" font-size="9.6" font-weight="800" text-anchor="middle">대안: FreeOptics R2 / Focusray 0.1°</text>`;
   }
 
   // Lower 2D Safety Plane (Z=115, hits 0~61cm reflector on BOTH front & rear!)
   const y2D = yZ(115);
   out += `<line x1="${xF - 5}" y1="${y2D}" x2="903" y2="${y2D}" stroke="#38bdf8" stroke-width="2" stroke-dasharray="6 3"/>`;
   out += `<line x1="${xR + 5}" y1="${y2D}" x2="66" y2="${y2D}" stroke="#38bdf8" stroke-width="2" stroke-dasharray="6 3"/>`;
-  out += `<text x="178" y="${y2D - 7}" fill="#7dd3fc" font-size="9.8" font-weight="800" text-anchor="middle">① 하부 2D (Z=115 · 0.17° RSSI 백업)</text>`;
+  out += `<text x="178" y="${y2D - 7}" fill="#7dd3fc" font-size="9.5" font-weight="800" text-anchor="middle">① SICK nanoScan3 Pro / C2 (Z=115)</text>`;
 
   // Front Spine Sensor (xS = xF - 7)
   const xS = xF - 7;
@@ -772,13 +808,13 @@ function drawSide(c) {
     const xUpTop = +(xS + (yS - 34) / Math.tan(55 * Math.PI / 180)).toFixed(1);
     const xFlr = +(xS + (fY - yS) / Math.tan(35 * Math.PI / 180)).toFixed(1);
     out += `<polygon points="${xS},${yS} ${xUpTop},34 903,34 903,${fY} ${xFlr},${fY}" fill="rgba(168,85,247,0.17)" stroke="#c084fc" stroke-width="1.4"/>`;
-    out += `<text x="${xA(960)}" y="${yZ(1860)}" fill="#d8b4fe" font-size="11" font-weight="800">② 전방 등뼈 E1R급 3D (+10°): 상방 +55° / 하방 -35°</text>`;
+    out += `<text x="${xA(960)}" y="${yZ(1860)}" fill="#d8b4fe" font-size="10.8" font-weight="800">② 전방 등뼈 RoboSense E1R (+10°): 상방 +55° / 하방 -35°</text>`;
   } else {
     const yS = yZ(150);
     const xEnd = xA(2400);
     const xFlr = +(xS + (fY - yS) / Math.tan(35 * Math.PI / 180)).toFixed(1);
     out += `<polygon points="${xS},${yS} ${xS + (yS-34)},34 ${xEnd},34 ${xEnd},${fY} ${xFlr},${fY}" fill="rgba(239,68,68,0.15)" stroke="#f87171" stroke-width="1.4"/>`;
-    out += `<text x="${xA(950)}" y="${yZ(1860)}" fill="#fca5a5" font-size="10.8" font-weight="800">대안: 광각 RGB-D (110°×80°, +5° · 20mm 턱)</text>`;
+    out += `<text x="${xA(950)}" y="${yZ(1860)}" fill="#fca5a5" font-size="10.8" font-weight="800">대안: ZED X Mini (110°×80°, +5° · 20mm 턱)</text>`;
     out += `<rect x="${xA(320)}" y="${yZ(30)}" width="22" height="5" fill="#34d399"/>`;
     out += `<text x="${xA(340)}" y="${fY + 31}" fill="#6ee7b7" font-size="10" font-weight="800" text-anchor="middle">✓ 20mm 턱 감지</text>`;
   }
@@ -831,8 +867,8 @@ function drawTop(c) {
   for (let x = 30; x < 460; x += 40) out += `<line x1="${x}" y1="0" x2="${x}" y2="430"/>`;
   for (let y = 30; y < 430; y += 40) out += `<line x1="0" y1="${y}" x2="460" y2="${y}"/>`;
   out += `</g>`;
-  out += `<text x="230" y="18" fill="#fde047" font-size="10.5" font-weight="700" text-anchor="middle">▲ 뒤쪽 상단 타워 3D (Z=520 · 0.18°)</text>`;
-  out += `<text x="230" y="421" fill="#d8b4fe" font-size="10.5" font-weight="700" text-anchor="middle">▼ 앞쪽 등뼈 광각 3D (120° · 포크 가림 0%)</text>`;
+  out += `<text x="230" y="18" fill="${c.tower==='T3D'?'#fde047':'#7dd3fc'}" font-size="10.2" font-weight="700" text-anchor="middle">${c.tower==='T3D'?'▲ 뒤 타워 3D: Hesai XT32 / OS0 (Z=520 · 0.18°)':'▲ 뒤 타워 2D: FreeOptics R2 / Focusray 0.1° (Z=520)'}</text>`;
+  out += `<text x="230" y="421" fill="${c.front==='E1R'?'#d8b4fe':'#fca5a5'}" font-size="10.2" font-weight="700" text-anchor="middle">${c.front==='E1R'?'▼ 전방 등뼈: RoboSense E1R (120° · 포크 가림 0%)':'▼ 전방 등뼈: ZED X Mini (110° · 20mm 턱 감지)'}</text>`;
 
   if (c.sweep) {
     const rMm = Math.hypot(600, 765);
@@ -940,10 +976,10 @@ function dot(x, y, r, fill, lbl) {
 }
 
 const BANNERS = {
-  BASE: ['<strong>★ 최종 확정안 (4대 풀 3D + 반사판 완벽 대응):</strong> 하부 대각 2D×2(360° 안전 · 0.17° RSSI 백업) + 전방 등뼈 E1R급 3D×1(전방 오버행 2.28 m + 팔레트 3D) + 뒤 타워 XT16/XT32·OS0 3D×1(후진 오버행 + 0.18° 다중 링 반사판).', false],
-  OPT_T2D: ['<strong>원가 대안 (타워 고정밀 2D · 4대):</strong> 후진 공중 오버행이 불필요할 때만 타워를 기존 0.1° 2D 항법 라이다로 낮춰 원가·연산 절감.', true],
-  OPT_RGBD: ['<strong>턱 대안 (전방 광각 RGB-D · 4대):</strong> 바닥 20 mm 미세 턱 사전 감지가 필수일 때만 전방 등뼈를 광각 RGB-D(<code>ZED X Mini 110°×80°</code>, +5°)로 교체.', true],
-  OPT_LIBD: ['<strong>무수정 대안 (5대):</strong> 하부 2D를 앞2+뒤1(3대)로 늘려 기존 <code>libdetect</code> 2-라이다 팔레트 인식 코드를 무수정 유지.', true]
+  BASE: ['<strong>★ 최종 확정안 (4대 풀 3D + 반사판 완벽 대응):</strong> 하부 대각 2D×2(<code>SICK nanoScan3 Pro</code> · 시제품 <code>FreeOptics C2 / Focusray 0.1°</code>) + 전방 등뼈 3D×1(<code>RoboSense E1R</code>) + 뒤 타워 3D×1(<code>Hesai XT16/XT32</code> 또는 <code>Ouster OS0-32</code>).', false],
+  OPT_T2D: ['<strong>원가 대안 (타워 고정밀 2D · 4대):</strong> 후진 공중 오버행이 불필요할 때만 타워를 <code>FreeOptics R2 / C2</code> 또는 기존 <code>Focusray 0.1°</code>(타워 동일품)로 낮춰 원가·연산 절감.', true],
+  OPT_RGBD: ['<strong>턱 대안 (전방 광각 RGB-D · 4대):</strong> 바닥 20 mm 미세 턱 사전 감지가 필수일 때만 전방 등뼈를 <code>Stereolabs ZED X Mini (2.2 mm)</code>(또는 <code>LUCID Helios2 Wide</code>)로 교체.', true],
+  OPT_LIBD: ['<strong>무수정 대안 (5대):</strong> 하부 2D(<code>SICK nanoScan3 Pro</code> 또는 <code>FreeOptics C2 / Focusray 0.1°</code>)를 앞2+뒤1(3대)로 늘려 기존 <code>libdetect</code> 2-라이다 팔레트 인식 코드를 무수정 유지.', true]
 };
 
 function render() {
