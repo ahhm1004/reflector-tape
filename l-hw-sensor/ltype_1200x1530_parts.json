@@ -1,0 +1,725 @@
+{
+  "envelope_mm": [
+    1530,
+    1200,
+    590
+  ],
+  "axes": "CAD mm: X=forward(-765..+765), Y=left(-600..+600), Z=up(0..590); glTF m: X=Y, Y=Z, Z=X",
+  "part_count": 51,
+  "parts": [
+    {
+      "name": "pod_main_L",
+      "kind": "chassis",
+      "model": "1200x1530 L-type Pod",
+      "note": "좌측 포드 본체 (Z=46~192 평탄 파레트 적재면)",
+      "bbox_mm": [
+        -545.0,
+        610.0,
+        290.0,
+        585.0,
+        46.0,
+        192.0
+      ]
+    },
+    {
+      "name": "pod_front_in_L",
+      "kind": "chassis",
+      "model": "1200x1530 L-type Pod",
+      "note": "좌측 포드 앞쪽 내측 구조",
+      "bbox_mm": [
+        610.0,
+        750.0,
+        290.0,
+        450.0,
+        46.0,
+        192.0
+      ]
+    },
+    {
+      "name": "pod_slot_roof_L",
+      "kind": "chassis",
+      "model": "1200x1530 L-type Pod",
+      "note": "좌하 2D 슬롯 보호 상판 (Z=162~192)",
+      "bbox_mm": [
+        610.0,
+        750.0,
+        450.0,
+        585.0,
+        162.0,
+        192.0
+      ]
+    },
+    {
+      "name": "pod_slot_floor_L",
+      "kind": "chassis",
+      "model": "1200x1530 L-type Pod",
+      "note": "좌하 2D 슬롯 하판 + 3점 레벨링",
+      "bbox_mm": [
+        610.0,
+        750.0,
+        450.0,
+        585.0,
+        46.0,
+        72.0
+      ]
+    },
+    {
+      "name": "pod_main_R",
+      "kind": "chassis",
+      "model": "1200x1530 L-type Pod",
+      "note": "우측 포드 본체 (Z=46~192 평탄 파레트 적재면)",
+      "bbox_mm": [
+        -545.0,
+        750.0,
+        -585.0,
+        -290.0,
+        46.0,
+        192.0
+      ]
+    },
+    {
+      "name": "center_spine_main",
+      "kind": "chassis",
+      "model": "중앙 고정 등뼈 (폭 290 mm)",
+      "note": "Z=46~174 mm · 좌우 포크(Z=51~95)보다 높아 가림 0%",
+      "bbox_mm": [
+        -545.0,
+        695.0,
+        -145.0,
+        145.0,
+        46.0,
+        174.0
+      ]
+    },
+    {
+      "name": "center_spine_tip_low",
+      "kind": "chassis",
+      "model": "등뼈 선단 하부",
+      "note": "RoboSense E1R 포켓 하부 구조",
+      "bbox_mm": [
+        695.0,
+        750.0,
+        -145.0,
+        145.0,
+        46.0,
+        95.0
+      ]
+    },
+    {
+      "name": "center_spine_tip_L",
+      "kind": "chassis",
+      "model": "등뼈 선단 측벽",
+      "note": "RoboSense E1R 좌우 보호 측벽 (돌출 0 mm)",
+      "bbox_mm": [
+        695.0,
+        750.0,
+        48.0,
+        145.0,
+        95.0,
+        174.0
+      ]
+    },
+    {
+      "name": "center_spine_tip_R",
+      "kind": "chassis",
+      "model": "등뼈 선단 측벽",
+      "note": "RoboSense E1R 좌우 보호 측벽 (돌출 0 mm)",
+      "bbox_mm": [
+        695.0,
+        750.0,
+        -145.0,
+        -48.0,
+        95.0,
+        174.0
+      ]
+    },
+    {
+      "name": "tower_lower_left",
+      "kind": "tower",
+      "model": "뒤쪽 타워 본체",
+      "note": "X=-750..-545 · 후면 충전 접점(Z=180~240) & HMI(Z=340~510)",
+      "bbox_mm": [
+        -750.0,
+        -545.0,
+        -450.0,
+        585.0,
+        46.0,
+        475.0
+      ]
+    },
+    {
+      "name": "tower_lower_right_mid",
+      "kind": "tower",
+      "model": "뒤쪽 타워 우측 앞부",
+      "note": "우상 2D 슬롯 앞쪽 구조",
+      "bbox_mm": [
+        -610.0,
+        -545.0,
+        -585.0,
+        -450.0,
+        46.0,
+        475.0
+      ]
+    },
+    {
+      "name": "tower_slot_floor_R",
+      "kind": "tower",
+      "model": "우상 2D 슬롯 하판",
+      "note": "3점 레벨링 볼트 베이스",
+      "bbox_mm": [
+        -750.0,
+        -610.0,
+        -585.0,
+        -450.0,
+        46.0,
+        72.0
+      ]
+    },
+    {
+      "name": "tower_slot_upper_R",
+      "kind": "tower",
+      "model": "우상 2D 슬롯 상부",
+      "note": "우상 2D 매립 보호부",
+      "bbox_mm": [
+        -750.0,
+        -610.0,
+        -585.0,
+        -450.0,
+        162.0,
+        475.0
+      ]
+    },
+    {
+      "name": "tower_wing_L",
+      "kind": "tower",
+      "model": "타워 상단 좌우 측벽",
+      "note": "중앙 3D 포켓 보호 기둥",
+      "bbox_mm": [
+        -750.0,
+        -545.0,
+        80.0,
+        585.0,
+        475.0,
+        565.0
+      ]
+    },
+    {
+      "name": "tower_wing_R",
+      "kind": "tower",
+      "model": "타워 상단 좌우 측벽",
+      "note": "중앙 3D 포켓 보호 기둥",
+      "bbox_mm": [
+        -750.0,
+        -545.0,
+        -585.0,
+        -80.0,
+        475.0,
+        565.0
+      ]
+    },
+    {
+      "name": "tower_roof_center",
+      "kind": "tower",
+      "model": "타워 보호 지붕 (경사 절삭)",
+      "note": "Z=590 mm 이하 완전 수납 · 후진 오버행 상방 시야 확보",
+      "bbox_mm": [
+        -715.0,
+        -575.0,
+        -585.0,
+        585.0,
+        565.0,
+        590.0
+      ]
+    },
+    {
+      "name": "tower_3d_pedestal",
+      "kind": "tower",
+      "model": "타워 3D 받침대",
+      "note": "Hesai XT32 / Ouster OS0 장착 베이스",
+      "bbox_mm": [
+        -705.0,
+        -585.0,
+        -75.0,
+        75.0,
+        465.0,
+        480.0
+      ]
+    },
+    {
+      "name": "fork_L",
+      "kind": "fork",
+      "model": "신축 포크 날 (폭 120 mm)",
+      "note": "Z=51~95 mm · 중앙 등뼈 3D(Z=138) 아래에 위치해 가림 0%",
+      "bbox_mm": [
+        -620.0,
+        735.0,
+        155.0,
+        275.0,
+        51.0,
+        95.0
+      ]
+    },
+    {
+      "name": "fork_tip_sensor_L",
+      "kind": "aux",
+      "model": "SICK WTB4FP-22161120A00",
+      "note": "포크 끝단 매립 배경억제 광전 센서 (충돌 방지)",
+      "bbox_mm": [
+        720.0,
+        736.0,
+        205.0,
+        225.0,
+        62.0,
+        84.0
+      ]
+    },
+    {
+      "name": "fork_R",
+      "kind": "fork",
+      "model": "신축 포크 날 (폭 120 mm)",
+      "note": "Z=51~95 mm · 중앙 등뼈 3D(Z=138) 아래에 위치해 가림 0%",
+      "bbox_mm": [
+        -620.0,
+        735.0,
+        -275.0,
+        -155.0,
+        51.0,
+        95.0
+      ]
+    },
+    {
+      "name": "fork_tip_sensor_R",
+      "kind": "aux",
+      "model": "SICK WTB4FP-22161120A00",
+      "note": "포크 끝단 매립 배경억제 광전 센서 (충돌 방지)",
+      "bbox_mm": [
+        720.0,
+        736.0,
+        -225.0,
+        -205.0,
+        62.0,
+        84.0
+      ]
+    },
+    {
+      "name": "fork_carriage",
+      "kind": "fork",
+      "model": "포크 캐리지(门架)",
+      "note": "포크 0~1250 mm 신축 구동부",
+      "bbox_mm": [
+        -690.0,
+        -560.0,
+        -285.0,
+        285.0,
+        55.0,
+        195.0
+      ]
+    },
+    {
+      "name": "lidar_2d_FL",
+      "kind": "lidar2d",
+      "model": "SICK nanoScan3 Pro I/O (시제품: Focusray 0.1° / FreeOptics C2)",
+      "note": "① 하부 대각 2D 좌하 · Z=115 mm · 외곽 안쪽 35 mm 매립 · 360° 안전 + 0~61 cm 반사판",
+      "bbox_mm": [
+        612.0,
+        718.0,
+        452.0,
+        558.0,
+        75.0,
+        155.0
+      ]
+    },
+    {
+      "name": "lidar_2d_RR",
+      "kind": "lidar2d",
+      "model": "SICK nanoScan3 Pro I/O (시제품: Focusray 0.1° / FreeOptics C2)",
+      "note": "① 하부 대각 2D 우상 · Z=115 mm · 외곽 안쪽 35 mm 매립 · 360° 안전 + 0~61 cm 반사판",
+      "bbox_mm": [
+        -718.0,
+        -612.0,
+        -558.0,
+        -452.0,
+        75.0,
+        155.0
+      ]
+    },
+    {
+      "name": "lidar_3d_front_E1R",
+      "kind": "lidar3df",
+      "model": "RoboSense E1R (120°×90°, Min 0.1m, IP67)",
+      "note": "② 전방 등뼈 광각 3D · Z=138 mm · +10° 상향 틸트 · 적재 오버행(2.28m) + 3D 팔레트",
+      "bbox_mm": [
+        698.3,
+        745.7,
+        -35.0,
+        35.0,
+        98.0,
+        178.0
+      ]
+    },
+    {
+      "name": "lidar_3d_rear_XT32",
+      "kind": "lidar3dr",
+      "model": "Hesai XT32 / XT16 (0.18°@10Hz) · 고성능: Ouster OS0-32/64",
+      "note": "③ 뒤 타워 고정밀 3D · Z=520 mm · 지붕(590) 아래 매립 · 후진 오버행 + 다중 링 반사판",
+      "bbox_mm": [
+        -699.8,
+        -590.2,
+        -50.0,
+        50.0,
+        475.4,
+        564.6
+      ]
+    },
+    {
+      "name": "rear_charger_housing",
+      "kind": "charger",
+      "model": "후면 매립 자동 충전 접점 하우징 (돌출 0 mm)",
+      "note": "전방 등뼈(E1R)에서 뒤 타워 하단(Z=180~240)으로 이전 · 범퍼(81)/2D(115)/HMI(340) 간섭 0",
+      "bbox_mm": [
+        -752.0,
+        -734.0,
+        -110.0,
+        110.0,
+        174.0,
+        246.0
+      ]
+    },
+    {
+      "name": "rear_charge_pad_POS_+48V",
+      "kind": "contact",
+      "model": "후면 충전 구리/금속 접점 (POS_+48V)",
+      "note": "Z=184~236 mm · 후진 도킹 시 충전소 브러시 접촉",
+      "bbox_mm": [
+        -753.0,
+        -746.0,
+        35.0,
+        95.0,
+        184.0,
+        236.0
+      ]
+    },
+    {
+      "name": "rear_charge_pad_NEG_-48V",
+      "kind": "contact",
+      "model": "후면 충전 구리/금속 접점 (NEG_-48V)",
+      "note": "Z=184~236 mm · 후진 도킹 시 충전소 브러시 접촉",
+      "bbox_mm": [
+        -753.0,
+        -746.0,
+        -95.0,
+        -35.0,
+        184.0,
+        236.0
+      ]
+    },
+    {
+      "name": "rear_charge_pilot",
+      "kind": "contact",
+      "model": "충전 통신/접지 파일럿 핀",
+      "note": "충전 인터록 & 안전 확인 접점",
+      "bbox_mm": [
+        -753.0,
+        -746.0,
+        -15.0,
+        15.0,
+        195.0,
+        225.0
+      ]
+    },
+    {
+      "name": "rear_hmi_10in",
+      "kind": "hmi",
+      "model": "10.1\" 산업용 HMI 터치스크린 (IP65)",
+      "note": "뒤 타워 상부 벽 Z=340~510 · 12° 상향 시야각",
+      "bbox_mm": [
+        -777.4,
+        -714.6,
+        -142.5,
+        142.5,
+        334.3,
+        515.7
+      ]
+    },
+    {
+      "name": "estop_rear",
+      "kind": "estop",
+      "model": "비상정지 스위치 (STO 직결)",
+      "note": "뒤 타워 좌측 상단",
+      "bbox_mm": [
+        -767.0,
+        -749.0,
+        230.0,
+        270.0,
+        435.0,
+        475.0
+      ]
+    },
+    {
+      "name": "btn_rear_0",
+      "kind": "hmi",
+      "model": "조작 버튼 (시작/리셋/키)",
+      "note": "뒤 타워 우측 상단",
+      "bbox_mm": [
+        -760.0,
+        -750.0,
+        -261.0,
+        -239.0,
+        389.0,
+        411.0
+      ]
+    },
+    {
+      "name": "btn_rear_1",
+      "kind": "hmi",
+      "model": "조작 버튼 (시작/리셋/키)",
+      "note": "뒤 타워 우측 상단",
+      "bbox_mm": [
+        -760.0,
+        -750.0,
+        -261.0,
+        -239.0,
+        429.0,
+        451.0
+      ]
+    },
+    {
+      "name": "btn_rear_2",
+      "kind": "hmi",
+      "model": "조작 버튼 (시작/리셋/키)",
+      "note": "뒤 타워 우측 상단",
+      "bbox_mm": [
+        -760.0,
+        -750.0,
+        -261.0,
+        -239.0,
+        469.0,
+        491.0
+      ]
+    },
+    {
+      "name": "bumper_front_R",
+      "kind": "bumper",
+      "model": "Mayser SL/W 안전 범퍼 (STO 직결)",
+      "note": "앞 우측 포드 범퍼 Z=46~81",
+      "bbox_mm": [
+        750.0,
+        765.0,
+        -585.0,
+        -290.0,
+        46.0,
+        81.0
+      ]
+    },
+    {
+      "name": "bumper_front_L",
+      "kind": "bumper",
+      "model": "Mayser SL/W 안전 범퍼 (STO 직결)",
+      "note": "앞 좌측 범퍼 (좌하 2D 창 앞 개방)",
+      "bbox_mm": [
+        750.0,
+        765.0,
+        290.0,
+        445.0,
+        46.0,
+        81.0
+      ]
+    },
+    {
+      "name": "bumper_side_L",
+      "kind": "bumper",
+      "model": "Mayser SL/W 안전 범퍼",
+      "note": "좌측 측면 범퍼",
+      "bbox_mm": [
+        -740.0,
+        605.0,
+        585.0,
+        600.0,
+        46.0,
+        81.0
+      ]
+    },
+    {
+      "name": "bumper_side_R",
+      "kind": "bumper",
+      "model": "Mayser SL/W 안전 범퍼",
+      "note": "우측 측면 범퍼",
+      "bbox_mm": [
+        -605.0,
+        740.0,
+        -600.0,
+        -585.0,
+        46.0,
+        81.0
+      ]
+    },
+    {
+      "name": "bumper_rear",
+      "kind": "bumper",
+      "model": "Mayser SL/W 후방 안전 범퍼",
+      "note": "후면 범퍼 Z=46~81 (충전 접점 Z=180~240 아래 완전 분리)",
+      "bbox_mm": [
+        -765.0,
+        -750.0,
+        -445.0,
+        585.0,
+        46.0,
+        81.0
+      ]
+    },
+    {
+      "name": "drive_wheel_L",
+      "kind": "drive",
+      "model": "구동 바퀴 Ø185×80 연질 PU 75A",
+      "note": "차동 2륜 고정 구동",
+      "bbox_mm": [
+        -92.5,
+        92.5,
+        355.0,
+        435.0,
+        0.0,
+        185.0
+      ]
+    },
+    {
+      "name": "caster_FL",
+      "kind": "caster",
+      "model": "쌍바퀴 캐스터 Ø100 (서스펜션)",
+      "note": "4코너 지지 캐스터",
+      "bbox_mm": [
+        460.0,
+        560.0,
+        407.5,
+        472.5,
+        0.0,
+        100.0
+      ]
+    },
+    {
+      "name": "caster_RL",
+      "kind": "caster",
+      "model": "쌍바퀴 캐스터 Ø100 (서스펜션)",
+      "note": "4코너 지지 캐스터",
+      "bbox_mm": [
+        -560.0,
+        -460.0,
+        407.5,
+        472.5,
+        0.0,
+        100.0
+      ]
+    },
+    {
+      "name": "drive_wheel_R",
+      "kind": "drive",
+      "model": "구동 바퀴 Ø185×80 연질 PU 75A",
+      "note": "차동 2륜 고정 구동",
+      "bbox_mm": [
+        -92.5,
+        92.5,
+        -435.0,
+        -355.0,
+        0.0,
+        185.0
+      ]
+    },
+    {
+      "name": "caster_FR",
+      "kind": "caster",
+      "model": "쌍바퀴 캐스터 Ø100 (서스펜션)",
+      "note": "4코너 지지 캐스터",
+      "bbox_mm": [
+        460.0,
+        560.0,
+        -472.5,
+        -407.5,
+        0.0,
+        100.0
+      ]
+    },
+    {
+      "name": "caster_RR",
+      "kind": "caster",
+      "model": "쌍바퀴 캐스터 Ø100 (서스펜션)",
+      "note": "4코너 지지 캐스터",
+      "bbox_mm": [
+        -560.0,
+        -460.0,
+        -472.5,
+        -407.5,
+        0.0,
+        100.0
+      ]
+    },
+    {
+      "name": "battery_lfp",
+      "kind": "internal",
+      "model": "48V 100Ah LFP 배터리팩",
+      "note": "등뼈 내부 수납 (앞끝 +635로 E1R 포켓과 60mm 격벽 분리)",
+      "bbox_mm": [
+        -190.0,
+        635.0,
+        -72.0,
+        72.0,
+        56.0,
+        164.0
+      ]
+    },
+    {
+      "name": "charge_cable_bus",
+      "kind": "charger",
+      "model": "고전류 충전 버스바/케이블 덕트",
+      "note": "후면 충전 접점(X=-745) ↔ 배터리(X=-190) 연결",
+      "bbox_mm": [
+        -734.0,
+        -190.0,
+        -25.0,
+        25.0,
+        178.0,
+        198.0
+      ]
+    },
+    {
+      "name": "compute_orin_nx",
+      "kind": "internal",
+      "model": "Jetson Orin NX 16GB (Advantech MIC-711-ON) + Moxa EDS-G2008-ELP",
+      "note": "우측 포드 전장 칸 (센서망 eth0 / 제어망 eth1 분리 + PTP)",
+      "bbox_mm": [
+        120.0,
+        320.0,
+        -540.0,
+        -350.0,
+        60.0,
+        172.0
+      ]
+    },
+    {
+      "name": "safety_plc_flexisoft",
+      "kind": "internal",
+      "model": "SICK Flexi Soft (FX3-CPU3) / Pilz PNOZ s4 + 서보 드라이브",
+      "note": "좌측 포드 안전·제어 칸 (범퍼·E-stop·OSSD → STO 직결)",
+      "bbox_mm": [
+        120.0,
+        320.0,
+        350.0,
+        540.0,
+        60.0,
+        172.0
+      ]
+    },
+    {
+      "name": "imu_xsens",
+      "kind": "aux",
+      "model": "Xsens MTi-630 6축 산업용 IMU",
+      "note": "차체 중심 강성 마운트 · 3D 점군 모션 왜곡 보정(Deskew)",
+      "bbox_mm": [
+        -80.0,
+        -35.0,
+        -22.0,
+        22.0,
+        54.0,
+        72.0
+      ]
+    }
+  ]
+}

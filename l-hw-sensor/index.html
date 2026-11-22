@@ -276,6 +276,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
     </div>
     <nav class="nav-pills">
       <a href="#blueprint">4대 확정 요약</a>
+      <a href="#viewer3d" style="color:var(--ok);font-weight:800">★ 3D 모델</a>
       <a href="#drawings">1:1 3면도</a>
       <a href="#reflector">3D 반사판 해법</a>
       <a href="#pockets">매립 포켓 단면</a>
@@ -336,7 +337,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
           <span class="s-qty ok">공통 1식</span>
         </div>
         <div class="s-spec">SICK WTB4FP · Xsens MTi-630 · Pilz/Flexi Soft · Orin NX</div>
-        <p class="s-desc">포크 끝 매립 광전×2 + Tuofei 와이어 + Mayser 범퍼/STO + 6축 IMU(PTP) + Moxa PTP 스위치 + Orin NX/산업용 x86.</p>
+        <p class="s-desc">포크 끝 광전×2 + <strong>후면 매립 충전(Z=180~240)</strong> + Mayser 범퍼/STO + Xsens IMU + Moxa PTP + Orin NX.</p>
       </div>
     </div>
 
@@ -345,6 +346,28 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
       <div class="kpi-mini"><div class="k">회전 스윕 반경 / 직경</div><div class="v">R=0.97 m <span style="font-size:12px;color:var(--ok)">(-33 cm)</span></div></div>
       <div class="kpi-mini"><div class="k">3D 회피 커버리지</div><div class="v" style="color:var(--ok)">전·후방 풀 3D 오버행</div></div>
       <div class="kpi-mini"><div class="k">5 cm 반사판 이중 대응</div><div class="v">타워 0.18° 3D + 하부 0.17° 2D</div></div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE 3D MODEL & REAR CHARGER SECTION -->
+  <section class="section" id="viewer3d">
+    <div class="section-head">
+      <h2>0. 인터랙티브 3D CAD 모델 (1200×1530 × 4센서 + 후면 충전 접점)</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a href="3d.html" target="_blank" rel="noopener" style="text-decoration:none;background:var(--ok);color:#fff;padding:5px 12px;border-radius:8px;font-size:12.2px;font-weight:800">⛶ 전체화면 3D 뷰어 열기</a>
+        <a href="ltype_1200x1530_4sensor.glb" download style="text-decoration:none;background:var(--primary);color:#fff;padding:5px 12px;border-radius:8px;font-size:12.2px;font-weight:800">⬇ 실치수 3D CAD (.glb) 다운로드</a>
+      </div>
+    </div>
+
+    <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#080d18">
+      <iframe src="3d.html" title="신규 L-type 1200x1530 인터랙티브 3D 모델" style="width:100%;height:620px;border:0;display:block"></iframe>
+    </div>
+
+    <div class="tip-box" style="margin-top:14px;border-left-color:#f97316;background:color-mix(in srgb, #f97316 10%, var(--surface))">
+      <strong style="color:#ea580c">🔌 배터리 충전 접점 위치 변경 확정: 앞 등뼈(E1R) → 반대편 뒤 타워 하단(Z=180~240 mm) 매립!</strong><br>
+      • <strong>후면 수직 적층(간섭 0 mm):</strong> <code>Z=46~81</code> Mayser 안전 범퍼 → <code>Z=115</code> 하부 대각 2D 스캔면 → <strong><code>Z=180~240</code> 후면 매립 충전 접점(±48V·파일럿, 돌출 0)</strong> → <code>Z=340~510</code> 10.1" HMI·비상정지 → <code>Z=520~590</code> 뒤 타워 3D(Hesai XT32/OS0).<br>
+      • <strong>후진 충전 도킹 장점 3가지:</strong> ① 전방 등뼈 <code>RoboSense E1R</code>의 도킹 충격·분진·하방 -35° 광선 간섭 완전 제거, ② 충전소 도킹 시 <strong>포크가 벽이 아닌 통로 쪽을 향해 안전</strong>, ③ 뒤 타워 3D가 충전소 반사판·마커를 정면으로 보며 정밀 후진 도킹(적재 중에도 가림 없음).<br>
+      • <small>※ 기존 T10 벽면 충전소(접점 높이 Z=85~125 mm)를 개조 없이 재사용해야 하는 현장이라면, 충전기 브러시 높이를 <code>Z=210 mm</code>로 1회 올리는 것이 정석(불가 시 후면 Z=95~135 mm 매립 + 도킹 말단 15 cm만 뒤 2D 마스킹).</small>
     </div>
   </section>
 
@@ -382,6 +405,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
         <span class="lg-item"><span class="lg-dot" style="background:#facc15"></span>뒤 타워 고정밀 3D (Hesai XT16/XT32 · Ouster OS0, Z=520)</span>
         <span class="lg-item"><span class="lg-dot" style="background:#38bdf8"></span>하부 대각 매립 2D (SICK nanoScan3 Pro · FreeOptics C2 · Focusray 0.1°, Z=115)</span>
         <span class="lg-item"><span class="lg-rect" style="background:rgba(250,204,21,0.38);border:1px solid #facc15"></span>기둥 반사판 0~61 cm (이중 판독)</span>
+        <span class="lg-item"><span class="lg-rect" style="background:#f97316"></span>후면 매립 충전 접점 (Z=180~240)</span>
         <span class="lg-item"><span class="lg-rect" style="background:rgba(245,158,11,0.35);border:1px dashed #f59e0b"></span>적재 화물</span>
       </div>
     </div>
@@ -687,7 +711,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
 
     <div class="chk-grid">
       <div class="chk"><span class="chk-n">1</span><div><h4>하부 슬롯: SICK nanoScan3 Pro 호환(110×110×85) + 3점 레벨링</h4><p>좌하·우상 코너 외곽 안쪽 35 mm 매립(시제품 FreeOptics C2 / Focusray 0.1° 공용), ±0.1° 수평 볼트로 바닥 맞음 차단.</p></div></div>
-      <div class="chk"><span class="chk-n">2</span><div><h4>등뼈 앞끝: RoboSense E1R(+10°) 경사 포켓 + 충전접점 분리</h4><p>290 mm 등뼈 맨 앞 Z=140 mm 수납, 상방 +55°·하방 -35° 광선과 충전 접점(Z=85~125) 간섭 제로 확인.</p></div></div>
+      <div class="chk"><span class="chk-n">2</span><div><h4>등뼈 앞끝: RoboSense E1R(+10°) 전용 포켓 · 충전 접점 후면 이전</h4><p>앞 등뼈(Z=138)는 E1R 전용으로 비우고(배터리 앞끝 X=+635 격벽 분리), 자동 충전 접점은 반대편 뒤 타워 하단(Z=180~240)으로 이전.</p></div></div>
       <div class="chk"><span class="chk-n">3</span><div><h4>뒤 타워 중앙: 경사 지붕(Z=590) 아래 Z=520 매립</h4><p>Hesai XT16/XT32(또는 Ouster OS0-32) 수납 + 지붕 앞뒤 경사 절삭으로 후진 상방 오버행 FOV 확보 및 H530(451~600 mm) 유지.</p></div></div>
       <div class="chk"><span class="chk-n">4</span><div><h4>SW 어댑터 2건: 가상 2D 반사판 + 등뼈 3D 팔레트</h4><p>① 타워 3D의 0° 부근 링(Z=460~560)을 기존 <code>oneweave-native</code> 반사판/SLAM에 입력, ② 전방 등뼈 3D를 팔레트 인식에 연결.</p></div></div>
       <div class="chk"><span class="chk-n">5</span><div><h4>출고 전 8 m 반사판 코드 1회 벤치마크</h4><p>선정한 타워 3D(<code>Hesai XT16/XT32</code> 또는 <code>Ouster OS0-32</code>)로 8 m 거리 5 cm 반사 코드(13/17/21/25 cm 간격) 분리율 사전 확인.</p></div></div>
@@ -854,6 +878,8 @@ function drawSide(c) {
   out += `<rect x="${xF - 11}" y="${y2D - 4}" width="8" height="8" rx="1.5" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.4"/>`;
   out += `<rect x="${xR + 2}" y="${y2D - 4}" width="8" height="8" rx="1.5" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.4"/>`;
   out += `<rect x="${xF - 11}" y="${yZ(142) - 4}" width="9" height="8" rx="2" fill="${c.front === 'E1R' ? '#a855f7' : '#ef4444'}" stroke="#fff" stroke-width="1.2"/>`;
+  out += `<rect x="${xR - 2}" y="${yZ(240)}" width="5" height="${60*sc}" rx="1" fill="#f97316" stroke="#fde047" stroke-width="1"/>`;
+  out += `<text x="${xR - 8}" y="${yZ(210)}" fill="#fb923c" font-size="9.2" font-weight="800" text-anchor="end">후면 충전(Z=180~240)</text>`;
   out += `<circle cx="${xF - 2}" cy="${yZ(72)}" r="3" fill="#34d399"/>`;
   return out;
 }
