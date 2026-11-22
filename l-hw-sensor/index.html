@@ -38,6 +38,25 @@
   --canvas-bg: #0b1220;
   --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
   --radius: 12px;
+  /* Electrical Block Diagram Palette (Blueprint Canvas) */
+  --el-bg: #0b1220;
+  --el-box-bg: #101b2e;
+  --el-box-hi: #162540;
+  --el-net: #38bdf8;
+  --el-net-bg: rgba(14, 165, 233, 0.08);
+  --el-net-bd: #0284c7;
+  --el-mot: #4ade80;
+  --el-mot-bg: rgba(34, 197, 94, 0.08);
+  --el-mot-bd: #16a34a;
+  --el-io: #fb923c;
+  --el-io-bg: rgba(249, 115, 22, 0.08);
+  --el-io-bd: #ea580c;
+  --el-safe: #f87171;
+  --el-safe-bg: rgba(239, 68, 68, 0.10);
+  --el-safe-bd: #dc2626;
+  --el-text: #f8fafc;
+  --el-sub: #cbd5e1;
+  --el-muted: #94a3b8;
 }
 
 [data-theme="dark"] {
@@ -286,6 +305,27 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
   .sensor-grid, .kpi-bar, .gate-strip { grid-template-columns: 1fr; }
 }
 @media print {
+  :root {
+    --canvas-bg: #ffffff;
+    --el-bg: #ffffff;
+    --el-box-bg: #ffffff;
+    --el-box-hi: #f8fafc;
+    --el-net: #0369a1;
+    --el-net-bg: #f0f9ff;
+    --el-net-bd: #0284c7;
+    --el-mot: #15803d;
+    --el-mot-bg: #f0fdf4;
+    --el-mot-bd: #16a34a;
+    --el-io: #c2410c;
+    --el-io-bg: #fff7ed;
+    --el-io-bd: #ea580c;
+    --el-safe: #b91c1c;
+    --el-safe-bg: #fef2f2;
+    --el-safe-bd: #dc2626;
+    --el-text: #0f172a;
+    --el-sub: #334155;
+    --el-muted: #475569;
+  }
   .topbar, .ctrl-strip { display: none; }
   body { background: #fff; }
   .hero, .section { box-shadow: none; break-inside: avoid; }
@@ -317,7 +357,8 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
     <a href="#pockets">3. 매립 포켓 단면</a>
     <a href="#battery-kc">4. 배터리 LFP 2종 · KC 패키지 E</a>
     <a href="#mech">5. 1.5 t 기구 · 7축</a>
-    <a href="#bom">6. Rev C.3 풀 BOM</a>
+    <a href="#elec">6. 전장·통신·안전 계통도</a>
+    <a href="#bom">7. Rev C.3 풀 BOM</a>
   </div>
 </header>
 
@@ -805,10 +846,112 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
     </div>
   </section>
 
-  <!-- SECTION 6: FULL BOM & CHECKLIST -->
+  <!-- SECTION 6: ELECTRICAL, COMMUNICATION, POWER & SAFETY ARCHITECTURE -->
+  <section class="section" id="elec">
+    <div class="section-head">
+      <h2>6. Rev C.3 전장 · 통신 · 전원 · 안전 계통도 &amp; 드라이버/프로토콜 표</h2>
+      <span class="section-desc">4분할 전장함 · 1Gbps Eth/PTP · SocketCAN 7축 직접 제어(하위 MCU 불필요) · ISO 13849 PLd / STO 물리 분리</span>
+    </div>
+
+    <div class="sub-title">
+      <span>① 4계층 전장·통신·전원·안전 블록다이어그램 (업체 도면 SHEET 5 / 5와 단일 진실 일치)</span>
+      <span><a href="vendor_drawing.html#sheet5" style="color:var(--primary);text-decoration:none;font-weight:800">🖨 A3 인쇄용 SHEET 5 / 5 보기 →</a></span>
+    </div>
+    <div class="canvas-box">
+      <svg id="svgElecBlock" viewBox="0 0 1180 668" role="img" aria-label="Rev C.3 전장·통신·전원·안전 4계층 계통도"></svg>
+      <div class="legend-bar">
+        <span class="lg-item"><span class="lg-rect" style="background:#38bdf8"></span>① 메인 연산 · 1Gbps Ethernet + IEEE 1588v2 PTP</span>
+        <span class="lg-item"><span class="lg-rect" style="background:#4ade80"></span>② 7축 모터 제어 · CANopen CiA 402 (또는 EtherCAT) + BMS CAN</span>
+        <span class="lg-item"><span class="lg-rect" style="background:#fb923c"></span>③ 저속 센서 (RS485/USB) · 48V→24V/12V 동력·IO 분배</span>
+        <span class="lg-item"><span class="lg-rect" style="background:transparent;border:2px dashed #f87171"></span>④ 독립 하드와이어 안전 계층 (ISO 13849 PLd · 7축 STO 직결)</span>
+      </div>
+    </div>
+
+    <h3 style="margin:18px 0 8px;font-size:15px;font-weight:800">② 표준 산업용 프로토콜 &amp; 리눅스/ROS2 드라이버 연동 표 (전장 담당 · SW 담당 공유용)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:19%">장치 / 계층</th>
+            <th style="width:16%">배치 전장함 · 위치</th>
+            <th style="width:18%">통신 버스 · 전원</th>
+            <th style="width:27%">표준 프로토콜 · 리눅스/ROS2 드라이버 (SDK)</th>
+            <th style="width:20%">시제(1~5대) / 양산(10대+) 제작</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>① 3D 라이다 ×2</strong><br><code>RoboSense E1R</code> (+10°)<br><code>Hesai XT32</code> / <code>Ouster OS0</code> (+8°)</td>
+            <td>정면 <code>(704,0,120)</code><br>좌후방 <code>(-645,+452.5,512)</code></td>
+            <td class="hi-pri">1Gbps Ethernet (UDP)<br>+ <strong>IEEE 1588v2 PTP</strong><br>(<code>Moxa EDS-G4008</code> · 24V/12V)</td>
+            <td><code>rslidar_sdk</code> · <code>HesaiLidar_ROS_2.0</code> / <code>ouster-ros</code> · <code>ptp4l</code>/<code>phc2sys</code> 시각동기 · 가상 2D 투영(<code>oneweave-native</code> <code>Z2_V8</code>)</td>
+            <td>기성 센서 + <code>AL6061</code> 10°/8° 쐐기 + <code>M12</code> 방수 커넥터 (국내 정식 KC 파트너)</td>
+          </tr>
+          <tr>
+            <td><strong>② 하부 매립 2D ×2</strong><br><code>SICK nanoScan3 Pro I/O</code><br>(FL / RR 대각 코너)</td>
+            <td>FL <code>(+695,+530,126.5)</code><br>RR <code>(-695,-530,126.5)</code></td>
+            <td class="hi-pri">1Gbps Ethernet (측정)<br>+ <strong>안전 OSSD 2ch</strong><br>(하드와이어 직결 · 24V)</td>
+            <td><code>sick_safetyscanners2</code> (ROS2 · UDP/CoLa2 스캔 + RSSI 반사판 백업) · 안전 영역은 <code>Safety Designer</code>→PLC OSSD 직결</td>
+            <td>기성 PLd 스캐너 + <code>AL6061</code> 20t 하판 + 3점 레벨링 볼트 (<code>M12</code> 하네스)</td>
+          </tr>
+          <tr>
+            <td><strong>③ 중앙 하단 QR ×1</strong><br><code>MV-ID2004M</code> / <code>DataMan 280</code> / <code>PGV100</code></td>
+            <td>중앙 원점 <code>(0,0,Z=100)</code><br>단차 베젤 Ø85 + AR유리</td>
+            <td>1Gbps Ethernet (<code>Moxa</code>)<br>24V DC (<code>PGV100</code>은 RS485/Eth 선택)</td>
+            <td>TCP/IP 소켓 · <code>MVS SDK</code> / <code>DMCC</code> / <code>pf_pgv100</code> ROS2 드라이버 (<code>oneweave-native</code> 바닥 마커 보정)</td>
+            <td>기성 산업용 리더 + <code>AL6061</code> 상부 브래킷·교체식 단차 베젤</td>
+          </tr>
+          <tr>
+            <td><strong>④ 후면 10.1&quot; HMI ×1</strong><br><code>Winmate W10L100-IPH2</code><br><em>(KC 대안: <code>M2I TOP</code>)</em></td>
+            <td>후면 40° 오픈 콘솔<br><code>Z=326~465.4</code> (무지붕)</td>
+            <td>1Gbps Ethernet (<code>Moxa</code>)<br>24V DC (전면 IP65)</td>
+            <td>Ubuntu/Chromium Kiosk Web UI (<code>HTTP/WS</code> · FMS <code>/ops</code>·상태·재측위 연동) · <code>M2I TOP</code> 시 Modbus TCP</td>
+            <td>기성 IP65 패널 PC + <code>SS400 4t</code> 40° 절곡 콘솔 (<code>239×170</code> 타공)</td>
+          </tr>
+          <tr>
+            <td><strong>⑤ 7축 서보 드라이브</strong><br><code>Kinco FD144S ×5</code> + <code>FD114S ×2</code><br><em>(KC E: <code>FASTECH</code>/<code>LS</code>/<code>Delta</code>)</em></td>
+            <td>우전방 #1 · 좌전방 #2~4<br>좌후방 #5 · 우후방 #6~7<br>(4분할 방열 베이스)</td>
+            <td class="hi-ok"><strong>CANopen CiA 402</strong> 데이지체인 (또는 EtherCAT)<br>48V 주모선 + <strong>STO 2ch</strong></td>
+            <td><code>MIC-711-OX</code> <strong>SocketCAN</strong> 직접 제어 (<code>ros2_canopen</code> / <code>oneweave-native</code> · 별도 하위 MCU 불필요, 필요 시 기존 STM32 MCU 경유 선택) · EtherCAT 시 <code>IgH/SOEM</code></td>
+            <td>기성 48V 서보 드라이브 + <code>4t AL6061</code> 방열 베이스 + <code>120Ω</code> 종단 하네스 (양산: 몰드 하네스)</td>
+          </tr>
+          <tr>
+            <td><strong>⑥ 저속 센서 (엔코더·IMU)</strong><br><code>Tuofei</code> 와이어 (<code>0x4A</code>)<br><code>Xsens MTi-630</code> 6축 IMU</td>
+            <td>캐리지/등뼈 강성 체결<br>바닥 강성 볼트 고정</td>
+            <td><strong>RS485 Modbus RTU</strong><br>USB / RS485 (<code>MIC-711</code>)<br>24V / 5V DC</td>
+            <td><code>libmodbus</code> / <code>oneweave-native</code> 직렬 드라이버 (와이어 <code>0x4A</code> 포크 행정) · <code>xsens_mti_ros2_driver</code> (3D 모션 왜곡 보정)</td>
+            <td>기성 산업용 센서 + 실드 트위스트 페어 배선 (48V 구동선과 덕트 분리)</td>
+          </tr>
+          <tr>
+            <td><strong>⑦ 48V 분배부 &amp; LFP BMS</strong><br><code>power_io_dist_board</code><br>+ <code>B-1 40Ah</code> / <code>A 100Ah</code> + 충전·<code>WTB4FP ×2</code>·LED</td>
+            <td>우후방 전장함<br>(<code>X=-345..-128</code>)<br>배터리 등뼈 / 타워</td>
+            <td>48V 주모선 + <code>Mean Well</code> 48V→24V/12V DC-DC<br><strong>BMS CAN</strong> + <strong>Modbus IO</strong></td>
+            <td>BMS CAN (<code>SocketCAN</code> SOC·셀온도·주접촉기) · Modbus IO (후면 자동 충전 <code>±48V</code> 파일럿 릴레이 · 포크팁 <code>WTB4FP ×2</code> · 상태 LED)</td>
+            <td><strong>시제(1~5대)</strong>: 기성 DIN 레일 + <code>Mean Well</code> DC-DC + 기성 Modbus IO 권장<br><strong>양산(10대+)</strong>: 통합 분배 PCB 1장</td>
+          </tr>
+          <tr>
+            <td><strong>⑧ 독립 안전 PLC · STO</strong><br><code>SICK Flexi Soft (FX3-CPU3)</code><br><em>(대안: <code>Pilz PNOZmulti 2</code>)</em> + E-STOP×5 + <code>Mayser SL/W</code></td>
+            <td>좌전방 전장함<br>(<code>X=122..348</code>)<br>E-STOP 후1·타워2·전2</td>
+            <td class="hi-bad"><strong>독립 하드와이어 24V</strong><br><strong>메인 PC와 완전 분리</strong><br>(진단 포트만 옵션)</td>
+            <td><code>Flexi Soft Designer</code> / <code>PNOZmulti</code> 안전 로직 (<strong>ISO 13849 PLd/PLe</strong>) · <strong>메인 PC 정지·행(hang)과 무관하게 서보 7대 STO 물리 직결 차단</strong></td>
+            <td>기성 KC+KCs 인증 안전 PLC + <code>ISO 13850</code> E-STOP ×5 + <code>Mayser SL/W</code> 범퍼 (PLd 이중화 배선)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box pri" style="margin-top:12px">
+      <strong>⚡ 전장 아키텍처 핵심 설계 결정 (Rev C.3):</strong><br>
+      • <strong>메인 PC 1대 표준 버스 직결 (하위 MCU 제거):</strong> <code>Advantech MIC-711-OX</code>(우전방)가 <code>SocketCAN</code>으로 7축 서보(<code>Kinco FD144S ×5 + FD114S ×2</code> 또는 KC 패키지 E 7축) 및 LFP BMS를 직접 제어합니다(기존 현장 호환 필요 시 STM32 MCU 경유 선택 가능).<br>
+      • <strong>시제 vs 양산 동력·IO 분배부(<code>power_io_dist_board</code>, 우후방):</strong> 시제 1~5대는 커스텀 보드 리드타임 없이 <strong>기성 DIN 레일 + <code>Mean Well</code> 48V→24V/12V DC-DC + 기성 Modbus IO</strong>로 제작을 권장하며, 양산 10대 이상에서 통합 PCB 1장으로 전환합니다.<br>
+      • <strong>안전 계층 100% 물리 독립 (ISO 13849 PLd / STO):</strong> <code>SICK Flexi Soft</code>(좌전방 · 대안 <code>Pilz PNOZmulti 2</code>)가 비상정지 5개·<code>Mayser SL/W</code> 범퍼·<code>nanoScan3 Pro ×2</code> OSSD를 받아, 메인 PC가 멈추거나 행(hang)이 걸려도 <strong>7축 서보 STO 단자를 하드웨어 직결 차단</strong>합니다.
+    </div>
+  </section>
+
+  <!-- SECTION 7: FULL BOM & CHECKLIST -->
   <section class="section" id="bom">
     <div class="section-head">
-      <h2>6. Rev C.3 전 슬롯 모델명 풀 BOM &amp; 출도 체크리스트</h2>
+      <h2>7. Rev C.3 전 슬롯 모델명 풀 BOM &amp; 출도 체크리스트</h2>
       <span class="section-desc">222부품 CAD · 부품 명세 정합 100% 일치 (가격 미포함 — 업체 전달 안전본)</span>
     </div>
 
@@ -1263,6 +1406,236 @@ function dot(x, y, r, fill, lbl) {
   return `<g><circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="#0f172a" stroke-width="1.6"/><text x="${x}" y="${+(y + 2.8).toFixed(1)}" fill="#0f172a" font-size="7.4" font-weight="900" text-anchor="middle">${lbl}</text></g>`;
 }
 
+function drawElecBlock() {
+  const target = document.getElementById('svgElecBlock');
+  if (!target) return;
+  const F = '-apple-system,BlinkMacSystemFont,"Pretendard","Malgun Gothic","Segoe UI",sans-serif';
+  const M = 'ui-monospace,"Cascadia Mono",Consolas,monospace';
+  const E = {
+    bg: 'var(--el-bg)', box: 'var(--el-box-bg)', hi: 'var(--el-box-hi)',
+    net: 'var(--el-net)', netBg: 'var(--el-net-bg)', netBd: 'var(--el-net-bd)',
+    mot: 'var(--el-mot)', motBg: 'var(--el-mot-bg)', motBd: 'var(--el-mot-bd)',
+    io: 'var(--el-io)', ioBg: 'var(--el-io-bg)', ioBd: 'var(--el-io-bd)',
+    safe: 'var(--el-safe)', safeBg: 'var(--el-safe-bg)', safeBd: 'var(--el-safe-bd)',
+    txt: 'var(--el-text)', sub: 'var(--el-sub)', muted: 'var(--el-muted)'
+  };
+  const arr = (x, y, d, col) => {
+    const pts = d === 'R' ? `${x},${y} ${x - 7},${y - 3.8} ${x - 7},${y + 3.8}`
+      : d === 'L' ? `${x},${y} ${x + 7},${y - 3.8} ${x + 7},${y + 3.8}`
+      : d === 'D' ? `${x},${y} ${x - 3.8},${y - 7} ${x + 3.8},${y - 7}`
+      : `${x},${y} ${x - 3.8},${y + 7} ${x + 3.8},${y + 7}`;
+    return `<polygon points="${pts}" fill="${col}"/>`;
+  };
+  const box = (x, y, w, h, bd, fill, lines) => {
+    const cx = +(x + w / 2).toFixed(1);
+    let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="${fill}" stroke="${bd}" stroke-width="1.5"/>`;
+    for (const ln of lines) {
+      s += `<text x="${cx}" y="${ln.y}" fill="${ln.c}" font-family='${ln.mono ? M : F}' font-size="${ln.sz}" font-weight="${ln.w || 700}" text-anchor="middle">${ln.t}</text>`;
+    }
+    return s;
+  };
+
+  let out = `<rect x="0" y="0" width="1180" height="668" fill="${E.bg}"/>`;
+
+  out += `<text x="20" y="25" fill="${E.txt}" font-family='${F}' font-size="12.5" font-weight="900">REV C.3 전장 · 통신 · 전원 · 안전 계통도 (4계층 · 4분할 전장함)</text>`;
+  out += `<line x1="560" y1="21" x2="582" y2="21" stroke="${E.net}" stroke-width="2.4"/>`;
+  out += `<text x="588" y="24.5" fill="${E.net}" font-family='${F}' font-size="9.4" font-weight="800">① Eth/PTP</text>`;
+  out += `<line x1="666" y1="21" x2="688" y2="21" stroke="${E.mot}" stroke-width="2.4"/>`;
+  out += `<text x="694" y="24.5" fill="${E.mot}" font-family='${F}' font-size="9.4" font-weight="800">② CANopen/EtherCAT</text>`;
+  out += `<line x1="836" y1="21" x2="858" y2="21" stroke="${E.io}" stroke-width="2.4"/>`;
+  out += `<text x="864" y="24.5" fill="${E.io}" font-family='${F}' font-size="9.4" font-weight="800">③ RS485·48V/24V</text>`;
+  out += `<line x1="986" y1="21" x2="1012" y2="21" stroke="${E.safe}" stroke-width="2.8" stroke-dasharray="6 3"/>`;
+  out += `<text x="1018" y="24.5" fill="${E.safe}" font-family='${F}' font-size="9.4" font-weight="800">④ 독립 안전 STO(PLd)</text>`;
+
+  // BAND 1: COMPUTE & PTP ETHERNET
+  out += `<rect x="18" y="46" width="1144" height="158" rx="8" fill="${E.netBg}" stroke="${E.netBd}" stroke-width="1.4"/>`;
+  out += `<text x="30" y="63" fill="${E.net}" font-family='${F}' font-size="10.2" font-weight="900">① 메인 연산 · 네트워크 계층 — 1Gbps Ethernet + IEEE 1588v2 PTP</text>`;
+
+  out += box(30, 74, 250, 118, E.netBd, E.hi, [
+    { y: 95,  sz: 11.2, w: 900, c: E.txt,   t: 'Advantech MIC-711-OX' },
+    { y: 114, sz: 9.2,  w: 800, c: E.net,   t: 'Jetson Orin NX 16GB · Ubuntu Linux' },
+    { y: 132, sz: 9.1,  w: 700, c: E.sub,   t: 'oneweave-native / ROS2 / VDA5050', mono: true },
+    { y: 151, sz: 8.7,  w: 700, c: E.muted, t: '우전방 전장함 · 24V DC · eth0 / eth1' },
+    { y: 171, sz: 8.4,  w: 800, c: E.mot,   t: 'SocketCAN 직접(MCU 불필요 · STM32 선택)' }
+  ]);
+
+  out += box(342, 82, 166, 102, E.netBd, E.box, [
+    { y: 105, sz: 10.6, w: 900, c: E.txt,   t: 'Moxa EDS-G4008' },
+    { y: 124, sz: 9.0,  w: 800, c: E.net,   t: '1Gbps 관리형 스위치' },
+    { y: 142, sz: 8.9,  w: 700, c: E.sub,   t: 'IEEE 1588v2 PTP', mono: true },
+    { y: 162, sz: 8.5,  w: 700, c: E.muted, t: '우전방 전장함 · 24V DC' }
+  ]);
+
+  out += `<line x1="286" y1="133" x2="336" y2="133" stroke="${E.net}" stroke-width="2.2"/>`;
+  out += arr(280, 133, 'L', E.net) + arr(342, 133, 'R', E.net);
+  out += `<text x="311" y="123" fill="${E.net}" font-family='${M}' font-size="8.8" font-weight="800" text-anchor="middle">1Gbps</text>`;
+  out += `<text x="311" y="148" fill="${E.muted}" font-family='${M}' font-size="8.4" font-weight="700" text-anchor="middle">PTP</text>`;
+
+  out += `<line x1="508" y1="133" x2="1058" y2="133" stroke="${E.net}" stroke-width="2.2"/>`;
+  out += `<text x="538" y="123" fill="${E.net}" font-family='${M}' font-size="8.5" font-weight="800" text-anchor="middle">Eth/PTP</text>`;
+  for (const tx of [658, 857, 1058]) {
+    out += `<line x1="${tx}" y1="133" x2="${tx}" y2="123" stroke="${E.net}" stroke-width="2"/>`;
+    out += arr(tx, 118, 'U', E.net);
+    if (tx < 1058) out += `<circle cx="${tx}" cy="133" r="3" fill="${E.net}"/>`;
+  }
+  for (const bx of [703, 1003]) {
+    out += `<line x1="${bx}" y1="133" x2="${bx}" y2="143" stroke="${E.net}" stroke-width="2"/>`;
+    out += arr(bx, 148, 'D', E.net);
+    out += `<circle cx="${bx}" cy="133" r="3" fill="${E.net}"/>`;
+  }
+
+  out += box(568, 72, 180, 46, E.netBd, E.box, [
+    { y: 91,  sz: 9.8, w: 900, c: E.txt, t: 'RoboSense E1R (3D)' },
+    { y: 108, sz: 8.4, w: 700, c: E.sub, t: '정면 등뼈 +10° · UDP/PTP' }
+  ]);
+  out += box(762, 72, 190, 46, E.netBd, E.box, [
+    { y: 91,  sz: 9.8, w: 900, c: E.txt, t: 'Hesai XT32 / Ouster OS0' },
+    { y: 108, sz: 8.4, w: 700, c: E.sub, t: '좌후방 미니타워 +8° · UDP/PTP' }
+  ]);
+  out += box(966, 72, 184, 46, E.netBd, E.box, [
+    { y: 91,  sz: 9.6, w: 900, c: E.txt, t: 'Winmate W10L100-IPH2' },
+    { y: 108, sz: 8.4, w: 700, c: E.sub, t: '후면 40° 10.1" HMI · Web' }
+  ]);
+
+  out += box(568, 148, 270, 46, E.netBd, E.box, [
+    { y: 167, sz: 9.8, w: 900, c: E.txt, t: '중앙 하단 QR (X=0, Z=100 · TCP/Eth)' },
+    { y: 184, sz: 8.4, w: 700, c: E.sub, t: 'MV-ID2004M / DataMan 280 / PGV100' }
+  ]);
+  out += box(856, 148, 294, 46, E.netBd, E.box, [
+    { y: 167, sz: 9.8, w: 900, c: E.txt, t: 'SICK nanoScan3 Pro ×2 (하부 FL / RR)' },
+    { y: 184, sz: 8.4, w: 700, c: E.sub, t: 'UDP/CoLa2(스캔·RSSI) + 안전 OSSD 2ch' }
+  ]);
+
+  // BAND 2: 7-AXIS MOTOR CONTROL & LFP BMS
+  out += `<rect x="96" y="242" width="1008" height="112" rx="8" fill="${E.motBg}" stroke="${E.motBd}" stroke-width="1.4"/>`;
+  out += `<text x="1092" y="259" fill="${E.mot}" font-family='${F}' font-size="10.0" font-weight="900" text-anchor="end">② 7축 모터 제어 계층 — CANopen CiA 402 데이지체인 (또는 EtherCAT) · 별도 하위 MCU 불필요</text>`;
+
+  out += box(108, 270, 234, 74, E.motBd, E.box, [
+    { y: 288, sz: 10.0, w: 900, c: E.txt,   t: 'LFP 배터리 + BMS (CAN)' },
+    { y: 304, sz: 8.5,  w: 800, c: E.mot,   t: 'B-1: 51.2V 40Ah LFP (등뼈 메인)' },
+    { y: 319, sz: 8.5,  w: 700, c: E.sub,   t: 'A안: 51.2V 100Ah LFP (타워 8S×2)' },
+    { y: 334, sz: 8.2,  w: 700, c: E.muted, t: 'SOC · 셀온도 · 주접촉기 CAN 연동' }
+  ]);
+
+  out += box(398, 270, 336, 74, E.motBd, E.box, [
+    { y: 288, sz: 10.0, w: 900, c: E.txt,  t: 'Kinco FD144S ×5 (주행2 · 리프트2 · 뻗기1)' },
+    { y: 304, sz: 8.5,  w: 700, c: E.sub,  t: '우전방 #1 · 좌전방 #2~4 · 좌후방 #5 (48V 구동)' },
+    { y: 319, sz: 8.5,  w: 800, c: E.mot,  t: 'KC 패키지 E: FASTECH / LS Electric / Delta 7축' },
+    { y: 334, sz: 8.2,  w: 800, c: E.safe, t: '하드와이어 STO 2ch 직결 차단 단자' }
+  ]);
+
+  out += box(796, 270, 296, 74, E.motBd, E.box, [
+    { y: 288, sz: 10.0, w: 900, c: E.txt,   t: 'Kinco FD114S ×2 (포크 높이 Latch)' },
+    { y: 304, sz: 8.5,  w: 700, c: E.sub,   t: 'latchmod rev C 진입높이 2축 (웜 20:1)' },
+    { y: 319, sz: 8.5,  w: 700, c: E.muted, t: '우후방 #6~7 · CANopen 120Ω 종단' },
+    { y: 334, sz: 8.2,  w: 800, c: E.safe,  t: '하드와이어 STO 2ch 직결 차단 단자' }
+  ]);
+
+  out += `<line x1="734" y1="294" x2="790" y2="294" stroke="${E.mot}" stroke-width="2.2"/>`;
+  out += arr(796, 294, 'R', E.mot);
+  out += `<text x="765" y="285" fill="${E.mot}" font-family='${M}' font-size="8.4" font-weight="800" text-anchor="middle">CiA 402</text>`;
+  out += `<line x1="734" y1="326" x2="790" y2="326" stroke="${E.io}" stroke-width="2.2"/>`;
+  out += arr(796, 326, 'R', E.io);
+  out += `<text x="765" y="340" fill="${E.io}" font-family='${F}' font-size="8.3" font-weight="800" text-anchor="middle">48V 모선</text>`;
+
+  // BAND 3: LOW-SPEED SENSORS & 48V POWER/IO
+  out += `<rect x="18" y="394" width="1000" height="114" rx="8" fill="${E.ioBg}" stroke="${E.ioBd}" stroke-width="1.4"/>`;
+  out += `<text x="1006" y="411" fill="${E.io}" font-family='${F}' font-size="10.0" font-weight="900" text-anchor="end">③ 저속 센서 · 48V 동력/IO 분배 계층 — RS485 Modbus / USB · 48V→24V/12V DC-DC</text>`;
+
+  out += box(30, 418, 264, 80, E.ioBd, E.box, [
+    { y: 437, sz: 10.0, w: 900, c: E.txt,   t: '저속 센서 (RS485 / USB)' },
+    { y: 454, sz: 8.6,  w: 800, c: E.io,    t: 'Tuofei 와이어 엔코더 (Modbus 0x4A)' },
+    { y: 470, sz: 8.6,  w: 700, c: E.sub,   t: 'Xsens MTi-630 6축 IMU (USB/RS485)' },
+    { y: 486, sz: 8.2,  w: 700, c: E.muted, t: '포크 스트로크(≥1300) · 3D 모션 보정' }
+  ]);
+
+  out += box(346, 418, 358, 80, E.ioBd, E.hi, [
+    { y: 437, sz: 10.0, w: 900, c: E.txt,   t: '48V 동력·IO 분배부 (power_io_dist_board)' },
+    { y: 454, sz: 8.6,  w: 800, c: E.io,    t: '우후방 전장함 · Mean Well 48V→24V/12V DC-DC' },
+    { y: 470, sz: 8.5,  w: 700, c: E.sub,   t: '시제(1~5대): 기성 DIN레일 + DC-DC + Modbus IO 권장' },
+    { y: 486, sz: 8.4,  w: 700, c: E.muted, t: '양산(10대+): 통합 PCB 1장 · 전장/센서 24V 공급' }
+  ]);
+
+  out += box(758, 418, 248, 80, E.ioBd, E.box, [
+    { y: 437, sz: 10.0, w: 900, c: E.txt,   t: '충전 · 포크 광전 · 상태 IO' },
+    { y: 454, sz: 8.6,  w: 800, c: E.io,    t: '후면 자동 충전 (±48V + 파일럿 릴레이)' },
+    { y: 470, sz: 8.6,  w: 700, c: E.sub,   t: '포크팁 포토센서 SICK WTB4FP ×2' },
+    { y: 486, sz: 8.2,  w: 700, c: E.muted, t: '상태 LED · 브레이크 · 파일럿 접점' }
+  ]);
+
+  out += `<line x1="300" y1="458" x2="340" y2="458" stroke="${E.io}" stroke-width="2.2"/>`;
+  out += arr(294, 458, 'L', E.io) + arr(346, 458, 'R', E.io);
+  out += `<text x="320" y="449" fill="${E.io}" font-family='${M}' font-size="8.3" font-weight="800" text-anchor="middle">Modbus</text>`;
+  out += `<text x="320" y="473" fill="${E.muted}" font-family='${M}' font-size="8.1" font-weight="700" text-anchor="middle">RS485</text>`;
+
+  out += `<line x1="710" y1="458" x2="752" y2="458" stroke="${E.io}" stroke-width="2.2"/>`;
+  out += arr(704, 458, 'L', E.io) + arr(758, 458, 'R', E.io);
+  out += `<text x="731" y="449" fill="${E.io}" font-family='${M}' font-size="8.4" font-weight="800" text-anchor="middle">±48V</text>`;
+  out += `<text x="731" y="473" fill="${E.muted}" font-family='${M}' font-size="8.1" font-weight="700" text-anchor="middle">24V IO</text>`;
+
+  // BAND 4: HARDWIRED SAFETY LAYER (PLd / STO)
+  out += `<rect x="18" y="522" width="1144" height="134" rx="8" fill="${E.safeBg}" stroke="${E.safeBd}" stroke-width="2" stroke-dasharray="8 4"/>`;
+  out += `<text x="30" y="539" fill="${E.safe}" font-family='${F}' font-size="10.2" font-weight="900">④ 독립 하드와이어 안전 계층 — ISO 13849 PLd / STO (메인 PC와 완전 물리 분리)</text>`;
+
+  out += box(30, 550, 506, 44, E.safeBd, E.box, [
+    { y: 568, sz: 9.8, w: 900, c: E.txt, t: '비상정지 버튼 ×5 (ISO 13850 · 2ch NC 직렬 루프)' },
+    { y: 585, sz: 8.5, w: 700, c: E.sub, t: '후면 1 (-750,+255) · 타워 측면 2 (-650,±585) · 전방 일자 측면 2 (+565,±585)' }
+  ]);
+  out += box(30, 602, 506, 44, E.safeBd, E.box, [
+    { y: 620, sz: 9.8, w: 900, c: E.txt, t: '안전 범퍼 (Mayser SL/W · 전·후·측 둘레 Z=46~81)' },
+    { y: 637, sz: 8.5, w: 700, c: E.sub, t: '접촉 감지 안전 입력 (8.2 kΩ / OSSD) · 저속 접촉 보조 보호' }
+  ]);
+
+  out += box(610, 550, 486, 96, E.safeBd, E.hi, [
+    { y: 571, sz: 10.6, w: 900, c: E.txt,  t: '안전 PLC — SICK Flexi Soft (FX3-CPU3)' },
+    { y: 590, sz: 8.9,  w: 800, c: E.safe, t: '대안: Pilz PNOZmulti 2 · 좌전방 전장함 (KC + KCs / PLd·PLe)' },
+    { y: 609, sz: 8.7,  w: 700, c: E.sub,  t: '안전 입력: 비상정지 ×5 + 안전 범퍼 + nanoScan3 Pro ×2 안전 OSSD' },
+    { y: 628, sz: 8.8,  w: 900, c: E.safe, t: '안전 출력: 메인 PC 정지·행 무관 → 서보 드라이브 7대 STO 직결 차단' }
+  ]);
+
+  out += `<line x1="536" y1="572" x2="604" y2="572" stroke="${E.safe}" stroke-width="2.2"/>`;
+  out += arr(610, 572, 'R', E.safe);
+  out += `<text x="573" y="563" fill="${E.safe}" font-family='${M}' font-size="8.4" font-weight="800" text-anchor="middle">2ch NC</text>`;
+
+  out += `<line x1="536" y1="624" x2="604" y2="624" stroke="${E.safe}" stroke-width="2.2"/>`;
+  out += arr(610, 624, 'R', E.safe);
+  out += `<text x="573" y="615" fill="${E.safe}" font-family='${F}' font-size="8.3" font-weight="800" text-anchor="middle">범퍼 입력</text>`;
+
+  // INTER-LAYER ROUTING CORRIDORS (ZERO CROSSINGS)
+  out += `<line x1="54" y1="198" x2="54" y2="412" stroke="${E.io}" stroke-width="2.2"/>`;
+  out += arr(54, 192, 'U', E.io) + arr(54, 418, 'D', E.io);
+  out += `<text x="62" y="228" fill="${E.io}" font-family='${M}' font-size="8.5" font-weight="800" text-anchor="start">RS485/USB</text>`;
+
+  out += `<line x1="180" y1="198" x2="180" y2="264" stroke="${E.mot}" stroke-width="2.2"/>`;
+  out += arr(180, 192, 'U', E.mot) + arr(180, 270, 'D', E.mot);
+  out += `<text x="187" y="228" fill="${E.mot}" font-family='${M}' font-size="8.4" font-weight="800" text-anchor="start">BMS CAN</text>`;
+
+  out += `<polyline points="252,198 252,229 566,229 566,264" fill="none" stroke="${E.mot}" stroke-width="2.2"/>`;
+  out += arr(252, 192, 'U', E.mot) + arr(566, 270, 'D', E.mot);
+  out += `<text x="412" y="220" fill="${E.mot}" font-family='${F}' font-size="8.6" font-weight="800" text-anchor="middle">CANopen CiA 402 (SocketCAN 직접 · EtherCAT 선택)</text>`;
+
+  out += `<polyline points="225,344 225,378 410,378 410,412" fill="none" stroke="${E.io}" stroke-width="2.4"/>`;
+  out += arr(410, 418, 'D', E.io);
+  out += `<text x="318" y="369" fill="${E.io}" font-family='${F}' font-size="8.6" font-weight="800" text-anchor="middle">48V 주전원 (LFP)</text>`;
+
+  out += `<line x1="480" y1="418" x2="480" y2="350" stroke="${E.io}" stroke-width="2.4"/>`;
+  out += arr(480, 344, 'U', E.io);
+  out += `<text x="488" y="381" fill="${E.io}" font-family='${F}' font-size="8.4" font-weight="800" text-anchor="start">48V 7축 구동</text>`;
+
+  out += `<polyline points="1138,194 1138,598 1102,598" fill="none" stroke="${E.safe}" stroke-width="2.4" stroke-dasharray="7 3"/>`;
+  out += arr(1096, 598, 'L', E.safe);
+  out += `<text x="1130" y="228" fill="${E.safe}" font-family='${F}' font-size="8.6" font-weight="800" text-anchor="end">안전 OSSD (2ch)</text>`;
+
+  out += `<polyline points="1054,550 1054,378 595,378 595,350" fill="none" stroke="${E.safe}" stroke-width="2.8" stroke-dasharray="7 3.5"/>`;
+  out += arr(595, 344, 'U', E.safe);
+  out += `<line x1="944" y1="378" x2="944" y2="350" stroke="${E.safe}" stroke-width="2.8" stroke-dasharray="7 3.5"/>`;
+  out += arr(944, 344, 'U', E.safe);
+  out += `<circle cx="944" cy="378" r="3.4" fill="${E.safe}"/>`;
+  out += `<text x="770" y="369" fill="${E.safe}" font-family='${F}' font-size="8.7" font-weight="900" text-anchor="middle">★ 하드와이어 STO 7축 직결 차단 (메인 PC 정지·행 무관)</text>`;
+
+  target.innerHTML = out;
+}
+
 const BANNERS = {
   BASE: ['<strong>★ Rev C.3 풀 3D 확정안 (222부품 6/6 PASS · 40° 완전 개방 HMI · 좌후방 3D 미니타워 · 매립 2D):</strong> 중앙 HMI 상부 지붕 전면 제거(<code>40°</code> 오픈 콘솔 <code>Z=326~465.4</code> · 가림 0%) + 좌후방 미니타워 3D(<code>Hesai XT32 / OS0</code>, <code>-645,+452.5,512</code>, <code>Ø18×4기둥</code> 수평 92.22% / 32ch 81.88%) + 매립 하부 2D×2(<code>±695,±530</code>, FL 258.0°/RR 255.5°, 150~300 mm 사각 0.0%) + 전방 3D(<code>RoboSense E1R</code>, 상단 통과 73.5%) + 일자 측면 E-STOP(+14.5 mm).', false],
   OPT_T2D: ['<strong>2D 경량 대안 (타워 고정밀 2D · 4대):</strong> 후진 공중 오버행이 불필요한 현장에서는 뒤 타워를 <code>0.1°</code> 2D(<code>FreeOptics R2 / Focusray</code>)로 구성해 구성·연산 부담을 간소화합니다.', true],
@@ -1303,6 +1676,7 @@ document.getElementById('themeBtn').addEventListener('click', () => {
 });
 
 render();
+drawElecBlock();
 })();
 </script>
 </body>
