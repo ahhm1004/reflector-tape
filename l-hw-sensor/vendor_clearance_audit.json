@@ -1,7 +1,7 @@
 {
   "revision": "Rev C.1",
   "all_pass": true,
-  "audit_elapsed_s": 29.06,
+  "audit_elapsed_s": 39.85,
   "datums": {
     "A": "바닥판 하면 (Z = 46.0 mm)",
     "B": "중앙 등뼈 좌측 HGR20 레일 가공면 (Y = +130.0 mm)",
@@ -42,7 +42,7 @@
     "gate2_all_pairs_interference": {
       "interference_threshold_mm3": 0.001,
       "total_pairs": 24090,
-      "aabb_overlap_candidates": 149,
+      "aabb_overlap_candidates": 160,
       "interference_count": 0,
       "interferences": [],
       "battery_a_opt_interference_count": 0,
@@ -228,28 +228,28 @@
       "glb_watertight_count": 220,
       "glb_total_meshes": 220,
       "glb_watertight_ratio": 1.0,
-      "glb_triangles": 49726,
-      "steel_structure_kg": 355.95,
-      "total_robot_kg": 478.17,
+      "glb_triangles": 47774,
+      "steel_structure_kg": 356.13,
+      "total_robot_kg": 478.35,
       "pass_ok": true
     }
   },
   "mass_cg": {
-    "steel_structure_kg": 355.95,
+    "steel_structure_kg": 356.13,
     "aluminum_kg": 7.95,
     "other_material_kg": 4.92,
     "purchased_components_kg": 109.35,
-    "total_robot_b1_kg": 478.17,
+    "total_robot_b1_kg": 478.35,
     "cg_b1_mm": [
-      -132.1,
+      -131.8,
       1.6,
       147.0
     ],
-    "total_solid_volume_L": 88.921,
+    "total_solid_volume_L": 88.928,
     "battery_a_opt_module_kg": 39.0,
-    "total_robot_with_a_only_kg": 499.17,
+    "total_robot_with_a_only_kg": 499.35,
     "cg_with_a_only_mm": [
-      -189.4,
+      -189.1,
       1.6,
       161.8
     ]

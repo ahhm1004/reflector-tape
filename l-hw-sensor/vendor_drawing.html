@@ -148,7 +148,7 @@ td.num { font-family: var(--mono); font-size: 11px; text-align: right; white-spa
 .compact-table th, .compact-table td { padding: 4.5px 7px; font-size: 11.3px; }
 .spec-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 12px; margin-top: 10px; }
 
-@media (max-width: 980px) {
+@media screen and (max-width: 980px) {
   .title-block { grid-template-columns: 1fr 1fr; }
   .grid-2, .grid-3, .gate-grid, .spec-grid { grid-template-columns: 1fr; }
 }
@@ -294,7 +294,7 @@ td.num { font-family: var(--mono); font-size: 11px; text-align: right; white-spa
       <div class="tb-cell">
         <div class="tb-k">PAYLOAD / MASS / CLEARANCE</div>
         <div class="tb-v mono">
-          정격 1,500 kg · B-1 478.17 kg (A안 499.17)<br>
+          정격 1,500 kg · B-1 478.35 kg (A안 499.35)<br>
           바닥고 G=46.0 · 포드 상판 Z=194.0
         </div>
       </div>
@@ -395,7 +395,7 @@ td.num { font-family: var(--mono); font-size: 11px; text-align: right; white-spa
 
     <div class="spec-grid">
       <div>
-        <h3>2-1. Rev C.1 실측 질량 및 무게중심 (CG) 표 <span>(220 솔리드 체적 88.921 L 기준)</span></h3>
+        <h3>2-1. Rev C.1 실측 질량 및 무게중심 (CG) 표 <span>(220 솔리드 체적 88.928 L 기준)</span></h3>
         <table class="compact-table">
           <thead>
             <tr>
@@ -406,18 +406,18 @@ td.num { font-family: var(--mono); font-size: 11px; text-align: right; white-spa
             </tr>
           </thead>
           <tbody id="massCgBody">
-            <tr><td><strong>강재 구조체</strong></td><td>SS400 / SM490 / S45C / SCM440 / STK400 / SPHC</td><td class="num"><strong>355.95</strong></td><td class="mono">프레임·포크·가위·캐리지</td></tr>
+            <tr><td><strong>강재 구조체</strong></td><td>SS400 / SM490 / S45C / SCM440 / STK400 / SPHC</td><td class="num"><strong>356.13</strong></td><td class="mono">프레임·포크·가위·캐리지</td></tr>
             <tr><td><strong>알루미늄 가공</strong></td><td>AL6061-T6 (쐐기·노치하판·방열베이스·브래킷)</td><td class="num">7.95</td><td class="mono">ISO 2768-mK 후가공</td></tr>
             <tr><td><strong>기타 비철·절연</strong></td><td>C1100 구리·PEEK·EPDM 범퍼·우레탄·AR유리</td><td class="num">4.92</td><td class="mono">충전·범퍼·스토퍼·광학창</td></tr>
             <tr><td><strong>구매품 합계</strong></td><td>B-1 배터리·7축 구동/서보·센서·HMI·전장·캐스터</td><td class="num">109.35</td><td class="mono">제조사 사양 질량 적용</td></tr>
-            <tr style="background:#ecfdf5"><td><strong>★ B-1 기본 총질량</strong></td><td>중앙 등뼈 51.2V 40Ah LFP (18.0 kg) 장착</td><td class="num"><strong>478.17</strong></td><td class="mono"><strong>[-132.1, +1.6, 147.0]</strong></td></tr>
-            <tr style="background:#fffbeb"><td><strong>★ A안 확장 총질량</strong></td><td>뒤 타워 하부 51.2V 100Ah LFP (39.0 kg) 단독</td><td class="num"><strong>499.17</strong></td><td class="mono"><strong>[-189.4, +1.6, 161.8]</strong></td></tr>
+            <tr style="background:#ecfdf5"><td><strong>★ B-1 기본 총질량</strong></td><td>중앙 등뼈 51.2V 40Ah LFP (18.0 kg) 장착</td><td class="num"><strong>478.35</strong></td><td class="mono"><strong>[-131.8, +1.6, 147.0]</strong></td></tr>
+            <tr style="background:#fffbeb"><td><strong>★ A안 확장 총질량</strong></td><td>뒤 타워 하부 51.2V 100Ah LFP (39.0 kg) 단독</td><td class="num"><strong>499.35</strong></td><td class="mono"><strong>[-189.1, +1.6, 161.8]</strong></td></tr>
           </tbody>
         </table>
       </div>
 
       <div>
-        <h3>2-2. 비상정지 5개 배치 (ISO 3691-4 · STO 직결) &amp; 배터리 B-1 / A안 호환</h3>
+        <h3>2-2. 비상정지 5개 배치 (ISO 13850 · ISO 3691-4 · STO 직결) &amp; 배터리 B-1 / A안 호환</h3>
         <table class="compact-table">
           <thead>
             <tr>
@@ -428,9 +428,9 @@ td.num { font-family: var(--mono); font-size: 11px; text-align: right; white-spa
             </tr>
           </thead>
           <tbody>
-            <tr><td class="mono">estop_rear</td><td>후면 10t 판 · Ø42 슈라우드</td><td class="mono">(-750, +255, 400)</td><td>X_min=-762 (0 mm)</td></tr>
-            <tr><td class="mono">estop_side_L/R</td><td>좌·우 타워 도어 · Ø42×2</td><td class="mono">(-650, ±585, 380)</td><td>|Y|_max=597 (0 mm)</td></tr>
-            <tr><td class="mono">estop_front_L/R</td><td>전방 좌·우 측면 외벽 · Ø46 매립×2<br><small>파레트 적재면 완전 분리 · 2D 스캔 비간섭</small></td><td class="mono">(+575, ±550, Z=129)</td><td>|Y|_max=550 (0 mm)</td></tr>
+            <tr><td class="mono">estop_rear</td><td>후면 10t · Ø42 · Ø38 +14.5 mm 돌출(저가드 6)</td><td class="mono">(-750, +255, 400)</td><td>X_min=-764.5 (0 mm)</td></tr>
+            <tr><td class="mono">estop_side_L/R</td><td>타워 도어 · Ø42×2 · Ø38 +14.5 mm 돌출(저가드 6)</td><td class="mono">(-650, ±585, 380)</td><td>|Y|_max=599.5 (0 mm)</td></tr>
+            <tr><td class="mono">estop_front_L/R</td><td>전방 측면 64×54 개방 포켓 · Ø36 +11.5 mm 돌출<br><small>뒷판 3t(|Y|=538, Ø32) · 파레트 분리 · 2D 비간섭</small></td><td class="mono">(+570, ±538, Z=129)</td><td>|Y|_max=549.5 (0 mm)</td></tr>
             <tr style="background:#ecfdf5">
               <td><strong>배터리 B-1 (메인)</strong></td>
               <td>중앙 등뼈 (인증 사전 확인 권장)</td>
@@ -604,7 +604,7 @@ td.num { font-family: var(--mono); font-size: 11px; text-align: right; white-spa
 const EMBEDDED_AUDIT = {
   "revision": "Rev C.1",
   "all_pass": true,
-  "audit_elapsed_s": 29.06,
+  "audit_elapsed_s": 39.85,
   "datums": {
     "A": "바닥판 하면 (Z = 46.0 mm)",
     "B": "중앙 등뼈 좌측 HGR20 레일 가공면 (Y = +130.0 mm)",
@@ -645,7 +645,7 @@ const EMBEDDED_AUDIT = {
     "gate2_all_pairs_interference": {
       "interference_threshold_mm3": 0.001,
       "total_pairs": 24090,
-      "aabb_overlap_candidates": 149,
+      "aabb_overlap_candidates": 160,
       "interference_count": 0,
       "interferences": [],
       "battery_a_opt_interference_count": 0,
@@ -831,28 +831,28 @@ const EMBEDDED_AUDIT = {
       "glb_watertight_count": 220,
       "glb_total_meshes": 220,
       "glb_watertight_ratio": 1.0,
-      "glb_triangles": 49726,
-      "steel_structure_kg": 355.95,
-      "total_robot_kg": 478.17,
+      "glb_triangles": 47774,
+      "steel_structure_kg": 356.13,
+      "total_robot_kg": 478.35,
       "pass_ok": true
     }
   },
   "mass_cg": {
-    "steel_structure_kg": 355.95,
+    "steel_structure_kg": 356.13,
     "aluminum_kg": 7.95,
     "other_material_kg": 4.92,
     "purchased_components_kg": 109.35,
-    "total_robot_b1_kg": 478.17,
+    "total_robot_b1_kg": 478.35,
     "cg_b1_mm": [
-      -132.1,
+      -131.8,
       1.6,
       147.0
     ],
-    "total_solid_volume_L": 88.921,
+    "total_solid_volume_L": 88.928,
     "battery_a_opt_module_kg": 39.0,
-    "total_robot_with_a_only_kg": 499.17,
+    "total_robot_with_a_only_kg": 499.35,
     "cg_with_a_only_mm": [
-      -189.4,
+      -189.1,
       1.6,
       161.8
     ]
@@ -1182,9 +1182,9 @@ function leader(x1, y1, x2, y2, col = C.leader) {
 
   out += `<rect x="${xM(-751)}" y="${yZ(250)}" width="${+(23*sc).toFixed(1)}" height="${+(76*sc).toFixed(1)}" fill="#ea580c" stroke="#fde047" stroke-width="1.2"/>`;
   out += `<rect x="${xM(-756)}" y="${yZ(444)}" width="${+(38*sc).toFixed(1)}" height="${+(182*sc).toFixed(1)}" fill="#0f172a" stroke="${C.dim}" stroke-width="1.4"/>`;
-  out += `<circle cx="${xM(-755)}" cy="${yZ(400)}" r="4.5" fill="#dc2626" stroke="#fff" stroke-width="1"/>`;
+  out += `<circle cx="${xM(-757)}" cy="${yZ(400)}" r="4.5" fill="#dc2626" stroke="#fff" stroke-width="1"/>`;
   out += `<circle cx="${xM(-650)}" cy="${yZ(380)}" r="4.5" fill="#dc2626" stroke="#fff" stroke-width="1"/>`;
-  out += `<circle cx="${xM(575)}" cy="${yZ(129)}" r="4.5" fill="#dc2626" stroke="#fff" stroke-width="1"/>`;
+  out += `<circle cx="${xM(570)}" cy="${yZ(129)}" r="4.5" fill="#dc2626" stroke="#fff" stroke-width="1"/>`;
   out += `<rect x="${xM(-765)}" y="${yZ(81)}" width="${+(15*sc).toFixed(1)}" height="${+(35*sc).toFixed(1)}" fill="#d97706" stroke="#fde68a"/>`;
   out += `<rect x="${xM(750)}" y="${yZ(81)}" width="${+(15*sc).toFixed(1)}" height="${+(35*sc).toFixed(1)}" fill="#d97706" stroke="#fde68a"/>`;
 
@@ -1267,8 +1267,8 @@ function leader(x1, y1, x2, y2, col = C.leader) {
 
   out += `<circle cx="${xY(255)}" cy="${yZ(400)}" r="8.5" fill="#dc2626" stroke="#fecaca" stroke-width="1.5"/>`;
   out += `<text x="${xY(255)}" y="${yZ(348)}" fill="${C.red}" font-family="${MONO}" font-size="8.2" font-weight="800" text-anchor="middle">E-STOP</text>`;
-  out += `<rect x="${xY(597)}" y="${yZ(406)}" width="${+(12*sc).toFixed(1)}" height="${+(52*sc).toFixed(1)}" fill="#dc2626" stroke="#fecaca" stroke-width="0.9"/>`;
-  out += `<rect x="${xY(-585)}" y="${yZ(406)}" width="${+(12*sc).toFixed(1)}" height="${+(52*sc).toFixed(1)}" fill="#dc2626" stroke="#fecaca" stroke-width="0.9"/>`;
+  out += `<rect x="${xY(599.5)}" y="${yZ(406)}" width="${+(14.5*sc).toFixed(1)}" height="${+(52*sc).toFixed(1)}" fill="#dc2626" stroke="#fecaca" stroke-width="0.9"/>`;
+  out += `<rect x="${xY(-585)}" y="${yZ(406)}" width="${+(14.5*sc).toFixed(1)}" height="${+(52*sc).toFixed(1)}" fill="#dc2626" stroke="#fecaca" stroke-width="0.9"/>`;
 
   out += `<rect x="${xY(112)}" y="${yZ(246)}" width="${+(224*sc).toFixed(1)}" height="${+(72*sc).toFixed(1)}" rx="2" fill="#7c2d12" stroke="${C.orange}" stroke-width="1.6"/>`;
   out += `<rect x="${xY(96)}" y="${yZ(236)}" width="${+(62*sc).toFixed(1)}" height="${+(52*sc).toFixed(1)}" fill="#f59e0b" stroke="#fef08a"/>`;
@@ -1323,7 +1323,7 @@ function leader(x1, y1, x2, y2, col = C.leader) {
   out += `<rect x="${xY(-585)}" y="${yZ(194)}" width="${+(265*sc).toFixed(1)}" height="${+(148*sc).toFixed(1)}" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.6"/>`;
   out += `<rect x="${xY(320)}" y="${yZ(194)}" width="${+(265*sc).toFixed(1)}" height="${+(148*sc).toFixed(1)}" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.6"/>`;
   out += `<rect x="${xY(-585)}" y="${yZ(162)}" width="${+(35*sc).toFixed(1)}" height="${+(66*sc).toFixed(1)}" fill="${C.void}" fill-opacity="0.7" stroke="${C.dim}" stroke-width="0.9" stroke-dasharray="3 2"/>`;
-  out += `<rect x="${xY(-550)}" y="${yZ(152)}" width="${+(12*sc).toFixed(1)}" height="${+(46*sc).toFixed(1)}" fill="#dc2626" stroke="#fecaca" stroke-width="0.9"/>`;
+  out += `<rect x="${xY(-549.5)}" y="${yZ(150)}" width="${+(11.5*sc).toFixed(1)}" height="${+(42*sc).toFixed(1)}" fill="#dc2626" stroke="#fecaca" stroke-width="0.9"/>`;
 
   out += `<rect x="${xY(330)}" y="${yZ(162)}" width="${+(114*sc).toFixed(1)}" height="${+(66*sc).toFixed(1)}" fill="${C.void}" fill-opacity="0.7" stroke="${C.dim}" stroke-width="0.9" stroke-dasharray="3 2"/>`;
   out += `<rect x="${xY(450)}" y="${yZ(162)}" width="${+(135*sc).toFixed(1)}" height="${+(90*sc).toFixed(1)}" fill="${C.bg}" stroke="${C.dim}" stroke-width="1.5"/>`;
@@ -1422,7 +1422,7 @@ function leader(x1, y1, x2, y2, col = C.leader) {
   out += `<text x="${cx}" y="${yX(704)+3}" fill="#fff" font-family="${MONO}" font-size="7.5" font-weight="900" text-anchor="middle">E1R</text>`;
   out += `<rect x="${xY(475.8)}" y="${yX(640.8)}" width="${+(123.2*sc).toFixed(1)}" height="${+(123.2*sc).toFixed(1)}" rx="4" fill="#0284c7" stroke="#bae6fd" stroke-width="1.3"/>`;
   out += `<rect x="${xY(-599)}" y="${yX(-764)}" width="${+(123.2*sc).toFixed(1)}" height="${+(123.2*sc).toFixed(1)}" rx="4" fill="#0284c7" stroke="#bae6fd" stroke-width="1.3"/>`;
-  for (const [ex, ey] of [[-750, 255], [-650, 585], [-650, -585], [575, 550], [575, -550]]) {
+  for (const [ex, ey] of [[-758, 255], [-650, 592], [-650, -592], [570, 544], [570, -544]]) {
     out += `<circle cx="${xY(ey)}" cy="${yX(ex)}" r="3.6" fill="#dc2626" stroke="#fff" stroke-width="0.9"/>`;
   }
 
@@ -1439,7 +1439,7 @@ function leader(x1, y1, x2, y2, col = C.leader) {
   out += leader(xY(-448), yX(485), 146, 344, C.teal);
   out += `<text x="142" y="347" fill="${C.teal}" font-family="${MONO}" font-size="8.4" font-weight="700" text-anchor="end">캐스터 (+485,-448)</text>`;
 
-  out += leader(xY(255), yX(-750), 434, 114, C.red);
+  out += leader(xY(255), yX(-758), 434, 114, C.red);
   out += `<text x="438" y="117" fill="${C.red}" font-family="${MONO}" font-size="8.5" font-weight="800" text-anchor="start">E-STOP×5 (적색)</text>`;
   out += leader(xY(50), yX(-645), 434, 152, C.amber);
   out += `<text x="438" y="155" fill="${C.amber}" font-family="${MONO}" font-size="8.5" font-weight="800" text-anchor="start">XT32 + Ø22×4기둥</text>`;
@@ -1449,8 +1449,8 @@ function leader(x1, y1, x2, y2, col = C.leader) {
   out += `<text x="438" y="269" fill="${C.dim}" font-family="${MONO}" font-size="8.4" font-weight="700" text-anchor="start">Flexi Soft + FD144S</text>`;
   out += leader(xY(105), yX(345), 434, 316, C.green);
   out += `<text x="438" y="319" fill="${C.green}" font-family="${MONO}" font-size="8.5" font-weight="800" text-anchor="start">배터리 B-1 (40Ah)</text>`;
-  out += leader(xY(550), yX(575), 434, 353, C.red);
-  out += `<text x="438" y="356" fill="${C.red}" font-family="${MONO}" font-size="8.4" font-weight="800" text-anchor="start">전방 E-STOP (+575,±550)</text>`;
+  out += leader(xY(544), yX(570), 434, 353, C.red);
+  out += `<text x="438" y="356" fill="${C.red}" font-family="${MONO}" font-size="8.4" font-weight="800" text-anchor="start">전방 E-STOP (+570,±538)</text>`;
   out += leader(xY(551), yX(716), 434, 386, C.dim);
   out += `<text x="438" y="389" fill="${C.dim}" font-family="${MONO}" font-size="8.6" font-weight="800" text-anchor="start">FL 2D (+716,+551)</text>`;
 
