@@ -356,7 +356,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
       <h2>0. 인터랙티브 3D CAD 모델 (1200×1530 × 4센서 + 후면 충전 접점)</h2>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <a href="3d.html" target="_blank" rel="noopener" style="text-decoration:none;background:var(--ok);color:#fff;padding:5px 12px;border-radius:8px;font-size:12.2px;font-weight:800">⛶ 전체화면 3D 뷰어 열기</a>
-        <a href="ltype_1200x1530_4sensor.glb" download style="text-decoration:none;background:var(--primary);color:#fff;padding:5px 12px;border-radius:8px;font-size:12.2px;font-weight:800">⬇ 106부품 상세 CAD (.glb) 다운로드</a>
+        <a href="ltype_1200x1530_4sensor.glb" download style="text-decoration:none;background:var(--primary);color:#fff;padding:5px 12px;border-radius:8px;font-size:12.2px;font-weight:800">⬇ 1.5t 110부품 상세 CAD (.glb) 다운로드</a>
       </div>
     </div>
 
@@ -653,8 +653,8 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
   <!-- DETAILED MECHANICAL, QR, DRIVETRAIN & LATCHMOD SPEC -->
   <section class="section" id="mech">
     <div class="section-head">
-      <h2>5. 상세 기구 설계 사양 — 중앙 하단 QR · 7축 구동/서스펜션 · 포크 가위/진입높이(Latch)</h2>
-      <span class="section-desc">실제 106부품 3D CAD(.glb/.step) 기준 · X-Ray 슬라이더로 내부 배치 즉시 확인 가능</span>
+      <h2>5. 1.5 t 확정 상세 기구 설계 사양 — 중앙 하단 QR · 7축 구동/서스펜션 · 연장 가위/진입높이(Latch)</h2>
+      <span class="section-desc">실제 110부품 3D CAD(.glb/.step) 기준 · Ø185×100 광폭 구동륜 · 155 mm 포크 · 318 mm 연장 X가위 + 초기 캠 적용</span>
     </div>
 
     <div class="grid-3">
@@ -663,33 +663,33 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
         <ul>
           <li><strong>위치:</strong> 구동축 회전 중심 <code>(X=0, Y=0)</code>, 렌즈 높이 <strong><code>Z=100 mm</code></strong> (최적 작동거리 80~120 mm). 제자리 회전 시에도 QR이 시야 중심 유지.</li>
           <li><strong>방호:</strong> 바닥판(<code>Z=46 mm</code>) <code>Ø85 mm</code> 매립 강화유리창(돌출 0) + 확산 링 LED 내장.</li>
-          <li><strong>배치 정합:</strong> <code>48V 100Ah LFP</code> 배터리는 전방(<code>X=+85~+635</code>) 배치, 후면 충전 버스바는 좌측 벽 우회로 간섭 0.</li>
+          <li><strong>배치 정합:</strong> 중앙 등뼈(폭 260 mm) 내 <code>48V 100Ah LFP</code> 배터리 전방(<code>X=+75~+655</code>) 배치, 후면 충전 버스바는 좌측 우회로 간섭 0.</li>
         </ul>
       </div>
 
       <div class="card">
-        <h3>② 고정 구동 2축 + 4코너 서스펜션</h3>
+        <h3>② 1.5 t 광폭 고정 구동 2축 + 서스펜션 ×4</h3>
         <ul>
-          <li><strong>구동 모듈 ×2:</strong> <code>Ø185×80</code> 연질 PU 75A (고정, 간격 770 mm) + <strong>40:1 직각 감속기</strong>(폭 70, 542 N·m) + <strong>110각 48V 1.5 kW 서보</strong>(길이 방향 배치) + <code>Kinco FD144S ×2</code>.</li>
-          <li><strong>캐스터 ×4:</strong> <code>Ø100×30</code> 쌍바퀴(<code>LAG G80 7470</code>, 600 kg, 쓸림 R=93) + <code>10t</code> 흔들 레버 + <strong>코일오버</strong>(앞 60 / 뒤 30 N/mm) + 우레탄 멈춤(400 N/mm).</li>
-          <li><strong>효과:</strong> 20 mm 턱 오름 중에도 구동륜 하중 68% 이상 유지.</li>
+          <li><strong>구동 모듈 ×2:</strong> <strong><code>Ø185×100</code> 연질 PU 75A</strong>(허용 ~1,250 kg/륜, 1.5t 편하중 961 kg 대비 <strong>+30% 여유</strong>, 간격 790 mm) + <strong>40:1 직각 감속기</strong>(542 N·m) + <strong>110각 48V 1.5 kW 서보</strong> + <code>Kinco FD144S ×2</code>.</li>
+          <li><strong>캐스터 ×4:</strong> <code>Ø100×30</code> 쌍바퀴(<code>LAG G80 7470</code>, <strong>600 kg/개</strong>, 급정지 463 kg 대비 1.3배 여유) + <code>10t</code> 흔들 레버 + <strong>코일오버</strong>(앞 60 / 뒤 30 N/mm) + 우레탄 멈춤(400 N/mm).</li>
+          <li><strong>효과:</strong> 폭 1200 mm 여유로 광폭 바퀴·캐스터 쓸림(382~568) 간섭 0 · 전도 여유 3.2배↑.</li>
         </ul>
       </div>
 
       <div class="card" style="border-color:var(--purple-border)">
-        <h3>③ 포크 뻗기·가위 리프트·진입 높이(Latch)</h3>
+        <h3>③ 1.5 t 강화 포크(155mm)·연장 가위(318mm)·Latch</h3>
         <ul>
-          <li><strong>신축(1축):</strong> <code>HGR20</code> 레일×2 + 등뼈 후방 서보(<code>1회전=6.42 mm</code>, <code>FD144S×1</code>) + <code>Tuofei</code> 와이어.</li>
-          <li><strong>X형 가위 리프트(2축):</strong> 날당 2조 ×2 = <strong>총 4조</strong>(링크 281 mm, 감속 14:1, <code>FD144S×2</code>, 최대 70°·날 윗면 302 mm).</li>
-          <li><strong>진입 높낮이 <code>latchmod rev B</code>(2축):</strong> <code>Kinco SMC40S</code>(40각 50W)×2 + <code>FD114S×2</code> + 웜 20:1 + <code>Tr10×2</code> 자체잠김 + 편심 롤러(팔 172.4 mm) → <strong>행정 -15~+30 mm (픽 -11: 바닥 Z=31 ↔ 주행 +9: 바닥 Z=51)</strong>.</li>
+          <li><strong>신축(1축):</strong> <strong>폭 155 mm 강화 포크</strong> + <code>HGR20</code> 레일×2 + 등뼈 후방 서보(<code>1회전=6.42 mm</code>, <code>FD144S×1</code>) + <code>Tuofei</code> 와이어.</li>
+          <li><strong>1.5 t 연장 X형 가위(2축 · 4조):</strong> <strong><code>SCM440</code> 열처리 <code>318 mm</code> 링크</strong> + <strong>초기 경사 캠/웨지(0~14° 데드존 보조, 피크 축력 ≤3.5 t)</strong> + <strong><code>Ø28</code> 볼스크류(효율 90%)</strong> + 복열 스러스트 베어링 → 최대 70° <strong>날 윗면 337 mm (1.5t 구멍 130 mm 파레트 여유 픽업!)</strong>.</li>
+          <li><strong>진입 높이 <code>latchmod rev B</code>(2축):</strong> <code>Kinco SMC40S</code>×2 + <code>FD114S</code>×2 + 웜 20:1 + <code>Tr10×2</code> 자체잠김 + 편심 롤러(팔 172.4 mm) → <strong>픽 -11(Z=31) ↔ 주행 +9(Z=51)</strong>.</li>
         </ul>
       </div>
     </div>
 
-    <div class="tip-box" style="margin-top:12px;border-left-color:var(--warn);background:var(--warn-bg)">
-      <strong style="color:var(--warn)">⚠ 상세 제작도면 출도 전 실측 확정 2건:</strong>
-      ① 연질 PU 75A 구동 트레드의 건조 바닥 20 mm 턱 마찰계수 <strong><code>μ ≥ 0.79</code> 실측</strong>(모자라면 구동폭 90 또는 턱 진입 램프 병행),
-      ② <strong>현장 1.5 t 파레트 구멍 높이 &amp; 기존 T10 리프트 끝 높이 실측</strong>(상판 192 mm·가위 70° 기준 포켓 구멍 상한 102 mm → 115~130 mm 파레트 운용 시 가위 링크/행정 연장 반영).
+    <div class="tip-box" style="margin-top:12px;border-left-color:var(--ok);background:var(--ok-bg)">
+      <strong>✅ 1.5 t 보강 3종 반영 완료 &amp; 출도 전 실측 2건:</strong>
+      기존 <code>281 mm</code> 가위의 102 mm 파레트 구멍 한계와 <code>폭 80</code> 구동륜 여유 부족은 <strong>① Ø185×100 광폭 바퀴 ② 155 mm 강화 포크 ③ 318 mm 연장 X가위 + 초기 경사 캠 + Ø28 볼스크류</strong>로 해소했습니다.
+      제작 발주 전 ① 연질 PU 75A 건조 바닥 <strong><code>μ ≥ 0.79</code> 당김 실측</strong>(20 mm 턱 단독 등판 확인) ② <strong>1.5 t 연장 가위·초기 캠·Ø20 핀 유한요소(FEM) 강도 검증</strong> 2건만 기구 업체에서 최종 확인하면 됩니다.
     </div>
   </section>
 
@@ -730,34 +730,34 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
             <td><strong>수평 ≤0.18° + 보정 반사율 + PTP</strong>.<br>후진 오버행 + 3~5개 다중 링 반사판 + <code>H530</code> 가상 2D SLAM.</td>
           </tr>
           <tr>
-            <td><strong>④ 포크 끝단 감지 × 2</strong><br>(좌·우 포크 선단 매립)</td>
+            <td><strong>④ 중앙 하단 QR 카메라 × 1</strong><br>(X=0, Y=0, 렌즈 Z=100)</td>
+            <td class="hi-ok"><strong>Hikrobot SC2000A</strong> 또는<br><strong>Hikrobot MV-ID2004M-06S</strong></td>
+            <td>• 글로벌 산업용: <strong>Pepperl+Fuchs PGV100-F200A-B25-V1D</strong><br>• 액체렌즈 대안: <strong>Cognex DataMan 70 / 150</strong> (6.2 mm)</td>
+            <td>작동거리 80~120 mm(100 mm 최적), 내장 확산 링 LED + 바닥 Ø85 강화유리창 매립.</td>
+          </tr>
+          <tr>
+            <td><strong>⑤ 포크 끝단 감지 × 2</strong><br>(좌·우 포크 선단 매립)</td>
             <td><strong>SICK WTB4FP-22161120A00</strong><br><small>(초소형 배경억제 광전, IP67)</small></td>
             <td>• 대안: <strong>Keyence LR-TB2000C</strong> / <strong>Omron E3Z-LS61</strong><br>• 화물 안착×2: <strong>Omron E3Z-D82</strong> / <strong>Autonics BJ100-DDT</strong></td>
             <td>0.02~0.8 m, 24 V PNP/NPN, 검정 팔레트 강인.<br>포크 1250 mm 신축 중 포켓 내부 충돌 정지.</td>
           </tr>
           <tr>
-            <td><strong>⑤ 포크 길이 센서 × 1</strong><br>(와이어 엔코더)</td>
+            <td><strong>⑥ 포크 길이 센서 × 1</strong><br>(와이어 엔코더)</td>
             <td><strong>Tuofei (拓飞) 와이어 센서</strong><br><small>(기존 T10 동일 Modbus RTU)</small></td>
             <td>• 산업용 대체: <strong>SICK BTF08</strong> / <strong>Turck WDS</strong></td>
             <td>스트로크 ≥1300 mm. 기존 T10 Modbus reg <code>0x4A</code> 호환 유지 시 SW 무수정.</td>
           </tr>
           <tr>
-            <td><strong>⑥ 6축 산업용 IMU × 1</strong><br>(차체 중심 강성 마운트)</td>
+            <td><strong>⑦ 6축 산업용 IMU × 1</strong><br>(차체 중심 강성 마운트)</td>
             <td><strong>Xsens MTi-630</strong><br><small>(200~400 Hz, IP68, CAN/UART)</small></td>
             <td>• 대안: <strong>MicroStrain 3DM-CV7-AHRS</strong><br>• 가성비: <strong>Wheeltec HFI-A9 / N100</strong></td>
             <td>3D LiDAR 모션 왜곡 보정(Deskew) 및 회전 오도메트리 융합 필수.</td>
           </tr>
           <tr>
-            <td><strong>⑦ 안전 제어 · 범퍼</strong><br>(STO 하드와이어)</td>
+            <td><strong>⑧ 안전 제어 · 범퍼</strong><br>(STO 하드와이어)</td>
             <td class="hi-ok"><strong>SICK Flexi Soft (FX3-CPU3)</strong><br>+ <strong>Mayser SL/W</strong> 안전 범퍼 띠</td>
             <td>• 시제품 심플 STO: <strong>Pilz PNOZ s4</strong> (또는 <strong>SICK ReLy OSSD2</strong>)<br>• 안전 PLC 대안: <strong>Pilz PNOZmulti 2 (m B0)</strong><br>• 범퍼 대안: <strong>ASO Sentir</strong></td>
             <td>비상정지·범퍼(Z=46~81)·nanoScan3 OSSD를 서보 <strong>STO 단자에 직결</strong>(Kinco DI 의존 폐기).</td>
-          </tr>
-          <tr>
-            <td><strong>④ 중앙 하단 QR 카메라 × 1</strong><br>(X=0, Y=0, 렌즈 Z=100)</td>
-            <td class="hi-ok"><strong>Hikrobot SC2000A</strong> 또는<br><strong>Hikrobot MV-ID2004M-06S</strong></td>
-            <td>• 글로벌 산업용: <strong>Pepperl+Fuchs PGV100-F200A-B25-V1D</strong><br>• 액체렌즈 대안: <strong>Cognex DataMan 70 / 150</strong> (6.2 mm)</td>
-            <td>작동거리 80~120 mm(100 mm 최적), 내장 확산 링 LED + 바닥 Ø85 강화유리창 매립.</td>
           </tr>
           <tr>
             <td><strong>⑨ 메인 PC · PTP · 무선</strong><br>(센서망/제어망 분리)</td>
@@ -766,16 +766,16 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
             <td>3D×2 + 2D×2 + QR 연산 + <strong>IEEE 1588 PTP 동기</strong> + <code>eth0</code>(센서)/<code>eth1</code>(제어) 분리 + IO/동력 보드.</td>
           </tr>
           <tr>
-            <td><strong>⑩ 주행 2축 + 서스펜션 ×4</strong><br>(고정 구동 + 쌍바퀴 캐스터)</td>
-            <td><strong>Ø185×80 연질 PU 75A</strong> <small>(Blickle GSTN 202/35H7급)</small> + <strong>40:1 직각감속기</strong> + <strong>110각 1.5 kW 서보</strong> + <strong>Kinco FD144S ×2</strong></td>
-            <td>• 캐스터 ×4: <strong>LAG G80 7470</strong> (Ø100×30 쌍바퀴, 600 kg)<br>• 서스펜션: 10t 흔들 레버 + 코일오버(앞 60 / 뒤 30 N/mm) + 우레탄 멈춤(400 N/mm)</td>
-            <td>구동 간격 770 mm, 턱 오름 토크 542 N·m, 급정지 캐스터 463 kg 대응, 최고 0.7 m/s.</td>
+            <td><strong>⑩ 1.5 t 주행 2축 + 서스펜션 ×4</strong><br>(광폭 고정 구동 + 600kg 캐스터)</td>
+            <td class="hi-ok"><strong>Ø185×100 연질 PU 75A</strong> <small>(~1,250 kg/륜, Blickle Softhane급)</small> + <strong>40:1 직각감속기</strong> + <strong>110각 1.5 kW 서보</strong> + <strong>Kinco FD144S ×2</strong></td>
+            <td>• 캐스터 ×4: <strong>LAG G80 7470</strong> (Ø100×30 쌍바퀴, <strong>600 kg/개</strong>)<br>• 서스펜션: 10t 흔들 레버 + 코일오버(앞 60 / 뒤 30 N/mm) + 우레탄 멈춤(400 N/mm)</td>
+            <td>구동 간격 790 mm, 1.5t 편하중 961 kg 대비 <strong>+30% 여유</strong>, 급정지 캐스터 463 kg 대비 1.3배 여유.</td>
           </tr>
           <tr>
-            <td><strong>⑪ 포크 신축·가위·진입높이</strong><br>(총 5축 · Latch 포함)</td>
-            <td>• 신축 1축 + 가위 리프트 2축: <strong>Kinco 서보 + FD144S ×3</strong> + <strong>HGR20 레일 ×2</strong><br>• 진입높이 <code>latchmod rev B</code> 2축: <strong>Kinco SMC40S-0005-30MAK-5DSU ×2</strong> + <strong>FD114S-CB-000 ×2</strong></td>
-            <td>• 웜 m1 20:1 + <code>Tr10×2</code> 세로 나사(우측 왼나사) + U패드<br>• 윗 편심 캠팔로워 <strong>CF8 (Ø19×11) ×4</strong> + 옆 편심 롤러 ×8 + <code>8t</code> 보강판</td>
-            <td>진입 높이 <strong>-15~+30 mm</strong>(픽 -11: Z=31 ↔ 주행 +9: Z=51) + X형 가위 4조(최고 302 mm) + 처짐 차단.</td>
+            <td><strong>⑪ 1.5 t 포크·연장 가위·Latch</strong><br>(총 5축 · 폭 155 · 링크 318)</td>
+            <td class="hi-ok">• 155 mm 강화 포크 + <strong>318 mm <code>SCM440</code> X가위 4조</strong> + <strong>초기 경사 캠/웨지</strong> + <strong>Ø28 볼스크류(90%)</strong> + <strong>Kinco FD144S ×3</strong> + <strong>HGR20 ×2</strong><br>• 진입높이 <code>latchmod rev B</code> 2축: <strong>Kinco SMC40S ×2</strong> + <strong>FD114S ×2</strong></td>
+            <td>• 복열 스러스트 앵귤러 베어링 + Ø20 경화핀 + 가로 타이바<br>• 웜 m1 20:1 + <code>Tr10×2</code>(우측 왼나사) + 편심 캠팔로워 <strong>CF8 ×4</strong> + 옆 롤러 ×8 + <code>8t</code> 보강판</td>
+            <td>진입 높이 <strong>-15~+30 mm</strong>(픽 Z=31 ↔ 주행 Z=51) + 최고 날 윗면 <strong>337 mm</strong>(1.5t 구멍 130 mm 파레트 대응) + 초기 축력 ≤3.5 t.</td>
           </tr>
           <tr>
             <td><strong>⑫ 배터리 · 후면 충전 · HMI</strong><br>(48V 100Ah · 후진 도킹)</td>

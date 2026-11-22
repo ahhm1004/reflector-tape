@@ -145,7 +145,7 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
         <h1>L-type 1200×1530 상세 3D</h1>
         <a class="back-link" href="index.html">← 설계서</a>
       </div>
-      <p class="sub">4센서 · 중앙 하단 QR · 7축 구동/서스펜션/가위/Latch</p>
+      <p class="sub">1.5 t 확정 · 4센서 · 하단 QR · Ø185×100 · 318mm X가위 · Latch</p>
     </div>
 
     <div class="box">
@@ -185,8 +185,8 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
         <input type="range" id="sExt" min="0" max="1250" step="10" value="0">
       </div>
       <div class="slider-row">
-        <div class="slider-head"><span>X형 가위 리프트 (Lift)</span><strong id="vLift">0 mm (날 상단 95)</strong></div>
-        <input type="range" id="sLift" min="0" max="207" step="3" value="0">
+        <div class="slider-head"><span>1.5 t 연장 X형 가위 리프트 (318 mm)</span><strong id="vLift">0 mm (날 상단 95)</strong></div>
+        <input type="range" id="sLift" min="0" max="242" step="2" value="0">
       </div>
       <div class="slider-row">
         <div class="slider-head"><span>차체 외판 투명도 (내부 기구 X-Ray)</span><strong id="vOp">78%</strong></div>
@@ -215,15 +215,15 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
         <div class="p-item" data-cam="underQR">
           <span class="dot" style="background:#14b8a6;margin-top:4px"></span>
           <div>
-            <div class="pt">하단 중앙 QR + 고정 구동·서스펜션</div>
-            <div class="ps">QR(X=0, 렌즈 Z=100) · Ø185×80+40:1+110각 서보 · Ø100 쌍바퀴+코일오버</div>
+            <div class="pt">하단 중앙 QR + 1.5 t 광폭 구동·서스펜션</div>
+            <div class="ps">QR(X=0, Z=100) · Ø185×100(1,250 kg/륜)+40:1 · Ø100(600 kg)+코일오버</div>
           </div>
         </div>
         <div class="p-item" data-cam="latchView">
           <span class="dot" style="background:#ec4899;margin-top:4px"></span>
           <div>
-            <div class="pt">포크 가위 리프트 4조 + 진입 높이(Latch)</div>
-            <div class="ps">SMC40S+웜+Tr10×2(-15~+30 mm) · 픽 Z=31 / 주행 Z=51 · HGR20 레일</div>
+            <div class="pt">1.5 t 포크(155mm) + 318mm 가위·캠 + Latch</div>
+            <div class="ps">SCM440 318mm(구멍 130mm 대응) + 초기 캠 + Ø28 볼스크류 + Latch(-15~+30)</div>
           </div>
         </div>
         <div class="p-item" data-cam="frontE1R">
@@ -257,7 +257,7 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
       <div class="t-model" id="tipModel"></div>
       <div class="t-desc" id="tipDesc"></div>
     </div>
-    <div id="axisBadge">1200(폭)×1530(길이)×590(타워) mm · 구동 Ø185×80(40:1) · 캐스터 Ø100 쌍바퀴+코일오버 · 7축</div>
+    <div id="axisBadge">1.5 t 확정 · 1200×1530×590 mm · 구동 Ø185×100(40:1) · 포크 155 mm · 연장 X가위 318 mm + 캠</div>
   </main>
 </div>
 
@@ -370,26 +370,26 @@ const matBatt    = new THREE.MeshStandardMaterial({ color: 0x059669, roughness: 
 const robotGroup = new THREE.Group();
 scene.add(robotGroup);
 
-// ================= 1. CHASSIS SHELL (1200x1530x590, ZERO PROTRUSION) =================
-makeBox(-545, 610, 290, 585, 46, 192, matChassis, ['좌측 포드 (평탄 파레트 적재면)', '1200×1530 차체 (Z=46~192 mm)', '구동·캐스터 서스펜션·안전 PLC/서보 드라이브 내장'], robotGroup);
-makeBox(610, 750, 290, 450, 46, 192, matChassis, ['좌측 포드 앞쪽 내벽', '하부 2D 슬롯 보호', ''], robotGroup);
+// ================= 1. CHASSIS SHELL (1200x1530x590, ZERO PROTRUSION, 1.5t REINFORCED) =================
+makeBox(-545, 610, 320, 585, 46, 192, matChassis, ['좌측 포드 (1.5t 평탄 파레트 적재면)', '1200×1530 차체 (|Y|=320~585, Z=46~192)', 'Ø185×100 광폭 구동·600kg 캐스터·안전 PLC/서보 드라이브 내장'], robotGroup);
+makeBox(610, 750, 320, 450, 46, 192, matChassis, ['좌측 포드 앞쪽 내벽', '하부 2D 슬롯 보호', ''], robotGroup);
 makeBox(610, 750, 450, 585, 162, 192, matChassis, ['좌하 2D 슬롯 보호 상판', 'Z=162~192 mm', ''], robotGroup);
 makeBox(610, 750, 450, 585, 46, 72, matChassis, ['좌하 2D 슬롯 베이스', '3점 레벨링 볼트 (±0.1°)', ''], robotGroup);
-makeBox(-545, 750, -585, -290, 46, 192, matChassis, ['우측 포드 (평탄 파레트 적재면)', '1200×1530 차체 (Z=46~192 mm)', '구동·캐스터 서스펜션·Orin NX + Moxa PTP 내장'], robotGroup);
+makeBox(-545, 750, -585, -320, 46, 192, matChassis, ['우측 포드 (1.5t 평탄 파레트 적재면)', '1200×1530 차체 (|Y|=320~585, Z=46~192)', 'Ø185×100 광폭 구동·600kg 캐스터·Orin NX + Moxa PTP 내장'], robotGroup);
 
-// Center Fixed Spine split around Center QR bay (-65..+65) and Front E1R fortified tunnel (678..750)
-makeBox(-545, -65, -145, 145, 46, 174, matSpine, ['중앙 등뼈 후방부 (폭 290 mm)', '포크 뻗기 서보 + 와이어 엔코더 + IMU 수납', ''], robotGroup);
-makeBox(-65, 65, -145, 145, 154, 174, matSpine, ['중앙 등뼈 QR실 상판', '회전축 정중앙(X=0, Y=0) 하방 QR 카메라 보호', ''], robotGroup);
-makeBox(-65, 65, 55, 145, 46, 154, matSpine, ['중앙 QR실 좌측 격벽', '바닥 Ø85 강화유리 광학창 지지', ''], robotGroup);
-makeBox(-65, 65, -145, -55, 46, 154, matSpine, ['중앙 QR실 우측 격벽', '바닥 Ø85 강화유리 광학창 지지', ''], robotGroup);
-makeBox(65, 678, -145, 145, 46, 174, matSpine, ['중앙 등뼈 전방부', '48V 100Ah LFP 배터리 수납 (550×230×108 mm)', '중앙 QR실과 앞 E1R 포켓 사이 독립 격실'], robotGroup);
+// Center Fixed Spine (260 mm wide: |Y|<=130) split around Center QR bay (-65..+65) and Front E1R fortified tunnel (678..750)
+makeBox(-545, -65, -130, 130, 46, 174, matSpine, ['중앙 등뼈 후방부 (폭 260 mm)', '포크 뻗기 서보 + 와이어 엔코더 + IMU 수납', ''], robotGroup);
+makeBox(-65, 65, -130, 130, 154, 174, matSpine, ['중앙 등뼈 QR실 상판', '회전축 정중앙(X=0, Y=0) 하방 QR 카메라 보호', ''], robotGroup);
+makeBox(-65, 65, 55, 130, 46, 154, matSpine, ['중앙 QR실 좌측 격벽', '바닥 Ø85 강화유리 광학창 지지', ''], robotGroup);
+makeBox(-65, 65, -130, -55, 46, 154, matSpine, ['중앙 QR실 우측 격벽', '바닥 Ø85 강화유리 광학창 지지', ''], robotGroup);
+makeBox(65, 678, -130, 130, 46, 174, matSpine, ['중앙 등뼈 전방부 (폭 260 mm)', '48V 100Ah LFP 배터리 수납 (580×212×110 mm)', '155 mm 1.5t 포크 레인 확보 + 중앙 QR/E1R 독립 격실'], robotGroup);
 
 // Front E1R fortified tunnel + 8 mm steel top cover
-makeBox(678, 750, -145, 145, 46, 56, matSpine, ['E1R 포켓 하부 10t 강판', 'Z=46~56 · 하방 -35° 무간섭', ''], robotGroup);
+makeBox(678, 750, -130, 130, 46, 56, matSpine, ['E1R 포켓 하부 10t 강판', 'Z=46~56 · 하방 -35° 무간섭', ''], robotGroup);
 makeBox(678, 720, -85, 85, 56, 78, matSpine, ['E1R 경사 마운트 베이스', '+10° 지지 브래킷', ''], robotGroup);
-makeBox(678, 740, -145, 145, 166, 174, matTower, ['★ E1R 상단 8 mm 강판 보호 커버 (경사 처마)', 'Z=166~174 mm · 앞끝 X=740', 'E1R 본체(X=682~725) 위 100% 방호 · +55° 시야 손실 0°'], robotGroup);
-makeBox(678, 750, 85, 145, 56, 166, matSpine, ['E1R 좌측 60 mm 강철 지주', '상단 커버 지지 + ±60° 수평 시야 확보', ''], robotGroup);
-makeBox(678, 750, -145, -85, 56, 166, matSpine, ['E1R 우측 60 mm 강철 지주', '상단 커버 지지 + ±60° 수평 시야 확보', ''], robotGroup);
+makeBox(678, 740, -130, 130, 166, 174, matTower, ['★ E1R 상단 8 mm 강판 보호 커버 (경사 처마)', 'Z=166~174 mm · 앞끝 X=740', 'E1R 본체(X=682~725) 위 100% 방호 · +55° 시야 손실 0°'], robotGroup);
+makeBox(678, 750, 85, 130, 56, 166, matSpine, ['E1R 좌측 45 mm 강철 지주', '상단 커버 지지 + ±60° 수평 시야 확보', ''], robotGroup);
+makeBox(678, 750, -130, -85, 56, 166, matSpine, ['E1R 우측 45 mm 강철 지주', '상단 커버 지지 + ±60° 수평 시야 확보', ''], robotGroup);
 
 // Rear Tower
 makeBox(-750, -545, -450, 585, 46, 472, matTower, ['뒤쪽 상단 타워 본체', '깊이 220 mm · 높이 590 mm', '후면 충전(Z=180~240) + 10.1" HMI(Z=340~510)'], robotGroup);
@@ -403,47 +403,47 @@ makeBox(-705, -585, -585, 585, 565, 590, matTower, ['타워 보호 지붕 (경�
 
 // Safety Bumpers (Mayser SL/W, Z=46..81)
 const bmpMeta = ['접촉식 안전 범퍼 띠', 'Mayser SL/W (대안: ASO Sentir)', 'Z=46~81 mm · Safety Relay / STO 직결'];
-makeBox(750, 765, -585, -290, 46, 81, matBumper, bmpMeta, robotGroup);
-makeBox(750, 765, 290, 445, 46, 81, matBumper, bmpMeta, robotGroup);
+makeBox(750, 765, -585, -320, 46, 81, matBumper, bmpMeta, robotGroup);
+makeBox(750, 765, 320, 445, 46, 81, matBumper, bmpMeta, robotGroup);
 makeBox(-740, 605, 585, 600, 46, 81, matBumper, bmpMeta, robotGroup);
 makeBox(-605, 740, -600, -585, 46, 81, matBumper, bmpMeta, robotGroup);
 makeBox(-765, -750, -445, 585, 46, 81, matBumper, ['후방 연속 안전 범퍼', 'Mayser SL/W (Z=46~81)', '후면 충전 접점(Z=180~240) 아래 완전 분리'], robotGroup);
 
 // Linear Guide Rails (HGR20 x2)
 for (const s of [1, -1]) {
-  const y0 = Math.min(s * 145, s * 165), y1 = Math.max(s * 145, s * 165);
+  const y0 = Math.min(s * 130, s * 150), y1 = Math.max(s * 130, s * 150);
   makeBox(-690, 735, y0, y1, 86, 107, matRail, ['직선 가이드 레일 HGR20 × 2', '등뼈 양쪽 내벽 장착', '포크 캐리지 0~1250 mm 고정밀 직선 안내'], robotGroup);
 }
 
-// ================= 2. DETAILED DRIVE MODULES x2 & SUSPENSION CASTERS x4 =================
+// ================= 2. DETAILED 1.5t DRIVE MODULES x2 & SUSPENSION CASTERS x4 =================
 for (const s of [1, -1]) {
   const lbl = s > 0 ? '좌' : '우';
-  // Fixed Drive Wheel Ø185 x 80
-  const w = new THREE.Mesh(new THREE.CylinderGeometry(0.0925, 0.0925, 0.080, 32), matRubber);
+  // 1.5t Fixed Wide Drive Wheel Ø185 x 100 (track 790 mm, ~1,250 kg/wheel = +30% over 961 kg!)
+  const w = new THREE.Mesh(new THREE.CylinderGeometry(0.0925, 0.0925, 0.100, 32), matRubber);
   w.rotation.x = Math.PI / 2;
-  w.position.set(0, 0.0925, -mm(s * 385));
+  w.position.set(0, 0.0925, -mm(s * 395));
   w.castShadow = true;
-  tagMesh(w, `고정 구동 바퀴 (${lbl})`, 'Ø185×80 연질 PU 75A (Blickle GSTN 202/35H7급)', '구동 간격 770 mm · 고정식 2륜 차동 · 20 mm 턱 대응(μ≥0.79)');
+  tagMesh(w, `★ 1.5 t 광폭 구동 바퀴 (${lbl})`, 'Ø185×100 연질 PU 75A (허용 ~1,250 kg/륜 · Blickle Softhane급)', '구동 간격 790 mm · 1.5t 편하중(961 kg) 대비 +30% 안전 여유 · 20 mm 턱(μ≥0.79)');
   robotGroup.add(w);
-  const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.083, 24), matDrive);
+  const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.103, 24), matDrive);
   rim.rotation.x = Math.PI / 2; rim.position.copy(w.position); robotGroup.add(rim);
 
   // Right-angle 40:1 Gearbox (120 x 70 x 120 mm)
-  const gy0 = Math.min(s * 428, s * 498), gy1 = Math.max(s * 428, s * 498);
+  const gy0 = Math.min(s * 448, s * 518), gy1 = Math.max(s * 448, s * 518);
   makeBox(-60, 60, gy0, gy1, 55, 175, matDrive, [`직각 감속기 40:1 (${lbl})`, '폭 70 mm · 바퀴 외팔 지지', '턱 오름 토크 542 N·m 대응 · 최고 주행속도 0.7 m/s'], robotGroup);
 
   // 110-frame 48V 1.5kW Longitudinal Servo Motor (Ø110 x L200)
   const mot = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.200, 24), matMotor);
   mot.rotation.z = Math.PI / 2;
-  mot.position.set(mm(-190), mm(120), -mm(s * 465));
-  tagMesh(mot, `주행 서보 모터 (${lbl})`, '110각 48V 1.5 kW 서보 (Kinco FD144S 구동)', '축을 차체 길이 방향으로 배치해 폭 1200 mm 안쪽 수납');
+  mot.position.set(mm(-190), mm(120), -mm(s * 490));
+  tagMesh(mot, `주행 서보 모터 (${lbl})`, '110각 48V 1.5 kW 서보 (Kinco FD144S 구동)', '외측 545 mm ≤ 차체 585 mm (40 mm 여유)');
   robotGroup.add(mot);
-  makeBox(-75, 75, Math.min(s * 428, s * 535), Math.max(s * 428, s * 535), 176, 188, matDrive, [`구동 모듈 상부 볼트 마운트 (${lbl})`, '포드 상판 직결 고정', '서스펜션 없는 고정 구동으로 상판 192 mm 억제'], robotGroup);
+  makeBox(-75, 75, Math.min(s * 448, s * 555), Math.max(s * 448, s * 555), 176, 188, matDrive, [`구동 모듈 상부 볼트 마운트 (${lbl})`, '포드 상판 직결 고정', '서스펜션 없는 고정 구동으로 상판 192 mm 억제'], robotGroup);
 
-  // 4x Twin Casters (Ø100x30) + Swivel Head + 10t Swing Lever + Coilover + Urethane Stopper
+  // 4x Twin Casters (Ø100x30, 600kg) + Swivel Head + 10t Swing Lever + Coilover + Urethane Stopper
   for (const [xc, fr, kNm] of [[515, '앞', '60 N/mm'], [-515, '뒤', '30 N/mm']]) {
     const sp = xc > 0 ? -1 : 1;
-    const yc = s * 455;
+    const yc = s * 475;
     const head = new THREE.Mesh(new THREE.CylinderGeometry(0.046, 0.046, 0.040, 24), matCaster);
     head.position.set(mm(xc), mm(120), -mm(yc));
     tagMesh(head, `${fr}${lbl} 쌍바퀴 캐스터 회전 머리`, 'LAG G80 7470 (Ø100×30 쌍바퀴, 600 kg)', '쓸림 반경 93 mm · 급정지 463 kg 하중 여유');
@@ -478,57 +478,65 @@ forkSlideGroup.add(forkLatchGroup);
 forkLatchGroup.add(forkLiftGroup);
 
 // Mast / Carriage (slides with fork extension)
-makeBox(-690, -560, -285, 285, 55, 260, matFork, ['포크 신축 캐리지 (门架)', '포크 0~1250 mm 전체 전후 이동', '등뼈 후방 뻗기 서보(1회전=6.42 mm) 구동'], forkSlideGroup);
+makeBox(-690, -560, -315, 315, 55, 260, matFork, ['1.5 t 포크 신축 캐리지 (门架)', '포크 0~1250 mm 전체 전후 이동', '등뼈 후방 뻗기 서보(1회전=6.42 mm) 구동'], forkSlideGroup);
 
 const scissorLinks = []; // animated on lift slider!
 const latchPads = [];    // animated on latch slider!
 
 for (const s of [1, -1]) {
   const lbl = s > 0 ? '좌' : '우';
-  const yf0 = Math.min(s * 155, s * 275), yf1 = Math.max(s * 155, s * 275);
-  // Fork tines (lift with latch + lift!)
-  makeBox(-620, 735, yf0, yf1, 42, 86, matFork, [`신축 포크 날 (${lbl}, 폭 120 mm)`, '진입 높이 조절(-15~+30 mm) + X형 가위 리프트(최고 302 mm)', '픽(-11) 시 바닥 Z=31 / 주행(+9) 시 바닥 Z=51'], forkLiftGroup);
-  // Fork-tip photoelectric sensor
-  makeBox(722, 736, s * 215 - 9, s * 215 + 9, 54, 74, matGreen, [`포크 끝단 매립 광전 센서 (${lbl})`, 'SICK WTB4FP-22161120A00', '포크 진입 시 팔레트 포켓 내부 충돌 정지'], forkLiftGroup);
+  const ycf = s * 231.5;
+  const yf0 = Math.min(s * 154, s * 309), yf1 = Math.max(s * 154, s * 309);
+  // 1.5t Reinforced Fork tines (width 155 mm!)
+  makeBox(-620, 735, yf0, yf1, 42, 86, matFork, [`★ 1.5 t 강화 신축 포크 날 (${lbl}, 폭 155 mm)`, '진입 높이(-15~+30 mm) + 연장 318 mm X가위(최고 337 mm)', '구멍 높이 130 mm 중량 파레트까지 여유 픽업 · 픽 Z=31 / 주행 Z=51'], forkLiftGroup);
+  makeBox(722, 736, ycf - 9, ycf + 9, 54, 74, matGreen, [`포크 끝단 매립 광전 센서 (${lbl})`, 'SICK WTB4FP-22161120A00', '포크 진입 시 팔레트 포켓 내부 충돌 정지'], forkLiftGroup);
 
-  // latchmod rev B on Carriage (Servo + Worm Gearbox + Vertical Tr10x2 Leadscrew + Upper Eccentric Rollers)
-  makeBox(-716, -641, s * 215 - 20, s * 215 + 20, 62, 102, matLatch,
+  // Heavy Ø28 ballscrew rod inside fork
+  const bscr = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.520, 18), matScrew);
+  bscr.rotation.z = Math.PI / 2;
+  bscr.position.set(mm(-380), mm(64), -mm(ycf));
+  tagMesh(bscr, `1.5 t 고하중 리프트 볼스크류 (${lbl})`, 'Ø28 볼스크류(효율 90%) + 복열 스러스트 베어링 + 14:1 감속', '사다리꼴 나사 대비 효율 2.5배 · Kinco FD144S × 2 구동');
+  forkSlideGroup.add(bscr);
+
+  // latchmod rev B on Carriage
+  makeBox(-716, -641, ycf - 20, ycf + 20, 62, 102, matLatch,
     [`★ 포크 진입 높이 서보 (${lbl}, latchmod rev B)`, 'Kinco SMC40S-0005-30MAK-5DSU (40각 50W, FD114S 구동)', '포크 진입 시 -11 mm(바닥 Z=31) / 주행 시 +9 mm(바닥 Z=51) SW 조절'], forkSlideGroup);
-  makeBox(-641, -603, s * 215 - 24, s * 215 + 24, 58, 106, matLatch,
+  makeBox(-641, -603, ycf - 24, ycf + 24, 58, 106, matLatch,
     [`웜 감속기 m1 20:1 (${lbl})`, '역구동 자체 잠김 기어함 (LM-03R2)', '전원 OFF 시에도 포크 높이 고정 유지'], forkSlideGroup);
   const lead = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.105, 16), matScrew);
-  lead.position.set(mm(-608), mm(108), -mm(s * 215));
+  lead.position.set(mm(-608), mm(108), -mm(ycf));
   tagMesh(lead, `Tr10×2 세로 승강 나사 (${lbl})`, s < 0 ? '왼나사 자체 잠김 (행정 45 mm)' : '오른나사 자체 잠김 (행정 45 mm)', '-15 ~ +30 mm 포크 진입 높낮이 조절');
   forkSlideGroup.add(lead);
 
-  // Moving U-pad nut block & upper eccentric cam follower (follows latch height!)
-  const upad = makeBox(-618, -588, s * 215 - 28, s * 215 + 28, 42, 66, matLatch,
+  const upad = makeBox(-618, -588, ycf - 28, ycf + 28, 42, 66, matLatch,
     [`latchmod 승강 U자 패드 (${lbl})`, 'Tr10×2 너트 블록 직결', '큰 롤러(Ø25)를 받쳐 포크 대기/진입 높이를 실시간 변경'], forkLatchGroup);
   latchPads.push(upad);
-  const camRoll = new THREE.Mesh(new THREE.CylinderGeometry(0.010, 0.010, 0.044, 18), matScrew);
+  const camRoll = new THREE.Mesh(new THREE.CylinderGeometry(0.010, 0.010, 0.048, 18), matScrew);
   camRoll.rotation.x = Math.PI / 2;
-  camRoll.position.set(mm(-555), mm(236), -mm(s * 215));
+  camRoll.position.set(mm(-555), mm(236), -mm(ycf));
   tagMesh(camRoll, `윗 안내 편심 캠팔로워 (${lbl})`, 'Ø19×11 (CF8) × 4 + 옆 편심 롤러 × 8', '팔 172.4 mm로 포크 1250 mm 전방 돌출 시 처짐 차단');
   forkLiftGroup.add(camRoll);
 
-  // FR-01 8t carriage floor reinforcement
-  makeBox(-626, -565, Math.min(s * 140, s * 290), Math.max(s * 140, s * 290), 46.6, 54.6, matLatch,
+  makeBox(-626, -565, Math.min(s * 145, s * 312), Math.max(s * 145, s * 312), 46.6, 54.6, matLatch,
     [`캐리지 바닥 8t 강 보강판 (${lbl}, FR-01 흡수)`, 'latchmod 하부 강도 보강', '동적 안전계수 확보'], forkSlideGroup);
 
-  // Animated 4x X-Scissor Lift Linkages (Front & Rear pair inside each fork!)
+  // Animated 4x 1.5t Extended X-Scissor Lift Linkages (L=318 mm + Initial Wedge/Cam Boost!)
   for (const xf of [-220, 320]) {
     const scGrp = new THREE.Group();
-    scGrp.position.set(mm(xf), mm(46), -mm(s * 215));
-    const L = 0.281;
-    const arm1 = new THREE.Mesh(new THREE.BoxGeometry(L, 0.012, 0.018), matScissor);
-    const arm2 = new THREE.Mesh(new THREE.BoxGeometry(L, 0.012, 0.018), matScissor);
-    arm1.position.z = -0.012;
-    arm2.position.z =  0.012;
-    tagMesh(arm1, `포크 내장 X형 가위 리프트 (${lbl})`, '링크 281 mm × 4조 (최대 70° · 최고 날 윗면 302 mm)', '들 때 바닥 받침판이 바닥을 짚어 1.5t 하중을 직접 전달');
-    tagMesh(arm2, `포크 내장 X형 가위 리프트 (${lbl})`, '스크류 2축 구동 (감속 14:1 · Kinco FD144S × 2)', '리프트 슬라이더를 올리면 실제 X형 가위가 펼쳐집니다');
-    const foot = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.008, 0.070), matFork);
-    foot.position.y = 0.004;
-    scGrp.add(arm1, arm2, foot);
+    scGrp.position.set(mm(xf), mm(46), -mm(ycf));
+    const L = 0.318;
+    const arm1 = new THREE.Mesh(new THREE.BoxGeometry(L, 0.016, 0.024), matScissor);
+    const arm2 = new THREE.Mesh(new THREE.BoxGeometry(L, 0.016, 0.024), matScissor);
+    arm1.position.z = -0.016;
+    arm2.position.z =  0.016;
+    tagMesh(arm1, `★ 1.5 t 연장 X형 가위 리프트 (${lbl})`, 'SCM440 열처리 링크 318 mm × 4조 (Ø20 경화핀 · 가로 타이바)', '최대 70°에서 날 윗면 337 mm → 1.5t 파레트 구멍 130 mm까지 여유 리프트');
+    tagMesh(arm2, `★ 1.5 t 연장 X형 가위 리프트 (${lbl})`, 'Ø28 볼스크류 + 초기 경사 캠 보조 (피크 축력 ≤3.5 t)', '리프트 슬라이더를 최대(+242 mm)까지 올려 130 mm 파레트 대응 확인');
+    const foot = new THREE.Mesh(new THREE.BoxGeometry(0.21, 0.010, 0.092), matFork);
+    foot.position.y = 0.005;
+    const camWedge = new THREE.Mesh(new THREE.BoxGeometry(0.052, 0.018, 0.068), matSpring);
+    camWedge.position.set(-0.130, 0.014, 0);
+    tagMesh(camWedge, `초기 경사 웨지/캠 보조 리프터 (${lbl})`, '0°~14° 데드존 초기 리프트 보조', '들기 시작 순간 스크류 축력 10t+ 폭증 방지 → ≤3.5 t로 억제');
+    scGrp.add(arm1, arm2, foot, camWedge);
     forkSlideGroup.add(scGrp);
     scissorLinks.push({ grp: scGrp, arm1, arm2, foot, L });
   }
@@ -633,15 +641,15 @@ estop.rotation.z = Math.PI / 2; estop.position.set(mm(-756), mm(455), -mm(255));
 tagMesh(estop, '후면 비상정지 스위치', 'Safety Relay / STO 직결', ''); robotGroup.add(estop);
 
 // Internal Battery + Bypass Busbar + Fork Extension Servo + Wire Encoder + IMU + Orin NX + Safety PLC/Drives
-makeBox(85, 635, -115, 115, 56, 162, matBatt, ['48V 100Ah LFP 배터리팩 (내장)', '550×230×106 mm ≈ 13.4 L (X=+85..+635)', '중앙 QR실과 앞 E1R 포켓 사이 독립 격실 + 전방 하중 배분'], robotGroup);
-makeBox(-732, 85, 118, 138, 150, 168, matCable, ['고전류 충전 버스바 덕트 (좌측 우회)', '후면 충전 접점 ↔ 배터리 직결', '중앙 QR실 우회 고정 경로'], robotGroup);
+makeBox(75, 655, -106, 106, 56, 166, matBatt, ['48V 100Ah LFP 배터리팩 (내장)', '580×212×110 mm ≈ 13.5 L (X=+75..+655)', '중앙 QR실과 앞 E1R 포켓 사이 독립 격실 + 전방 하중 배분'], robotGroup);
+makeBox(-732, 75, 108, 124, 150, 168, matCable, ['고전류 충전 버스바 덕트 (좌측 우회)', '후면 충전 접점 ↔ 배터리 직결', '중앙 QR실 우회 고정 경로'], robotGroup);
 const fMot = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.044, 0.220, 22), matMotor);
 fMot.rotation.z = Math.PI / 2; fMot.position.set(mm(-340), mm(112), 0);
 tagMesh(fMot, '포크 뻗기 구동 서보 + 감속기 (1축)', 'Kinco 서보 (1회전=6.42 mm · FD144S 구동)', '등뼈 후방 X=-450..-230 수납'); robotGroup.add(fMot);
 makeBox(-520, -460, -55, -15, 80, 130, matGreen, ['Tuofei 와이어 엔코더', 'Modbus RTU reg 0x4A', '포크 0~1250 mm 실시간 길이 피드백'], robotGroup);
 makeBox(-125, -80, -22, 22, 54, 72, matGreen, ['Xsens MTi-630 6축 산업용 IMU', '회전축 인접 강성 마운트', '3D 점군 모션 왜곡 보정(Deskew)'], robotGroup);
-makeBox(115, 325, -555, -345, 62, 170, matDrive, ['메인 컴퓨팅 + PTP 스위치 (내장)', 'Jetson Orin NX 16GB (Advantech MIC-711-ON) + Moxa EDS-G2008-ELP', '우측 포드 전장 칸 · eth0(센서) / eth1(제어) 분리'], robotGroup);
-makeBox(115, 325, 345, 555, 62, 170, mat2DYel, ['안전 PLC + 7축 서보 드라이브 (내장)', 'SICK Flexi Soft + Kinco FD144S ×5 + FD114S ×2 + IO/동력 보드', '좌측 포드 · 비상정지·범퍼·nanoScan3 OSSD → STO 직결'], robotGroup);
+makeBox(115, 325, -565, -355, 62, 170, matDrive, ['메인 컴퓨팅 + PTP 스위치 (내장)', 'Jetson Orin NX 16GB (Advantech MIC-711-ON) + Moxa EDS-G2008-ELP', '우측 포드 전장 칸 · eth0(센서) / eth1(제어) 분리'], robotGroup);
+makeBox(115, 325, 355, 565, 62, 170, mat2DYel, ['안전 PLC + 7축 서보 드라이브 (내장)', 'SICK Flexi Soft + Kinco FD144S ×5 + FD114S ×2 + IO/동력 보드', '좌측 포드 · 비상정지·범퍼·nanoScan3 OSSD → STO 직결'], robotGroup);
 
 // ================= 6. SENSOR FOV VOLUMES & SITE SCENARIO =================
 const fov2DGroup = new THREE.Group();
