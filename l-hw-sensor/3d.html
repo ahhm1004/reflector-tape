@@ -143,9 +143,23 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
     <div>
       <div class="head-row">
         <h1>L-type 1200×1530 상세 3D</h1>
-        <a class="back-link" href="index.html">← 설계서</a>
+      </div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin:6px 0 4px">
+        <a class="back-link" href="index.html">1. 풀스펙 설계서</a>
+        <a class="back-link" href="options.html" style="color:#34d399;border-color:#047857">3. ★ 가격·옵션</a>
+        <a class="back-link" href="drawings_options.html" style="color:#c084fc;border-color:#6d28d9">4. ★ 옵션 도면</a>
       </div>
       <p class="sub">1.5 t 확정 · 4센서 · 하단 QR · Ø185×100 · 318mm X가위 · Latch</p>
+    </div>
+
+    <div class="box">
+      <div class="box-title"><span>★ 옵션 패키지 실시간 3D 전환</span></div>
+      <div class="btn-grid">
+        <button class="btn" data-pkg="A">A. 초저가 2D·5축</button>
+        <button class="btn" data-pkg="B">B. 1.5t 2D+Latch</button>
+        <button class="btn" data-pkg="C">C. E1R + 타워2D</button>
+        <button class="btn active" data-pkg="D">D. 풀 3D 1.5t</button>
+      </div>
     </div>
 
     <div class="box">
@@ -585,6 +599,14 @@ const osTop = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.018, 3
 os0MeshGroup.visible = false;
 tower3DGroup.add(os0MeshGroup);
 
+// Optional Rear Tower 2D LiDAR (shown in Package A / B / C when tower 3D is removed!)
+const t2dMeshGroup = new THREE.Group();
+const t2dMeta = ['③ 뒤 타워 고정밀 2D (3D 제외 옵션)', 'FreeOptics R2 / Focusray 0.1° (270° · 30 Hz · 45 m)', 'Z=520 · 0.1° 반사판 최강 · 후진 3D 오버행은 미감지'];
+const t2dBot = new THREE.Mesh(new THREE.BoxGeometry(0.064, 0.036, 0.064), mat2DBody); t2dBot.position.y = -0.022; tagMesh(t2dBot, ...t2dMeta); t2dMeshGroup.add(t2dBot);
+const t2dWin = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.028, 24), matDarkOpt); t2dWin.position.y = 0.010; tagMesh(t2dWin, ...t2dMeta); t2dMeshGroup.add(t2dWin);
+t2dMeshGroup.visible = false;
+tower3DGroup.add(t2dMeshGroup);
+
 // ★ Center Downward QR Navigation Camera (X=0, Y=0, Lens Z=100 mm = exact 100mm working distance!)
 const qrCamGroup = new THREE.Group();
 const qrMeta = ['★ 몸체 정중앙 하단 QR 인식 카메라', 'Hikrobot MV-ID2004M-06S / SC2000A (대안: Pepperl+Fuchs PGV100 / Cognex DM70)', '회전축 정중앙 (X=0, Y=0) · 렌즈 Z=100 mm(최적 WD 80~120 mm) · Ø85 강화유리창 + 링 LED'];
@@ -627,11 +649,21 @@ const qrSceneGroup = new THREE.Group();
 }
 scene.add(qrSceneGroup);
 
-// ================= 5. REAR CHARGING CONTACTS + HMI + INTERNAL ELECTRONICS =================
-makeBox(-752, -732, -112, 112, 174, 246, matChargeB, ['★ 후면 매립 자동 충전 접점 (반대편 이전)', 'Z=180~240 · 돌출 0 mm', '범퍼(81)/2D(115)/HMI(340) 간섭 0 · 후진 도킹 시 포크 안전'], robotGroup);
-makeBox(-754, -748, 34, 96, 184, 236, matCopper, ['후면 충전 (+) 48V 구리 접점', 'Z=184~236', ''], robotGroup);
-makeBox(-754, -748, -96, -34, 184, 236, matCopper, ['후면 충전 (-) GND 구리 접점', 'Z=184~236', ''], robotGroup);
-makeBox(-754, -748, -14, 14, 196, 224, matGreen, ['충전 통신/인터록 파일럿 핀', '', ''], robotGroup);
+// ================= 5. REAR vs FRONT CHARGING CONTACTS + HMI + INTERNAL ELECTRONICS =================
+const rearChargeGroup = new THREE.Group();
+makeBox(-752, -732, -112, 112, 174, 246, matChargeB, ['★ 후면 매립 자동 충전 접점 (반대편 이전)', 'Z=180~240 · 돌출 0 mm', '범퍼(81)/2D(115)/HMI(340) 간섭 0 · 후진 도킹 시 포크 안전'], rearChargeGroup);
+makeBox(-754, -748, 34, 96, 184, 236, matCopper, ['후면 충전 (+) 48V 구리 접점', 'Z=184~236', ''], rearChargeGroup);
+makeBox(-754, -748, -96, -34, 184, 236, matCopper, ['후면 충전 (-) GND 구리 접점', 'Z=184~236', ''], rearChargeGroup);
+makeBox(-754, -748, -14, 14, 196, 224, matGreen, ['충전 통신/인터록 파일럿 핀', '', ''], rearChargeGroup);
+robotGroup.add(rearChargeGroup);
+
+// Front charging contact (restored in Package A / B when front E1R 3D is removed!)
+const frontChargeGroup = new THREE.Group();
+makeBox(730, 750, -98, 98, 82, 134, matChargeB, ['전방 등뼈 충전 접점 (2D 전용 옵션 — 기존 T10 호환)', 'Z=85~130 · E1R 3D 미장착 시 원래 자리 유지', '기존 T10 벽면 충전소 그대로 사용 가능'], frontChargeGroup);
+makeBox(746, 753, 30, 86, 88, 128, matCopper, ['전방 충전 (+) 구리 접점', 'Z=88~128', ''], frontChargeGroup);
+makeBox(746, 753, -86, -30, 88, 128, matCopper, ['전방 충전 (-) 구리 접점', 'Z=88~128', ''], frontChargeGroup);
+frontChargeGroup.visible = false;
+robotGroup.add(frontChargeGroup);
 
 const hmiMesh = new THREE.Mesh(new THREE.BoxGeometry(0.026, 0.180, 0.285), matScreen);
 hmiMesh.position.set(mm(-745), mm(425), 0); hmiMesh.rotation.z = THREE.MathUtils.degToRad(-12);
@@ -771,9 +803,43 @@ function goCam(key) {
 document.querySelectorAll('[data-cam]').forEach(el => el.addEventListener('click', () => goCam(el.dataset.cam)));
 
 let towerMode = 'XT32';
+let activePkg = 'D';
+const PKG_SPECS = {
+  A: { label: 'A. 초저가 2D·5축 (QR없음)', front3d: false, tower: 'T2D',  qr: false, latch: false },
+  B: { label: 'B. 1.5t 2D+Latch 7축',     front3d: false, tower: 'T2D',  qr: false, latch: true  },
+  C: { label: 'C. 하이브리드 E1R+타워2D',  front3d: true,  tower: 'T2D',  qr: true,  latch: true  },
+  D: { label: 'D. 풀 3D 1.5t (QR+7축)',   front3d: true,  tower: 'XT32', qr: true,  latch: true  },
+};
+
+function applyPkg(pkgKey) {
+  const sp = PKG_SPECS[pkgKey] || PKG_SPECS.D;
+  activePkg = PKG_SPECS[pkgKey] ? pkgKey : 'D';
+  e1rGroup.visible = sp.front3d;
+  $('kFovE1R').checked = sp.front3d;
+  rearChargeGroup.visible = sp.front3d;
+  frontChargeGroup.visible = !sp.front3d;
+  dockGroup.visible = sp.front3d && $('kDock').checked;
+  qrCamGroup.visible = sp.qr;
+  $('kQR').checked = sp.qr;
+  if (sp.tower === 'T2D') {
+    towerMode = 'T2D';
+    xt32MeshGroup.visible = false; os0MeshGroup.visible = false; t2dMeshGroup.visible = true;
+    $('btnXT32').classList.remove('active'); $('btnOS0').classList.remove('active');
+  } else {
+    t2dMeshGroup.visible = false;
+    setTowerMode(towerMode === 'OS0' ? 'OS0' : 'XT32');
+  }
+  $('sLatch').disabled = !sp.latch;
+  if (!sp.latch) { $('sLatch').value = 9; }
+  document.querySelectorAll('[data-pkg]').forEach(b => b.classList.toggle('active', b.dataset.pkg === activePkg));
+  updateVis();
+  updateKinematics();
+}
+document.querySelectorAll('[data-pkg]').forEach(b => b.addEventListener('click', () => applyPkg(b.dataset.pkg)));
+
 function setTowerMode(m) {
   towerMode = m;
-  xt32MeshGroup.visible = m === 'XT32'; os0MeshGroup.visible = m === 'OS0';
+  xt32MeshGroup.visible = m === 'XT32'; os0MeshGroup.visible = m === 'OS0'; t2dMeshGroup.visible = false;
   $('btnXT32').classList.toggle('active', m === 'XT32'); $('btnOS0').classList.toggle('active', m === 'OS0');
   updateVis();
 }
@@ -781,16 +847,17 @@ $('btnXT32').addEventListener('click', () => setTowerMode('XT32'));
 $('btnOS0').addEventListener('click', () => setTowerMode('OS0'));
 
 function updateVis() {
+  const sp = PKG_SPECS[activePkg];
   fov2DGroup.visible = $('kFov2D').checked;
-  fovE1RGroup.visible = $('kFovE1R').checked;
+  fovE1RGroup.visible = sp.front3d && $('kFovE1R').checked;
   const tOn = $('kFovTower').checked;
   fovXT32Group.visible = tOn && towerMode === 'XT32';
   fovOS0Group.visible  = tOn && towerMode === 'OS0';
-  qrSceneGroup.visible = $('kQR').checked;
+  qrSceneGroup.visible = sp.qr && $('kQR').checked;
   cargoGroup.visible   = $('kCargo').checked;
   overGroup.visible    = $('kOver').checked;
   reflGroup.visible    = $('kRefl').checked;
-  dockGroup.visible    = $('kDock').checked;
+  dockGroup.visible    = sp.front3d && $('kDock').checked;
   sweepLine.visible    = $('kSweep').checked;
 }
 ['kFov2D','kFovE1R','kFovTower','kQR','kCargo','kOver','kRefl','kDock','kSweep'].forEach(id => $(id).addEventListener('change', updateVis));
@@ -806,7 +873,8 @@ function updateKinematics() {
   $('vLift').textContent  = `${lift} mm (날 상단 ${tineTop})`;
   $('btnPickMode').classList.toggle('active', latch === -11);
   $('btnTravelMode').classList.toggle('active', latch === 9);
-  $('hudStatus').innerHTML = `<strong>7축 서보</strong> · 하단 QR(Z=100) · Latch ${latch >= 0 ? '+' : ''}${latch} mm · 리프트 +${lift} mm`;
+  const sp = PKG_SPECS[activePkg];
+  $('hudStatus').innerHTML = `<strong>${sp.label}</strong> · ${sp.latch ? '7축(Latch ' + (latch >= 0 ? '+' : '') + latch + ' mm)' : '5축 고정'} · 리프트 +${lift} mm`;
 
   forkSlideGroup.position.x = mm(ext);
   forkLatchGroup.position.y = mm(latch);
@@ -858,7 +926,9 @@ function resize() {
   camera.updateProjectionMatrix();
 }
 window.addEventListener('resize', resize);
-resize(); updateVis(); updateKinematics();
+resize();
+const initPkg = new URLSearchParams(location.search).get('pkg');
+applyPkg(PKG_SPECS[initPkg] ? initPkg : 'D');
 
 renderer.setAnimationLoop(() => {
   if (tween) {

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>신규 L-type 옵션별 가격 계산기 · 중국 3천만 원 원가 비교</title>
+<style>
+:root {
+  --bg: #f4f6f9; --surface: #ffffff; --surface-alt: #f8fafc; --surface-hover: #f1f5f9;
+  --fg: #0f172a; --fg-secondary: #334155; --muted: #64748b;
+  --border: #cbd5e1; --border-subtle: #e2e8f0;
+  --primary: #1d4ed8; --primary-bg: #eff6ff; --primary-border: #bfdbfe;
+  --ok: #047857; --ok-bg: #ecfdf5; --ok-border: #a7f3d0;
+  --warn: #b45309; --warn-bg: #fffbeb; --warn-border: #fde68a;
+  --bad: #b91c1c; --bad-bg: #fef2f2; --bad-border: #fecaca;
+  --purple: #6d28d9; --purple-bg: #f5f3ff; --purple-border: #ddd6fe;
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+[data-theme="dark"] {
+  --bg: #0b1120; --surface: #111827; --surface-alt: #162032; --surface-hover: #1f2937;
+  --fg: #f1f5f9; --fg-secondary: #cbd5e1; --muted: #94a3b8;
+  --border: #334155; --border-subtle: #1e293b;
+  --primary: #60a5fa; --primary-bg: rgba(59,130,246,0.14); --primary-border: rgba(96,165,250,0.35);
+  --ok: #34d399; --ok-bg: rgba(16,185,129,0.14); --ok-border: rgba(52,211,153,0.35);
+  --warn: #fbbf24; --warn-bg: rgba(245,158,11,0.14); --warn-border: rgba(251,191,36,0.35);
+  --bad: #f87171; --bad-bg: rgba(239,68,68,0.14); --bad-border: rgba(248,113,113,0.35);
+  --purple: #a78bfa; --purple-bg: rgba(167,139,250,0.14); --purple-border: rgba(167,139,250,0.35);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Malgun Gothic", "Segoe UI", sans-serif;
+  background: var(--bg); color: var(--fg); line-height: 1.55; font-size: 14px;
+}
+.site-nav {
+  position: sticky; top: 0; z-index: 60;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-subtle);
+}
+.site-nav-inner {
+  max-width: 1260px; margin: 0 auto; padding: 9px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+}
+.brand { font-weight: 900; font-size: 14.5px; display: flex; align-items: center; gap: 8px; }
+.brand-tag { background: var(--ok); color: #fff; font-size: 10.5px; padding: 2px 7px; border-radius: 6px; font-weight: 800; }
+.page-tabs { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.page-tabs a {
+  text-decoration: none; font-size: 12.5px; font-weight: 700; color: var(--fg-secondary);
+  padding: 6px 11px; border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--surface-alt);
+}
+.page-tabs a:hover { background: var(--surface-hover); color: var(--fg); }
+.page-tabs a.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+.theme-btn {
+  border: 1px solid var(--border); background: var(--surface-alt); color: var(--fg);
+  padding: 5px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
+}
+
+.wrap { max-width: 1260px; margin: 0 auto; padding: 20px 20px 64px; }
+.section {
+  background: var(--surface); border: 1px solid var(--border-subtle);
+  border-radius: 16px; padding: 22px 24px; box-shadow: var(--shadow-sm); margin-bottom: 18px;
+}
+h1 { margin: 0 0 6px; font-size: 22.5px; font-weight: 900; letter-spacing: -0.02em; }
+h2 { margin: 0; font-size: 17.5px; font-weight: 800; letter-spacing: -0.02em; }
+.sec-head {
+  display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 14px;
+}
+.sec-desc { font-size: 12.3px; color: var(--muted); }
+
+/* Waterfall / China comparison bars */
+.bar-row { display: grid; grid-template-columns: 230px 1fr 130px; gap: 10px; align-items: center; margin-bottom: 9px; font-size: 12.8px; }
+.bar-track { height: 22px; background: var(--surface-alt); border: 1px solid var(--border-subtle); border-radius: 7px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 8px; color: #fff; font-size: 11px; font-weight: 800; white-space: nowrap; }
+.bar-val { text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* Package preset cards */
+.pkg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.pkg-card {
+  border: 2px solid var(--border-subtle); border-radius: 12px; padding: 14px;
+  background: var(--surface-alt); cursor: pointer; transition: 0.14s;
+  display: flex; flex-direction: column; gap: 6px; text-align: left;
+}
+.pkg-card:hover { border-color: var(--primary); transform: translateY(-1px); }
+.pkg-card.active { border-color: var(--ok); background: var(--ok-bg); }
+.pkg-badge { display: inline-block; font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 999px; width: fit-content; }
+.pkg-badge.a { background: #e0f2fe; color: #0369a1; }
+.pkg-badge.b { background: #dcfce7; color: #15803d; }
+.pkg-badge.c { background: #f3e8ff; color: #7e22ce; }
+.pkg-badge.d { background: #fef3c7; color: #b45309; }
+.pkg-title { font-weight: 900; font-size: 14.5px; color: var(--fg); }
+.pkg-price { font-weight: 900; font-size: 16px; color: var(--ok); font-variant-numeric: tabular-nums; }
+.pkg-sub { font-size: 11.7px; color: var(--fg-secondary); line-height: 1.4; }
+
+/* Interactive Configurator */
+.cfg-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 16px; align-items: start; }
+.cfg-group {
+  background: var(--surface-alt); border: 1px solid var(--border-subtle);
+  border-radius: 11px; padding: 12px 14px; margin-bottom: 10px;
+}
+.cfg-label { font-size: 12px; font-weight: 800; color: var(--fg); margin-bottom: 7px; display: flex; justify-content: space-between; }
+.cfg-label span { color: var(--muted); font-weight: 600; }
+.seg-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.seg-btn {
+  border: 1px solid var(--border); background: var(--surface); color: var(--fg-secondary);
+  padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
+}
+.seg-btn:hover { background: var(--surface-hover); color: var(--fg); }
+.seg-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+.summary-box {
+  position: sticky; top: 68px;
+  background: var(--surface-alt); border: 2px solid var(--ok-border);
+  border-radius: 14px; padding: 16px 18px;
+}
+.tot-num { font-size: 27px; font-weight: 900; color: var(--ok); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.tot-range { font-size: 12.5px; color: var(--muted); font-weight: 700; }
+.mini-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+.mk { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 9px; padding: 8px 10px; }
+.mk .k { font-size: 11px; color: var(--muted); font-weight: 700; }
+.mk .v { font-size: 13.5px; font-weight: 800; margin-top: 2px; }
+.tradeoff-list { margin: 10px 0 0; padding-left: 17px; font-size: 12.2px; color: var(--fg-secondary); }
+.tradeoff-list li { margin-bottom: 4px; }
+.cta-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.cta-btn {
+  flex: 1; text-align: center; text-decoration: none; padding: 8px 10px; border-radius: 8px;
+  font-size: 12.2px; font-weight: 800; color: #fff; background: var(--primary);
+}
+.cta-btn.ok { background: var(--ok); }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12.8px; }
+th, td { padding: 9px 11px; border-bottom: 1px solid var(--border-subtle); text-align: left; vertical-align: top; }
+th { background: var(--surface-alt); font-weight: 800; font-size: 12px; white-space: nowrap; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.sub-row td { background: var(--surface-alt); font-weight: 800; }
+tr.tot-row td { background: var(--ok-bg); font-weight: 900; font-size: 13.8px; color: var(--ok); border-top: 2px solid var(--ok-border); }
+.diff-tag { font-size: 11px; font-weight: 800; padding: 1px 6px; border-radius: 5px; }
+.diff-tag.save { background: var(--ok-bg); color: var(--ok); }
+.diff-tag.add { background: var(--warn-bg); color: var(--warn); }
+
+.tip-box {
+  margin-top: 12px; padding: 12px 15px; border-radius: 10px;
+  border-left: 4px solid var(--primary); background: var(--primary-bg); font-size: 12.8px;
+}
+
+@media (max-width: 980px) {
+  .pkg-grid { grid-template-columns: repeat(2, 1fr); }
+  .cfg-layout { grid-template-columns: 1fr; }
+  .bar-row { grid-template-columns: 150px 1fr 95px; }
+}
+@media (max-width: 580px) {
+  .pkg-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <div class="brand">
+      <span class="brand-tag">L-type 1200×1530</span>
+      <span>AMR 설계 · 3D · 옵션 원가 허브</span>
+    </div>
+    <div class="page-tabs">
+      <a href="index.html">1. 풀스펙 설계서</a>
+      <a href="3d.html">2. 3D CAD 뷰어</a>
+      <a href="options.html" class="active">3. ★ 옵션별 가격·원가비교</a>
+      <a href="drawings_options.html">4. ★ 옵션별 도면 비교</a>
+      <button class="theme-btn" id="themeBtn" type="button">다크 모드</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- SECTION 1: WHY CHINA AMR = 30M KRW -->
+  <section class="section">
+    <h1>왜 중국 AMR은 3천만 원인데 풀스펙 1대 시제는 5,600만 원대일까?</h1>
+    <p style="margin:0 0 14px;color:var(--fg-secondary)">중국 3천만 원대 AMR(예: Tusk T10/E08급)과 우리 풀스펙 1.5 t 시제품의 차이는 <strong>거품이 아니라 아래 5개 항목의 물리적 스펙·수량 차이</strong>입니다. 옵션을 빼고 양산/중국 가공으로 맞추면 우리 설계도 <strong>2,100 ~ 3,200만 원대</strong>까지 내려갑니다.</p>
+
+    <div class="bar-row">
+      <div><strong>① 가공비 (1대 시제 vs 중국 양산)</strong></div>
+      <div class="bar-track"><div class="bar-fill" style="width:92%;background:#ef4444">국내 1대 CNC/판금 ~1,800만 vs 중국 양산 ~450만</div></div>
+      <div class="bar-val" style="color:var(--bad)">+1,000~1,800만</div>
+    </div>
+    <div class="bar-row">
+      <div><strong>② 3D 라이다 ×2 + Orin NX + PTP</strong></div>
+      <div class="bar-track"><div class="bar-fill" style="width:74%;background:#a855f7">XT32+E1R+Orin+PTP vs 2D+i.MX8MP</div></div>
+      <div class="bar-val" style="color:var(--purple)">+800~1,200만</div>
+    </div>
+    <div class="bar-row">
+      <div><strong>③ 1.5 t 강화 + 7축(Latch) + 서스펜션</strong></div>
+      <div class="bar-track"><div class="bar-fill" style="width:52%;background:#f59e0b">7축 서보+볼스크류+Ø185×100 vs 1t 5축 고정</div></div>
+      <div class="bar-val" style="color:var(--warn)">+500~850만</div>
+    </div>
+    <div class="bar-row">
+      <div><strong>④ 안전 PLd (nanoScan3 + Flexi Soft)</strong></div>
+      <div class="bar-track"><div class="bar-fill" style="width:46%;background:#0284c7">양산 PLd 선택 시 (+0원 in 일반2D)</div></div>
+      <div class="bar-val" style="color:var(--primary)">+500~900만 (선택)</div>
+    </div>
+    <div class="bar-row">
+      <div><strong>⑤ 100 Ah 배터리 + 하단 QR + 유통마진</strong></div>
+      <div class="bar-track"><div class="bar-fill" style="width:36%;background:#10b981">100Ah+QR+국내소량 vs 50Ah+QR없음+내수직구</div></div>
+      <div class="bar-val" style="color:var(--ok)">+300~550만</div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: 4 PACKAGE PRESETS + INTERACTIVE CALCULATOR -->
+  <section class="section">
+    <div class="sec-head">
+      <h2>1. 대표 4단계 패키지 선택 &amp; 실시간 옵션 가격 계산기</h2>
+      <span class="sec-desc">패키지를 누르거나 아래 개별 옵션을 켜고 끄면 부품별 단가·총액·포기하는 기능이 즉시 계산됩니다 (VAT·SW 인건비 별도, 추정 시장가)</span>
+    </div>
+
+    <div class="pkg-grid" id="pkgGrid">
+      <button type="button" class="pkg-card" data-pkg="A">
+        <span class="pkg-badge a">패키지 A · 초저가 중국형</span>
+        <div class="pkg-title">2D 전용 · QR 제거 · 5축 고정</div>
+        <div class="pkg-price" id="pPriceA">계산중…</div>
+        <div class="pkg-sub">하부2D×2 + 타워2D×1 · i.MX8MP(기존 SW 100% 무수정) · 1.0t · 50Ah · 포크 높이 고정</div>
+      </button>
+      <button type="button" class="pkg-card" data-pkg="B">
+        <span class="pkg-badge b">패키지 B · 1.5t 2D 실속형</span>
+        <div class="pkg-title">1.5t 강화 · 2D 전용 · Latch 7축</div>
+        <div class="pkg-price" id="pPriceB">계산중…</div>
+        <div class="pkg-sub">3D·QR 제거(0.1° 반사판 최강) · Ø185×100 + 318mm 가위 + 포크 진입높이 조절 · i.MX8MP 유지</div>
+      </button>
+      <button type="button" class="pkg-card" data-pkg="C">
+        <span class="pkg-badge c">패키지 C · 하이브리드 가성비</span>
+        <div class="pkg-title">전방 E1R 3D + 타워 2D + QR</div>
+        <div class="pkg-price" id="pPriceC">계산중…</div>
+        <div class="pkg-sub">적재 전방 오버행만 E1R 3D + 뒤 타워 0.1° 2D(XT32 절감) + 하단 QR + Orin NX</div>
+      </button>
+      <button type="button" class="pkg-card active" data-pkg="D">
+        <span class="pkg-badge d">패키지 D · 풀스펙 1.5t 확정</span>
+        <div class="pkg-title">전·후방 풀 3D + QR + 7축 + 1.5t</div>
+        <div class="pkg-price" id="pPriceD">계산중…</div>
+        <div class="pkg-sub">하부2D×2 + 전방 E1R + 뒤 타워 XT32 + 중앙 QR + 7축(Latch) + 1.5t 풀보강 + 100Ah</div>
+      </button>
+    </div>
+
+    <div class="cfg-layout">
+      <div>
+        <div class="cfg-group">
+          <div class="cfg-label">① 제조·수량 조건 <span>(중국 3천만 원 체감의 핵심 레버)</span></div>
+          <div class="seg-btns" data-key="mfg">
+            <button type="button" class="seg-btn active" data-val="kr1">한국 1대 시제품</button>
+            <button type="button" class="seg-btn" data-val="kr10">한국 10대+ 양산</button>
+            <button type="button" class="seg-btn" data-val="cn">중국 OEM 양산(직구)</button>
+          </div>
+        </div>
+
+        <div class="cfg-group">
+          <div class="cfg-label">② 3D 라이다 구성 <span>(전방 등뼈 + 뒤 타워)</span></div>
+          <div class="seg-btns" data-key="lidar3d">
+            <button type="button" class="seg-btn" data-val="none">3D 전부 제거 (2D×3만)</button>
+            <button type="button" class="seg-btn" data-val="frontOnly">전방 E1R만 (타워 2D)</button>
+            <button type="button" class="seg-btn active" data-val="fullXT32">풀 3D (E1R + XT32)</button>
+            <button type="button" class="seg-btn" data-val="fullOS0">최고급 풀 3D (E1R + OS0-64)</button>
+          </div>
+        </div>
+
+        <div class="cfg-group">
+          <div class="cfg-label">③ 하부 대각 2D 라이다 × 2 &amp; 안전 PLC</div>
+          <div class="seg-btns" data-key="safety2d">
+            <button type="button" class="seg-btn active" data-val="std">일반 0.1° (FreeOptics C2 / Focusray) + PNOZ</button>
+            <button type="button" class="seg-btn" data-val="pld">안전 PLd (SICK nanoScan3 Pro ×2 + Flexi Soft)</button>
+          </div>
+        </div>
+
+        <div class="cfg-group">
+          <div class="cfg-label">④ 몸체 정중앙 하단 QR 인식 카메라 <span>(X=0, Z=100)</span></div>
+          <div class="seg-btns" data-key="qr">
+            <button type="button" class="seg-btn" data-val="none">QR 제거 (반사판+SLAM만)</button>
+            <button type="button" class="seg-btn active" data-val="hik">Hikrobot SC2000A / ID2004M</button>
+            <button type="button" class="seg-btn" data-val="pgv">Pepperl+Fuchs PGV100</button>
+          </div>
+        </div>
+
+        <div class="cfg-group">
+          <div class="cfg-label">⑤ 포크 진입 높낮이 조절 (`latchmod rev B`, 2축)</div>
+          <div class="seg-btns" data-key="latch">
+            <button type="button" class="seg-btn" data-val="fixed">픽업 높이 고정 (5축 서보)</button>
+            <button type="button" class="seg-btn active" data-val="var">SW 높낮이 조절 -15~+30 mm (7축)</button>
+          </div>
+        </div>
+
+        <div class="cfg-group">
+          <div class="cfg-label">⑥ 적재 하중 등급 &amp; 바퀴·가위 기구</div>
+          <div class="seg-btns" data-key="payload">
+            <button type="button" class="seg-btn" data-val="10t">1.0 t 기본 (Ø185×80 · 281mm 가위)</button>
+            <button type="button" class="seg-btn active" data-val="15t">1.5 t 강화 (Ø185×100 · 155mm 포크 · 318mm 가위+캠)</button>
+          </div>
+        </div>
+
+        <div class="cfg-group">
+          <div class="cfg-label">⑦ 배터리 용량 &amp; 벽면 충전기 포함 여부</div>
+          <div class="seg-btns" data-key="power">
+            <button type="button" class="seg-btn" data-val="50_no">50 Ah (본체만)</button>
+            <button type="button" class="seg-btn" data-val="50_yes">50 Ah + 충전기</button>
+            <button type="button" class="seg-btn" data-val="100_no">100 Ah (본체만)</button>
+            <button type="button" class="seg-btn active" data-val="100_yes">100 Ah + 충전기</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="summary-box">
+        <div style="font-size:12px;font-weight:800;color:var(--muted)">선택 구성 예상 대당 금액 (VAT 별도)</div>
+        <div class="tot-num" id="outMid">—</div>
+        <div class="tot-range" id="outRange">최저 ~ 최고</div>
+
+        <div class="mini-kpis">
+          <div class="mk"><div class="k">부품 합계 (중간)</div><div class="v" id="outParts">—</div></div>
+          <div class="mk"><div class="k">가공·조립 (중간)</div><div class="v" id="outMfg">—</div></div>
+          <div class="mk"><div class="k">서보 축수 / 메인 PC</div><div class="v" id="outArch">—</div></div>
+          <div class="mk"><div class="k">충전 접점 권장 위치</div><div class="v" id="outChg">—</div></div>
+        </div>
+
+        <div style="font-size:12px;font-weight:800;margin-top:8px">이 구성의 장단점 · 포기하는 기능</div>
+        <ul class="tradeoff-list" id="outNotes"></ul>
+
+        <div class="cta-row">
+          <a class="cta-btn" id="lnkDraw" href="drawings_options.html">📐 이 구성 도면 비교 →</a>
+          <a class="cta-btn ok" id="lnk3d" href="3d.html">🧊 3D로 즉시 확인 →</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SECTION 3: LIVE ITEMIZED PART-BY-PART TABLE -->
+  <section class="section">
+    <div class="sec-head">
+      <h2>2. 선택 구성의 부품별 상세 견적 내역 (자동 연동)</h2>
+      <span class="sec-desc">위 옵션을 바꿀 때마다 아래 부품별 금액이 실시간으로 재계산됩니다</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:14%">분류</th>
+            <th style="width:44%">부품 / 적용 모델명</th>
+            <th style="width:10%">수량</th>
+            <th class="num" style="width:16%">최저 ~ 최고 (만 원)</th>
+            <th class="num" style="width:16%">중간 추정 (만 원)</th>
+          </tr>
+        </thead>
+        <tbody id="bomBody"></tbody>
+      </table>
+    </div>
+    <div class="tip-box">
+      <strong>💡 원가 근거 안내:</strong> 전용 IO/동력 보드 PCB(<code>36만 원</code>) 및 T10 묶음 범위는 내부 구매목록 엑셀(<code>2026-10-31</code>) 기준이며, 나머지 단가는 시장가 기반 추정치입니다. 중국 OEM 양산은 내수 직구 부품(~18~25% 절감) + 다량 판금/CNC 단가를 반영한 원가 기준이며, 실제 중국 완성차 수입가(약 2,800~3,500만 원)에는 제조사 마진·운송·관세가 포함됩니다.
+    </div>
+  </section>
+
+  <!-- SECTION 4: QUICK 4-PACKAGE COMPARISON MATRIX -->
+  <section class="section">
+    <div class="sec-head">
+      <h2>3. 4단계 패키지 한눈에 비교 (도면 차이 · SW 수정량 · 3가지 제조 단가)</h2>
+      <span class="sec-desc">한국 1대 시제 vs 한국 10대+ 양산 vs 중국 OEM 양산 비교 (충전기 포함 중간 추정가)</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>패키지</th>
+            <th>센서 구성</th>
+            <th>QR / Latch / 하중</th>
+            <th>충전 위치 &amp; SW 수정</th>
+            <th class="num">한국 1대 시제</th>
+            <th class="num">한국 10대+</th>
+            <th class="num">중국 OEM 원가</th>
+          </tr>
+        </thead>
+        <tbody id="matrixBody"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const ST = {
+  mfg: 'kr1',
+  lidar3d: 'fullXT32',
+  safety2d: 'std',
+  qr: 'hik',
+  latch: 'var',
+  payload: '15t',
+  power: '100_yes'
+};
+
+const PRESETS = {
+  A: { mfg: 'cn',  lidar3d: 'none',      safety2d: 'std', qr: 'none', latch: 'fixed', payload: '10t', power: '50_yes'  },
+  B: { mfg: 'kr1', lidar3d: 'none',      safety2d: 'std', qr: 'none', latch: 'var',   payload: '15t', power: '100_yes' },
+  C: { mfg: 'kr1', lidar3d: 'frontOnly', safety2d: 'std', qr: 'hik',  latch: 'var',   payload: '15t', power: '100_yes' },
+  D: { mfg: 'kr1', lidar3d: 'fullXT32',  safety2d: 'std', qr: 'hik',  latch: 'var',   payload: '15t', power: '100_yes' },
+};
+
+function calcConfig(cfg) {
+  const rows = [];
+  const add = (cat, name, qty, lo, hi) => rows.push({ cat, name, qty, lo, hi });
+
+  // Part volume/region multiplier (KR1 = 1.00, KR10 = 0.84, CN OEM = 0.72)
+  const pm = cfg.mfg === 'cn' ? 0.72 : cfg.mfg === 'kr10' ? 0.84 : 1.00;
+  const sc = (a, b) => [Math.round(a * pm), Math.round(b * pm)];
+
+  // A. Sensors
+  if (cfg.safety2d === 'pld') {
+    add('센서', '하부 대각 안전 2D — SICK nanoScan3 Pro I/O (PLd/SIL2)', '2대', ...sc(550, 1000));
+  } else {
+    add('센서', '하부 대각 일반 0.1° 2D — FreeOptics C2 / Focusray 0.1°', '2대', ...sc(160, 260));
+  }
+
+  if (cfg.lidar3d === 'none') {
+    add('센서', '전방 등뼈 3D — 미장착 (3D 제외 → 앞 등뼈 충전 접점 유지 가능)', '0대', 0, 0);
+    add('센서', '뒤 타워 고정밀 2D — FreeOptics R2 / Focusray 0.1° (반사판 최강)', '1대', ...sc(85, 135));
+  } else if (cfg.lidar3d === 'frontOnly') {
+    add('센서', '전방 등뼈 광각 3D — RoboSense E1R (+10°, 상단 8mm 커버)', '1대', ...sc(100, 160));
+    add('센서', '뒤 타워 고정밀 2D — FreeOptics R2 / Focusray 0.1° (후진3D 제외)', '1대', ...sc(85, 135));
+  } else if (cfg.lidar3d === 'fullXT32') {
+    add('센서', '전방 등뼈 광각 3D — RoboSense E1R (+10°, 상단 8mm 커버)', '1대', ...sc(100, 160));
+    add('센서', '뒤 타워 고정밀 3D — Hesai XT32 (0.18°, 다중 링 반사판)', '1대', ...sc(350, 450));
+  } else {
+    add('센서', '전방 등뼈 광각 3D — RoboSense E1R (+10°, 상단 8mm 커버)', '1대', ...sc(100, 160));
+    add('센서', '뒤 타워 초광각 3D — Ouster OS0-64 (0.176°, 수직 90° 무사각)', '1대', ...sc(600, 850));
+  }
+
+  if (cfg.qr === 'none') {
+    add('센서', '중앙 하단 QR 카메라 — 미장착 (반사판+SLAM 측위만 사용)', '0대', 0, 0);
+  } else if (cfg.qr === 'hik') {
+    add('센서', '중앙 하단 QR 카메라 — Hikrobot SC2000A / MV-ID2004M (Z=100)', '1대', ...sc(50, 90));
+  } else {
+    add('센서', '중앙 하단 QR 카메라 — Pepperl+Fuchs PGV100 (산업용)', '1대', ...sc(150, 250));
+  }
+
+  add('센서', '포크 끝단 광전(WTB4FP×2) + 안착센서 + Tuofei 와이어 엔코더 + 리밋', '1식', ...sc(55, 95));
+  if (cfg.lidar3d === 'none') {
+    add('센서', 'IMU — 메인보드 내장 6축 (MPU-6500급 · 2D 전용 충분)', '1식', 0, 5);
+  } else if (cfg.safety2d === 'pld') {
+    add('센서', '6축 산업용 IMU — Xsens MTi-630 (3D 점군 모션 보정 Deskew)', '1대', ...sc(130, 190));
+  } else {
+    add('센서', '6축 IMU — Wheeltec HFI-A9 (3D Deskew 가성비형)', '1대', ...sc(15, 25));
+  }
+
+  // B. Drivetrain, Wheels, Scissors, Latch
+  if (cfg.payload === '15t') {
+    add('구동/기구', '주행 2축 (110각 1.5kW + 40:1 + FD144S×2) + 리프트2 + 뻗기1 (FD144S×3)', '5축', ...sc(840, 1330));
+    add('구동/기구', '1.5t 광폭 바퀴(Ø185×100)×2 + 600kg 캐스터×4 + 코일오버×4', '1식', ...sc(230, 390));
+    add('구동/기구', '1.5t Ø28 볼스크류×2 + 복열 스러스트 + HGR20 레일×2 + 경화핀/체인', '1식', ...sc(180, 310));
+  } else {
+    add('구동/기구', '주행 2축 (1.0kW + 감속기 + FD144S×2) + 리프트2 + 뻗기1 (FD144S×3)', '5축', ...sc(680, 1080));
+    add('구동/기구', '1.0t 구동 바퀴(Ø185×80)×2 + 캐스터×4 + 기본 서스펜션', '1식', ...sc(150, 250));
+    add('구동/기구', '1.0t 리프트 스크류×2 + HGR20 레일×2 + 롤러/체인', '1식', ...sc(110, 190));
+  }
+
+  if (cfg.latch === 'var') {
+    add('구동/기구', '포크 진입 높이 latchmod rev B — Kinco SMC40S+FD114S×2 + 웜·Tr10×2·롤러', '2축', ...sc(200, 350));
+  } else {
+    add('구동/기구', '포크 진입 높이 조절 — 고정형 (latchmod 제거 · 5축 유지)', '0축', 0, 0);
+  }
+
+  // C. Compute, Safety, HMI
+  if (cfg.lidar3d === 'none') {
+    add('제어/안전', '메인보드 — Qiyang i.MX8MP (기존 T10 SW 100% 무수정) + 일반 스위치 + 무선', '1식', ...sc(85, 140));
+  } else {
+    add('제어/안전', '메인 PC — Jetson Orin NX 16GB (MIC-711-ON) + Moxa PTP 스위치 + 무선', '1식', ...sc(280, 440));
+  }
+  add('제어/안전', '전용 IO/동력 보드 PCB (IC-40 대체 ~36만) + DC-DC·퓨즈·접촉기', '1식', ...sc(60, 100));
+  if (cfg.safety2d === 'pld') {
+    add('제어/안전', '안전 PLC (SICK Flexi Soft FX3-CPU3) + Mayser 범퍼 + 비상정지×5', '1식', ...sc(240, 380));
+  } else {
+    add('제어/안전', '안전 릴레이 (Pilz PNOZ s4 STO) + Mayser 범퍼 + 비상정지×5', '1식', ...sc(125, 200));
+  }
+  add('제어/안전', 'HMI 터치화면 + 경광등×3 + 산업용 하네스 일체', '1식', ...sc(115, 200));
+
+  // D. Power & Charger
+  const is100 = cfg.power.startsWith('100');
+  const hasChg = cfg.power.endsWith('yes');
+  if (is100) add('전원/충전', '48V 100Ah LFP 배터리팩 + BMS + 고전류 버스바', '1식', ...sc(250, 450));
+  else       add('전원/충전', '48V 50Ah LFP 배터리팩 + BMS (중국 표준급)', '1식', ...sc(130, 230));
+  if (hasChg) add('전원/충전', '자동 충전 접점 + 벽면 자동 충전기 (58.4V 20~30A)', '1식', ...sc(150, 300));
+  else        add('전원/충전', '로봇 측 구리 충전 접점만 (벽면 충전기 제외)', '1식', ...sc(20, 40));
+
+  // E. Fabrication & Assembly (depends heavily on mfg region/qty + complexity!)
+  let fabLo = 950, fabHi = 1750; // Base 1.0t 5-axis KR 1-unit
+  if (cfg.payload === '15t')  { fabLo += 220; fabHi += 480; }
+  if (cfg.latch === 'var')    { fabLo += 110; fabHi += 250; }
+  if (cfg.lidar3d !== 'none') { fabLo += 70;  fabHi += 220; } // E1R 8mm roof pocket + tower 3D roof chamfer
+  const fm = cfg.mfg === 'cn' ? 0.34 : cfg.mfg === 'kr10' ? 0.50 : 1.00;
+  add('가공/조립', `차체 프레임·포크·가위·포켓 판금/CNC 가공 + 조립 (${cfg.mfg==='cn'?'중국 OEM 양산':cfg.mfg==='kr10'?'한국 10대+ 양산':'한국 1대 시제'})`, '1식', Math.round(fabLo * fm), Math.round(fabHi * fm));
+
+  const partsRows = rows.filter(r => r.cat !== '가공/조립');
+  const mfgRow = rows.find(r => r.cat === '가공/조립');
+  const sumLo = rows.reduce((a, r) => a + r.lo, 0);
+  const sumHi = rows.reduce((a, r) => a + r.hi, 0);
+  const pMid  = Math.round(partsRows.reduce((a, r) => a + (r.lo + r.hi) / 2, 0));
+  const mMid  = Math.round((mfgRow.lo + mfgRow.hi) / 2);
+  const mid   = Math.round((sumLo + sumHi) / 2);
+
+  return { rows, sumLo, sumHi, mid, pMid, mMid };
+}
+
+function fmt(n) { return n.toLocaleString('ko-KR'); }
+
+function renderAll() {
+  // Update top 4 package cards
+  for (const [k, p] of Object.entries(PRESETS)) {
+    const r = calcConfig(p);
+    const el = document.getElementById('pPrice' + k);
+    el.textContent = `약 ${fmt(r.mid)}만 원 (${p.mfg === 'cn' ? '중국OEM' : '한국1대'})`;
+  }
+
+  // Current interactive selection
+  const res = calcConfig(ST);
+  document.getElementById('outMid').textContent = `약 ${fmt(res.mid)}만 원`;
+  document.getElementById('outRange').textContent = `추정 범위: ${fmt(res.sumLo)} ~ ${fmt(res.sumHi)}만 원`;
+  document.getElementById('outParts').textContent = `~${fmt(res.pMid)}만 원`;
+  document.getElementById('outMfg').textContent = `~${fmt(res.mMid)}만 원`;
+  document.getElementById('outArch').textContent = `${ST.latch === 'var' ? '7축' : '5축'} / ${ST.lidar3d === 'none' ? 'i.MX8MP' : 'Orin NX'}`;
+  document.getElementById('outChg').textContent = ST.lidar3d === 'none' ? '앞 등뼈(기존 유지) 또는 후면' : '뒤 타워 하단 (Z=180~240)';
+
+  const notes = [];
+  if (ST.lidar3d === 'none') {
+    notes.push('<strong>✓ 최대 장점:</strong> 기존 <code>i.MX8MP</code> + <code>oneweave-native</code> SW 거의 무수정 즉시 투입, <code>0.1°</code> 2D 반사판 인식 최강.');
+    notes.push('<strong>✗ 포기 사항:</strong> 적재 전방·후진 <strong>공중 오버행(선반/랙 빔) 3D 회피 불가</strong> (바닥 Z=115 & 타워 Z=520 두 평면만 감지).');
+  } else if (ST.lidar3d === 'frontOnly') {
+    notes.push('<strong>✓ 핵심 절충:</strong> 적재 전진 오버행은 <code>E1R</code>이 3D 회피하고, 뒤 타워는 <code>0.1°</code> 2D로 <code>XT32</code> 대비 대당 <strong>~265~315만 원 절감</strong>.');
+    notes.push('<strong>✗ 포기 사항:</strong> <strong>후진 시 공중 오버행</strong>은 3D 감지 불가(후진 저속·하부 2D 대응).');
+  } else {
+    notes.push('<strong>✓ 완벽 회피:</strong> 전방(<code>E1R</code>)·후방(<code>' + (ST.lidar3d==='fullOS0'?'OS0-64':'XT32') + '</code>) 풀 3D 오버행 회피 + 다중 링 반사판 이중화.');
+  }
+  if (ST.qr === 'none') notes.push('<strong>QR 제거:</strong> 반사판+SLAM 측위만 사용(정지 ±5~10 mm). 바닥 QR 도킹이 필요한 현장은 불가, 대신 중앙 등뼈가 단순해져 배터리 배치 여유.');
+  else notes.push('<strong>중앙 하단 QR:</strong> 회전 중심 <code>(0,0)</code> 직시로 좁은 도킹·리프트 정밀 정렬(±1~2 mm) 대응.');
+  if (ST.latch === 'fixed') notes.push('<strong>포크 높이 고정 (5축):</strong> 서보 2축·웜·가공비 <strong>~300~550만 원 절감</strong>. 단, 20 mm 턱 통과용 주행 높이(Z=51)와 저상 파레트 진입 높이(Z=31)의 SW 가변 전환 포기.');
+  else notes.push('<strong>포크 진입 높이 가변 (7축):</strong> 픽(-11, Z=31) ↔ 주행(+9, Z=51) SW 전환 + 편심 롤러로 포크 처짐 차단.');
+  if (ST.payload === '15t') notes.push('<strong>1.5 t 풀보강:</strong> <code>Ø185×100</code>(+30% 여유) + <code>155 mm</code> 포크 + <code>318 mm</code> 연장 X가위(구멍 130 mm 파레트 대응).');
+  else notes.push('<strong>1.0 t 기본:</strong> <code>1.0 t</code> 이하·포켓 구멍 ≤102 mm 파레트 전용(1.5 t 중량 파레트 운용 불가).');
+  document.getElementById('outNotes').innerHTML = notes.map(n => `<li>${n}</li>`).join('');
+
+  // Pass current option to drawing & 3D links
+  const drawPkg = ST.lidar3d === 'none' ? (ST.latch === 'fixed' ? 'A' : 'B') : (ST.lidar3d === 'frontOnly' ? 'C' : 'D');
+  document.getElementById('lnkDraw').href = `drawings_options.html?pkg=${drawPkg}`;
+  document.getElementById('lnk3d').href = `3d.html?pkg=${drawPkg}`;
+
+  // Itemized BOM body
+  let html = '';
+  for (const r of res.rows) {
+    const mid = Math.round((r.lo + r.hi) / 2);
+    const muted = r.hi === 0 ? ' style="color:var(--muted)"' : '';
+    html += `<tr${muted}><td><strong>${r.cat}</strong></td><td>${r.name}</td><td>${r.qty}</td><td class="num">${r.hi===0?'0':fmt(r.lo)+' ~ '+fmt(r.hi)}</td><td class="num"><strong>${fmt(mid)}</strong></td></tr>`;
+  }
+  html += `<tr class="sub-row"><td colspan="3">부품 소계 (가공·조립 제외)</td><td class="num">—</td><td class="num">~${fmt(res.pMid)}만 원</td></tr>`;
+  html += `<tr class="tot-row"><td colspan="3">▶ 최종 예상 합계 (${ST.mfg==='cn'?'중국 OEM 양산 원가':ST.mfg==='kr10'?'한국 10대+ 양산':'한국 1대 시제'})</td><td class="num">${fmt(res.sumLo)} ~ ${fmt(res.sumHi)}</td><td class="num">약 ${fmt(res.mid)}만 원</td></tr>`;
+  document.getElementById('bomBody').innerHTML = html;
+
+  // Sync active buttons
+  document.querySelectorAll('.seg-btns').forEach(grp => {
+    const k = grp.dataset.key;
+    grp.querySelectorAll('.seg-btn').forEach(b => b.classList.toggle('active', b.dataset.val === ST[k]));
+  });
+}
+
+// Build 4-package matrix once
+function renderMatrix() {
+  const defs = [
+    ['A. 초저가 2D 베이직', '하부 2D×2 + 타워 2D×1 (3D 없음)', 'QR 없음 · 5축 고정 · 1.0t · 50Ah', '앞 등뼈 유지 · SW 무수정', PRESETS.A],
+    ['B. 1.5t 2D+Latch',    '하부 2D×2 + 타워 2D×1 (3D 없음)', 'QR 없음 · 7축 Latch · 1.5t · 100Ah', '앞 등뼈 유지 · Latch SW만', PRESETS.B],
+    ['C. 하이브리드 1.5t',  '하부 2D×2 + 전방 E1R + 타워 2D',   '하단 QR · 7축 Latch · 1.5t · 100Ah', '후면 충전 · E1R+QR 추가', PRESETS.C],
+    ['D. 풀 3D 1.5t (일반2D)', '하부 2D×2 + 전방 E1R + 타워 XT32', '하단 QR · 7축 Latch · 1.5t · 100Ah', '후면 충전 · 풀 3D 스택', PRESETS.D],
+    ['D+. 풀 3D 1.5t (안전PLd)', 'nanoScan3×2 + E1R + XT32', 'PGV100 QR · 7축 · 1.5t · Flexi Soft', '후면 충전 · PLd 대기업 납품', { ...PRESETS.D, safety2d: 'pld', qr: 'pgv' }],
+  ];
+  let out = '';
+  for (const [nm, sens, opt, sw, base] of defs) {
+    const rKr1  = calcConfig({ ...base, mfg: 'kr1' });
+    const rKr10 = calcConfig({ ...base, mfg: 'kr10' });
+    const rCn   = calcConfig({ ...base, mfg: 'cn' });
+    out += `<tr>
+      <td><strong>${nm}</strong></td>
+      <td>${sens}</td>
+      <td>${opt}</td>
+      <td>${sw}</td>
+      <td class="num"><strong>~${fmt(rKr1.mid)}만</strong><br><small style="color:var(--muted)">(${fmt(rKr1.sumLo)}~${fmt(rKr1.sumHi)})</small></td>
+      <td class="num"><strong>~${fmt(rKr10.mid)}만</strong></td>
+      <td class="num" style="color:var(--ok)"><strong>~${fmt(rCn.mid)}만</strong><br><small style="color:var(--muted)">(${fmt(rCn.sumLo)}~${fmt(rCn.sumHi)})</small></td>
+    </tr>`;
+  }
+  document.getElementById('matrixBody').innerHTML = out;
+}
+
+document.querySelectorAll('.seg-btns').forEach(grp => {
+  grp.addEventListener('click', e => {
+    const btn = e.target.closest('.seg-btn');
+    if (!btn) return;
+    ST[grp.dataset.key] = btn.dataset.val;
+    document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active'));
+    renderAll();
+  });
+});
+
+document.querySelectorAll('.pkg-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const p = PRESETS[card.dataset.pkg];
+    Object.assign(ST, p);
+    document.querySelectorAll('.pkg-card').forEach(c => c.classList.toggle('active', c === card));
+    renderAll();
+  });
+});
+
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const r = document.documentElement;
+  const dark = r.getAttribute('data-theme') === 'dark';
+  r.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = dark ? '다크 모드' : '라이트 모드';
+});
+
+renderMatrix();
+renderAll();
+</script>
+</body>
+</html>
