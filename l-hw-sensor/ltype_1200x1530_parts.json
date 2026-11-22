@@ -4,155 +4,562 @@
     1200,
     590
   ],
-  "axes": "CAD mm: X=forward(-765..+765), Y=left(-600..+600), Z=up(0..590); glTF m: X=Y, Y=Z, Z=X",
+  "datum": "Origin (0,0,0) = drive axle center on floor; +X fwd, +Y left, +Z up",
   "servo_axes_total": 7,
-  "part_count": 110,
+  "part_count": 151,
+  "audit_pass": true,
   "parts": [
     {
-      "name": "pod_main_L",
-      "kind": "chassis",
-      "model": "좌측 포드 본체 (Z=46~192)",
-      "note": "상판 평탄 파레트 지지면 (구동·캐스터·전장 수납)",
+      "name": "pod_bot_L0",
+      "kind": "frame",
+      "model": "포드 바닥판 6t (L-0)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "구동륜·캐스터 쓸림 구멍 절개 완료",
       "bbox_mm": [
-        -545.0,
-        610.0,
+        -750.0,
+        -614.0,
         320.0,
         585.0,
         46.0,
-        192.0
+        52.0
       ]
     },
     {
-      "name": "pod_front_in_L",
-      "kind": "chassis",
-      "model": "좌측 포드 앞쪽 내벽",
-      "note": "좌하 2D 슬롯 내측 격벽",
+      "name": "pod_bot_L1",
+      "kind": "frame",
+      "model": "포드 바닥판 6t (L-1)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "구동륜·캐스터 쓸림 구멍 절개 완료",
       "bbox_mm": [
-        610.0,
+        -416.0,
+        -108.0,
+        320.0,
+        585.0,
+        46.0,
+        52.0
+      ]
+    },
+    {
+      "name": "pod_bot_L2",
+      "kind": "frame",
+      "model": "포드 바닥판 6t (L-2)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "구동륜·캐스터 쓸림 구멍 절개 완료",
+      "bbox_mm": [
+        108.0,
+        416.0,
+        320.0,
+        585.0,
+        46.0,
+        52.0
+      ]
+    },
+    {
+      "name": "pod_bot_L3_in",
+      "kind": "frame",
+      "model": "포드 바닥판 6t (좌하 내측)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "좌하 2D 슬롯 인접 바닥판",
+      "bbox_mm": [
+        614.0,
         750.0,
         320.0,
         450.0,
         46.0,
+        52.0
+      ]
+    },
+    {
+      "name": "slot_2d_floor_L",
+      "kind": "frame",
+      "model": "좌하 2D 슬롯 하판 보강 (24t 블록)",
+      "material": "SS400 / AL6061",
+      "tol": "±0.1",
+      "note": "3점 M6 레벨링 볼트 탭 가공",
+      "bbox_mm": [
+        610.0,
+        750.0,
+        450.0,
+        585.0,
+        46.0,
+        70.0
+      ]
+    },
+    {
+      "name": "pod_wall_in_L",
+      "kind": "frame",
+      "model": "포크 레인 외측 메인 프레임 10t (L)",
+      "material": "SS400 10t",
+      "tol": "±0.2",
+      "note": "캐리지(315)와 5 mm 여유 · 1.5t 파레트 수직 하중 지지",
+      "bbox_mm": [
+        -545.0,
+        750.0,
+        320.0,
+        330.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "pod_rib_L_rear",
+      "kind": "frame",
+      "model": "포드 내부 보강 격벽 6t (L-rear)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "1.5t 상판 굽힘 방지 용접 리브",
+      "bbox_mm": [
+        -360.0,
+        -354.0,
+        330.0,
+        582.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "pod_rib_L_midF",
+      "kind": "frame",
+      "model": "포드 내부 보강 격벽 6t (L-midF)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "1.5t 상판 굽힘 방지 용접 리브",
+      "bbox_mm": [
+        108.0,
+        114.0,
+        330.0,
+        582.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "pod_rib_L_eboxF",
+      "kind": "frame",
+      "model": "포드 내부 보강 격벽 6t (L-eboxF)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "1.5t 상판 굽힘 방지 용접 리브",
+      "bbox_mm": [
+        350.0,
+        356.0,
+        330.0,
+        582.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "pod_top_L",
+      "kind": "cover",
+      "model": "포드 상판 파레트 적재면 4t (L)",
+      "material": "SS400 4t (분체도장)",
+      "tol": "±0.3 / 평탄도 0.5",
+      "note": "Z=192 mm 평탄 적재면 (구동륜 상단 185+3mm 틈)",
+      "bbox_mm": [
+        -545.0,
+        750.0,
+        320.0,
+        585.0,
+        188.0,
         192.0
       ]
     },
     {
-      "name": "pod_slot_roof_L",
-      "kind": "chassis",
-      "model": "좌하 2D 슬롯 보호 상판",
-      "note": "Z=162~192 mm",
+      "name": "pod_skin_L_main",
+      "kind": "cover",
+      "model": "좌측 포드 외판 커버 3t",
+      "material": "SPHC 3t",
+      "tol": "±0.3",
+      "note": "정비 탈착 볼트 체결",
+      "bbox_mm": [
+        -545.0,
+        610.0,
+        582.0,
+        585.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "slot_2d_roof_L",
+      "kind": "frame",
+      "model": "좌하 2D 슬롯 상부 보강판",
+      "material": "SS400",
+      "tol": "±0.2",
+      "note": "낙하물·파레트 충격 차단",
       "bbox_mm": [
         610.0,
         750.0,
         450.0,
         585.0,
         162.0,
-        192.0
+        188.0
       ]
     },
     {
-      "name": "pod_slot_floor_L",
-      "kind": "chassis",
-      "model": "좌하 2D 슬롯 하판",
-      "note": "3점 레벨링 볼트 (±0.1°)",
+      "name": "slot_2d_back_L",
+      "kind": "frame",
+      "model": "좌하 2D 슬롯 후면 격벽 6t",
+      "material": "SS400 6t",
+      "tol": "±0.2",
+      "note": "내부 먼지 차단 + 케이블 통과구",
+      "bbox_mm": [
+        604.0,
+        610.0,
+        450.0,
+        585.0,
+        70.0,
+        162.0
+      ]
+    },
+    {
+      "name": "slot_2d_inwall_L",
+      "kind": "frame",
+      "model": "좌하 2D 슬롯 내측 격벽 6t",
+      "material": "SS400 6t",
+      "tol": "±0.2",
+      "note": "110×110×85 포켓 경계",
       "bbox_mm": [
         610.0,
         750.0,
+        444.0,
         450.0,
-        585.0,
-        46.0,
-        72.0
+        70.0,
+        162.0
       ]
     },
     {
-      "name": "pod_main_R",
-      "kind": "chassis",
-      "model": "우측 포드 본체 (Z=46~192)",
-      "note": "상판 평탄 파레트 지지면 (Orin NX + PTP 수납)",
+      "name": "pod_front_in_L",
+      "kind": "cover",
+      "model": "좌측 포드 전면 커버 3t (내측)",
+      "material": "SPHC 3t",
+      "tol": "±0.3",
+      "note": "좌하 2D 창(Y>450) 개방",
+      "bbox_mm": [
+        747.0,
+        750.0,
+        320.0,
+        450.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "pod_bot_R0_in",
+      "kind": "frame",
+      "model": "포드 바닥판 6t (우상 내측)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "우상 2D 슬롯 인접 바닥판",
+      "bbox_mm": [
+        -750.0,
+        -614.0,
+        -450.0,
+        -320.0,
+        46.0,
+        52.0
+      ]
+    },
+    {
+      "name": "slot_2d_floor_R",
+      "kind": "frame",
+      "model": "우상 2D 슬롯 하판 보강 (24t 블록)",
+      "material": "SS400 / AL6061",
+      "tol": "±0.1",
+      "note": "3점 M6 레벨링 볼트 탭 가공",
+      "bbox_mm": [
+        -750.0,
+        -610.0,
+        -585.0,
+        -450.0,
+        46.0,
+        70.0
+      ]
+    },
+    {
+      "name": "pod_bot_R1",
+      "kind": "frame",
+      "model": "포드 바닥판 6t (R-1)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "구동륜·캐스터 쓸림 구멍 절개 완료",
+      "bbox_mm": [
+        -416.0,
+        -108.0,
+        -585.0,
+        -320.0,
+        46.0,
+        52.0
+      ]
+    },
+    {
+      "name": "pod_bot_R2",
+      "kind": "frame",
+      "model": "포드 바닥판 6t (R-2)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "구동륜·캐스터 쓸림 구멍 절개 완료",
+      "bbox_mm": [
+        108.0,
+        416.0,
+        -585.0,
+        -320.0,
+        46.0,
+        52.0
+      ]
+    },
+    {
+      "name": "pod_bot_R3",
+      "kind": "frame",
+      "model": "포드 바닥판 6t (R-3)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "구동륜·캐스터 쓸림 구멍 절개 완료",
+      "bbox_mm": [
+        614.0,
+        750.0,
+        -585.0,
+        -320.0,
+        46.0,
+        52.0
+      ]
+    },
+    {
+      "name": "pod_wall_in_R",
+      "kind": "frame",
+      "model": "포크 레인 외측 메인 프레임 10t (R)",
+      "material": "SS400 10t",
+      "tol": "±0.2",
+      "note": "캐리지(315)와 5 mm 여유 · 1.5t 파레트 수직 하중 지지",
+      "bbox_mm": [
+        -545.0,
+        750.0,
+        -330.0,
+        -320.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "pod_rib_R_rear",
+      "kind": "frame",
+      "model": "포드 내부 보강 격벽 6t (R-rear)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "1.5t 상판 굽힘 방지 용접 리브",
+      "bbox_mm": [
+        -360.0,
+        -354.0,
+        -582.0,
+        -330.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "pod_rib_R_midF",
+      "kind": "frame",
+      "model": "포드 내부 보강 격벽 6t (R-midF)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "1.5t 상판 굽힘 방지 용접 리브",
+      "bbox_mm": [
+        108.0,
+        114.0,
+        -582.0,
+        -330.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "pod_rib_R_eboxF",
+      "kind": "frame",
+      "model": "포드 내부 보강 격벽 6t (R-eboxF)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "1.5t 상판 굽힘 방지 용접 리브",
+      "bbox_mm": [
+        350.0,
+        356.0,
+        -582.0,
+        -330.0,
+        52.0,
+        188.0
+      ]
+    },
+    {
+      "name": "pod_top_R",
+      "kind": "cover",
+      "model": "포드 상판 파레트 적재면 4t (R)",
+      "material": "SS400 4t (분체도장)",
+      "tol": "±0.3 / 평탄도 0.5",
+      "note": "Z=192 mm 평탄 적재면 (구동륜 상단 185+3mm 틈)",
       "bbox_mm": [
         -545.0,
         750.0,
         -585.0,
         -320.0,
-        46.0,
+        188.0,
         192.0
       ]
     },
     {
-      "name": "center_spine_rear",
-      "kind": "chassis",
-      "model": "중앙 등뼈 후방부 (포크 뻗기 구동·IMU 수납)",
-      "note": "X=-545..-65, Z=46~174",
+      "name": "pod_skin_R_main",
+      "kind": "cover",
+      "model": "우측 포드 외판 커버 3t",
+      "material": "SPHC 3t",
+      "tol": "±0.3",
+      "note": "정비 탈착 볼트 체결",
       "bbox_mm": [
         -545.0,
-        -65.0,
-        -130.0,
-        130.0,
-        46.0,
-        174.0
+        750.0,
+        -585.0,
+        -582.0,
+        52.0,
+        188.0
       ]
     },
     {
-      "name": "center_spine_qr_top",
-      "kind": "chassis",
-      "model": "중앙 등뼈 QR실 상판",
-      "note": "Z=154~174 · 하단 QR 카메라 보호",
+      "name": "pod_front_R",
+      "kind": "cover",
+      "model": "우측 포드 전면 커버 3t",
+      "material": "SPHC 3t",
+      "tol": "±0.3",
+      "note": "",
       "bbox_mm": [
-        -65.0,
-        65.0,
-        -130.0,
-        130.0,
-        154.0,
-        174.0
+        747.0,
+        750.0,
+        -585.0,
+        -320.0,
+        52.0,
+        188.0
       ]
     },
     {
-      "name": "center_spine_qr_side_L",
-      "kind": "chassis",
-      "model": "중앙 등뼈 QR실 측벽",
-      "note": "바닥 QR 광학창(Ø85) 좌우 구조벽",
+      "name": "spine_bottom_6t",
+      "kind": "frame",
+      "model": "중앙 등뼈 바닥판 6t (Ø85 QR 광학 개구부 가공)",
+      "material": "SS400 6t",
+      "tol": "±0.2 (Ø85 H9)",
+      "note": "원점 (0,0) Ø85 강화유리창 삽입홀 가공 완료",
       "bbox_mm": [
-        -65.0,
-        65.0,
-        55.0,
-        130.0,
-        46.0,
-        154.0
-      ]
-    },
-    {
-      "name": "center_spine_qr_side_R",
-      "kind": "chassis",
-      "model": "중앙 등뼈 QR실 측벽",
-      "note": "바닥 QR 광학창(Ø85) 좌우 구조벽",
-      "bbox_mm": [
-        -65.0,
-        65.0,
-        -130.0,
-        -55.0,
-        46.0,
-        154.0
-      ]
-    },
-    {
-      "name": "center_spine_front",
-      "kind": "chassis",
-      "model": "중앙 등뼈 전방부 (48V 100Ah LFP 배터리 수납)",
-      "note": "X=+65..+678, Z=46~174",
-      "bbox_mm": [
-        65.0,
+        -545.0,
         678.0,
         -130.0,
         130.0,
         46.0,
+        52.0
+      ]
+    },
+    {
+      "name": "spine_wall_L",
+      "kind": "frame",
+      "model": "중앙 등뼈 측벽 10t (L · HGR20 레일 장착면)",
+      "material": "SS400 10t (기계가공면)",
+      "tol": "평행도 0.05",
+      "note": "외측면 Y=±130에 HGR20 직선 레일 볼트 체결",
+      "bbox_mm": [
+        -545.0,
+        678.0,
+        120.0,
+        130.0,
+        52.0,
+        170.0
+      ]
+    },
+    {
+      "name": "spine_wall_R",
+      "kind": "frame",
+      "model": "중앙 등뼈 측벽 10t (R · HGR20 레일 장착면)",
+      "material": "SS400 10t (기계가공면)",
+      "tol": "평행도 0.05",
+      "note": "외측면 Y=±130에 HGR20 직선 레일 볼트 체결",
+      "bbox_mm": [
+        -545.0,
+        678.0,
+        -130.0,
+        -120.0,
+        52.0,
+        170.0
+      ]
+    },
+    {
+      "name": "spine_top_4t",
+      "kind": "cover",
+      "model": "중앙 등뼈 상판 4t (배터리·QR 정비 커버)",
+      "material": "SS400 4t",
+      "tol": "±0.2",
+      "note": "Z=174 mm 상한 엄수 (캐리지 177.1과 3.1 mm 틈)",
+      "bbox_mm": [
+        -545.0,
+        678.0,
+        -130.0,
+        130.0,
+        170.0,
         174.0
       ]
     },
     {
-      "name": "center_spine_e1r_floor",
-      "kind": "chassis",
+      "name": "spine_qr_bulkhead_rear",
+      "kind": "frame",
+      "model": "중앙 QR 격실 방진 격벽 6t (rear)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "QR 광학부 방진·차광 격리",
+      "bbox_mm": [
+        -68.0,
+        -62.0,
+        -120.0,
+        120.0,
+        52.0,
+        170.0
+      ]
+    },
+    {
+      "name": "spine_qr_bulkhead_front",
+      "kind": "frame",
+      "model": "중앙 QR 격실 방진 격벽 6t (front)",
+      "material": "SS400 6t",
+      "tol": "±0.3",
+      "note": "QR 광학부 방진·차광 격리",
+      "bbox_mm": [
+        62.0,
+        68.0,
+        -120.0,
+        120.0,
+        52.0,
+        170.0
+      ]
+    },
+    {
+      "name": "spine_e1r_backwall",
+      "kind": "frame",
+      "model": "E1R 포켓 후면 격벽 6t (M12 배선 여유 14.8 mm)",
+      "material": "SS400 6t",
+      "tol": "±0.2",
+      "note": "배터리(≤648)와 E1R 격리 · M12 직각 커넥터 공간 확보",
+      "bbox_mm": [
+        656.0,
+        662.0,
+        -120.0,
+        120.0,
+        52.0,
+        170.0
+      ]
+    },
+    {
+      "name": "e1r_pocket_floor_10t",
+      "kind": "frame",
       "model": "E1R 포켓 하부 10t 강판",
-      "note": "Z=46~56 · 하방 -35° 무간섭",
+      "material": "SS400 10t",
+      "tol": "±0.2",
+      "note": "하방 -35° 광선 무간섭 + 하부 충돌 방호",
       "bbox_mm": [
         678.0,
         750.0,
@@ -163,27 +570,31 @@
       ]
     },
     {
-      "name": "center_spine_e1r_seat",
-      "kind": "chassis",
-      "model": "E1R 경사 마운트 베이스",
-      "note": "+10° 틸트 지지대",
+      "name": "e1r_mount_wedge",
+      "kind": "frame",
+      "model": "E1R +10° 경사 마운트 블록 (M4×4 탭)",
+      "material": "AL6061-T6",
+      "tol": "각도 ±0.2°",
+      "note": "RoboSense E1R 정밀 +10° 상향 거치",
       "bbox_mm": [
         678.0,
         720.0,
-        -85.0,
-        85.0,
+        -60.0,
+        60.0,
         56.0,
         78.0
       ]
     },
     {
-      "name": "center_spine_e1r_roof",
-      "kind": "chassis",
-      "model": "E1R 상단 8 mm 강판 보호 커버 (경사 처마)",
-      "note": "Z=166~174 · E1R 위 100% 방호 · +55° 시야 손실 0°",
+      "name": "e1r_top_cover_8t",
+      "kind": "frame",
+      "model": "★ E1R 상단 8t 강판 보호 커버 (경사 처마 X=738~744)",
+      "material": "SS400 8t (절삭모따기)",
+      "tol": "±0.2",
+      "note": "Z=166~174 · E1R(X=682~725) 위 100% 방호 · +55° 상방 시야 손실 0.0°",
       "bbox_mm": [
         678.0,
-        740.0,
+        744.0,
         -130.0,
         130.0,
         166.0,
@@ -191,10 +602,12 @@
       ]
     },
     {
-      "name": "center_spine_tip_L",
-      "kind": "chassis",
-      "model": "E1R 포켓 좌우 60 mm 강철 지주",
-      "note": "상단 커버 지지 + ±60° 수평 시야 확보",
+      "name": "e1r_pillar_L",
+      "kind": "frame",
+      "model": "E1R 포켓 강철 지주 45 mm (L)",
+      "material": "SS400",
+      "tol": "±0.2",
+      "note": "상단 8t 커버 지지 + ±60°(120°) 수평 시야 확보",
       "bbox_mm": [
         678.0,
         750.0,
@@ -205,10 +618,12 @@
       ]
     },
     {
-      "name": "center_spine_tip_R",
-      "kind": "chassis",
-      "model": "E1R 포켓 좌우 60 mm 강철 지주",
-      "note": "상단 커버 지지 + ±60° 수평 시야 확보",
+      "name": "e1r_pillar_R",
+      "kind": "frame",
+      "model": "E1R 포켓 강철 지주 45 mm (R)",
+      "material": "SS400",
+      "tol": "±0.2",
+      "note": "상단 8t 커버 지지 + ±60°(120°) 수평 시야 확보",
       "bbox_mm": [
         678.0,
         750.0,
@@ -219,122 +634,412 @@
       ]
     },
     {
-      "name": "tower_lower_left",
+      "name": "tower_rear_plate_10t",
       "kind": "tower",
-      "model": "뒤쪽 타워 본체",
-      "note": "후면 충전 접점(Z=180~240) & 10.1\" HMI(Z=340~510)",
+      "model": "뒤 타워 후면 메인 벽판 10t (충전·HMI·2D 개구부 가공)",
+      "material": "SS400 10t",
+      "tol": "±0.2",
+      "note": "충전(Z=174~246) · HMI(Z=325~450) · 우상 2D(Z=70~162) 정밀 절개",
       "bbox_mm": [
         -750.0,
-        -545.0,
-        -450.0,
+        -740.0,
+        -585.0,
         585.0,
-        46.0,
-        472.0
+        52.0,
+        454.0
       ]
     },
     {
-      "name": "tower_lower_right_mid",
+      "name": "tower_front_side_L",
       "kind": "tower",
-      "model": "타워 우측 앞벽",
-      "note": "우상 2D 슬롯 보호",
+      "model": "타워 전면 좌우 측판 3t (L)",
+      "material": "SPHC 3t",
+      "tol": "±0.3",
+      "note": "포크 캐리지 출구 양옆 막음판",
+      "bbox_mm": [
+        -548.0,
+        -545.0,
+        320.0,
+        585.0,
+        192.0,
+        454.0
+      ]
+    },
+    {
+      "name": "tower_in_wall_L",
+      "kind": "frame",
+      "model": "타워 내부 격벽 6t (L)",
+      "material": "SS400 6t",
+      "tol": "±0.2",
+      "note": "캐리지(315)와 5 mm 여유",
+      "bbox_mm": [
+        -740.0,
+        -545.0,
+        320.0,
+        326.0,
+        52.0,
+        454.0
+      ]
+    },
+    {
+      "name": "tower_skin_L",
+      "kind": "tower",
+      "model": "타워 좌측 외판 3t",
+      "material": "SPHC 3t",
+      "tol": "±0.3",
+      "note": "",
+      "bbox_mm": [
+        -740.0,
+        -545.0,
+        582.0,
+        585.0,
+        52.0,
+        454.0
+      ]
+    },
+    {
+      "name": "tower_front_side_R",
+      "kind": "tower",
+      "model": "타워 전면 좌우 측판 3t (R)",
+      "material": "SPHC 3t",
+      "tol": "±0.3",
+      "note": "포크 캐리지 출구 양옆 막음판",
+      "bbox_mm": [
+        -548.0,
+        -545.0,
+        -585.0,
+        -320.0,
+        192.0,
+        454.0
+      ]
+    },
+    {
+      "name": "tower_in_wall_R",
+      "kind": "frame",
+      "model": "타워 내부 격벽 6t (R)",
+      "material": "SS400 6t",
+      "tol": "±0.2",
+      "note": "캐리지(315)와 5 mm 여유",
+      "bbox_mm": [
+        -740.0,
+        -545.0,
+        -326.0,
+        -320.0,
+        52.0,
+        454.0
+      ]
+    },
+    {
+      "name": "tower_skin_R_upper",
+      "kind": "tower",
+      "model": "타워 우측 외판 (상부)",
+      "material": "SPHC 3t",
+      "tol": "±0.3",
+      "note": "우상 2D 슬롯 상부",
+      "bbox_mm": [
+        -740.0,
+        -545.0,
+        -585.0,
+        -582.0,
+        162.0,
+        454.0
+      ]
+    },
+    {
+      "name": "tower_skin_R_front",
+      "kind": "tower",
+      "model": "타워 우측 외판 (앞)",
+      "material": "SPHC 3t",
+      "tol": "±0.3",
+      "note": "우상 2D 슬롯 앞쪽",
       "bbox_mm": [
         -610.0,
         -545.0,
         -585.0,
-        -450.0,
-        46.0,
-        472.0
+        -582.0,
+        52.0,
+        162.0
       ]
     },
     {
-      "name": "tower_slot_floor_R",
-      "kind": "tower",
-      "model": "우상 2D 슬롯 하판",
-      "note": "3점 레벨링 볼트",
+      "name": "slot_2d_roof_R",
+      "kind": "frame",
+      "model": "우상 2D 슬롯 상부 보강판 12t",
+      "material": "SS400",
+      "tol": "±0.2",
+      "note": "",
       "bbox_mm": [
-        -750.0,
-        -610.0,
-        -585.0,
-        -450.0,
-        46.0,
-        72.0
-      ]
-    },
-    {
-      "name": "tower_slot_upper_R",
-      "kind": "tower",
-      "model": "우상 2D 슬롯 상부",
-      "note": "우상 2D 보호 구조",
-      "bbox_mm": [
-        -750.0,
+        -740.0,
         -610.0,
         -585.0,
         -450.0,
         162.0,
-        472.0
+        174.0
       ]
     },
     {
-      "name": "tower_wing_L",
-      "kind": "tower",
-      "model": "타워 상단 좌우 날개",
-      "note": "중앙 3D 포켓 보호 기둥",
+      "name": "slot_2d_frontwall_R",
+      "kind": "frame",
+      "model": "우상 2D 슬롯 전면 격벽 6t",
+      "material": "SS400 6t",
+      "tol": "±0.2",
+      "note": "",
+      "bbox_mm": [
+        -610.0,
+        -604.0,
+        -585.0,
+        -450.0,
+        70.0,
+        162.0
+      ]
+    },
+    {
+      "name": "slot_2d_inwall_R",
+      "kind": "frame",
+      "model": "우상 2D 슬롯 내측 격벽 6t",
+      "material": "SS400 6t",
+      "tol": "±0.2",
+      "note": "",
+      "bbox_mm": [
+        -740.0,
+        -610.0,
+        -450.0,
+        -444.0,
+        70.0,
+        162.0
+      ]
+    },
+    {
+      "name": "tower_mid_deck_6t",
+      "kind": "frame",
+      "model": "타워 상단 3D 데크판 6t (Z=460)",
+      "material": "SS400 6t",
+      "tol": "평탄도 0.2",
+      "note": "Hesai XT32 / Ouster OS0 베이스 수평 기준면",
       "bbox_mm": [
         -750.0,
         -545.0,
-        85.0,
+        -585.0,
         585.0,
-        472.0,
-        565.0
+        454.0,
+        460.0
       ]
     },
     {
-      "name": "tower_wing_R",
+      "name": "tower_upper_wing_L",
       "kind": "tower",
-      "model": "타워 상단 좌우 날개",
-      "note": "중앙 3D 포켓 보호 기둥",
+      "model": "타워 상단 3D 방호 기둥 (L)",
+      "material": "SS400 4t 절곡",
+      "tol": "±0.3",
+      "note": "중앙 3D 라이다 개방폭 240 mm 확보",
+      "bbox_mm": [
+        -750.0,
+        -545.0,
+        120.0,
+        585.0,
+        460.0,
+        566.0
+      ]
+    },
+    {
+      "name": "tower_upper_wing_R",
+      "kind": "tower",
+      "model": "타워 상단 3D 방호 기둥 (R)",
+      "material": "SS400 4t 절곡",
+      "tol": "±0.3",
+      "note": "중앙 3D 라이다 개방폭 240 mm 확보",
       "bbox_mm": [
         -750.0,
         -545.0,
         -585.0,
-        -85.0,
-        472.0,
-        565.0
+        -120.0,
+        460.0,
+        566.0
       ]
     },
     {
-      "name": "tower_roof_center",
+      "name": "tower_chamfered_roof",
       "kind": "tower",
-      "model": "타워 보호 지붕 (경사 절삭)",
-      "note": "Z=590 이하 수납 · 후진 오버행 상방 시야 확보",
+      "model": "타워 경사 절삭 보호 지붕 (Z=566~590)",
+      "material": "SS400 6t 용접",
+      "tol": "±0.3",
+      "note": "최고 높이 590 mm(돌출 0) · XT32 +8° 상단 여유 11.4 mm 확보",
       "bbox_mm": [
-        -705.0,
-        -585.0,
+        -720.0,
+        -570.0,
         -585.0,
         585.0,
-        565.0,
+        566.0,
         590.0
       ]
     },
     {
       "name": "tower_3d_pedestal",
-      "kind": "tower",
-      "model": "타워 3D 받침대",
-      "note": "Hesai XT32 / Ouster OS0 베이스",
+      "kind": "frame",
+      "model": "타워 3D 3점 레벨링 마운트 (AL6061)",
+      "material": "AL6061-T6",
+      "tol": "평행도 0.05 / ±0.1°",
+      "note": "Hesai XT32 (Ø100) · Ouster OS0 (Ø87) 공용 M4/M6 홀 패턴",
       "bbox_mm": [
-        -705.0,
-        -585.0,
-        -80.0,
-        80.0,
-        465.0,
-        480.0
+        -703.0,
+        -587.0,
+        -58.0,
+        58.0,
+        460.0,
+        470.0
+      ]
+    },
+    {
+      "name": "level_bolt_FL2D_0",
+      "kind": "fastener",
+      "model": "3점 수평 레벨링 볼트 M6 (FL2D)",
+      "material": "SUS304",
+      "tol": "±0.1° 수평 조절",
+      "note": "바닥 오감지 방지용 정밀 레벨링",
+      "bbox_mm": [
+        707.0,
+        715.0,
+        501.0,
+        509.0,
+        66.0,
+        76.0
+      ]
+    },
+    {
+      "name": "level_bolt_FL2D_1",
+      "kind": "fastener",
+      "model": "3점 수평 레벨링 볼트 M6 (FL2D)",
+      "material": "SUS304",
+      "tol": "±0.1° 수평 조절",
+      "note": "바닥 오감지 방지용 정밀 레벨링",
+      "bbox_mm": [
+        638.0,
+        646.0,
+        540.8,
+        548.8,
+        66.0,
+        76.0
+      ]
+    },
+    {
+      "name": "level_bolt_FL2D_2",
+      "kind": "fastener",
+      "model": "3점 수평 레벨링 볼트 M6 (FL2D)",
+      "material": "SUS304",
+      "tol": "±0.1° 수평 조절",
+      "note": "바닥 오감지 방지용 정밀 레벨링",
+      "bbox_mm": [
+        638.0,
+        646.0,
+        461.2,
+        469.2,
+        66.0,
+        76.0
+      ]
+    },
+    {
+      "name": "level_bolt_RR2D_0",
+      "kind": "fastener",
+      "model": "3점 수평 레벨링 볼트 M6 (RR2D)",
+      "material": "SUS304",
+      "tol": "±0.1° 수평 조절",
+      "note": "바닥 오감지 방지용 정밀 레벨링",
+      "bbox_mm": [
+        -623.0,
+        -615.0,
+        -509.0,
+        -501.0,
+        66.0,
+        76.0
+      ]
+    },
+    {
+      "name": "level_bolt_RR2D_1",
+      "kind": "fastener",
+      "model": "3점 수평 레벨링 볼트 M6 (RR2D)",
+      "material": "SUS304",
+      "tol": "±0.1° 수평 조절",
+      "note": "바닥 오감지 방지용 정밀 레벨링",
+      "bbox_mm": [
+        -692.0,
+        -684.0,
+        -469.2,
+        -461.2,
+        66.0,
+        76.0
+      ]
+    },
+    {
+      "name": "level_bolt_RR2D_2",
+      "kind": "fastener",
+      "model": "3점 수평 레벨링 볼트 M6 (RR2D)",
+      "material": "SUS304",
+      "tol": "±0.1° 수평 조절",
+      "note": "바닥 오감지 방지용 정밀 레벨링",
+      "bbox_mm": [
+        -692.0,
+        -684.0,
+        -548.8,
+        -540.8,
+        66.0,
+        76.0
+      ]
+    },
+    {
+      "name": "level_bolt_T3D_0",
+      "kind": "fastener",
+      "model": "3점 수평 레벨링 볼트 M6 (T3D)",
+      "material": "SUS304",
+      "tol": "±0.1° 수평 조절",
+      "note": "바닥 오감지 방지용 정밀 레벨링",
+      "bbox_mm": [
+        -603.0,
+        -595.0,
+        -4.0,
+        4.0,
+        456.0,
+        472.0
+      ]
+    },
+    {
+      "name": "level_bolt_T3D_1",
+      "kind": "fastener",
+      "model": "3점 수평 레벨링 볼트 M6 (T3D)",
+      "material": "SUS304",
+      "tol": "±0.1° 수평 조절",
+      "note": "바닥 오감지 방지용 정밀 레벨링",
+      "bbox_mm": [
+        -672.0,
+        -664.0,
+        35.8,
+        43.8,
+        456.0,
+        472.0
+      ]
+    },
+    {
+      "name": "level_bolt_T3D_2",
+      "kind": "fastener",
+      "model": "3점 수평 레벨링 볼트 M6 (T3D)",
+      "material": "SUS304",
+      "tol": "±0.1° 수평 조절",
+      "note": "바닥 오감지 방지용 정밀 레벨링",
+      "bbox_mm": [
+        -672.0,
+        -664.0,
+        -43.8,
+        -35.8,
+        456.0,
+        472.0
       ]
     },
     {
       "name": "linear_rail_HGR20_L",
       "kind": "rail",
-      "model": "직선 가이드 레일 HGR20",
-      "note": "등뼈 내벽 장착 · 포크 캐리지 0~1250 mm 신축 안내",
+      "model": "직선 가이드 레일 HGR20 (HIWIN급)",
+      "material": "SUJ2 경화강",
+      "tol": "평행도 0.05",
+      "note": "등뼈 측벽 Y=±130 볼트 체결",
       "bbox_mm": [
         -690.0,
         735.0,
@@ -348,7 +1053,9 @@
       "name": "fork_tine_L",
       "kind": "fork",
       "model": "1.5 t 강화 신축 포크 날 (폭 155 mm)",
-      "note": "Z=51~95(주행+9) / Z=31~75(픽-11) · 1.5t 굽힘 강성 확보 · E1R 광학창 아래",
+      "material": "SM490 / S45C",
+      "tol": "±0.3 / 직진도 0.5",
+      "note": "Z=51~95(주행+9) / Z=31~75(픽-11) · 레일·포드벽 여유 확보",
       "bbox_mm": [
         -620.0,
         735.0,
@@ -362,7 +1069,9 @@
       "name": "fork_tip_sensor_L",
       "kind": "aux",
       "model": "SICK WTB4FP-22161120A00",
-      "note": "포크 끝단 매립 배경억제 광전 센서 (충돌 정지)",
+      "material": "구매품 (IP67)",
+      "tol": "±0.5",
+      "note": "포크 끝단 매립 배경억제 광전",
       "bbox_mm": [
         722.0,
         736.0,
@@ -375,8 +1084,10 @@
     {
       "name": "scissor_lift_L_R1",
       "kind": "scissor",
-      "model": "1.5 t 연장 X형 가위 리프트 (SCM440 링크 318 mm · Ø20 경화핀)",
-      "note": "최대 70° 날 윗면 337 mm → 1.5t 중량 파레트 구멍 130 mm까지 여유 리프트",
+      "model": "1.5 t 연장 X형 가위 링크 (L=318 mm · Ø20 핀)",
+      "material": "SCM440 열처리 (HRC 38~42)",
+      "tol": "구멍 H7",
+      "note": "70° 날 윗면 337 mm → 1.5t 파레트 구멍 130 mm 대응",
       "bbox_mm": [
         -378.6,
         -61.4,
@@ -389,8 +1100,10 @@
     {
       "name": "scissor_lift_L_R2",
       "kind": "scissor",
-      "model": "1.5 t 연장 X형 가위 리프트 (SCM440 링크 318 mm · 가로 타이바)",
-      "note": "날당 2조 × 좌우 = 총 4조 · 바닥 직접 지지",
+      "model": "1.5 t 연장 X형 가위 링크 (가로 타이바 보강)",
+      "material": "SCM440 열처리 (HRC 38~42)",
+      "tol": "구멍 H7",
+      "note": "SYNIN 중 측면 비틀림 방지",
       "bbox_mm": [
         -378.6,
         -61.4,
@@ -403,8 +1116,10 @@
     {
       "name": "scissor_cam_wedge_L_R",
       "kind": "spring",
-      "model": "초기 경사 웨지/캠 보조 리프터 (0~14° 구간)",
-      "note": "들기 시작 시 스크류 축력 10t+ 폭증 방지 → ≤3.5t 수준으로 억제",
+      "model": "초기 경사 웨지/캠 보조 리프터 (0~14°)",
+      "material": "S45C 고주파열처리",
+      "tol": "Ra 1.6",
+      "note": "들기 시작 스크류 축력 10t+ → ≤3.5 t 억제",
       "bbox_mm": [
         -375.0,
         -325.0,
@@ -417,8 +1132,10 @@
     {
       "name": "scissor_lift_L_F1",
       "kind": "scissor",
-      "model": "1.5 t 연장 X형 가위 리프트 (SCM440 링크 318 mm · Ø20 경화핀)",
-      "note": "최대 70° 날 윗면 337 mm → 1.5t 중량 파레트 구멍 130 mm까지 여유 리프트",
+      "model": "1.5 t 연장 X형 가위 링크 (L=318 mm · Ø20 핀)",
+      "material": "SCM440 열처리 (HRC 38~42)",
+      "tol": "구멍 H7",
+      "note": "70° 날 윗면 337 mm → 1.5t 파레트 구멍 130 mm 대응",
       "bbox_mm": [
         161.4,
         478.6,
@@ -431,8 +1148,10 @@
     {
       "name": "scissor_lift_L_F2",
       "kind": "scissor",
-      "model": "1.5 t 연장 X형 가위 리프트 (SCM440 링크 318 mm · 가로 타이바)",
-      "note": "날당 2조 × 좌우 = 총 4조 · 바닥 직접 지지",
+      "model": "1.5 t 연장 X형 가위 링크 (가로 타이바 보강)",
+      "material": "SCM440 열처리 (HRC 38~42)",
+      "tol": "구멍 H7",
+      "note": "SYNIN 중 측면 비틀림 방지",
       "bbox_mm": [
         161.4,
         478.6,
@@ -445,8 +1164,10 @@
     {
       "name": "scissor_cam_wedge_L_F",
       "kind": "spring",
-      "model": "초기 경사 웨지/캠 보조 리프터 (0~14° 구간)",
-      "note": "들기 시작 시 스크류 축력 10t+ 폭증 방지 → ≤3.5t 수준으로 억제",
+      "model": "초기 경사 웨지/캠 보조 리프터 (0~14°)",
+      "material": "S45C 고주파열처리",
+      "tol": "Ra 1.6",
+      "note": "들기 시작 스크류 축력 10t+ → ≤3.5 t 억제",
       "bbox_mm": [
         165.0,
         215.0,
@@ -460,7 +1181,9 @@
       "name": "lift_ballscrew_L",
       "kind": "scissor",
       "model": "1.5 t 고하중 볼스크류 Ø28 (효율 90%) + 복열 스러스트 베어링",
-      "note": "감속 14:1 · Kinco FD144S × 2 구동 (기존 T10 사다리꼴 나사 대체)",
+      "material": "구매품 (C7급)",
+      "tol": "동축도 0.05",
+      "note": "감속 14:1 · Kinco FD144S × 2 구동",
       "bbox_mm": [
         -640.0,
         -120.0,
@@ -473,8 +1196,10 @@
     {
       "name": "latch_servo_L",
       "kind": "latch",
-      "model": "Kinco SMC40S-0005-30MAK-5DSU (40각 50W CANopen)",
-      "note": "포크 진입 높낮이 조절 서보 (latchmod rev B, FD114S 구동, -15~+30 mm)",
+      "model": "Kinco SMC40S-0005-30MAK-5DSU (40각 50W)",
+      "material": "구매품 (CANopen)",
+      "tol": "±0.2",
+      "note": "포크 진입높이 조절 (-15~+30 mm)",
       "bbox_mm": [
         -716.0,
         -641.0,
@@ -487,8 +1212,10 @@
     {
       "name": "latch_worm_gearbox_L",
       "kind": "latch",
-      "model": "웜 감속기 m1 20:1 + 기어함 (LM-03R2)",
-      "note": "자체 잠김 → 전원 OFF 시에도 포크 높이 유지",
+      "model": "웜 감속기 m1 20:1 기어함 (LM-03R2)",
+      "material": "AL6061 / 청동웜휠",
+      "tol": "±0.05",
+      "note": "자체 잠김 (전원 OFF 높이 유지)",
       "bbox_mm": [
         -641.0,
         -603.0,
@@ -501,8 +1228,10 @@
     {
       "name": "latch_leadscrew_L",
       "kind": "latch",
-      "model": "Tr10×2 세로 나사 (우측 왼나사) + U자 패드",
-      "note": "픽 -11 mm(바닥 Z=31) ↔ 주행 +9 mm(바닥 Z=51)",
+      "model": "Tr10×2 세로 나사 (우측 왼나사) + U패드",
+      "material": "S45C / 청동너트",
+      "tol": "±0.05",
+      "note": "픽 -11(Z=31) ↔ 주행 +9(Z=51)",
       "bbox_mm": [
         -614.0,
         -602.0,
@@ -515,8 +1244,10 @@
     {
       "name": "latch_upper_roller_L",
       "kind": "latch",
-      "model": "윗 안내 편심 캠팔로워 Ø19×11 (CF8) × 4 + 옆 롤러 × 8",
-      "note": "팔 172.4 mm로 포크 전방 처짐(외팔 굽힘) 차단 (latchmod rev B)",
+      "model": "윗 안내 편심 캠팔로워 CF8 (Ø19×11) ×4 + 옆 롤러 ×8",
+      "material": "구매품 + S45C 브래킷",
+      "tol": "±0.1",
+      "note": "팔 172.4 mm로 포크 전방 처짐 차단",
       "bbox_mm": [
         -564.5,
         -545.5,
@@ -530,7 +1261,9 @@
       "name": "mast_base_reinforce_L",
       "kind": "latch",
       "model": "캐리지 바닥 8t 강 보강판 (FR-01 흡수)",
-      "note": "latchmod 하부 개구부 동적 응력 보강",
+      "material": "SS400 8t",
+      "tol": "±0.2",
+      "note": "latchmod 하부 동적 응력 보강",
       "bbox_mm": [
         -626.0,
         -565.0,
@@ -543,8 +1276,10 @@
     {
       "name": "linear_rail_HGR20_R",
       "kind": "rail",
-      "model": "직선 가이드 레일 HGR20",
-      "note": "등뼈 내벽 장착 · 포크 캐리지 0~1250 mm 신축 안내",
+      "model": "직선 가이드 레일 HGR20 (HIWIN급)",
+      "material": "SUJ2 경화강",
+      "tol": "평행도 0.05",
+      "note": "등뼈 측벽 Y=±130 볼트 체결",
       "bbox_mm": [
         -690.0,
         735.0,
@@ -558,7 +1293,9 @@
       "name": "fork_tine_R",
       "kind": "fork",
       "model": "1.5 t 강화 신축 포크 날 (폭 155 mm)",
-      "note": "Z=51~95(주행+9) / Z=31~75(픽-11) · 1.5t 굽힘 강성 확보 · E1R 광학창 아래",
+      "material": "SM490 / S45C",
+      "tol": "±0.3 / 직진도 0.5",
+      "note": "Z=51~95(주행+9) / Z=31~75(픽-11) · 레일·포드벽 여유 확보",
       "bbox_mm": [
         -620.0,
         735.0,
@@ -572,7 +1309,9 @@
       "name": "fork_tip_sensor_R",
       "kind": "aux",
       "model": "SICK WTB4FP-22161120A00",
-      "note": "포크 끝단 매립 배경억제 광전 센서 (충돌 정지)",
+      "material": "구매품 (IP67)",
+      "tol": "±0.5",
+      "note": "포크 끝단 매립 배경억제 광전",
       "bbox_mm": [
         722.0,
         736.0,
@@ -585,8 +1324,10 @@
     {
       "name": "scissor_lift_R_R1",
       "kind": "scissor",
-      "model": "1.5 t 연장 X형 가위 리프트 (SCM440 링크 318 mm · Ø20 경화핀)",
-      "note": "최대 70° 날 윗면 337 mm → 1.5t 중량 파레트 구멍 130 mm까지 여유 리프트",
+      "model": "1.5 t 연장 X형 가위 링크 (L=318 mm · Ø20 핀)",
+      "material": "SCM440 열처리 (HRC 38~42)",
+      "tol": "구멍 H7",
+      "note": "70° 날 윗면 337 mm → 1.5t 파레트 구멍 130 mm 대응",
       "bbox_mm": [
         -378.6,
         -61.4,
@@ -599,8 +1340,10 @@
     {
       "name": "scissor_lift_R_R2",
       "kind": "scissor",
-      "model": "1.5 t 연장 X형 가위 리프트 (SCM440 링크 318 mm · 가로 타이바)",
-      "note": "날당 2조 × 좌우 = 총 4조 · 바닥 직접 지지",
+      "model": "1.5 t 연장 X형 가위 링크 (가로 타이바 보강)",
+      "material": "SCM440 열처리 (HRC 38~42)",
+      "tol": "구멍 H7",
+      "note": "SYNIN 중 측면 비틀림 방지",
       "bbox_mm": [
         -378.6,
         -61.4,
@@ -613,8 +1356,10 @@
     {
       "name": "scissor_cam_wedge_R_R",
       "kind": "spring",
-      "model": "초기 경사 웨지/캠 보조 리프터 (0~14° 구간)",
-      "note": "들기 시작 시 스크류 축력 10t+ 폭증 방지 → ≤3.5t 수준으로 억제",
+      "model": "초기 경사 웨지/캠 보조 리프터 (0~14°)",
+      "material": "S45C 고주파열처리",
+      "tol": "Ra 1.6",
+      "note": "들기 시작 스크류 축력 10t+ → ≤3.5 t 억제",
       "bbox_mm": [
         -375.0,
         -325.0,
@@ -627,8 +1372,10 @@
     {
       "name": "scissor_lift_R_F1",
       "kind": "scissor",
-      "model": "1.5 t 연장 X형 가위 리프트 (SCM440 링크 318 mm · Ø20 경화핀)",
-      "note": "최대 70° 날 윗면 337 mm → 1.5t 중량 파레트 구멍 130 mm까지 여유 리프트",
+      "model": "1.5 t 연장 X형 가위 링크 (L=318 mm · Ø20 핀)",
+      "material": "SCM440 열처리 (HRC 38~42)",
+      "tol": "구멍 H7",
+      "note": "70° 날 윗면 337 mm → 1.5t 파레트 구멍 130 mm 대응",
       "bbox_mm": [
         161.4,
         478.6,
@@ -641,8 +1388,10 @@
     {
       "name": "scissor_lift_R_F2",
       "kind": "scissor",
-      "model": "1.5 t 연장 X형 가위 리프트 (SCM440 링크 318 mm · 가로 타이바)",
-      "note": "날당 2조 × 좌우 = 총 4조 · 바닥 직접 지지",
+      "model": "1.5 t 연장 X형 가위 링크 (가로 타이바 보강)",
+      "material": "SCM440 열처리 (HRC 38~42)",
+      "tol": "구멍 H7",
+      "note": "SYNIN 중 측면 비틀림 방지",
       "bbox_mm": [
         161.4,
         478.6,
@@ -655,8 +1404,10 @@
     {
       "name": "scissor_cam_wedge_R_F",
       "kind": "spring",
-      "model": "초기 경사 웨지/캠 보조 리프터 (0~14° 구간)",
-      "note": "들기 시작 시 스크류 축력 10t+ 폭증 방지 → ≤3.5t 수준으로 억제",
+      "model": "초기 경사 웨지/캠 보조 리프터 (0~14°)",
+      "material": "S45C 고주파열처리",
+      "tol": "Ra 1.6",
+      "note": "들기 시작 스크류 축력 10t+ → ≤3.5 t 억제",
       "bbox_mm": [
         165.0,
         215.0,
@@ -670,7 +1421,9 @@
       "name": "lift_ballscrew_R",
       "kind": "scissor",
       "model": "1.5 t 고하중 볼스크류 Ø28 (효율 90%) + 복열 스러스트 베어링",
-      "note": "감속 14:1 · Kinco FD144S × 2 구동 (기존 T10 사다리꼴 나사 대체)",
+      "material": "구매품 (C7급)",
+      "tol": "동축도 0.05",
+      "note": "감속 14:1 · Kinco FD144S × 2 구동",
       "bbox_mm": [
         -640.0,
         -120.0,
@@ -683,8 +1436,10 @@
     {
       "name": "latch_servo_R",
       "kind": "latch",
-      "model": "Kinco SMC40S-0005-30MAK-5DSU (40각 50W CANopen)",
-      "note": "포크 진입 높낮이 조절 서보 (latchmod rev B, FD114S 구동, -15~+30 mm)",
+      "model": "Kinco SMC40S-0005-30MAK-5DSU (40각 50W)",
+      "material": "구매품 (CANopen)",
+      "tol": "±0.2",
+      "note": "포크 진입높이 조절 (-15~+30 mm)",
       "bbox_mm": [
         -716.0,
         -641.0,
@@ -697,8 +1452,10 @@
     {
       "name": "latch_worm_gearbox_R",
       "kind": "latch",
-      "model": "웜 감속기 m1 20:1 + 기어함 (LM-03R2)",
-      "note": "자체 잠김 → 전원 OFF 시에도 포크 높이 유지",
+      "model": "웜 감속기 m1 20:1 기어함 (LM-03R2)",
+      "material": "AL6061 / 청동웜휠",
+      "tol": "±0.05",
+      "note": "자체 잠김 (전원 OFF 높이 유지)",
       "bbox_mm": [
         -641.0,
         -603.0,
@@ -711,8 +1468,10 @@
     {
       "name": "latch_leadscrew_R",
       "kind": "latch",
-      "model": "Tr10×2 세로 나사 (우측 왼나사) + U자 패드",
-      "note": "픽 -11 mm(바닥 Z=31) ↔ 주행 +9 mm(바닥 Z=51)",
+      "model": "Tr10×2 세로 나사 (우측 왼나사) + U패드",
+      "material": "S45C / 청동너트",
+      "tol": "±0.05",
+      "note": "픽 -11(Z=31) ↔ 주행 +9(Z=51)",
       "bbox_mm": [
         -614.0,
         -602.0,
@@ -725,8 +1484,10 @@
     {
       "name": "latch_upper_roller_R",
       "kind": "latch",
-      "model": "윗 안내 편심 캠팔로워 Ø19×11 (CF8) × 4 + 옆 롤러 × 8",
-      "note": "팔 172.4 mm로 포크 전방 처짐(외팔 굽힘) 차단 (latchmod rev B)",
+      "model": "윗 안내 편심 캠팔로워 CF8 (Ø19×11) ×4 + 옆 롤러 ×8",
+      "material": "구매품 + S45C 브래킷",
+      "tol": "±0.1",
+      "note": "팔 172.4 mm로 포크 전방 처짐 차단",
       "bbox_mm": [
         -564.5,
         -545.5,
@@ -740,7 +1501,9 @@
       "name": "mast_base_reinforce_R",
       "kind": "latch",
       "model": "캐리지 바닥 8t 강 보강판 (FR-01 흡수)",
-      "note": "latchmod 하부 개구부 동적 응력 보강",
+      "material": "SS400 8t",
+      "tol": "±0.2",
+      "note": "latchmod 하부 동적 응력 보강",
       "bbox_mm": [
         -626.0,
         -565.0,
@@ -754,7 +1517,9 @@
       "name": "fork_carriage",
       "kind": "fork",
       "model": "1.5 t 포크 신축 캐리지 (门架)",
-      "note": "포크 0~1250 mm 신축 마스트",
+      "material": "SS400 용접+가공",
+      "tol": "±0.2",
+      "note": "좌우 포크 + latchmod 통합 마스트",
       "bbox_mm": [
         -690.0,
         -560.0,
@@ -767,36 +1532,42 @@
     {
       "name": "lidar_2d_FL",
       "kind": "lidar2d",
-      "model": "SICK nanoScan3 Pro I/O (시제품: Focusray 0.1° / FreeOptics C2)",
-      "note": "① 하부 대각 2D 좌하 · Z=115 · 안쪽 35 mm 매립 · 360° 안전 + 0~61 cm 반사판",
+      "model": "SICK nanoScan3 Pro I/O (호환: Focusray 0.1° / FreeOptics C2)",
+      "material": "구매품 (IP65)",
+      "tol": "수평 ±0.1°",
+      "note": "① 하부 대각 2D 좌하 · Z=115 · 안쪽 35 mm 매립",
       "bbox_mm": [
         612.0,
         718.0,
         452.0,
         558.0,
-        75.0,
-        155.0
+        76.0,
+        156.0
       ]
     },
     {
       "name": "lidar_2d_RR",
       "kind": "lidar2d",
-      "model": "SICK nanoScan3 Pro I/O (시제품: Focusray 0.1° / FreeOptics C2)",
-      "note": "① 하부 대각 2D 우상 · Z=115 · 안쪽 35 mm 매립 · 360° 안전 + 0~61 cm 반사판",
+      "model": "SICK nanoScan3 Pro I/O (호환: Focusray 0.1° / FreeOptics C2)",
+      "material": "구매품 (IP65)",
+      "tol": "수평 ±0.1°",
+      "note": "① 하부 대각 2D 우상 · Z=115 · 안쪽 35 mm 매립",
       "bbox_mm": [
         -718.0,
         -612.0,
         -558.0,
         -452.0,
-        75.0,
-        155.0
+        76.0,
+        156.0
       ]
     },
     {
       "name": "lidar_3d_front_E1R",
       "kind": "lidar3df",
-      "model": "RoboSense E1R (95×69.5×43 mm, 120°×90°, Min 0.1m, IP67)",
-      "note": "② 전방 등뼈 광각 3D · Z=120 · +10° · 상단 8 mm 강판 커버(Z=166~174) 아래 방호",
+      "model": "RoboSense E1R (95×69.5×43 mm, 창 75×35, 120°×90°)",
+      "material": "구매품 (IP67/IP69K)",
+      "tol": "각도 +10° ±0.2°",
+      "note": "② 전방 등뼈 광각 3D · 상단 8t 경사 커버 아래 완전 방호",
       "bbox_mm": [
         676.8,
         731.2,
@@ -809,22 +1580,26 @@
     {
       "name": "lidar_3d_rear_XT32",
       "kind": "lidar3dr",
-      "model": "Hesai XT32 / XT16 (0.18°@10Hz) · 고성능: Ouster OS0-64/32",
-      "note": "③ 뒤 타워 고정밀 3D · Z=520 · 지붕(590) 아래 매립 · 후진 오버행 + 다중 링 반사판",
+      "model": "Hesai XT32 / XT16 (0.18°) · 고성능 Ouster OS0-64",
+      "material": "구매품 (IP68)",
+      "tol": "틸트 +8° ±0.2°",
+      "note": "③ 뒤 타워 고정밀 3D · Z=510 (H530 중앙 · 지붕 여유 11.4 mm)",
       "bbox_mm": [
         -699.8,
         -590.2,
         -50.0,
         50.0,
-        475.4,
-        564.6
+        465.4,
+        554.6
       ]
     },
     {
       "name": "qr_camera_downward",
       "kind": "qrcam",
-      "model": "Hikrobot MV-ID2004M-06S / SC2000A (대안: Pepperl+Fuchs PGV100 / Cognex DM70)",
-      "note": "★ 몸체 정중앙 하단 QR 인식 카메라 · 회전축 (X=0, Y=0) · 렌즈 Z=100 mm (최적 WD 80~120 mm)",
+      "model": "Hikrobot SC2000A / MV-ID2004M-06S (대안: P+F PGV100)",
+      "material": "구매품",
+      "tol": "높이 Z=100 ±1 mm",
+      "note": "★ 회전축 정중앙 (0,0) · 최적 WD 100 mm",
       "bbox_mm": [
         -23.0,
         23.0,
@@ -835,41 +1610,47 @@
       ]
     },
     {
-      "name": "qr_ring_led_window",
+      "name": "qr_glass_ring_led",
       "kind": "aux",
-      "model": "하단 QR 강화유리 보호창 (Ø85) + 확산 링 LED",
-      "note": "바닥판(Z=46) 매립 돌출 0 mm · 방진·방습·반사광 억제",
+      "model": "Ø85 방진 강화유리창 + 확산 링 LED 베젤",
+      "material": "강화유리 + AL6061",
+      "tol": "돌출 0 mm",
+      "note": "바닥판 6t 매립 체결",
       "bbox_mm": [
-        -42.5,
-        42.5,
-        -42.5,
-        42.5,
+        -42.0,
+        42.0,
+        -42.0,
+        42.0,
         46.0,
-        54.0
+        52.0
       ]
     },
     {
       "name": "rear_charger_housing",
       "kind": "charger",
-      "model": "후면 매립 자동 충전 접점 하우징 (돌출 0 mm)",
-      "note": "뒤 타워 하단 Z=180~240 · 범퍼(81)/2D(115)/HMI(340) 간섭 0",
+      "model": "후면 매립 충전 절연 하우징 (돌출 0 mm)",
+      "material": "베크라이트 / PEEK",
+      "tol": "±0.3",
+      "note": "범퍼(81)/2D(115)/HMI(325) 간섭 0 · 후진 도킹 전용",
       "bbox_mm": [
-        -752.0,
-        -732.0,
-        -112.0,
-        112.0,
-        174.0,
-        246.0
+        -750.0,
+        -728.0,
+        -110.0,
+        110.0,
+        175.0,
+        245.0
       ]
     },
     {
       "name": "rear_charge_pad_POS_+48V",
       "kind": "contact",
       "model": "후면 충전 구리 접점 (POS_+48V)",
-      "note": "후진 자동 도킹 시 충전소 브러시 접촉",
+      "material": "무산소동 C1100 (니켈도금)",
+      "tol": "±0.2",
+      "note": "후진 자동 충전 도킹 접촉면",
       "bbox_mm": [
-        -754.0,
-        -746.0,
+        -751.0,
+        -744.0,
         34.0,
         96.0,
         184.0,
@@ -880,10 +1661,12 @@
       "name": "rear_charge_pad_NEG_-48V",
       "kind": "contact",
       "model": "후면 충전 구리 접점 (NEG_-48V)",
-      "note": "후진 자동 도킹 시 충전소 브러시 접촉",
+      "material": "무산소동 C1100 (니켈도금)",
+      "tol": "±0.2",
+      "note": "후진 자동 충전 도킹 접촉면",
       "bbox_mm": [
-        -754.0,
-        -746.0,
+        -751.0,
+        -744.0,
         -96.0,
         -34.0,
         184.0,
@@ -893,11 +1676,13 @@
     {
       "name": "rear_charge_pilot",
       "kind": "contact",
-      "model": "충전 통신/인터록 파일럿 핀",
-      "note": "안전 도킹 확인 접점",
+      "model": "충전 통신/인터록 파일럿 접점",
+      "material": "C1100",
+      "tol": "±0.2",
+      "note": "충전 중 주행 인터록",
       "bbox_mm": [
-        -754.0,
-        -746.0,
+        -751.0,
+        -744.0,
         -14.0,
         14.0,
         196.0,
@@ -907,35 +1692,41 @@
     {
       "name": "rear_hmi_10in",
       "kind": "hmi",
-      "model": "10.1\" 산업용 HMI 터치스크린 (1280×800 IP65)",
-      "note": "뒤 타워 상부 Z=340~510 · 12° 시야각",
+      "model": "10.1\" 산업용 HMI (매립 베젤 · 외곽 -765 이내 돌출 0)",
+      "material": "구매품 (IP65)",
+      "tol": "±0.5",
+      "note": "뒤 타워 상부 Z=325~450 완전 매립",
       "bbox_mm": [
-        -776.4,
-        -713.6,
-        -142.5,
-        142.5,
-        334.3,
-        515.7
+        -750.2,
+        -705.8,
+        -140.0,
+        140.0,
+        326.8,
+        449.2
       ]
     },
     {
       "name": "estop_rear",
       "kind": "estop",
-      "model": "비상정지 스위치 (STO 직결)",
-      "note": "뒤 타워 좌측 상단",
+      "model": "비상정지 스위치 (매립 가드 · STO 직결)",
+      "material": "구매품",
+      "tol": "",
+      "note": "X=-763 ≥ -765 돌출 0 mm",
       "bbox_mm": [
-        -767.0,
-        -745.0,
+        -763.0,
+        -749.0,
         235.0,
         275.0,
-        435.0,
-        475.0
+        380.0,
+        420.0
       ]
     },
     {
       "name": "bumper_front_R",
       "kind": "bumper",
       "model": "Mayser SL/W 안전 범퍼",
+      "material": "EPDM/전도성고무",
+      "tol": "",
       "note": "앞 우측 Z=46~81",
       "bbox_mm": [
         750.0,
@@ -950,6 +1741,8 @@
       "name": "bumper_front_L",
       "kind": "bumper",
       "model": "Mayser SL/W 안전 범퍼",
+      "material": "EPDM/전도성고무",
+      "tol": "",
       "note": "앞 좌측 Z=46~81",
       "bbox_mm": [
         750.0,
@@ -964,6 +1757,8 @@
       "name": "bumper_side_L",
       "kind": "bumper",
       "model": "Mayser SL/W 안전 범퍼",
+      "material": "EPDM/전도성고무",
+      "tol": "",
       "note": "좌측 Z=46~81",
       "bbox_mm": [
         -740.0,
@@ -978,6 +1773,8 @@
       "name": "bumper_side_R",
       "kind": "bumper",
       "model": "Mayser SL/W 안전 범퍼",
+      "material": "EPDM/전도성고무",
+      "tol": "",
       "note": "우측 Z=46~81",
       "bbox_mm": [
         -605.0,
@@ -992,7 +1789,9 @@
       "name": "bumper_rear",
       "kind": "bumper",
       "model": "Mayser SL/W 후방 연속 범퍼",
-      "note": "Z=46~81 (후면 충전 아래)",
+      "material": "EPDM/전도성고무",
+      "tol": "",
+      "note": "후면 Z=46~81 (충전 아래)",
       "bbox_mm": [
         -765.0,
         -750.0,
@@ -1005,8 +1804,10 @@
     {
       "name": "drive_wheel_L",
       "kind": "drive",
-      "model": "1.5 t 광폭 구동 바퀴 Ø185×100 연질 PU 75A (허용 ~1,250 kg/륜)",
-      "note": "구동 간격 790 mm · 1.5t 편하중(961 kg) 대비 +30% 여유 · 20 mm 턱 대응(μ≥0.79)",
+      "model": "1.5 t 광폭 구동륜 Ø185×100 연질 PU 75A (허용 ~1,250 kg/륜)",
+      "material": "주철허브 + Softhane 75A",
+      "tol": "동심도 0.1",
+      "note": "구동 간격 790 mm · 1.5t 편하중(961 kg) +30% 여유",
       "bbox_mm": [
         -92.5,
         92.5,
@@ -1019,8 +1820,10 @@
     {
       "name": "drive_gearbox_L",
       "kind": "drive",
-      "model": "직각 감속기 40:1 (폭 70 mm)",
-      "note": "고정 구동륜 외팔 지지 · 턱 오름 토크 542 N·m 대응",
+      "model": "직각 감속기 40:1 (폭 70 mm · 542 N·m)",
+      "material": "구매품",
+      "tol": "±0.1",
+      "note": "고정 구동륜 외팔 지지",
       "bbox_mm": [
         -60.0,
         60.0,
@@ -1033,8 +1836,10 @@
     {
       "name": "drive_servo_motor_L",
       "kind": "drive",
-      "model": "110각 48V 1.5kW 서보 모터 (길이 방향 배치)",
-      "note": "Kinco FD144S-CB-000 구동 · 외측 545 mm ≤ 차체 585 mm",
+      "model": "110각 48V 1.5 kW 서보 모터 (Kinco FD144S)",
+      "material": "구매품",
+      "tol": "",
+      "note": "외측 545 mm ≤ 차체 585 mm",
       "bbox_mm": [
         -290.0,
         -90.0,
@@ -1046,9 +1851,11 @@
     },
     {
       "name": "drive_mount_block_L",
-      "kind": "drive",
-      "model": "구동 모듈 상부 볼트 마운트",
-      "note": "포드 상판 하부 직결 고정",
+      "kind": "frame",
+      "model": "구동 모듈 상부 볼트 마운트 (12t)",
+      "material": "S45C 12t",
+      "tol": "평행도 0.05",
+      "note": "포드 상판 하부 M10×6 체결",
       "bbox_mm": [
         -75.0,
         75.0,
@@ -1061,8 +1868,10 @@
     {
       "name": "drive_wheel_R",
       "kind": "drive",
-      "model": "1.5 t 광폭 구동 바퀴 Ø185×100 연질 PU 75A (허용 ~1,250 kg/륜)",
-      "note": "구동 간격 790 mm · 1.5t 편하중(961 kg) 대비 +30% 여유 · 20 mm 턱 대응(μ≥0.79)",
+      "model": "1.5 t 광폭 구동륜 Ø185×100 연질 PU 75A (허용 ~1,250 kg/륜)",
+      "material": "주철허브 + Softhane 75A",
+      "tol": "동심도 0.1",
+      "note": "구동 간격 790 mm · 1.5t 편하중(961 kg) +30% 여유",
       "bbox_mm": [
         -92.5,
         92.5,
@@ -1075,8 +1884,10 @@
     {
       "name": "drive_gearbox_R",
       "kind": "drive",
-      "model": "직각 감속기 40:1 (폭 70 mm)",
-      "note": "고정 구동륜 외팔 지지 · 턱 오름 토크 542 N·m 대응",
+      "model": "직각 감속기 40:1 (폭 70 mm · 542 N·m)",
+      "material": "구매품",
+      "tol": "±0.1",
+      "note": "고정 구동륜 외팔 지지",
       "bbox_mm": [
         -60.0,
         60.0,
@@ -1089,8 +1900,10 @@
     {
       "name": "drive_servo_motor_R",
       "kind": "drive",
-      "model": "110각 48V 1.5kW 서보 모터 (길이 방향 배치)",
-      "note": "Kinco FD144S-CB-000 구동 · 외측 545 mm ≤ 차체 585 mm",
+      "model": "110각 48V 1.5 kW 서보 모터 (Kinco FD144S)",
+      "material": "구매품",
+      "tol": "",
+      "note": "외측 545 mm ≤ 차체 585 mm",
       "bbox_mm": [
         -290.0,
         -90.0,
@@ -1102,9 +1915,11 @@
     },
     {
       "name": "drive_mount_block_R",
-      "kind": "drive",
-      "model": "구동 모듈 상부 볼트 마운트",
-      "note": "포드 상판 하부 직결 고정",
+      "kind": "frame",
+      "model": "구동 모듈 상부 볼트 마운트 (12t)",
+      "material": "S45C 12t",
+      "tol": "평행도 0.05",
+      "note": "포드 상판 하부 M10×6 체결",
       "bbox_mm": [
         -75.0,
         75.0,
@@ -1117,8 +1932,10 @@
     {
       "name": "caster_head_FL",
       "kind": "caster",
-      "model": "Ø100 쌍바퀴 캐스터 회전 머리 (LAG G80 7470, 600 kg)",
-      "note": "쓸림 382~568 mm (벽 간섭 0) · 급정지 463 kg 여유",
+      "model": "LAG G80 7470 Ø100×30 쌍바퀴 회전머리 (600 kg)",
+      "material": "구매품 (주철허브+PU)",
+      "tol": "구멍 105×80",
+      "note": "쓸림 382~568 mm · 포드벽 간섭 0",
       "bbox_mm": [
         469.0,
         561.0,
@@ -1132,7 +1949,9 @@
       "name": "caster_wheel_FL_0",
       "kind": "caster",
       "model": "PU 쌍바퀴 Ø100×30",
-      "note": "1.5t 급정지 하중 1.3배 여유",
+      "material": "구매품",
+      "tol": "",
+      "note": "급정지 463 kg 대비 1.3배 여유",
       "bbox_mm": [
         435.0,
         535.0,
@@ -1146,7 +1965,9 @@
       "name": "caster_wheel_FL_1",
       "kind": "caster",
       "model": "PU 쌍바퀴 Ø100×30",
-      "note": "1.5t 급정지 하중 1.3배 여유",
+      "material": "구매품",
+      "tol": "",
+      "note": "급정지 463 kg 대비 1.3배 여유",
       "bbox_mm": [
         435.0,
         535.0,
@@ -1159,13 +1980,15 @@
     {
       "name": "susp_lever_FL",
       "kind": "spring",
-      "model": "서스펜션 흔들 레버 (10t 강판)",
+      "model": "서스펜션 흔들 레버 10t",
+      "material": "S45C 10t",
+      "tol": "±0.1",
       "note": "경첩~캐스터 레버 암",
       "bbox_mm": [
         305.0,
         515.0,
-        435.0,
-        515.0,
+        437.0,
+        513.0,
         140.0,
         150.0
       ]
@@ -1173,8 +1996,10 @@
     {
       "name": "susp_coilover_FL",
       "kind": "spring",
-      "model": "코일오버 스프링+유압댐퍼 (앞 60 N/mm)",
-      "note": "턱 오름 시 구동륜 하중 68% 이상 유지",
+      "model": "코일오버 (앞 60 N/mm)",
+      "material": "구매품",
+      "tol": "",
+      "note": "턱 오름 시 구동 하중 68%+ 유지",
       "bbox_mm": [
         322.5,
         417.5,
@@ -1187,8 +2012,10 @@
     {
       "name": "susp_urethane_FL",
       "kind": "spring",
-      "model": "우레탄 멈춤 스토퍼 (400 N/mm)",
-      "note": "과충격 스토퍼",
+      "model": "우레탄 스토퍼 (400 N/mm)",
+      "material": "우레탄 90A",
+      "tol": "",
+      "note": "과충격 제한",
       "bbox_mm": [
         411.0,
         439.0,
@@ -1201,8 +2028,10 @@
     {
       "name": "caster_head_FR",
       "kind": "caster",
-      "model": "Ø100 쌍바퀴 캐스터 회전 머리 (LAG G80 7470, 600 kg)",
-      "note": "쓸림 382~568 mm (벽 간섭 0) · 급정지 463 kg 여유",
+      "model": "LAG G80 7470 Ø100×30 쌍바퀴 회전머리 (600 kg)",
+      "material": "구매품 (주철허브+PU)",
+      "tol": "구멍 105×80",
+      "note": "쓸림 382~568 mm · 포드벽 간섭 0",
       "bbox_mm": [
         469.0,
         561.0,
@@ -1216,7 +2045,9 @@
       "name": "caster_wheel_FR_0",
       "kind": "caster",
       "model": "PU 쌍바퀴 Ø100×30",
-      "note": "1.5t 급정지 하중 1.3배 여유",
+      "material": "구매품",
+      "tol": "",
+      "note": "급정지 463 kg 대비 1.3배 여유",
       "bbox_mm": [
         435.0,
         535.0,
@@ -1230,7 +2061,9 @@
       "name": "caster_wheel_FR_1",
       "kind": "caster",
       "model": "PU 쌍바퀴 Ø100×30",
-      "note": "1.5t 급정지 하중 1.3배 여유",
+      "material": "구매품",
+      "tol": "",
+      "note": "급정지 463 kg 대비 1.3배 여유",
       "bbox_mm": [
         435.0,
         535.0,
@@ -1243,13 +2076,15 @@
     {
       "name": "susp_lever_FR",
       "kind": "spring",
-      "model": "서스펜션 흔들 레버 (10t 강판)",
+      "model": "서스펜션 흔들 레버 10t",
+      "material": "S45C 10t",
+      "tol": "±0.1",
       "note": "경첩~캐스터 레버 암",
       "bbox_mm": [
         305.0,
         515.0,
-        -515.0,
-        -435.0,
+        -513.0,
+        -437.0,
         140.0,
         150.0
       ]
@@ -1257,8 +2092,10 @@
     {
       "name": "susp_coilover_FR",
       "kind": "spring",
-      "model": "코일오버 스프링+유압댐퍼 (앞 60 N/mm)",
-      "note": "턱 오름 시 구동륜 하중 68% 이상 유지",
+      "model": "코일오버 (앞 60 N/mm)",
+      "material": "구매품",
+      "tol": "",
+      "note": "턱 오름 시 구동 하중 68%+ 유지",
       "bbox_mm": [
         322.5,
         417.5,
@@ -1271,8 +2108,10 @@
     {
       "name": "susp_urethane_FR",
       "kind": "spring",
-      "model": "우레탄 멈춤 스토퍼 (400 N/mm)",
-      "note": "과충격 스토퍼",
+      "model": "우레탄 스토퍼 (400 N/mm)",
+      "material": "우레탄 90A",
+      "tol": "",
+      "note": "과충격 제한",
       "bbox_mm": [
         411.0,
         439.0,
@@ -1285,8 +2124,10 @@
     {
       "name": "caster_head_RL",
       "kind": "caster",
-      "model": "Ø100 쌍바퀴 캐스터 회전 머리 (LAG G80 7470, 600 kg)",
-      "note": "쓸림 382~568 mm (벽 간섭 0) · 급정지 463 kg 여유",
+      "model": "LAG G80 7470 Ø100×30 쌍바퀴 회전머리 (600 kg)",
+      "material": "구매품 (주철허브+PU)",
+      "tol": "구멍 105×80",
+      "note": "쓸림 382~568 mm · 포드벽 간섭 0",
       "bbox_mm": [
         -561.0,
         -469.0,
@@ -1300,7 +2141,9 @@
       "name": "caster_wheel_RL_0",
       "kind": "caster",
       "model": "PU 쌍바퀴 Ø100×30",
-      "note": "1.5t 급정지 하중 1.3배 여유",
+      "material": "구매품",
+      "tol": "",
+      "note": "급정지 463 kg 대비 1.3배 여유",
       "bbox_mm": [
         -535.0,
         -435.0,
@@ -1314,7 +2157,9 @@
       "name": "caster_wheel_RL_1",
       "kind": "caster",
       "model": "PU 쌍바퀴 Ø100×30",
-      "note": "1.5t 급정지 하중 1.3배 여유",
+      "material": "구매품",
+      "tol": "",
+      "note": "급정지 463 kg 대비 1.3배 여유",
       "bbox_mm": [
         -535.0,
         -435.0,
@@ -1327,13 +2172,15 @@
     {
       "name": "susp_lever_RL",
       "kind": "spring",
-      "model": "서스펜션 흔들 레버 (10t 강판)",
+      "model": "서스펜션 흔들 레버 10t",
+      "material": "S45C 10t",
+      "tol": "±0.1",
       "note": "경첩~캐스터 레버 암",
       "bbox_mm": [
         -515.0,
         -305.0,
-        435.0,
-        515.0,
+        437.0,
+        513.0,
         140.0,
         150.0
       ]
@@ -1341,8 +2188,10 @@
     {
       "name": "susp_coilover_RL",
       "kind": "spring",
-      "model": "코일오버 스프링+유압댐퍼 (뒤 30 N/mm)",
-      "note": "턱 오름 시 구동륜 하중 68% 이상 유지",
+      "model": "코일오버 (뒤 30 N/mm)",
+      "material": "구매품",
+      "tol": "",
+      "note": "턱 오름 시 구동 하중 68%+ 유지",
       "bbox_mm": [
         -417.5,
         -322.5,
@@ -1355,8 +2204,10 @@
     {
       "name": "susp_urethane_RL",
       "kind": "spring",
-      "model": "우레탄 멈춤 스토퍼 (400 N/mm)",
-      "note": "과충격 스토퍼",
+      "model": "우레탄 스토퍼 (400 N/mm)",
+      "material": "우레탄 90A",
+      "tol": "",
+      "note": "과충격 제한",
       "bbox_mm": [
         -439.0,
         -411.0,
@@ -1369,8 +2220,10 @@
     {
       "name": "caster_head_RR",
       "kind": "caster",
-      "model": "Ø100 쌍바퀴 캐스터 회전 머리 (LAG G80 7470, 600 kg)",
-      "note": "쓸림 382~568 mm (벽 간섭 0) · 급정지 463 kg 여유",
+      "model": "LAG G80 7470 Ø100×30 쌍바퀴 회전머리 (600 kg)",
+      "material": "구매품 (주철허브+PU)",
+      "tol": "구멍 105×80",
+      "note": "쓸림 382~568 mm · 포드벽 간섭 0",
       "bbox_mm": [
         -561.0,
         -469.0,
@@ -1384,7 +2237,9 @@
       "name": "caster_wheel_RR_0",
       "kind": "caster",
       "model": "PU 쌍바퀴 Ø100×30",
-      "note": "1.5t 급정지 하중 1.3배 여유",
+      "material": "구매품",
+      "tol": "",
+      "note": "급정지 463 kg 대비 1.3배 여유",
       "bbox_mm": [
         -535.0,
         -435.0,
@@ -1398,7 +2253,9 @@
       "name": "caster_wheel_RR_1",
       "kind": "caster",
       "model": "PU 쌍바퀴 Ø100×30",
-      "note": "1.5t 급정지 하중 1.3배 여유",
+      "material": "구매품",
+      "tol": "",
+      "note": "급정지 463 kg 대비 1.3배 여유",
       "bbox_mm": [
         -535.0,
         -435.0,
@@ -1411,13 +2268,15 @@
     {
       "name": "susp_lever_RR",
       "kind": "spring",
-      "model": "서스펜션 흔들 레버 (10t 강판)",
+      "model": "서스펜션 흔들 레버 10t",
+      "material": "S45C 10t",
+      "tol": "±0.1",
       "note": "경첩~캐스터 레버 암",
       "bbox_mm": [
         -515.0,
         -305.0,
-        -515.0,
-        -435.0,
+        -513.0,
+        -437.0,
         140.0,
         150.0
       ]
@@ -1425,8 +2284,10 @@
     {
       "name": "susp_coilover_RR",
       "kind": "spring",
-      "model": "코일오버 스프링+유압댐퍼 (뒤 30 N/mm)",
-      "note": "턱 오름 시 구동륜 하중 68% 이상 유지",
+      "model": "코일오버 (뒤 30 N/mm)",
+      "material": "구매품",
+      "tol": "",
+      "note": "턱 오름 시 구동 하중 68%+ 유지",
       "bbox_mm": [
         -417.5,
         -322.5,
@@ -1439,8 +2300,10 @@
     {
       "name": "susp_urethane_RR",
       "kind": "spring",
-      "model": "우레탄 멈춤 스토퍼 (400 N/mm)",
-      "note": "과충격 스토퍼",
+      "model": "우레탄 스토퍼 (400 N/mm)",
+      "material": "우레탄 90A",
+      "tol": "",
+      "note": "과충격 제한",
       "bbox_mm": [
         -439.0,
         -411.0,
@@ -1453,11 +2316,13 @@
     {
       "name": "battery_lfp_48v100ah",
       "kind": "internal",
-      "model": "48V 100Ah LFP 배터리팩 (580×212×110 mm ≈ 13.5 L)",
-      "note": "중앙 QR실(+65)과 앞 E1R 포켓(+678) 사이에 깔끔 수납 + 전방 무게 배분",
+      "model": "48V 100Ah LFP 배터리팩 + BMS (573×212×110 mm ≈ 13.4 L)",
+      "material": "구매품",
+      "tol": "",
+      "note": "중앙 QR실(+68) ↔ E1R 격벽(+656) 사이 수납",
       "bbox_mm": [
         75.0,
-        655.0,
+        648.0,
         -106.0,
         106.0,
         56.0,
@@ -1467,22 +2332,26 @@
     {
       "name": "charge_busbar_duct",
       "kind": "charger",
-      "model": "고전류 충전 버스바 덕트 (좌측 우회)",
-      "note": "후면 충전 접점 ↔ 배터리 직결 (중앙 QR실 우회)",
+      "model": "고전류 충전 버스바 덕트 (등뼈 좌측 내벽 우회)",
+      "material": "절연 버스바 / 25sq",
+      "tol": "",
+      "note": "후면 충전 ↔ 배터리 직결 (QR실 우회)",
       "bbox_mm": [
-        -732.0,
+        -728.0,
         75.0,
-        108.0,
-        124.0,
-        150.0,
-        170.0
+        106.0,
+        118.0,
+        148.0,
+        166.0
       ]
     },
     {
       "name": "fork_ext_servo_drive",
       "kind": "drive",
-      "model": "포크 뻗기 구동 서보 + 감속기 (1회전=6.42 mm)",
-      "note": "등뼈 후방 X=-450..-230 · Kinco FD144S × 1",
+      "model": "포크 뻗기 서보 + 감속기 (1회전=6.42 mm · FD144S)",
+      "material": "구매품",
+      "tol": "",
+      "note": "등뼈 후방 격실 X=-450..-230",
       "bbox_mm": [
         -450.0,
         -230.0,
@@ -1495,8 +2364,10 @@
     {
       "name": "wire_encoder_tuofei",
       "kind": "aux",
-      "model": "Tuofei 와이어 엔코더 (Modbus RTU reg 0x4A)",
-      "note": "포크 0~1250 mm 실시간 길이 측정",
+      "model": "Tuofei 와이어 엔코더 (Modbus 0x4A)",
+      "material": "구매품",
+      "tol": "",
+      "note": "포크 0~1250 mm 실시간 길이",
       "bbox_mm": [
         -520.0,
         -460.0,
@@ -1510,7 +2381,9 @@
       "name": "imu_xsens_mti630",
       "kind": "aux",
       "model": "Xsens MTi-630 6축 산업용 IMU",
-      "note": "회전축 인접 강성 마운트 · 3D 점군 모션 보정(Deskew)",
+      "material": "구매품 (IP68)",
+      "tol": "수평 ±0.2°",
+      "note": "회전축 인접 등뼈 바닥판 강성 체결",
       "bbox_mm": [
         -125.0,
         -80.0,
@@ -1523,29 +2396,33 @@
     {
       "name": "compute_orin_nx_ptp",
       "kind": "internal",
-      "model": "Jetson Orin NX 16GB (Advantech MIC-711-ON) + Moxa EDS-G2008-ELP (PTP)",
-      "note": "우측 포드 전장 칸 · 센서망(eth0) / 제어망(eth1) 분리",
+      "model": "Jetson Orin NX 16GB (Advantech MIC-711-ON) + Moxa EDS-G2008-ELP",
+      "material": "구매품",
+      "tol": "",
+      "note": "우측 포드 전장 칸 (리브 X=108..350 사이)",
       "bbox_mm": [
-        115.0,
-        325.0,
-        -565.0,
-        -355.0,
-        62.0,
-        172.0
+        120.0,
+        340.0,
+        -570.0,
+        -340.0,
+        56.0,
+        174.0
       ]
     },
     {
       "name": "safety_plc_drives",
       "kind": "internal",
-      "model": "SICK Flexi Soft (FX3-CPU3) + Kinco FD144S ×5 + FD114S ×2 + IO/동력 보드",
-      "note": "좌측 포드 안전·서보 드라이브 칸 (총 7축 서보 + STO 하드와이어)",
+      "model": "SICK Flexi Soft + Kinco FD144S ×5 + FD114S ×2 + IO/동력 보드",
+      "material": "구매품",
+      "tol": "",
+      "note": "좌측 포드 안전·7축 드라이브 칸",
       "bbox_mm": [
-        115.0,
-        325.0,
-        355.0,
-        565.0,
-        62.0,
-        172.0
+        120.0,
+        340.0,
+        340.0,
+        570.0,
+        56.0,
+        174.0
       ]
     }
   ]

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>업체 전달용 제작 기준도면 · 공차 · 인터페이스 — L-type 1.5 t (1200×1530×590)</title>
+<style>
+:root {
+  --bg: #eef2f6; --sheet: #ffffff; --alt: #f8fafc; --ink: #0f172a; --ink2: #334155; --muted: #64748b;
+  --line: #cbd5e1; --line-strong: #1e293b; --pri: #1d4ed8; --ok: #047857; --ok-bg: #ecfdf5; --ok-bd: #a7f3d0;
+  --warn: #b45309; --warn-bg: #fffbeb; --warn-bd: #fde68a; --purple: #6d28d9;
+  --cad-bg: #0a1220; --mono: ui-monospace, "Cascadia Mono", Consolas, "IBM Plex Mono", monospace;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Malgun Gothic", "Segoe UI", sans-serif;
+  background: var(--bg); color: var(--ink); font-size: 13.5px; line-height: 1.5;
+}
+.site-nav {
+  position: sticky; top: 0; z-index: 60; background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.site-nav-inner {
+  max-width: 1320px; margin: 0 auto; padding: 9px 18px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+}
+.brand { font-weight: 900; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.brand-tag { background: #0f172a; color: #fff; font-size: 10.5px; padding: 2px 7px; border-radius: 5px; font-weight: 800; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.tabs a, .tabs button {
+  text-decoration: none; font-size: 12.2px; font-weight: 700; color: var(--ink2);
+  padding: 5.5px 10px; border-radius: 7px; border: 1px solid var(--line); background: var(--alt); cursor: pointer;
+}
+.tabs a.active { background: var(--pri); border-color: var(--pri); color: #fff; }
+.tabs button.print-btn { background: #047857; border-color: #047857; color: #fff; }
+
+.wrap { max-width: 1320px; margin: 0 auto; padding: 18px 18px 60px; }
+.sheet {
+  background: var(--sheet); border: 1.5px solid var(--line-strong);
+  border-radius: 6px; padding: 18px 20px; margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.06);
+}
+
+/* ISO/KS Mechanical Title Block */
+.title-block {
+  display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr;
+  border: 1.8px solid var(--line-strong); margin-bottom: 14px; background: #fff;
+}
+.tb-cell { padding: 9px 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.tb-cell.main { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+.tb-k { font-family: var(--mono); font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.tb-v { font-weight: 800; font-size: 13px; color: var(--ink); margin-top: 2px; }
+.tb-v.mono { font-family: var(--mono); font-size: 12.2px; }
+.tb-title { font-size: 19px; font-weight: 900; letter-spacing: -0.02em; margin: 2px 0; }
+
+.dl-strip {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  padding: 10px 14px; background: var(--alt); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px;
+}
+.dl-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.dl-a {
+  text-decoration: none; padding: 6px 12px; border-radius: 7px; font-size: 12.2px; font-weight: 800;
+  color: #fff; background: var(--pri); display: inline-flex; align-items: center; gap: 5px;
+}
+.dl-a.step { background: #0f766e; }
+.dl-a.csv  { background: #334155; }
+.dl-a.view3d { background: #6d28d9; }
+
+h2 {
+  margin: 0 0 10px; font-size: 15.5px; font-weight: 900; letter-spacing: -0.01em;
+  display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;
+  padding-bottom: 6px; border-bottom: 1.5px solid var(--line-strong);
+}
+h2 span { font-size: 11.5px; font-weight: 600; color: var(--muted); font-family: var(--mono); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.cad-frame {
+  background: var(--cad-bg); border: 1px solid var(--line-strong); border-radius: 6px; padding: 8px;
+}
+.cad-frame svg { width: 100%; height: auto; display: block; }
+.fig-cap {
+  font-size: 11.8px; font-weight: 800; color: var(--ink2); margin: 0 0 5px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.fig-cap small { font-family: var(--mono); color: var(--muted); font-weight: 600; }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12.3px; }
+th, td { padding: 7px 9px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { background: #f1f5f9; font-weight: 800; font-size: 11.5px; white-space: nowrap; }
+td.mono { font-family: var(--mono); font-size: 11.4px; white-space: nowrap; }
+.pass { display: inline-block; padding: 1px 6px; border-radius: 4px; background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok-bd); font-weight: 800; font-size: 11px; }
+.warn { display: inline-block; padding: 1px 6px; border-radius: 4px; background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn-bd); font-weight: 800; font-size: 11px; }
+
+.note-box {
+  padding: 10px 13px; border-left: 4px solid var(--ok); background: var(--ok-bg);
+  font-size: 12.4px; border-radius: 4px; margin-top: 10px;
+}
+.note-box.warn-box { border-left-color: var(--warn); background: var(--warn-bg); }
+
+@media (max-width: 980px) {
+  .title-block { grid-template-columns: 1fr 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+@media print {
+  .site-nav, .dl-strip { display: none !important; }
+  body { background: #fff; font-size: 11pt; }
+  .wrap { max-width: none; padding: 0; }
+  .sheet { border: 1px solid #000; box-shadow: none; break-inside: avoid; page-break-inside: avoid; margin-bottom: 10px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <div class="brand">
+      <span class="brand-tag">VENDOR CAD PACK</span>
+      <span>신규 L-type 1.5 t 제작 기준도면 · 공차 · STEP/GLB</span>
+    </div>
+    <div class="tabs">
+      <a href="index.html">1. 풀스펙 설계서</a>
+      <a href="3d.html">2. 3D CAD 뷰어</a>
+      <a href="options.html">3. 옵션별 가격</a>
+      <a href="drawings_options.html">4. 옵션 도면</a>
+      <a href="vendor_drawing.html" class="active">5. ★ 업체 전달용 기준도면</a>
+      <button type="button" class="print-btn" onclick="window.print()">🖨 A3/A4 도면 인쇄(PDF)</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- SHEET 1: TITLE BLOCK + DOWNLOADS + 5-VIEW ORTHOGRAPHIC BLUEPRINTS -->
+  <section class="sheet">
+    <div class="title-block">
+      <div class="tb-cell main">
+        <div>
+          <div class="tb-k">DRAWING TITLE / 도면명</div>
+          <div class="tb-title">신규 L-type 1.5 t AMR — 기구·센서·구동 제작 기준도</div>
+        </div>
+        <div style="font-size:11.6px;color:var(--ink2)">외곽 1200×1530×590 mm (전 센서 돌출 0 mm) · 7축 서보 · 중앙 하단 QR · 후면 매립 충전</div>
+      </div>
+      <div class="tb-cell"><div class="tb-k">DATUM / 기준 좌표계</div><div class="tb-v mono">(0,0,0)=구동축 중심 바닥<br>+X 앞 · +Y 좌 · +Z 위</div></div>
+      <div class="tb-cell"><div class="tb-k">GENERAL TOLERANCE</div><div class="tb-v mono">ISO 2768-mK (판금/용접)<br>가공면 ±0.05~0.1 mm</div></div>
+      <div class="tb-cell"><div class="tb-k">UNIT / REV / DATE</div><div class="tb-v mono">mm · Rev 3.0 (1.5 t)<br>2026-11-22</div></div>
+      <div class="tb-cell"><div class="tb-k">PRIMARY MATERIAL</div><div class="tb-v">SS400 / S45C / SCM440<br>AL6061-T6 / SPHC 3t</div></div>
+      <div class="tb-cell"><div class="tb-k">PAYLOAD / CLEARANCE</div><div class="tb-v mono">정격 1,500 kg · 자중 ~420 kg<br>바닥 틈 G=46 · 상판 192</div></div>
+      <div class="tb-cell"><div class="tb-k">3D AUDIT STATUS</div><div class="tb-v" id="auditBadge" style="color:var(--ok)">불러오는 중…</div></div>
+    </div>
+
+    <div class="dl-strip">
+      <div style="font-size:12.4px"><strong>📦 기구 제작 업체 전달 파일 (클릭 즉시 다운로드 · 가격 비포함)</strong></div>
+      <div class="dl-group">
+        <a class="dl-a step" href="ltype_1200x1530_4sensor.step" download>⬇ SolidWorks / Fusion 360용 (.STEP)</a>
+        <a class="dl-a" href="ltype_1200x1530_4sensor.glb" download>⬇ 컬러 3D 뷰어용 (.GLB)</a>
+        <a class="dl-a csv" href="vendor_interface.csv" download>⬇ 전 부품 좌표·재질·공차표 (.CSV)</a>
+        <a class="dl-a view3d" href="3d.html">🧊 3D 단면 절개(X/Y/Z) 열기</a>
+      </div>
+    </div>
+
+    <h2>1. 정투상 5면 기준도 (측면도 · 배면도 · 평면도 · 저면도 · 정면도) <span>SCALE 1:1 ISOTROPIC · UNIT: mm</span></h2>
+
+    <!-- View 1: Side Elevation (Full Width) -->
+    <div class="fig-cap"><span>① 측면도 (Side Elevation — X: -765 ~ +765, Z: 0 ~ 590)</span><small>돌출 0 mm 외곽선 · E1R 8t 경사 커버 · 후면 충전(Z=180~240) · 하단 QR(Z=100) · 7축 배치</small></div>
+    <div class="cad-frame" style="margin-bottom:14px"><svg id="svgSide" viewBox="0 0 1180 390"></svg></div>
+
+    <!-- View 2 & 3: Rear Wall Elevation & Front Elevation -->
+    <div class="grid-2" style="margin-bottom:14px">
+      <div>
+        <div class="fig-cap"><span>② 배면도 (Rear Tower Wall — X=-750 정면 직시)</span><small>범퍼(46~81) → 2D(115) → 충전(174~246) → HMI(335~515) → 타워 3D(520)</small></div>
+        <div class="cad-frame"><svg id="svgRear" viewBox="0 0 560 360"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap"><span>③ 정면도 (Front View — X=+750 정면 직시)</span><small>폭 1200 · 등뼈 260(E1R+8t커버) · 155 mm 강화 포크 · 좌하 2D</small></div>
+        <div class="cad-frame"><svg id="svgFront" viewBox="0 0 560 360"></svg></div>
+      </div>
+    </div>
+
+    <!-- View 4 & 5: Top Plan & Bottom Plate Cutouts -->
+    <div class="grid-2">
+      <div>
+        <div class="fig-cap"><span>④ 평면도 (Top Plan — Y: ±600, X: ±765)</span><small>155 mm 포크 · Ø185×100 광폭 구동(간격 790) · 4코너 캐스터 · 대각 2D</small></div>
+        <div class="cad-frame"><svg id="svgTop" viewBox="0 0 560 440"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap"><span>⑤ 저면도 (Bottom Plate 6t Cutouts — Z=46 올려다본 도면)</span><small>구동륜 컷아웃 · 캐스터 Ø198 홀×4 · ★ 원점(0,0) QR Ø85 강화유리창</small></div>
+        <div class="cad-frame"><svg id="svgBottom" viewBox="0 0 560 440"></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHEET 2: 4 CRITICAL MACHINING POCKET DETAILS -->
+  <section class="sheet">
+    <h2>2. 4대 핵심 가공 포켓 상세 단면도 (공차 · 볼트 · 시야각 검증 치수) <span>DETAIL VIEWS A ~ D</span></h2>
+    <div class="grid-2">
+      <div>
+        <div class="fig-cap"><span>DETAIL A. 전방 등뼈 RoboSense E1R + 8t 경사 커버</span><small>Z=120 · +10°±0.2° · +55°/-35°/±60° 손실 0.0°</small></div>
+        <div class="cad-frame"><svg id="detE1R" viewBox="0 0 560 290"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap"><span>DETAIL B. 뒤 타워 3D 경사 지붕 &amp; 3점 레벨링</span><small>Z=520 · XT32(Ø100)/OS0(Ø87) 공용 · 지붕 Z≤590</small></div>
+        <div class="cad-frame"><svg id="detTower" viewBox="0 0 560 290"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap"><span>DETAIL C. 하부 대각 2D 슬롯 (nanoScan3 호환)</span><small>110×110×85 · 안쪽 35 mm · M6 3점 레벨링 ±0.1°</small></div>
+        <div class="cad-frame"><svg id="det2D" viewBox="0 0 560 290"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap"><span>DETAIL D. 중앙 하단 QR Ø85 광학창 + 링 LED</span><small>X=0, Y=0 · 렌즈 Z=100 ±1 mm · 바닥판 6t 돌출 0</small></div>
+        <div class="cad-frame"><svg id="detQR" viewBox="0 0 560 290"></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHEET 3: AUTOMATED 3D CLEARANCE AUDIT & MASTER INTERFACE TABLE -->
+  <section class="sheet">
+    <h2>3. 3D CAD 자동 간섭·여유 틈 검증 리포트 (build123d 실측) <span>vendor_clearance_audit.json</span></h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>검증 항목</th>
+            <th>부품 A ↔ 부품 B</th>
+            <th>실측 최소 틈 (mm)</th>
+            <th>요구 기준 (mm)</th>
+            <th>판정</th>
+          </tr>
+        </thead>
+        <tbody id="auditBody"><tr><td colspan="5">간섭검사 결과 불러오는 중…</td></tr></tbody>
+      </table>
+    </div>
+    <div class="note-box" id="opticalSummary">광학 시야각 해석 검증 로딩 중…</div>
+  </section>
+
+  <section class="sheet">
+    <h2>4. 업체 제작 인터페이스 · 공차 · 재질 · 열처리 마스터 표 <span>Datum (0,0,0) = 구동축 중심 바닥</span></h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>어셈블리</th>
+            <th>부품 / 추천 모델명</th>
+            <th>기준 좌표 (mm, 중심 또는 범위)</th>
+            <th>재질 / 열처리</th>
+            <th>핵심 가공 공차 · 체결</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>메인 프레임</strong></td>
+            <td>포드 바닥 6t · 레인벽 10t · 리브 6t · 상판 4t</td>
+            <td class="mono">X: -750..+750 · Y: ±585<br>G=46 · 상판 Z=192</td>
+            <td>SS400 / SPHC<br>(용접 후 응력제거)</td>
+            <td>상판 평탄도 0.5 mm · HGR20 장착면(Y=±130) 기계가공 평행도 0.05 mm</td>
+          </tr>
+          <tr>
+            <td><strong>전방 E1R 포켓</strong></td>
+            <td>RoboSense E1R (95×69.5×43) + 8t 경사 커버</td>
+            <td class="mono">중심 (704, 0, 120)<br>커버 Z=166~174, X=678..744</td>
+            <td>커버 SS400 8t<br>마운트 AL6061-T6</td>
+            <td>틸트 +10° ±0.2° · M4×4 탭 · 앞처마 모따기(+56.8°≥55°) · 좌우 지주 45 mm</td>
+          </tr>
+          <tr>
+            <td><strong>뒤 타워 3D</strong></td>
+            <td>Hesai XT32 (Ø100) / Ouster OS0 (Ø87)</td>
+            <td class="mono">중심 (-645, 0, 510)<br>데크 Z=460 · 지붕 Z≤590</td>
+            <td>데크 SS400 6t<br>마운트 AL6061-T6</td>
+            <td>M6 3점 레벨링(±0.1°) · XT32 +8°(지붕 여유 11.41 mm) · 지붕 앞뒤 경사 절삭</td>
+          </tr>
+          <tr>
+            <td><strong>하부 대각 2D ×2</strong></td>
+            <td>SICK nanoScan3 Pro 호환 (C2 / Focusray 0.1°)</td>
+            <td class="mono">FL (665, +505, 115)<br>RR (-665, -505, 115)</td>
+            <td>슬롯 SS400 24t 하판<br>SUS304 레벨링 볼트</td>
+            <td>슬롯 110×110×85 · 외곽 안쪽 35 mm 매립 · M6 3점 레벨링(수평 ±0.1°)</td>
+          </tr>
+          <tr>
+            <td><strong>중앙 하단 QR</strong></td>
+            <td>Hikrobot SC2000A / ID2004M (대안 PGV100)</td>
+            <td class="mono">중심 (0, 0, 렌즈 100)<br>바닥창 Ø85 (Z=46~52)</td>
+            <td>방진 강화유리 4t<br>베젤 AL6061 (흑색아노)</td>
+            <td>작동거리 Z=100 ±1 mm · 바닥면 돌출 0 mm · O-ring 방진 실링 + 확산 링 LED</td>
+          </tr>
+          <tr>
+            <td><strong>후면 매립 충전</strong></td>
+            <td>±48V 무산소동(C1100) 접점 + 파일럿 핀</td>
+            <td class="mono">X=-750..-728 · Y=±110<br>Z=174~246 (패드 184~236)</td>
+            <td>C1100 니켈도금<br>하우징 베크라이트/PEEK</td>
+            <td>범퍼(Z=81)·2D(115)·HMI(335) 완전 분리 · 돌출 0 mm · 좌측 25sq 버스바 배선</td>
+          </tr>
+          <tr>
+            <td><strong>1.5 t 광폭 구동 ×2</strong></td>
+            <td>Ø185×100 PU 75A + 40:1 직각감속기 + 1.5kW 서보</td>
+            <td class="mono">바퀴 (0, ±395, 92.5)<br>감속기 |Y|=448..518</td>
+            <td>주철허브 + Softhane 75A<br>마운트 S45C 12t</td>
+            <td>구동 간격 790 ±0.2 mm · 포드 상판 하부 M10×6 직결 · 외측 ≤545(40 mm 여유)</td>
+          </tr>
+          <tr>
+            <td><strong>4코너 서스펜션 ×4</strong></td>
+            <td>LAG G80 7470 (600kg) + 흔들레버 + 코일오버</td>
+            <td class="mono">X=±515 · Y=±475<br>바닥홀 Ø198 (R=99)</td>
+            <td>레버 S45C 10t<br>스토퍼 우레탄 90A</td>
+            <td>쓸림 382~568(벽 간섭 0) · 코일오버 앞 60 / 뒤 30 N/mm · 취부홀 105×80</td>
+          </tr>
+          <tr>
+            <td><strong>1.5 t 연장 가위 · 포크</strong></td>
+            <td>155 mm 강화 포크 + 318 mm X가위 4조 + 캠 + Ø28 볼스크류</td>
+            <td class="mono">포크 |Y|=154..309<br>가위 X=-220, +320</td>
+            <td>링크 SCM440 (HRC 38~42)<br>캠 S45C 고주파열처리</td>
+            <td>핀홀 H7(Ø20 경화핀) · 70° 날 윗면 337 mm(130 mm 파레트 대응) · 초기 캠 0~14°</td>
+          </tr>
+          <tr>
+            <td><strong>진입높이 Latch ×2</strong></td>
+            <td>Kinco SMC40S + 웜 20:1 + Tr10×2 + CF8 캠팔로워×4</td>
+            <td class="mono">캐리지 뒤 X=-716..-603<br>|Y|=231.5 · 행정 45 mm</td>
+            <td>기어함 AL6061<br>브래킷 S45C · FR-01 8t</td>
+            <td>행정 -15~+30 mm(픽 Z=31 ↔ 주행 Z=51) · 우측 왼나사 · 캐리지 바닥 8t 보강</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-box warn-box">
+      <strong>📋 제작 업체 출도 전 최종 확인 사항 (RFQ 필수 회신 항목):</strong>
+      ① <strong>FEM 강도 해석 회신</strong> — `1.5 t` 연장 `318 mm` X가위(`SCM440`)·초기 경사 캠·`Ø20` 핀·`155 mm` 포크 날·캐리지 `8t` 보강판 안전계수(동적 SF ≥ 1.5),
+      ② <strong>용접 변형 관리</strong> — 메인 프레임 용접 후 `HGR20` 레일 장착면(`Y=±130`)·구동 마운트·센서 기준면 후가공(CNC) 공정 포함,
+      ③ <strong>연질 PU 75A 트레드 `μ ≥ 0.79`</strong> — `Ø185×100` 주문 바퀴 샘플로 `20 mm` 건조 턱 마찰계수 사전 확인,
+      ④ <strong>케이블·방수·정비성</strong> — 전장함(좌·우 포드) 상부 정비 점검창 + 센서 `eth0`/제어 `eth1` 분리 덕트 + `M12` 방수 커넥터 배선.
+    </div>
+  </section>
+</main>
+
+<script>
+// ==================== 1. PRECISION SVG BLUEPRINT RENDERER ====================
+function dimH(x1, x2, y, lbl, col = '#38bdf8') {
+  const m = (x1 + x2) / 2;
+  return `<g stroke="${col}" stroke-width="1">
+    <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}"/>
+    <line x1="${x1}" y1="${y-5}" x2="${x1}" y2="${y+5}"/>
+    <line x1="${x2}" y1="${y-5}" x2="${x2}" y2="${y+5}"/>
+    <text x="${m}" y="${y-4}" fill="${col}" stroke="none" font-family="ui-monospace,Consolas,monospace" font-size="10.5" font-weight="700" text-anchor="middle">${lbl}</text>
+  </g>`;
+}
+function dimV(x, y1, y2, lbl, col = '#38bdf8', align = 'start') {
+  const m = (y1 + y2) / 2;
+  const tx = align === 'start' ? x + 5 : x - 5;
+  return `<g stroke="${col}" stroke-width="1">
+    <line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}"/>
+    <line x1="${x-5}" y1="${y1}" x2="${x+5}" y2="${y1}"/>
+    <line x1="${x-5}" y1="${y2}" x2="${x+5}" y2="${y2}"/>
+    <text x="${tx}" y="${m+3.5}" fill="${col}" stroke="none" font-family="ui-monospace,Consolas,monospace" font-size="10" font-weight="700" text-anchor="${align}">${lbl}</text>
+  </g>`;
+}
+function gridBg(w, h, step = 40) {
+  let g = `<rect width="${w}" height="${h}" fill="#0a1220"/><g stroke="#132036" stroke-width="1">`;
+  for (let x = step; x < w; x += step) g += `<line x1="${x}" y1="0" x2="${x}" y2="${h}"/>`;
+  for (let y = step; y < h; y += step) g += `<line x1="0" y1="${y}" x2="${w}" y2="${y}"/>`;
+  return g + `</g>`;
+}
+
+// --- VIEW 1: SIDE ELEVATION (1180 x 390, scale = 0.42 px/mm) ---
+(function drawSide() {
+  const cx = 590, fY = 335, sc = 0.42;
+  const xM = mm => +(cx + mm * sc).toFixed(1);
+  const yZ = mm => +(fY - mm * sc).toFixed(1);
+  let out = gridBg(1180, 390, 42);
+  // Datum & Ground
+  out += `<line x1="40" y1="${fY}" x2="1140" y2="${fY}" stroke="#94a3b8" stroke-width="2"/>`;
+  out += `<line x1="${xM(0)}" y1="30" x2="${xM(0)}" y2="${fY+28}" stroke="#22c55e" stroke-width="1" stroke-dasharray="6 4"/>`;
+  out += `<text x="${xM(0)}" y="24" fill="#4ade80" font-family="ui-monospace,monospace" font-size="10.5" font-weight="800" text-anchor="middle">DATUM X=0 (구동축·QR 중심)</text>`;
+
+  // Outer Zero-Protrusion Box (1530 x 590)
+  out += `<rect x="${xM(-765)}" y="${yZ(590)}" width="${1530*sc}" height="${590*sc}" fill="none" stroke="#22c55e" stroke-width="1.4" stroke-dasharray="6 4"/>`;
+
+  // Hollow Rear Tower + Chamfered Roof + Pod + Spine Outline
+  out += `<path d="M ${xM(-750)},${yZ(565)} L ${xM(-720)},${yZ(590)} L ${xM(-570)},${yZ(590)} L ${xM(-545)},${yZ(565)} L ${xM(-545)},${yZ(192)} L ${xM(750)},${yZ(192)} L ${xM(750)},${yZ(46)} L ${xM(-750)},${yZ(46)} Z" fill="rgba(30,41,59,0.72)" stroke="#e2e8f0" stroke-width="2"/>`;
+  // Spine line Z=174 & Pod Top 192
+  out += `<line x1="${xM(-545)}" y1="${yZ(174)}" x2="${xM(744)}" y2="${yZ(174)}" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+  // Bumpers Z=46..81
+  out += `<rect x="${xM(-765)}" y="${yZ(81)}" width="${15*sc}" height="${35*sc}" fill="#d97706" stroke="#fde68a"/>`;
+  out += `<rect x="${xM(750)}" y="${yZ(81)}" width="${15*sc}" height="${35*sc}" fill="#d97706" stroke="#fde68a"/>`;
+
+  // Wheels & Suspension
+  out += `<circle cx="${xM(0)}" cy="${yZ(92.5)}" r="${92.5*sc}" fill="#0f172a" stroke="#3b82f6" stroke-width="3"/>`;
+  out += `<circle cx="${xM(0)}" cy="${yZ(92.5)}" r="${48*sc}" fill="#1d4ed8"/>`;
+  out += `<circle cx="${xM(-515)}" cy="${yZ(50)}" r="${50*sc}" fill="#0f172a" stroke="#14b8a6" stroke-width="2.2"/>`;
+  out += `<circle cx="${xM(515)}" cy="${yZ(50)}" r="${50*sc}" fill="#0f172a" stroke="#14b8a6" stroke-width="2.2"/>`;
+  // Coilovers & Levers
+  out += `<rect x="${xM(-515)}" y="${yZ(150)}" width="${210*sc}" height="${10*sc}" fill="#ea580c"/>`;
+  out += `<rect x="${xM(305)}" y="${yZ(150)}" width="${210*sc}" height="${10*sc}" fill="#ea580c"/>`;
+  // Fork tine (Z=51..95) + 318mm X-scissor + Cam + Latchmod
+  out += `<rect x="${xM(-620)}" y="${yZ(95)}" width="${1355*sc}" height="${44*sc}" fill="rgba(148,163,184,0.35)" stroke="#cbd5e1" stroke-width="1.2"/>`;
+  out += `<rect x="${xM(-716)}" y="${yZ(102)}" width="${75*sc}" height="${40*sc}" fill="#db2777" stroke="#fbcfe8"/>`;
+  out += `<text x="${xM(-678)}" y="${yZ(112)}" fill="#f472b6" font-size="9" font-weight="800" text-anchor="middle">Latch</text>`;
+
+  // Battery & Downward QR
+  out += `<rect x="${xM(75)}" y="${yZ(166)}" width="${580*sc}" height="${110*sc}" fill="rgba(16,185,129,0.22)" stroke="#10b981" stroke-dasharray="4 2"/>`;
+  out += `<text x="${xM(365)}" y="${yZ(115)}" fill="#6ee7b7" font-size="10.5" font-weight="800" text-anchor="middle">48V 100Ah LFP (580×212×110)</text>`;
+  out += `<rect x="${xM(-23)}" y="${yZ(130)}" width="${46*sc}" height="${30*sc}" fill="#14b8a6" stroke="#ccfbf1"/>`;
+  out += `<polygon points="${xM(0)},${yZ(100)} ${xM(-42)},${fY} ${xM(42)},${fY}" fill="rgba(20,184,166,0.28)" stroke="#2dd4bf" stroke-dasharray="3 2"/>`;
+  out += `<text x="${xM(0)}" y="${yZ(140)}" fill="#5eead4" font-size="9.5" font-weight="800" text-anchor="middle">QR (Z=100)</text>`;
+
+  // E1R + 8t Top Cover
+  out += `<rect x="${xM(678)}" y="${yZ(174)}" width="${66*sc}" height="${8*sc}" fill="#e2e8f0"/>`;
+  out += `<g transform="translate(${xM(704)},${yZ(120)}) rotate(-10)"><rect x="${-21.5*sc}" y="${-34.7*sc}" width="${43*sc}" height="${69.5*sc}" rx="2" fill="#a855f7" stroke="#fff"/></g>`;
+  out += `<line x1="${xM(721)}" y1="${yZ(137)}" x2="${xM(950)}" y2="${yZ(464)}" stroke="#c084fc" stroke-width="1.4" stroke-dasharray="5 3"/>`;
+  out += `<line x1="${xM(727)}" y1="${yZ(103)}" x2="${xM(874)}" y2="${fY}" stroke="#c084fc" stroke-width="1.4" stroke-dasharray="5 3"/>`;
+  out += `<text x="${xM(865)}" y="${yZ(330)}" fill="#d8b4fe" font-size="10" font-weight="800">+55° (8t 처마 무간섭)</text>`;
+
+  // Rear Tower 3D, Rear Charger, HMI, Lower 2D
+  out += `<rect x="${xM(-695)}" y="${yZ(558)}" width="${100*sc}" height="${76*sc}" rx="4" fill="#facc15" stroke="#854d0e" stroke-width="1.5"/>`;
+  out += `<rect x="${xM(-752)}" y="${yZ(245)}" width="${24*sc}" height="${70*sc}" fill="#f97316" stroke="#fde047" stroke-width="1.4"/>`;
+  out += `<rect x="${xM(-754)}" y="${yZ(510)}" width="${18*sc}" height="${175*sc}" fill="#0f172a" stroke="#38bdf8" stroke-width="1.4"/>`;
+  out += `<rect x="${xM(612)}" y="${yZ(156)}" width="${106*sc}" height="${80*sc}" rx="3" fill="rgba(14,165,233,0.75)" stroke="#bae6fd"/>`;
+  out += `<rect x="${xM(-718)}" y="${yZ(156)}" width="${106*sc}" height="${80*sc}" rx="3" fill="rgba(14,165,233,0.75)" stroke="#bae6fd"/>`;
+
+  // Precision Dimension Lines!
+  out += dimH(xM(-765), xM(765), 366, '전체 길이 1530 mm (프레임 1500 + 전·후 범퍼 15×2)', '#4ade80');
+  out += dimH(xM(-750), xM(-545), 62, '타워 205', '#fde047');
+  out += dimV(xM(-810), yZ(590), fY, '590', '#4ade80', 'end');
+  out += dimV(xM(-855), yZ(520), fY, '타워 3D Z=520', '#facc15', 'end');
+  out += dimV(xM(-800), yZ(245), yZ(175), '충전 175~245', '#fb923c', 'end');
+  out += dimV(xM(800), yZ(192), fY, '상판 192', '#38bdf8', 'start');
+  out += dimV(xM(865), yZ(115), fY, '2D Z=115', '#7dd3fc', 'start');
+  out += dimV(xM(930), yZ(46), fY, 'G=46', '#94a3b8', 'start');
+  document.getElementById('svgSide').innerHTML = out;
+})();
+
+// --- VIEW 2: REAR TOWER ELEVATION (X=-750 straight-on!) ---
+(function drawRear() {
+  const cx = 280, fY = 315, sc = 0.37;
+  const xY = y => +(cx - y * sc).toFixed(1); // looking at rear from -X: +Y(left of robot) is on LEFT of drawing!
+  const yZ = z => +(fY - z * sc).toFixed(1);
+  let out = gridBg(560, 360, 37);
+  out += `<line x1="25" y1="${fY}" x2="535" y2="${fY}" stroke="#94a3b8" stroke-width="2"/>`;
+  out += `<rect x="${xY(600)}" y="${yZ(590)}" width="${1200*sc}" height="${590*sc}" fill="none" stroke="#22c55e" stroke-dasharray="5 3"/>`;
+  // Rear wall body (Y=-585..+585, Z=46..590)
+  out += `<rect x="${xY(585)}" y="${yZ(565)}" width="${1170*sc}" height="${519*sc}" fill="#1e293b" stroke="#e2e8f0" stroke-width="1.8"/>`;
+  out += `<rect x="${xY(585)}" y="${yZ(590)}" width="${1170*sc}" height="${25*sc}" fill="#334155" stroke="#e2e8f0" stroke-width="1.6"/>`;
+  // Central 3D opening (Y=-120..+120, Z=472..565)
+  out += `<rect x="${xY(120)}" y="${yZ(565)}" width="${240*sc}" height="${93*sc}" fill="#0a1220" stroke="#facc15" stroke-width="1.4"/>`;
+  out += `<rect x="${xY(50)}" y="${yZ(558)}" width="${100*sc}" height="${76*sc}" rx="5" fill="#facc15" stroke="#854d0e"/>`;
+  out += `<text x="${cx}" y="${yZ(515)}" fill="#0f172a" font-size="9.5" font-weight="900" text-anchor="middle">XT32 / OS0</text>`;
+  // 10.1" HMI opening (Y=-146..+146, Z=335..515) — actually sits below Z=472 deck: Z=335..465! Wait draw at Z=335..465 cleanly below deck 472!
+  out += `<rect x="${xY(146)}" y="${yZ(460)}" width="${292*sc}" height="${125*sc}" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8"/>`;
+  out += `<text x="${cx}" y="${yZ(395)}" fill="#7dd3fc" font-size="10" font-weight="800" text-anchor="middle">10.1" HMI (285×180)</text>`;
+  // E-stop (Y=+255 -> left side) & 3 Buttons (Y=-255 -> right side)
+  out += `<circle cx="${xY(255)}" cy="${yZ(415)}" r="8" fill="#dc2626" stroke="#fecaca" stroke-width="1.5"/>`;
+  out += `<text x="${xY(255)}" y="${yZ(380)}" fill="#fca5a5" font-size="8.8" font-weight="800" text-anchor="middle">E-STOP</text>`;
+  for (const zb of [375, 405, 435]) out += `<circle cx="${xY(-255)}" cy="${yZ(zb)}" r="4.5" fill="#10b981" stroke="#fff"/>`;
+  out += `<text x="${xY(-255)}" y="${yZ(348)}" fill="#6ee7b7" font-size="8.8" font-weight="800" text-anchor="middle">조작버튼×3</text>`;
+  // Rear Recessed Charging Pocket (Y=-112..+112, Z=174..246)
+  out += `<rect x="${xY(112)}" y="${yZ(246)}" width="${224*sc}" height="${72*sc}" rx="3" fill="#7c2d12" stroke="#fb923c" stroke-width="1.8"/>`;
+  out += `<rect x="${xY(96)}" y="${yZ(236)}" width="${62*sc}" height="${52*sc}" fill="#f59e0b" stroke="#fef08a"/>`;
+  out += `<rect x="${xY(-34)}" y="${yZ(236)}" width="${62*sc}" height="${52*sc}" fill="#f59e0b" stroke="#fef08a"/>`;
+  out += `<rect x="${xY(14)}" y="${yZ(224)}" width="${28*sc}" height="${28*sc}" fill="#10b981"/>`;
+  out += `<text x="${cx}" y="${yZ(254)}" fill="#fdba74" font-size="9.5" font-weight="800" text-anchor="middle">★ 후면 매립 충전 접점 (±48V · Z=174~246)</text>`;
+  // Rear-Right 2D Corner Slot (Y=-585..-450 -> RIGHT side of rear view!)
+  out += `<rect x="${xY(-450)}" y="${yZ(162)}" width="${135*sc}" height="${92*sc}" fill="#0a1220" stroke="#38bdf8" stroke-width="1.6"/>`;
+  out += `<rect x="${xY(-452)}" y="${yZ(156)}" width="${106*sc}" height="${80*sc}" rx="3" fill="#0284c7" stroke="#bae6fd"/>`;
+  out += `<text x="${xY(-515)}" y="${yZ(170)}" fill="#7dd3fc" font-size="8.8" font-weight="800" text-anchor="middle">우상 2D</text>`;
+  // Continuous Rear Safety Bumper (Y=-445..+585, Z=46..81)
+  out += `<rect x="${xY(585)}" y="${yZ(81)}" width="${1030*sc}" height="${35*sc}" fill="#d97706" stroke="#fde68a"/>`;
+  out += `<text x="${xY(70)}" y="${yZ(59)}" fill="#fff" font-size="8.8" font-weight="800" text-anchor="middle">Mayser SL/W 후방 연속 안전 범퍼 (Z=46~81)</text>`;
+  out += dimH(xY(600), xY(-600), 342, '차체 폭 1200 mm (프레임 ±585 + 범퍼 15×2)', '#4ade80');
+  out += dimV(xY(630), yZ(590), fY, '590', '#4ade80', 'end');
+  out += dimV(xY(-620), yZ(246), yZ(174), '72', '#fb923c', 'start');
+  document.getElementById('svgRear').innerHTML = out;
+})();
+
+// --- VIEW 3: FRONT ELEVATION (X=+750 straight-on!) ---
+(function drawFront() {
+  const cx = 280, fY = 315, sc = 0.37;
+  const xY = y => +(cx + y * sc).toFixed(1); // looking at front from +X: +Y(left of robot) is on RIGHT!
+  const yZ = z => +(fY - z * sc).toFixed(1);
+  let out = gridBg(560, 360, 37);
+  out += `<line x1="25" y1="${fY}" x2="535" y2="${fY}" stroke="#94a3b8" stroke-width="2"/>`;
+  out += `<rect x="${xY(-600)}" y="${yZ(590)}" width="${1200*sc}" height="${590*sc}" fill="none" stroke="#22c55e" stroke-dasharray="5 3"/>`;
+  // Background Tower silhouette
+  out += `<rect x="${xY(-585)}" y="${yZ(590)}" width="${1170*sc}" height="${398*sc}" fill="#111827" stroke="#475569"/>`;
+  out += `<circle cx="${cx}" cy="${yZ(520)}" r="${50*sc}" fill="rgba(250,204,21,0.85)" stroke="#854d0e"/>`;
+  // Left & Right Pods (|Y|=320..585, Z=46..192)
+  out += `<rect x="${xY(-585)}" y="${yZ(192)}" width="${265*sc}" height="${146*sc}" fill="#1e293b" stroke="#cbd5e1" stroke-width="1.6"/>`;
+  out += `<rect x="${xY(320)}" y="${yZ(192)}" width="${265*sc}" height="${146*sc}" fill="#1e293b" stroke="#cbd5e1" stroke-width="1.6"/>`;
+  // FL 2D corner cutout (Y=+450..+585, Z=70..162)
+  out += `<rect x="${xY(450)}" y="${yZ(162)}" width="${135*sc}" height="${92*sc}" fill="#0a1220" stroke="#38bdf8" stroke-width="1.5"/>`;
+  out += `<rect x="${xY(452)}" y="${yZ(156)}" width="${106*sc}" height="${80*sc}" rx="3" fill="#0284c7" stroke="#bae6fd"/>`;
+  // Drive Wheels Ø185x100 (|Y|=345..445)
+  out += `<rect x="${xY(-445)}" y="${yZ(185)}" width="${100*sc}" height="${185*sc}" rx="4" fill="rgba(29,78,216,0.45)" stroke="#60a5fa" stroke-dasharray="3 2"/>`;
+  out += `<rect x="${xY(345)}" y="${yZ(185)}" width="${100*sc}" height="${185*sc}" rx="4" fill="rgba(29,78,216,0.45)" stroke="#60a5fa" stroke-dasharray="3 2"/>`;
+  // Center Spine (260 mm: Y=-130..+130) + 8t Top Roof Cover + 45mm Pillars + E1R!
+  out += `<rect x="${xY(-130)}" y="${yZ(174)}" width="${260*sc}" height="${128*sc}" fill="#0f172a" stroke="#cbd5e1" stroke-width="1.6"/>`;
+  out += `<rect x="${xY(-130)}" y="${yZ(174)}" width="${260*sc}" height="${8*sc}" fill="#e2e8f0"/>`; // 8t steel roof!
+  out += `<rect x="${xY(-130)}" y="${yZ(166)}" width="${45*sc}" height="${110*sc}" fill="#334155" stroke="#94a3b8"/>`;
+  out += `<rect x="${xY(85)}" y="${yZ(166)}" width="${45*sc}" height="${110*sc}" fill="#334155" stroke="#94a3b8"/>`;
+  out += `<rect x="${xY(-47.5)}" y="${yZ(155)}" width="${95*sc}" height="${69.5*sc}" rx="3" fill="#a855f7" stroke="#fff"/>`;
+  out += `<rect x="${xY(-37.5)}" y="${yZ(137.5)}" width="${75*sc}" height="${35*sc}" fill="#0a1220"/>`;
+  out += `<text x="${cx}" y="${yZ(195)}" fill="#f8fafc" font-size="9.2" font-weight="800" text-anchor="middle">8t 강판 커버 (Z=166~174)</text>`;
+  // 1.5t Reinforced Forks 155 mm wide (|Y|=154..309, Z=51..95)
+  out += `<rect x="${xY(-309)}" y="${yZ(95)}" width="${155*sc}" height="${44*sc}" rx="2" fill="#64748b" stroke="#f8fafc" stroke-width="1.4"/>`;
+  out += `<rect x="${xY(154)}" y="${yZ(95)}" width="${155*sc}" height="${44*sc}" rx="2" fill="#64748b" stroke="#f8fafc" stroke-width="1.4"/>`;
+  out += `<line x1="${xY(-320)}" y1="${yZ(95)}" x2="${xY(320)}" y2="${yZ(95)}" stroke="#34d399" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+  out += `<text x="${cx}" y="${yZ(222)}" fill="#6ee7b7" font-size="9.5" font-weight="800" text-anchor="middle">E1R 광학창(Z=103~137) &gt; 155mm 포크(Z=95) → 가림 0%</text>`;
+  out += dimH(xY(-395), xY(395), 342, '광폭 구동륜 Ø185×100 간격 790 mm', '#60a5fa');
+  out += dimH(xY(-130), xY(130), yZ(260), '등뼈 260', '#c084fc');
+  document.getElementById('svgFront').innerHTML = out;
+})();
+
+// --- VIEW 4: TOP PLAN (Y: ±600, X: ±765) ---
+(function drawTop() {
+  const cx = 280, cy = 220, sc = 0.24;
+  const xY = y => +(cx - y * sc).toFixed(1);
+  const yX = x => +(cy + x * sc).toFixed(1); // Front (+X) at bottom, Rear (-X) at top
+  let out = gridBg(560, 440, 36);
+  out += `<rect x="${xY(600)}" y="${yX(-765)}" width="${1200*sc}" height="${1530*sc}" rx="12" fill="none" stroke="#22c55e" stroke-dasharray="5 3"/>`;
+  out += `<rect x="${xY(585)}" y="${yX(-750)}" width="${1170*sc}" height="${1500*sc}" rx="8" fill="#111827" stroke="#cbd5e1" stroke-width="1.5"/>`;
+  // Rear Tower
+  out += `<rect x="${xY(585)}" y="${yX(-750)}" width="${1170*sc}" height="${205*sc}" fill="#273549" stroke="#cbd5e1"/>`;
+  // Fork Channels & 155 mm Reinforced Forks
+  for (const s of [1, -1]) {
+    const y0 = s > 0 ? xY(309) : xY(-154);
+    out += `<rect x="${y0}" y="${yX(-620)}" width="${155*sc}" height="${1355*sc}" fill="#475569" stroke="#e2e8f0"/>`;
+  }
+  // Center Spine (260 mm) + Battery + QR + Fork Drive + E1R
+  out += `<rect x="${xY(130)}" y="${yX(-545)}" width="${260*sc}" height="${1295*sc}" fill="#1e293b" stroke="#94a3b8"/>`;
+  out += `<rect x="${xY(106)}" y="${yX(75)}" width="${212*sc}" height="${580*sc}" fill="rgba(16,185,129,0.3)" stroke="#10b981"/>`;
+  out += `<text x="${cx}" y="${yX(365)}" fill="#6ee7b7" font-size="9.5" font-weight="800" text-anchor="middle">48V 100Ah</text>`;
+  out += `<circle cx="${cx}" cy="${yX(0)}" r="${42.5*sc}" fill="rgba(20,184,166,0.4)" stroke="#2dd4bf" stroke-width="1.5"/>`;
+  out += `<text x="${cx}" y="${yX(3)}" fill="#ccfbf1" font-size="8.5" font-weight="900" text-anchor="middle">QR</text>`;
+  // Drive Wheels Ø185x100 & Casters
+  for (const s of [1, -1]) {
+    out += `<rect x="${xY(s*395 + 50)}" y="${yX(-92.5)}" width="${100*sc}" height="${185*sc}" rx="3" fill="#1d4ed8" stroke="#93c5fd"/>`;
+    for (const xc of [-515, 515]) out += `<circle cx="${xY(s*475)}" cy="${yX(xc)}" r="${46*sc}" fill="#0f766e" stroke="#5eead4"/>`;
+  }
+  // Sensors & Rear Charger
+  out += `<circle cx="${cx}" cy="${yX(-645)}" r="${50*sc}" fill="#facc15" stroke="#0f172a" stroke-width="1.5"/>`;
+  out += `<rect x="${xY(558)}" y="${yX(612)}" width="${106*sc}" height="${106*sc}" rx="3" fill="#0284c7" stroke="#bae6fd"/>`;
+  out += `<rect x="${xY(-452)}" y="${yX(-718)}" width="${106*sc}" height="${106*sc}" rx="3" fill="#0284c7" stroke="#bae6fd"/>`;
+  out += `<rect x="${xY(47.5)}" y="${yX(682)}" width="${95*sc}" height="${43*sc}" rx="2" fill="#a855f7" stroke="#fff"/>`;
+  out += `<rect x="${xY(110)}" y="${yX(-758)}" width="${220*sc}" height="${16*sc}" rx="2" fill="#f97316"/>`;
+  out += dimH(xY(585), xY(-585), 22, '프레임 폭 1170 (범퍼포함 1200)', '#4ade80');
+  out += dimV(xY(-620), yX(-765), yX(765), '1530', '#4ade80', 'start');
+  document.getElementById('svgTop').innerHTML = out;
+})();
+
+// --- VIEW 5: BOTTOM PLATE 6t CUTOUTS (Z=46 looking up!) ---
+(function drawBottom() {
+  const cx = 280, cy = 220, sc = 0.24;
+  const xY = y => +(cx + y * sc).toFixed(1); // looking up from Z=0: +Y is RIGHT
+  const yX = x => +(cy + x * sc).toFixed(1);
+  let out = gridBg(560, 440, 36);
+  // Steel bottom plates (6t SS400)
+  out += `<rect x="${xY(-585)}" y="${yX(-750)}" width="${265*sc}" height="${1500*sc}" fill="#334155" stroke="#cbd5e1" stroke-width="1.4"/>`;
+  out += `<rect x="${xY(320)}" y="${yX(-750)}" width="${265*sc}" height="${1500*sc}" fill="#334155" stroke="#cbd5e1" stroke-width="1.4"/>`;
+  out += `<rect x="${xY(-130)}" y="${yX(-545)}" width="${260*sc}" height="${1295*sc}" fill="#334155" stroke="#cbd5e1" stroke-width="1.4"/>`;
+  out += `<rect x="${xY(-320)}" y="${yX(-750)}" width="${640*sc}" height="${205*sc}" fill="#334155" stroke="#cbd5e1" stroke-width="1.2"/>`;
+  // REAL CUTOUTS IN DARK VOID!
+  for (const s of [1, -1]) {
+    // Drive wheel cutout (X=-108..+108, |Y|=335..455)
+    out += `<rect x="${xY(s>0?335:-455)}" y="${yX(-108)}" width="${120*sc}" height="${216*sc}" rx="4" fill="#0a1220" stroke="#60a5fa" stroke-width="1.8"/>`;
+    out += `<rect x="${xY(s>0?345:-445)}" y="${yX(-92.5)}" width="${100*sc}" height="${185*sc}" fill="#1d4ed8"/>`;
+    // 4x Caster Ø198 (R=99) swivel holes!
+    for (const xc of [-515, 515]) {
+      out += `<circle cx="${xY(s*475)}" cy="${yX(xc)}" r="${99*sc}" fill="#0a1220" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="4 2"/>`;
+      out += `<circle cx="${xY(s*475)}" cy="${yX(xc)}" r="${42*sc}" fill="#0f766e"/>`;
+    }
+  }
+  // ★ Center Ø85 QR Optical Window Cutout at Origin (0,0)!
+  out += `<circle cx="${cx}" cy="${yX(0)}" r="${42.5*sc}" fill="#0a1220" stroke="#2dd4bf" stroke-width="2.2"/>`;
+  out += `<circle cx="${cx}" cy="${yX(0)}" r="${32*sc}" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3 2"/>`;
+  out += `<text x="${cx}" y="${yX(0)+3}" fill="#5eead4" font-size="8.5" font-weight="900" text-anchor="middle">Ø85</text>`;
+  out += `<text x="${cx}" y="${yX(85)}" fill="#5eead4" font-size="9.5" font-weight="800" text-anchor="middle">★ 중앙 QR 강화유리창 (0,0)</text>`;
+  out += `<text x="${xY(-475)}" y="${yX(-645)}" fill="#fbbf24" font-size="9" font-weight="800" text-anchor="middle">Ø198 쓸림홀×4</text>`;
+  out += `<text x="${xY(395)}" y="${yX(-132)}" fill="#93c5fd" font-size="9" font-weight="800" text-anchor="middle">구동 120×216</text>`;
+  out += dimH(xY(-395), xY(395), 418, '구동축 간격 790 mm · 캐스터 중심 Y=±475, X=±515', '#60a5fa');
+  document.getElementById('svgBottom').innerHTML = out;
+})();
+
+// --- 4 PRECISION POCKET DETAILS ---
+document.getElementById('detE1R').innerHTML = `
+  ${gridBg(560, 290, 28)}
+  <line x1="310" y1="24" x2="310" y2="270" stroke="#22c55e" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <text x="316" y="38" fill="#4ade80" font-size="10" font-weight="800">X=+750 (차체 외곽 · 돌출 0)</text>
+  <rect x="35" y="74" width="145" height="170" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="108" y="160" fill="#cbd5e1" font-size="10.5" font-weight="800" text-anchor="middle">배터리 격실</text>
+  <text x="108" y="176" fill="#94a3b8" font-size="9.5" text-anchor="middle">(X≤672 · 6t 격벽)</text>
+  <polygon points="180,74 298,74 286,90 180,90" fill="#475569" stroke="#f8fafc" stroke-width="1.8"/>
+  <text x="236" y="66" fill="#f8fafc" font-size="10" font-weight="800" text-anchor="middle">★ 8t 강판 커버 (Z=166~174, X=738~744)</text>
+  <rect x="180" y="226" width="130" height="18" fill="#334155" stroke="#cbd5e1" stroke-width="1.4"/>
+  <text x="245" y="239" fill="#e2e8f0" font-size="9.2" font-weight="700" text-anchor="middle">10t 하부 강판 (Z=46~56)</text>
+  <rect x="184" y="194" width="84" height="32" fill="#475569" stroke="#94a3b8"/>
+  <g transform="translate(226,152) rotate(-10)">
+    <rect x="-26" y="-42" width="52" height="84" rx="4" fill="#a855f7" stroke="#fff" stroke-width="1.5"/>
+    <rect x="20" y="-21" width="8" height="42" fill="#0a1220"/>
+    <text x="-4" y="4" fill="#fff" font-size="10" font-weight="900" text-anchor="middle">E1R</text>
+  </g>
+  <polygon points="254,148 356,22 535,22 535,268 418,268" fill="rgba(168,85,247,0.18)" stroke="#c084fc" stroke-width="1.5"/>
+  <text x="445" y="54" fill="#d8b4fe" font-size="10.5" font-weight="800" text-anchor="middle">상방 +56.8° 통과 (요구 55°)</text>
+  <text x="445" y="256" fill="#d8b4fe" font-size="10.5" font-weight="800" text-anchor="middle">하방 -63.9° 통과 (요구 35°)</text>
+  ${dimV(168, 90, 112, '8mm 여유', '#4ade80', 'end')}
+`;
+
+document.getElementById('detTower').innerHTML = `
+  ${gridBg(560, 290, 28)}
+  <line x1="20" y1="42" x2="360" y2="42" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="366" y="46" fill="#4ade80" font-size="10" font-weight="800">Z=590 상한 (H530)</text>
+  <polygon points="105,42 305,42 275,78 135,78" fill="#334155" stroke="#f8fafc" stroke-width="1.8"/>
+  <text x="205" y="64" fill="#f8fafc" font-size="10" font-weight="800" text-anchor="middle">경사 절삭 보호 지붕 (Z=565~590)</text>
+  <rect x="70" y="218" width="270" height="16" fill="#334155" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="205" y="230" fill="#e2e8f0" font-size="9.5" font-weight="700" text-anchor="middle">타워 데크판 6t (Z=472 · 평탄도 0.2)</text>
+  <rect x="150" y="200" width="110" height="18" fill="#64748b" stroke="#fff"/>
+  <line x1="168" y1="200" x2="168" y2="238" stroke="#f8fafc" stroke-width="3"/>
+  <line x1="242" y1="200" x2="242" y2="238" stroke="#f8fafc" stroke-width="3"/>
+  <g transform="translate(205,148) rotate(8)">
+    <rect x="-48" y="-44" width="96" height="88" rx="8" fill="#facc15" stroke="#854d0e" stroke-width="2"/>
+    <rect x="-48" y="-20" width="96" height="40" fill="#0a1220"/>
+    <text x="0" y="4" fill="#fde047" font-size="10" font-weight="900" text-anchor="middle">XT32 / OS0</text>
+  </g>
+  <polygon points="253,148 530,36 530,248" fill="rgba(250,204,21,0.16)" stroke="#facc15" stroke-dasharray="4 2"/>
+  <text x="435" y="96" fill="#fde047" font-size="10.2" font-weight="800" text-anchor="middle">후진 오버행 + 다중 링 반사판</text>
+  <text x="205" y="264" fill="#94a3b8" font-size="9.8" font-weight="700" text-anchor="middle">M6 3점 레벨링(±0.1°) · XT32 +8° / OS0 0° 공용 홀</text>
+`;
+
+document.getElementById('det2D').innerHTML = `
+  ${gridBg(560, 290, 28)}
+  <line x1="305" y1="26" x2="305" y2="270" stroke="#22c55e" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <text x="312" y="40" fill="#4ade80" font-size="10" font-weight="800">외곽 한계 (범퍼 끝 · 돌출 0)</text>
+  <rect x="45" y="54" width="260" height="28" fill="#334155" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="175" y="72" fill="#f8fafc" font-size="10" font-weight="800" text-anchor="middle">포드 상판 (Z=192) + 보강판 (Z=162~188)</text>
+  <rect x="45" y="218" width="260" height="32" fill="#334155" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="175" y="238" fill="#e2e8f0" font-size="9.5" font-weight="700" text-anchor="middle">하판 보강 블록 24t (Z=46~70) · M6×3 탭</text>
+  <rect x="132" y="98" width="114" height="106" rx="6" fill="#0284c7" stroke="#bae6fd" stroke-width="1.8"/>
+  <rect x="132" y="128" width="114" height="34" fill="#0a1220"/>
+  <rect x="132" y="98" width="114" height="22" rx="4" fill="#eab308"/>
+  <text x="189" y="149" fill="#7dd3fc" font-size="10" font-weight="900" text-anchor="middle">nanoScan3 / C2</text>
+  <line x1="154" y1="204" x2="154" y2="226" stroke="#f8fafc" stroke-width="4"/>
+  <line x1="224" y1="204" x2="224" y2="226" stroke="#f8fafc" stroke-width="4"/>
+  ${dimH(246, 305, 92, '35 mm 매립', '#38bdf8')}
+  <line x1="246" y1="145" x2="530" y2="145" stroke="#38bdf8" stroke-width="2.4" stroke-dasharray="7 3"/>
+  <text x="425" y="136" fill="#7dd3fc" font-size="10.2" font-weight="800" text-anchor="middle">Z=115 mm · ±0.1° 정밀 수평</text>
+  <text x="425" y="166" fill="#fde047" font-size="10" font-weight="700" text-anchor="middle">360° 저상 안전 + 0~61 cm 반사판</text>
+`;
+
+document.getElementById('detQR').innerHTML = `
+  ${gridBg(560, 290, 28)}
+  <line x1="30" y1="258" x2="530" y2="258" stroke="#94a3b8" stroke-width="2"/>
+  <rect x="195" y="254" width="170" height="6" fill="#f8fafc" stroke="#0f172a"/>
+  <text x="280" y="278" fill="#cbd5e1" font-size="10" font-weight="800" text-anchor="middle">바닥 QR 코드 마커 (X=0, Y=0 회전 중심)</text>
+  <rect x="45" y="182" width="170" height="16" fill="#334155" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="345" y="182" width="170" height="16" fill="#334155" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="215" y="185" width="130" height="11" fill="rgba(56,189,248,0.35)" stroke="#38bdf8" stroke-width="1.8"/>
+  <text x="280" y="176" fill="#7dd3fc" font-size="9.5" font-weight="800" text-anchor="middle">Ø85 방진 강화유리창 4t (돌출 0 · O-ring)</text>
+  <rect x="242" y="84" width="76" height="46" rx="5" fill="#14b8a6" stroke="#ccfbf1" stroke-width="1.8"/>
+  <rect x="264" y="130" width="32" height="16" fill="#0f172a" stroke="#5eead4"/>
+  <text x="280" y="111" fill="#0f172a" font-size="10" font-weight="900" text-anchor="middle">QR 리더</text>
+  <polygon points="280,146 205,254 355,254" fill="rgba(20,184,166,0.22)" stroke="#2dd4bf" stroke-dasharray="4 2"/>
+  <circle cx="228" cy="182" r="5" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+  <circle cx="332" cy="182" r="5" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+  ${dimV(405, 146, 258, 'WD = 100 ±1 mm', '#2dd4bf', 'start')}
+  ${dimV(135, 198, 258, 'G = 46 mm', '#94a3b8', 'end')}
+  <text x="280" y="64" fill="#5eead4" font-size="10.2" font-weight="800" text-anchor="middle">Hikrobot SC2000A / MV-ID2004M (대안: P+F PGV100)</text>
+`;
+
+// ==================== 2. LOAD REAL AUTOMATED 3D CLEARANCE AUDIT ====================
+fetch('vendor_clearance_audit.json').then(r => r.json()).then(a => {
+  const b = document.getElementById('auditBadge');
+  b.innerHTML = a.all_pass
+    ? `<span class="pass">ALL PASS</span> ${a.envelope.length_mm}×${a.envelope.width_mm}×${a.envelope.height_mm}`
+    : `<span class="warn">CHECK NEEDED</span>`;
+
+  document.getElementById('auditBody').innerHTML = a.clearances.map(c => `<tr>
+    <td><strong>${c.check}</strong></td>
+    <td class="mono">${c.part_a} ↔ ${c.part_b}</td>
+    <td class="mono"><strong>${c.clearance_mm} mm</strong></td>
+    <td class="mono">≥ ${c.min_req_mm} mm</td>
+    <td>${c.pass_ok ? '<span class="pass">PASS</span>' : '<span class="warn">CHECK</span>'}</td>
+  </tr>`).join('');
+
+  const op = a.optical;
+  document.getElementById('opticalSummary').innerHTML =
+    `<strong>✅ 광학·외곽 자동 검증 완료:</strong> 외곽 <code>${a.envelope.length_mm}×${a.envelope.width_mm}×${a.envelope.height_mm} mm</code> (돌출 0 mm <strong>${a.envelope.zero_protrusion_pass?'PASS':'FAIL'}</strong>) · ` +
+    `전방 E1R 8t 처마 상방 <strong>${op.e1r_up_clearance_deg}°</strong> (요구 ≥${op.e1r_up_req_deg}°) · 하방 <strong>${op.e1r_dn_clearance_deg}°</strong> (요구 ≥${op.e1r_dn_req_deg}°) · 수평 반각 <strong>±${op.e1r_hfov_half_deg}°</strong> (요구 ≥±${op.e1r_hfov_half_req_deg}°) · 하단 QR 작동거리 <strong>${op.qr_working_dist_mm} mm</strong>.`;
+}).catch(e => {
+  document.getElementById('auditBody').innerHTML = `<tr><td colspan="5">JSON 로드 실패: ${e}</td></tr>`;
+});
+</script>
+</body>
+</html>

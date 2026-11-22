@@ -145,9 +145,10 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
         <h1>L-type 1200×1530 상세 3D</h1>
       </div>
       <div style="display:flex;gap:5px;flex-wrap:wrap;margin:6px 0 4px">
-        <a class="back-link" href="index.html">1. 풀스펙 설계서</a>
-        <a class="back-link" href="options.html" style="color:#34d399;border-color:#047857">3. ★ 가격·옵션</a>
-        <a class="back-link" href="drawings_options.html" style="color:#c084fc;border-color:#6d28d9">4. ★ 옵션 도면</a>
+        <a class="back-link" href="index.html">1. 풀스펙</a>
+        <a class="back-link" href="options.html" style="color:#34d399;border-color:#047857">3. 가격·옵션</a>
+        <a class="back-link" href="drawings_options.html" style="color:#c084fc;border-color:#6d28d9">4. 옵션도면</a>
+        <a class="back-link" href="vendor_drawing.html" style="color:#fb923c;border-color:#c2410c">5. ★ 업체기준도</a>
       </div>
       <p class="sub">1.5 t 확정 · 4센서 · 하단 QR · Ø185×100 · 318mm X가위 · Latch</p>
     </div>
@@ -209,8 +210,24 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
     </div>
 
     <div class="box">
-      <div class="box-title"><span>센서 FOV · 현장 시나리오</span></div>
+      <div class="box-title"><span>★ CAD 3축 단면 절개 (Section Cutaway)</span></div>
+      <div class="btn-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:6px">
+        <button class="btn active" data-clip="off">끄기</button>
+        <button class="btn" data-clip="x">X 절개</button>
+        <button class="btn" data-clip="y">Y 좌우</button>
+        <button class="btn" data-clip="z">Z 높이</button>
+      </div>
+      <div class="slider-row">
+        <div class="slider-head"><span>단면 절개 위치</span><strong id="vClip">비활성</strong></div>
+        <input type="range" id="sClip" min="-800" max="800" step="10" value="0" disabled>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title"><span>센서 FOV · 레이어 · 현장 시나리오</span></div>
       <div class="chk-list">
+        <label class="chk"><input type="checkbox" id="kShell" checked><span class="dot" style="background:#64748b"></span>차체 외판·프레임 커버 보기</label>
+        <label class="chk"><input type="checkbox" id="kDim" checked><span class="dot" style="background:#22c55e"></span>외곽 한계선 (1530×1200×590 · 돌출 0)</label>
         <label class="chk"><input type="checkbox" id="kFov2D" checked><span class="dot" style="background:#38bdf8"></span>① 하부 대각 2D 360° (Z=115)</label>
         <label class="chk"><input type="checkbox" id="kFovE1R" checked><span class="dot" style="background:#a855f7"></span>② 전방 E1R 3D + 상단 8 mm 커버</label>
         <label class="chk"><input type="checkbox" id="kFovTower" checked><span class="dot" style="background:#facc15"></span>③ 뒤 타워 3D + 다중 링 반사판</label>
@@ -257,7 +274,11 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
       </div>
     </div>
 
-    <a class="dl-btn" href="ltype_1200x1530_4sensor.glb" download>⬇ 실치수 상세 3D CAD (.glb) 다운로드</a>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+      <a class="dl-btn" href="ltype_1200x1530_4sensor.step" download>⬇ SolidWorks (.STEP)</a>
+      <a class="dl-btn" style="background:#1d4ed8;border-color:#3b82f6" href="ltype_1200x1530_4sensor.glb" download>⬇ 3D 뷰어 (.GLB)</a>
+    </div>
+    <a class="dl-btn" style="background:#334155;border-color:#475569;margin-top:-4px" href="vendor_interface.csv" download>⬇ 전 부품 좌표·공차·재질표 (.CSV)</a>
   </aside>
 
   <main id="viewport">
@@ -287,6 +308,10 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.18;
+renderer.localClippingEnabled = true;
+
+const clipPlane = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 10);
+const shellMeshes = [];
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x080d18);
@@ -344,6 +369,7 @@ function makeBox(x0, x1, yCad0, yCad1, z0, z1, mat, meta, parent = scene) {
   mesh.castShadow = true;
   mesh.receiveShadow = true;
   if (meta) tagMesh(mesh, meta[0], meta[1], meta[2]);
+  if (shellMaterials.includes(mat)) shellMeshes.push(mesh);
   parent.add(mesh);
   return mesh;
 }
@@ -578,9 +604,9 @@ const e1rBody = new THREE.Mesh(new THREE.BoxGeometry(0.043, 0.0695, 0.095), matE
 const e1rWin  = new THREE.Mesh(new THREE.BoxGeometry(0.007, 0.035, 0.075), matDarkOpt); e1rWin.position.x = 0.021; tagMesh(e1rWin, ...e1rMeta); e1rGroup.add(e1rWin);
 robotGroup.add(e1rGroup);
 
-// Rear Tower 3D (XT32 / OS0 switchable)
+// Rear Tower 3D (XT32 / OS0 / T2D switchable — centered at Z=510 for 11.4mm roof clearance!)
 const tower3DGroup = new THREE.Group();
-tower3DGroup.position.set(mm(-645), mm(520), 0);
+tower3DGroup.position.set(mm(-645), mm(510), 0);
 robotGroup.add(tower3DGroup);
 
 const xt32MeshGroup = new THREE.Group();
@@ -665,12 +691,12 @@ makeBox(746, 753, -86, -30, 88, 128, matCopper, ['전방 충전 (-) 구리 접�
 frontChargeGroup.visible = false;
 robotGroup.add(frontChargeGroup);
 
-const hmiMesh = new THREE.Mesh(new THREE.BoxGeometry(0.026, 0.180, 0.285), matScreen);
-hmiMesh.position.set(mm(-745), mm(425), 0); hmiMesh.rotation.z = THREE.MathUtils.degToRad(-12);
-tagMesh(hmiMesh, '후면 10.1" 산업용 HMI 터치스크린', '1280×800 IP65 (Z=340~510)', ''); robotGroup.add(hmiMesh);
-const estop = new THREE.Mesh(new THREE.CylinderGeometry(0.020, 0.020, 0.022, 20), matRed);
-estop.rotation.z = Math.PI / 2; estop.position.set(mm(-756), mm(455), -mm(255));
-tagMesh(estop, '후면 비상정지 스위치', 'Safety Relay / STO 직결', ''); robotGroup.add(estop);
+const hmiMesh = new THREE.Mesh(new THREE.BoxGeometry(0.024, 0.120, 0.280), matScreen);
+hmiMesh.position.set(mm(-728), mm(388), 0); hmiMesh.rotation.z = THREE.MathUtils.degToRad(-10);
+tagMesh(hmiMesh, '후면 10.1" 매립 HMI 터치스크린 (돌출 0)', '1280×800 IP65 (Z=325~450 · 외곽 -765 이내)', ''); robotGroup.add(hmiMesh);
+const estop = new THREE.Mesh(new THREE.CylinderGeometry(0.020, 0.020, 0.014, 20), matRed);
+estop.rotation.z = Math.PI / 2; estop.position.set(mm(-756), mm(400), -mm(255));
+tagMesh(estop, '후면 비상정지 스위치 (돌출 0)', 'Safety Relay / STO 직결 (X=-763 ≥ -765)', ''); robotGroup.add(estop);
 
 // Internal Battery + Bypass Busbar + Fork Extension Servo + Wire Encoder + IMU + Orin NX + Safety PLC/Drives
 makeBox(75, 655, -106, 106, 56, 166, matBatt, ['48V 100Ah LFP 배터리팩 (내장)', '580×212×110 mm ≈ 13.5 L (X=+75..+655)', '중앙 QR실과 앞 E1R 포켓 사이 독립 격실 + 전방 하중 배분'], robotGroup);
@@ -777,6 +803,14 @@ const sweepLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(sweepP
 sweepLine.visible = false;
 scene.add(sweepLine);
 
+// Outer Zero-Protrusion Wireframe Box (1530 x 1200 x 590 mm)
+const envWire = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(1.530, 0.590, 1.200)),
+  new THREE.LineBasicMaterial({ color: 0x22c55e, transparent: true, opacity: 0.55 })
+);
+envWire.position.set(0, 0.295, 0);
+scene.add(envWire);
+
 // ================= 7. CAMERA PRESETS & KINEMATICS =================
 const CAM_VIEWS = {
   iso:        { pos: [2.15, 1.48, 2.05],   tgt: [0.0, 0.30, 0.0],  op: null },
@@ -848,6 +882,9 @@ $('btnOS0').addEventListener('click', () => setTowerMode('OS0'));
 
 function updateVis() {
   const sp = PKG_SPECS[activePkg];
+  const shellOn = $('kShell').checked;
+  shellMeshes.forEach(m => m.visible = shellOn);
+  envWire.visible = $('kDim').checked;
   fov2DGroup.visible = $('kFov2D').checked;
   fovE1RGroup.visible = sp.front3d && $('kFovE1R').checked;
   const tOn = $('kFovTower').checked;
@@ -860,7 +897,42 @@ function updateVis() {
   dockGroup.visible    = sp.front3d && $('kDock').checked;
   sweepLine.visible    = $('kSweep').checked;
 }
-['kFov2D','kFovE1R','kFovTower','kQR','kCargo','kOver','kRefl','kDock','kSweep'].forEach(id => $(id).addEventListener('change', updateVis));
+['kShell','kDim','kFov2D','kFovE1R','kFovTower','kQR','kCargo','kOver','kRefl','kDock','kSweep'].forEach(id => $(id).addEventListener('change', updateVis));
+
+// 3-Axis CAD Section Clipping Plane (X / Y / Z cutaway!)
+let clipAxis = 'off';
+function applyClip() {
+  const valMm = +$('sClip').value;
+  if (clipAxis === 'off') {
+    renderer.clippingPlanes = [];
+    $('sClip').disabled = true;
+    $('vClip').textContent = '비활성';
+    return;
+  }
+  $('sClip').disabled = false;
+  if (clipAxis === 'x') {
+    clipPlane.normal.set(-1, 0, 0); clipPlane.constant = mm(valMm);
+    $('vClip').textContent = `X ≤ ${valMm} mm`;
+  } else if (clipAxis === 'y') {
+    clipPlane.normal.set(0, 0, -1); clipPlane.constant = mm(valMm);
+    $('vClip').textContent = `좌우 절개 ${valMm} mm`;
+  } else {
+    clipPlane.normal.set(0, -1, 0); clipPlane.constant = mm(valMm);
+    $('vClip').textContent = `높이 Z ≤ ${valMm} mm`;
+  }
+  renderer.clippingPlanes = [clipPlane];
+}
+document.querySelectorAll('[data-clip]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    clipAxis = btn.dataset.clip;
+    document.querySelectorAll('[data-clip]').forEach(b => b.classList.toggle('active', b === btn));
+    if (clipAxis === 'z') { $('sClip').min = 50; $('sClip').max = 600; $('sClip').value = 185; }
+    else if (clipAxis === 'y') { $('sClip').min = -600; $('sClip').max = 600; $('sClip').value = 0; }
+    else { $('sClip').min = -780; $('sClip').max = 780; $('sClip').value = 120; }
+    applyClip();
+  });
+});
+$('sClip').addEventListener('input', applyClip);
 
 function updateKinematics() {
   const latch = +$('sLatch').value;

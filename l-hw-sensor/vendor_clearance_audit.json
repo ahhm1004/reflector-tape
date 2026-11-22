@@ -1,0 +1,146 @@
+{
+  "all_pass": true,
+  "envelope": {
+    "x_min": -765.0,
+    "x_max": 765.0,
+    "y_min": -600.0,
+    "y_max": 600.0,
+    "z_min": 0.0,
+    "z_max": 590.0,
+    "length_mm": 1530.0,
+    "width_mm": 1200.0,
+    "height_mm": 590.0,
+    "zero_protrusion_pass": true
+  },
+  "clearances": [
+    {
+      "check": "구동 바퀴(L) ↔ 포드 상판(Z=188)",
+      "part_a": "drive_wheel_L",
+      "part_b": "pod_top_L",
+      "clearance_mm": 3.0,
+      "min_req_mm": 2.5,
+      "pass_ok": true
+    },
+    {
+      "check": "구동 바퀴(L) ↔ 포크 레인 외측벽(Y=330)",
+      "part_a": "drive_wheel_L",
+      "part_b": "pod_wall_in_L",
+      "clearance_mm": 15.0,
+      "min_req_mm": 10.0,
+      "pass_ok": true
+    },
+    {
+      "check": "구동 서보(L) ↔ 포드 외판(Y=582)",
+      "part_a": "drive_servo_motor_L",
+      "part_b": "pod_skin_L_main",
+      "clearance_mm": 37.0,
+      "min_req_mm": 25.0,
+      "pass_ok": true
+    },
+    {
+      "check": "포크 날(L, 155mm) ↔ 포드 내측벽(Y=320)",
+      "part_a": "fork_tine_L",
+      "part_b": "pod_wall_in_L",
+      "clearance_mm": 11.0,
+      "min_req_mm": 10.0,
+      "pass_ok": true
+    },
+    {
+      "check": "포크 날(L, 155mm) ↔ HGR20 레일(Y=150)",
+      "part_a": "fork_tine_L",
+      "part_b": "linear_rail_HGR20_L",
+      "clearance_mm": 4.0,
+      "min_req_mm": 3.0,
+      "pass_ok": true
+    },
+    {
+      "check": "전방 E1R (+10°) ↔ 상단 8t 강판 커버(Z=166)",
+      "part_a": "lidar_3d_front_E1R",
+      "part_b": "e1r_top_cover_8t",
+      "clearance_mm": 8.04,
+      "min_req_mm": 5.0,
+      "pass_ok": true
+    },
+    {
+      "check": "전방 E1R ↔ 중앙 배터리 격벽",
+      "part_a": "lidar_3d_front_E1R",
+      "part_b": "spine_e1r_backwall",
+      "clearance_mm": 14.79,
+      "min_req_mm": 3.0,
+      "pass_ok": true
+    },
+    {
+      "check": "중앙 QR 카메라 ↔ 배터리팩",
+      "part_a": "qr_camera_downward",
+      "part_b": "battery_lfp_48v100ah",
+      "clearance_mm": 52.0,
+      "min_req_mm": 40.0,
+      "pass_ok": true
+    },
+    {
+      "check": "중앙 QR 카메라 ↔ IMU(MTi-630)",
+      "part_a": "qr_camera_downward",
+      "part_b": "imu_xsens_mti630",
+      "clearance_mm": 63.51,
+      "min_req_mm": 40.0,
+      "pass_ok": true
+    },
+    {
+      "check": "후면 충전 하우징 ↔ 후방 안전 범퍼(Z=81)",
+      "part_a": "rear_charger_housing",
+      "part_b": "bumper_rear",
+      "clearance_mm": 94.0,
+      "min_req_mm": 90.0,
+      "pass_ok": true
+    },
+    {
+      "check": "후면 충전 하우징 ↔ 10.1\" HMI",
+      "part_a": "rear_charger_housing",
+      "part_b": "rear_hmi_10in",
+      "clearance_mm": 81.84,
+      "min_req_mm": 80.0,
+      "pass_ok": true
+    },
+    {
+      "check": "뒤 타워 3D(XT32) ↔ 경사 지붕(Z=565)",
+      "part_a": "lidar_3d_rear_XT32",
+      "part_b": "tower_chamfered_roof",
+      "clearance_mm": 11.41,
+      "min_req_mm": 5.0,
+      "pass_ok": true
+    },
+    {
+      "check": "좌하 2D(nanoScan3) ↔ 슬롯 상부 보강판",
+      "part_a": "lidar_2d_FL",
+      "part_b": "slot_2d_roof_L",
+      "clearance_mm": 6.0,
+      "min_req_mm": 4.0,
+      "pass_ok": true
+    },
+    {
+      "check": "우측 전장함(Orin NX) ↔ 구동 바퀴(R)",
+      "part_a": "compute_orin_nx_ptp",
+      "part_b": "drive_wheel_R",
+      "clearance_mm": 27.5,
+      "min_req_mm": 20.0,
+      "pass_ok": true
+    }
+  ],
+  "optical": {
+    "e1r_up_clearance_deg": 59.62,
+    "e1r_up_req_deg": 55.0,
+    "e1r_up_pass": true,
+    "e1r_dn_clearance_deg": 63.92,
+    "e1r_dn_req_deg": 35.0,
+    "e1r_dn_pass": true,
+    "e1r_hfov_half_deg": 62.24,
+    "e1r_hfov_half_req_deg": 60.0,
+    "e1r_hfov_pass": true,
+    "qr_working_dist_mm": 100.0,
+    "qr_wd_range_mm": [
+      80.0,
+      120.0
+    ],
+    "qr_wd_pass": true
+  }
+}
