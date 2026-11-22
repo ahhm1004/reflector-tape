@@ -4,221 +4,540 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M12 42 L32 52 L52 42 L52 24 L32 14 L12 24 Z' fill='none' stroke='%2310b981' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M12 24 L32 34 L52 24 M32 34 L32 52' fill='none' stroke='%2338bdf8' stroke-width='3.5' stroke-linejoin='round'/%3E%3C/svg%3E">
-<title>신규 L-type 1.5 t (1200×1530×590) Rev C.3 3D CAD 뷰어 — 222부품 실물 GLB</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111827'/%3E%3Cpath d='M14 42 L32 52 L50 42 L50 22 L32 12 L14 22 Z' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linejoin='round'/%3E%3Cpath d='M14 22 L32 32 L50 22 M32 32 L32 52' fill='none' stroke='%2360a5fa' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>L-type 1.5t AMR (Rev C.3) — 3D 뷰어</title>
+<link rel="stylesheet" href="portal.css">
 <style>
-:root {
-  --bg: #080d18;
-  --nav-bg: #0b1220;
-  --panel: #0f172a;
-  --panel-alt: #162033;
-  --border: #243247;
-  --border-hi: #334155;
-  --fg: #f1f5f9;
-  --muted: #94a3b8;
-  --ok: #10b981;
-  --ok-dim: rgba(16, 185, 129, 0.16);
-  --cyan: #38bdf8;
-  --teal: #14b8a6;
-  --purple: #a855f7;
-  --gold: #facc15;
-  --amber: #f59e0b;
-  --orange: #f97316;
-  --pink: #ec4899;
-  --mono: ui-monospace, "Cascadia Mono", Consolas, "SFMono-Regular", monospace;
-}
-* { box-sizing: border-box; }
 html, body {
-  margin: 0; height: 100%; overflow: hidden;
-  background: var(--bg); color: var(--fg);
-  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Malgun Gothic", "Segoe UI", sans-serif;
-  font-size: 13px;
+  height: 100%;
+  overflow: hidden;
 }
-body { display: flex; flex-direction: column; }
-
-/* 5-Page Common Top Navigation */
-.site-nav {
+body.cad-viewer-page {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+}
+body.cad-viewer-page .p-header {
   flex-shrink: 0;
-  background: var(--nav-bg);
-  border-bottom: 1px solid var(--border);
-  padding: 6px 14px;
-  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
-  z-index: 40;
 }
-.brand {
-  display: flex; align-items: center; gap: 8px;
-  font-weight: 900; font-size: 13.5px; letter-spacing: -0.02em; color: #f8fafc;
+body.embed-mode .p-header {
+  display: none;
 }
-.brand-badge {
-  background: #047857; color: #ecfdf5; border: 1px solid #10b981;
-  font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 5px;
-  font-family: var(--mono);
-}
-.nav-tabs { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
-.nav-tabs a {
-  text-decoration: none; font-size: 11.8px; font-weight: 700; color: #cbd5e1;
-  background: var(--panel); border: 1px solid var(--border);
-  padding: 4.5px 10px; border-radius: 7px; transition: 0.12s; white-space: nowrap;
-}
-.nav-tabs a:hover { background: #1e293b; border-color: #475569; color: #fff; }
-.nav-tabs a.active { background: #047857; border-color: #10b981; color: #fff; }
-.nav-tabs a.vendor-tab { color: #fdba74; border-color: #9a3412; }
-.nav-tabs a.vendor-tab:hover { background: #431407; border-color: #ea580c; color: #fff; }
-.nav-tabs a.lock-tab {
-  color: #64748b; background: #0a101d; border-color: #1e293b; font-weight: 600;
-}
-.nav-tabs a.lock-tab:hover { color: #94a3b8; border-color: #334155; background: #111827; }
 
-#app { display: flex; flex: 1; min-height: 0; width: 100%; }
-#panel {
-  width: 372px; flex-shrink: 0; height: 100%; overflow-y: auto;
-  background: var(--panel); border-right: 1px solid var(--border);
-  padding: 11px 12px 24px; display: flex; flex-direction: column; gap: 9px;
+/* Main Split Workspace: 296px Light Inspector + Full-Bleed Charcoal Studio Viewport */
+#app {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
 }
-#viewport { position: relative; flex: 1; min-width: 0; height: 100%; background: var(--bg); }
-#c { width: 100%; height: 100%; display: block; cursor: grab; }
+
+#panel {
+  width: 296px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+#panel::-webkit-scrollbar { width: 6px; }
+#panel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+#panel::-webkit-scrollbar-track { background: transparent; }
+
+/* Collapsible Inspector Accordions */
+details.insp-sec {
+  border-bottom: 1px solid var(--line);
+}
+details.insp-sec > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  background: var(--surface);
+  transition: background 0.12s ease;
+}
+details.insp-sec > summary::-webkit-details-marker { display: none; }
+details.insp-sec > summary:hover { background: #fafbfc; }
+details.insp-sec > summary::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 1.6px solid var(--muted);
+  border-bottom: 1.6px solid var(--muted);
+  transform: rotate(-45deg);
+  transition: transform 0.14s ease;
+  flex-shrink: 0;
+  margin-right: 2px;
+}
+details.insp-sec[open] > summary::after {
+  transform: rotate(45deg);
+}
+
+.insp-body {
+  padding: 2px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.field-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.field-hint {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* Segmented Controls (Clean Onshape Style) */
+.seg-box {
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.seg-row {
+  display: grid;
+  gap: 2px;
+}
+.seg-row.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.seg-row.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.seg-row.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.seg-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5.5px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.seg-btn:hover:not(:disabled):not(.active) {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.55);
+}
+.seg-btn.active {
+  background: var(--surface);
+  color: var(--accent);
+  font-weight: 600;
+  border-color: var(--accent-line);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.06);
+}
+.seg-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+/* Compact Inline Summary & Mass/CG Strip */
+.spec-line {
+  font-size: 11.5px;
+  line-height: 1.42;
+  color: var(--muted);
+  word-break: keep-all;
+}
+.mass-line {
+  background: #f8f9fb;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 6.5px 9px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* CAD Download Section */
+.cad-file-meta {
+  background: #f8f9fb;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cad-file-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  word-break: break-all;
+  line-height: 1.35;
+}
+.cad-file-sub {
+  font-family: var(--font-mono);
+  font-size: 10.8px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.dl-actions {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 6px;
+}
+.dl-actions .p-btn {
+  width: 100%;
+  padding: 6.5px 8px;
+  font-size: 12px;
+}
+.cad-caption {
+  font-size: 11px;
+  line-height: 1.42;
+  color: var(--muted);
+  padding: 6px 8px;
+  border-left: 2px solid var(--line-strong);
+  background: #f8f9fb;
+  border-radius: 0 4px 4px 0;
+  display: none;
+}
+.cad-caption.visible { display: block; }
+.cad-caption.warn-tone {
+  border-left-color: var(--warn);
+  background: var(--warn-soft);
+  color: #713f12;
+}
+.cad-caption a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.cad-caption a:hover { text-decoration: underline; }
+.insp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: 2px;
+}
+.insp-link:hover { text-decoration: underline; }
+
+/* Kinematics Sliders */
+.slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.slider-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+.slider-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.slider-row input[type="range"] {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.slider-row input[type="range"]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.mini-seg {
+  display: inline-flex;
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 1.5px;
+  gap: 2px;
+}
+.mini-seg button {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: inherit;
+  font-size: 10.8px;
+  font-weight: 500;
+  padding: 2.5px 7px;
+  border-radius: 3.5px;
+  cursor: pointer;
+}
+.mini-seg button.active {
+  background: var(--surface);
+  color: var(--accent);
+  border-color: var(--accent-line);
+  font-weight: 600;
+}
+.mini-seg button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Layer Checkboxes (2-column clean list) */
+.chk-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 8px;
+}
+label.chk {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 11.8px;
+  color: var(--ink-2);
+  min-width: 0;
+}
+label.chk input {
+  margin: 0;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+label.chk .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+label.chk span.lbl {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Right 3D Studio Viewport */
+#viewport {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  background: #1b2028;
+  overflow: hidden;
+}
+#c {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
 #c:active { cursor: grabbing; }
 
-.sub { margin: 2px 0 0; font-size: 11.2px; color: var(--muted); line-height: 1.38; }
-
-.audit-strip {
-  display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap;
-  background: rgba(4, 120, 87, 0.16); border: 1px solid rgba(16, 185, 129, 0.45);
-  border-radius: 8px; padding: 6px 9px; font-size: 11.1px; color: #a7f3d0; font-weight: 700;
-}
-.audit-strip .mono { font-family: var(--mono); color: #34d399; }
-
-.box {
-  background: var(--panel-alt); border: 1px solid var(--border);
-  border-radius: 10px; padding: 9px 10px;
-}
-.box-title {
-  font-size: 10.9px; font-weight: 800; color: var(--muted); text-transform: uppercase;
-  letter-spacing: 0.04em; margin: 0 0 7px;
-  display: flex; justify-content: space-between; align-items: center; gap: 6px;
-}
-.btn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
-.btn-grid.tri { grid-template-columns: repeat(3, 1fr); }
-.btn-grid.quad { grid-template-columns: repeat(4, 1fr); }
-.btn-stack { display: flex; flex-direction: column; gap: 5px; }
-
-button.btn {
-  border: 1px solid var(--border); background: #0b1220; color: #e2e8f0;
-  padding: 5.5px 6px; border-radius: 7px; font-size: 11.2px; font-weight: 700;
-  cursor: pointer; text-align: center; transition: 0.12s; line-height: 1.25;
-}
-button.btn:hover:not(:disabled):not(.active):not(.active-a) { background: #1e293b; border-color: #475569; }
-button.btn.active { background: #047857; border-color: #10b981; color: #fff; }
-button.btn.active:hover:not(:disabled) { background: #059669; border-color: #34d399; color: #fff; }
-button.btn.batt-btn { text-align: left; padding: 6.5px 8px; font-size: 11.3px; }
-button.btn.batt-btn.active-a { background: #92400e; border-color: #f59e0b; color: #fffbeb; }
-button.btn.batt-btn.active-a:hover:not(:disabled) { background: #b45309; border-color: #fbbf24; color: #fffbeb; }
-button.btn.kc-btn { margin-top: 5px; width: 100%; border-color: #0369a1; color: #bae6fd; background: #0c192c; }
-button.btn.kc-btn:hover:not(:disabled):not(.active) { background: #0c2a47; border-color: #38bdf8; }
-button.btn.kc-btn.active { background: #0369a1; border-color: #38bdf8; color: #fff; }
-button.btn.kc-btn.active:hover:not(:disabled) { background: #0284c7; border-color: #7dd3fc; color: #fff; }
-button.btn.mini { padding: 3px 7px; font-size: 10.6px; }
-button.btn:disabled {
-  opacity: 0.36; cursor: not-allowed; background: #090e1a; color: #64748b; border-color: #1e293b;
-}
-
-.info-note {
-  margin-top: 6px; padding: 6px 8px; border-radius: 7px;
-  background: #0b1220; border: 1px solid #1e293b;
-  font-size: 10.8px; color: #cbd5e1; line-height: 1.42;
-}
-.info-note strong { color: #34d399; }
-.info-note .mono { font-family: var(--mono); color: #7dd3fc; }
-.info-note.kc-note { border-color: rgba(56, 189, 248, 0.45); background: rgba(12, 74, 110, 0.22); }
-
-.chk-list { display: flex; flex-direction: column; gap: 4.5px; }
-label.chk {
-  display: flex; align-items: center; gap: 7px; cursor: pointer; user-select: none;
-  font-size: 11.5px; color: #e2e8f0;
-}
-label.chk input { margin: 0; accent-color: var(--ok); }
-.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
-
-.slider-row { display: flex; flex-direction: column; gap: 2px; margin-bottom: 6px; }
-.slider-row:last-child { margin-bottom: 0; }
-.slider-head { display: flex; justify-content: space-between; align-items: center; font-size: 11.3px; color: #cbd5e1; font-weight: 600; gap: 6px; }
-.slider-head strong { color: var(--ok); font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 11px; }
-input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
-input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
-
-.part-list { display: flex; flex-direction: column; gap: 4px; }
-.p-item {
-  display: flex; align-items: flex-start; gap: 7px; padding: 4.5px 6px; border-radius: 7px;
-  cursor: pointer; border: 1px solid transparent; transition: 0.12s;
-}
-.p-item:hover { background: rgba(255,255,255,0.05); border-color: var(--border); }
-.p-item .pt { font-weight: 700; font-size: 11.4px; color: #f8fafc; line-height: 1.25; }
-.p-item .ps { font-size: 10.4px; color: var(--muted); line-height: 1.32; }
-
-.dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.dl-btn {
-  display: block; text-align: center; text-decoration: none; padding: 7.5px 8px;
-  border-radius: 8px; background: #0f766e; border: 1px solid #14b8a6; color: #fff;
-  font-weight: 800; font-size: 11.3px; transition: 0.12s;
-}
-.dl-btn:hover { filter: brightness(1.12); }
-
-/* Viewport HUDs */
-#hudTop {
-  position: absolute; top: 10px; left: 10px; right: 10px; pointer-events: none;
-  display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap;
+/* Quiet Top-Right Status Badge */
+#vpStatus {
+  position: absolute;
+  top: 12px;
+  right: 14px;
   z-index: 10;
+  padding: 4.5px 10px;
+  border-radius: 6px;
+  background: rgba(17, 24, 39, 0.56);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: #d1d5db;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
 }
-.hud-col { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
-.hud-pill {
-  background: rgba(11, 18, 32, 0.90); backdrop-filter: blur(8px);
-  border: 1px solid var(--border); border-radius: 8px; padding: 5px 10px;
-  font-size: 11.2px; color: #e2e8f0; pointer-events: auto;
-}
-.hud-pill strong { color: #34d399; }
-.hud-pill .mono { font-family: var(--mono); color: #7dd3fc; }
-.hud-pill.mass-pill strong { color: #fbbf24; }
 
-#tip {
-  position: absolute; pointer-events: none; display: none; z-index: 25;
-  background: rgba(8, 13, 24, 0.96); border: 1px solid #38bdf8;
-  border-radius: 9px; padding: 8px 11px; max-width: 360px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.62);
-}
-#tip .t-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-#tip .t-name { font-family: var(--mono); font-weight: 800; font-size: 11.8px; color: #38bdf8; }
-#tip .t-kind {
-  font-family: var(--mono); font-size: 9.8px; font-weight: 800; text-transform: uppercase;
-  padding: 1px 6px; border-radius: 4px; background: #1e293b; color: #e2e8f0; border: 1px solid #334155;
-}
-#tip .t-model { font-weight: 700; font-size: 11.4px; color: #fde047; margin-top: 3px; line-height: 1.3; }
-#tip .t-meta { font-family: var(--mono); font-size: 10.3px; color: #a7f3d0; margin-top: 3px; line-height: 1.38; }
-#tip .t-bbox { font-family: var(--mono); font-size: 10.1px; color: #94a3b8; margin-top: 2px; }
-#tip .t-desc { font-size: 10.7px; color: #cbd5e1; margin-top: 4px; line-height: 1.35; border-top: 1px solid #1e293b; padding-top: 4px; }
-
-#axisBadge {
-  position: absolute; bottom: 10px; right: 10px; z-index: 10;
-  background: rgba(11, 18, 32, 0.88); border: 1px solid var(--border);
-  border-radius: 8px; padding: 5px 10px; font-size: 10.6px; color: var(--muted);
-  font-family: var(--mono);
-}
+/* Subtle Bottom-Left Coordinate Legend */
 #axisLegend {
-  position: absolute; bottom: 10px; left: 10px; z-index: 10;
-  background: rgba(11, 18, 32, 0.88); border: 1px solid var(--border);
-  border-radius: 8px; padding: 5px 9px; font-size: 10.6px; color: #cbd5e1;
-  display: flex; gap: 10px; font-family: var(--mono);
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(17, 24, 39, 0.48);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  pointer-events: none;
 }
-#loadingOverlay {
-  position: absolute; inset: 0; z-index: 30;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-  background: rgba(8, 13, 24, 0.88); color: #e2e8f0; font-size: 13px; font-weight: 700;
-}
-#loadingOverlay .sub-msg { font-size: 11.4px; color: #94a3b8; font-weight: 500; }
 
-@media (max-width: 860px) {
+/* Floating Light Camera Pill (Bottom-Center) */
+#camBar {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.26);
+  max-width: calc(100% - 28px);
+  overflow-x: auto;
+}
+#camBar button {
+  border: none;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: inherit;
+  font-size: 11.8px;
+  font-weight: 500;
+  padding: 4.5px 9px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+#camBar button:hover {
+  background: var(--surface-subtle);
+  color: var(--ink);
+}
+#camBar button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+.cam-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--line);
+  margin: 0 3px;
+  flex-shrink: 0;
+}
+
+/* Clean White Hover Inspector Card */
+#tip {
+  position: absolute;
+  pointer-events: none;
+  display: none;
+  z-index: 25;
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 12px;
+  min-width: 210px;
+  max-width: 330px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+}
+#tip .t-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+#tip .t-name {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11.8px;
+  color: var(--ink);
+}
+#tip .t-kind {
+  font-family: var(--font-mono);
+  font-size: 9.8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--surface-subtle);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+#tip .t-model {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 3px;
+  line-height: 1.35;
+}
+#tip .t-meta {
+  font-family: var(--font-mono);
+  font-size: 10.6px;
+  color: var(--ink-2);
+  margin-top: 4px;
+  line-height: 1.38;
+}
+#tip .t-bbox {
+  font-family: var(--font-mono);
+  font-size: 10.2px;
+  color: var(--muted);
+  margin-top: 3px;
+  padding-top: 4px;
+  border-top: 1px solid var(--surface-subtle);
+}
+
+/* Loading & file:// CORS Notice Overlay */
+#loadingOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(27, 32, 40, 0.88);
+  color: #f3f4f6;
+  font-size: 13px;
+  font-weight: 600;
+}
+#loadingOverlay .sub-msg {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
   #app { flex-direction: column-reverse; }
-  #panel { width: 100%; height: 48%; border-right: none; border-top: 1px solid var(--border); }
-  #viewport { height: 52%; }
+  #panel {
+    width: 100%;
+    height: 46%;
+    border-right: none;
+    border-top: 1px solid var(--line);
+  }
+  #viewport { height: 54%; }
+  #axisLegend { display: none; }
 }
 </style>
 <script type="importmap">
@@ -230,201 +549,203 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
 }
 </script>
 </head>
-<body>
+<body class="cad-viewer-page">
+<script>if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('embed-mode');</script>
 
-<nav class="site-nav">
-  <div class="brand">
-    <span class="brand-badge">REV C.3 · 222 PARTS</span>
-    <span>신규 L-type 1.5 t (1200×1530×590) 실물 3D CAD</span>
+<header class="p-header full">
+  <div class="p-header-inner">
+    <a class="p-brand" href="index.html">L-type 1.5t AMR <span class="p-brand-rev">Rev C.3</span></a>
+    <nav class="p-nav">
+      <a href="index.html">개요</a>
+      <a href="3d.html" class="active">3D 뷰어</a>
+      <a href="drawings_options.html">옵션 · KC</a>
+      <a href="vendor_drawing.html">도면 · CAD</a>
+      <span class="p-nav-sep" aria-hidden="true"></span>
+      <a href="options.html" class="internal-link"><svg class="ico" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>내부 견적</a>
+    </nav>
   </div>
-  <div class="nav-tabs">
-    <a href="index.html">1. 설계 개요</a>
-    <a href="3d.html" class="active">2. 3D CAD 뷰어</a>
-    <a href="drawings_options.html">3. 옵션·배터리·KC</a>
-    <a href="vendor_drawing.html" class="vendor-tab">4. ★ 업체 기준도면</a>
-    <a href="options.html" class="lock-tab" title="내부 전용 문서">🔒 내부 견적</a>
-  </div>
-</nav>
+</header>
 
 <div id="app">
-  <aside id="panel">
-    <div class="audit-strip" id="cadStatusStrip">
-      <span>GLB 실물 CAD 로딩 중...</span>
-      <span class="mono" id="cadMeshCountBadge">0 / 222</span>
-    </div>
+  <aside id="panel" aria-label="3D CAD 인스펙터">
+    <details class="insp-sec" open>
+      <summary>1. 구성 · 배터리</summary>
+      <div class="insp-body">
+        <div class="field-group">
+          <div class="field-head"><span>사양 패키지</span></div>
+          <div class="seg-box" role="group" aria-label="사양 패키지 선택">
+            <div class="seg-row cols-3">
+              <button type="button" class="seg-btn" data-pkg="A">Pkg A</button>
+              <button type="button" class="seg-btn" data-pkg="B">Pkg B</button>
+              <button type="button" class="seg-btn" data-pkg="C">Pkg C</button>
+            </div>
+            <div class="seg-row cols-2">
+              <button type="button" class="seg-btn active" data-pkg="D">Pkg D</button>
+              <button type="button" class="seg-btn" data-pkg="E">Pkg D+ (KC)</button>
+            </div>
+          </div>
+          <div class="spec-line" id="pkgSummary">매립 2D×2 · 전방 E1R · 좌후방 XT32 · QR · 7축</div>
+        </div>
 
-    <div class="box">
-      <div class="box-title"><span>★ 배터리 구성 실시간 전환 (LFP 전용)</span></div>
-      <div class="btn-stack">
-        <button class="btn batt-btn active" id="btnBattB1" data-batt="B1">B-1 메인 (등뼈 51.2V 40Ah LFP · 471.6 kg)</button>
-        <button class="btn batt-btn" id="btnBattA" data-batt="A">A 확장 (타워 좌우 51.2V 100Ah LFP · 492.6 kg)</button>
-      </div>
-      <div class="info-note" id="battInfo">
-        <strong>B-1 메인</strong> · 51.2V 40Ah LFP (2.05 kWh · 18.0 kg · 등뼈 520×210×104)<br>
-        총중량 <span class="mono">471.6 kg</span> · CG <span class="mono">(-124.2, +5.9, 138.1) mm</span>
-      </div>
-    </div>
-
-    <div class="box">
-      <div class="box-title"><span>★ 패키지 실시간 3D 전환 (A~E)</span></div>
-      <div class="btn-grid">
-        <button class="btn" data-pkg="A">A. 2D·5축(고정)</button>
-        <button class="btn" data-pkg="B">B. 2D+QR·7축</button>
-        <button class="btn" data-pkg="C">C. 준풀3D(전방E1R)</button>
-        <button class="btn active" data-pkg="D">D. 풀 3D 1.5t (Rev C.3 표준)</button>
-      </div>
-      <button class="btn kc-btn" data-pkg="E">E. ★ KC 인증 완료 부품 전용 풀패키지</button>
-      <div class="info-note" id="pkgInfo">
-        <strong>D. 풀 3D 1.5t (Rev C.3 표준)</strong> · 매립 2D×2(±695,±530) + 전방 E1R + 좌후방 미니타워 XT32(-645,+452.5,512) + 40° 완전 개방 HMI(무지붕) + 일자 측면 E-STOP + 하단 QR + 7축
-      </div>
-    </div>
-
-    <div class="box">
-      <div class="box-title">
-        <span>뒤 타워 3D 모델 전환</span>
-        <span style="font-size:10px;color:#7dd3fc" id="towerModelHint">D·E 활성</span>
-      </div>
-      <div class="btn-grid">
-        <button class="btn active" id="btnXT32">Hesai XT32 (31°, +8°)</button>
-        <button class="btn" id="btnOS0">Ouster OS0-64 (실효 +31°/-26.5°)</button>
-      </div>
-    </div>
-
-    <div class="box">
-      <div class="box-title"><span>카메라 시점 (GLB 정합 · CAD 기준)</span></div>
-      <div class="btn-grid tri">
-        <button class="btn active" data-cam="iso">등각 (Iso)</button>
-        <button class="btn" data-cam="front">정면 (+X)</button>
-        <button class="btn" data-cam="rear">후면 (-X)</button>
-        <button class="btn" data-cam="left">좌측 (+Y)</button>
-        <button class="btn" data-cam="right">우측 (-Y)</button>
-        <button class="btn" data-cam="top">평면 (+Z)</button>
-      </div>
-    </div>
-
-    <div class="box">
-      <div class="box-title">
-        <span>실시간 7축 기구 동작 · X-Ray</span>
-        <span style="display:flex;gap:4px">
-          <button class="btn mini" id="btnPickMode">픽(-11)</button>
-          <button class="btn mini active" id="btnTravelMode">주행(+9)</button>
-        </span>
-      </div>
-      <div class="slider-row">
-        <div class="slider-head"><span>포크 진입 높이 (Latch: -15~+30)</span><strong id="vLatch">+9 mm (바닥 Z=51)</strong></div>
-        <input type="range" id="sLatch" min="-15" max="30" step="1" value="9">
-      </div>
-      <div class="slider-row">
-        <div class="slider-head"><span>포크 전진 (Extension: 0~1240)</span><strong id="vExt">0 mm</strong></div>
-        <input type="range" id="sExt" min="0" max="1240" step="10" value="0">
-      </div>
-      <div class="slider-row">
-        <div class="slider-head"><span>1.5 t 오프셋 340 mm X가위 리프트 (0~242)</span><strong id="vLift">0 mm (날 상단 95)</strong></div>
-        <input type="range" id="sLift" min="0" max="242" step="2" value="0">
-        <div style="font-size:10px;color:#94a3b8;margin-top:1px">※ 수직 안내·전개 핀 상세는 업체 최종 설계 확인</div>
-      </div>
-      <div class="slider-row">
-        <div class="slider-head"><span>외판·타워 도어 투명도 (X-Ray)</span><strong id="vOp">76%</strong></div>
-        <input type="range" id="sOp" min="12" max="100" step="4" value="76">
-      </div>
-    </div>
-
-    <div class="box">
-      <div class="box-title"><span>★ 3축 CAD 단면 절개 (GLB 전용)</span></div>
-      <div class="btn-grid quad" style="margin-bottom:6px">
-        <button class="btn active" data-clip="off">끄기</button>
-        <button class="btn" data-clip="x">X 전후</button>
-        <button class="btn" data-clip="y">Y 좌우</button>
-        <button class="btn" data-clip="z">Z 높이</button>
-      </div>
-      <div class="slider-row">
-        <div class="slider-head"><span>절개 평면 위치</span><strong id="vClip">비활성</strong></div>
-        <input type="range" id="sClip" min="0" max="590" step="5" value="185" disabled>
-      </div>
-    </div>
-
-    <div class="box">
-      <div class="box-title"><span>실측 광선추적 FOV · 레이어</span></div>
-      <div class="chk-list">
-        <label class="chk"><input type="checkbox" id="kShell" checked><span class="dot" style="background:#64748b"></span>차체 외판·타워 점검 도어 보기</label>
-        <label class="chk"><input type="checkbox" id="kDim" checked><span class="dot" style="background:#22c55e"></span>외곽 한계선 (1530×1200×590 · 돌출 0)</label>
-        <label class="chk"><input type="checkbox" id="kFov2D" checked><span class="dot" style="background:#38bdf8"></span>① 매립 하부 2D FL 258.0° / RR 255.5° (±695,±530 · Z=126.5 · 150~300 mm 사각 0.0% · 50/100 mm 21.9/2.2%)</label>
-        <label class="chk"><input type="checkbox" id="kFovE1R" checked><span class="dot" style="background:#a855f7"></span>② 정면 E1R (+10° · 상방 73.5° · el=+55° 0% 차단)</label>
-        <label class="chk"><input type="checkbox" id="kFovTower" checked><span class="dot" style="background:#facc15"></span>③ 좌후방 미니타워 XT32 (+8° · -645,+452.5,512 · Ø18×4기둥 92.2% / 32ch 81.9%)</label>
-        <label class="chk"><input type="checkbox" id="kQR" checked><span class="dot" style="background:#14b8a6"></span>★ 하단 중앙 QR (Z=100 · Ø85 · 35.75°)</label>
-        <label class="chk"><input type="checkbox" id="kCG"><span class="dot" style="background:#fbbf24"></span>무게중심(CG) 마커 (B-1 ↔ A 연동)</label>
-        <label class="chk"><input type="checkbox" id="kCargo"><span class="dot" style="background:#f59e0b"></span>적재 파레트 + 화물 (1.5 m)</label>
-        <label class="chk"><input type="checkbox" id="kOver" checked><span class="dot" style="background:#10b981"></span>전·후방 공중 오버행 장애물 (1.45 m)</label>
-        <label class="chk"><input type="checkbox" id="kRefl" checked><span class="dot" style="background:#fde047"></span>기둥 반사판 0~61 cm (Z2 V8 이중 판독)</label>
-        <label class="chk"><input type="checkbox" id="kDock" checked><span class="dot" style="background:#f97316"></span>후진 충전 스테이션 도킹 보기</label>
-        <label class="chk"><input type="checkbox" id="kSweep"><span class="dot" style="background:#c084fc"></span>회전 스윕 원 (R=0.972 m / Ø1.944 m)</label>
-      </div>
-    </div>
-
-    <div class="box">
-      <div class="box-title"><span>Rev C.3 핵심 부위 포커스 (클릭 이동)</span></div>
-      <div class="part-list">
-        <div class="p-item" data-cam="corner2D">
-          <span class="dot" style="background:#38bdf8;margin-top:4px"></span>
-          <div>
-            <div class="pt">매립 하부 2D 노치(±695,±530) + 일자 외벽 전방 E-STOP</div>
-            <div class="ps">철판 안쪽 10 mm(범퍼 25 mm) 매립 · FL 258.0°/RR 255.5° · 150~300 mm 사각 0.0% · 일자 외벽(+565,±585,Z=163.5) E-STOP(+14.5 mm)</div>
+        <div class="field-group">
+          <div class="field-head"><span>배터리 (LFP)</span></div>
+          <div class="seg-box" role="group" aria-label="배터리 선택">
+            <div class="seg-row cols-2">
+              <button type="button" class="seg-btn active" id="btnBattB1" data-batt="B1">B-1 (40Ah)</button>
+              <button type="button" class="seg-btn" id="btnBattA" data-batt="A">A (100Ah)</button>
+            </div>
           </div>
         </div>
-        <div class="p-item" data-cam="frontE1R">
-          <span class="dot" style="background:#a855f7;margin-top:4px"></span>
-          <div>
-            <div class="pt">정면 E1R (+10° 알루미늄 쐐기) + 8t 경사 커버</div>
-            <div class="ps">광학창 상단 (722.1,0,141.0) · 상방 73.5° · el=+55° 차단 0.0%</div>
+
+        <div class="field-group">
+          <div class="field-head">
+            <span>좌후방 타워 3D</span>
+            <span class="field-hint" id="towerModelHint">XT32 활성</span>
+          </div>
+          <div class="seg-box" role="group" aria-label="뒤 타워 3D 센서 모델">
+            <div class="seg-row cols-2">
+              <button type="button" class="seg-btn active" id="btnXT32">XT32 (+8°)</button>
+              <button type="button" class="seg-btn" id="btnOS0">OS0-64</button>
+            </div>
           </div>
         </div>
-        <div class="p-item" data-cam="rearTower">
-          <span class="dot" style="background:#f97316;margin-top:4px"></span>
-          <div>
-            <div class="pt">40° 완전 개방 HMI (무지붕) · 좌후방 미니타워 3D · 후면 충전</div>
-            <div class="ps">중앙 HMI 상부 철 구조물 제거(40°↑ Z=326~465 · 가림 0%) · 좌후방 XT32(-645,+452.5,512 · Ø18×4기둥 92.2% / 32ch 81.9%) · 충전 여유 61.0 mm</div>
+
+        <div class="mass-line" id="massSummary">471.6 kg · CG (-124.2, +5.9, 138.1)</div>
+      </div>
+    </details>
+
+    <details class="insp-sec" open>
+      <summary>2. 선택 사양 CAD 받기</summary>
+      <div class="insp-body">
+        <div class="cad-file-meta">
+          <div class="cad-file-name" id="dlFileName">LType_RevC3_PkgD_Full3D_B1.step</div>
+          <div class="cad-file-sub" id="dlFileMeta">222부품 · 4.63 MB</div>
+        </div>
+        <div class="dl-actions">
+          <a class="p-btn primary sm" id="dlStepBtn" href="cad/LType_RevC3_PkgD_Full3D_B1.step" download>STEP 받기</a>
+          <a class="p-btn sm" id="dlCsvBtn" href="cad/LType_RevC3_PkgD_Full3D_B1.csv" download>CSV 부품표</a>
+        </div>
+        <div class="cad-caption" id="dlCaption"></div>
+        <a class="insp-link" href="vendor_drawing.html">전체 5종 CAD · BOM 보기 (도면 · CAD)</a>
+      </div>
+    </details>
+
+    <details class="insp-sec" id="secMotion">
+      <summary>3. 동작 시뮬레이션</summary>
+      <div class="insp-body">
+        <div class="slider-row">
+          <div class="slider-head">
+            <span>포크 전진</span>
+            <span class="slider-val" id="vExt">0 mm</span>
+          </div>
+          <input type="range" id="sExt" min="0" max="1240" step="10" value="0">
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-head">
+            <span>래치 높이</span>
+            <div class="mini-seg">
+              <button type="button" id="btnPickMode">픽 -11</button>
+              <button type="button" id="btnTravelMode" class="active">주행 +9</button>
+            </div>
+          </div>
+          <input type="range" id="sLatch" min="-15" max="30" step="1" value="9">
+          <div class="slider-head">
+            <span class="field-hint">범위 -15~+30 mm</span>
+            <span class="slider-val" id="vLatch">+9 mm (Z=51)</span>
           </div>
         </div>
-        <div class="p-item" data-cam="underQR">
-          <span class="dot" style="background:#14b8a6;margin-top:4px"></span>
-          <div>
-            <div class="pt">중앙 QR (Z=100, Ø85) + 등뼈 배터리 B-1 (40Ah LFP)</div>
-            <div class="ps">4방향 반각 35.75° · B-1(520×210×104) · 캐스터 (±485, ±448) · 연속 바닥판 6t (G=46)</div>
+
+        <div class="slider-row">
+          <div class="slider-head">
+            <span>리프트</span>
+            <span class="slider-val" id="vLift">0 mm (상단 95)</span>
+          </div>
+          <input type="range" id="sLift" min="0" max="242" step="2" value="0">
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-head">
+            <span>X-Ray 투과율 (외판)</span>
+            <span class="slider-val" id="vOp">76%</span>
+          </div>
+          <input type="range" id="sOp" min="12" max="100" step="4" value="76">
+        </div>
+      </div>
+    </details>
+
+    <details class="insp-sec" id="secLayers">
+      <summary>4. 단면 절개 · 표시 레이어</summary>
+      <div class="insp-body">
+        <div class="field-group">
+          <div class="field-head">
+            <span>3축 단면 절개</span>
+            <span class="field-hint" id="vClip">비활성</span>
+          </div>
+          <div class="seg-box" role="group" aria-label="단면 절개 축">
+            <div class="seg-row cols-4">
+              <button type="button" class="seg-btn active" data-clip="off">끄기</button>
+              <button type="button" class="seg-btn" data-clip="x">X</button>
+              <button type="button" class="seg-btn" data-clip="y">Y</button>
+              <button type="button" class="seg-btn" data-clip="z">Z</button>
+            </div>
+          </div>
+          <div class="slider-row">
+            <input type="range" id="sClip" min="0" max="590" step="5" value="185" disabled>
           </div>
         </div>
-        <div class="p-item" data-cam="latchView">
-          <span class="dot" style="background:#ec4899;margin-top:4px"></span>
-          <div>
-            <div class="pt">역U자 문형 캐리지 · 340 mm 오프셋 X가위 · latchmod rev C</div>
-            <div class="ps">중공 포크(155mm, 전진 0~1240) · 수납 Z=52.8 mm > G=46 · 정지·전진·래치·리프트·캐스터 간섭 0</div>
+
+        <div class="field-group">
+          <div class="field-head"><span>표시 레이어</span></div>
+          <div class="chk-grid">
+            <label class="chk"><input type="checkbox" id="kShell" checked><span class="dot" style="background:#64748b"></span><span class="lbl">외판</span></label>
+            <label class="chk"><input type="checkbox" id="kDim" checked><span class="dot" style="background:#22c55e"></span><span class="lbl">외곽선</span></label>
+            <label class="chk"><input type="checkbox" id="kFov2D" checked><span class="dot" style="background:#38bdf8"></span><span class="lbl">2D 시야</span></label>
+            <label class="chk"><input type="checkbox" id="kFovE1R" checked><span class="dot" style="background:#a855f7"></span><span class="lbl">E1R 시야</span></label>
+            <label class="chk"><input type="checkbox" id="kFovTower" checked><span class="dot" style="background:#eab308"></span><span class="lbl">타워 시야</span></label>
+            <label class="chk"><input type="checkbox" id="kQR" checked><span class="dot" style="background:#14b8a6"></span><span class="lbl">QR</span></label>
+            <label class="chk"><input type="checkbox" id="kCG"><span class="dot" style="background:#f59e0b"></span><span class="lbl">무게중심 CG</span></label>
+            <label class="chk"><input type="checkbox" id="kCargo"><span class="dot" style="background:#d97706"></span><span class="lbl">화물</span></label>
+            <label class="chk"><input type="checkbox" id="kOver" checked><span class="dot" style="background:#10b981"></span><span class="lbl">오버행</span></label>
+            <label class="chk"><input type="checkbox" id="kRefl" checked><span class="dot" style="background:#ca8a04"></span><span class="lbl">반사판</span></label>
+            <label class="chk"><input type="checkbox" id="kDock" checked><span class="dot" style="background:#ea580c"></span><span class="lbl">충전 도크</span></label>
+            <label class="chk"><input type="checkbox" id="kSweep"><span class="dot" style="background:#9333ea"></span><span class="lbl">회전 반경</span></label>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="dl-grid">
-      <a class="dl-btn" href="ltype_1200x1530_4sensor.step" download>⬇ SolidWorks (.STEP · 4.6 MB)</a>
-      <a class="dl-btn" style="background:#1d4ed8;border-color:#3b82f6" href="ltype_1200x1530_4sensor.glb" download>⬇ 실물 3D (.GLB · 745 KB)</a>
-    </div>
-    <a class="dl-btn" style="background:#334155;border-color:#475569;margin-top:-3px" href="vendor_interface.csv" download>⬇ 전 부품 좌표·공차·재질표 (.CSV · 222행)</a>
+    </details>
   </aside>
 
   <main id="viewport" data-loaded-meshes="0" data-ready="false">
     <canvas id="c"></canvas>
+
     <div id="loadingOverlay">
-      <div id="loadingTitle">Rev C.3 실물 3D CAD (.GLB 222부품) 불러오는 중...</div>
-      <div class="sub-msg" id="loadingSub">ltype_1200x1530_4sensor.glb + ltype_battery_a_opt.glb + parts.json</div>
+      <div id="loadingTitle">Rev C.3 3D CAD 불러오는 중...</div>
+      <div class="sub-msg" id="loadingSub">ltype_1200x1530_4sensor.glb · 222 부품</div>
     </div>
-    <div id="hudTop">
-      <div class="hud-pill" id="hudGuide">
-        <strong>드래그</strong> 회전 · <strong>휠</strong> 확대 · <strong>부품 호버</strong>로 실측 재질·공차·질량·CAD BBox 확인
-      </div>
-      <div class="hud-col">
-        <div class="hud-pill" id="hudStatus"><strong>D. 풀 3D 1.5t (Rev C.3 표준)</strong> · 7축(Latch +9 mm) · 리프트 +0 mm</div>
-        <div class="hud-pill mass-pill" id="hudMass"><strong>B-1 40Ah LFP</strong> · <span class="mono">471.6 kg</span> · CG <span class="mono">(-124.2, +5.9, 138.1) mm</span></div>
-      </div>
+
+    <div id="vpStatus">Rev C.3 · 로딩 중</div>
+
+    <div id="axisLegend">
+      <span style="color:#f87171">+X 전방</span>
+      <span style="color:#4ade80">+Y 좌측</span>
+      <span style="color:#60a5fa">+Z 상방</span>
     </div>
-    <div id="tip">
+
+    <div id="camBar" role="toolbar" aria-label="카메라 시점">
+      <button type="button" class="active" data-cam="iso">등각</button>
+      <button type="button" data-cam="front">정면</button>
+      <button type="button" data-cam="rear">후면</button>
+      <button type="button" data-cam="left">좌측</button>
+      <button type="button" data-cam="top">평면</button>
+      <span class="cam-sep" aria-hidden="true"></span>
+      <button type="button" data-cam="hmi">HMI</button>
+      <button type="button" data-cam="rearTower">타워 3D</button>
+      <span class="cam-sep" aria-hidden="true"></span>
+      <button type="button" id="btnResetView">리셋</button>
+    </div>
+
+    <div id="tip" role="status" aria-live="polite">
       <div class="t-head">
         <span class="t-name" id="tipName"></span>
         <span class="t-kind" id="tipKind"></span>
@@ -432,1358 +753,1460 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
       <div class="t-model" id="tipModel"></div>
       <div class="t-meta" id="tipMeta"></div>
       <div class="t-bbox" id="tipBbox"></div>
-      <div class="t-desc" id="tipDesc"></div>
     </div>
-    <div id="axisLegend">
-      <span style="color:#f87171">+X 전방(포크)</span>
-      <span style="color:#4ade80">+Y 좌측</span>
-      <span style="color:#60a5fa">+Z 상방</span>
-    </div>
-    <div id="axisBadge">Rev C.3 (222부품) · 1530×1200×590 mm · Datum A(Z46) · B(Y+130) · C(X-750)</div>
   </main>
 </div>
 
 <script>
-if (window.location.protocol === 'file:') {
+(function () {
+  if (window.location.protocol !== 'file:') return;
   var ov = document.getElementById('loadingOverlay');
   if (ov) {
     ov.innerHTML =
-      '<div id="fileCorsNotice" style="max-width:540px;padding:22px 24px;border-radius:12px;background:#111827;border:1.5px solid #f59e0b;color:#f8fafc;text-align:left;line-height:1.6;box-shadow:0 16px 40px rgba(0,0,0,0.55)">' +
-      '<div style="font-size:15px;font-weight:900;color:#fbbf24;margin-bottom:8px">⚠ 로컬 파일(file://) 직접 열기 안내</div>' +
-      '<div style="font-size:13px;color:#e2e8f0;margin-bottom:10px">로컬 파일(file://) 직접 열기는 브라우저 CORS로 3D 모듈이 차단됩니다. 로컬 HTTP 서버(예: python -m http.server) 또는 온라인 주소로 열어 주세요.</div>' +
-      '<div style="font-size:11.6px;color:#94a3b8;background:#0b1220;padding:8px 10px;border-radius:7px;font-family:ui-monospace,Consolas,monospace">실행 예시: python -m http.server 8080  →  http://localhost:8080/3d.html</div>' +
+      '<div id="fileCorsNotice" style="max-width:500px;padding:22px 24px;border-radius:10px;background:#ffffff;border:1px solid #dfe3ea;color:#111827;text-align:left;line-height:1.6;box-shadow:0 16px 40px rgba(0,0,0,0.35)">' +
+      '<div style="font-size:14.5px;font-weight:700;color:#111827;margin-bottom:8px">로컬 파일(file://) 직접 열기 안내</div>' +
+      '<div style="font-size:12.5px;color:#374151;margin-bottom:12px">브라우저 CORS 정책으로 file:// 경로에서는 3D 모듈 및 GLB 파일을 불러올 수 없습니다. 로컬 HTTP 서버 또는 배포 URL로 열어 주세요.</div>' +
+      '<div style="font-size:11.5px;color:#111827;background:#f1f3f6;border:1px solid #dfe3ea;padding:8px 10px;border-radius:6px;font-family:ui-monospace,Consolas,monospace">python -m http.server 8080  (http://localhost:8080/3d.html)</div>' +
       '</div>';
   }
-  var strip = document.getElementById('cadStatusStrip');
-  if (strip) {
-    strip.innerHTML = '<span style="color:#fbbf24">⚠ file:// CORS 차단 — 로컬 HTTP 서버로 열어 주세요</span><span class="mono">HTTP 필요</span>';
-  }
-}
+  var st = document.getElementById('vpStatus');
+  if (st) st.textContent = 'file:// CORS 제한 · HTTP 서버 필요';
+})();
 </script>
+
 <script type="module">
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
 const $ = id => document.getElementById(id);
-const mm = v => v / 1000;
 
-// Exact right-handed coordinate map from build_3d_cad.py:
-// [X_glb, Y_glb, Z_glb] = [Y_cad, Z_cad, X_cad] / 1000.0 (det = +1)
-// +X_cad (Front / Fork) = +Z_glb
-// +Y_cad (Robot Left)   = +X_glb
-// +Z_cad (Up)           = +Y_glb
-function cad2glb(xCad, yCad, zCad) {
-  return new THREE.Vector3(mm(yCad), mm(zCad), mm(xCad));
-}
-
-const canvas = $('c');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.15;
-// LOCAL material clipping ONLY (renderer.clippingPlanes stays empty so floor/grid/FOV/wireframe are NEVER clipped!)
-renderer.localClippingEnabled = true;
-renderer.clippingPlanes = [];
-
-const clipPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 10);
-const robotClipMaterials = [];
-const shellMeshes = [];
-const shellMaterials = [];
-const pickables = [];
-
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x080d18);
-scene.fog = new THREE.Fog(0x080d18, 9.5, 24);
-
-const camera = new THREE.PerspectiveCamera(38, 1, 0.02, 42);
-camera.position.set(1.85, 1.38, 2.05);
-
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
-controls.dampingFactor = 0.075;
-controls.target.set(0, 0.26, 0);
-controls.maxPolarAngle = Math.PI / 2 - 0.01;
-controls.minDistance = 0.36;
-controls.maxDistance = 10.0;
-
-// Studio Industrial CAD Lighting
-scene.add(new THREE.HemisphereLight(0xe0f2fe, 0x1e293b, 1.45));
-const keyLight = new THREE.DirectionalLight(0xffffff, 1.65);
-keyLight.position.set(2.8, 5.2, 3.2);
-keyLight.castShadow = true;
-keyLight.shadow.mapSize.set(2048, 2048);
-const dCam = 3.2;
-keyLight.shadow.camera.left = -dCam;
-keyLight.shadow.camera.right = dCam;
-keyLight.shadow.camera.top = dCam;
-keyLight.shadow.camera.bottom = -dCam;
-keyLight.shadow.bias = -0.0005;
-scene.add(keyLight);
-
-const fillLight = new THREE.DirectionalLight(0x93c5fd, 0.78);
-fillLight.position.set(-3.4, 2.4, -2.6);
-scene.add(fillLight);
-
-const rimLight = new THREE.DirectionalLight(0xfef3c7, 0.42);
-rimLight.position.set(0.0, 1.8, -3.5);
-scene.add(rimLight);
-
-// Floor & Grid (Y_glb = 0, NEVER clipped!)
-const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(24, 24),
-  new THREE.MeshStandardMaterial({ color: 0x0b1220, roughness: 0.92, metalness: 0.04 })
-);
-floor.rotation.x = -Math.PI / 2;
-floor.receiveShadow = true;
-scene.add(floor);
-
-const grid = new THREE.GridHelper(10, 20, 0x243247, 0x131d31);
-grid.position.y = 0.001;
-scene.add(grid);
-
-// CAD Coordinate Triad at corner (-0.85, 0.01, -0.95) in CAD -> (+Y=+X_glb, +X=+Z_glb, +Z=+Y_glb)
-const cadTriad = new THREE.Group();
-cadTriad.position.copy(cad2glb(-920, -760, 8));
-{
-  const addArrow = (dirVec, col) => {
-    const arr = new THREE.ArrowHelper(dirVec.clone().normalize(), new THREE.Vector3(0, 0, 0), 0.24, col, 0.055, 0.028);
-    cadTriad.add(arr);
-  };
-  addArrow(new THREE.Vector3(0, 0, 1), 0xf87171); // +X_cad (Front) = +Z_glb
-  addArrow(new THREE.Vector3(1, 0, 0), 0x4ade80); // +Y_cad (Left)  = +X_glb
-  addArrow(new THREE.Vector3(0, 1, 0), 0x60a5fa); // +Z_cad (Up)    = +Y_glb
-}
-scene.add(cadTriad);
-
-// Subtle Section Cutaway Guide Frame (NEVER clipped, shown only while clipping active)
-const clipGuide = new THREE.Group();
-const clipGuideMesh = new THREE.Mesh(
-  new THREE.PlaneGeometry(1.70, 1.70),
-  new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.07, side: THREE.DoubleSide, depthWrite: false })
-);
-const clipGuideBorder = new THREE.LineSegments(
-  new THREE.EdgesGeometry(new THREE.PlaneGeometry(1.70, 1.70)),
-  new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.55 })
-);
-clipGuide.add(clipGuideMesh, clipGuideBorder);
-clipGuide.visible = false;
-scene.add(clipGuide);
-
-// Helper to build auxiliary CAD-aligned boxes (used for overlays, cargo, dock, optional OS0/T2D/front-charger)
-function tagAuxiliary(mesh, meta) {
-  mesh.userData = {
-    name: meta.name,
-    kind: meta.kind || 'overlay',
-    model: meta.model || '',
-    material: meta.material || '-',
-    tol: meta.tol || '-',
-    datum_ref: meta.datum_ref || '-',
-    mass_kg: meta.mass_kg != null ? meta.mass_kg : null,
-    bbox_mm: meta.bbox_mm || null,
-    note: meta.note || '',
-    isGLB: false,
-  };
-  pickables.push(mesh);
-  return mesh;
-}
-
-function makeCadBox(x0, x1, y0, y1, z0, z1, mat, meta, parent = scene) {
-  const sx = mm(y1 - y0), sy = mm(z1 - z0), sz = mm(x1 - x0);
-  const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat);
-  mesh.position.set(mm((y0 + y1) / 2), mm((z0 + z1) / 2), mm((x0 + x1) / 2));
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
-  if (meta) {
-    tagAuxiliary(mesh, {
-      ...meta,
-      bbox_mm: [x0, x1, y0, y1, z0, z1],
-    });
-  }
-  parent.add(mesh);
-  return mesh;
-}
-
-// ============================================================================
-// ROBOT ROOT & KINEMATIC HIERARCHY (POPULATED DIRECTLY FROM REAL GLB MESHES!)
-// ============================================================================
-const robotGroup = new THREE.Group();
-scene.add(robotGroup);
-
-const staticGroup    = new THREE.Group(); // Fixed chassis, pods, spine, tower, sensors, drives, casters
-const batteryOptGroup = new THREE.Group(); // ltype_battery_a_opt.glb (2 modules: battery_a_opt_L / R)
-const forkSlideGroup = new THREE.Group(); // Translates along +Z_glb (+X_cad) by ext (0..1240 mm)
-const forkLatchGroup = new THREE.Group(); // Translates along +Y_glb (+Z_cad) by (latch - 9) mm
-const forkLiftGroup  = new THREE.Group(); // Translates along +Y_glb (+Z_cad) by lift (0..242 mm)
-
-robotGroup.add(staticGroup, batteryOptGroup, forkSlideGroup);
-forkSlideGroup.add(forkLatchGroup);
-forkLatchGroup.add(forkLiftGroup);
-batteryOptGroup.visible = false; // Default: B-1 main 40Ah LFP active
-
-// Map of loaded GLB meshes by exact CAD part name
-const glbMeshes = new Map();
-const partsMetaByName = new Map();
-const scissorPivots = []; // { pivot, dirSign (+1 or -1), basePivotY }
-
-// Kinematic part classification (matches all moving parts in Rev C.3 parts.json!)
-// latch_upper_roller_L/R are fixed in the rear carriage vertical guide channel (non-lift carriage group) -> 0 collisions on lift 0..242 mm
-const SLIDE_ONLY_PARTS = new Set([
-  'fork_carriage',
-  'rail_carriage_block_L', 'rail_carriage_block_R',
-  'mast_base_reinforce_L', 'mast_base_reinforce_R',
-  'latch_servo_L', 'latch_servo_R',
-  'latch_worm_gearbox_L', 'latch_worm_gearbox_R',
-  'latch_leadscrew_L', 'latch_leadscrew_R',
-  'latch_upper_roller_L', 'latch_upper_roller_R',
-]);
-const LIFT_TINE_PARTS = new Set([
-  'fork_tine_L', 'fork_tine_R',
-  'fork_tip_sensor_L', 'fork_tip_sensor_R',
-]);
-const LATCH_ACTUATOR_PARTS = new Set([
-  'latch_servo_L', 'latch_servo_R',
-  'latch_worm_gearbox_L', 'latch_worm_gearbox_R',
-  'latch_leadscrew_L', 'latch_leadscrew_R',
-  'servo_drive_RL_6', 'servo_drive_RR_7',
-]);
-const REAR_CHARGER_PARTS = new Set([
-  'rear_charger_housing',
-  'rear_charge_pad_POS_+48V',
-  'rear_charge_pad_NEG_-48V',
-  'rear_charge_pilot',
-  'charge_busbar_duct',
-]);
-const SHELL_EXTRA_NAMES = new Set([
-  'tower_front_side_L', 'tower_front_side_R',
-  'tower_door_L', 'tower_door_R',
-  'tower_mini_roof_6t', 'tower_rear_plate_10t', 'hmi_open_console_4t',
-]);
-
-// ============================================================================
-// OPTIONAL SWAPPABLE HARDWARE PREVIEWS (OS0-64 / Tower 2D / Front Charger)
-// Positioned in exact Rev C.3 GLB coordinates and clipped with robotClipMaterials
-// ============================================================================
-const matOptTower3D = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.30, metalness: 0.50, side: THREE.DoubleSide });
-const matOptDark    = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.14, metalness: 0.85, side: THREE.DoubleSide });
-const matOptSlate   = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.38, metalness: 0.65, side: THREE.DoubleSide });
-const matOpt2DBody  = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.32, metalness: 0.25, side: THREE.DoubleSide });
-const matOptCharge  = new THREE.MeshStandardMaterial({ color: 0xc2410c, roughness: 0.45, metalness: 0.20, side: THREE.DoubleSide });
-const matOptCopper  = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.24, metalness: 0.85, side: THREE.DoubleSide });
-robotClipMaterials.push(matOptTower3D, matOptDark, matOptSlate, matOpt2DBody, matOptCharge, matOptCopper);
-
-// Ouster OS0-64 swap model at exact Rev C.3 XT32_POS = (-645, +452.5, 512) -> GLB (+0.4525, +0.512, -0.645)
-const XT32_CAD_POS = [-645.0, 452.5, 512.0];
-const os0MeshGroup = new THREE.Group();
-os0MeshGroup.position.copy(cad2glb(...XT32_CAD_POS));
-{
-  const meta = {
-    name: 'lidar_3d_rear_OS0_opt', kind: 'lidar3dr',
-    model: 'Ouster OS0-64 / OS0-32 (선택 교체 · 좌후방 미니타워 · 센서 90° / 미니지붕 실효 +31.0°/-26.5°)',
-    material: '구매품 (알루미늄 IP68)', tol: '±0.5', datum_ref: 'A|B|C', mass_kg: 0.45,
-    note: '좌후방 미니타워(-645,+452.5,512) XT32 베이스 호환 · Ø18×3t 4기둥 92.2% 수평 개방',
-    bbox_mm: [-688.5, -601.5, 409.0, 496.0, 475, 549],
-  };
-  const b = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.016, 32), matOptTower3D);
-  b.position.y = -0.029; tagAuxiliary(b, meta); os0MeshGroup.add(b);
-  const w = new THREE.Mesh(new THREE.CylinderGeometry(0.0425, 0.0425, 0.040, 32), matOptDark);
-  tagAuxiliary(w, meta); os0MeshGroup.add(w);
-  const t = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.018, 32), matOptSlate);
-  t.position.y = 0.029; tagAuxiliary(t, meta); os0MeshGroup.add(t);
-}
-os0MeshGroup.visible = false;
-robotGroup.add(os0MeshGroup);
-
-// Rear-Left Mini-Tower 2D LiDAR swap model (Packages A / B / C) at (-645, +452.5, 512)
-const t2dMeshGroup = new THREE.Group();
-t2dMeshGroup.position.copy(cad2glb(...XT32_CAD_POS));
-{
-  const meta = {
-    name: 'lidar_2d_rear_tower_opt', kind: 'lidar2d',
-    model: '좌후방 미니타워 고정밀 2D 라이다 (패키지 A/B/C · 3D 제외 옵션)',
-    material: '구매품 (IP65)', tol: '±0.5', datum_ref: 'A|B|C', mass_kg: 0.35,
-    note: '좌후방(-645,+452.5,512) · 반사판 측위 전용(공중 3D 오버행 미감지)',
-    bbox_mm: [-677, -613, 420.5, 484.5, 476, 540],
-  };
-  const b = new THREE.Mesh(new THREE.BoxGeometry(0.064, 0.036, 0.064), matOpt2DBody);
-  b.position.y = -0.018; tagAuxiliary(b, meta); t2dMeshGroup.add(b);
-  const w = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.028, 24), matOptDark);
-  w.position.y = 0.014; tagAuxiliary(w, meta); t2dMeshGroup.add(w);
-}
-t2dMeshGroup.visible = false;
-robotGroup.add(t2dMeshGroup);
-
-// Front charging pad option (Packages A / B when front E1R is omitted)
-const frontChargeGroup = new THREE.Group();
-makeCadBox(724, 744, -98, 98, 86, 138, matOptCharge, {
-  name: 'front_charger_opt', kind: 'charger',
-  model: '전방 등뼈 충전 접점 (패키지 A/B · E1R 미장착 시 옵션)',
-  material: 'PEEK 절연 + C1100 구리', tol: '±0.5', datum_ref: 'A|C',
-  note: '전방 E1R 3D 제거 시 기존 전방 도킹 충전 방식 유지 가능',
-}, frontChargeGroup);
-makeCadBox(744, 750, 30, 86, 92, 132, matOptCopper, {
-  name: 'front_charge_POS', kind: 'contact', model: '전방 충전 (+) 구리 접점', material: 'C1100 무산소동',
-}, frontChargeGroup);
-makeCadBox(744, 750, -86, -30, 92, 132, matOptCopper, {
-  name: 'front_charge_NEG', kind: 'contact', model: '전방 충전 (-) 구리 접점', material: 'C1100 무산소동',
-}, frontChargeGroup);
-frontChargeGroup.visible = false;
-robotGroup.add(frontChargeGroup);
-
-// ============================================================================
-// RAYCAST-VERIFIED SENSOR FOV OVERLAYS (EXACT GLB COORDS — NEVER CLIPPED!)
-// ============================================================================
-
-// 1. Lower 2D Safety LiDARs (Rev C.3 recessed, Z=126.5 mm): FL (+695,+530) 258.0°, RR (-695,-530) 255.5°, 150/250/300 mm perimeter blind 0.0%, 50/100 mm 21.85/2.22%, max near depth RL 148.66 mm
-const fov2DGroup = new THREE.Group();
-function buildMeasured2DSector(xCad, yCad, zCad, azStartDeg, azEndDeg, radiusM, fillHex, edgeHex) {
-  const grp = new THREE.Group();
-  const origin = cad2glb(xCad, yCad, zCad);
-  const segs = 96;
-  const pts = [origin.x, origin.y, origin.z];
-  const arcPts = [origin.clone()];
-  const indices = [];
-  for (let i = 0; i <= segs; i++) {
-    const az = THREE.MathUtils.degToRad(azStartDeg + (azEndDeg - azStartDeg) * (i / segs));
-    // CAD az: 0° = +X_cad (+Z_glb), +90° = +Y_cad (+X_glb)
-    const gx = origin.x + radiusM * Math.sin(az);
-    const gz = origin.z + radiusM * Math.cos(az);
-    pts.push(gx, origin.y, gz);
-    arcPts.push(new THREE.Vector3(gx, origin.y + 0.002, gz));
-    if (i < segs) indices.push(0, i + 1, i + 2);
-  }
-  arcPts.push(origin.clone());
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
-  geo.setIndex(indices);
-  const mat = new THREE.MeshBasicMaterial({
-    color: fillHex, transparent: true, opacity: 0.13, side: THREE.DoubleSide, depthWrite: false,
-  });
-  grp.add(new THREE.Mesh(geo, mat));
-  grp.add(new THREE.Line(
-    new THREE.BufferGeometry().setFromPoints(arcPts),
-    new THREE.LineBasicMaterial({ color: edgeHex, transparent: true, opacity: 0.65 })
-  ));
-  return grp;
-}
-fov2DGroup.add(buildMeasured2DSector(695.0, 530.0, 126.5, -84.7, 173.3, 2.35, 0x38bdf8, 0x7dd3fc));
-fov2DGroup.add(buildMeasured2DSector(-695.0, -530.0, 126.5, 97.8, 353.3, 2.35, 0x0ea5e9, 0x38bdf8));
-scene.add(fov2DGroup);
-
-// 2. Front Spine E1R 3D FOV (Z=120, +10° forward-upward, window top (722.13, 0, 140.97), up=73.5° clear, el=+55° 0% blocked)
-const fovE1RGroup = new THREE.Group();
-{
-  const oCtr = cad2glb(725.17, 0, 123.73);
-  const oTop = cad2glb(722.13, 0, 140.97);
-  const dist = 2.05;
-  const halfH = THREE.MathUtils.degToRad(60); // 120° HFOV (raycast clear ±82.0°)
-  const upAng = THREE.MathUtils.degToRad(55); // +45° + 10° tilt = +55° (raycast clear 73.5°, blocked 0.0%)
-  const dnAng = THREE.MathUtils.degToRad(35); // -45° + 10° tilt = -35° (raycast clear 71.75°)
-
-  const zFar = oCtr.z + dist;
-  const yTopFar = oCtr.y + dist * Math.tan(upAng);
-  const xHalfFar = dist * Math.tan(halfH);
-
-  const dFlr = (oCtr.y - 0.004) / Math.tan(dnAng);
-  const zFlr = oCtr.z + dFlr;
-  const xHalfFlr = dFlr * Math.tan(halfH);
-
-  // Vertices in GLB (X_glb = Y_cad, Y_glb = Z_cad, Z_glb = X_cad)
-  const verts = new Float32Array([
-    oCtr.x, oCtr.y, oCtr.z,         // 0: optical center
-    -xHalfFar, yTopFar, zFar,       // 1: top-right (-Y_cad)
-     xHalfFar, yTopFar, zFar,       // 2: top-left (+Y_cad)
-     xHalfFar, 0.004, zFar,         // 3: floor-far-left
-    -xHalfFar, 0.004, zFar,         // 4: floor-far-right
-     xHalfFlr, 0.004, zFlr,         // 5: floor-near-left
-    -xHalfFlr, 0.004, zFlr,         // 6: floor-near-right
-  ]);
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(verts, 3));
-  geo.setIndex([0, 1, 2, 0, 2, 5, 2, 3, 5, 0, 6, 1, 1, 6, 4, 0, 5, 6, 5, 3, 4, 5, 4, 6]);
-  fovE1RGroup.add(new THREE.Mesh(
-    geo,
-    new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.14, side: THREE.DoubleSide, depthWrite: false })
-  ));
-  fovE1RGroup.add(new THREE.LineSegments(
-    new THREE.EdgesGeometry(geo),
-    new THREE.LineBasicMaterial({ color: 0xc084fc, transparent: true, opacity: 0.55 })
-  ));
-  // Explicit +55° ray from optical window top (722.13, 0, 140.97) clearing 8t bevel cover with 0% blockage
-  const rTopEnd = new THREE.Vector3(oTop.x, oTop.y + 1.5 * Math.tan(upAng), oTop.z + 1.5);
-  fovE1RGroup.add(new THREE.Line(
-    new THREE.BufferGeometry().setFromPoints([oTop, rTopEnd]),
-    new THREE.LineBasicMaterial({ color: 0xe879f9 })
-  ));
-}
-scene.add(fovE1RGroup);
-
-// 3. Rear-Left Mini-Tower 3D FOV (-645, +452.5, 512 -> GLB [+0.4525, +0.512, -0.645], +8° rear-up, 92.2% horiz / 81.9% 32ch open!)
-const fovXT32Group = new THREE.Group();
-const fovOS0Group  = new THREE.Group();
-const fovT2DGroup  = new THREE.Group();
-
-function buildTower3DFov(targetGroup, elUpSensorDeg, elDnSensorDeg, tiltRearUpDeg, colHex) {
-  const o = cad2glb(...XT32_CAD_POS);
-  targetGroup.userData.originGlb = [o.x, o.y, o.z];
-  const r = 2.15;
-  const segs = 72;
-  const tilt = THREE.MathUtils.degToRad(tiltRearUpDeg);
-  const cT = Math.cos(tilt), sT = Math.sin(tilt);
-  const elU = THREE.MathUtils.degToRad(elUpSensorDeg);
-  const elD = THREE.MathUtils.degToRad(elDnSensorDeg);
-
-  // Transform local sensor ray (az, el) via Ry(+tilt) in CAD then map to GLB (wy, wz, wx)
-  const rayDirGlb = (azRad, elRad) => {
-    const lx = Math.cos(elRad) * Math.cos(azRad);
-    const ly = Math.cos(elRad) * Math.sin(azRad);
-    const lz = Math.sin(elRad);
-    const wx = cT * lx + sT * lz;
-    const wy = ly;
-    const wz = -sT * lx + cT * lz;
-    return new THREE.Vector3(wy, wz, wx);
-  };
-
-  const pts = [o.x, o.y, o.z];
-  const idx = [];
-  const topRing = [];
-  for (let i = 0; i <= segs; i++) {
-    const az = (i / segs) * Math.PI * 2;
-    const du = rayDirGlb(az, elU);
-    const dd = rayDirGlb(az, elD);
-    const pu = o.clone().addScaledVector(du, r);
-    let pd = o.clone().addScaledVector(dd, r);
-    if (pd.y < 0.008 && dd.y < -1e-4) {
-      const tFlr = (0.008 - o.y) / dd.y;
-      pd = o.clone().addScaledVector(dd, Math.min(r, tFlr));
-    }
-    pts.push(pu.x, pu.y, pu.z, pd.x, pd.y, pd.z);
-    topRing.push(pu);
-  }
-  for (let i = 0; i < segs; i++) {
-    const u0 = 1 + 2 * i, d0 = 2 + 2 * i, u1 = 3 + 2 * i, d1 = 4 + 2 * i;
-    idx.push(0, u0, u1, 0, d1, d0, u0, d0, d1, u0, d1, u1);
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
-  geo.setIndex(idx);
-  targetGroup.add(new THREE.Mesh(
-    geo,
-    new THREE.MeshBasicMaterial({ color: colHex, transparent: true, opacity: 0.11, side: THREE.DoubleSide, depthWrite: false })
-  ));
-  targetGroup.add(new THREE.Line(
-    new THREE.BufferGeometry().setFromPoints(topRing),
-    new THREE.LineBasicMaterial({ color: colHex, transparent: true, opacity: 0.55 })
-  ));
-
-  // Multi-ring rays toward rear reflector pillar (CAD X=-2446, Y=+520, Z=360/480/580) + rear overhead (X=-2855, Y=0, Z=1450)
-  const rayMat = new THREE.LineBasicMaterial({ color: 0xfde047, transparent: true, opacity: 0.85 });
-  for (const hz of [360, 480, 580]) {
-    targetGroup.add(new THREE.Line(
-      new THREE.BufferGeometry().setFromPoints([o, cad2glb(-2446, 520, hz)]),
-      rayMat
-    ));
-  }
-  targetGroup.add(new THREE.Line(
-    new THREE.BufferGeometry().setFromPoints([o, cad2glb(-2855, 0, 1450)]),
-    new THREE.LineBasicMaterial({ color: 0x34d399, transparent: true, opacity: 0.85 })
-  ));
-}
-
-buildTower3DFov(fovXT32Group, 15, -16, 8, 0xfacc15); // Hesai XT32: -16..+15° tilted +8° rear-up -> rear -8..+23°
-buildTower3DFov(fovOS0Group, 31.0, -26.5, 0, 0xf59e0b);  // Ouster OS0-64: tower roof/deck effective VFOV +31.0° / -26.5°
-fovOS0Group.visible = false;
-
-// Tower 2D horizontal ring (Packages A/B/C) at (-645, +452.5, 512)
-{
-  const o = cad2glb(...XT32_CAD_POS);
-  fovT2DGroup.userData.originGlb = [o.x, o.y, o.z];
-  const ringPts = [];
-  for (let i = 0; i <= 72; i++) {
-    const a = (i / 72) * Math.PI * 2;
-    ringPts.push(new THREE.Vector3(o.x + Math.sin(a) * 2.1, o.y, o.z + Math.cos(a) * 2.1));
-  }
-  fovT2DGroup.add(new THREE.Line(
-    new THREE.BufferGeometry().setFromPoints(ringPts),
-    new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.75 })
-  ));
-}
-fovT2DGroup.visible = false;
-scene.add(fovXT32Group, fovOS0Group, fovT2DGroup);
-
-// 4. Center Downward QR Camera FOV (Z=100 mm, Ø85 aperture, raycast half-angle 35.75° -> floor radius 72 mm)
-const qrSceneGroup = new THREE.Group();
-{
-  const qc = document.createElement('canvas');
-  qc.width = 128; qc.height = 128;
-  const ctx = qc.getContext('2d');
-  ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, 128, 128);
-  ctx.fillStyle = '#0f172a';
-  const drawFinder = (x, y) => {
-    ctx.fillRect(x, y, 32, 32);
-    ctx.fillStyle = '#f8fafc'; ctx.fillRect(x + 6, y + 6, 20, 20);
-    ctx.fillStyle = '#0f172a'; ctx.fillRect(x + 11, y + 11, 10, 10);
-  };
-  drawFinder(10, 10); drawFinder(86, 10); drawFinder(10, 86);
-  for (let r = 0; r < 8; r++) {
-    for (let c = 0; c < 8; c++) {
-      if ((r < 3 && c < 3) || (r < 3 && c > 4) || (r > 4 && c < 3)) continue;
-      if ((r * 7 + c * 13 + r * c) % 3 !== 0) ctx.fillRect(14 + c * 12, 14 + r * 12, 10, 10);
-    }
-  }
-  const qrTex = new THREE.CanvasTexture(qc);
-  const qrTile = new THREE.Mesh(new THREE.PlaneGeometry(0.10, 0.10), new THREE.MeshBasicMaterial({ map: qrTex }));
-  qrTile.rotation.x = -Math.PI / 2;
-  qrTile.position.set(0, 0.0025, 0);
-  tagAuxiliary(qrTile, {
-    name: 'floor_qr_marker', kind: 'qrcam',
-    model: '바닥 QR 항법 마커 (100×100 mm · 구동축 정중앙)',
-    material: '산업용 QR 마커', note: '렌즈 Z=100 mm · Ø85 광학창 · 4방향 반각 35.75° (바닥 무가림 Ø144 mm)',
-    bbox_mm: [-50, 50, -50, 50, 0, 2],
-  });
-  qrSceneGroup.add(qrTile);
-
-  // Exact 35.75° half-angle downward FOV cone (h=97mm, r=97*tan(35.75°)=69.8mm)
-  const rFloor = mm(97) * Math.tan(THREE.MathUtils.degToRad(35.75));
-  const fovCone = new THREE.Mesh(
-    new THREE.ConeGeometry(rFloor, mm(97), 24, 1, true),
-    new THREE.MeshBasicMaterial({ color: 0x14b8a6, transparent: true, opacity: 0.28, side: THREE.DoubleSide, depthWrite: false })
-  );
-  fovCone.position.set(0, mm(51.5), 0);
-  qrSceneGroup.add(fovCone);
-}
-scene.add(qrSceneGroup);
-
-// ============================================================================
-// CG MARKER, ENVELOPE BOX & SITE SCENARIO OVERLAYS (GLB COORDS — NEVER CLIPPED)
-// ============================================================================
-
-// CG Marker (shifts dynamically between B-1 (-124.2, 5.9, 138.1) and A (-182.5, 5.6, 153.5))
-const cgMarkerGroup = new THREE.Group();
-{
-  const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.022, 20, 20),
-    new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
-  );
-  const ring1 = new THREE.Mesh(
-    new THREE.TorusGeometry(0.038, 0.0035, 10, 32),
-    new THREE.MeshBasicMaterial({ color: 0xf59e0b })
-  );
-  const ring2 = ring1.clone();
-  ring2.rotation.x = Math.PI / 2;
-  const dropLine = new THREE.Line(
-    new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -0.22, 0)]),
-    new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.7 })
-  );
-  dropLine.name = 'cgDrop';
-  cgMarkerGroup.add(sphere, ring1, ring2, dropLine);
-}
-cgMarkerGroup.visible = false;
-scene.add(cgMarkerGroup);
-
-// Outer Zero-Protrusion Envelope Wireframe (1200 W along X_glb, 590 H along Y_glb, 1530 L along Z_glb)
-const envWire = new THREE.LineSegments(
-  new THREE.EdgesGeometry(new THREE.BoxGeometry(1.200, 0.590, 1.530)),
-  new THREE.LineBasicMaterial({ color: 0x22c55e, transparent: true, opacity: 0.58 })
-);
-envWire.position.set(0, 0.295, 0);
-scene.add(envWire);
-
-// Cargo Pallet + 1.5 m Load
-const cargoGroup = new THREE.Group();
-makeCadBox(-520, 580, -600, 600, 196, 340,
-  new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.78 }),
-  { name: 'pallet_1200x1100', kind: 'overlay', model: '적재 파레트 (1200×1100 · Z=196~340 mm)', material: '목재/플라스틱 파레트', note: '포드 적재면 Z=194 mm 위 적재' },
-  cargoGroup);
-const cargoBox = makeCadBox(-500, 560, -560, 560, 340, 1540,
-  new THREE.MeshStandardMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.20, depthWrite: false }),
-  { name: 'cargo_load_1500', kind: 'overlay', model: '적재 화물 (높이 1.5 m · 1.5 t)', material: '적재물 시뮬레이션', note: '화물 적재 시에도 전방 E1R·하부 2D·뒤 타워 후방 시야 확보' },
-  cargoGroup);
-const cargoEdges = new THREE.LineSegments(
-  new THREE.EdgesGeometry(cargoBox.geometry),
-  new THREE.LineBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.75 })
-);
-cargoEdges.position.copy(cargoBox.position);
-cargoGroup.add(cargoEdges);
-cargoGroup.visible = false;
-scene.add(cargoGroup);
-
-// Front & Rear Overhead Obstacles (1.45 m) — aligned with E1R +55° & XT32 +23° raycast geometry!
-const overGroup = new THREE.Group();
-const matBeam = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.42, transparent: true, opacity: 0.70 });
-makeCadBox(2000, 2200, -900, 900, 1400, 1580, matBeam, {
-  name: 'overhead_front', kind: 'overlay',
-  model: '전방 공중 오버행 장애물 (Z=1.45 m)',
-  material: '현장 랙/보 시뮬레이션', note: '정면 E1R (+10°, 상방 73.5° 개방) 사전 감지 구간',
-}, overGroup);
-makeCadBox(-3050, -2855, -900, 900, 1400, 1580, matBeam, {
-  name: 'overhead_rear', kind: 'overlay',
-  model: '후방 공중 오버행 장애물 (Z=1.45 m · 범퍼 뒤 2.09 m)',
-  material: '현장 랙/보 시뮬레이션', note: '뒤 타워 XT32 (+8°, 후방 +23°) 1.45 m 실측 포착 지점',
-}, overGroup);
-scene.add(overGroup);
-
-// Reflector Pillars (0~61 cm Z2 V8 Dual-Reading)
-const reflGroup = new THREE.Group();
-const matPillar = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.80 });
-const matTape   = new THREE.MeshStandardMaterial({ color: 0xfef08a, emissive: 0xfacc15, emissiveIntensity: 0.72 });
-for (const [xm, lbl] of [[2560, '전방 기둥 반사판'], [-2560, '후방 기둥 반사판']]) {
-  makeCadBox(xm - 110, xm + 110, 410, 630, 0, 1900, matPillar, {
-    name: xm > 0 ? 'pillar_front' : 'pillar_rear', kind: 'overlay',
-    model: `${lbl} (0~61 cm 이중 판독)`, material: '공장 H빔 기둥', note: '하부 2D(Z=126.5) + 뒤 타워 XT32(Z=512) 다중 링 판독',
-  }, reflGroup);
-  const fx = xm > 0 ? xm - 114 : xm + 110;
-  for (const dy of [-65, 0, 65]) {
-    makeCadBox(fx, fx + 4, 520 + dy - 22, 520 + dy + 22, 20, 610, matTape, {
-      name: 'reflector_tape_z2v8', kind: 'overlay',
-      model: '5 cm 반사판 테이프 (Z2 V8)', material: '3M 고휘도 재귀반사', note: 'Z=20~610 mm',
-    }, reflGroup);
-  }
-}
-scene.add(reflGroup);
-
-// Rear Charging Station Dock (aligned to Rev C.3 rear charger pads Z=184..236, Y=±34..96)
-const dockGroup = new THREE.Group();
-makeCadBox(-1180, -920, -240, 240, 0, 640,
-  new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.50, metalness: 0.40 }),
-  { name: 'rear_dock_station', kind: 'overlay', model: '벽면 자동 충전 스테이션 (후진 도킹)', material: '충전기 본체', note: '브러시 Z=184~236 mm · 후진 도킹 시 포크 통로 방향 유지' },
-  dockGroup);
-const matDockCopper = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.25, metalness: 0.85 });
-const matDockPilot  = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.35, metalness: 0.35 });
-makeCadBox(-920, -790, 34, 96, 184, 236, matDockCopper, { name: 'dock_brush_pos', kind: 'overlay', model: '충전기 (+) 구리 브러시' }, dockGroup);
-makeCadBox(-920, -790, -96, -34, 184, 236, matDockCopper, { name: 'dock_brush_neg', kind: 'overlay', model: '충전기 (-) 구리 브러시' }, dockGroup);
-makeCadBox(-920, -810, -14, 14, 196, 224, matDockPilot, { name: 'dock_pilot', kind: 'overlay', model: '충전 통신/인터록 파일럿 접점' }, dockGroup);
-scene.add(dockGroup);
-
-// Rotation Sweep Circle (R = sqrt(765^2 + 600^2) = 972.2 mm)
-const sweepPts = [];
-for (let i = 0; i <= 96; i++) {
-  const a = (i / 96) * Math.PI * 2;
-  sweepPts.push(new THREE.Vector3(Math.cos(a) * 0.9722, 0.012, Math.sin(a) * 0.9722));
-}
-const sweepLine = new THREE.Line(
-  new THREE.BufferGeometry().setFromPoints(sweepPts),
-  new THREE.LineBasicMaterial({ color: 0xc084fc })
-);
-sweepLine.visible = false;
-scene.add(sweepLine);
-
-// ============================================================================
-// MATERIAL TUNING FOR LOADED GLB MESHES
-// ============================================================================
-function createCadMaterial(meta, isShell) {
-  const kind = meta ? meta.kind : 'frame';
-  let roughness = 0.42;
-  let metalness = 0.36;
-  let transparent = false;
-  let opacity = 1.0;
-  let depthWrite = true;
-
-  if (kind === 'fork' || kind === 'scissor' || kind === 'rail' || kind === 'fastener') {
-    roughness = 0.30; metalness = 0.72;
-  } else if (kind === 'contact') {
-    roughness = 0.24; metalness = 0.85;
-  } else if (kind === 'glass') {
-    roughness = 0.10; metalness = 0.10; transparent = true; opacity = 0.42; depthWrite = false;
-  } else if (kind === 'lidar2d' || kind === 'lidar3df' || kind === 'lidar3dr' || kind === 'qrcam' || kind === 'hmi') {
-    roughness = 0.28; metalness = 0.38;
-  } else if (kind === 'bumper') {
-    roughness = 0.68; metalness = 0.08;
-  } else if (kind === 'battery_opt') {
-    roughness = 0.34; metalness = 0.30;
-  }
-
-  if (isShell) {
-    transparent = true;
-    opacity = (+$('sOp').value) / 100;
-    depthWrite = opacity >= 0.95;
-  }
-
-  const mat = new THREE.MeshStandardMaterial({
-    color: 0xffffff,
-    vertexColors: true,
-    roughness,
-    metalness,
-    flatShading: true,
-    transparent,
-    opacity,
-    depthWrite,
-    emissive: kind === 'battery_opt' ? 0xb45309 : 0x000000,
-    emissiveIntensity: kind === 'battery_opt' ? 0.24 : 0.0,
-    side: THREE.DoubleSide, // Clean hollow interior visibility under 3-axis section clipping!
-  });
-  robotClipMaterials.push(mat);
-  if (isShell) shellMaterials.push(mat);
-  return mat;
-}
-
-// ============================================================================
-// STATE: BATTERY (B-1 / A), PACKAGES (A / B / C / D / E), TOWER, CLIP, KINEMATICS
-// ============================================================================
-let auditData = null;
-let massCgData = {
-  total_robot_b1_kg: 471.56,
-  cg_b1_mm: [-124.2, 5.9, 138.1],
-  total_robot_with_a_only_kg: 492.56,
-  cg_with_a_only_mm: [-182.5, 5.6, 153.5],
+// Variant CAD catalog (synchronized with cad/cad_variants_manifest.json)
+const CAD_VARIANTS = {
+  PkgA: {
+    id: 'PkgA',
+    stepFile: 'LType_RevC3_PkgA_2D_5Axis_B1.step',
+    csvFile: 'LType_RevC3_PkgA_2D_5Axis_B1.csv',
+    stepHref: 'cad/LType_RevC3_PkgA_2D_5Axis_B1.step',
+    csvHref: 'cad/LType_RevC3_PkgA_2D_5Axis_B1.csv',
+    partCount: 208,
+    stepBytes: 4677776,
+    totalKg: 469.9,
+    cgMm: [-123.3, 5.3, 137.8],
+  },
+  PkgB: {
+    id: 'PkgB',
+    stepFile: 'LType_RevC3_PkgB_2D_QR_7Axis_B1.step',
+    csvFile: 'LType_RevC3_PkgB_2D_QR_7Axis_B1.csv',
+    stepHref: 'cad/LType_RevC3_PkgB_2D_QR_7Axis_B1.step',
+    csvHref: 'cad/LType_RevC3_PkgB_2D_QR_7Axis_B1.csv',
+    partCount: 221,
+    stepBytes: 4861860,
+    totalKg: 470.81,
+    cgMm: [-123.8, 5.3, 137.7],
+  },
+  PkgC: {
+    id: 'PkgC',
+    stepFile: 'LType_RevC3_PkgC_Semi3D_E1R_B1.step',
+    csvFile: 'LType_RevC3_PkgC_Semi3D_E1R_B1.csv',
+    stepHref: 'cad/LType_RevC3_PkgC_Semi3D_E1R_B1.step',
+    csvHref: 'cad/LType_RevC3_PkgC_Semi3D_E1R_B1.csv',
+    partCount: 222,
+    stepBytes: 4864539,
+    totalKg: 471.0,
+    cgMm: [-123.5, 5.3, 137.7],
+  },
+  PkgD_B1: {
+    id: 'PkgD_B1',
+    stepFile: 'LType_RevC3_PkgD_Full3D_B1.step',
+    csvFile: 'LType_RevC3_PkgD_Full3D_B1.csv',
+    stepHref: 'cad/LType_RevC3_PkgD_Full3D_B1.step',
+    csvHref: 'cad/LType_RevC3_PkgD_Full3D_B1.csv',
+    partCount: 222,
+    stepBytes: 4851548,
+    totalKg: 471.56,
+    cgMm: [-124.2, 5.9, 138.1],
+  },
+  PkgD_A100: {
+    id: 'PkgD_A100',
+    stepFile: 'LType_RevC3_PkgD_Full3D_A100.step',
+    csvFile: 'LType_RevC3_PkgD_Full3D_A100.csv',
+    stepHref: 'cad/LType_RevC3_PkgD_Full3D_A100.step',
+    csvHref: 'cad/LType_RevC3_PkgD_Full3D_A100.csv',
+    partCount: 220,
+    stepBytes: 4870428,
+    totalKg: 491.96,
+    cgMm: [-183.6, 5.3, 153.8],
+  },
 };
-
-let activeBatt = 'B1'; // 'B1' | 'A'
-let activePkg  = 'D';  // 'A' | 'B' | 'C' | 'D' | 'E'
-let towerMode  = 'XT32'; // 'XT32' | 'OS0' | 'T2D'
-let preferred3DTower = 'XT32';
-let clipAxis   = 'off'; // 'off' | 'x' | 'y' | 'z'
 
 const PKG_SPECS = {
   A: {
-    label: 'A. 2D·5축(고정)',
+    label: 'Pkg A',
     front3d: false, tower: 'T2D', qr: false, latch: false, kc: false,
-    desc: '<strong>A. 2D·5축(고정)</strong> · 매립 하부 대각 2D×2 + 좌후방 미니타워 2D · 전방 3D/QR/Latch 제외 · 포크 진입 높이 Z=51 mm 고정 (Latch 잠금)',
+    summary: '매립 2D×2 · 좌후방 2D · 5축 고정 (Latch 잠금)',
   },
   B: {
-    label: 'B. 2D+QR·7축',
+    label: 'Pkg B',
     front3d: false, tower: 'T2D', qr: true, latch: true, kc: false,
-    desc: '<strong>B. 2D+QR·7축</strong> · 매립 하부 대각 2D×2 + 좌후방 미니타워 2D + 중앙 하단 QR(Z=100) + 7축(Latch -15~+30 mm)',
+    summary: '매립 2D×2 · 좌후방 2D · 하단 QR · 7축',
   },
   C: {
-    label: 'C. 준풀3D(전방E1R)',
+    label: 'Pkg C',
     front3d: true, tower: 'T2D', qr: true, latch: true, kc: false,
-    desc: '<strong>C. 준풀3D(전방E1R)</strong> · 매립 하부 대각 2D×2 + 정면 E1R(+10°) + 좌후방 미니타워 2D + 40° 완전 개방 HMI(무지붕) + 하단 QR + 후면 충전 + 7축',
+    summary: '매립 2D×2 · 전방 E1R · 좌후방 2D · QR · 7축',
   },
   D: {
-    label: 'D. 풀 3D 1.5t (Rev C.3 표준)',
+    label: 'Pkg D',
     front3d: true, tower: 'XT32', qr: true, latch: true, kc: false,
-    desc: '<strong>D. 풀 3D 1.5t (Rev C.3 표준)</strong> · 매립 2D×2(±695,±530 · FL 258.0°/RR 255.5° · 150~300 mm 사각 0.0%) + 정면 E1R + 좌후방 미니타워 XT32/OS0(-645,+452.5,512 · Ø18×4기둥 92.2% / 32ch 81.9%) + 40° 완전 개방 HMI(상부 가림 0%) + 일자 측면 E-STOP + 하단 QR + 7축',
+    summary: '매립 2D×2 · 전방 E1R · 타워 XT32/OS0 · QR · 7축',
   },
   E: {
-    label: 'E. ★ KC 인증 완료 부품 전용 풀패키지',
+    label: 'Pkg D+ (KC)',
     front3d: true, tower: 'XT32', qr: true, latch: true, kc: true,
-    desc: '<strong>E. ★ KC 인증 완료 부품 전용 풀패키지</strong> · SICK nanoScan3 Pro(KC/PLd) + RoboSense E1R + 좌후방 미니타워 3D + 하단 QR + Advantech MIC-711-OX + Moxa EDS-G4008 + Flexi Soft + 40° 완전 개방 Winmate HMI + KC 인증 LFP 배터리(B-1 40Ah / A 100Ah) · ※ 완제품 KC/KCs 적용 대상 여부는 인증기관 사전 확인 권장',
+    summary: 'KC 인증 부품 풀 3D · PLd 2D×2 · E1R · 7축',
   },
 };
 
-function setPartVisible(name, vis) {
-  const m = glbMeshes.get(name);
-  if (m) m.visible = vis;
+function formatMB(bytes) {
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 }
 
-function setOpacity(pct) {
-  $('sOp').value = pct;
-  $('vOp').textContent = `${pct}%`;
-  const op = pct / 100;
-  shellMaterials.forEach(m => {
-    m.opacity = op;
-    m.depthWrite = op >= 0.95;
-  });
+function resolveCadVariant(pkgKey, battKey) {
+  if (pkgKey === 'A') return CAD_VARIANTS.PkgA;
+  if (pkgKey === 'B') return CAD_VARIANTS.PkgB;
+  if (pkgKey === 'C') return CAD_VARIANTS.PkgC;
+  return battKey === 'A' ? CAD_VARIANTS.PkgD_A100 : CAD_VARIANTS.PkgD_B1;
 }
 
-function applyBattery(battKey) {
-  activeBatt = battKey === 'A' ? 'A' : 'B1';
-  const isA = activeBatt === 'A';
-
-  // Toggle real GLB meshes: battery_lfp_40ah_b1 vs ltype_battery_a_opt.glb (battery_a_opt_L / R)
-  setPartVisible('battery_lfp_40ah_b1', !isA);
-  batteryOptGroup.visible = isA;
-
-  // Lower cover/door X-Ray opacity so rear tower Battery A modules shine clearly through doors
-  if (isA && +$('sOp').value > 52) setOpacity(52);
-
-  $('btnBattB1').classList.toggle('active', !isA);
-  $('btnBattA').classList.toggle('active-a', isA);
-  $('btnBattA').classList.remove('active');
-
-  const massKg = isA ? massCgData.total_robot_with_a_only_kg : massCgData.total_robot_b1_kg;
-  const cg = isA ? massCgData.cg_with_a_only_mm : massCgData.cg_b1_mm;
-  const cgText = `(${cg[0].toFixed(1)}, ${cg[1] >= 0 ? '+' : ''}${cg[1].toFixed(1)}, ${cg[2].toFixed(1)}) mm`;
-
-  // Update 3D CG marker position
-  cgMarkerGroup.position.copy(cad2glb(cg[0], cg[1], cg[2]));
-  const drop = cgMarkerGroup.getObjectByName('cgDrop');
-  if (drop) {
-    drop.geometry.setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -mm(cg[2]), 0)]);
+function getMassCgForSelection(pkgKey, battKey, massCgFallback) {
+  if (battKey !== 'A') {
+    const v = resolveCadVariant(pkgKey, 'B1');
+    return { massKg: v.totalKg, cg: v.cgMm };
   }
-
-  if (isA) {
-    $('battInfo').innerHTML =
-      `<strong>A 확장 (타워 좌·우 무개조)</strong> · 51.2V 100Ah LFP (EVE LF100LA 8S×2 · 팩 178×228×246 / 트레이 182×234 · 39.0 kg)<br>` +
-      `총중량 <span class="mono">${massKg.toFixed(1)} kg</span> · CG <span class="mono">${cgText}</span>`;
-    $('hudMass').innerHTML =
-      `<strong>A 확장 100Ah LFP</strong> · <span class="mono">${massKg.toFixed(1)} kg</span> · CG <span class="mono">${cgText}</span>`;
-  } else {
-    $('battInfo').innerHTML =
-      `<strong>B-1 메인 (중앙 등뼈)</strong> · 51.2V 40Ah LFP (2.05 kWh · 18.0 kg · 520×210×104)<br>` +
-      `총중량 <span class="mono">${massKg.toFixed(1)} kg</span> · CG <span class="mono">${cgText}</span>`;
-    $('hudMass').innerHTML =
-      `<strong>B-1 40Ah LFP</strong> · <span class="mono">${massKg.toFixed(1)} kg</span> · CG <span class="mono">${cgText}</span>`;
+  if (pkgKey === 'D' || pkgKey === 'E') {
+    const v = CAD_VARIANTS.PkgD_A100;
+    return { massKg: v.totalKg, cg: v.cgMm };
   }
-  syncDebugState();
-}
-$('btnBattB1').addEventListener('click', () => applyBattery('B1'));
-$('btnBattA').addEventListener('click', () => applyBattery('A'));
-
-function setTowerMode(m) {
-  const sp = PKG_SPECS[activePkg];
-  // Guard: do not allow activating 3D tower models while in 2D-tower packages (A/B/C)
-  if (sp.tower === 'T2D' && m !== 'T2D') return;
-
-  towerMode = m;
-  if (m === 'XT32' || m === 'OS0') preferred3DTower = m;
-
-  setPartVisible('lidar_3d_rear_XT32', m === 'XT32');
-  os0MeshGroup.visible = m === 'OS0';
-  t2dMeshGroup.visible = m === 'T2D';
-
-  const allow3D = sp.tower !== 'T2D';
-  $('btnXT32').disabled = !allow3D;
-  $('btnOS0').disabled  = !allow3D;
-  $('btnXT32').classList.toggle('active', allow3D && m === 'XT32');
-  $('btnOS0').classList.toggle('active',  allow3D && m === 'OS0');
-  $('towerModelHint').textContent = allow3D
-    ? (m === 'XT32' ? '활성: XT32 (실물 GLB)' : '활성: OS0-64 (교체)')
-    : '타워 2D (D·E 선택 시 3D 활성)';
-
-  updateVis();
-  updateKinematics();
-}
-$('btnXT32').addEventListener('click', () => setTowerMode('XT32'));
-$('btnOS0').addEventListener('click', () => setTowerMode('OS0'));
-
-function applyPkg(pkgKey) {
-  const key = PKG_SPECS[pkgKey] ? pkgKey : 'D';
-  const sp = PKG_SPECS[key];
-  activePkg = key;
-
-  // Front E1R & Rear/Front Charging
-  setPartVisible('lidar_3d_front_E1R', sp.front3d);
-  $('kFovE1R').checked = sp.front3d;
-  REAR_CHARGER_PARTS.forEach(n => setPartVisible(n, sp.front3d));
-  frontChargeGroup.visible = !sp.front3d;
-
-  // Center Downward QR
-  setPartVisible('qr_camera_downward', sp.qr);
-  $('kQR').checked = sp.qr;
-
-  // 5-axis (A) vs 7-axis (B/C/D/E) Latch actuator hardware & STRICT UI lock
-  LATCH_ACTUATOR_PARTS.forEach(n => setPartVisible(n, sp.latch));
-  $('sLatch').disabled        = !sp.latch;
-  $('btnPickMode').disabled   = !sp.latch;
-  $('btnTravelMode').disabled = !sp.latch;
-  if (!sp.latch) {
-    $('sLatch').value = 9;
-  }
-
-  // Rear Tower sensor mode synchronized cleanly with package
-  if (sp.tower === 'T2D') {
-    setTowerMode('T2D');
-  } else {
-    setTowerMode(preferred3DTower);
-  }
-
-  document.querySelectorAll('[data-pkg]').forEach(b => b.classList.toggle('active', b.dataset.pkg === activePkg));
-  $('pkgInfo').innerHTML = sp.desc;
-  $('pkgInfo').classList.toggle('kc-note', sp.kc);
-
-  updateVis();
-  updateKinematics();
-}
-document.querySelectorAll('[data-pkg]').forEach(b => b.addEventListener('click', () => applyPkg(b.dataset.pkg)));
-
-function updateVis() {
-  const sp = PKG_SPECS[activePkg];
-  const shellOn = $('kShell').checked;
-  shellMeshes.forEach(m => { m.visible = shellOn; });
-
-  envWire.visible      = $('kDim').checked;
-  fov2DGroup.visible   = $('kFov2D').checked;
-  fovE1RGroup.visible  = sp.front3d && $('kFovE1R').checked;
-
-  const tOn = $('kFovTower').checked;
-  fovXT32Group.visible = tOn && towerMode === 'XT32';
-  fovOS0Group.visible  = tOn && towerMode === 'OS0';
-  fovT2DGroup.visible  = tOn && towerMode === 'T2D';
-
-  qrSceneGroup.visible  = sp.qr && $('kQR').checked;
-  cgMarkerGroup.visible = $('kCG').checked;
-  cargoGroup.visible    = $('kCargo').checked;
-  overGroup.visible     = $('kOver').checked;
-  reflGroup.visible     = $('kRefl').checked;
-  dockGroup.visible     = sp.front3d && $('kDock').checked;
-  sweepLine.visible     = $('kSweep').checked;
-}
-['kShell','kDim','kFov2D','kFovE1R','kFovTower','kQR','kCG','kCargo','kOver','kRefl','kDock','kSweep']
-  .forEach(id => $(id).addEventListener('change', updateVis));
-
-// ============================================================================
-// 3-AXIS CAD SECTION CUTAWAY (ROBOT GLB MATERIALS ONLY — ZERO SIGN/SNAP BUGS!)
-// ============================================================================
-function applyClip() {
-  const valMm = +$('sClip').value;
-  if (clipAxis === 'off') {
-    robotClipMaterials.forEach(m => { m.clippingPlanes = []; });
-    $('sClip').disabled = true;
-    $('vClip').textContent = '비활성';
-    clipGuide.visible = false;
-    syncDebugState();
-    return;
-  }
-
-  $('sClip').disabled = false;
-  const cVal = mm(valMm);
-
-  if (clipAxis === 'x') {
-    // CAD X <= N mm  <=>  z_glb <= N/1000  <=>  Plane((0, 0, -1), N/1000)
-    clipPlane.normal.set(0, 0, -1);
-    clipPlane.constant = cVal;
-    $('vClip').textContent = `전후 절개: CAD X ≤ ${valMm} mm`;
-    clipGuide.rotation.set(0, 0, 0);
-    clipGuide.position.set(0, 0.30, cVal);
-  } else if (clipAxis === 'y') {
-    // CAD Y <= N mm  <=>  x_glb <= N/1000  <=>  Plane((-1, 0, 0), N/1000)
-    clipPlane.normal.set(-1, 0, 0);
-    clipPlane.constant = cVal;
-    $('vClip').textContent = `좌우 절개: CAD Y ≤ ${valMm} mm`;
-    clipGuide.rotation.set(0, Math.PI / 2, 0);
-    clipGuide.position.set(cVal, 0.30, 0);
-  } else {
-    // CAD Z <= N mm  <=>  y_glb <= N/1000  <=>  Plane((0, -1, 0), N/1000)
-    clipPlane.normal.set(0, -1, 0);
-    clipPlane.constant = cVal;
-    $('vClip').textContent = `수평 절개: CAD Z ≤ ${valMm} mm`;
-    clipGuide.rotation.set(-Math.PI / 2, 0, 0);
-    clipGuide.position.set(0, cVal, 0);
-  }
-
-  robotClipMaterials.forEach(m => { m.clippingPlanes = [clipPlane]; });
-  clipGuide.visible = true;
-  syncDebugState();
-}
-
-document.querySelectorAll('[data-clip]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    clipAxis = btn.dataset.clip;
-    document.querySelectorAll('[data-clip]').forEach(b => b.classList.toggle('active', b === btn));
-    const sl = $('sClip');
-    if (clipAxis === 'x') {
-      sl.min = '-765'; sl.max = '765'; sl.step = '5'; sl.value = '120';
-    } else if (clipAxis === 'y') {
-      sl.min = '-600'; sl.max = '600'; sl.step = '5'; sl.value = '0';
-    } else if (clipAxis === 'z') {
-      sl.min = '0'; sl.max = '590'; sl.step = '5'; sl.value = '185';
-    }
-    applyClip();
-  });
-});
-$('sClip').addEventListener('input', applyClip);
-
-// ============================================================================
-// DYNAMIC KINEMATICS ON REAL GLB NODES (FORK EXTENSION, LATCH, 340mm X-SCISSOR)
-// ============================================================================
-function updateKinematics() {
-  const sp = PKG_SPECS[activePkg];
-  const latch = sp.latch ? +$('sLatch').value : 9;
-  if (!sp.latch) $('sLatch').value = 9;
-  const ext  = +$('sExt').value;
-  const lift = +$('sLift').value;
-
-  // Nominal Rev C.3 GLB rest pose is Latch = +9 mm (tine bottom Z=51, top Z=95)
-  const dLatch = latch - 9;
-  const tineBottom = 51 + dLatch;
-  const tineTop    = 95 + dLatch + lift;
-
-  $('vLatch').textContent = sp.latch
-    ? `${latch >= 0 ? '+' : ''}${latch} mm (바닥 Z=${tineBottom})`
-    : `+9 mm 고정 (5축 · 바닥 Z=51)`;
-  $('vExt').textContent  = `${ext} mm`;
-  $('vLift').textContent = `${lift} mm (날 상단 ${tineTop})`;
-
-  $('btnPickMode').classList.toggle('active', sp.latch && latch === -11);
-  $('btnTravelMode').classList.toggle('active', sp.latch && latch === 9);
-
-  const towerLabel = towerMode === 'XT32' ? 'XT32' : (towerMode === 'OS0' ? 'OS0-64' : '타워2D');
-  $('hudStatus').innerHTML =
-    `<strong>${sp.label}</strong> · ${towerLabel} · ` +
-    `${sp.latch ? '7축(Latch ' + (latch >= 0 ? '+' : '') + latch + ' mm)' : '5축 고정'} · ` +
-    `포크 +${ext} / 리프트 +${lift} mm`;
-
-  // Apply exact GLB coordinate transforms:
-  // +X_cad (Fork Forward) = +Z_glb, +Z_cad (Up) = +Y_glb
-  forkSlideGroup.position.z = mm(ext);
-  forkLatchGroup.position.y = mm(dLatch);
-  forkLiftGroup.position.y  = mm(lift);
-
-  // Unfold real Rev C.3 GLB 340 mm X-scissor H-frames cleanly around their exact CAD midpoints
-  const baseRad = THREE.MathUtils.degToRad(3.5);
-  const zTopInner = 87.57 + lift;
-  const zFoot     = lift > 0 ? Math.max(12.0, 52.83 - lift * 0.8) : 52.83;
-  const spanH     = zTopInner - zFoot;
-  const sinA      = Math.min(0.92, Math.max(0.06105, (spanH - 14.0) / 340.0));
-  const dAng      = lift > 0 ? (Math.asin(sinA) - baseRad) : 0;
-  const pivotZCad = lift > 0 ? ((zTopInner + zFoot) / 2.0) : 70.2;
-
-  for (const sc of scissorPivots) {
-    sc.pivot.rotation.x = sc.dirSign * dAng;
-    sc.pivot.position.y = mm(pivotZCad);
-  }
-
-  // Lift cargo pallet gently once raised fork top clears pod deck (Z=196)
-  cargoGroup.position.y = Math.max(0, mm(tineTop - 196));
-  syncDebugState();
-}
-
-$('sLatch').addEventListener('input', () => {
-  if (!PKG_SPECS[activePkg].latch) { $('sLatch').value = 9; return; }
-  updateKinematics();
-});
-$('sExt').addEventListener('input', updateKinematics);
-$('sLift').addEventListener('input', updateKinematics);
-$('sOp').addEventListener('input', e => setOpacity(+e.target.value));
-
-$('btnPickMode').addEventListener('click', () => {
-  if (!PKG_SPECS[activePkg].latch || $('btnPickMode').disabled) return;
-  $('sLatch').value = -11;
-  $('sLift').value = 0;
-  updateKinematics();
-});
-$('btnTravelMode').addEventListener('click', () => {
-  if (!PKG_SPECS[activePkg].latch || $('btnTravelMode').disabled) return;
-  $('sLatch').value = 9;
-  $('sLift').value = 0;
-  updateKinematics();
-});
-
-// ============================================================================
-// CAMERA PRESETS (100% ALIGNED TO GLB COORDS: +Z_glb=Front, +X_glb=Left, +Y_glb=Up)
-// ============================================================================
-const CAM_VIEWS = {
-  iso:       { pos: [1.85, 1.38, 2.05],   tgt: [0.0, 0.26, 0.0],    op: null },
-  front:     { pos: [0.0, 0.36, 2.55],    tgt: [0.0, 0.26, 0.0],    op: null },
-  rear:      { pos: [0.0, 0.68, -2.45],   tgt: [0.0, 0.36, -0.45],  op: null },
-  left:      { pos: [2.80, 0.44, 0.0],    tgt: [0.0, 0.28, 0.0],    op: null },
-  right:     { pos: [-2.80, 0.44, 0.0],   tgt: [0.0, 0.28, 0.0],    op: null },
-  top:       { pos: [0.0, 3.05, 0.04],    tgt: [0.0, 0.12, 0.0],    op: null },
-  // Detail focus presets (Rev C.3: rearTower frames open 40° HMI + rear-left mini-tower XT32 at X_glb=+0.4525)
-  corner2D:  { pos: [1.22, 0.38, 1.28],   tgt: [0.52, 0.13, 0.68],  op: 92 },
-  frontE1R:  { pos: [0.52, 0.34, 1.52],   tgt: [0.0, 0.13, 0.70],   op: 92 },
-  rearTower: { pos: [0.76, 0.88, -1.76],  tgt: [0.16, 0.41, -0.66], op: 88 },
-  underQR:   { pos: [1.02, 0.38, 0.68],   tgt: [0.0, 0.11, 0.18],   op: 24 },
-  latchView: { pos: [1.18, 0.48, -0.22],  tgt: [0.22, 0.13, -0.45], op: 28 },
-};
-
-let tween = null;
-function goCam(key) {
-  const v = CAM_VIEWS[key];
-  if (!v) return;
-  tween = {
-    t: 0,
-    p0: camera.position.clone(),
-    p1: new THREE.Vector3(...v.pos),
-    t0: controls.target.clone(),
-    t1: new THREE.Vector3(...v.tgt),
-  };
-  if (v.op !== null) setOpacity(v.op);
-  document.querySelectorAll('button[data-cam]').forEach(el => {
-    el.classList.toggle('active', el.dataset.cam === key);
-  });
-}
-document.querySelectorAll('[data-cam]').forEach(el => {
-  el.addEventListener('click', () => goCam(el.dataset.cam));
-});
-
-// ============================================================================
-// HOVER RAYCASTER & CAD PART METADATA INSPECTOR TOOLTIP
-// ============================================================================
-const ray = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-const tip = $('tip');
-let hoveredMesh = null;
-
-function clearHoverHighlight() {
-  if (hoveredMesh && hoveredMesh.material && hoveredMesh.material.emissive) {
-    const isBattOpt = hoveredMesh.userData && hoveredMesh.userData.kind === 'battery_opt';
-    hoveredMesh.material.emissive.setHex(isBattOpt ? 0xb45309 : 0x000000);
-    hoveredMesh.material.emissiveIntensity = isBattOpt ? 0.24 : 0;
-  }
-  hoveredMesh = null;
-}
-
-canvas.addEventListener('pointermove', ev => {
-  const rect = canvas.getBoundingClientRect();
-  mouse.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
-  mouse.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
-  ray.setFromCamera(mouse, camera);
-
-  const visList = pickables.filter(o => {
-    let c = o;
-    while (c) {
-      if (!c.visible) return false;
-      c = c.parent;
-    }
-    return true;
-  });
-
-  const hits = ray.intersectObjects(visList, false);
-  // Ignore hits behind the active clipping plane for robot GLB meshes
-  const validHit = hits.find(h => {
-    if (clipAxis !== 'off' && h.object.userData && h.object.userData.isGLB) {
-      return clipPlane.distanceToPoint(h.point) >= -0.0005;
-    }
-    return true;
-  });
-
-  if (!validHit) {
-    clearHoverHighlight();
-    tip.style.display = 'none';
-    return;
-  }
-
-  const obj = validHit.object;
-  if (obj !== hoveredMesh) {
-    clearHoverHighlight();
-    hoveredMesh = obj;
-    if (obj.material && obj.material.emissive && obj.userData.isGLB) {
-      obj.material.emissive.setHex(0x0ea5e9);
-      obj.material.emissiveIntensity = 0.45;
-    }
-  }
-
-  const u = obj.userData;
-  $('tipName').textContent = u.name || obj.name || '-';
-  $('tipKind').textContent = (u.kind || 'part') + (u.moving ? ' · MOVING' : '');
-  $('tipModel').textContent = u.model || '';
-
-  const metaParts = [];
-  if (u.material && u.material !== '-') metaParts.push(u.material);
-  if (u.tol && u.tol !== '-') metaParts.push(u.tol);
-  if (u.datum_ref && u.datum_ref !== '-') metaParts.push(`Datum ${u.datum_ref}`);
-  if (u.mass_kg != null) metaParts.push(`${Number(u.mass_kg).toFixed(3)} kg`);
-  $('tipMeta').textContent = metaParts.join(' · ');
-
-  if (Array.isArray(u.bbox_mm) && u.bbox_mm.length === 6) {
-    const [x0, x1, y0, y1, z0, z1] = u.bbox_mm;
-    const dx = Math.round(x1 - x0), dy = Math.round(y1 - y0), dz = Math.round(z1 - z0);
-    $('tipBbox').textContent =
-      `CAD BBox: X[${x0}..${x1}] Y[${y0}..${y1}] Z[${z0}..${z1}] mm (${dx}×${dy}×${dz})`;
-    $('tipBbox').style.display = 'block';
-  } else {
-    $('tipBbox').style.display = 'none';
-  }
-
-  $('tipDesc').textContent = u.note || '';
-  $('tipDesc').style.display = u.note ? 'block' : 'none';
-
-  tip.style.display = 'block';
-  tip.style.left = Math.max(8, Math.min(rect.width - 370, ev.clientX - rect.left + 14)) + 'px';
-  tip.style.top  = Math.max(8, Math.min(rect.height - 145, ev.clientY - rect.top + 14)) + 'px';
-});
-
-canvas.addEventListener('pointerleave', () => {
-  clearHoverHighlight();
-  tip.style.display = 'none';
-});
-
-// ============================================================================
-// REAL GLB + SSOT JSON DIRECT LOADING (100% OFFLINE LOCAL BUNDLE)
-// ============================================================================
-const loader = new GLTFLoader();
-let loadedStats = {
-  ready: false,
-  mainMeshCount: 0,
-  batteryOptMeshCount: 0,
-  mappedMetaCount: 0,
-  partsJsonCount: 0,
-};
-
-function syncDebugState() {
-  window.__CAD_STATE__ = {
-    ...loadedStats,
-    activeBatt,
-    activePkg,
-    towerMode,
-    clipAxis,
-    clipValueMm: +$('sClip').value,
-    clipLabel: $('vClip').textContent,
-    rendererGlobalClips: renderer.clippingPlanes.length,
-    robotClipMaterialCount: robotClipMaterials.length,
-    latchVal: +$('sLatch').value,
-    latchDisabled: $('sLatch').disabled,
-    pickDisabled: $('btnPickMode').disabled,
-    travelDisabled: $('btnTravelMode').disabled,
-    xt32Disabled: $('btnXT32').disabled,
-    os0Disabled: $('btnOS0').disabled,
-    battB1Visible: glbMeshes.get('battery_lfp_40ah_b1')?.visible ?? null,
-    battOptVisible: batteryOptGroup.visible,
-    xt32FovOriginGlb: fovXT32Group.userData.originGlb || null,
-    os0FovOriginGlb: fovOS0Group.userData.originGlb || null,
-    t2dFovOriginGlb: fovT2DGroup.userData.originGlb || null,
-    os0MeshPosGlb: [os0MeshGroup.position.x, os0MeshGroup.position.y, os0MeshGroup.position.z],
-    t2dMeshPosGlb: [t2dMeshGroup.position.x, t2dMeshGroup.position.y, t2dMeshGroup.position.z],
-    hasOpenConsole: glbMeshes.has('hmi_open_console_4t'),
-    hasMiniRoof: glbMeshes.has('tower_mini_roof_6t'),
+  const baseB1 = resolveCadVariant(pkgKey, 'B1');
+  const deltaKg = CAD_VARIANTS.PkgD_A100.totalKg - CAD_VARIANTS.PkgD_B1.totalKg;
+  return {
+    massKg: +(baseB1.totalKg + deltaKg).toFixed(2),
+    cg: massCgFallback ? massCgFallback.cg_with_a_only_mm : CAD_VARIANTS.PkgD_A100.cgMm,
   };
 }
 
-function attachLoadedMesh(mesh, meta, targetParent) {
-  const partName = mesh.name;
-  const isShell = Boolean(meta && (meta.kind === 'cover' || SHELL_EXTRA_NAMES.has(partName)));
+function updateCadDownloadUI(pkgKey, battKey) {
+  const v = resolveCadVariant(pkgKey, battKey);
+  $('dlFileName').textContent = v.stepFile;
+  $('dlFileMeta').textContent = `${v.partCount}부품 · ${formatMB(v.stepBytes)}`;
+  $('dlStepBtn').setAttribute('href', v.stepHref);
+  $('dlStepBtn').setAttribute('download', v.stepFile);
+  $('dlCsvBtn').setAttribute('href', v.csvHref);
+  $('dlCsvBtn').setAttribute('download', v.csvFile);
 
-  mesh.material = createCadMaterial(meta, isShell);
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
-
-  mesh.userData = {
-    name: partName,
-    kind: meta ? meta.kind : 'part',
-    model: meta ? meta.model : partName,
-    material: meta ? meta.material : '-',
-    tol: meta ? meta.tol : '-',
-    datum_ref: meta ? meta.datum_ref : '-',
-    mass_kg: meta ? meta.mass_kg : null,
-    moving: Boolean(meta && meta.moving),
-    bbox_mm: meta ? meta.bbox_mm : null,
-    note: meta ? meta.note : '',
-    isGLB: true,
-  };
-
-  if (isShell) shellMeshes.push(mesh);
-  pickables.push(mesh);
-  glbMeshes.set(partName, mesh);
-
-  // Scissor lift H-frames get a local pivot wrapper at their exact CAD center for kinematic unfolding
-  if (partName.startsWith('scissor_lift_')) {
-    const isRear = partName.includes('_R1') || partName.includes('_R2');
-    const isLeft = partName.includes('_L_');
-    const isInner = partName.endsWith('1');
-    const xf = isRear ? -210.0 : 320.0;
-    const yf = isLeft ? 231.5 : -231.5;
-    const zf = 70.2;
-    const pVec = cad2glb(xf, yf, zf);
-
-    const pivot = new THREE.Group();
-    pivot.position.copy(pVec);
-    mesh.position.sub(pVec);
-    pivot.add(mesh);
-    forkLatchGroup.add(pivot);
-    scissorPivots.push({ pivot, dirSign: isInner ? -1 : 1, basePivotY: pVec.y });
-    return;
+  const cap = $('dlCaption');
+  const isLowPkgWithA = (pkgKey === 'A' || pkgKey === 'B' || pkgKey === 'C') && battKey === 'A';
+  if (isLowPkgWithA) {
+    cap.className = 'cad-caption visible warn-tone';
+    cap.innerHTML =
+      `Pkg ${pkgKey} 개별 STEP은 B-1(40Ah) 전용입니다. 100Ah(A안) 실장 CAD는 ` +
+      `<a href="${CAD_VARIANTS.PkgD_A100.stepHref}" download="${CAD_VARIANTS.PkgD_A100.stepFile}">PkgD_A100.step</a>을 함께 참고하세요.`;
+  } else if (pkgKey === 'E') {
+    cap.className = 'cad-caption visible';
+    cap.textContent = 'Pkg D+ (KC)는 Pkg D 공용 기구 STEP을 사용합니다.';
+  } else {
+    cap.className = 'cad-caption';
+    cap.textContent = '';
   }
-
-  targetParent.add(mesh);
+  return v;
 }
 
-async function initCAD() {
-  try {
-    const [partsResp, auditResp, mainGltf, optGltf] = await Promise.all([
-      fetch('./ltype_1200x1530_parts.json'),
-      fetch('./vendor_clearance_audit.json'),
-      loader.loadAsync('./ltype_1200x1530_4sensor.glb'),
-      loader.loadAsync('./ltype_battery_a_opt.glb'),
+function parseInitialPkg(raw) {
+  if (!raw) return 'D';
+  const u = raw.trim().toUpperCase();
+  if (u === 'A' || u === 'PKGA') return 'A';
+  if (u === 'B' || u === 'PKGB') return 'B';
+  if (u === 'C' || u === 'PKGC') return 'C';
+  if (u === 'D' || u === 'PKGD' || u === 'PKGD_B1' || u === 'PKGD_A100') return 'D';
+  if (u === 'E' || u === 'D+' || u === 'DKC' || u === 'D_KC' || u === 'KC') return 'E';
+  return 'D';
+}
+
+// Skip Three.js module loading on file:// so CORS notice remains clean with 0 console errors
+if (window.location.protocol === 'file:') {
+  let activePkg = 'D';
+  let activeBatt = 'B1';
+  const refreshOffline = () => {
+    const sp = PKG_SPECS[activePkg];
+    const allow3D = sp.tower !== 'T2D';
+    const { massKg, cg } = getMassCgForSelection(activePkg, activeBatt, null);
+    $('pkgSummary').textContent = sp.summary;
+    $('massSummary').textContent = `${massKg.toFixed(1)} kg · CG (${cg[0].toFixed(1)}, ${cg[1] >= 0 ? '+' : ''}${cg[1].toFixed(1)}, ${cg[2].toFixed(1)})`;
+    $('btnBattB1').classList.toggle('active', activeBatt === 'B1');
+    $('btnBattA').classList.toggle('active', activeBatt === 'A');
+    $('btnXT32').disabled = !allow3D;
+    $('btnOS0').disabled  = !allow3D;
+    $('btnXT32').classList.toggle('active', allow3D);
+    $('btnOS0').classList.remove('active');
+    $('towerModelHint').textContent = allow3D ? 'XT32 활성' : '2D 고정';
+    $('sLatch').disabled        = !sp.latch;
+    $('btnPickMode').disabled   = !sp.latch;
+    $('btnTravelMode').disabled = !sp.latch;
+    document.querySelectorAll('[data-pkg]').forEach(b => b.classList.toggle('active', b.dataset.pkg === activePkg));
+    updateCadDownloadUI(activePkg, activeBatt);
+  };
+  document.querySelectorAll('[data-pkg]').forEach(b => b.addEventListener('click', () => { activePkg = b.dataset.pkg; refreshOffline(); }));
+  $('btnBattB1').addEventListener('click', () => { activeBatt = 'B1'; refreshOffline(); });
+  $('btnBattA').addEventListener('click', () => { activeBatt = 'A'; refreshOffline(); });
+  refreshOffline();
+} else {
+  bootViewer();
+}
+
+async function bootViewer() {
+  const [THREE, { OrbitControls }, { GLTFLoader }] = await Promise.all([
+    import('three'),
+    import('three/addons/controls/OrbitControls.js'),
+    import('three/addons/loaders/GLTFLoader.js'),
+  ]);
+
+  const mm = v => v / 1000;
+
+  // Exact right-handed coordinate map from build_3d_cad.py:
+  // [X_glb, Y_glb, Z_glb] = [Y_cad, Z_cad, X_cad] / 1000.0 (det = +1)
+  function cad2glb(xCad, yCad, zCad) {
+    return new THREE.Vector3(mm(yCad), mm(zCad), mm(xCad));
+  }
+
+  const canvas = $('c');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.12;
+  // LOCAL material clipping ONLY (renderer.clippingPlanes stays empty so floor/grid/FOV/wireframe are NEVER clipped)
+  renderer.localClippingEnabled = true;
+  renderer.clippingPlanes = [];
+
+  const clipPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 10);
+  const robotClipMaterials = [];
+  const shellMeshes = [];
+  const shellMaterials = [];
+  const pickables = [];
+
+  // Neutral Charcoal Studio (#1b2028)
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x1b2028);
+  scene.fog = new THREE.Fog(0x1b2028, 10.5, 26);
+
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.02, 42);
+  camera.position.set(1.85, 1.38, 2.05);
+
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.075;
+  controls.target.set(0, 0.26, 0);
+  controls.maxPolarAngle = Math.PI / 2 - 0.01;
+  controls.minDistance = 0.36;
+  controls.maxDistance = 10.0;
+
+  // Calm Neutral Studio CAD Lighting
+  scene.add(new THREE.HemisphereLight(0xf1f5f9, 0x262d38, 1.50));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.55);
+  keyLight.position.set(2.8, 5.2, 3.2);
+  keyLight.castShadow = true;
+  keyLight.shadow.mapSize.set(2048, 2048);
+  const dCam = 3.2;
+  keyLight.shadow.camera.left = -dCam;
+  keyLight.shadow.camera.right = dCam;
+  keyLight.shadow.camera.top = dCam;
+  keyLight.shadow.camera.bottom = -dCam;
+  keyLight.shadow.bias = -0.0005;
+  scene.add(keyLight);
+
+  const fillLight = new THREE.DirectionalLight(0xdbeafe, 0.72);
+  fillLight.position.set(-3.4, 2.4, -2.6);
+  scene.add(fillLight);
+
+  const rimLight = new THREE.DirectionalLight(0xf8fafc, 0.42);
+  rimLight.position.set(0.0, 1.8, -3.5);
+  scene.add(rimLight);
+
+  // Subtle Studio Floor & Engineering Grid (Y_glb = 0, NEVER clipped)
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(24, 24),
+    new THREE.MeshStandardMaterial({ color: 0x1e242d, roughness: 0.94, metalness: 0.03 })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+  const grid = new THREE.GridHelper(10, 20, 0x353f4f, 0x262e3b);
+  grid.position.y = 0.001;
+  scene.add(grid);
+
+  // CAD Coordinate Triad
+  const cadTriad = new THREE.Group();
+  cadTriad.position.copy(cad2glb(-920, -760, 8));
+  {
+    const addArrow = (dirVec, col) => {
+      const arr = new THREE.ArrowHelper(dirVec.clone().normalize(), new THREE.Vector3(0, 0, 0), 0.24, col, 0.055, 0.028);
+      cadTriad.add(arr);
+    };
+    addArrow(new THREE.Vector3(0, 0, 1), 0xf87171); // +X_cad (Front) = +Z_glb
+    addArrow(new THREE.Vector3(1, 0, 0), 0x4ade80); // +Y_cad (Left)  = +X_glb
+    addArrow(new THREE.Vector3(0, 1, 0), 0x60a5fa); // +Z_cad (Up)    = +Y_glb
+  }
+  scene.add(cadTriad);
+
+  // Subtle Section Cutaway Guide Frame (NEVER clipped)
+  const clipGuide = new THREE.Group();
+  const clipGuideMesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(1.70, 1.70),
+    new THREE.MeshBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.07, side: THREE.DoubleSide, depthWrite: false })
+  );
+  const clipGuideBorder = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.PlaneGeometry(1.70, 1.70)),
+    new THREE.LineBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.55 })
+  );
+  clipGuide.add(clipGuideMesh, clipGuideBorder);
+  clipGuide.visible = false;
+  scene.add(clipGuide);
+
+  function tagAuxiliary(mesh, meta) {
+    mesh.userData = {
+      name: meta.name,
+      kind: meta.kind || 'overlay',
+      model: meta.model || '',
+      material: meta.material || '-',
+      tol: meta.tol || '-',
+      datum_ref: meta.datum_ref || '-',
+      mass_kg: meta.mass_kg != null ? meta.mass_kg : null,
+      bbox_mm: meta.bbox_mm || null,
+      note: meta.note || '',
+      isGLB: false,
+    };
+    pickables.push(mesh);
+    return mesh;
+  }
+
+  function makeCadBox(x0, x1, y0, y1, z0, z1, mat, meta, parent = scene) {
+    const sx = mm(y1 - y0), sy = mm(z1 - z0), sz = mm(x1 - x0);
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat);
+    mesh.position.set(mm((y0 + y1) / 2), mm((z0 + z1) / 2), mm((x0 + x1) / 2));
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    if (meta) {
+      tagAuxiliary(mesh, {
+        ...meta,
+        bbox_mm: [x0, x1, y0, y1, z0, z1],
+      });
+    }
+    parent.add(mesh);
+    return mesh;
+  }
+
+  // ==========================================================================
+  // ROBOT ROOT & KINEMATIC HIERARCHY (POPULATED DIRECTLY FROM REAL GLB MESHES)
+  // ==========================================================================
+  const robotGroup = new THREE.Group();
+  scene.add(robotGroup);
+
+  const staticGroup     = new THREE.Group();
+  const batteryOptGroup = new THREE.Group();
+  const forkSlideGroup  = new THREE.Group();
+  const forkLatchGroup  = new THREE.Group();
+  const forkLiftGroup   = new THREE.Group();
+
+  robotGroup.add(staticGroup, batteryOptGroup, forkSlideGroup);
+  forkSlideGroup.add(forkLatchGroup);
+  forkLatchGroup.add(forkLiftGroup);
+  batteryOptGroup.visible = false;
+
+  const glbMeshes = new Map();
+  const partsMetaByName = new Map();
+  const scissorPivots = [];
+
+  const SLIDE_ONLY_PARTS = new Set([
+    'fork_carriage',
+    'rail_carriage_block_L', 'rail_carriage_block_R',
+    'mast_base_reinforce_L', 'mast_base_reinforce_R',
+    'latch_servo_L', 'latch_servo_R',
+    'latch_worm_gearbox_L', 'latch_worm_gearbox_R',
+    'latch_leadscrew_L', 'latch_leadscrew_R',
+    'latch_upper_roller_L', 'latch_upper_roller_R',
+  ]);
+  const LIFT_TINE_PARTS = new Set([
+    'fork_tine_L', 'fork_tine_R',
+    'fork_tip_sensor_L', 'fork_tip_sensor_R',
+  ]);
+  const LATCH_ACTUATOR_PARTS = new Set([
+    'latch_servo_L', 'latch_servo_R',
+    'latch_worm_gearbox_L', 'latch_worm_gearbox_R',
+    'latch_leadscrew_L', 'latch_leadscrew_R',
+    'servo_drive_RL_6', 'servo_drive_RR_7',
+  ]);
+  const REAR_CHARGER_PARTS = new Set([
+    'rear_charger_housing',
+    'rear_charge_pad_POS_+48V',
+    'rear_charge_pad_NEG_-48V',
+    'rear_charge_pilot',
+    'charge_busbar_duct',
+  ]);
+  const SHELL_EXTRA_NAMES = new Set([
+    'tower_front_side_L', 'tower_front_side_R',
+    'tower_door_L', 'tower_door_R',
+    'tower_mini_roof_6t', 'tower_rear_plate_10t', 'hmi_open_console_4t',
+  ]);
+
+  // ==========================================================================
+  // OPTIONAL SWAPPABLE HARDWARE PREVIEWS (OS0-64 / Tower 2D / Front Charger)
+  // ==========================================================================
+  const matOptTower3D = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.30, metalness: 0.50, side: THREE.DoubleSide });
+  const matOptDark    = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.14, metalness: 0.85, side: THREE.DoubleSide });
+  const matOptSlate   = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.38, metalness: 0.65, side: THREE.DoubleSide });
+  const matOpt2DBody  = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.32, metalness: 0.25, side: THREE.DoubleSide });
+  const matOptCharge  = new THREE.MeshStandardMaterial({ color: 0xc2410c, roughness: 0.45, metalness: 0.20, side: THREE.DoubleSide });
+  const matOptCopper  = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.24, metalness: 0.85, side: THREE.DoubleSide });
+  robotClipMaterials.push(matOptTower3D, matOptDark, matOptSlate, matOpt2DBody, matOptCharge, matOptCopper);
+
+  // Exact Rev C.3 XT32_POS = (-645, +452.5, 512) -> GLB (+0.4525, +0.512, -0.645)
+  const XT32_CAD_POS = [-645.0, 452.5, 512.0];
+  const os0MeshGroup = new THREE.Group();
+  os0MeshGroup.position.copy(cad2glb(...XT32_CAD_POS));
+  {
+    const meta = {
+      name: 'lidar_3d_rear_OS0_opt', kind: 'lidar3dr',
+      model: 'Ouster OS0-64 / OS0-32 (선택 교체 · 좌후방 미니타워)',
+      material: '구매품 (알루미늄 IP68)', tol: '±0.5', datum_ref: 'A|B|C', mass_kg: 0.45,
+      bbox_mm: [-688.5, -601.5, 409.0, 496.0, 475, 549],
+    };
+    const b = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.016, 32), matOptTower3D);
+    b.position.y = -0.029; tagAuxiliary(b, meta); os0MeshGroup.add(b);
+    const w = new THREE.Mesh(new THREE.CylinderGeometry(0.0425, 0.0425, 0.040, 32), matOptDark);
+    tagAuxiliary(w, meta); os0MeshGroup.add(w);
+    const t = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.018, 32), matOptSlate);
+    t.position.y = 0.029; tagAuxiliary(t, meta); os0MeshGroup.add(t);
+  }
+  os0MeshGroup.visible = false;
+  robotGroup.add(os0MeshGroup);
+
+  const t2dMeshGroup = new THREE.Group();
+  t2dMeshGroup.position.copy(cad2glb(...XT32_CAD_POS));
+  {
+    const meta = {
+      name: 'lidar_2d_rear_tower_opt', kind: 'lidar2d',
+      model: '좌후방 미니타워 고정밀 2D 라이다 (Pkg A/B/C)',
+      material: '구매품 (IP65)', tol: '±0.5', datum_ref: 'A|B|C', mass_kg: 0.35,
+      bbox_mm: [-677, -613, 420.5, 484.5, 476, 540],
+    };
+    const b = new THREE.Mesh(new THREE.BoxGeometry(0.064, 0.036, 0.064), matOpt2DBody);
+    b.position.y = -0.018; tagAuxiliary(b, meta); t2dMeshGroup.add(b);
+    const w = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.028, 24), matOptDark);
+    w.position.y = 0.014; tagAuxiliary(w, meta); t2dMeshGroup.add(w);
+  }
+  t2dMeshGroup.visible = false;
+  robotGroup.add(t2dMeshGroup);
+
+  const frontChargeGroup = new THREE.Group();
+  makeCadBox(724, 744, -98, 98, 86, 138, matOptCharge, {
+    name: 'front_charger_opt', kind: 'charger',
+    model: '전방 등뼈 충전 접점 (Pkg A/B · E1R 미장착 옵션)',
+    material: 'PEEK 절연 + C1100 구리', tol: '±0.5', datum_ref: 'A|C',
+  }, frontChargeGroup);
+  makeCadBox(744, 750, 30, 86, 92, 132, matOptCopper, {
+    name: 'front_charge_POS', kind: 'contact', model: '전방 충전 (+) 구리 접점', material: 'C1100 무산소동',
+  }, frontChargeGroup);
+  makeCadBox(744, 750, -86, -30, 92, 132, matOptCopper, {
+    name: 'front_charge_NEG', kind: 'contact', model: '전방 충전 (-) 구리 접점', material: 'C1100 무산소동',
+  }, frontChargeGroup);
+  frontChargeGroup.visible = false;
+  robotGroup.add(frontChargeGroup);
+
+  // ==========================================================================
+  // RAYCAST-VERIFIED SENSOR FOV OVERLAYS (EXACT GLB COORDS — NEVER CLIPPED)
+  // ==========================================================================
+  const fov2DGroup = new THREE.Group();
+  function buildMeasured2DSector(xCad, yCad, zCad, azStartDeg, azEndDeg, radiusM, fillHex, edgeHex) {
+    const grp = new THREE.Group();
+    const origin = cad2glb(xCad, yCad, zCad);
+    const segs = 96;
+    const pts = [origin.x, origin.y, origin.z];
+    const arcPts = [origin.clone()];
+    const indices = [];
+    for (let i = 0; i <= segs; i++) {
+      const az = THREE.MathUtils.degToRad(azStartDeg + (azEndDeg - azStartDeg) * (i / segs));
+      const gx = origin.x + radiusM * Math.sin(az);
+      const gz = origin.z + radiusM * Math.cos(az);
+      pts.push(gx, origin.y, gz);
+      arcPts.push(new THREE.Vector3(gx, origin.y + 0.002, gz));
+      if (i < segs) indices.push(0, i + 1, i + 2);
+    }
+    arcPts.push(origin.clone());
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    geo.setIndex(indices);
+    const mat = new THREE.MeshBasicMaterial({
+      color: fillHex, transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false,
+    });
+    grp.add(new THREE.Mesh(geo, mat));
+    grp.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(arcPts),
+      new THREE.LineBasicMaterial({ color: edgeHex, transparent: true, opacity: 0.62 })
+    ));
+    return grp;
+  }
+  fov2DGroup.add(buildMeasured2DSector(695.0, 530.0, 126.5, -84.7, 173.3, 2.35, 0x38bdf8, 0x7dd3fc));
+  fov2DGroup.add(buildMeasured2DSector(-695.0, -530.0, 126.5, 97.8, 353.3, 2.35, 0x0ea5e9, 0x38bdf8));
+  scene.add(fov2DGroup);
+
+  const fovE1RGroup = new THREE.Group();
+  {
+    const oCtr = cad2glb(725.17, 0, 123.73);
+    const oTop = cad2glb(722.13, 0, 140.97);
+    const dist = 2.05;
+    const halfH = THREE.MathUtils.degToRad(60);
+    const upAng = THREE.MathUtils.degToRad(55);
+    const dnAng = THREE.MathUtils.degToRad(35);
+
+    const zFar = oCtr.z + dist;
+    const yTopFar = oCtr.y + dist * Math.tan(upAng);
+    const xHalfFar = dist * Math.tan(halfH);
+
+    const dFlr = (oCtr.y - 0.004) / Math.tan(dnAng);
+    const zFlr = oCtr.z + dFlr;
+    const xHalfFlr = dFlr * Math.tan(halfH);
+
+    const verts = new Float32Array([
+      oCtr.x, oCtr.y, oCtr.z,
+      -xHalfFar, yTopFar, zFar,
+       xHalfFar, yTopFar, zFar,
+       xHalfFar, 0.004, zFar,
+      -xHalfFar, 0.004, zFar,
+       xHalfFlr, 0.004, zFlr,
+      -xHalfFlr, 0.004, zFlr,
     ]);
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(verts, 3));
+    geo.setIndex([0, 1, 2, 0, 2, 5, 2, 3, 5, 0, 6, 1, 1, 6, 4, 0, 5, 6, 5, 3, 4, 5, 4, 6]);
+    fovE1RGroup.add(new THREE.Mesh(
+      geo,
+      new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.13, side: THREE.DoubleSide, depthWrite: false })
+    ));
+    fovE1RGroup.add(new THREE.LineSegments(
+      new THREE.EdgesGeometry(geo),
+      new THREE.LineBasicMaterial({ color: 0xc084fc, transparent: true, opacity: 0.52 })
+    ));
+    const rTopEnd = new THREE.Vector3(oTop.x, oTop.y + 1.5 * Math.tan(upAng), oTop.z + 1.5);
+    fovE1RGroup.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([oTop, rTopEnd]),
+      new THREE.LineBasicMaterial({ color: 0xe879f9 })
+    ));
+  }
+  scene.add(fovE1RGroup);
 
-    if (!partsResp.ok) throw new Error(`parts.json HTTP ${partsResp.status}`);
-    if (!auditResp.ok) throw new Error(`audit.json HTTP ${auditResp.status}`);
+  const fovXT32Group = new THREE.Group();
+  const fovOS0Group  = new THREE.Group();
+  const fovT2DGroup  = new THREE.Group();
 
-    const partsJson = await partsResp.json();
-    auditData = await auditResp.json();
-    if (partsJson.mass_cg) massCgData = partsJson.mass_cg;
+  function buildTower3DFov(targetGroup, elUpSensorDeg, elDnSensorDeg, tiltRearUpDeg, colHex) {
+    const o = cad2glb(...XT32_CAD_POS);
+    targetGroup.userData.originGlb = [o.x, o.y, o.z];
+    const r = 2.15;
+    const segs = 72;
+    const tilt = THREE.MathUtils.degToRad(tiltRearUpDeg);
+    const cT = Math.cos(tilt), sT = Math.sin(tilt);
+    const elU = THREE.MathUtils.degToRad(elUpSensorDeg);
+    const elD = THREE.MathUtils.degToRad(elDnSensorDeg);
 
-    for (const p of partsJson.parts) partsMetaByName.set(p.name, p);
-    if (partsJson.battery_a_option && Array.isArray(partsJson.battery_a_option.parts)) {
-      for (const bp of partsJson.battery_a_option.parts) partsMetaByName.set(bp.name, bp);
-    }
-
-    // Collect all Mesh nodes from main 222-part GLB
-    const mainMeshes = [];
-    mainGltf.scene.traverse(obj => {
-      if (obj.isMesh) mainMeshes.push(obj);
-    });
-
-    let mappedCount = 0;
-    for (const mesh of mainMeshes) {
-      const meta = partsMetaByName.get(mesh.name) || null;
-      if (meta) mappedCount++;
-
-      let parent = staticGroup;
-      if (meta && meta.moving) {
-        if (SLIDE_ONLY_PARTS.has(mesh.name)) parent = forkSlideGroup;
-        else if (LIFT_TINE_PARTS.has(mesh.name)) parent = forkLiftGroup;
-        else parent = forkLatchGroup;
-      }
-      attachLoadedMesh(mesh, meta, parent);
-    }
-
-    // Collect 2 Battery A option meshes from ltype_battery_a_opt.glb
-    const optMeshes = [];
-    optGltf.scene.traverse(obj => {
-      if (obj.isMesh) optMeshes.push(obj);
-    });
-    for (const mesh of optMeshes) {
-      const meta = partsMetaByName.get(mesh.name) || null;
-      attachLoadedMesh(mesh, meta, batteryOptGroup);
-    }
-
-    loadedStats = {
-      ready: true,
-      mainMeshCount: mainMeshes.length,
-      batteryOptMeshCount: optMeshes.length,
-      mappedMetaCount: mappedCount,
-      partsJsonCount: partsJson.parts.length,
+    const rayDirGlb = (azRad, elRad) => {
+      const lx = Math.cos(elRad) * Math.cos(azRad);
+      const ly = Math.cos(elRad) * Math.sin(azRad);
+      const lz = Math.sin(elRad);
+      const wx = cT * lx + sT * lz;
+      const wy = ly;
+      const wz = -sT * lx + cT * lz;
+      return new THREE.Vector3(wy, wz, wx);
     };
 
-    // Update DOM status badges from SSOT audit & loaded GLBs
-    const vp = $('viewport');
-    vp.dataset.loadedMeshes = String(mainMeshes.length);
-    vp.dataset.batteryOptMeshes = String(optMeshes.length);
-    vp.dataset.ready = 'true';
+    const pts = [o.x, o.y, o.z];
+    const idx = [];
+    const topRing = [];
+    for (let i = 0; i <= segs; i++) {
+      const az = (i / segs) * Math.PI * 2;
+      const du = rayDirGlb(az, elU);
+      const dd = rayDirGlb(az, elD);
+      const pu = o.clone().addScaledVector(du, r);
+      let pd = o.clone().addScaledVector(dd, r);
+      if (pd.y < 0.008 && dd.y < -1e-4) {
+        const tFlr = (0.008 - o.y) / dd.y;
+        pd = o.clone().addScaledVector(dd, Math.min(r, tFlr));
+      }
+      pts.push(pu.x, pu.y, pu.z, pd.x, pd.y, pd.z);
+      topRing.push(pu);
+    }
+    for (let i = 0; i < segs; i++) {
+      const u0 = 1 + 2 * i, d0 = 2 + 2 * i, u1 = 3 + 2 * i, d1 = 4 + 2 * i;
+      idx.push(0, u0, u1, 0, d1, d0, u0, d0, d1, u0, d1, u1);
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    geo.setIndex(idx);
+    targetGroup.add(new THREE.Mesh(
+      geo,
+      new THREE.MeshBasicMaterial({ color: colHex, transparent: true, opacity: 0.10, side: THREE.DoubleSide, depthWrite: false })
+    ));
+    targetGroup.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(topRing),
+      new THREE.LineBasicMaterial({ color: colHex, transparent: true, opacity: 0.52 })
+    ));
 
-    const g2 = auditData?.gates?.gate2_all_pairs_interference?.interference_count ?? 0;
-    const g3 = auditData?.gates?.gate3_connectivity?.connected_components ?? 1;
-    const g6wt = auditData?.gates?.gate6_glb_mass?.glb_watertight_count ?? mainMeshes.length;
-    $('cadStatusStrip').innerHTML =
-      `<span>✓ Rev C.3 실물 GLB · 정지·전진(0~1240)·래치·리프트·캐스터 간섭 ${g2} · 연결 ${g3} · 수밀 ${g6wt}/${mainMeshes.length}</span>` +
-      `<span class="mono" id="cadMeshCountBadge">${mainMeshes.length} / ${partsJson.parts.length}</span>`;
+    const rayMat = new THREE.LineBasicMaterial({ color: 0xfde047, transparent: true, opacity: 0.80 });
+    for (const hz of [360, 480, 580]) {
+      targetGroup.add(new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints([o, cad2glb(-2446, 520, hz)]),
+        rayMat
+      ));
+    }
+    targetGroup.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([o, cad2glb(-2855, 0, 1450)]),
+      new THREE.LineBasicMaterial({ color: 0x34d399, transparent: true, opacity: 0.80 })
+    ));
+  }
 
-    // Apply URL query parameters if provided (?pkg=A..E&batt=B1|A)
-    const params = new URLSearchParams(location.search);
-    const initPkg  = params.get('pkg');
-    const initBatt = params.get('batt');
-    applyBattery(initBatt === 'A' ? 'A' : 'B1');
-    applyPkg(PKG_SPECS[initPkg] ? initPkg : 'D');
-    applyClip();
+  buildTower3DFov(fovXT32Group, 15, -16, 8, 0xfacc15);
+  buildTower3DFov(fovOS0Group, 31.0, -26.5, 0, 0xf59e0b);
+  fovOS0Group.visible = false;
 
-    $('loadingOverlay').style.display = 'none';
+  {
+    const o = cad2glb(...XT32_CAD_POS);
+    fovT2DGroup.userData.originGlb = [o.x, o.y, o.z];
+    const ringPts = [];
+    for (let i = 0; i <= 72; i++) {
+      const a = (i / 72) * Math.PI * 2;
+      ringPts.push(new THREE.Vector3(o.x + Math.sin(a) * 2.1, o.y, o.z + Math.cos(a) * 2.1));
+    }
+    fovT2DGroup.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(ringPts),
+      new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.72 })
+    ));
+  }
+  fovT2DGroup.visible = false;
+  scene.add(fovXT32Group, fovOS0Group, fovT2DGroup);
+
+  // Center Downward QR Camera FOV
+  const qrSceneGroup = new THREE.Group();
+  {
+    const qc = document.createElement('canvas');
+    qc.width = 128; qc.height = 128;
+    const ctx = qc.getContext('2d');
+    ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, 128, 128);
+    ctx.fillStyle = '#0f172a';
+    const drawFinder = (x, y) => {
+      ctx.fillRect(x, y, 32, 32);
+      ctx.fillStyle = '#f8fafc'; ctx.fillRect(x + 6, y + 6, 20, 20);
+      ctx.fillStyle = '#0f172a'; ctx.fillRect(x + 11, y + 11, 10, 10);
+    };
+    drawFinder(10, 10); drawFinder(86, 10); drawFinder(10, 86);
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        if ((r < 3 && c < 3) || (r < 3 && c > 4) || (r > 4 && c < 3)) continue;
+        if ((r * 7 + c * 13 + r * c) % 3 !== 0) ctx.fillRect(14 + c * 12, 14 + r * 12, 10, 10);
+      }
+    }
+    const qrTex = new THREE.CanvasTexture(qc);
+    const qrTile = new THREE.Mesh(new THREE.PlaneGeometry(0.10, 0.10), new THREE.MeshBasicMaterial({ map: qrTex }));
+    qrTile.rotation.x = -Math.PI / 2;
+    qrTile.position.set(0, 0.0025, 0);
+    tagAuxiliary(qrTile, {
+      name: 'floor_qr_marker', kind: 'qrcam',
+      model: '바닥 QR 항법 마커 (100×100 mm)',
+      material: '산업용 QR 마커',
+      bbox_mm: [-50, 50, -50, 50, 0, 2],
+    });
+    qrSceneGroup.add(qrTile);
+
+    const rFloor = mm(97) * Math.tan(THREE.MathUtils.degToRad(35.75));
+    const fovCone = new THREE.Mesh(
+      new THREE.ConeGeometry(rFloor, mm(97), 24, 1, true),
+      new THREE.MeshBasicMaterial({ color: 0x14b8a6, transparent: true, opacity: 0.26, side: THREE.DoubleSide, depthWrite: false })
+    );
+    fovCone.position.set(0, mm(51.5), 0);
+    qrSceneGroup.add(fovCone);
+  }
+  scene.add(qrSceneGroup);
+
+  // CG Marker (DEFAULT OFF — kCG unchecked!)
+  const cgMarkerGroup = new THREE.Group();
+  {
+    const sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(0.022, 20, 20),
+      new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+    );
+    const ring1 = new THREE.Mesh(
+      new THREE.TorusGeometry(0.038, 0.0035, 10, 32),
+      new THREE.MeshBasicMaterial({ color: 0xf59e0b })
+    );
+    const ring2 = ring1.clone();
+    ring2.rotation.x = Math.PI / 2;
+    const dropLine = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -0.22, 0)]),
+      new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.7 })
+    );
+    dropLine.name = 'cgDrop';
+    cgMarkerGroup.add(sphere, ring1, ring2, dropLine);
+  }
+  cgMarkerGroup.visible = false;
+  scene.add(cgMarkerGroup);
+
+  // Outer Zero-Protrusion Envelope Wireframe (1530×1200×590 mm)
+  const envWire = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(1.200, 0.590, 1.530)),
+    new THREE.LineBasicMaterial({ color: 0x4ade80, transparent: true, opacity: 0.45 })
+  );
+  envWire.position.set(0, 0.295, 0);
+  scene.add(envWire);
+
+  // Cargo Pallet + 1.5 m Load
+  const cargoGroup = new THREE.Group();
+  makeCadBox(-520, 580, -600, 600, 196, 340,
+    new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.78 }),
+    { name: 'pallet_1200x1100', kind: 'overlay', model: '적재 파레트 (1200×1100)', material: '목재/플라스틱 파레트' },
+    cargoGroup);
+  const cargoBox = makeCadBox(-500, 560, -560, 560, 340, 1540,
+    new THREE.MeshStandardMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.18, depthWrite: false }),
+    { name: 'cargo_load_1500', kind: 'overlay', model: '적재 화물 (높이 1.5 m · 1.5 t)', material: '적재물 시뮬레이션' },
+    cargoGroup);
+  const cargoEdges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(cargoBox.geometry),
+    new THREE.LineBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.65 })
+  );
+  cargoEdges.position.copy(cargoBox.position);
+  cargoGroup.add(cargoEdges);
+  cargoGroup.visible = false;
+  scene.add(cargoGroup);
+
+  // Front & Rear Overhead Obstacles (1.45 m)
+  const overGroup = new THREE.Group();
+  const matBeam = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.46, transparent: true, opacity: 0.65 });
+  makeCadBox(2000, 2200, -900, 900, 1400, 1580, matBeam, {
+    name: 'overhead_front', kind: 'overlay', model: '전방 공중 오버행 장애물 (Z=1.45 m)', material: '현장 랙/보 시뮬레이션',
+  }, overGroup);
+  makeCadBox(-3050, -2855, -900, 900, 1400, 1580, matBeam, {
+    name: 'overhead_rear', kind: 'overlay', model: '후방 공중 오버행 장애물 (Z=1.45 m)', material: '현장 랙/보 시뮬레이션',
+  }, overGroup);
+  scene.add(overGroup);
+
+  // Reflector Pillars (0~61 cm Z2 V8 Dual-Reading)
+  const reflGroup = new THREE.Group();
+  const matPillar = new THREE.MeshStandardMaterial({ color: 0x2b3442, roughness: 0.82 });
+  const matTape   = new THREE.MeshStandardMaterial({ color: 0xfef08a, emissive: 0xfacc15, emissiveIntensity: 0.62 });
+  for (const [xm, lbl] of [[2560, '전방 기둥 반사판'], [-2560, '후방 기둥 반사판']]) {
+    makeCadBox(xm - 110, xm + 110, 410, 630, 0, 1900, matPillar, {
+      name: xm > 0 ? 'pillar_front' : 'pillar_rear', kind: 'overlay',
+      model: `${lbl} (0~61 cm 이중 판독)`, material: '공장 H빔 기둥',
+    }, reflGroup);
+    const fx = xm > 0 ? xm - 114 : xm + 110;
+    for (const dy of [-65, 0, 65]) {
+      makeCadBox(fx, fx + 4, 520 + dy - 22, 520 + dy + 22, 20, 610, matTape, {
+        name: 'reflector_tape_z2v8', kind: 'overlay',
+        model: '5 cm 반사판 테이프 (Z2 V8)', material: '3M 고휘도 재귀반사',
+      }, reflGroup);
+    }
+  }
+  scene.add(reflGroup);
+
+  // Rear Charging Station Dock
+  const dockGroup = new THREE.Group();
+  makeCadBox(-1180, -920, -240, 240, 0, 640,
+    new THREE.MeshStandardMaterial({ color: 0x3b4454, roughness: 0.52, metalness: 0.35 }),
+    { name: 'rear_dock_station', kind: 'overlay', model: '벽면 자동 충전 스테이션 (후진 도킹)', material: '충전기 본체' },
+    dockGroup);
+  const matDockCopper = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.25, metalness: 0.85 });
+  const matDockPilot  = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.35, metalness: 0.35 });
+  makeCadBox(-920, -790, 34, 96, 184, 236, matDockCopper, { name: 'dock_brush_pos', kind: 'overlay', model: '충전기 (+) 구리 브러시' }, dockGroup);
+  makeCadBox(-920, -790, -96, -34, 184, 236, matDockCopper, { name: 'dock_brush_neg', kind: 'overlay', model: '충전기 (-) 구리 브러시' }, dockGroup);
+  makeCadBox(-920, -810, -14, 14, 196, 224, matDockPilot, { name: 'dock_pilot', kind: 'overlay', model: '충전 통신/인터록 파일럿 접점' }, dockGroup);
+  scene.add(dockGroup);
+
+  // Rotation Sweep Circle (R = 0.9722 m)
+  const sweepPts = [];
+  for (let i = 0; i <= 96; i++) {
+    const a = (i / 96) * Math.PI * 2;
+    sweepPts.push(new THREE.Vector3(Math.cos(a) * 0.9722, 0.012, Math.sin(a) * 0.9722));
+  }
+  const sweepLine = new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints(sweepPts),
+    new THREE.LineBasicMaterial({ color: 0xc084fc })
+  );
+  sweepLine.visible = false;
+  scene.add(sweepLine);
+
+  // ==========================================================================
+  // MATERIAL TUNING FOR LOADED GLB MESHES
+  // ==========================================================================
+  function createCadMaterial(meta, isShell) {
+    const kind = meta ? meta.kind : 'frame';
+    let roughness = 0.42;
+    let metalness = 0.34;
+    let transparent = false;
+    let opacity = 1.0;
+    let depthWrite = true;
+
+    if (kind === 'fork' || kind === 'scissor' || kind === 'rail' || kind === 'fastener') {
+      roughness = 0.30; metalness = 0.70;
+    } else if (kind === 'contact') {
+      roughness = 0.24; metalness = 0.85;
+    } else if (kind === 'glass') {
+      roughness = 0.10; metalness = 0.10; transparent = true; opacity = 0.42; depthWrite = false;
+    } else if (kind === 'lidar2d' || kind === 'lidar3df' || kind === 'lidar3dr' || kind === 'qrcam' || kind === 'hmi') {
+      roughness = 0.28; metalness = 0.38;
+    } else if (kind === 'bumper') {
+      roughness = 0.68; metalness = 0.08;
+    } else if (kind === 'battery_opt') {
+      roughness = 0.34; metalness = 0.30;
+    }
+
+    if (isShell) {
+      transparent = true;
+      opacity = (+$('sOp').value) / 100;
+      depthWrite = opacity >= 0.95;
+    }
+
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      vertexColors: true,
+      roughness,
+      metalness,
+      flatShading: true,
+      transparent,
+      opacity,
+      depthWrite,
+      emissive: kind === 'battery_opt' ? 0xb45309 : 0x000000,
+      emissiveIntensity: kind === 'battery_opt' ? 0.22 : 0.0,
+      side: THREE.DoubleSide,
+    });
+    robotClipMaterials.push(mat);
+    if (isShell) shellMaterials.push(mat);
+    return mat;
+  }
+
+  // ==========================================================================
+  // STATE: BATTERY (B-1 / A), PACKAGES (A / B / C / D / E), TOWER, CLIP, KINEMATICS
+  // ==========================================================================
+  let massCgData = {
+    total_robot_b1_kg: 471.56,
+    cg_b1_mm: [-124.2, 5.9, 138.1],
+    total_robot_with_a_only_kg: 492.56,
+    cg_with_a_only_mm: [-182.5, 5.6, 153.5],
+  };
+
+  let activeBatt = 'B1';
+  let activePkg  = 'D';
+  let towerMode  = 'XT32';
+  let preferred3DTower = 'XT32';
+  let clipAxis   = 'off';
+  let activeVariant = CAD_VARIANTS.PkgD_B1;
+
+  function setPartVisible(name, vis) {
+    const m = glbMeshes.get(name);
+    if (m) m.visible = vis;
+  }
+
+  function setOpacity(pct) {
+    $('sOp').value = pct;
+    $('vOp').textContent = `${pct}%`;
+    const op = pct / 100;
+    shellMaterials.forEach(m => {
+      m.opacity = op;
+      m.depthWrite = op >= 0.95;
+    });
+  }
+
+  function refreshMassAndDownload() {
+    activeVariant = updateCadDownloadUI(activePkg, activeBatt);
+    const { massKg, cg } = getMassCgForSelection(activePkg, activeBatt, massCgData);
+    const cgText = `(${cg[0].toFixed(1)}, ${cg[1] >= 0 ? '+' : ''}${cg[1].toFixed(1)}, ${cg[2].toFixed(1)})`;
+    $('massSummary').textContent = `${massKg.toFixed(1)} kg · CG ${cgText}`;
+
+    cgMarkerGroup.position.copy(cad2glb(cg[0], cg[1], cg[2]));
+    const drop = cgMarkerGroup.getObjectByName('cgDrop');
+    if (drop) {
+      drop.geometry.setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -mm(cg[2]), 0)]);
+    }
+  }
+
+  function applyBattery(battKey) {
+    activeBatt = battKey === 'A' ? 'A' : 'B1';
+    const isA = activeBatt === 'A';
+
+    setPartVisible('battery_lfp_40ah_b1', !isA);
+    batteryOptGroup.visible = isA;
+
+    if (isA && +$('sOp').value > 52) setOpacity(52);
+
+    $('btnBattB1').classList.toggle('active', !isA);
+    $('btnBattA').classList.toggle('active', isA);
+
+    refreshMassAndDownload();
     syncDebugState();
-  } catch (err) {
-    $('loadingTitle').textContent = '3D CAD GLB 로드 실패';
-    $('loadingSub').textContent = `${err.message} (로컬 HTTP 서버에서 열어 주세요)`;
-    console.error('[CAD Loader]', err);
   }
-}
+  $('btnBattB1').addEventListener('click', () => applyBattery('B1'));
+  $('btnBattA').addEventListener('click', () => applyBattery('A'));
 
-function resize() {
-  const r = canvas.parentElement.getBoundingClientRect();
-  if (r.width <= 0 || r.height <= 0) return;
-  renderer.setSize(r.width, r.height, false);
-  camera.aspect = r.width / r.height;
-  camera.updateProjectionMatrix();
-}
-window.addEventListener('resize', resize);
-resize();
+  function setTowerMode(m) {
+    const sp = PKG_SPECS[activePkg];
+    if (sp.tower === 'T2D' && m !== 'T2D') return;
 
-renderer.setAnimationLoop(() => {
-  if (tween) {
-    tween.t = Math.min(1, tween.t + 0.065);
-    const e = 1 - Math.pow(1 - tween.t, 3);
-    camera.position.lerpVectors(tween.p0, tween.p1, e);
-    controls.target.lerpVectors(tween.t0, tween.t1, e);
-    if (tween.t >= 1) tween = null;
+    towerMode = m;
+    if (m === 'XT32' || m === 'OS0') preferred3DTower = m;
+
+    setPartVisible('lidar_3d_rear_XT32', m === 'XT32');
+    os0MeshGroup.visible = m === 'OS0';
+    t2dMeshGroup.visible = m === 'T2D';
+
+    const allow3D = sp.tower !== 'T2D';
+    $('btnXT32').disabled = !allow3D;
+    $('btnOS0').disabled  = !allow3D;
+    $('btnXT32').classList.toggle('active', allow3D && m === 'XT32');
+    $('btnOS0').classList.toggle('active',  allow3D && m === 'OS0');
+    $('towerModelHint').textContent = allow3D
+      ? (m === 'XT32' ? 'XT32 활성' : 'OS0-64 활성')
+      : '2D 고정';
+
+    updateVis();
+    updateKinematics();
   }
-  controls.update();
-  renderer.render(scene, camera);
-});
+  $('btnXT32').addEventListener('click', () => setTowerMode('XT32'));
+  $('btnOS0').addEventListener('click', () => setTowerMode('OS0'));
 
-initCAD();
+  function applyPkg(pkgKey) {
+    const key = PKG_SPECS[pkgKey] ? pkgKey : 'D';
+    const sp = PKG_SPECS[key];
+    activePkg = key;
+
+    setPartVisible('lidar_3d_front_E1R', sp.front3d);
+    $('kFovE1R').checked = sp.front3d;
+    REAR_CHARGER_PARTS.forEach(n => setPartVisible(n, sp.front3d));
+    frontChargeGroup.visible = !sp.front3d;
+
+    setPartVisible('qr_camera_downward', sp.qr);
+    $('kQR').checked = sp.qr;
+
+    // 5-axis (Pkg A) vs 7-axis (Pkg B/C/D/D+) strict Latch guard
+    LATCH_ACTUATOR_PARTS.forEach(n => setPartVisible(n, sp.latch));
+    $('sLatch').disabled        = !sp.latch;
+    $('btnPickMode').disabled   = !sp.latch;
+    $('btnTravelMode').disabled = !sp.latch;
+    if (!sp.latch) {
+      $('sLatch').value = 9;
+    }
+
+    if (sp.tower === 'T2D') {
+      setTowerMode('T2D');
+    } else {
+      setTowerMode(preferred3DTower);
+    }
+
+    document.querySelectorAll('[data-pkg]').forEach(b => b.classList.toggle('active', b.dataset.pkg === activePkg));
+    $('pkgSummary').textContent = sp.summary;
+
+    refreshMassAndDownload();
+    updateVis();
+    updateKinematics();
+  }
+  document.querySelectorAll('[data-pkg]').forEach(b => b.addEventListener('click', () => applyPkg(b.dataset.pkg)));
+
+  function updateVis() {
+    const sp = PKG_SPECS[activePkg];
+    const shellOn = $('kShell').checked;
+    shellMeshes.forEach(m => { m.visible = shellOn; });
+
+    envWire.visible      = $('kDim').checked;
+    fov2DGroup.visible   = $('kFov2D').checked;
+    fovE1RGroup.visible  = sp.front3d && $('kFovE1R').checked;
+
+    const tOn = $('kFovTower').checked;
+    fovXT32Group.visible = tOn && towerMode === 'XT32';
+    fovOS0Group.visible  = tOn && towerMode === 'OS0';
+    fovT2DGroup.visible  = tOn && towerMode === 'T2D';
+
+    qrSceneGroup.visible  = sp.qr && $('kQR').checked;
+    cgMarkerGroup.visible = $('kCG').checked;
+    cargoGroup.visible    = $('kCargo').checked;
+    overGroup.visible     = $('kOver').checked;
+    reflGroup.visible     = $('kRefl').checked;
+    dockGroup.visible     = sp.front3d && $('kDock').checked;
+    sweepLine.visible     = $('kSweep').checked;
+  }
+  ['kShell','kDim','kFov2D','kFovE1R','kFovTower','kQR','kCG','kCargo','kOver','kRefl','kDock','kSweep']
+    .forEach(id => $(id).addEventListener('change', updateVis));
+
+  // ==========================================================================
+  // 3-AXIS CAD SECTION CUTAWAY (PER-MATERIAL ONLY — NO Z=185 SNAP, globalClips=0)
+  // ==========================================================================
+  function applyClip() {
+    const valMm = +$('sClip').value;
+    if (clipAxis === 'off') {
+      robotClipMaterials.forEach(m => { m.clippingPlanes = []; });
+      $('sClip').disabled = true;
+      $('vClip').textContent = '비활성';
+      clipGuide.visible = false;
+      syncDebugState();
+      return;
+    }
+
+    $('sClip').disabled = false;
+    const cVal = mm(valMm);
+
+    if (clipAxis === 'x') {
+      clipPlane.normal.set(0, 0, -1);
+      clipPlane.constant = cVal;
+      $('vClip').textContent = `X ≤ ${valMm} mm`;
+      clipGuide.rotation.set(0, 0, 0);
+      clipGuide.position.set(0, 0.30, cVal);
+    } else if (clipAxis === 'y') {
+      clipPlane.normal.set(-1, 0, 0);
+      clipPlane.constant = cVal;
+      $('vClip').textContent = `Y ≤ ${valMm} mm`;
+      clipGuide.rotation.set(0, Math.PI / 2, 0);
+      clipGuide.position.set(cVal, 0.30, 0);
+    } else {
+      clipPlane.normal.set(0, -1, 0);
+      clipPlane.constant = cVal;
+      $('vClip').textContent = `Z ≤ ${valMm} mm`;
+      clipGuide.rotation.set(-Math.PI / 2, 0, 0);
+      clipGuide.position.set(0, cVal, 0);
+    }
+
+    robotClipMaterials.forEach(m => { m.clippingPlanes = [clipPlane]; });
+    clipGuide.visible = true;
+    syncDebugState();
+  }
+
+  document.querySelectorAll('[data-clip]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      clipAxis = btn.dataset.clip;
+      document.querySelectorAll('[data-clip]').forEach(b => b.classList.toggle('active', b === btn));
+      const sl = $('sClip');
+      if (clipAxis === 'x') {
+        sl.min = '-765'; sl.max = '765'; sl.step = '5'; sl.value = '120';
+      } else if (clipAxis === 'y') {
+        sl.min = '-600'; sl.max = '600'; sl.step = '5'; sl.value = '0';
+      } else if (clipAxis === 'z') {
+        sl.min = '0'; sl.max = '590'; sl.step = '5'; sl.value = '185';
+      }
+      applyClip();
+    });
+  });
+  $('sClip').addEventListener('input', applyClip);
+
+  // ==========================================================================
+  // DYNAMIC KINEMATICS ON REAL GLB NODES (FORK EXTENSION 0..1240, LATCH, LIFT)
+  // ==========================================================================
+  function updateKinematics() {
+    const sp = PKG_SPECS[activePkg];
+    const latch = sp.latch ? +$('sLatch').value : 9;
+    if (!sp.latch) $('sLatch').value = 9;
+    const ext  = +$('sExt').value;
+    const lift = +$('sLift').value;
+
+    const dLatch = latch - 9;
+    const tineBottom = 51 + dLatch;
+    const tineTop    = 95 + dLatch + lift;
+
+    $('vLatch').textContent = sp.latch
+      ? `${latch >= 0 ? '+' : ''}${latch} mm (Z=${tineBottom})`
+      : '+9 mm 고정 (5축)';
+    $('vExt').textContent  = `${ext} mm`;
+    $('vLift').textContent = `${lift} mm (상단 ${tineTop})`;
+
+    $('btnPickMode').classList.toggle('active', sp.latch && latch === -11);
+    $('btnTravelMode').classList.toggle('active', sp.latch && latch === 9);
+
+    forkSlideGroup.position.z = mm(ext);
+    forkLatchGroup.position.y = mm(dLatch);
+    forkLiftGroup.position.y  = mm(lift);
+
+    const baseRad = THREE.MathUtils.degToRad(3.5);
+    const zTopInner = 87.57 + lift;
+    const zFoot     = lift > 0 ? Math.max(12.0, 52.83 - lift * 0.8) : 52.83;
+    const spanH     = zTopInner - zFoot;
+    const sinA      = Math.min(0.92, Math.max(0.06105, (spanH - 14.0) / 340.0));
+    const dAng      = lift > 0 ? (Math.asin(sinA) - baseRad) : 0;
+    const pivotZCad = lift > 0 ? ((zTopInner + zFoot) / 2.0) : 70.2;
+
+    for (const sc of scissorPivots) {
+      sc.pivot.rotation.x = sc.dirSign * dAng;
+      sc.pivot.position.y = mm(pivotZCad);
+    }
+
+    cargoGroup.position.y = Math.max(0, mm(tineTop - 196));
+    syncDebugState();
+  }
+
+  $('sLatch').addEventListener('input', () => {
+    if (!PKG_SPECS[activePkg].latch) { $('sLatch').value = 9; return; }
+    updateKinematics();
+  });
+  $('sExt').addEventListener('input', updateKinematics);
+  $('sLift').addEventListener('input', updateKinematics);
+  $('sOp').addEventListener('input', e => setOpacity(+e.target.value));
+
+  $('btnPickMode').addEventListener('click', () => {
+    if (!PKG_SPECS[activePkg].latch || $('btnPickMode').disabled) return;
+    $('sLatch').value = -11;
+    $('sLift').value = 0;
+    updateKinematics();
+  });
+  $('btnTravelMode').addEventListener('click', () => {
+    if (!PKG_SPECS[activePkg].latch || $('btnTravelMode').disabled) return;
+    $('sLatch').value = 9;
+    $('sLift').value = 0;
+    updateKinematics();
+  });
+
+  // ==========================================================================
+  // CAMERA PRESETS (BOTTOM-CENTER FLOATING PILL)
+  // ==========================================================================
+  const CAM_VIEWS = {
+    iso:       { pos: [1.85, 1.38, 2.05],   tgt: [0.0, 0.26, 0.0],    op: null },
+    front:     { pos: [0.0, 0.36, 2.55],    tgt: [0.0, 0.26, 0.0],    op: null },
+    rear:      { pos: [0.0, 0.68, -2.45],   tgt: [0.0, 0.36, -0.45],  op: null },
+    left:      { pos: [2.80, 0.44, 0.0],    tgt: [0.0, 0.28, 0.0],    op: null },
+    right:     { pos: [-2.80, 0.44, 0.0],   tgt: [0.0, 0.28, 0.0],    op: null },
+    top:       { pos: [0.0, 3.05, 0.04],    tgt: [0.0, 0.12, 0.0],    op: null },
+    hmi:       { pos: [0.22, 0.82, -1.62],  tgt: [0.0, 0.39, -0.66],  op: 90 },
+    rearTower: { pos: [0.88, 0.86, -1.68],  tgt: [0.34, 0.47, -0.64], op: 88 },
+  };
+
+  let tween = null;
+  function goCam(key) {
+    const v = CAM_VIEWS[key];
+    if (!v) return;
+    tween = {
+      t: 0,
+      p0: camera.position.clone(),
+      p1: new THREE.Vector3(...v.pos),
+      t0: controls.target.clone(),
+      t1: new THREE.Vector3(...v.tgt),
+    };
+    if (v.op !== null) setOpacity(v.op);
+    document.querySelectorAll('#camBar button[data-cam]').forEach(el => {
+      el.classList.toggle('active', el.dataset.cam === key);
+    });
+  }
+  document.querySelectorAll('#camBar button[data-cam]').forEach(el => {
+    el.addEventListener('click', () => goCam(el.dataset.cam));
+  });
+  $('btnResetView').addEventListener('click', () => {
+    setOpacity(activeBatt === 'A' ? 52 : 76);
+    goCam('iso');
+  });
+
+  // ==========================================================================
+  // HOVER RAYCASTER & CLEAN WHITE INSPECTOR TOOLTIP
+  // ==========================================================================
+  const ray = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+  const tip = $('tip');
+  let hoveredMesh = null;
+
+  function clearHoverHighlight() {
+    if (hoveredMesh && hoveredMesh.material && hoveredMesh.material.emissive) {
+      const isBattOpt = hoveredMesh.userData && hoveredMesh.userData.kind === 'battery_opt';
+      hoveredMesh.material.emissive.setHex(isBattOpt ? 0xb45309 : 0x000000);
+      hoveredMesh.material.emissiveIntensity = isBattOpt ? 0.22 : 0;
+    }
+    hoveredMesh = null;
+  }
+
+  canvas.addEventListener('pointermove', ev => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
+    ray.setFromCamera(mouse, camera);
+
+    const visList = pickables.filter(o => {
+      let c = o;
+      while (c) {
+        if (!c.visible) return false;
+        c = c.parent;
+      }
+      return true;
+    });
+
+    const hits = ray.intersectObjects(visList, false);
+    const validHit = hits.find(h => {
+      if (clipAxis !== 'off' && h.object.userData && h.object.userData.isGLB) {
+        return clipPlane.distanceToPoint(h.point) >= -0.0005;
+      }
+      return true;
+    });
+
+    if (!validHit) {
+      clearHoverHighlight();
+      tip.style.display = 'none';
+      return;
+    }
+
+    const obj = validHit.object;
+    if (obj !== hoveredMesh) {
+      clearHoverHighlight();
+      hoveredMesh = obj;
+      if (obj.material && obj.material.emissive && obj.userData.isGLB) {
+        obj.material.emissive.setHex(0x2563eb);
+        obj.material.emissiveIntensity = 0.42;
+      }
+    }
+
+    const u = obj.userData;
+    $('tipName').textContent = u.name || obj.name || '-';
+    $('tipKind').textContent = u.kind || 'part';
+    $('tipModel').textContent = u.model || '';
+    $('tipModel').style.display = u.model ? 'block' : 'none';
+
+    const metaParts = [];
+    if (u.material && u.material !== '-') metaParts.push(u.material);
+    if (u.mass_kg != null) metaParts.push(`${Number(u.mass_kg).toFixed(3)} kg`);
+    $('tipMeta').textContent = metaParts.join(' · ');
+    $('tipMeta').style.display = metaParts.length ? 'block' : 'none';
+
+    if (Array.isArray(u.bbox_mm) && u.bbox_mm.length === 6) {
+      const [x0, x1, y0, y1, z0, z1] = u.bbox_mm;
+      const dx = Math.round(x1 - x0), dy = Math.round(y1 - y0), dz = Math.round(z1 - z0);
+      $('tipBbox').textContent =
+        `BBox X[${x0}..${x1}] Y[${y0}..${y1}] Z[${z0}..${z1}] mm (${dx}×${dy}×${dz})`;
+      $('tipBbox').style.display = 'block';
+    } else {
+      $('tipBbox').style.display = 'none';
+    }
+
+    tip.style.display = 'block';
+    tip.style.left = Math.max(8, Math.min(rect.width - 340, ev.clientX - rect.left + 14)) + 'px';
+    tip.style.top  = Math.max(8, Math.min(rect.height - 130, ev.clientY - rect.top + 14)) + 'px';
+  });
+
+  canvas.addEventListener('pointerleave', () => {
+    clearHoverHighlight();
+    tip.style.display = 'none';
+  });
+
+  // ==========================================================================
+  // REAL GLB + SSOT JSON DIRECT LOADING (100% OFFLINE LOCAL BUNDLE)
+  // ==========================================================================
+  const loader = new GLTFLoader();
+  let loadedStats = {
+    ready: false,
+    mainMeshCount: 0,
+    batteryOptMeshCount: 0,
+    mappedMetaCount: 0,
+    partsJsonCount: 0,
+  };
+
+  function syncDebugState() {
+    window.__CAD_STATE__ = {
+      ...loadedStats,
+      activeBatt,
+      activePkg,
+      towerMode,
+      clipAxis,
+      clipValueMm: +$('sClip').value,
+      clipLabel: $('vClip').textContent,
+      rendererGlobalClips: renderer.clippingPlanes.length,
+      robotClipMaterialCount: robotClipMaterials.length,
+      extMax: +$('sExt').max,
+      latchVal: +$('sLatch').value,
+      latchDisabled: $('sLatch').disabled,
+      pickDisabled: $('btnPickMode').disabled,
+      travelDisabled: $('btnTravelMode').disabled,
+      xt32Disabled: $('btnXT32').disabled,
+      os0Disabled: $('btnOS0').disabled,
+      cgChecked: $('kCG').checked,
+      cgVisible: cgMarkerGroup.visible,
+      battB1Visible: glbMeshes.get('battery_lfp_40ah_b1')?.visible ?? null,
+      battOptVisible: batteryOptGroup.visible,
+      xt32FovOriginGlb: fovXT32Group.userData.originGlb || null,
+      os0FovOriginGlb: fovOS0Group.userData.originGlb || null,
+      t2dFovOriginGlb: fovT2DGroup.userData.originGlb || null,
+      os0MeshPosGlb: [os0MeshGroup.position.x, os0MeshGroup.position.y, os0MeshGroup.position.z],
+      t2dMeshPosGlb: [t2dMeshGroup.position.x, t2dMeshGroup.position.y, t2dMeshGroup.position.z],
+      hasOpenConsole: glbMeshes.has('hmi_open_console_4t'),
+      hasMiniRoof: glbMeshes.has('tower_mini_roof_6t'),
+      variantId: activeVariant.id,
+      stepHref: $('dlStepBtn').getAttribute('href'),
+      csvHref: $('dlCsvBtn').getAttribute('href'),
+    };
+  }
+
+  function attachLoadedMesh(mesh, meta, targetParent) {
+    const partName = mesh.name;
+    const isShell = Boolean(meta && (meta.kind === 'cover' || SHELL_EXTRA_NAMES.has(partName)));
+
+    mesh.material = createCadMaterial(meta, isShell);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+
+    mesh.userData = {
+      name: partName,
+      kind: meta ? meta.kind : 'part',
+      model: meta ? meta.model : partName,
+      material: meta ? meta.material : '-',
+      tol: meta ? meta.tol : '-',
+      datum_ref: meta ? meta.datum_ref : '-',
+      mass_kg: meta ? meta.mass_kg : null,
+      moving: Boolean(meta && meta.moving),
+      bbox_mm: meta ? meta.bbox_mm : null,
+      note: meta ? meta.note : '',
+      isGLB: true,
+    };
+
+    if (isShell) shellMeshes.push(mesh);
+    pickables.push(mesh);
+    glbMeshes.set(partName, mesh);
+
+    if (partName.startsWith('scissor_lift_')) {
+      const isRear = partName.includes('_R1') || partName.includes('_R2');
+      const isLeft = partName.includes('_L_');
+      const isInner = partName.endsWith('1');
+      const xf = isRear ? -210.0 : 320.0;
+      const yf = isLeft ? 231.5 : -231.5;
+      const zf = 70.2;
+      const pVec = cad2glb(xf, yf, zf);
+
+      const pivot = new THREE.Group();
+      pivot.position.copy(pVec);
+      mesh.position.sub(pVec);
+      pivot.add(mesh);
+      forkLatchGroup.add(pivot);
+      scissorPivots.push({ pivot, dirSign: isInner ? -1 : 1, basePivotY: pVec.y });
+      return;
+    }
+
+    targetParent.add(mesh);
+  }
+
+  async function initCAD() {
+    try {
+      const [partsResp, manifestResp, mainGltf, optGltf] = await Promise.all([
+        fetch('./ltype_1200x1530_parts.json'),
+        fetch('./cad/cad_variants_manifest.json').catch(() => null),
+        loader.loadAsync('./ltype_1200x1530_4sensor.glb'),
+        loader.loadAsync('./ltype_battery_a_opt.glb'),
+      ]);
+
+      if (!partsResp.ok) throw new Error(`parts.json HTTP ${partsResp.status}`);
+
+      const partsJson = await partsResp.json();
+      if (partsJson.mass_cg) massCgData = partsJson.mass_cg;
+
+      // Sync variant metadata dynamically from manifest JSON if available
+      if (manifestResp && manifestResp.ok) {
+        const manifest = await manifestResp.json();
+        if (Array.isArray(manifest.variants)) {
+          for (const mv of manifest.variants) {
+            if (CAD_VARIANTS[mv.id]) {
+              CAD_VARIANTS[mv.id] = {
+                id: mv.id,
+                stepFile: mv.step_file,
+                csvFile: mv.csv_file,
+                stepHref: `cad/${mv.step_file}`,
+                csvHref: `cad/${mv.csv_file}`,
+                partCount: mv.part_count,
+                stepBytes: mv.step_bytes,
+                totalKg: mv.total_kg,
+                cgMm: mv.cg_mm,
+              };
+            }
+          }
+        }
+      }
+
+      for (const p of partsJson.parts) partsMetaByName.set(p.name, p);
+      if (partsJson.battery_a_option && Array.isArray(partsJson.battery_a_option.parts)) {
+        for (const bp of partsJson.battery_a_option.parts) partsMetaByName.set(bp.name, bp);
+      }
+
+      const mainMeshes = [];
+      mainGltf.scene.traverse(obj => {
+        if (obj.isMesh) mainMeshes.push(obj);
+      });
+
+      let mappedCount = 0;
+      for (const mesh of mainMeshes) {
+        const meta = partsMetaByName.get(mesh.name) || null;
+        if (meta) mappedCount++;
+
+        let parent = staticGroup;
+        if (meta && meta.moving) {
+          if (SLIDE_ONLY_PARTS.has(mesh.name)) parent = forkSlideGroup;
+          else if (LIFT_TINE_PARTS.has(mesh.name)) parent = forkLiftGroup;
+          else parent = forkLatchGroup;
+        }
+        attachLoadedMesh(mesh, meta, parent);
+      }
+
+      const optMeshes = [];
+      optGltf.scene.traverse(obj => {
+        if (obj.isMesh) optMeshes.push(obj);
+      });
+      for (const mesh of optMeshes) {
+        const meta = partsMetaByName.get(mesh.name) || null;
+        attachLoadedMesh(mesh, meta, batteryOptGroup);
+      }
+
+      loadedStats = {
+        ready: true,
+        mainMeshCount: mainMeshes.length,
+        batteryOptMeshCount: optMeshes.length,
+        mappedMetaCount: mappedCount,
+        partsJsonCount: partsJson.parts.length,
+      };
+
+      const vp = $('viewport');
+      vp.dataset.loadedMeshes = String(mainMeshes.length);
+      vp.dataset.batteryOptMeshes = String(optMeshes.length);
+      vp.dataset.ready = 'true';
+      $('vpStatus').textContent = `Rev C.3 · ${mainMeshes.length} 부품`;
+
+      const params = new URLSearchParams(location.search);
+      const initPkg  = parseInitialPkg(params.get('pkg'));
+      const initBatt = (params.get('batt') || '').toUpperCase() === 'A' ? 'A' : 'B1';
+      applyBattery(initBatt);
+      applyPkg(initPkg);
+      applyClip();
+
+      $('loadingOverlay').style.display = 'none';
+      syncDebugState();
+    } catch (err) {
+      $('loadingTitle').textContent = '3D CAD GLB 로드 실패';
+      $('loadingSub').textContent = `${err.message} (로컬 HTTP 서버에서 열어 주세요)`;
+      console.error('[CAD Loader]', err);
+    }
+  }
+
+  function resize() {
+    const r = canvas.parentElement.getBoundingClientRect();
+    if (r.width <= 0 || r.height <= 0) return;
+    renderer.setSize(r.width, r.height, false);
+    camera.aspect = r.width / r.height;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  renderer.setAnimationLoop(() => {
+    if (tween) {
+      tween.t = Math.min(1, tween.t + 0.065);
+      const e = 1 - Math.pow(1 - tween.t, 3);
+      camera.position.lerpVectors(tween.p0, tween.p1, e);
+      controls.target.lerpVectors(tween.t0, tween.t1, e);
+      if (tween.t >= 1) tween = null;
+    }
+    controls.update();
+    renderer.render(scene, camera);
+  });
+
+  initCAD();
+}
 </script>
 </body>
 </html>

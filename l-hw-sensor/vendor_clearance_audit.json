@@ -1,7 +1,7 @@
 {
   "revision": "Rev C.3",
   "all_pass": true,
-  "audit_elapsed_s": 60.4,
+  "audit_elapsed_s": 42.59,
   "datums": {
     "A": "바닥판 하면 (Z = 46.0 mm)",
     "B": "중앙 등뼈 좌측 HGR20 레일 가공면 (Y = +130.0 mm)",

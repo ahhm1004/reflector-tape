@@ -1,0 +1,300 @@
+{
+  "revision": "Rev C.3",
+  "strategy": "방식 1 — 공통 1.5t Rev C.3 마스터 프레임 1벌 공유 + 옵션 부품 실제 탈착·교체 + 미사용 개구 블랭킹 커버 마감",
+  "common_envelope_mm": [
+    1530.0,
+    1200.0,
+    590.0
+  ],
+  "all_variants_pass": true,
+  "total_variants_elapsed_s": 29.55,
+  "bom_files": {
+    "china_oem": {
+      "file": "LType_RevC3_BOM_China_OEM.csv",
+      "bytes": 8790,
+      "label": "중국 OEM 실부품 BOM (무가격 · 사양 A~D+)"
+    },
+    "korea_kc": {
+      "file": "LType_RevC3_BOM_Korea_KC.csv",
+      "bytes": 10160,
+      "label": "한국 KC/KCs 인증 실부품 BOM (무가격 · 사양 A~D+)"
+    }
+  },
+  "variants": [
+    {
+      "id": "PkgA",
+      "label": "PkgA — 초저가 2D · 5축 고정 · QR 없음 · B-1 40Ah LFP",
+      "step_file": "LType_RevC3_PkgA_2D_5Axis_B1.step",
+      "csv_file": "LType_RevC3_PkgA_2D_5Axis_B1.csv",
+      "step_bytes": 4677776,
+      "csv_bytes": 50151,
+      "part_count": 208,
+      "steel_kg": 353.35,
+      "aluminum_kg": 5.96,
+      "other_kg": 4.87,
+      "purchased_kg": 105.71,
+      "total_kg": 469.9,
+      "cg_mm": [
+        -123.3,
+        5.3,
+        137.8
+      ],
+      "envelope_mm": [
+        1530.0,
+        1200.0,
+        590.0
+      ],
+      "invalid_solids": 0,
+      "interferences": 0,
+      "components": 1,
+      "floating": 0,
+      "dynamic_collisions": 0,
+      "step_roundtrip_solids": 208,
+      "step_roundtrip_invalid": 0,
+      "step_roundtrip_ok": true,
+      "all_pass": true,
+      "elapsed_s": 6.96,
+      "config": {
+        "front_e1r": false,
+        "rear_sensor": "2D_flat",
+        "center_qr": false,
+        "servo_axes": 5,
+        "battery": "B1_40Ah_LFP"
+      },
+      "added_parts": [
+        "blank_cover_e1r_front",
+        "tower_2d_pedestal_flat",
+        "fork_fixed_mount_L",
+        "fork_fixed_mount_R",
+        "lidar_2d_rear_tower",
+        "blank_cover_qr_bottom"
+      ],
+      "removed_parts": [
+        "e1r_mount_wedge",
+        "tower_3d_pedestal",
+        "latch_servo_L",
+        "latch_worm_gearbox_L",
+        "latch_leadscrew_L",
+        "latch_slider_bracket_L",
+        "latch_upper_roller_L",
+        "latch_servo_R",
+        "latch_worm_gearbox_R",
+        "latch_leadscrew_R",
+        "latch_slider_bracket_R",
+        "latch_upper_roller_R",
+        "lidar_3d_front_E1R",
+        "lidar_3d_rear_XT32",
+        "qr_camera_downward",
+        "qr_mount_bracket",
+        "qr_bezel_ring",
+        "qr_glass_window",
+        "servo_drive_RL_6",
+        "servo_drive_RR_7"
+      ],
+      "diff_summary": "전방 E1R 제거 + 3t 블랭킹 커버(blank_cover_e1r_front) / 중앙 QR 제거 + 4t 바닥 블랭킹 커버(blank_cover_qr_bottom) / 좌후방 3D(XT32)→수평 2D 라이다 교체(tower_2d_pedestal_flat + lidar_2d_rear_tower) / 포크 7축→5축 고정 브래킷 직결(fork_fixed_mount_L/R) / B-1 40Ah LFP"
+    },
+    {
+      "id": "PkgB",
+      "label": "PkgB — 실속 1.5t · 2D+QR · 7축 가변 · B-1 40Ah LFP",
+      "step_file": "LType_RevC3_PkgB_2D_QR_7Axis_B1.step",
+      "csv_file": "LType_RevC3_PkgB_2D_QR_7Axis_B1.csv",
+      "step_bytes": 4861860,
+      "csv_bytes": 52932,
+      "part_count": 221,
+      "steel_kg": 350.11,
+      "aluminum_kg": 7.43,
+      "other_kg": 4.92,
+      "purchased_kg": 108.35,
+      "total_kg": 470.81,
+      "cg_mm": [
+        -123.8,
+        5.3,
+        137.7
+      ],
+      "envelope_mm": [
+        1530.0,
+        1200.0,
+        590.0
+      ],
+      "invalid_solids": 0,
+      "interferences": 0,
+      "components": 1,
+      "floating": 0,
+      "dynamic_collisions": 0,
+      "step_roundtrip_solids": 221,
+      "step_roundtrip_invalid": 0,
+      "step_roundtrip_ok": true,
+      "all_pass": true,
+      "elapsed_s": 7.24,
+      "config": {
+        "front_e1r": false,
+        "rear_sensor": "2D_flat",
+        "center_qr": true,
+        "servo_axes": 7,
+        "battery": "B1_40Ah_LFP"
+      },
+      "added_parts": [
+        "blank_cover_e1r_front",
+        "tower_2d_pedestal_flat",
+        "lidar_2d_rear_tower"
+      ],
+      "removed_parts": [
+        "e1r_mount_wedge",
+        "tower_3d_pedestal",
+        "lidar_3d_front_E1R",
+        "lidar_3d_rear_XT32"
+      ],
+      "diff_summary": "전방 E1R 제거 + 3t 블랭킹 커버(blank_cover_e1r_front) / 좌후방 3D(XT32)→수평 2D 라이다 교체(tower_2d_pedestal_flat + lidar_2d_rear_tower) / 중앙 QR 유지 / 7축 latchmod rev C 유지 / B-1 40Ah LFP"
+    },
+    {
+      "id": "PkgC",
+      "label": "PkgC — 준풀 3D 1.5t · 정면 E1R + 좌후방 2D + QR + 7축 · B-1 40Ah LFP",
+      "step_file": "LType_RevC3_PkgC_Semi3D_E1R_B1.step",
+      "csv_file": "LType_RevC3_PkgC_Semi3D_E1R_B1.csv",
+      "step_bytes": 4864539,
+      "csv_bytes": 53075,
+      "part_count": 222,
+      "steel_kg": 349.34,
+      "aluminum_kg": 7.83,
+      "other_kg": 4.92,
+      "purchased_kg": 108.9,
+      "total_kg": 471.0,
+      "cg_mm": [
+        -123.5,
+        5.3,
+        137.7
+      ],
+      "envelope_mm": [
+        1530.0,
+        1200.0,
+        590.0
+      ],
+      "invalid_solids": 0,
+      "interferences": 0,
+      "components": 1,
+      "floating": 0,
+      "dynamic_collisions": 0,
+      "step_roundtrip_solids": 222,
+      "step_roundtrip_invalid": 0,
+      "step_roundtrip_ok": true,
+      "all_pass": true,
+      "elapsed_s": 6.8,
+      "config": {
+        "front_e1r": true,
+        "rear_sensor": "2D_flat",
+        "center_qr": true,
+        "servo_axes": 7,
+        "battery": "B1_40Ah_LFP"
+      },
+      "added_parts": [
+        "tower_2d_pedestal_flat",
+        "lidar_2d_rear_tower"
+      ],
+      "removed_parts": [
+        "tower_3d_pedestal",
+        "lidar_3d_rear_XT32"
+      ],
+      "diff_summary": "정면 E1R 유지 / 좌후방 3D(XT32)→수평 2D 라이다 교체(tower_2d_pedestal_flat + lidar_2d_rear_tower) / 중앙 QR 유지 / 7축 latchmod rev C 유지 / B-1 40Ah LFP"
+    },
+    {
+      "id": "PkgD_B1",
+      "label": "PkgD_B1 — 풀 3D Rev C.3 (일반 2D / D+ PLd 공용 기구) · B-1 40Ah LFP",
+      "step_file": "LType_RevC3_PkgD_Full3D_B1.step",
+      "csv_file": "LType_RevC3_PkgD_Full3D_B1.csv",
+      "step_bytes": 4851548,
+      "csv_bytes": 52961,
+      "part_count": 222,
+      "steel_kg": 349.34,
+      "aluminum_kg": 7.95,
+      "other_kg": 4.92,
+      "purchased_kg": 109.35,
+      "total_kg": 471.56,
+      "cg_mm": [
+        -124.2,
+        5.9,
+        138.1
+      ],
+      "envelope_mm": [
+        1530.0,
+        1200.0,
+        590.0
+      ],
+      "invalid_solids": 0,
+      "interferences": 0,
+      "components": 1,
+      "floating": 0,
+      "dynamic_collisions": 0,
+      "step_roundtrip_solids": 222,
+      "step_roundtrip_invalid": 0,
+      "step_roundtrip_ok": true,
+      "all_pass": true,
+      "elapsed_s": 1.03,
+      "config": {
+        "front_e1r": true,
+        "rear_sensor": "3D_XT32",
+        "center_qr": true,
+        "servo_axes": 7,
+        "battery": "B1_40Ah_LFP"
+      },
+      "added_parts": [],
+      "removed_parts": [],
+      "diff_summary": "Rev C.3 풀스펙 마스터본(222부품 100% 동일 · 정면 E1R + 좌후방 XT32 + 매립 2D×2 + 중앙 QR + 7축 latchmod rev C + B-1 40Ah LFP)"
+    },
+    {
+      "id": "PkgD_A100",
+      "label": "PkgD_A100 — 풀 3D Rev C.3 · 배터리 A안 (51.2V 100Ah LFP 타워 좌우 8S×2 실장)",
+      "step_file": "LType_RevC3_PkgD_Full3D_A100.step",
+      "csv_file": "LType_RevC3_PkgD_Full3D_A100.csv",
+      "step_bytes": 4870428,
+      "csv_bytes": 53217,
+      "part_count": 220,
+      "steel_kg": 349.32,
+      "aluminum_kg": 7.67,
+      "other_kg": 4.62,
+      "purchased_kg": 130.35,
+      "total_kg": 491.96,
+      "cg_mm": [
+        -183.6,
+        5.3,
+        153.8
+      ],
+      "envelope_mm": [
+        1530.0,
+        1200.0,
+        590.0
+      ],
+      "invalid_solids": 0,
+      "interferences": 0,
+      "components": 1,
+      "floating": 0,
+      "dynamic_collisions": 0,
+      "step_roundtrip_solids": 220,
+      "step_roundtrip_invalid": 0,
+      "step_roundtrip_ok": true,
+      "all_pass": true,
+      "elapsed_s": 7.51,
+      "config": {
+        "front_e1r": true,
+        "rear_sensor": "3D_XT32",
+        "center_qr": true,
+        "servo_axes": 7,
+        "battery": "A100_100Ah_LFP"
+      },
+      "added_parts": [
+        "battery_a_lfp_50ah_L",
+        "battery_a_lfp_50ah_R",
+        "busbar_bracket_tower_L",
+        "busbar_bracket_tower_R"
+      ],
+      "removed_parts": [
+        "battery_mount_rail_L",
+        "battery_mount_rail_R",
+        "battery_lfp_40ah_b1",
+        "busbar_bracket_R",
+        "busbar_bracket_M",
+        "busbar_bracket_F"
+      ],
+      "diff_summary": "풀 3D + QR + 7축 유지 / 중앙 등뼈 B-1 40Ah·마운트 레일 제거 / 후방 충전 버스바 타워 좌·우 직결 분기 / 뒤 타워 좌·우 하부 격실 배터리 A안(51.2V 100Ah LFP, 8S×2, 178×228×246 + 트레이 182×234×250) 실제 STEP 실장"
+    }
+  ]
+}
