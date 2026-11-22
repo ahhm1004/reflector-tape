@@ -1,5 +1,14 @@
 {
+  "revision": "Rev C.1",
   "all_pass": true,
+  "audit_elapsed_s": 30.51,
+  "datums": {
+    "A": "바닥판 하면 (Z = 46.0 mm)",
+    "B": "중앙 등뼈 좌측 HGR20 레일 가공면 (Y = +130.0 mm)",
+    "C": "뒤 타워 10t 후면판 외면 (X = -750.0 mm)",
+    "general_tol_weld": "ISO 13920-B",
+    "general_tol_machined": "ISO 2768-mK"
+  },
   "envelope": {
     "x_min": -765.0,
     "x_max": 765.0,
@@ -10,19 +19,252 @@
     "length_mm": 1530.0,
     "width_mm": 1200.0,
     "height_mm": 590.0,
+    "invalid_solids": [],
     "zero_protrusion_pass": true
+  },
+  "gates": {
+    "gate1_envelope": {
+      "pass_ok": true,
+      "envelope": {
+        "x_min": -765.0,
+        "x_max": 765.0,
+        "y_min": -600.0,
+        "y_max": 600.0,
+        "z_min": 0.0,
+        "z_max": 590.0,
+        "length_mm": 1530.0,
+        "width_mm": 1200.0,
+        "height_mm": 590.0,
+        "invalid_solids": [],
+        "zero_protrusion_pass": true
+      }
+    },
+    "gate2_all_pairs_interference": {
+      "interference_threshold_mm3": 0.001,
+      "total_pairs": 24090,
+      "aabb_overlap_candidates": 149,
+      "interference_count": 0,
+      "interferences": [],
+      "battery_a_opt_interference_count": 0,
+      "battery_a_opt_interferences": [],
+      "pass_ok": true
+    },
+    "gate3_connectivity": {
+      "contact_threshold_mm": 0.25,
+      "connected_components": 1,
+      "main_component_size": 220,
+      "floating_parts_count": 0,
+      "floating_parts": [],
+      "detached_groups": [],
+      "pass_ok": true
+    },
+    "gate4_dynamic_sweep": {
+      "interference_threshold_mm3": 0.001,
+      "fork_max_ext_mm": 1240.0,
+      "fork_ext_tested_mm": [
+        0.0,
+        50.0,
+        100.0,
+        200.0,
+        300.0,
+        400.0,
+        500.0,
+        600.0,
+        700.0,
+        800.0,
+        900.0,
+        1000.0,
+        1100.0,
+        1200.0,
+        1240.0
+      ],
+      "fork_sweep_collisions": 0,
+      "fork_sweep_details": [],
+      "rail_block_on_rail_pass": true,
+      "rail_block_support": {
+        "L": {
+          "rail_x_mm": [
+            -690.0,
+            675.0
+          ],
+          "block_x_at_0_mm": [
+            -680.0,
+            -566.0
+          ],
+          "block_x_at_max_ext_mm": [
+            560.0,
+            674.0
+          ],
+          "margin_rear_mm": 10.0,
+          "margin_front_mm": 1.0,
+          "pass_ok": true
+        },
+        "R": {
+          "rail_x_mm": [
+            -690.0,
+            675.0
+          ],
+          "block_x_at_0_mm": [
+            -680.0,
+            -566.0
+          ],
+          "block_x_at_max_ext_mm": [
+            560.0,
+            674.0
+          ],
+          "margin_rear_mm": 10.0,
+          "margin_front_mm": 1.0,
+          "pass_ok": true
+        }
+      },
+      "latch_stroke_tested_dz_mm": [
+        -24.0,
+        -20.0,
+        -12.0,
+        -6.0,
+        0.0,
+        10.0,
+        21.0
+      ],
+      "latch_stroke_collisions": 0,
+      "latch_stroke_details": [],
+      "lift_sweep_tested_dz_mm": [
+        0.0,
+        20.0,
+        40.0,
+        60.0,
+        80.0,
+        100.0,
+        120.0,
+        140.0,
+        160.0,
+        180.0,
+        200.0,
+        220.0,
+        240.0,
+        242.0
+      ],
+      "lift_sweep_collisions": 0,
+      "lift_sweep_details": [],
+      "caster_center_y_mm": 448.0,
+      "caster_checked_parts_count": 186,
+      "caster_compression_dz_tested_mm": [
+        0.0,
+        10.0,
+        15.0,
+        20.0
+      ],
+      "caster_swivel_collisions": 0,
+      "caster_swivel_details": [],
+      "caster_R99_to_2d_slot_min_mm": 21.0,
+      "caster_R99_to_inwall_min_mm": 19.0,
+      "caster_R93_to_waist_min_mm": 6.0,
+      "caster_R99_to_waist_min_mm": 0.0,
+      "scissor_stored_z_min_mm": 52.83,
+      "scissor_ground_req_mm": 46.0,
+      "pass_ok": true
+    },
+    "gate5_raycast_fov": {
+      "lidar_2d_fl_center_mm": [
+        716.0,
+        551.0,
+        126.5
+      ],
+      "lidar_2d_rr_center_mm": [
+        -716.0,
+        -551.0,
+        126.5
+      ],
+      "lidar_2d_fl_open_deg": 266.5,
+      "lidar_2d_rr_open_deg": 264.0,
+      "lidar_2d_req_deg": 250.0,
+      "lidar_2d_blind_wedge_deg": 0.0,
+      "lidar_2d_overlap_per_side_deg": 85.25,
+      "lidar_2d_perimeter_points": 270,
+      "lidar_2d_perimeter_50mm_visible_pct": 100.0,
+      "lidar_2d_perimeter_50mm_blind_pct": 0.0,
+      "lidar_2d_perimeter_50mm_blind_count": 0,
+      "lidar_2d_perimeter_100mm_visible_pct": 100.0,
+      "lidar_2d_perimeter_100mm_blind_pct": 0.0,
+      "lidar_2d_perimeter_100mm_blind_count": 0,
+      "lidar_2d_perimeter_150mm_visible_pct": 100.0,
+      "lidar_2d_perimeter_150mm_blind_pct": 0.0,
+      "lidar_2d_perimeter_150mm_blind_count": 0,
+      "lidar_2d_max_blind_depth_mm": 40.0,
+      "lidar_2d_max_blind_point_mm": [
+        -805.0,
+        555.0
+      ],
+      "lidar_2d_fr_max_blind_depth_mm": 0.0,
+      "lidar_2d_rl_max_blind_depth_mm": 40.0,
+      "lidar_2d_near_blind_area_cm2": 101.2,
+      "xt32_horiz_open_pct": 97.22,
+      "xt32_horiz_req_pct": 90.0,
+      "xt32_32ch_empty_open_pct": 75.91,
+      "e1r_window_top_mm": [
+        722.13,
+        0.0,
+        140.97
+      ],
+      "e1r_top_up_deg": 73.5,
+      "e1r_top_up_req_deg": 55.0,
+      "e1r_el55_blocked_pct": 0.0,
+      "e1r_el55_corner_blocked_pct": 0.0,
+      "e1r_dn_deg": 71.75,
+      "e1r_hfov_half_deg": 82.0,
+      "qr_half_angles_deg": {
+        "+X": 35.75,
+        "-X": 35.75,
+        "+Y": 35.75,
+        "-Y": 35.75
+      },
+      "qr_min_half_deg": 35.75,
+      "qr_req_half_deg": 35.0,
+      "pass_ok": true
+    },
+    "gate6_glb_mass": {
+      "tessellate_tol_mm": 0.15,
+      "glb_max_bbox_err_mm": 0.0336,
+      "glb_watertight_count": 220,
+      "glb_total_meshes": 220,
+      "glb_watertight_ratio": 1.0,
+      "glb_triangles": 49054,
+      "steel_structure_kg": 355.95,
+      "total_robot_kg": 478.17,
+      "pass_ok": true
+    }
+  },
+  "mass_cg": {
+    "steel_structure_kg": 355.95,
+    "aluminum_kg": 7.95,
+    "other_material_kg": 4.92,
+    "purchased_components_kg": 109.35,
+    "total_robot_b1_kg": 478.17,
+    "cg_b1_mm": [
+      -132.1,
+      1.6,
+      147.0
+    ],
+    "total_solid_volume_L": 88.949,
+    "battery_a_opt_module_kg": 39.0,
+    "total_robot_with_a_only_kg": 499.17,
+    "cg_with_a_only_mm": [
+      -189.3,
+      1.6,
+      161.8
+    ]
   },
   "clearances": [
     {
-      "check": "구동 바퀴(L) ↔ 포드 상판(Z=188)",
+      "check": "구동 바퀴(L) ↔ 포드 상판(Z=190)",
       "part_a": "drive_wheel_L",
       "part_b": "pod_top_L",
-      "clearance_mm": 3.0,
-      "min_req_mm": 2.5,
+      "clearance_mm": 5.0,
+      "min_req_mm": 4.5,
       "pass_ok": true
     },
     {
-      "check": "구동 바퀴(L) ↔ 포크 레인 외측벽(Y=330)",
+      "check": "구동 바퀴(L) ↔ 포크 레인 내벽(Y=330)",
       "part_a": "drive_wheel_L",
       "part_b": "pod_wall_in_L",
       "clearance_mm": 15.0,
@@ -30,15 +272,23 @@
       "pass_ok": true
     },
     {
-      "check": "구동 서보(L) ↔ 포드 외판(Y=582)",
+      "check": "구동 서보(L) ↔ 구동 바퀴(L)",
       "part_a": "drive_servo_motor_L",
-      "part_b": "pod_skin_L_main",
-      "clearance_mm": 37.0,
-      "min_req_mm": 25.0,
+      "part_b": "drive_wheel_L",
+      "clearance_mm": 27.5,
+      "min_req_mm": 20.0,
       "pass_ok": true
     },
     {
-      "check": "포크 날(L, 155mm) ↔ 포드 내측벽(Y=320)",
+      "check": "구동 서보(L) ↔ 허리띠 외판(Y=547)",
+      "part_a": "drive_servo_motor_L",
+      "part_b": "pod_skin_L_waist",
+      "clearance_mm": 10.0,
+      "min_req_mm": 8.0,
+      "pass_ok": true
+    },
+    {
+      "check": "포크 날(L, 155mm) ↔ 포드 내벽(Y=320)",
       "part_a": "fork_tine_L",
       "part_b": "pod_wall_in_L",
       "clearance_mm": 11.0,
@@ -54,7 +304,15 @@
       "pass_ok": true
     },
     {
-      "check": "전방 E1R (+10°) ↔ 상단 8t 강판 커버(Z=166)",
+      "check": "문형 캐리지(Z=178) ↔ 중앙 등뼈 상판(Z=174)",
+      "part_a": "fork_carriage",
+      "part_b": "spine_top_4t",
+      "clearance_mm": 4.0,
+      "min_req_mm": 3.5,
+      "pass_ok": true
+    },
+    {
+      "check": "전방 E1R (+10°) ↔ 상단 8t 경사 커버(Z=166)",
       "part_a": "lidar_3d_front_E1R",
       "part_b": "e1r_top_cover_8t",
       "clearance_mm": 8.04,
@@ -62,26 +320,26 @@
       "pass_ok": true
     },
     {
-      "check": "전방 E1R ↔ 중앙 배터리 격벽",
+      "check": "전방 E1R ↔ 중앙 배터리 격벽(X=662)",
       "part_a": "lidar_3d_front_E1R",
       "part_b": "spine_e1r_backwall",
       "clearance_mm": 14.79,
-      "min_req_mm": 3.0,
+      "min_req_mm": 10.0,
       "pass_ok": true
     },
     {
-      "check": "중앙 QR 카메라 ↔ 배터리팩",
-      "part_a": "qr_camera_downward",
-      "part_b": "battery_lfp_48v100ah",
-      "clearance_mm": 52.0,
-      "min_req_mm": 40.0,
+      "check": "배터리 B-1(X≤605) ↔ E1R 격벽(X=656)",
+      "part_a": "battery_lfp_40ah_b1",
+      "part_b": "spine_e1r_backwall",
+      "clearance_mm": 51.0,
+      "min_req_mm": 45.0,
       "pass_ok": true
     },
     {
-      "check": "중앙 QR 카메라 ↔ IMU(MTi-630)",
+      "check": "중앙 QR 카메라 ↔ 배터리 B-1",
       "part_a": "qr_camera_downward",
-      "part_b": "imu_xsens_mti630",
-      "clearance_mm": 63.51,
+      "part_b": "battery_lfp_40ah_b1",
+      "clearance_mm": 62.0,
       "min_req_mm": 40.0,
       "pass_ok": true
     },
@@ -89,58 +347,78 @@
       "check": "후면 충전 하우징 ↔ 후방 안전 범퍼(Z=81)",
       "part_a": "rear_charger_housing",
       "part_b": "bumper_rear",
-      "clearance_mm": 94.0,
+      "clearance_mm": 93.54,
       "min_req_mm": 90.0,
       "pass_ok": true
     },
     {
-      "check": "후면 충전 하우징 ↔ 10.1\" HMI",
+      "check": "후면 충전 하우징 ↔ Winmate 10.1\" HMI",
       "part_a": "rear_charger_housing",
       "part_b": "rear_hmi_10in",
-      "clearance_mm": 81.84,
-      "min_req_mm": 80.0,
+      "clearance_mm": 15.62,
+      "min_req_mm": 10.0,
       "pass_ok": true
     },
     {
-      "check": "뒤 타워 3D(XT32) ↔ 경사 지붕(Z=565)",
+      "check": "뒤 타워 3D(XT32) ↔ 중공 경사 지붕",
       "part_a": "lidar_3d_rear_XT32",
       "part_b": "tower_chamfered_roof",
-      "clearance_mm": 11.41,
+      "clearance_mm": 27.41,
+      "min_req_mm": 10.0,
+      "pass_ok": true
+    },
+    {
+      "check": "좌전방 2D(nanoScan3) ↔ 노치 상부 지붕",
+      "part_a": "lidar_2d_FL",
+      "part_b": "slot_2d_roof_L",
+      "clearance_mm": 6.0,
       "min_req_mm": 5.0,
       "pass_ok": true
     },
     {
-      "check": "좌하 2D(nanoScan3) ↔ 슬롯 상부 보강판",
-      "part_a": "lidar_2d_FL",
-      "part_b": "slot_2d_roof_L",
-      "clearance_mm": 6.0,
-      "min_req_mm": 4.0,
-      "pass_ok": true
-    },
-    {
-      "check": "우측 전장함(Orin NX) ↔ 구동 바퀴(R)",
-      "part_a": "compute_orin_nx_ptp",
+      "check": "우전방 전장(Orin NX) ↔ 구동 바퀴(R)",
+      "part_a": "compute_orin_nx",
       "part_b": "drive_wheel_R",
-      "clearance_mm": 27.5,
-      "min_req_mm": 20.0,
+      "clearance_mm": 37.5,
+      "min_req_mm": 25.0,
       "pass_ok": true
     }
   ],
   "optical": {
-    "e1r_up_clearance_deg": 59.62,
+    "method": "trimesh_3d_raycast_0.15mm",
+    "e1r_up_clearance_deg": 73.5,
     "e1r_up_req_deg": 55.0,
     "e1r_up_pass": true,
-    "e1r_dn_clearance_deg": 63.92,
+    "e1r_el55_blocked_pct": 0.0,
+    "e1r_dn_clearance_deg": 71.75,
     "e1r_dn_req_deg": 35.0,
     "e1r_dn_pass": true,
-    "e1r_hfov_half_deg": 62.24,
+    "e1r_hfov_half_deg": 82.0,
     "e1r_hfov_half_req_deg": 60.0,
     "e1r_hfov_pass": true,
+    "lidar_2d_fl_open_deg": 266.5,
+    "lidar_2d_rr_open_deg": 264.0,
+    "lidar_2d_blind_wedge_deg": 0.0,
+    "lidar_2d_perimeter_50mm_blind_pct": 0.0,
+    "lidar_2d_perimeter_100mm_blind_pct": 0.0,
+    "lidar_2d_perimeter_150mm_blind_pct": 0.0,
+    "lidar_2d_max_blind_depth_mm": 40.0,
+    "xt32_horiz_open_pct": 97.22,
     "qr_working_dist_mm": 100.0,
     "qr_wd_range_mm": [
       80.0,
       120.0
     ],
+    "qr_min_half_deg": 35.75,
     "qr_wd_pass": true
+  },
+  "step_reimport": {
+    "solids": 220,
+    "expected_solids": 220,
+    "invalid_solids": 0,
+    "length_mm": 1530.0,
+    "width_mm": 1200.0,
+    "height_mm": 590.0,
+    "pass_ok": true
   }
 }
