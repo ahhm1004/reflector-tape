@@ -352,7 +352,7 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
         <label class="chk"><input type="checkbox" id="kFovE1R" checked><span class="dot" style="background:#a855f7"></span>② 정면 E1R (+10° · 상방 73.5° · el=+55° 0% 차단)</label>
         <label class="chk"><input type="checkbox" id="kFovTower" checked><span class="dot" style="background:#facc15"></span>③ 좌후방 미니타워 XT32 (+8° · -645,+452.5,512 · Ø18×4기둥 92.2% / 32ch 81.9%)</label>
         <label class="chk"><input type="checkbox" id="kQR" checked><span class="dot" style="background:#14b8a6"></span>★ 하단 중앙 QR (Z=100 · Ø85 · 35.75°)</label>
-        <label class="chk"><input type="checkbox" id="kCG" checked><span class="dot" style="background:#fbbf24"></span>무게중심(CG) 마커 (B-1 ↔ A 연동)</label>
+        <label class="chk"><input type="checkbox" id="kCG"><span class="dot" style="background:#fbbf24"></span>무게중심(CG) 마커 (B-1 ↔ A 연동)</label>
         <label class="chk"><input type="checkbox" id="kCargo"><span class="dot" style="background:#f59e0b"></span>적재 파레트 + 화물 (1.5 m)</label>
         <label class="chk"><input type="checkbox" id="kOver" checked><span class="dot" style="background:#10b981"></span>전·후방 공중 오버행 장애물 (1.45 m)</label>
         <label class="chk"><input type="checkbox" id="kRefl" checked><span class="dot" style="background:#fde047"></span>기둥 반사판 0~61 cm (Z2 V8 이중 판독)</label>
@@ -980,6 +980,7 @@ const cgMarkerGroup = new THREE.Group();
   dropLine.name = 'cgDrop';
   cgMarkerGroup.add(sphere, ring1, ring2, dropLine);
 }
+cgMarkerGroup.visible = false;
 scene.add(cgMarkerGroup);
 
 // Outer Zero-Protrusion Envelope Wireframe (1200 W along X_glb, 590 H along Y_glb, 1530 L along Z_glb)
