@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>신규 L-type (1200×1530) 4대 풀 3D + 후면 충전 접점 인터랙티브 3D 모델</title>
+<title>신규 L-type (1200×1530) 상세 3D CAD — 4센서 · 하단 QR · 7축 구동/서스펜션/Latch</title>
 <style>
 :root {
   --bg: #080d18;
@@ -15,10 +15,11 @@
   --muted: #94a3b8;
   --ok: #10b981;
   --cyan: #38bdf8;
+  --teal: #14b8a6;
   --purple: #a855f7;
   --gold: #facc15;
   --orange: #f97316;
-  --red: #ef4444;
+  --pink: #ec4899;
 }
 * { box-sizing: border-box; }
 html, body {
@@ -29,102 +30,102 @@ html, body {
 }
 #app { display: flex; width: 100%; height: 100%; }
 #panel {
-  width: 340px; flex-shrink: 0; height: 100%; overflow-y: auto;
+  width: 356px; flex-shrink: 0; height: 100%; overflow-y: auto;
   background: var(--panel); border-right: 1px solid var(--border);
-  padding: 14px 14px 24px; display: flex; flex-direction: column; gap: 12px;
+  padding: 13px 13px 24px; display: flex; flex-direction: column; gap: 10px;
 }
 #viewport { position: relative; flex: 1; min-width: 0; height: 100%; }
 #c { width: 100%; height: 100%; display: block; cursor: grab; }
 #c:active { cursor: grabbing; }
 
 .head-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-h1 { margin: 0; font-size: 15.5px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.25; }
-.sub { margin: 2px 0 0; font-size: 11.6px; color: var(--muted); }
+h1 { margin: 0; font-size: 15px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.25; }
+.sub { margin: 2px 0 0; font-size: 11.4px; color: var(--muted); }
 .back-link {
-  text-decoration: none; font-size: 11.5px; font-weight: 700; color: #cbd5e1;
+  text-decoration: none; font-size: 11.3px; font-weight: 700; color: #cbd5e1;
   background: var(--panel-alt); border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; white-space: nowrap;
 }
 .back-link:hover { background: #1e293b; color: #fff; }
 
 .box {
   background: var(--panel-alt); border: 1px solid var(--border);
-  border-radius: 10px; padding: 10px 11px;
+  border-radius: 10px; padding: 9px 10px;
 }
 .box-title {
-  font-size: 11.3px; font-weight: 800; color: var(--muted); text-transform: uppercase;
-  letter-spacing: 0.04em; margin: 0 0 8px; display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.04em; margin: 0 0 7px; display: flex; justify-content: space-between; align-items: center;
 }
 .btn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
 .btn-grid.tri { grid-template-columns: repeat(3, 1fr); }
 button.btn {
   border: 1px solid var(--border); background: #0b1220; color: #e2e8f0;
-  padding: 6px 7px; border-radius: 7px; font-size: 11.5px; font-weight: 700;
+  padding: 5.5px 6px; border-radius: 7px; font-size: 11.2px; font-weight: 700;
   cursor: pointer; text-align: center; transition: 0.12s;
 }
 button.btn:hover { background: #1e293b; border-color: #475569; }
 button.btn.active { background: #047857; border-color: #10b981; color: #fff; }
-button.btn.accent { background: #1d4ed8; border-color: #3b82f6; color: #fff; }
+button.btn.mini { padding: 3px 7px; font-size: 10.6px; }
 
-.chk-list { display: flex; flex-direction: column; gap: 6px; }
+.chk-list { display: flex; flex-direction: column; gap: 5px; }
 label.chk {
   display: flex; align-items: center; gap: 7px; cursor: pointer; user-select: none;
-  font-size: 12px; color: #e2e8f0;
+  font-size: 11.8px; color: #e2e8f0;
 }
 label.chk input { margin: 0; accent-color: var(--ok); }
 .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
 
-.slider-row { display: flex; flex-direction: column; gap: 3px; margin-bottom: 7px; }
+.slider-row { display: flex; flex-direction: column; gap: 2px; margin-bottom: 6px; }
 .slider-row:last-child { margin-bottom: 0; }
-.slider-head { display: flex; justify-content: space-between; font-size: 11.8px; color: #cbd5e1; font-weight: 600; }
+.slider-head { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #cbd5e1; font-weight: 600; }
 .slider-head strong { color: var(--ok); font-variant-numeric: tabular-nums; }
 input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
 
 .part-list { display: flex; flex-direction: column; gap: 4px; }
 .p-item {
-  display: flex; align-items: flex-start; gap: 7px; padding: 5px 7px; border-radius: 7px;
+  display: flex; align-items: flex-start; gap: 7px; padding: 4.5px 6px; border-radius: 7px;
   cursor: pointer; border: 1px solid transparent; transition: 0.12s;
 }
 .p-item:hover { background: rgba(255,255,255,0.05); border-color: var(--border); }
-.p-item .pt { font-weight: 700; font-size: 11.8px; color: #f8fafc; line-height: 1.25; }
-.p-item .ps { font-size: 10.7px; color: var(--muted); line-height: 1.3; }
+.p-item .pt { font-weight: 700; font-size: 11.5px; color: #f8fafc; line-height: 1.25; }
+.p-item .ps { font-size: 10.5px; color: var(--muted); line-height: 1.3; }
 
 .dl-btn {
   display: block; text-align: center; text-decoration: none; padding: 8px 10px;
   border-radius: 8px; background: #0f766e; border: 1px solid #14b8a6; color: #fff;
-  font-weight: 800; font-size: 12px;
+  font-weight: 800; font-size: 11.8px;
 }
 .dl-btn:hover { background: #115e59; }
 
 #hudTop {
-  position: absolute; top: 12px; left: 12px; right: 12px; pointer-events: none;
+  position: absolute; top: 10px; left: 10px; right: 10px; pointer-events: none;
   display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap;
 }
 .hud-pill {
-  background: rgba(15, 23, 42, 0.86); backdrop-filter: blur(8px);
-  border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px;
-  font-size: 11.6px; color: #e2e8f0; pointer-events: auto;
+  background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(8px);
+  border: 1px solid var(--border); border-radius: 8px; padding: 5px 9px;
+  font-size: 11.3px; color: #e2e8f0; pointer-events: auto;
 }
 .hud-pill strong { color: #34d399; }
 #tip {
   position: absolute; pointer-events: none; display: none; z-index: 20;
-  background: rgba(11, 18, 32, 0.95); border: 1px solid #38bdf8;
-  border-radius: 8px; padding: 7px 10px; max-width: 310px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  background: rgba(11, 18, 32, 0.96); border: 1px solid #38bdf8;
+  border-radius: 8px; padding: 7px 10px; max-width: 325px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.55);
 }
-#tip .t-name { font-weight: 800; font-size: 12.2px; color: #38bdf8; }
-#tip .t-model { font-weight: 700; font-size: 11.5px; color: #fde047; margin-top: 2px; }
-#tip .t-desc { font-size: 11px; color: #cbd5e1; margin-top: 2px; line-height: 1.35; }
+#tip .t-name { font-weight: 800; font-size: 12px; color: #38bdf8; }
+#tip .t-model { font-weight: 700; font-size: 11.2px; color: #fde047; margin-top: 2px; }
+#tip .t-desc { font-size: 10.8px; color: #cbd5e1; margin-top: 2px; line-height: 1.35; }
 
 #axisBadge {
-  position: absolute; bottom: 12px; right: 12px;
-  background: rgba(15, 23, 42, 0.84); border: 1px solid var(--border);
-  border-radius: 8px; padding: 6px 10px; font-size: 11px; color: var(--muted);
+  position: absolute; bottom: 10px; right: 10px;
+  background: rgba(15, 23, 42, 0.85); border: 1px solid var(--border);
+  border-radius: 8px; padding: 5px 9px; font-size: 10.8px; color: var(--muted);
 }
 
 @media (max-width: 820px) {
   #app { flex-direction: column-reverse; }
-  #panel { width: 100%; height: 44%; border-right: none; border-top: 1px solid var(--border); }
-  #viewport { height: 56%; }
+  #panel { width: 100%; height: 46%; border-right: none; border-top: 1px solid var(--border); }
+  #viewport { height: 54%; }
 }
 </style>
 <script type="importmap">
@@ -141,26 +142,26 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
   <aside id="panel">
     <div>
       <div class="head-row">
-        <h1>L-type 1200×1530 3D 모델</h1>
+        <h1>L-type 1200×1530 상세 3D</h1>
         <a class="back-link" href="index.html">← 설계서</a>
       </div>
-      <p class="sub">4대 풀 3D + 후면 매립 충전 접점(Z=180~240) · 돌출 0 mm</p>
+      <p class="sub">4센서 · 중앙 하단 QR · 7축 구동/서스펜션/가위/Latch</p>
     </div>
 
     <div class="box">
-      <div class="box-title"><span>카메라 시점 (클릭 이동)</span></div>
+      <div class="box-title"><span>카메라 시점 (클릭 포커스)</span></div>
       <div class="btn-grid">
         <button class="btn active" data-cam="iso">전체 등각 (Iso)</button>
+        <button class="btn" data-cam="underQR">★ 중앙 QR·구동부 (X-Ray)</button>
+        <button class="btn" data-cam="latchView">★ 포크 가위·진입높이</button>
         <button class="btn" data-cam="rearCharge">★ 후면 충전·타워</button>
-        <button class="btn" data-cam="frontE1R">★ 전방 E1R 등뼈</button>
-        <button class="btn" data-cam="lower2D">하부 2D 슬롯</button>
+        <button class="btn" data-cam="frontE1R">★ 전방 E1R + 8mm커버</button>
         <button class="btn" data-cam="side">측면도</button>
-        <button class="btn" data-cam="top">평면도</button>
       </div>
     </div>
 
     <div class="box">
-      <div class="box-title"><span>뒤 타워 3D 모델 비교</span></div>
+      <div class="box-title"><span>뒤 타워 3D 모델 전환</span></div>
       <div class="btn-grid">
         <button class="btn active" id="btnXT32">Hesai XT32 (31°, +8°)</button>
         <button class="btn" id="btnOS0">Ouster OS0-64 (90°)</button>
@@ -168,18 +169,28 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
     </div>
 
     <div class="box">
-      <div class="box-title"><span>실시간 동작 · 내부 X-Ray</span></div>
+      <div class="box-title">
+        <span>실시간 7축 기구 동작 · X-Ray</span>
+        <span style="display:flex;gap:4px">
+          <button class="btn mini" id="btnPickMode">픽(-11)</button>
+          <button class="btn mini active" id="btnTravelMode">주행(+9)</button>
+        </span>
+      </div>
+      <div class="slider-row">
+        <div class="slider-head"><span>포크 진입 높이 (Latch: -15~+30)</span><strong id="vLatch">+9 mm (바닥 Z=51)</strong></div>
+        <input type="range" id="sLatch" min="-15" max="30" step="1" value="9">
+      </div>
       <div class="slider-row">
         <div class="slider-head"><span>포크 뻗기 (Extension)</span><strong id="vExt">0 mm</strong></div>
         <input type="range" id="sExt" min="0" max="1250" step="10" value="0">
       </div>
       <div class="slider-row">
-        <div class="slider-head"><span>포크 들기 (Lift)</span><strong id="vLift">0 mm</strong></div>
-        <input type="range" id="sLift" min="0" max="200" step="5" value="0">
+        <div class="slider-head"><span>X형 가위 리프트 (Lift)</span><strong id="vLift">0 mm (날 상단 95)</strong></div>
+        <input type="range" id="sLift" min="0" max="207" step="3" value="0">
       </div>
       <div class="slider-row">
-        <div class="slider-head"><span>차체 외판 투명도 (X-Ray)</span><strong id="vOp">88%</strong></div>
-        <input type="range" id="sOp" min="15" max="100" step="5" value="88">
+        <div class="slider-head"><span>차체 외판 투명도 (내부 기구 X-Ray)</span><strong id="vOp">78%</strong></div>
+        <input type="range" id="sOp" min="12" max="100" step="4" value="78">
       </div>
     </div>
 
@@ -187,66 +198,66 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
       <div class="box-title"><span>센서 FOV · 현장 시나리오</span></div>
       <div class="chk-list">
         <label class="chk"><input type="checkbox" id="kFov2D" checked><span class="dot" style="background:#38bdf8"></span>① 하부 대각 2D 360° (Z=115)</label>
-        <label class="chk"><input type="checkbox" id="kFovE1R" checked><span class="dot" style="background:#a855f7"></span>② 전방 E1R 3D 120°×90° (+10°)</label>
+        <label class="chk"><input type="checkbox" id="kFovE1R" checked><span class="dot" style="background:#a855f7"></span>② 전방 E1R 3D + 상단 8 mm 커버</label>
         <label class="chk"><input type="checkbox" id="kFovTower" checked><span class="dot" style="background:#facc15"></span>③ 뒤 타워 3D + 다중 링 반사판</label>
-        <label class="chk"><input type="checkbox" id="kCargo" checked><span class="dot" style="background:#f59e0b"></span>적재 파레트 + 화물 (1.5 m)</label>
+        <label class="chk"><input type="checkbox" id="kQR" checked><span class="dot" style="background:#14b8a6"></span>★ 하단 중앙 QR 카메라 + 바닥 QR 타겟</label>
+        <label class="chk"><input type="checkbox" id="kCargo"><span class="dot" style="background:#f59e0b"></span>적재 파레트 + 화물 (1.5 m)</label>
         <label class="chk"><input type="checkbox" id="kOver" checked><span class="dot" style="background:#10b981"></span>전·후방 공중 오버행 장애물 (1.45 m)</label>
         <label class="chk"><input type="checkbox" id="kRefl" checked><span class="dot" style="background:#fde047"></span>기둥 반사판 0~61 cm (이중 판독)</label>
-        <label class="chk"><input type="checkbox" id="kDock" checked><span class="dot" style="background:#f97316"></span>★ 후진 충전 스테이션 도킹 보기</label>
+        <label class="chk"><input type="checkbox" id="kDock" checked><span class="dot" style="background:#f97316"></span>후진 충전 스테이션 도킹 보기</label>
         <label class="chk"><input type="checkbox" id="kSweep"><span class="dot" style="background:#c084fc"></span>회전 스윕 원 (R=0.97 m / Ø1.94 m)</label>
-        <label class="chk"><input type="checkbox" id="kEnv" checked><span class="dot" style="background:#22c55e"></span>외곽 한계선 (1200×1530×590)</label>
       </div>
     </div>
 
     <div class="box">
-      <div class="box-title"><span>핵심 구성 (클릭 시 포커스)</span></div>
+      <div class="box-title"><span>상세 설계 핵심 (클릭 이동)</span></div>
       <div class="part-list">
-        <div class="p-item" data-cam="rearCharge">
-          <span class="dot" style="background:#f97316;margin-top:4px"></span>
+        <div class="p-item" data-cam="underQR">
+          <span class="dot" style="background:#14b8a6;margin-top:4px"></span>
           <div>
-            <div class="pt">후면 매립 충전 접점 (이전 확정)</div>
-            <div class="ps">뒤 타워 하단 Z=180~240 · 범퍼(81)/2D(115)/HMI(340) 간섭 0</div>
+            <div class="pt">하단 중앙 QR + 고정 구동·서스펜션</div>
+            <div class="ps">QR(X=0, 렌즈 Z=100) · Ø185×80+40:1+110각 서보 · Ø100 쌍바퀴+코일오버</div>
+          </div>
+        </div>
+        <div class="p-item" data-cam="latchView">
+          <span class="dot" style="background:#ec4899;margin-top:4px"></span>
+          <div>
+            <div class="pt">포크 가위 리프트 4조 + 진입 높이(Latch)</div>
+            <div class="ps">SMC40S+웜+Tr10×2(-15~+30 mm) · 픽 Z=31 / 주행 Z=51 · HGR20 레일</div>
           </div>
         </div>
         <div class="p-item" data-cam="frontE1R">
           <span class="dot" style="background:#a855f7;margin-top:4px"></span>
           <div>
-            <div class="pt">전방 등뼈 RoboSense E1R + 상단 커버</div>
-            <div class="ps">95×69.5×43 · Z=120 · 상단 8 mm 강판 커버(Z=166~174) 아래 보호</div>
+            <div class="pt">전방 E1R + 상단 8 mm 강판 커버</div>
+            <div class="ps">95×69.5×43 · Z=120 · 상단 커버(Z=166~174) +55° 시야 손실 0°</div>
           </div>
         </div>
         <div class="p-item" data-cam="rearCharge">
-          <span class="dot" style="background:#facc15;margin-top:4px"></span>
+          <span class="dot" style="background:#f97316;margin-top:4px"></span>
           <div>
-            <div class="pt">뒤 타워 Hesai XT32 / Ouster OS0</div>
-            <div class="ps">Z=520 · 지붕(590) 아래 매립 · 0.18° 다중 링 반사판</div>
-          </div>
-        </div>
-        <div class="p-item" data-cam="lower2D">
-          <span class="dot" style="background:#38bdf8;margin-top:4px"></span>
-          <div>
-            <div class="pt">하부 대각 SICK nanoScan3 Pro ×2</div>
-            <div class="ps">좌하·우상 안쪽 35 mm · Z=115 · FreeOptics C2 호환</div>
+            <div class="pt">후면 매립 충전 + 타워 3D</div>
+            <div class="ps">범퍼(81) → 2D(115) → 충전(180~240) → HMI(340~510) → 3D(520)</div>
           </div>
         </div>
       </div>
     </div>
 
-    <a class="dl-btn" href="ltype_1200x1530_4sensor.glb" download>⬇ 실치수 3D CAD (.glb) 다운로드</a>
+    <a class="dl-btn" href="ltype_1200x1530_4sensor.glb" download>⬇ 실치수 상세 3D CAD (.glb) 다운로드</a>
   </aside>
 
   <main id="viewport">
     <canvas id="c"></canvas>
     <div id="hudTop">
-      <div class="hud-pill"><strong>드래그</strong> 회전 · <strong>휠</strong> 확대/축소 · <strong>우클릭 드래그</strong> 이동 · 부품에 마우스를 올리면 모델명 표시</div>
-      <div class="hud-pill" id="hudStatus">모드: <strong>Hesai XT32 (+8°)</strong> · 후면 충전 접점 Z=180~240 mm</div>
+      <div class="hud-pill"><strong>드래그</strong> 회전 · <strong>휠</strong> 확대 · <strong>X-Ray 슬라이더</strong>로 내부 모터·감속기·서스펜션·가위·QR 확인</div>
+      <div class="hud-pill" id="hudStatus"><strong>7축 서보</strong> · 하단 QR(Z=100) · Latch +9 mm</div>
     </div>
     <div id="tip">
       <div class="t-name" id="tipName"></div>
       <div class="t-model" id="tipModel"></div>
       <div class="t-desc" id="tipDesc"></div>
     </div>
-    <div id="axisBadge">치수: 1200(폭) × 1530(길이) × 590(타워) mm · 단위 1:1 실척</div>
+    <div id="axisBadge">1200(폭)×1530(길이)×590(타워) mm · 구동 Ø185×80(40:1) · 캐스터 Ø100 쌍바퀴+코일오버 · 7축</div>
   </main>
 </div>
 
@@ -254,52 +265,42 @@ input[type="range"] { width: 100%; accent-color: var(--ok); cursor: pointer; }
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-// Coordinate mapping (meters):
-// Three.js X = CAD Forward (+X = forks front, -X = rear tower)
-// Three.js Y = CAD Up (+Y = Z height from floor)
-// Three.js Z = CAD Right (-Z = left +Y_cad, +Z = right -Y_cad)
 const mm = v => v / 1000;
-
 const canvas = document.getElementById('c');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.15;
+renderer.toneMappingExposure = 1.18;
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x080d18);
-scene.fog = new THREE.Fog(0x080d18, 8.5, 20);
+scene.fog = new THREE.Fog(0x080d18, 9.0, 22);
 
 const camera = new THREE.PerspectiveCamera(38, 1, 0.02, 40);
-camera.position.set(2.15, 1.55, 2.05);
+camera.position.set(2.15, 1.48, 2.05);
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.dampingFactor = 0.07;
-controls.target.set(0, 0.34, 0);
-controls.maxPolarAngle = Math.PI / 2 - 0.015;
-controls.minDistance = 0.45;
+controls.target.set(0, 0.30, 0);
+controls.maxPolarAngle = Math.PI / 2 - 0.01;
+controls.minDistance = 0.42;
 controls.maxDistance = 9.5;
 
 // Lights
-scene.add(new THREE.HemisphereLight(0xdbeafe, 0x1e293b, 1.25));
+scene.add(new THREE.HemisphereLight(0xdbeafe, 0x1e293b, 1.35));
 const keyLight = new THREE.DirectionalLight(0xffffff, 1.75);
 keyLight.position.set(3.2, 5.2, 3.0);
 keyLight.castShadow = true;
 keyLight.shadow.mapSize.set(2048, 2048);
-keyLight.shadow.camera.near = 0.5;
-keyLight.shadow.camera.far = 16;
 const dCam = 3.2;
-keyLight.shadow.camera.left = -dCam;
-keyLight.shadow.camera.right = dCam;
-keyLight.shadow.camera.top = dCam;
-keyLight.shadow.camera.bottom = -dCam;
+keyLight.shadow.camera.left = -dCam; keyLight.shadow.camera.right = dCam;
+keyLight.shadow.camera.top = dCam;  keyLight.shadow.camera.bottom = -dCam;
 keyLight.shadow.bias = -0.0005;
 scene.add(keyLight);
-
-const fillLight = new THREE.DirectionalLight(0x93c5fd, 0.65);
+const fillLight = new THREE.DirectionalLight(0x93c5fd, 0.72);
 fillLight.position.set(-3.5, 2.2, -2.5);
 scene.add(fillLight);
 
@@ -311,21 +312,17 @@ const floor = new THREE.Mesh(
 floor.rotation.x = -Math.PI / 2;
 floor.receiveShadow = true;
 scene.add(floor);
-
 const grid = new THREE.GridHelper(10, 20, 0x243247, 0x131d31);
 grid.position.y = 0.001;
 scene.add(grid);
 
-// Hoverable metadata registry
 const pickables = [];
 const shellMaterials = [];
-
 function tagMesh(mesh, name, model, desc) {
   mesh.userData = { name, model, desc };
   pickables.push(mesh);
   return mesh;
 }
-
 function makeBox(x0, x1, yCad0, yCad1, z0, z1, mat, meta, parent = scene) {
   const sx = mm(x1 - x0), sy = mm(z1 - z0), sz = mm(yCad1 - yCad0);
   const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat);
@@ -338,404 +335,439 @@ function makeBox(x0, x1, yCad0, yCad1, z0, z1, mat, meta, parent = scene) {
 }
 
 // Materials
-const matChassis = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.45, metalness: 0.35, transparent: true, opacity: 0.88 });
-const matTower = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.42, metalness: 0.35, transparent: true, opacity: 0.88 });
-const matSpine = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5, metalness: 0.3, transparent: true, opacity: 0.88 });
+const matChassis = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.45, metalness: 0.35, transparent: true, opacity: 0.78, depthWrite: false });
+const matTower   = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.42, metalness: 0.35, transparent: true, opacity: 0.78, depthWrite: false });
+const matSpine   = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.50, metalness: 0.30, transparent: true, opacity: 0.78, depthWrite: false });
 shellMaterials.push(matChassis, matTower, matSpine);
 
-const matFork = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.35, metalness: 0.65 });
-const matBumper = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.65, metalness: 0.1 });
-const matRubber = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.85, metalness: 0.05 });
-const matRim = new THREE.MeshStandardMaterial({ color: 0x2563eb, roughness: 0.35, metalness: 0.6 });
-const matCaster = new THREE.MeshStandardMaterial({ color: 0x0f766e, roughness: 0.5, metalness: 0.35 });
-const matDarkOptic = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.12, metalness: 0.9 });
-const mat2DBody = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.32, metalness: 0.25 });
-const mat2DYellow = new THREE.MeshStandardMaterial({ color: 0xeab308, roughness: 0.35, metalness: 0.2 });
-const matE1R = new THREE.MeshStandardMaterial({ color: 0x9333ea, roughness: 0.3, metalness: 0.45 });
-const matTower3D = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.28, metalness: 0.5 });
-const matCopper = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.22, metalness: 0.88, emissive: 0x451a03, emissiveIntensity: 0.35 });
-const matChargeBox = new THREE.MeshStandardMaterial({ color: 0xc2410c, roughness: 0.45, metalness: 0.2 });
-const matCable = new THREE.MeshStandardMaterial({ color: 0xf97316, roughness: 0.5, metalness: 0.15 });
-const matScreen = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.15, metalness: 0.6, emissive: 0x0c4a6e, emissiveIntensity: 0.55 });
-const matRed = new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.35, metalness: 0.25 });
-const matGreen = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.45, metalness: 0.2 });
-const matBatt = new THREE.MeshStandardMaterial({ color: 0x059669, roughness: 0.4, metalness: 0.25 });
-const matElec = new THREE.MeshStandardMaterial({ color: 0x2563eb, roughness: 0.4, metalness: 0.45 });
+const matFork    = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.35, metalness: 0.65 });
+const matScissor = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.30, metalness: 0.75 });
+const matRail    = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, roughness: 0.25, metalness: 0.80 });
+const matLatch   = new THREE.MeshStandardMaterial({ color: 0xdb2777, roughness: 0.35, metalness: 0.45 });
+const matScrew   = new THREE.MeshStandardMaterial({ color: 0xfde047, roughness: 0.25, metalness: 0.85 });
+const matBumper  = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.65, metalness: 0.10 });
+const matRubber  = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.85, metalness: 0.05 });
+const matDrive   = new THREE.MeshStandardMaterial({ color: 0x1d4ed8, roughness: 0.35, metalness: 0.65 });
+const matMotor   = new THREE.MeshStandardMaterial({ color: 0x3b82f6, roughness: 0.32, metalness: 0.60 });
+const matCaster  = new THREE.MeshStandardMaterial({ color: 0x0f766e, roughness: 0.45, metalness: 0.40 });
+const matSpring  = new THREE.MeshStandardMaterial({ color: 0xea580c, roughness: 0.35, metalness: 0.50 });
+const matUrethane= new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.55, metalness: 0.10 });
+const matDarkOpt = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.12, metalness: 0.90 });
+const mat2DBody  = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.32, metalness: 0.25 });
+const mat2DYel   = new THREE.MeshStandardMaterial({ color: 0xeab308, roughness: 0.35, metalness: 0.20 });
+const matE1R     = new THREE.MeshStandardMaterial({ color: 0x9333ea, roughness: 0.30, metalness: 0.45 });
+const matTower3D = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.28, metalness: 0.50 });
+const matQR      = new THREE.MeshStandardMaterial({ color: 0x14b8a6, roughness: 0.28, metalness: 0.45 });
+const matRingLED = new THREE.MeshStandardMaterial({ color: 0xe0f2fe, emissive: 0x38bdf8, emissiveIntensity: 1.0, roughness: 0.2 });
+const matCopper  = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.22, metalness: 0.88, emissive: 0x451a03, emissiveIntensity: 0.35 });
+const matChargeB = new THREE.MeshStandardMaterial({ color: 0xc2410c, roughness: 0.45, metalness: 0.20 });
+const matCable   = new THREE.MeshStandardMaterial({ color: 0xf97316, roughness: 0.50, metalness: 0.15 });
+const matScreen  = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.15, metalness: 0.60, emissive: 0x0c4a6e, emissiveIntensity: 0.55 });
+const matRed     = new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.35, metalness: 0.25 });
+const matGreen   = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.45, metalness: 0.20 });
+const matBatt    = new THREE.MeshStandardMaterial({ color: 0x059669, roughness: 0.40, metalness: 0.25 });
 
 const robotGroup = new THREE.Group();
 scene.add(robotGroup);
 
-// ================= 1. CHASSIS SHELL (1200 x 1530 x 590, ZERO PROTRUSION) =================
-// Left pod (Y_cad +290..+585) with Front-Left 2D cutout (X 610..750, Y_cad 450..585, Z 72..162)
-makeBox(-545, 610, 290, 585, 46, 192, matChassis, ['좌측 포드 (파레트 적재면)', '1200×1530 차체 (Z=46~192 mm)', '상판이 완전히 평탄해 1200×1100 파레트를 직접 지지'], robotGroup);
-makeBox(610, 750, 290, 450, 46, 192, matChassis, ['좌측 포드 앞쪽 내벽', '하부 2D 슬롯 내측 격벽', '좌하 2D 라이다 보호 구조'], robotGroup);
-makeBox(610, 750, 450, 585, 162, 192, matChassis, ['좌하 2D 슬롯 보호 상판', 'Z=162~192 mm', '낙하물·파레트 충격으로부터 하부 2D 보호'], robotGroup);
-makeBox(610, 750, 450, 585, 46, 72, matChassis, ['좌하 2D 슬롯 베이스', '3점 레벨링 볼트 (±0.1°)', '수평 미세 조절로 바닥 맞음 방지'], robotGroup);
+// ================= 1. CHASSIS SHELL (1200x1530x590, ZERO PROTRUSION) =================
+makeBox(-545, 610, 290, 585, 46, 192, matChassis, ['좌측 포드 (평탄 파레트 적재면)', '1200×1530 차체 (Z=46~192 mm)', '구동·캐스터 서스펜션·안전 PLC/서보 드라이브 내장'], robotGroup);
+makeBox(610, 750, 290, 450, 46, 192, matChassis, ['좌측 포드 앞쪽 내벽', '하부 2D 슬롯 보호', ''], robotGroup);
+makeBox(610, 750, 450, 585, 162, 192, matChassis, ['좌하 2D 슬롯 보호 상판', 'Z=162~192 mm', ''], robotGroup);
+makeBox(610, 750, 450, 585, 46, 72, matChassis, ['좌하 2D 슬롯 베이스', '3점 레벨링 볼트 (±0.1°)', ''], robotGroup);
+makeBox(-545, 750, -585, -290, 46, 192, matChassis, ['우측 포드 (평탄 파레트 적재면)', '1200×1530 차체 (Z=46~192 mm)', '구동·캐스터 서스펜션·Orin NX + Moxa PTP 내장'], robotGroup);
 
-// Right pod (Y_cad -585..-290)
-makeBox(-545, 750, -585, -290, 46, 192, matChassis, ['우측 포드 (파레트 적재면)', '1200×1530 차체 (Z=46~192 mm)', '전장 칸(Orin NX + PTP 스위치) 내장'], robotGroup);
+// Center Fixed Spine split around Center QR bay (-65..+65) and Front E1R fortified tunnel (678..750)
+makeBox(-545, -65, -145, 145, 46, 174, matSpine, ['중앙 등뼈 후방부 (폭 290 mm)', '포크 뻗기 서보 + 와이어 엔코더 + IMU 수납', ''], robotGroup);
+makeBox(-65, 65, -145, 145, 154, 174, matSpine, ['중앙 등뼈 QR실 상판', '회전축 정중앙(X=0, Y=0) 하방 QR 카메라 보호', ''], robotGroup);
+makeBox(-65, 65, 55, 145, 46, 154, matSpine, ['중앙 QR실 좌측 격벽', '바닥 Ø85 강화유리 광학창 지지', ''], robotGroup);
+makeBox(-65, 65, -145, -55, 46, 154, matSpine, ['중앙 QR실 우측 격벽', '바닥 Ø85 강화유리 광학창 지지', ''], robotGroup);
+makeBox(65, 678, -145, 145, 46, 174, matSpine, ['중앙 등뼈 전방부', '48V 100Ah LFP 배터리 수납 (550×230×108 mm)', '중앙 QR실과 앞 E1R 포켓 사이 독립 격실'], robotGroup);
 
-// Center Fixed Spine (Y_cad -145..+145, Z 46..174) with fortified Front E1R recessed pocket + 8mm steel top roof!
-makeBox(-545, 678, -145, 145, 46, 174, matSpine, ['중앙 고정 등뼈 (폭 290 mm)', 'Z=46~174 mm (좌우 포크 Z=51~95 위)', '내부 48V 100Ah LFP 배터리 수납 · 앞끝 E1R 방호 터널 포켓'], robotGroup);
-makeBox(678, 750, -145, 145, 46, 56, matSpine, ['등뼈 앞끝 하부 강판 (10t)', 'Z=46~56 mm (충전 접점은 뒤로 이전)', 'E1R 하방 -35° 광선 간섭 제로 + 바닥 보호'], robotGroup);
-makeBox(678, 720, -85, 85, 56, 78, matSpine, ['E1R 경사 마운트 베이스', 'Z=56~78 mm (+10° 지지대)', 'RoboSense E1R 고정 브래킷'], robotGroup);
-makeBox(678, 740, -145, 145, 166, 174, matTower, ['★ E1R 상단 8 mm 강판 보호 커버 (경사 처마)', 'Z=166~174 mm (등뼈 상판과 일체 · 앞끝 X=740)', 'E1R 본체(X=682~725) 위를 100% 덮어 낙하·파레트 충돌 파손 차단 · +55° 상방 시야 손실 0°'], robotGroup);
-makeBox(678, 750, 85, 145, 56, 166, matSpine, ['E1R 포켓 좌측 60 mm 강철 지주', '상단 보호 커버 지지 · ±60°(120°) 시야 확보', '전방·측방 충격으로부터 E1R 완전 보호 (돌출 0 mm)'], robotGroup);
-makeBox(678, 750, -145, -85, 56, 166, matSpine, ['E1R 포켓 우측 60 mm 강철 지주', '상단 보호 커버 지지 · ±60°(120°) 시야 확보', '전방·측방 충격으로부터 E1R 완전 보호 (돌출 0 mm)'], robotGroup);
+// Front E1R fortified tunnel + 8 mm steel top cover
+makeBox(678, 750, -145, 145, 46, 56, matSpine, ['E1R 포켓 하부 10t 강판', 'Z=46~56 · 하방 -35° 무간섭', ''], robotGroup);
+makeBox(678, 720, -85, 85, 56, 78, matSpine, ['E1R 경사 마운트 베이스', '+10° 지지 브래킷', ''], robotGroup);
+makeBox(678, 740, -145, 145, 166, 174, matTower, ['★ E1R 상단 8 mm 강판 보호 커버 (경사 처마)', 'Z=166~174 mm · 앞끝 X=740', 'E1R 본체(X=682~725) 위 100% 방호 · +55° 시야 손실 0°'], robotGroup);
+makeBox(678, 750, 85, 145, 56, 166, matSpine, ['E1R 좌측 60 mm 강철 지주', '상단 커버 지지 + ±60° 수평 시야 확보', ''], robotGroup);
+makeBox(678, 750, -145, -85, 56, 166, matSpine, ['E1R 우측 60 mm 강철 지주', '상단 커버 지지 + ±60° 수평 시야 확보', ''], robotGroup);
 
-// Rear Tower (X -750..-545, Z 46..590) with Rear-Right 2D slot & Central 3D bay
-makeBox(-750, -545, -450, 585, 46, 472, matTower, ['뒤쪽 상단 타워 본체', '깊이 220 mm · 높이 590 mm', '후면 하단 충전 접점(Z=180~240) & 상단 10.1" HMI 배치'], robotGroup);
-makeBox(-610, -545, -585, -450, 46, 472, matTower, ['타워 우측 하부 앞벽', '우상 2D 슬롯 보호', ''], robotGroup);
+// Rear Tower
+makeBox(-750, -545, -450, 585, 46, 472, matTower, ['뒤쪽 상단 타워 본체', '깊이 220 mm · 높이 590 mm', '후면 충전(Z=180~240) + 10.1" HMI(Z=340~510)'], robotGroup);
+makeBox(-610, -545, -585, -450, 46, 472, matTower, ['타워 우측 앞벽', '', ''], robotGroup);
 makeBox(-750, -610, -585, -450, 46, 72, matTower, ['우상 2D 슬롯 베이스', '3점 레벨링 볼트 (±0.1°)', ''], robotGroup);
-makeBox(-750, -610, -585, -450, 162, 472, matTower, ['타워 우측 상부', '우상 2D 보호 상부 구조', ''], robotGroup);
-// Upper wings left/right of central 3D pocket (Y_cad -80..+80 open for 360deg tower 3D)
-makeBox(-750, -545, 85, 585, 472, 565, matTower, ['타워 상단 좌측 날개', '중앙 3D 라이다 보호 기둥', ''], robotGroup);
-makeBox(-750, -545, -585, -85, 472, 565, matTower, ['타워 상단 우측 날개', '중앙 3D 라이다 보호 기둥', ''], robotGroup);
-makeBox(-705, -585, -80, 80, 465, 480, matTower, ['타워 3D 장착 베이스', 'Z=480 mm · H530(451~600) 등급 준수', ''], robotGroup);
-// Chamfered Protective Roof (Z=565..590, beveled for upward 3D FOV!)
-makeBox(-705, -585, -585, 585, 565, 590, matTower, ['타워 보호 지붕 (경사 절삭)', '최고 높이 Z=590 mm (돌출 0 mm)', '앞뒤 절삭으로 뒤 타워 3D의 상방 오버행 시야 확보'], robotGroup);
+makeBox(-750, -610, -585, -450, 162, 472, matTower, ['우상 2D 슬롯 상부', '', ''], robotGroup);
+makeBox(-750, -545, 85, 585, 472, 565, matTower, ['타워 상단 좌측 기둥', '', ''], robotGroup);
+makeBox(-750, -545, -585, -85, 472, 565, matTower, ['타워 상단 우측 기둥', '', ''], robotGroup);
+makeBox(-705, -585, -80, 80, 465, 480, matTower, ['타워 3D 받침대', 'Z=480 · H530 등급 준수', ''], robotGroup);
+makeBox(-705, -585, -585, 585, 565, 590, matTower, ['타워 보호 지붕 (경사 절삭)', 'Z=590 mm 이하 완전 수납', '후진 오버행 상방 시야 확보'], robotGroup);
 
 // Safety Bumpers (Mayser SL/W, Z=46..81)
-const bmpMeta = ['접촉식 안전 범퍼 띠', 'Mayser SL/W (대안: ASO Sentir)', 'Z=46~81 mm · Safety Relay / STO 하드와이어 직결'];
+const bmpMeta = ['접촉식 안전 범퍼 띠', 'Mayser SL/W (대안: ASO Sentir)', 'Z=46~81 mm · Safety Relay / STO 직결'];
 makeBox(750, 765, -585, -290, 46, 81, matBumper, bmpMeta, robotGroup);
 makeBox(750, 765, 290, 445, 46, 81, matBumper, bmpMeta, robotGroup);
 makeBox(-740, 605, 585, 600, 46, 81, matBumper, bmpMeta, robotGroup);
 makeBox(-605, 740, -600, -585, 46, 81, matBumper, bmpMeta, robotGroup);
-makeBox(-765, -750, -445, 585, 46, 81, matBumper, ['후방 연속 안전 범퍼', 'Mayser SL/W (Z=46~81 mm)', '후면 충전 접점(Z=180~240)보다 100 mm 아래에 있어 끊김 없이 전체 보호'], robotGroup);
+makeBox(-765, -750, -445, 585, 46, 81, matBumper, ['후방 연속 안전 범퍼', 'Mayser SL/W (Z=46~81)', '후면 충전 접점(Z=180~240) 아래 완전 분리'], robotGroup);
 
-// ================= 2. MOVABLE FORKS & CARRIAGE =================
-const forkSlideGroup = new THREE.Group();
-const forkLiftGroup = new THREE.Group();
-robotGroup.add(forkSlideGroup);
-forkSlideGroup.add(forkLiftGroup);
-
-makeBox(-690, -560, -285, 285, 55, 195, matFork, ['포크 신축 캐리지 (门架)', 'Tuofei 와이어 엔코더 (Modbus 0x4A)', '0~1250 mm 신축 스트로크'], forkSlideGroup);
+// Linear Guide Rails (HGR20 x2)
 for (const s of [1, -1]) {
-  const y0 = Math.min(s * 155, s * 275), y1 = Math.max(s * 155, s * 275);
-  makeBox(-620, 735, y0, y1, 51, 95, matFork, ['신축 포크 날 (폭 120 mm)', 'Z=51~95 mm · 리프트 최대 +200 mm', '전방 등뼈 3D(Z=138) 아래 위치해 가림 0%'], forkLiftGroup);
-  // Fork-tip photoelectric sensor (SICK WTB4FP)
-  makeBox(722, 736, s * 215 - 9, s * 215 + 9, 63, 83, matGreen,
-    ['포크 끝단 매립 광전 센서 ×2', 'SICK WTB4FP-22161120A00 (대안: Keyence LR-TB2000C)', '포크 신축 중 팔레트 포켓 내부 충돌 정지'], forkLiftGroup);
+  const y0 = Math.min(s * 145, s * 165), y1 = Math.max(s * 145, s * 165);
+  makeBox(-690, 735, y0, y1, 86, 107, matRail, ['직선 가이드 레일 HGR20 × 2', '등뼈 양쪽 내벽 장착', '포크 캐리지 0~1250 mm 고정밀 직선 안내'], robotGroup);
 }
 
-// ================= 3. FOUR MAIN SENSORS =================
-// (1) Lower Diagonal 2D LiDAR x 2 (SICK nanoScan3 Pro look: yellow top + dark window + blue/black base)
+// ================= 2. DETAILED DRIVE MODULES x2 & SUSPENSION CASTERS x4 =================
+for (const s of [1, -1]) {
+  const lbl = s > 0 ? '좌' : '우';
+  // Fixed Drive Wheel Ø185 x 80
+  const w = new THREE.Mesh(new THREE.CylinderGeometry(0.0925, 0.0925, 0.080, 32), matRubber);
+  w.rotation.x = Math.PI / 2;
+  w.position.set(0, 0.0925, -mm(s * 385));
+  w.castShadow = true;
+  tagMesh(w, `고정 구동 바퀴 (${lbl})`, 'Ø185×80 연질 PU 75A (Blickle GSTN 202/35H7급)', '구동 간격 770 mm · 고정식 2륜 차동 · 20 mm 턱 대응(μ≥0.79)');
+  robotGroup.add(w);
+  const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.083, 24), matDrive);
+  rim.rotation.x = Math.PI / 2; rim.position.copy(w.position); robotGroup.add(rim);
+
+  // Right-angle 40:1 Gearbox (120 x 70 x 120 mm)
+  const gy0 = Math.min(s * 428, s * 498), gy1 = Math.max(s * 428, s * 498);
+  makeBox(-60, 60, gy0, gy1, 55, 175, matDrive, [`직각 감속기 40:1 (${lbl})`, '폭 70 mm · 바퀴 외팔 지지', '턱 오름 토크 542 N·m 대응 · 최고 주행속도 0.7 m/s'], robotGroup);
+
+  // 110-frame 48V 1.5kW Longitudinal Servo Motor (Ø110 x L200)
+  const mot = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.200, 24), matMotor);
+  mot.rotation.z = Math.PI / 2;
+  mot.position.set(mm(-190), mm(120), -mm(s * 465));
+  tagMesh(mot, `주행 서보 모터 (${lbl})`, '110각 48V 1.5 kW 서보 (Kinco FD144S 구동)', '축을 차체 길이 방향으로 배치해 폭 1200 mm 안쪽 수납');
+  robotGroup.add(mot);
+  makeBox(-75, 75, Math.min(s * 428, s * 535), Math.max(s * 428, s * 535), 176, 188, matDrive, [`구동 모듈 상부 볼트 마운트 (${lbl})`, '포드 상판 직결 고정', '서스펜션 없는 고정 구동으로 상판 192 mm 억제'], robotGroup);
+
+  // 4x Twin Casters (Ø100x30) + Swivel Head + 10t Swing Lever + Coilover + Urethane Stopper
+  for (const [xc, fr, kNm] of [[515, '앞', '60 N/mm'], [-515, '뒤', '30 N/mm']]) {
+    const sp = xc > 0 ? -1 : 1;
+    const yc = s * 455;
+    const head = new THREE.Mesh(new THREE.CylinderGeometry(0.046, 0.046, 0.040, 24), matCaster);
+    head.position.set(mm(xc), mm(120), -mm(yc));
+    tagMesh(head, `${fr}${lbl} 쌍바퀴 캐스터 회전 머리`, 'LAG G80 7470 (Ø100×30 쌍바퀴, 600 kg)', '쓸림 반경 93 mm · 급정지 463 kg 하중 여유');
+    robotGroup.add(head);
+    for (const dy of [-21, 21]) {
+      const cw = new THREE.Mesh(new THREE.CylinderGeometry(0.050, 0.050, 0.028, 22), matRubber);
+      cw.rotation.x = Math.PI / 2;
+      cw.position.set(mm(xc - 30 * (xc > 0 ? 1 : -1)), 0.050, -mm(yc + dy));
+      tagMesh(cw, `${fr}${lbl} PU 쌍바퀴 (Ø100×30)`, 'LAG G80 7470', '20 mm 턱 통과 시 캐스터 밀려 오름 여유 1.38배');
+      robotGroup.add(cw);
+    }
+    const xl0 = Math.min(xc, xc + sp * 210), xl1 = Math.max(xc, xc + sp * 210);
+    makeBox(xl0, xl1, yc - 38, yc + 38, 140, 150, matSpring, [`${fr}${lbl} 서스펜션 흔들 레버 (10t 강판)`, '길이 210~231 mm · 경첩 피벗', '바닥 요철 흡수 및 구동륜 접지력 68% 이상 유지'], robotGroup);
+    const coil = new THREE.Mesh(new THREE.CylinderGeometry(0.020, 0.020, 0.095, 18), matSpring);
+    coil.rotation.z = Math.PI / 2;
+    coil.position.set(mm(xc + sp * 145), mm(154), -mm(yc));
+    tagMesh(coil, `${fr}${lbl} 코일오버 (스프링+유압 댐퍼)`, `강성 ${kNm} (${fr}측 서스펜션)`, '턱 오를 때 차체 들림 방지용 무른 스프링 튜닝');
+    robotGroup.add(coil);
+    const ur = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, mm(fr === '앞' ? 33 : 23), 16), matUrethane);
+    ur.position.set(mm(xc + sp * 90), mm(fr === '앞' ? 171 : 176), -mm(yc));
+    tagMesh(ur, `${fr}${lbl} 우레탄 멈춤 스토퍼`, '400 N/mm 과충격 스토퍼', '');
+    robotGroup.add(ur);
+  }
+}
+
+// ================= 3. MOVABLE FORKS + ANIMATED X-SCISSOR LIFTS (x4) + LATCHMOD REV B (x2) =================
+const forkSlideGroup = new THREE.Group(); // moves along +X (0..1250 mm)
+const forkLatchGroup = new THREE.Group(); // moves along +Y (-15..+30 mm entry height!)
+const forkLiftGroup  = new THREE.Group(); // moves along +Y (0..207 mm lift!)
+robotGroup.add(forkSlideGroup);
+forkSlideGroup.add(forkLatchGroup);
+forkLatchGroup.add(forkLiftGroup);
+
+// Mast / Carriage (slides with fork extension)
+makeBox(-690, -560, -285, 285, 55, 260, matFork, ['포크 신축 캐리지 (门架)', '포크 0~1250 mm 전체 전후 이동', '등뼈 후방 뻗기 서보(1회전=6.42 mm) 구동'], forkSlideGroup);
+
+const scissorLinks = []; // animated on lift slider!
+const latchPads = [];    // animated on latch slider!
+
+for (const s of [1, -1]) {
+  const lbl = s > 0 ? '좌' : '우';
+  const yf0 = Math.min(s * 155, s * 275), yf1 = Math.max(s * 155, s * 275);
+  // Fork tines (lift with latch + lift!)
+  makeBox(-620, 735, yf0, yf1, 42, 86, matFork, [`신축 포크 날 (${lbl}, 폭 120 mm)`, '진입 높이 조절(-15~+30 mm) + X형 가위 리프트(최고 302 mm)', '픽(-11) 시 바닥 Z=31 / 주행(+9) 시 바닥 Z=51'], forkLiftGroup);
+  // Fork-tip photoelectric sensor
+  makeBox(722, 736, s * 215 - 9, s * 215 + 9, 54, 74, matGreen, [`포크 끝단 매립 광전 센서 (${lbl})`, 'SICK WTB4FP-22161120A00', '포크 진입 시 팔레트 포켓 내부 충돌 정지'], forkLiftGroup);
+
+  // latchmod rev B on Carriage (Servo + Worm Gearbox + Vertical Tr10x2 Leadscrew + Upper Eccentric Rollers)
+  makeBox(-716, -641, s * 215 - 20, s * 215 + 20, 62, 102, matLatch,
+    [`★ 포크 진입 높이 서보 (${lbl}, latchmod rev B)`, 'Kinco SMC40S-0005-30MAK-5DSU (40각 50W, FD114S 구동)', '포크 진입 시 -11 mm(바닥 Z=31) / 주행 시 +9 mm(바닥 Z=51) SW 조절'], forkSlideGroup);
+  makeBox(-641, -603, s * 215 - 24, s * 215 + 24, 58, 106, matLatch,
+    [`웜 감속기 m1 20:1 (${lbl})`, '역구동 자체 잠김 기어함 (LM-03R2)', '전원 OFF 시에도 포크 높이 고정 유지'], forkSlideGroup);
+  const lead = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.105, 16), matScrew);
+  lead.position.set(mm(-608), mm(108), -mm(s * 215));
+  tagMesh(lead, `Tr10×2 세로 승강 나사 (${lbl})`, s < 0 ? '왼나사 자체 잠김 (행정 45 mm)' : '오른나사 자체 잠김 (행정 45 mm)', '-15 ~ +30 mm 포크 진입 높낮이 조절');
+  forkSlideGroup.add(lead);
+
+  // Moving U-pad nut block & upper eccentric cam follower (follows latch height!)
+  const upad = makeBox(-618, -588, s * 215 - 28, s * 215 + 28, 42, 66, matLatch,
+    [`latchmod 승강 U자 패드 (${lbl})`, 'Tr10×2 너트 블록 직결', '큰 롤러(Ø25)를 받쳐 포크 대기/진입 높이를 실시간 변경'], forkLatchGroup);
+  latchPads.push(upad);
+  const camRoll = new THREE.Mesh(new THREE.CylinderGeometry(0.010, 0.010, 0.044, 18), matScrew);
+  camRoll.rotation.x = Math.PI / 2;
+  camRoll.position.set(mm(-555), mm(236), -mm(s * 215));
+  tagMesh(camRoll, `윗 안내 편심 캠팔로워 (${lbl})`, 'Ø19×11 (CF8) × 4 + 옆 편심 롤러 × 8', '팔 172.4 mm로 포크 1250 mm 전방 돌출 시 처짐 차단');
+  forkLiftGroup.add(camRoll);
+
+  // FR-01 8t carriage floor reinforcement
+  makeBox(-626, -565, Math.min(s * 140, s * 290), Math.max(s * 140, s * 290), 46.6, 54.6, matLatch,
+    [`캐리지 바닥 8t 강 보강판 (${lbl}, FR-01 흡수)`, 'latchmod 하부 강도 보강', '동적 안전계수 확보'], forkSlideGroup);
+
+  // Animated 4x X-Scissor Lift Linkages (Front & Rear pair inside each fork!)
+  for (const xf of [-220, 320]) {
+    const scGrp = new THREE.Group();
+    scGrp.position.set(mm(xf), mm(46), -mm(s * 215));
+    const L = 0.281;
+    const arm1 = new THREE.Mesh(new THREE.BoxGeometry(L, 0.012, 0.018), matScissor);
+    const arm2 = new THREE.Mesh(new THREE.BoxGeometry(L, 0.012, 0.018), matScissor);
+    arm1.position.z = -0.012;
+    arm2.position.z =  0.012;
+    tagMesh(arm1, `포크 내장 X형 가위 리프트 (${lbl})`, '링크 281 mm × 4조 (최대 70° · 최고 날 윗면 302 mm)', '들 때 바닥 받침판이 바닥을 짚어 1.5t 하중을 직접 전달');
+    tagMesh(arm2, `포크 내장 X형 가위 리프트 (${lbl})`, '스크류 2축 구동 (감속 14:1 · Kinco FD144S × 2)', '리프트 슬라이더를 올리면 실제 X형 가위가 펼쳐집니다');
+    const foot = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.008, 0.070), matFork);
+    foot.position.y = 0.004;
+    scGrp.add(arm1, arm2, foot);
+    forkSlideGroup.add(scGrp);
+    scissorLinks.push({ grp: scGrp, arm1, arm2, foot, L });
+  }
+}
+
+// ================= 4. FOUR MAIN SENSORS + DOWNWARD CENTER QR CAMERA =================
 function buildLower2D(cx, cyCad, label) {
   const g = new THREE.Group();
   g.position.set(mm(cx), mm(115), -mm(cyCad));
-  const meta = [`① 하부 대각 2D 라이다 (${label})`, '양산: SICK nanoScan3 Pro I/O · 시제품: Focusray 0.1° / FreeOptics C2', 'Z=115 mm · 외곽 안쪽 35 mm 매립 · 360° 저상 안전 + 0~61 cm 반사판 백업'];
-  const base = new THREE.Mesh(new THREE.BoxGeometry(0.104, 0.030, 0.104), mat2DBody);
-  base.position.y = -0.025; tagMesh(base, ...meta); g.add(base);
-  const win = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.044, 0.028, 28), matDarkOptic);
-  win.position.y = 0.004; tagMesh(win, ...meta); g.add(win);
-  const cap = new THREE.Mesh(new THREE.BoxGeometry(0.104, 0.020, 0.104), mat2DYellow);
-  cap.position.y = 0.028; tagMesh(cap, ...meta); g.add(cap);
+  const meta = [`① 하부 대각 2D 라이다 (${label})`, '양산: SICK nanoScan3 Pro I/O · 시제품: Focusray 0.1° / FreeOptics C2', 'Z=115 · 안쪽 35 mm 매립 · 360° 안전 + 0~61 cm 반사판 백업'];
+  const base = new THREE.Mesh(new THREE.BoxGeometry(0.104, 0.030, 0.104), mat2DBody); base.position.y = -0.025; tagMesh(base, ...meta); g.add(base);
+  const win  = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.044, 0.028, 28), matDarkOpt); win.position.y = 0.004; tagMesh(win, ...meta); g.add(win);
+  const cap  = new THREE.Mesh(new THREE.BoxGeometry(0.104, 0.020, 0.104), mat2DYel); cap.position.y = 0.028; tagMesh(cap, ...meta); g.add(cap);
   robotGroup.add(g);
 }
 buildLower2D(665, 505, '좌하 FL');
 buildLower2D(-665, -505, '우상 RR');
 
-// (2) Front Center-Spine Wide-FOV 3D: RoboSense E1R (official 43D x 95W x 69.5H, window 75W x 35H), tilted +10 deg up
+// Front Spine E1R (official 95W x 69.5H x 43D) safely under 8mm steel top cover!
 const e1rGroup = new THREE.Group();
 e1rGroup.position.set(mm(704), mm(120), 0);
-e1rGroup.rotation.z = THREE.MathUtils.degToRad(10); // tilt front face UP +10 deg
-const e1rMeta = ['② 전방 등뼈 광각 3D 라이다 (상단 8 mm 커버 보호)', 'RoboSense E1R (95×69.5×43 mm, 광학창 75×35, 120°×90°, Min 0.1 m)', '등뼈 끝 Z=120 mm · +10° 틸트 · 상단 강판(Z=166~174) + 좌우 60 mm 지주 아래 완전 보호'];
-const e1rBody = new THREE.Mesh(new THREE.BoxGeometry(0.043, 0.0695, 0.095), matE1R);
-tagMesh(e1rBody, ...e1rMeta); e1rGroup.add(e1rBody);
-const e1rWin = new THREE.Mesh(new THREE.BoxGeometry(0.007, 0.035, 0.075), matDarkOptic);
-e1rWin.position.x = 0.021; tagMesh(e1rWin, ...e1rMeta); e1rGroup.add(e1rWin);
+e1rGroup.rotation.z = THREE.MathUtils.degToRad(10);
+const e1rMeta = ['② 전방 등뼈 광각 3D (상단 8 mm 커버 방호)', 'RoboSense E1R (95×69.5×43 mm, 광학창 75×35, 120°×90°, Min 0.1 m)', 'Z=120 · +10° · 상단 8 mm 강판 커버(Z=166~174) 아래 보호 · 시야 손실 0°'];
+const e1rBody = new THREE.Mesh(new THREE.BoxGeometry(0.043, 0.0695, 0.095), matE1R); tagMesh(e1rBody, ...e1rMeta); e1rGroup.add(e1rBody);
+const e1rWin  = new THREE.Mesh(new THREE.BoxGeometry(0.007, 0.035, 0.075), matDarkOpt); e1rWin.position.x = 0.021; tagMesh(e1rWin, ...e1rMeta); e1rGroup.add(e1rWin);
 robotGroup.add(e1rGroup);
 
-// (3) Rear Tower High-Res 3D: Hesai XT32 (+8 deg rear tilt) OR Ouster OS0-64 (0 deg)
+// Rear Tower 3D (XT32 / OS0 switchable)
 const tower3DGroup = new THREE.Group();
 tower3DGroup.position.set(mm(-645), mm(520), 0);
 robotGroup.add(tower3DGroup);
 
 const xt32MeshGroup = new THREE.Group();
-xt32MeshGroup.rotation.z = THREE.MathUtils.degToRad(-8); // tilt rear UP +8 deg
-const xtMeta = ['③ 뒤 타워 고정밀 3D (가성비 1픽)', 'Hesai XT32 / XT16 (0.18°@10Hz, 31° VFOV, +8° 틸트)', 'Z=520 mm · 지붕(590) 아래 매립 · 후진 오버행 + 0.18° 다중 링 반사판 + H530 호환'];
-const xtBot = new THREE.Mesh(new THREE.CylinderGeometry(0.050, 0.050, 0.022, 32), matTower3D);
-xtBot.position.y = -0.027; tagMesh(xtBot, ...xtMeta); xt32MeshGroup.add(xtBot);
-const xtWin = new THREE.Mesh(new THREE.CylinderGeometry(0.047, 0.047, 0.036, 32), matDarkOptic);
-tagMesh(xtWin, ...xtMeta); xt32MeshGroup.add(xtWin);
-const xtTop = new THREE.Mesh(new THREE.CylinderGeometry(0.050, 0.050, 0.018, 32), matTower3D);
-xtTop.position.y = 0.027; tagMesh(xtTop, ...xtMeta); xt32MeshGroup.add(xtTop);
+xt32MeshGroup.rotation.z = THREE.MathUtils.degToRad(-8);
+const xtMeta = ['③ 뒤 타워 고정밀 3D (가성비 1픽)', 'Hesai XT32 / XT16 (0.18°@10Hz, 31° VFOV, +8° 틸트)', 'Z=520 · 지붕(590) 아래 매립 · 후진 오버행 + 다중 링 반사판 + H530'];
+const xtBot = new THREE.Mesh(new THREE.CylinderGeometry(0.050, 0.050, 0.022, 32), matTower3D); xtBot.position.y = -0.027; tagMesh(xtBot, ...xtMeta); xt32MeshGroup.add(xtBot);
+const xtWin = new THREE.Mesh(new THREE.CylinderGeometry(0.047, 0.047, 0.036, 32), matDarkOpt); tagMesh(xtWin, ...xtMeta); xt32MeshGroup.add(xtWin);
+const xtTop = new THREE.Mesh(new THREE.CylinderGeometry(0.050, 0.050, 0.018, 32), matTower3D); xtTop.position.y = 0.027; tagMesh(xtTop, ...xtMeta); xt32MeshGroup.add(xtTop);
 tower3DGroup.add(xt32MeshGroup);
 
 const os0MeshGroup = new THREE.Group();
-const osMeta = ['③ 뒤 타워 고정밀 3D (성능 1픽)', 'Ouster OS0-64 / OS0-32 (0.176°@2048, 90° VFOV, IP68)', 'Z=520 mm · 수직 90° 무사각 후진 오버행(1 m서 1.52 m) + 0.5 m 바닥 + 다중 링 반사판'];
-const osBot = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.016, 32), matTower3D);
-osBot.position.y = -0.029; tagMesh(osBot, ...osMeta); os0MeshGroup.add(osBot);
-const osWin = new THREE.Mesh(new THREE.CylinderGeometry(0.0425, 0.0425, 0.040, 32), matDarkOptic);
-tagMesh(osWin, ...osMeta); os0MeshGroup.add(osWin);
-const osTop = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.018, 32), new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.35, metalness: 0.7 }));
-osTop.position.y = 0.029; tagMesh(osTop, ...osMeta); os0MeshGroup.add(osTop);
+const osMeta = ['③ 뒤 타워 고정밀 3D (성능 1픽)', 'Ouster OS0-64 / OS0-32 (0.176°@2048, 90° VFOV, IP68)', 'Z=520 · 수직 90° 무사각 후진 오버행 + 0.5 m 바닥 + 다중 링 반사판'];
+const osBot = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.016, 32), matTower3D); osBot.position.y = -0.029; tagMesh(osBot, ...osMeta); os0MeshGroup.add(osBot);
+const osWin = new THREE.Mesh(new THREE.CylinderGeometry(0.0425, 0.0425, 0.040, 32), matDarkOpt); tagMesh(osWin, ...osMeta); os0MeshGroup.add(osWin);
+const osTop = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.018, 32), new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.35, metalness: 0.7 })); osTop.position.y = 0.029; tagMesh(osTop, ...osMeta); os0MeshGroup.add(osTop);
 os0MeshGroup.visible = false;
 tower3DGroup.add(os0MeshGroup);
 
-// ================= 4. REAR RECESSED CHARGING CONTACTS (MOVED TO REAR!) =================
-const chgMeta = ['★ 후면 매립 자동 충전 접점 (전방 E1R에서 반대편으로 이전)', 'Z=180~240 mm · 돌출 0 mm (범퍼 81 위 · 2D 스캔 115 위 · HMI 340 아래)', '후진 도킹 시 포크가 통로를 향해 안전하며, 뒤 타워 3D로 충전소 정밀 유도 가능'];
-makeBox(-752, -732, -112, 112, 174, 246, matChargeBox, chgMeta, robotGroup);
-makeBox(-754, -748, 34, 96, 184, 236, matCopper, ['후면 충전 (+) 48V 구리 접점', 'Z=184~236 mm · 돌출 0 mm', '후진 자동 충전 도킹 시 충전소 브러시와 접촉'], robotGroup);
-makeBox(-754, -748, -96, -34, 184, 236, matCopper, ['후면 충전 (-) GND 구리 접점', 'Z=184~236 mm · 돌출 0 mm', '후진 자동 충전 도킹 시 충전소 브러시와 접촉'], robotGroup);
-makeBox(-754, -748, -14, 14, 196, 224, matGreen, ['충전 통신/인터록 파일럿 핀', '도킹 확인 및 충전 시 주행 인터록', ''], robotGroup);
+// ★ Center Downward QR Navigation Camera (X=0, Y=0, Lens Z=100 mm = exact 100mm working distance!)
+const qrCamGroup = new THREE.Group();
+const qrMeta = ['★ 몸체 정중앙 하단 QR 인식 카메라', 'Hikrobot MV-ID2004M-06S / SC2000A (대안: Pepperl+Fuchs PGV100 / Cognex DM70)', '회전축 정중앙 (X=0, Y=0) · 렌즈 Z=100 mm(최적 WD 80~120 mm) · Ø85 강화유리창 + 링 LED'];
+const qrBody = new THREE.Mesh(new THREE.BoxGeometry(0.046, 0.028, 0.046), matQR);
+qrBody.position.set(0, mm(114), 0); tagMesh(qrBody, ...qrMeta); qrCamGroup.add(qrBody);
+const qrLens = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.016, 0.014, 24), matDarkOpt);
+qrLens.position.set(0, mm(96), 0); tagMesh(qrLens, ...qrMeta); qrCamGroup.add(qrLens);
+const qrRing = new THREE.Mesh(new THREE.TorusGeometry(0.036, 0.005, 12, 32), matRingLED);
+qrRing.rotation.x = Math.PI / 2; qrRing.position.set(0, mm(52), 0); tagMesh(qrRing, '하단 QR 확산 링 LED + Ø85 강화유리창', '바닥판(Z=46) 매립 돌출 0 mm', '공장 바닥 반사광 억제 및 방진 보호'); qrCamGroup.add(qrRing);
+robotGroup.add(qrCamGroup);
 
-// ================= 5. REAR HMI 10.1", E-STOP & BUTTONS =================
-const hmiMesh = new THREE.Mesh(new THREE.BoxGeometry(0.026, 0.180, 0.285), matScreen);
-hmiMesh.position.set(mm(-745), mm(425), 0);
-hmiMesh.rotation.z = THREE.MathUtils.degToRad(-12);
-tagMesh(hmiMesh, '후면 10.1" 산업용 HMI 터치스크린', '1280×800 IP65 (Z=340~510 mm)', '충전 접점(Z=180~240) 위쪽에 여유 있게 배치');
-robotGroup.add(hmiMesh);
-
-const estopMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.020, 0.020, 0.022, 20), matRed);
-estopMesh.rotation.z = Math.PI / 2;
-estopMesh.position.set(mm(-756), mm(455), -mm(255));
-tagMesh(estopMesh, '후면 비상정지 스위치', 'Safety Relay / STO 하드와이어 직결', 'PC 정지 시에도 즉시 서보 차단');
-robotGroup.add(estopMesh);
-
-for (const zb of [400, 440, 480]) {
-  const b = new THREE.Mesh(new THREE.CylinderGeometry(0.011, 0.011, 0.012, 16), matGreen);
-  b.rotation.z = Math.PI / 2;
-  b.position.set(mm(-754), mm(zb), mm(255));
-  tagMesh(b, '조작 버튼 (시작 / 리셋 / 키)', '뒤 타워 우측 상단', '');
-  robotGroup.add(b);
-}
-
-// ================= 6. WHEELS & INTERNAL COMPONENTS (VISIBLE IN X-RAY) =================
-for (const s of [1, -1]) {
-  // Drive wheel Ø185 x 80
-  const w = new THREE.Mesh(new THREE.CylinderGeometry(0.0925, 0.0925, 0.080, 28), matRubber);
-  w.rotation.x = Math.PI / 2;
-  w.position.set(0, 0.0925, -mm(s * 395));
-  w.castShadow = true;
-  tagMesh(w, '고정 구동 바퀴 ×2', 'Ø185×80 연질 PU 75A (차동 2륜)', '20 mm 턱 대응 · 구동 간격 790 mm');
-  robotGroup.add(w);
-  const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.056, 0.056, 0.083, 20), matRim);
-  rim.rotation.x = Math.PI / 2;
-  rim.position.copy(w.position);
-  robotGroup.add(rim);
-
-  // Twin casters Ø100
-  for (const xc of [510, -510]) {
-    const c1 = new THREE.Mesh(new THREE.CylinderGeometry(0.050, 0.050, 0.028, 20), matCaster);
-    c1.rotation.x = Math.PI / 2;
-    c1.position.set(mm(xc), 0.050, -mm(s * 440 - 20));
-    tagMesh(c1, '쌍바퀴 캐스터 ×4 (서스펜션)', 'Ø100 쌍바퀴 (예: LAG G80 7470, 600 kg)', '');
-    robotGroup.add(c1);
-    const c2 = c1.clone();
-    c2.position.z = -mm(s * 440 + 20);
-    robotGroup.add(c2);
+// Floor QR Target + Downward Pyramid FOV
+const qrSceneGroup = new THREE.Group();
+{
+  // Procedural canvas texture for sharp realistic QR code on floor at (0, 0)
+  const qc = document.createElement('canvas'); qc.width = 128; qc.height = 128;
+  const ctx = qc.getContext('2d');
+  ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, 128, 128);
+  ctx.fillStyle = '#0f172a';
+  const drawFinder = (x, y) => { ctx.fillRect(x,y,32,32); ctx.fillStyle='#f8fafc'; ctx.fillRect(x+6,y+6,20,20); ctx.fillStyle='#0f172a'; ctx.fillRect(x+11,y+11,10,10); };
+  drawFinder(10,10); drawFinder(86,10); drawFinder(10,86);
+  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
+    if ((r < 3 && c < 3) || (r < 3 && c > 4) || (r > 4 && c < 3)) continue;
+    if ((r * 7 + c * 13 + r * c) % 3 !== 0) ctx.fillRect(14 + c * 12, 14 + r * 12, 10, 10);
   }
+  const qrTex = new THREE.CanvasTexture(qc);
+  const qrTile = new THREE.Mesh(new THREE.PlaneGeometry(0.11, 0.11), new THREE.MeshBasicMaterial({ map: qrTex }));
+  qrTile.rotation.x = -Math.PI / 2; qrTile.position.set(0, 0.003, 0);
+  tagMesh(qrTile, '바닥 QR 항법 마커 (80~100 mm)', '회전축 정중앙 (X=0, Y=0) 정렬', '제자리 회전 시에도 하단 QR 시야 중심 유지');
+  qrSceneGroup.add(qrTile);
+
+  // Downward FOV cone from Z=100mm to floor
+  const fovPyr = new THREE.Mesh(
+    new THREE.ConeGeometry(0.082, 0.098, 4),
+    new THREE.MeshBasicMaterial({ color: 0x14b8a6, transparent: true, opacity: 0.24, side: THREE.DoubleSide, depthWrite: false })
+  );
+  fovPyr.rotation.y = Math.PI / 4;
+  fovPyr.position.set(0, 0.051, 0);
+  qrSceneGroup.add(fovPyr);
 }
+scene.add(qrSceneGroup);
 
-// Internal Battery + High-Current Cable to Rear Charger + Orin NX + Flexi Soft + IMU
-makeBox(-190, 635, -72, 72, 56, 162, matBatt, ['48V 100Ah LFP 배터리팩 (내장)', '등뼈 내부 (X=-190..+635)', '앞끝을 +635로 줄여 전방 E1R 포켓과 60 mm 격벽 확보'], robotGroup);
-makeBox(-734, -190, -24, 24, 178, 198, matCable, ['고전류 충전 배선 덕트', '후면 충전 접점(X=-745) ↔ 배터리(X=-190)', '포크 이동부와 간섭 없는 고정 경로'], robotGroup);
-makeBox(120, 330, -540, -350, 62, 170, matElec, ['메인 컴퓨팅 & PTP 스위치 (내장)', 'Jetson Orin NX 16 GB (Advantech MIC-711-ON) + Moxa EDS-G2008-ELP', '우측 포드 전장 칸 · 센서망(eth0) / 제어망(eth1) 분리'], robotGroup);
-makeBox(120, 330, 350, 540, 62, 170, mat2DYellow, ['안전 PLC & 서보 드라이브 (내장)', 'SICK Flexi Soft (FX3-CPU3) / Pilz PNOZ s4 + Kinco FD144S', '좌측 포드 · 비상정지·범퍼·nanoScan3 OSSD → STO 직결'], robotGroup);
-makeBox(-80, -35, -22, 22, 54, 72, matGreen, ['6축 산업용 IMU (내장)', 'Xsens MTi-630 (대안: MicroStrain 3DM-CV7-AHRS)', '차체 중심 강성 마운트 · 3D 점군 모션 왜곡 보정(Deskew)'], robotGroup);
+// ================= 5. REAR CHARGING CONTACTS + HMI + INTERNAL ELECTRONICS =================
+makeBox(-752, -732, -112, 112, 174, 246, matChargeB, ['★ 후면 매립 자동 충전 접점 (반대편 이전)', 'Z=180~240 · 돌출 0 mm', '범퍼(81)/2D(115)/HMI(340) 간섭 0 · 후진 도킹 시 포크 안전'], robotGroup);
+makeBox(-754, -748, 34, 96, 184, 236, matCopper, ['후면 충전 (+) 48V 구리 접점', 'Z=184~236', ''], robotGroup);
+makeBox(-754, -748, -96, -34, 184, 236, matCopper, ['후면 충전 (-) GND 구리 접점', 'Z=184~236', ''], robotGroup);
+makeBox(-754, -748, -14, 14, 196, 224, matGreen, ['충전 통신/인터록 파일럿 핀', '', ''], robotGroup);
 
-// ================= 7. SENSOR FOV VOLUMES =================
-// (A) Lower 2D 360° plane (Z=115)
+const hmiMesh = new THREE.Mesh(new THREE.BoxGeometry(0.026, 0.180, 0.285), matScreen);
+hmiMesh.position.set(mm(-745), mm(425), 0); hmiMesh.rotation.z = THREE.MathUtils.degToRad(-12);
+tagMesh(hmiMesh, '후면 10.1" 산업용 HMI 터치스크린', '1280×800 IP65 (Z=340~510)', ''); robotGroup.add(hmiMesh);
+const estop = new THREE.Mesh(new THREE.CylinderGeometry(0.020, 0.020, 0.022, 20), matRed);
+estop.rotation.z = Math.PI / 2; estop.position.set(mm(-756), mm(455), -mm(255));
+tagMesh(estop, '후면 비상정지 스위치', 'Safety Relay / STO 직결', ''); robotGroup.add(estop);
+
+// Internal Battery + Bypass Busbar + Fork Extension Servo + Wire Encoder + IMU + Orin NX + Safety PLC/Drives
+makeBox(85, 635, -115, 115, 56, 162, matBatt, ['48V 100Ah LFP 배터리팩 (내장)', '550×230×106 mm ≈ 13.4 L (X=+85..+635)', '중앙 QR실과 앞 E1R 포켓 사이 독립 격실 + 전방 하중 배분'], robotGroup);
+makeBox(-732, 85, 118, 138, 150, 168, matCable, ['고전류 충전 버스바 덕트 (좌측 우회)', '후면 충전 접점 ↔ 배터리 직결', '중앙 QR실 우회 고정 경로'], robotGroup);
+const fMot = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.044, 0.220, 22), matMotor);
+fMot.rotation.z = Math.PI / 2; fMot.position.set(mm(-340), mm(112), 0);
+tagMesh(fMot, '포크 뻗기 구동 서보 + 감속기 (1축)', 'Kinco 서보 (1회전=6.42 mm · FD144S 구동)', '등뼈 후방 X=-450..-230 수납'); robotGroup.add(fMot);
+makeBox(-520, -460, -55, -15, 80, 130, matGreen, ['Tuofei 와이어 엔코더', 'Modbus RTU reg 0x4A', '포크 0~1250 mm 실시간 길이 피드백'], robotGroup);
+makeBox(-125, -80, -22, 22, 54, 72, matGreen, ['Xsens MTi-630 6축 산업용 IMU', '회전축 인접 강성 마운트', '3D 점군 모션 왜곡 보정(Deskew)'], robotGroup);
+makeBox(115, 325, -555, -345, 62, 170, matDrive, ['메인 컴퓨팅 + PTP 스위치 (내장)', 'Jetson Orin NX 16GB (Advantech MIC-711-ON) + Moxa EDS-G2008-ELP', '우측 포드 전장 칸 · eth0(센서) / eth1(제어) 분리'], robotGroup);
+makeBox(115, 325, 345, 555, 62, 170, mat2DYel, ['안전 PLC + 7축 서보 드라이브 (내장)', 'SICK Flexi Soft + Kinco FD144S ×5 + FD114S ×2 + IO/동력 보드', '좌측 포드 · 비상정지·범퍼·nanoScan3 OSSD → STO 직결'], robotGroup);
+
+// ================= 6. SENSOR FOV VOLUMES & SITE SCENARIO =================
 const fov2DGroup = new THREE.Group();
-const matFov2D = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.14, side: THREE.DoubleSide, depthWrite: false });
-function add2DSector(cx, cyCad, startDeg, sweepDeg, radius = 2.6) {
-  const geo = new THREE.CircleGeometry(radius, 48, THREE.MathUtils.degToRad(startDeg), THREE.MathUtils.degToRad(sweepDeg));
-  const m = new THREE.Mesh(geo, matFov2D);
-  m.rotation.x = -Math.PI / 2;
-  m.position.set(mm(cx), mm(115), -mm(cyCad));
-  fov2DGroup.add(m);
+const matFov2D = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.13, side: THREE.DoubleSide, depthWrite: false });
+function add2DSector(cx, cyCad, startDeg, sweepDeg, r = 2.4) {
+  const m = new THREE.Mesh(new THREE.CircleGeometry(r, 48, THREE.MathUtils.degToRad(startDeg), THREE.MathUtils.degToRad(sweepDeg)), matFov2D);
+  m.rotation.x = -Math.PI / 2; m.position.set(mm(cx), mm(115), -mm(cyCad)); fov2DGroup.add(m);
 }
-// FL (+665, +505 -> z=-0.505): unobstructed outside 270 deg is -90..+180 deg
-add2DSector(665, 505, -90, 270, 2.4);
-// RR (-665, -505 -> z=+0.505): unobstructed outside 270 deg is +90..+360 deg
-add2DSector(-665, -505, 90, 270, 2.4);
+add2DSector(665, 505, -90, 270, 2.35);
+add2DSector(-665, -505, 90, 270, 2.35);
 scene.add(fov2DGroup);
 
-// (B) Front E1R 3D Frustum (120° H × 90° V, +10° upward tilt) — clears beveled top cover visor!
 const fovE1RGroup = new THREE.Group();
 {
-  const ox = mm(725), oy = mm(120), oz = 0;
-  const dist = 2.15;
-  const halfH = THREE.MathUtils.degToRad(56);
-  const upAng = THREE.MathUtils.degToRad(55);
-  const dnAng = THREE.MathUtils.degToRad(-35);
-  const yTop = oy + dist * Math.tan(upAng);
-  const yBot = Math.max(0.005, oy + dist * Math.tan(dnAng));
-  const zHalf = dist * Math.tan(halfH);
-  // 5 vertices: apex + 4 far corners (clamp bottom on floor)
-  const xFlr = ox + (oy - 0.005) / Math.tan(THREE.MathUtils.degToRad(35));
-  const zFlr = (xFlr - ox) * Math.tan(halfH);
+  const ox = mm(725), oy = mm(120), dist = 2.15;
+  const halfH = THREE.MathUtils.degToRad(56), upAng = THREE.MathUtils.degToRad(55);
+  const yTop = oy + dist * Math.tan(upAng), zHalf = dist * Math.tan(halfH);
+  const xFlr = ox + (oy - 0.005) / Math.tan(THREE.MathUtils.degToRad(35)), zFlr = (xFlr - ox) * Math.tan(halfH);
   const verts = new Float32Array([
-    ox, oy, oz,                      // 0 apex
-    ox + dist, yTop, -zHalf,         // 1 top-left
-    ox + dist, yTop,  zHalf,         // 2 top-right
-    ox + dist, 0.005, zHalf,         // 3 far-bot-right
-    ox + dist, 0.005, -zHalf,        // 4 far-bot-left
-    xFlr, 0.005, zFlr,               // 5 floor-hit-right
-    xFlr, 0.005, -zFlr,              // 6 floor-hit-left
+    ox, oy, 0, ox+dist, yTop, -zHalf, ox+dist, yTop, zHalf,
+    ox+dist, 0.005, zHalf, ox+dist, 0.005, -zHalf, xFlr, 0.005, zFlr, xFlr, 0.005, -zFlr
   ]);
-  const indices = [
-    0,1,2,  0,2,5, 2,3,5,  0,6,1, 1,6,4,  0,5,6, 5,3,4, 5,4,6
-  ];
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(verts, 3));
-  geo.setIndex(indices);
-  geo.computeVertexNormals();
-  const mat = new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false });
-  fovE1RGroup.add(new THREE.Mesh(geo, mat));
-  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color: 0xc084fc, transparent: true, opacity: 0.55 }));
-  fovE1RGroup.add(edges);
+  geo.setIndex([0,1,2, 0,2,5, 2,3,5, 0,6,1, 1,6,4, 0,5,6, 5,3,4, 5,4,6]);
+  fovE1RGroup.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.14, side: THREE.DoubleSide, depthWrite: false })));
+  fovE1RGroup.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color: 0xc084fc, transparent: true, opacity: 0.5 })));
 }
 scene.add(fovE1RGroup);
 
-// (C) Rear Tower 3D FOV (switchable XT32 31° +8° vs OS0 90°) + Multi-ring reflector rays
-const fovXT32Group = new THREE.Group();
-const fovOS0Group = new THREE.Group();
-function buildTowerFov(targetGroup, upDeg, dnDeg, colorHex) {
-  const ox = mm(-645), oy = mm(520);
-  const r = 2.0;
-  const mat = new THREE.MeshBasicMaterial({ color: colorHex, transparent: true, opacity: 0.15, side: THREE.DoubleSide, depthWrite: false });
-  // Build rearward + side 220 deg open sector (cargo blocks forward 140 deg when loaded)
-  const segs = 28;
-  const startA = THREE.MathUtils.degToRad(70);
-  const endA = THREE.MathUtils.degToRad(290);
-  const pts = [];
-  const idx = [];
-  pts.push(ox, oy, 0); // 0 apex
+const fovXT32Group = new THREE.Group(), fovOS0Group = new THREE.Group();
+function buildTowerFov(g, upDeg, dnDeg, col) {
+  const ox = mm(-645), oy = mm(520), r = 2.0, segs = 28;
+  const startA = THREE.MathUtils.degToRad(70), endA = THREE.MathUtils.degToRad(290);
+  const pts = [ox, oy, 0], idx = [];
   for (let i = 0; i <= segs; i++) {
     const a = startA + (endA - startA) * (i / segs);
-    const dx = Math.cos(a) * r, dz = Math.sin(a) * r;
-    const yUp = oy + r * Math.tan(THREE.MathUtils.degToRad(upDeg));
-    const yDn = Math.max(0.01, oy - r * Math.tan(THREE.MathUtils.degToRad(dnDeg)));
-    pts.push(ox + dx, yUp, dz); // 1 + 2*i
-    pts.push(ox + dx, yDn, dz); // 2 + 2*i
+    pts.push(ox + Math.cos(a)*r, oy + r*Math.tan(THREE.MathUtils.degToRad(upDeg)), Math.sin(a)*r);
+    pts.push(ox + Math.cos(a)*r, Math.max(0.01, oy - r*Math.tan(THREE.MathUtils.degToRad(dnDeg))), Math.sin(a)*r);
   }
   for (let i = 0; i < segs; i++) {
-    const u0 = 1 + 2 * i, d0 = 2 + 2 * i, u1 = 1 + 2 * (i + 1), d1 = 2 + 2 * (i + 1);
-    idx.push(0, u0, u1,  0, d1, d0,  u0, d0, d1,  u0, d1, u1);
+    const u0 = 1+2*i, d0 = 2+2*i, u1 = 3+2*i, d1 = 4+2*i;
+    idx.push(0,u0,u1, 0,d1,d0, u0,d0,d1, u0,d1,u1);
   }
   const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
-  geo.setIndex(idx);
-  targetGroup.add(new THREE.Mesh(geo, mat));
-  // 3 multi-ring rays to rear reflector pillar (at X=-2.45)
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3)); geo.setIndex(idx);
+  g.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.14, side: THREE.DoubleSide, depthWrite: false })));
   const rayMat = new THREE.LineBasicMaterial({ color: 0xfde047 });
   for (const h of [0.36, 0.48, 0.58]) {
-    const rg = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(ox, oy, 0), new THREE.Vector3(-2.45, h, -0.52)]);
-    targetGroup.add(new THREE.Line(rg, rayMat));
+    g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(ox, oy, 0), new THREE.Vector3(-2.45, h, -0.52)]), rayMat));
   }
 }
-buildTowerFov(fovXT32Group, 23, 8, 0xfacc15);   // XT32 (-16..+15 tilted +8° -> -8..+23°)
-buildTowerFov(fovOS0Group, 45, 45, 0xf59e0b);   // OS0 (-45..+45°)
+buildTowerFov(fovXT32Group, 23, 8, 0xfacc15);
+buildTowerFov(fovOS0Group, 45, 45, 0xf59e0b);
 fovOS0Group.visible = false;
-scene.add(fovXT32Group);
-scene.add(fovOS0Group);
+scene.add(fovXT32Group, fovOS0Group);
 
-// ================= 8. SITE SCENARIO OBJECTS =================
-// Cargo: 1200 x 1100 Pallet + 1.5m tall load
+// Cargo, Overhead Obstacles, Reflector Pillars, Rear Charging Dock, Sweep Circle
 const cargoGroup = new THREE.Group();
-const matWood = new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.78 });
-const matBox = new THREE.MeshStandardMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.24, roughness: 0.6, depthWrite: false });
-makeBox(-500, 600, -600, 600, 202, 346, matWood, ['적재 파레트 (1200×1100)', '높이 144 mm (Z=202~346)', '차체 폭 1200 mm와 일치해 좌우 돌출 0'], cargoGroup);
-const boxMesh = makeBox(-480, 580, -560, 560, 346, 1550, matBox, ['적재 화물 (높이 1.5 m)', '전방 E1R + 뒤 타워 3D + 하부 2D', '적재 중에도 전·후방 공중 오버행과 반사판 완벽 커버'], cargoGroup);
+makeBox(-500, 600, -600, 600, 202, 346, new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.78 }), ['적재 파레트 (1200×1100)', 'Z=202~346 mm', ''], cargoGroup);
+const boxMesh = makeBox(-480, 580, -560, 560, 346, 1550, new THREE.MeshStandardMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.22, depthWrite: false }), ['적재 화물 (1.5 m)', '', ''], cargoGroup);
 const boxEdges = new THREE.LineSegments(new THREE.EdgesGeometry(boxMesh.geometry), new THREE.LineBasicMaterial({ color: 0xf59e0b }));
-boxEdges.position.copy(boxMesh.position);
-cargoGroup.add(boxEdges);
+boxEdges.position.copy(boxMesh.position); cargoGroup.add(boxEdges);
+cargoGroup.visible = false;
 scene.add(cargoGroup);
 
-// Overhead Obstacles (Front +2.25m & Rear -2.05m at Z=1.45m!)
 const overGroup = new THREE.Group();
-const matBeam = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.4, metalness: 0.35, transparent: true, opacity: 0.75 });
-makeBox(2200, 2400, -900, 900, 1400, 1580, matBeam, ['전방 공중 오버행 장애물 (높이 1.45 m)', '✓ 전방 RoboSense E1R (+10°)로 사전 감지!', '적재 화물 충돌 방지'], overGroup);
-makeBox(-2200, -2020, -900, 900, 1400, 1580, matBeam, ['후방 공중 오버행 장애물 (높이 1.45 m)', '✓ 뒤 타워 Hesai XT32 / Ouster OS0로 사전 감지!', '후진 시 선반·랙 빔 충돌 방지'], overGroup);
+const matBeam = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.4, transparent: true, opacity: 0.72 });
+makeBox(2200, 2400, -900, 900, 1400, 1580, matBeam, ['전방 공중 오버행 (1.45 m)', '✓ 전방 E1R (+10°) 사전 감지', ''], overGroup);
+makeBox(-2200, -2020, -900, 900, 1400, 1580, matBeam, ['후방 공중 오버행 (1.45 m)', '✓ 뒤 타워 3D 사전 감지', ''], overGroup);
 scene.add(overGroup);
 
-// Reflector Pillars (0~61 cm, 3×5 cm bright gold strips!)
 const reflGroup = new THREE.Group();
 const matPillar = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.8 });
-const matTape = new THREE.MeshStandardMaterial({ color: 0xfef08a, emissive: 0xfacc15, emissiveIntensity: 0.75, roughness: 0.2 });
-function addReflectorPillar(xMm, yCadMm, label) {
-  makeBox(xMm - 110, xMm + 110, yCadMm - 110, yCadMm + 110, 0, 1900, matPillar, [label, '현장 기둥 + 0~61 cm 반사판', '상부 30~61 cm(뒤 타워 3D 다중 링) + 하부 0~30 cm(하부 2D 백업)'], reflGroup);
-  const faceX = xMm > 0 ? xMm - 114 : xMm + 110;
-  for (const dy of [-65, 0, 65]) {
-    makeBox(faceX, faceX + 4, yCadMm + dy - 22, yCadMm + dy + 22, 20, 610, matTape, ['5 cm 반사판 코드 테이프 (0~61 cm)', 'Z2 V8 다중 링 + 하부 2D 이중 판독', ''], reflGroup);
-  }
+const matTape = new THREE.MeshStandardMaterial({ color: 0xfef08a, emissive: 0xfacc15, emissiveIntensity: 0.75 });
+for (const [xm, lbl] of [[2600, '전방 기둥 반사판'], [-2560, '후방 기둥 반사판']]) {
+  makeBox(xm-110, xm+110, 410, 630, 0, 1900, matPillar, [lbl, '0~61 cm 이중 판독', ''], reflGroup);
+  const fx = xm > 0 ? xm - 114 : xm + 110;
+  for (const dy of [-65, 0, 65]) makeBox(fx, fx+4, 520+dy-22, 520+dy+22, 20, 610, matTape, ['5 cm 반사판 테이프', 'Z2 V8 코드', ''], reflGroup);
 }
-addReflectorPillar(2600, 520, '전방 기둥 반사판 (0~61 cm)');
-addReflectorPillar(-2560, 520, '후방 기둥 반사판 (0~61 cm)');
 scene.add(reflGroup);
 
-// Rear Automatic Charging Station (shows rear-first docking!)
 const dockGroup = new THREE.Group();
-const matDock = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.5, metalness: 0.4 });
-makeBox(-1220, -960, -260, 260, 0, 680, matDock, ['벽면 자동 충전 스테이션 (후진 도킹)', '충전 브러시 높이 Z=180~240 mm 정렬', '로봇이 엉덩이(타워 뒤)로 후진 도킹 → 포크가 통로 쪽을 향해 안전!'], dockGroup);
-makeBox(-960, -820, 34, 96, 184, 236, matCopper, ['충전기 (+) 스프링 브러시', 'Z=184~236 mm · 후면 충전 접점과 1:1 정렬', ''], dockGroup);
-makeBox(-960, -820, -96, -34, 184, 236, matCopper, ['충전기 (-) 스프링 브러시', 'Z=184~236 mm · 후면 충전 접점과 1:1 정렬', ''], dockGroup);
-makeBox(-960, -860, -16, 16, 196, 224, matGreen, ['충전기 파일럿 접점', '접촉 확인 후 48V 고속 충전 개시', ''], dockGroup);
-// Guide dashed line from rear contact to dock brush
-const dockGuide = new THREE.Line(
-  new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-0.755, 0.21, 0), new THREE.Vector3(-0.82, 0.21, 0)]),
-  new THREE.LineBasicMaterial({ color: 0xf97316 })
-);
-dockGroup.add(dockGuide);
+makeBox(-1220, -960, -260, 260, 0, 680, new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.5, metalness: 0.4 }), ['벽면 자동 충전 스테이션 (후진 도킹)', '브러시 높이 Z=180~240 mm', '엉덩이 후진 도킹 → 포크가 통로 쪽을 향해 안전'], dockGroup);
+makeBox(-960, -820, 34, 96, 184, 236, matCopper, ['충전기 (+) 브러시', '', ''], dockGroup);
+makeBox(-960, -820, -96, -34, 184, 236, matCopper, ['충전기 (-) 브러시', '', ''], dockGroup);
+makeBox(-960, -860, -16, 16, 196, 224, matGreen, ['충전기 파일럿 접점', '', ''], dockGroup);
 scene.add(dockGroup);
 
-// Rotation Sweep Circle (R = 0.972 m)
 const sweepPts = [];
-for (let i = 0; i <= 72; i++) {
-  const a = (i / 72) * Math.PI * 2;
-  sweepPts.push(new THREE.Vector3(Math.cos(a) * 0.972, 0.015, Math.sin(a) * 0.972));
-}
+for (let i = 0; i <= 72; i++) { const a = (i/72)*Math.PI*2; sweepPts.push(new THREE.Vector3(Math.cos(a)*0.972, 0.015, Math.sin(a)*0.972)); }
 const sweepLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(sweepPts), new THREE.LineBasicMaterial({ color: 0xc084fc }));
 sweepLine.visible = false;
 scene.add(sweepLine);
 
-// Zero-Protrusion Outer Envelope Wireframe (1530 x 1200 x 590)
-const envBox = new THREE.LineSegments(
-  new THREE.EdgesGeometry(new THREE.BoxGeometry(1.530, 0.590, 1.200)),
-  new THREE.LineBasicMaterial({ color: 0x22c55e, transparent: true, opacity: 0.55 })
-);
-envBox.position.set(0, 0.295, 0);
-scene.add(envBox);
-
-// ================= 9. CAMERA PRESETS & SMOOTH TWEEN =================
+// ================= 7. CAMERA PRESETS & KINEMATICS =================
 const CAM_VIEWS = {
-  iso:        { pos: [2.15, 1.55, 2.05],   tgt: [0.0, 0.34, 0.0] },
-  rearCharge: { pos: [-1.85, 0.62, 0.72],  tgt: [-0.75, 0.28, 0.0] },
-  frontE1R:   { pos: [1.65, 0.42, 0.58],   tgt: [0.70, 0.14, 0.0] },
-  lower2D:    { pos: [1.35, 0.38, -1.25],  tgt: [0.66, 0.12, -0.50] },
-  side:       { pos: [0.0, 0.72, 3.65],    tgt: [0.0, 0.45, 0.0] },
-  top:        { pos: [0.01, 4.10, 0.01],   tgt: [0.0, 0.15, 0.0] }
+  iso:        { pos: [2.15, 1.48, 2.05],   tgt: [0.0, 0.30, 0.0],  op: null },
+  underQR:    { pos: [0.75, 0.32, 1.15],   tgt: [0.0, 0.10, 0.0],  op: 24 },
+  latchView:  { pos: [-0.35, 0.55, 1.35],  tgt: [-0.45, 0.16, 0.0], op: 28 },
+  rearCharge: { pos: [-1.85, 0.62, 0.72],  tgt: [-0.75, 0.28, 0.0], op: 88 },
+  frontE1R:   { pos: [1.58, 0.38, 0.55],   tgt: [0.68, 0.13, 0.0],  op: 92 },
+  side:       { pos: [0.0, 0.68, 3.60],    tgt: [0.0, 0.42, 0.0],  op: null }
 };
 let tween = null;
+const $ = id => document.getElementById(id);
+
+function setOpacity(pct) {
+  $('sOp').value = pct; $('vOp').textContent = `${pct}%`;
+  const op = pct / 100;
+  shellMaterials.forEach(m => { m.opacity = op; m.depthWrite = op >= 0.95; });
+}
 function goCam(key) {
-  const v = CAM_VIEWS[key];
-  if (!v) return;
-  tween = {
-    t: 0,
-    p0: camera.position.clone(),
-    p1: new THREE.Vector3(...v.pos),
-    t0: controls.target.clone(),
-    t1: new THREE.Vector3(...v.tgt)
-  };
-  document.querySelectorAll('[data-cam]').forEach(el => {
-    if (el.tagName === 'BUTTON') el.classList.toggle('active', el.dataset.cam === key);
-  });
+  const v = CAM_VIEWS[key]; if (!v) return;
+  tween = { t: 0, p0: camera.position.clone(), p1: new THREE.Vector3(...v.pos), t0: controls.target.clone(), t1: new THREE.Vector3(...v.tgt) };
+  if (v.op !== null) setOpacity(v.op);
+  document.querySelectorAll('[data-cam]').forEach(el => { if (el.tagName === 'BUTTON') el.classList.toggle('active', el.dataset.cam === key); });
 }
 document.querySelectorAll('[data-cam]').forEach(el => el.addEventListener('click', () => goCam(el.dataset.cam)));
 
-// ================= 10. UI CONTROLS =================
-const $ = id => document.getElementById(id);
 let towerMode = 'XT32';
 function setTowerMode(m) {
   towerMode = m;
-  xt32MeshGroup.visible = m === 'XT32';
-  os0MeshGroup.visible = m === 'OS0';
-  $('btnXT32').classList.toggle('active', m === 'XT32');
-  $('btnOS0').classList.toggle('active', m === 'OS0');
+  xt32MeshGroup.visible = m === 'XT32'; os0MeshGroup.visible = m === 'OS0';
+  $('btnXT32').classList.toggle('active', m === 'XT32'); $('btnOS0').classList.toggle('active', m === 'OS0');
   updateVis();
-  $('hudStatus').innerHTML = `모드: <strong>${m === 'XT32' ? 'Hesai XT32 (+8°)' : 'Ouster OS0-64 (90°)'}</strong> · 후면 충전 접점 Z=180~240 mm`;
 }
 $('btnXT32').addEventListener('click', () => setTowerMode('XT32'));
 $('btnOS0').addEventListener('click', () => setTowerMode('OS0'));
@@ -745,62 +777,72 @@ function updateVis() {
   fovE1RGroup.visible = $('kFovE1R').checked;
   const tOn = $('kFovTower').checked;
   fovXT32Group.visible = tOn && towerMode === 'XT32';
-  fovOS0Group.visible = tOn && towerMode === 'OS0';
-  cargoGroup.visible = $('kCargo').checked;
-  overGroup.visible = $('kOver').checked;
-  reflGroup.visible = $('kRefl').checked;
-  dockGroup.visible = $('kDock').checked;
-  sweepLine.visible = $('kSweep').checked;
-  envBox.visible = $('kEnv').checked;
+  fovOS0Group.visible  = tOn && towerMode === 'OS0';
+  qrSceneGroup.visible = $('kQR').checked;
+  cargoGroup.visible   = $('kCargo').checked;
+  overGroup.visible    = $('kOver').checked;
+  reflGroup.visible    = $('kRefl').checked;
+  dockGroup.visible    = $('kDock').checked;
+  sweepLine.visible    = $('kSweep').checked;
 }
-['kFov2D','kFovE1R','kFovTower','kCargo','kOver','kRefl','kDock','kSweep','kEnv'].forEach(id => $(id).addEventListener('change', updateVis));
+['kFov2D','kFovE1R','kFovTower','kQR','kCargo','kOver','kRefl','kDock','kSweep'].forEach(id => $(id).addEventListener('change', updateVis));
 
-$('sExt').addEventListener('input', e => {
-  const v = +e.target.value;
-  $('vExt').textContent = `${v} mm`;
-  forkSlideGroup.position.x = mm(v);
-});
-$('sLift').addEventListener('input', e => {
-  const v = +e.target.value;
-  $('vLift').textContent = `${v} mm`;
-  forkLiftGroup.position.y = mm(v);
-});
-$('sOp').addEventListener('input', e => {
-  const v = +e.target.value;
-  $('vOp').textContent = `${v}%`;
-  const op = v / 100;
-  shellMaterials.forEach(m => { m.opacity = op; m.depthWrite = op >= 0.95; });
-});
+function updateKinematics() {
+  const latch = +$('sLatch').value;
+  const ext   = +$('sExt').value;
+  const lift  = +$('sLift').value;
+  const tineBottom = 42 + latch;
+  const tineTop    = 86 + latch + lift;
+  $('vLatch').textContent = `${latch >= 0 ? '+' : ''}${latch} mm (바닥 Z=${tineBottom})`;
+  $('vExt').textContent   = `${ext} mm`;
+  $('vLift').textContent  = `${lift} mm (날 상단 ${tineTop})`;
+  $('btnPickMode').classList.toggle('active', latch === -11);
+  $('btnTravelMode').classList.toggle('active', latch === 9);
+  $('hudStatus').innerHTML = `<strong>7축 서보</strong> · 하단 QR(Z=100) · Latch ${latch >= 0 ? '+' : ''}${latch} mm · 리프트 +${lift} mm`;
 
-// ================= 11. HOVER TOOLTIP (RAYCASTER) =================
-const ray = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-const tip = $('tip');
+  forkSlideGroup.position.x = mm(ext);
+  forkLatchGroup.position.y = mm(latch);
+  forkLiftGroup.position.y  = mm(lift);
+
+  // Animate 4x X-Scissor Lift Linkages!
+  const hLift = Math.max(0.014, mm(lift) + 0.016);
+  for (const sc of scissorLinks) {
+    const sinA = Math.min(0.94, hLift / sc.L); // max ~70 deg
+    const ang = Math.asin(sinA);
+    sc.arm1.rotation.z =  ang;
+    sc.arm2.rotation.z = -ang;
+    const midY = (sc.L * sinA) / 2 + 0.008;
+    sc.arm1.position.y = midY;
+    sc.arm2.position.y = midY;
+    // Foot drops onto floor when lifting!
+    sc.grp.position.y = lift > 2 ? 0.002 : mm(42 + latch);
+  }
+}
+$('sLatch').addEventListener('input', updateKinematics);
+$('sExt').addEventListener('input', updateKinematics);
+$('sLift').addEventListener('input', updateKinematics);
+$('sOp').addEventListener('input', e => setOpacity(+e.target.value));
+$('btnPickMode').addEventListener('click', () => { $('sLatch').value = -11; $('sLift').value = 0; updateKinematics(); });
+$('btnTravelMode').addEventListener('click', () => { $('sLatch').value = 9; $('sLift').value = 0; updateKinematics(); });
+
+// Hover Tooltip
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2(), tip = $('tip');
 canvas.addEventListener('pointermove', ev => {
   const rect = canvas.getBoundingClientRect();
   mouse.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
   mouse.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
   ray.setFromCamera(mouse, camera);
-  const visList = pickables.filter(o => {
-    let cur = o;
-    while (cur) { if (!cur.visible) return false; cur = cur.parent; }
-    return true;
-  });
+  const visList = pickables.filter(o => { let c = o; while (c) { if (!c.visible) return false; c = c.parent; } return true; });
   const hits = ray.intersectObjects(visList, false);
   if (!hits.length) { tip.style.display = 'none'; return; }
   const u = hits[0].object.userData;
-  $('tipName').textContent = u.name;
-  $('tipModel').textContent = u.model;
-  $('tipDesc').textContent = u.desc;
+  $('tipName').textContent = u.name; $('tipModel').textContent = u.model; $('tipDesc').textContent = u.desc;
   tip.style.display = 'block';
-  const lx = Math.min(rect.width - 320, ev.clientX - rect.left + 14);
-  const ly = Math.min(rect.height - 95, ev.clientY - rect.top + 14);
-  tip.style.left = Math.max(8, lx) + 'px';
-  tip.style.top = Math.max(8, ly) + 'px';
+  tip.style.left = Math.max(8, Math.min(rect.width - 335, ev.clientX - rect.left + 14)) + 'px';
+  tip.style.top  = Math.max(8, Math.min(rect.height - 95, ev.clientY - rect.top + 14)) + 'px';
 });
 canvas.addEventListener('pointerleave', () => { tip.style.display = 'none'; });
 
-// Resize & Animation Loop
 function resize() {
   const r = canvas.parentElement.getBoundingClientRect();
   renderer.setSize(r.width, r.height, false);
@@ -808,8 +850,7 @@ function resize() {
   camera.updateProjectionMatrix();
 }
 window.addEventListener('resize', resize);
-resize();
-updateVis();
+resize(); updateVis(); updateKinematics();
 
 renderer.setAnimationLoop(() => {
   if (tween) {
