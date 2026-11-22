@@ -5,7 +5,7 @@
     590
   ],
   "axes": "CAD mm: X=forward(-765..+765), Y=left(-600..+600), Z=up(0..590); glTF m: X=Y, Y=Z, Z=X",
-  "part_count": 51,
+  "part_count": 53,
   "parts": [
     {
       "name": "pod_main_L",
@@ -84,7 +84,7 @@
       "note": "Z=46~174 mm · 좌우 포크(Z=51~95)보다 높아 가림 0%",
       "bbox_mm": [
         -545.0,
-        695.0,
+        678.0,
         -145.0,
         145.0,
         46.0,
@@ -92,45 +92,73 @@
       ]
     },
     {
-      "name": "center_spine_tip_low",
+      "name": "center_spine_e1r_floor",
       "kind": "chassis",
-      "model": "등뼈 선단 하부",
-      "note": "RoboSense E1R 포켓 하부 구조",
+      "model": "등뼈 선단 하부 강판 (10t)",
+      "note": "Z=46~56 mm · E1R 하방 -35° 광선 무간섭 + 바닥 보호",
       "bbox_mm": [
-        695.0,
+        678.0,
         750.0,
         -145.0,
         145.0,
         46.0,
-        95.0
+        56.0
+      ]
+    },
+    {
+      "name": "center_spine_e1r_seat",
+      "kind": "chassis",
+      "model": "E1R 경사 마운트 베이스",
+      "note": "RoboSense E1R 하부 지지 (+10° 틸트)",
+      "bbox_mm": [
+        678.0,
+        720.0,
+        -85.0,
+        85.0,
+        56.0,
+        78.0
+      ]
+    },
+    {
+      "name": "center_spine_e1r_roof",
+      "kind": "chassis",
+      "model": "E1R 상단 8 mm 강판 보호 커버 (경사 처마)",
+      "note": "Z=166~174 mm · E1R 본체(X=682~725) 위를 100% 덮어 파손 방지 · +55° 상방 시야 손실 0°",
+      "bbox_mm": [
+        678.0,
+        740.0,
+        -145.0,
+        145.0,
+        166.0,
+        174.0
       ]
     },
     {
       "name": "center_spine_tip_L",
       "kind": "chassis",
-      "model": "등뼈 선단 측벽",
-      "note": "RoboSense E1R 좌우 보호 측벽 (돌출 0 mm)",
+      "model": "E1R 포켓 좌우 60 mm 강철 지주",
+      "note": "상단 보호 커버 지지 + ±60°(120°) 수평 시야 확보 + 돌출 0 mm",
       "bbox_mm": [
-        695.0,
+        678.0,
         750.0,
-        48.0,
+        85.0,
         145.0,
-        95.0,
-        174.0
+        56.0,
+        166.0
       ]
     },
     {
       "name": "center_spine_tip_R",
       "kind": "chassis",
-      "model": "등뼈 선단 측벽",
-      "note": "RoboSense E1R 좌우 보호 측벽 (돌출 0 mm)",
+      "model": "E1R 포켓 좌우 60 mm 강철 지주",
+      "note": "상단 보호 커버 지지 + ±60°(120°) 수평 시야 확보 + 돌출 0 mm",
       "bbox_mm": [
-        695.0,
+        678.0,
         750.0,
         -145.0,
-        -48.0,
-        95.0,
-        174.0
+        -85.0,
+        56.0,
+        166.0
       ]
     },
     {
@@ -346,15 +374,15 @@
     {
       "name": "lidar_3d_front_E1R",
       "kind": "lidar3df",
-      "model": "RoboSense E1R (120°×90°, Min 0.1m, IP67)",
-      "note": "② 전방 등뼈 광각 3D · Z=138 mm · +10° 상향 틸트 · 적재 오버행(2.28m) + 3D 팔레트",
+      "model": "RoboSense E1R (95×69.5×43 mm, 120°×90°, Min 0.1m, IP67)",
+      "note": "② 전방 등뼈 광각 3D · Z=120 mm · +10° 틸트 · 상단 8mm 강판 커버(Z=166~174) 아래 완전 보호",
       "bbox_mm": [
-        698.3,
-        745.7,
-        -35.0,
-        35.0,
-        98.0,
-        178.0
+        676.8,
+        731.2,
+        -47.5,
+        47.5,
+        82.0,
+        158.0
       ]
     },
     {
