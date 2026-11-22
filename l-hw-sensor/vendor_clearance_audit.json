@@ -1,7 +1,7 @@
 {
-  "revision": "Rev C.2",
+  "revision": "Rev C.3",
   "all_pass": true,
-  "audit_elapsed_s": 54.35,
+  "audit_elapsed_s": 60.4,
   "datums": {
     "A": "바닥판 하면 (Z = 46.0 mm)",
     "B": "중앙 등뼈 좌측 HGR20 레일 가공면 (Y = +130.0 mm)",
@@ -41,7 +41,7 @@
     },
     "gate2_all_pairs_interference": {
       "interference_threshold_mm3": 0.001,
-      "total_pairs": 24310,
+      "total_pairs": 24531,
       "aabb_overlap_candidates": 198,
       "interference_count": 0,
       "interferences": [],
@@ -52,7 +52,7 @@
     "gate3_connectivity": {
       "contact_threshold_mm": 0.25,
       "connected_components": 1,
-      "main_component_size": 221,
+      "main_component_size": 222,
       "floating_parts_count": 0,
       "floating_parts": [],
       "detached_groups": [],
@@ -147,7 +147,7 @@
       "lift_sweep_collisions": 0,
       "lift_sweep_details": [],
       "caster_center_y_mm": 448.0,
-      "caster_checked_parts_count": 187,
+      "caster_checked_parts_count": 188,
       "caster_compression_dz_tested_mm": [
         0.0,
         10.0,
@@ -204,9 +204,14 @@
       "lidar_2d_fr_max_blind_depth_mm": 112.36,
       "lidar_2d_rl_max_blind_depth_mm": 148.66,
       "lidar_2d_near_blind_area_cm2": 1286.0,
-      "xt32_horiz_open_pct": 97.22,
+      "xt32_center_mm": [
+        -645.0,
+        452.5,
+        512.0
+      ],
+      "xt32_horiz_open_pct": 92.22,
       "xt32_horiz_req_pct": 90.0,
-      "xt32_32ch_empty_open_pct": 75.92,
+      "xt32_32ch_empty_open_pct": 81.88,
       "e1r_window_top_mm": [
         722.13,
         0.0,
@@ -231,33 +236,33 @@
     "gate6_glb_mass": {
       "tessellate_tol_mm": 0.15,
       "glb_max_bbox_err_mm": 0.0336,
-      "glb_watertight_count": 221,
-      "glb_total_meshes": 221,
+      "glb_watertight_count": 222,
+      "glb_total_meshes": 222,
       "glb_watertight_ratio": 1.0,
       "glb_triangles": 48578,
-      "steel_structure_kg": 357.98,
-      "total_robot_kg": 480.2,
+      "steel_structure_kg": 349.34,
+      "total_robot_kg": 471.56,
       "pass_ok": true
     }
   },
   "mass_cg": {
-    "steel_structure_kg": 357.98,
+    "steel_structure_kg": 349.34,
     "aluminum_kg": 7.95,
     "other_material_kg": 4.92,
     "purchased_components_kg": 109.35,
-    "total_robot_b1_kg": 480.2,
+    "total_robot_b1_kg": 471.56,
     "cg_b1_mm": [
-      -133.7,
-      1.1,
-      147.1
+      -124.2,
+      5.9,
+      138.1
     ],
-    "total_solid_volume_L": 89.224,
+    "total_solid_volume_L": 88.124,
     "battery_a_opt_module_kg": 39.0,
-    "total_robot_with_a_only_kg": 501.2,
+    "total_robot_with_a_only_kg": 492.56,
     "cg_with_a_only_mm": [
-      -190.7,
-      1.0,
-      161.9
+      -182.5,
+      5.6,
+      153.5
     ]
   },
   "clearances": [
@@ -358,17 +363,17 @@
       "pass_ok": true
     },
     {
-      "check": "후면 충전 하우징 ↔ Winmate 10.1\" HMI",
+      "check": "후면 충전 하우징 ↔ Winmate 10.1\" HMI (40° 오픈 콘솔)",
       "part_a": "rear_charger_housing",
       "part_b": "rear_hmi_10in",
-      "clearance_mm": 20.62,
-      "min_req_mm": 10.0,
+      "clearance_mm": 61.03,
+      "min_req_mm": 50.0,
       "pass_ok": true
     },
     {
-      "check": "뒤 타워 3D(XT32) ↔ 중공 경사 지붕",
+      "check": "좌후방 미니타워 3D(XT32) ↔ 6t 중공 미니지붕",
       "part_a": "lidar_3d_rear_XT32",
-      "part_b": "tower_chamfered_roof",
+      "part_b": "tower_mini_roof_6t",
       "clearance_mm": 27.41,
       "min_req_mm": 10.0,
       "pass_ok": true
@@ -411,7 +416,7 @@
     "lidar_2d_perimeter_250mm_blind_pct": 0.0,
     "lidar_2d_perimeter_300mm_blind_pct": 0.0,
     "lidar_2d_max_blind_depth_mm": 148.66,
-    "xt32_horiz_open_pct": 97.22,
+    "xt32_horiz_open_pct": 92.22,
     "qr_working_dist_mm": 100.0,
     "qr_wd_range_mm": [
       80.0,
@@ -421,8 +426,8 @@
     "qr_wd_pass": true
   },
   "step_reimport": {
-    "solids": 221,
-    "expected_solids": 221,
+    "solids": 222,
+    "expected_solids": 222,
     "invalid_solids": 0,
     "length_mm": 1530.0,
     "width_mm": 1200.0,

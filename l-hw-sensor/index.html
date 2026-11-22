@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230f172a'/><text x='16' y='22' font-size='17' text-anchor='middle' fill='%2338bdf8' font-family='sans-serif' font-weight='900'>L</text></svg>">
-<title>L-type 1.5 t AMR (1200×1530×590 · Rev C.2) — 1. 설계 개요</title>
+<title>L-type 1.5 t AMR (1200×1530×590 · Rev C.3) — 1. 설계 개요</title>
 <style>
 :root {
   --bg: #f4f6f9;
@@ -297,7 +297,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <span class="brand-badge">Rev C.2 · 221부품</span>
+      <span class="brand-badge">Rev C.3 · 222부품</span>
       <span>L-type 1.5 t 설계 허브</span>
     </div>
     <nav class="page-tabs" aria-label="주요 페이지 이동">
@@ -317,7 +317,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
     <a href="#pockets">3. 매립 포켓 단면</a>
     <a href="#battery-kc">4. 배터리 LFP 2종 · KC 패키지 E</a>
     <a href="#mech">5. 1.5 t 기구 · 7축</a>
-    <a href="#bom">6. Rev C.2 풀 BOM</a>
+    <a href="#bom">6. Rev C.3 풀 BOM</a>
   </div>
 </header>
 
@@ -327,13 +327,13 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
   <section class="hero" id="blueprint">
     <div class="hero-top">
       <div>
-        <h1>신규 L-type 1.5 t AMR (1200×1530×590 mm) — Rev C.2 설계 개요</h1>
-        <p class="hero-sub"><strong>221부품 6대 자동 검증 PASS</strong> · <strong>매립 보호 2D (±695,±530 · 철판 안쪽 10 mm / 범퍼 25 mm · 150~300 mm 사각 0.0%)</strong> · <strong>일자 측면 비상정지(+14.5 mm 돌출)</strong> · <strong>18° 상향 틸트 10.1" HMI (4t 경사 후드)</strong> · <strong>Ø22×3t 4기둥 3D 타워 (97.22%)</strong></p>
+        <h1>신규 L-type 1.5 t AMR (1200×1530×590 mm) — Rev C.3 설계 개요</h1>
+        <p class="hero-sub"><strong>222부품 6대 자동 검증 PASS</strong> · <strong>40° 상향 완전 개방 10.1" HMI 콘솔 (상부 지붕 전면 제거 · 가림 0%)</strong> · <strong>좌후방 미니타워 3D (-645,+452.5,512 · Ø18×4기둥 92.22% / 32ch 81.88%)</strong> · <strong>매립 보호 2D (±695,±530 · 150~300 mm 사각 0.0%)</strong> · <strong>일자 측면 비상정지(+14.5 mm)</strong></p>
       </div>
       <div class="hero-meta">
-        <span class="chip ok">Rev C.2 · 6/6 게이트 PASS (221부품)</span>
-        <span class="chip pri">B-1 480.2 kg / A 501.2 kg</span>
-        <span class="chip purple">전 센서·버튼 돌출 0 mm</span>
+        <span class="chip ok">Rev C.3 · 6/6 게이트 PASS (222부품)</span>
+        <span class="chip pri">B-1 471.6 kg / A 492.6 kg</span>
+        <span class="chip purple">HMI 상부 가림 0% · 돌출 0 mm</span>
         <span class="chip warn">KC 전용 패키지 E 대응</span>
       </div>
     </div>
@@ -359,20 +359,20 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
 
       <div class="s-card warn">
         <div class="s-head">
-          <span class="s-title">③ 뒤 타워 고정밀 3D</span>
+          <span class="s-title">③ 좌후방 미니타워 고정밀 3D</span>
           <span class="s-qty warn">× 1대</span>
         </div>
         <div class="s-spec">Hesai XT32 (0.18°) · 대안: Ouster OS0 (실효 +31.0°/-26.5°)</div>
-        <p class="s-desc"><strong>타워 중앙 (-645, 0, 512) · 후방 상향 +8° 쐐기.</strong> <code>Ø22×3t</code> 가는 4기둥 개방 지붕(<strong>수평 개방 97.22%</strong>, 데크 <code>Z=454~460</code>, 지붕 <code>Z=566~590</code> 여유 <code>27.41 mm</code> · 후진 1.45 m 오버행 범퍼 뒤 <strong>2.1 m</strong> 포착).</p>
+        <p class="s-desc"><strong>좌후방 날개 (-645, +452.5, 512 · 우후방 RR 2D와 대각 균형) · +8° 쐐기.</strong> <code>Ø18×3t</code> 4기둥 + 폭 <code>265 mm</code> 미니지붕(<strong>수평 92.22% / 32ch 81.88% ↑</strong>, 여유 <code>27.41 mm</code> · 오픈 HMI 상단 <code>+46.6 mm</code> 상부 통과).</p>
       </div>
 
       <div class="s-card ok">
         <div class="s-head">
-          <span class="s-title">④ QR · 18° HMI · 일자 E-STOP</span>
+          <span class="s-title">④ QR · 40° 오픈 HMI · E-STOP</span>
           <span class="s-qty ok">공통 1식</span>
         </div>
         <div class="s-spec">MIC-711-OX · Moxa EDS-G4008 · Flexi Soft</div>
-        <p class="s-desc"><strong>중앙 QR(X=0, Z=100, 35.75°)</strong> + 후면 충전(<code>Z=174~246</code>) + <strong>18° 상향 틸트 Winmate HMI</strong>(<code>Z=272~445</code>, 4t 경사 후드) + <strong>비상정지 5개</strong>(전방 일자 외벽 <code>+565, ±585, Z=163.5</code> Ø38 <code>+14.5 mm</code> 돌출).</p>
+        <p class="s-desc"><strong>중앙 QR(X=0, Z=100, 35.75°)</strong> + 후면 충전(<code>Z=174~246</code>) + <strong>40° 완전 개방 Winmate HMI 콘솔</strong>(<code>Z=326~465.4</code> · 상부 지붕 전면 제거 · 가림 0%) + <strong>비상정지 5개</strong>(전방 일자 외벽 <code>+565, ±585, Z=163.5</code> <code>+14.5 mm</code> 돌출).</p>
       </div>
     </div>
 
@@ -384,13 +384,13 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
       </div>
       <div class="kpi-mini">
         <div class="k">총질량 &amp; 무게중심 (CAD 실계산)</div>
-        <div class="v" style="color:var(--primary)">480.2 kg (B-1) / 501.2 kg (A)</div>
-        <div class="s">강재 358.0 kg · CG B-1 (-133.7, +1.1, 147.1)</div>
+        <div class="v" style="color:var(--primary)">471.6 kg (B-1) / 492.6 kg (A)</div>
+        <div class="s">강재 349.3 kg (-8.6 kg) · CG B-1 (-124.2, +5.9, 138.1)</div>
       </div>
       <div class="kpi-mini">
         <div class="k">매립 2D / 3D 광선추적 실측 (0.15 mm)</div>
-        <div class="v" style="color:var(--ok)">2D 258.0°/255.5° · 타워 97.22%</div>
-        <div class="s">150~300 mm 사각 0.0% (50/100 mm 21.9/2.2%) · E1R 73.5°</div>
+        <div class="v" style="color:var(--ok)">2D 258.0°/255.5° · XT32 92.22%</div>
+        <div class="s">32ch 81.88%(+6.0%p↑) · 150~300 mm 0.0% · E1R 73.5°</div>
       </div>
       <div class="kpi-mini">
         <div class="k">배터리 (LFP 인산철 2종 전용)</div>
@@ -399,51 +399,51 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
       </div>
     </div>
 
-    <div class="gate-strip" aria-label="Rev C.2 6대 자동 검증 게이트">
+    <div class="gate-strip" aria-label="Rev C.3 6대 자동 검증 게이트">
       <div class="gate-pill"><div class="gk">GATE 1 외곽·돌출</div><div class="gv">PASS · 1530×1200×590</div></div>
-      <div class="gate-pill"><div class="gk">GATE 2 정지 전쌍</div><div class="gv">PASS · 24,310쌍 0건</div></div>
+      <div class="gate-pill"><div class="gk">GATE 2 정지 전쌍</div><div class="gv">PASS · 24,531쌍 0건</div></div>
       <div class="gate-pill"><div class="gk">GATE 3 단일 연결</div><div class="gv">PASS · ≤0.25mm 부유 0</div></div>
       <div class="gate-pill"><div class="gk">GATE 4 동적 스윕</div><div class="gv">PASS · 전진·래치·리프트·캐스터 0</div></div>
-      <div class="gate-pill"><div class="gk">GATE 5 광선추적</div><div class="gv">PASS · 2D 150~300mm 0%</div></div>
-      <div class="gate-pill"><div class="gk">GATE 6 수밀·질량</div><div class="gv">PASS · 221/221 수밀</div></div>
+      <div class="gate-pill"><div class="gk">GATE 5 광선추적</div><div class="gv">PASS · XT32 92.2% / 32ch 81.9%</div></div>
+      <div class="gate-pill"><div class="gk">GATE 6 수밀·질량</div><div class="gv">PASS · 222/222 수밀</div></div>
     </div>
   </section>
 
   <!-- SECTION 0: 3D MODEL & REAR STACK -->
   <section class="section" id="viewer3d">
     <div class="section-head">
-      <h2>0. 인터랙티브 3D CAD 모델 (Rev C.2 221부품) &amp; 후면 18° 틸트 HMI · 일자 측면 E-STOP</h2>
+      <h2>0. 인터랙티브 3D CAD 모델 (Rev C.3 222부품) &amp; 40° 완전 개방 HMI · 좌후방 3D 미니타워</h2>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <a href="3d.html" target="_blank" rel="noopener" style="text-decoration:none;background:var(--ok);color:#fff;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:800">⛶ 전체화면 3D 뷰어 열기</a>
-        <a href="ltype_1200x1530_4sensor.glb" download style="text-decoration:none;background:var(--primary);color:#fff;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:800">⬇ Rev C.2 221부품 상세 CAD (.glb)</a>
+        <a href="ltype_1200x1530_4sensor.glb" download style="text-decoration:none;background:var(--primary);color:#fff;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:800">⬇ Rev C.3 222부품 상세 CAD (.glb)</a>
         <a href="vendor_drawing.html" style="text-decoration:none;background:#c2410c;color:#fff;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:800">📐 업체 기준도면·STEP</a>
       </div>
     </div>
 
     <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#080d18">
-      <iframe src="3d.html" title="L-type 1.5t Rev C.2 221부품 3D CAD 뷰어" style="width:100%;height:600px;border:0;display:block"></iframe>
+      <iframe src="3d.html" title="L-type 1.5t Rev C.3 222부품 3D CAD 뷰어" style="width:100%;height:600px;border:0;display:block"></iframe>
     </div>
 
     <div class="tip-box pri" style="margin-top:14px">
-      <strong>📐 후면 수직 적층 &amp; 현장 3대 디자인 개선 확정 (Datum C = X -750 mm · 전 구간 여유 실측 통과):</strong><br>
-      • <code>Z=46~81</code> Mayser SL/W 후방 범퍼 → <strong>여유 93.54 mm</strong> → <strong><code>Z=174~246</code> 후면 충전 타공</strong>(하우징 <code>174~250</code>, 구리 접점 <code>184~236</code>, 돌출 0) → <strong>실측 여유 20.62 mm</strong> → <strong><code>18°</code> 상향 틸트 Winmate W10L100-IPH2 10.1" HMI</strong>(전면 <code>Z=272~445</code>, 후면판 개구 <code>290×182 Z=266~448</code> + 일체형 <code>4t</code> 경사 매립 후드 <code>hmi_tilted_hood_4t</code>, 최후단 <code>X_min=-755.7 ≥ -765</code> · 서서 보기·터치 최적화) → <code>Z=454~460</code> 타워 데크(6t) → <strong><code>Z=512</code> 뒤 타워 3D</strong> → 여유 <code>27.41 mm</code> → <code>Z=566~590</code> 중공 경사 지붕.<br>
-      • <strong>비상정지 5개 (전방 파임 없는 100% 일자 외벽 + Ø38 머쉬룸 +14.5 mm 뚜렷이 돌출 · ISO 13850 / ISO 3691-4):</strong> 후면 1개(<code>-750, +255, Z=400</code>) + 타워 좌·우 측면 2개(<code>-650, ±585, Z=380</code>) + <strong>전방 좌·우 일자 상부 외판 2개(<code>+565, ±585, Z=163.5</code>, <code>Z=137~190</code> 파임 없는 평면 외벽 Ø42 타공 · 저가드 6 mm 위로 Ø38 +8.5 mm / 총 +14.5 mm 돌출, <code>|Y|_max=599.5 ≤ 600</code> · 2D 스캔면 <code>Z=126.5</code>보다 +11 mm 상부라 차폐 0.0°)</strong> — 외곽 돌출 0 mm 유지, 전부 STO 하드와이어 직결.<br>
-      • <strong>하부 대각 2D 매립 보호 (<code>±695, ±530, Z=126.5</code>):</strong> 기존 L-type처럼 21 mm 안쪽 매립 → 광학 터렛 철판 안쪽 <code>10.0 mm</code>(범퍼 안쪽 <code>25.0 mm</code>) / 베이스 철판 안쪽 <code>7.0 mm</code>(범퍼 안쪽 <code>22.0 mm</code>) · 6t 지붕 아래 100% 수납 보호.
+      <strong>📐 Rev C.3 핵심 인체공학 개편 — HMI 상부 철 구조물 전면 제거 &amp; 3D 라이다 좌후방 미니타워 이전 (Datum C = X -750 mm):</strong><br>
+      • <strong>중앙 40° 상향 완전 개방 HMI 콘솔 (<code>hmi_open_console_4t</code> + <code>rear_hmi_10in</code>):</strong> 기존 전폭 <code>1,170 mm</code> 타워 지붕과 중앙 상부 데크(<code>|Y|≤155</code>)를 <strong>완전 제거</strong>하고, 후면판 중앙을 <code>Z=324</code>까지만 남겨 <strong>화면 위쪽에 철 구조물이 단 하나도 없는 100% 하늘 개방 40° 콘솔</strong>(전면 <code>-748, Z=326</code> → 상단 <code>-631, Z=465.4</code> · <code>X_min=-752.6 ≥ -765</code>)로 전환했습니다. 충전 하우징(<code>Z=174~250</code>)과 <strong>실측 여유 61.03 mm</strong>, 문형 캐리지(<code>Z=250</code>)와 <code>+50 mm</code> 이상 확보.<br>
+      • <strong>좌후방 전용 3D 미니타워 (<code>XT32_POS = -645, +452.5, 512</code>):</strong> 3D 라이다를 우후방 <code>RR</code> 2D와 대각 균형을 이루는 <strong>좌후방 날개(<code>Y=+320~+585</code>)</strong>로 이전해 <code>Ø18×3t</code> 4기둥 + 폭 <code>265 mm</code> 초경량 <code>6t</code> 중공 미니지붕(<code>3.30 kg</code> · 지붕 여유 <code>27.41 mm</code>)으로 보호합니다. <strong>수평 개방 92.22% (≥90% PASS)</strong>이며 전폭 지붕 제거 효과로 <strong>빈 차 32ch 개방률이 75.92% → 81.88% (+5.96%p)로 오히려 상승</strong>하고 총중량이 <code>8.64 kg</code> 경량화되었습니다. 우측 날개(<code>Y=-585..-155</code>)는 무지붕 평판 데크(<code>Z=460</code>)로 마감해 배터리 A 격실을 100% 보존합니다.<br>
+      • <strong>비상정지 5개 &amp; 매립 2D 100% 보존:</strong> 후면 좌측 어깨(<code>-750, +255, Z=400</code>) · 타워 좌우 도어(<code>-650, ±585, Z=380</code>) · 전방 좌우 일자 상부 외벽(<code>+565, ±585, Z=163.5 · +14.5 mm</code> 돌출) 5개 STO 직결 + 매립 보호 2D(<code>±695, ±530, Z=126.5</code> · 철판 안쪽 <code>10 mm</code> / 범퍼 <code>25 mm</code> · <code>150~300 mm</code> 사각 <code>0.0%</code>).
     </div>
   </section>
 
   <!-- SECTION 1: 1:1 3-VIEW DRAWINGS -->
   <section class="section" id="drawings">
     <div class="section-head">
-      <h2>1. Rev C.2 등축 3면도 (측면도 · 평면도 · 정면도)</h2>
-      <span class="section-desc">매립 2D(±695,±530) · 18° 틸트 HMI(Z=272~445) · 일자 측면 E-STOP(+565,±585,Z=163.5) · E1R Z=120 · 타워 3D Z=512 (4기둥)</span>
+      <h2>1. Rev C.3 등축 3면도 (측면도 · 평면도 · 정면도)</h2>
+      <span class="section-desc">40° 완전 개방 HMI(Z=326~465 · 무지붕) · 좌후방 미니타워 3D(-645,+452.5,512) · 매립 2D(±695,±530) · 일자 측면 E-STOP · E1R Z=120</span>
     </div>
 
     <div class="ctrl-strip">
       <div class="opt-group">
         <span class="opt-label">보기 모드:</span>
-        <button class="opt-btn active" data-mode="BASE" type="button">★ Rev C.2 풀 3D 확정안 (4대)</button>
-        <button class="opt-btn" data-mode="OPT_T2D" type="button">2D 경량 대안: 타워 2D</button>
+        <button class="opt-btn active" data-mode="BASE" type="button">★ Rev C.3 풀 3D 확정안 (4대)</button>
+        <button class="opt-btn" data-mode="OPT_T2D" type="button">2D 경량 대안: 미니타워 2D</button>
         <button class="opt-btn" data-mode="OPT_RGBD" type="button">단차 대안: 전방 광각 RGB-D</button>
         <button class="opt-btn" data-mode="OPT_LIBD" type="button">기존 SW 유지 대안: 하부 2D 3대</button>
       </div>
@@ -456,15 +456,15 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
     </div>
 
     <div class="sub-title">
-      <span>① 측면도 (X·Z 동일 축척 · Rev C.2 221부품 기준 · 18° 틸트 HMI · 매립 2D · 일자 측면 E-STOP 반영)</span>
+      <span>① 측면도 (X·Z 동일 축척 · Rev C.3 222부품 기준 · 40° 완전 개방 HMI · 좌후방 미니타워 3D · 매립 2D 반영)</span>
       <span>외곽 1530×590 mm · 돌출 0 mm</span>
     </div>
     <div class="canvas-box">
-      <svg id="sideSvg" viewBox="0 0 980 440" aria-label="Rev C.2 1:1 등축 측면도"></svg>
+      <svg id="sideSvg" viewBox="0 0 980 440" aria-label="Rev C.3 1:1 등축 측면도"></svg>
       <div class="legend-bar">
         <span class="lg-item"><span class="lg-rect" style="background:transparent;border:1.5px dashed #22c55e"></span>외곽 한계 (1530×590, 돌출 0)</span>
         <span class="lg-item"><span class="lg-rect" style="background:#a855f7"></span>전방 E1R (Z=120, +10°, 73.5° 통과)</span>
-        <span class="lg-item"><span class="lg-dot" style="background:#facc15"></span>타워 3D XT32/OS0 (Z=512, +8° 후방상향, 97.22%)</span>
+        <span class="lg-item"><span class="lg-dot" style="background:#facc15"></span>좌후방 미니타워 XT32/OS0 (-645,+452.5,512 · 92.22% / 32ch 81.88%)</span>
         <span class="lg-item"><span class="lg-dot" style="background:#38bdf8"></span>매립 하부 2D nanoScan3 (±695,±530 · 258.0°/255.5°)</span>
         <span class="lg-item"><span class="lg-rect" style="background:#10b981"></span>배터리 B-1 (40Ah 등뼈)</span>
         <span class="lg-item"><span class="lg-rect" style="background:rgba(245,158,11,0.55);border:1px solid #f59e0b"></span>배터리 A 확장 (100Ah 타워)</span>
@@ -478,20 +478,20 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
     <div class="two-col">
       <div>
         <div class="sub-title">
-          <span>② 평면도 (1200 × 1530 mm · 등뼈 260 / 포크 155)</span>
+          <span>② 평면도 (1200 × 1530 mm · 40° 오픈 HMI · 좌후방 3D 미니타워)</span>
           <span>매립 2D 258.0°/255.5° · 150~300 mm 사각 0.0%</span>
         </div>
         <div class="canvas-box">
-          <svg id="topSvg" viewBox="0 0 460 440" aria-label="Rev C.2 평면도"></svg>
+          <svg id="topSvg" viewBox="0 0 460 440" aria-label="Rev C.3 평면도"></svg>
         </div>
       </div>
       <div>
         <div class="sub-title">
-          <span>③ 정면도 (포크 끝단 정면 · Z=194 포드 · +Y 우측)</span>
+          <span>③ 정면도 (포크 끝단 정면 · 좌후방(+Y) 미니타워 · 중앙 무지붕)</span>
           <span>E1R(Z=120) &gt; 포크(Z=51~95) · 매립 FL 2D 우측(+Y)</span>
         </div>
         <div class="canvas-box">
-          <svg id="frontSvg" viewBox="0 0 460 440" aria-label="Rev C.2 정면도"></svg>
+          <svg id="frontSvg" viewBox="0 0 460 440" aria-label="Rev C.3 정면도"></svg>
         </div>
       </div>
     </div>
@@ -500,15 +500,15 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
   <!-- SECTION 2: REFLECTOR DUAL READING -->
   <section class="section" id="reflector">
     <div class="section-head">
-      <h2>2. 반사판 이중 판독 전략 (타워 3D 4기둥 개방 + 매립 하부 2D 코너 노치)</h2>
-      <span class="section-desc">타워 수평 개방률 97.22% (Ø22×3t 4기둥) + 매립 하부 nanoScan3 Pro (Z=126.5, FL 258.0°/RR 255.5°) 이중 백업</span>
+      <h2>2. 반사판 이중 판독 전략 (좌후방 3D 미니타워 + 매립 하부 2D 코너 노치)</h2>
+      <span class="section-desc">좌후방 미니타워 수평 개방 92.22% / 32ch 81.88% (Ø18×3t 4기둥) + 매립 하부 nanoScan3 Pro (Z=126.5, FL 258.0°/RR 255.5°) 이중 백업</span>
     </div>
 
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th style="width:22%">뒤 타워 3D 후보 모델</th>
+            <th style="width:22%">좌후방 3D 후보 모델</th>
             <th style="width:13%">수평 분해능<br>(@10 Hz)</th>
             <th style="width:13%">8 m 점 간격</th>
             <th style="width:24%">5 cm 반사판 판독 특성</th>
@@ -518,11 +518,11 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
         </thead>
         <tbody>
           <tr>
-            <td><strong>Hesai XT32</strong> (대안 XT16)<br><small>(후방 상향 +8° 쐐기 · Z=512)</small></td>
+            <td><strong>Hesai XT32</strong> (대안 XT16)<br><small>(좌후방 -645,+452.5,512 · +8° 쐐기)</small></td>
             <td class="hi-ok"><strong>0.18°</strong></td>
             <td class="hi-ok"><strong>2.5 cm</strong><br><small>(6 m서 1.9 cm)</small></td>
             <td class="hi-ok"><span class="badge ok">다중 링 동시 타격</span><br>보정 반사율(Calibrated Reflectivity) · 30~61 cm 띠 안정 판독</td>
-            <td class="hi-ok">4기둥 <strong>97.22%</strong> 개방<br>후방 +23° (1.45 m 오버행 <strong>2.1 m</strong> 포착)</td>
+            <td class="hi-ok">Ø18×4기둥 <strong>92.22%</strong><br>32ch <strong>81.88%</strong> (후진 <strong>2.1 m</strong>)</td>
             <td class="hi-ok"><span class="badge ok">★ 기본 1픽</span><br><small>국내 KC 파트너</small></td>
           </tr>
           <tr>
@@ -530,7 +530,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
             <td class="hi-pri"><strong>0.176°</strong></td>
             <td class="hi-pri"><strong>2.45 cm</strong></td>
             <td class="hi-pri"><span class="badge info">다중 링 동시 타격</span><br>보정 반사율 + IP68 방수/방진</td>
-            <td class="hi-pri">타워 지붕·데크 한계<br><strong>실효 +31.0° / -26.5°</strong></td>
+            <td class="hi-pri">미니지붕·데크 한계<br><strong>실효 +31.0° / -26.5°</strong></td>
             <td class="hi-pri"><span class="badge info">고성능 대안</span><br><small>국내 KC 파트너</small></td>
           </tr>
           <tr>
@@ -547,25 +547,25 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
 
     <div class="grid-3" style="margin-top:14px">
       <div class="card">
-        <h3>① 4기둥 개방 지붕 (수평 개방 97.22%)</h3>
-        <p>기존 좌우 날개 벽을 제거하고 <strong><code>Ø22×3t</code> 가는 원형 기둥 4개</strong>로 전환해 수평 개방률 <strong>97.22%</strong>(빈 차 32ch 개방률 75.91%)를 확보했습니다. 측면·후방 시야 가림이 4기둥 점유폭(2.78%) 이내로 최소화됩니다. (※ <code>Ouster OS0</code> 탑재 시에도 타워 지붕·데크 구조상 수직 실효 시야는 <strong>+31.0° / -26.5°</strong>로 제한됩니다.)</p>
+        <h3>① 좌후방 미니타워 (수평 92.22% · 32ch 81.88%)</h3>
+        <p>중앙 HMI 상부 전폭 지붕(<code>1,170 mm</code>)을 제거하고 좌후방 날개(<code>Y=+320~+585</code>)에 <strong><code>Ø18×3t</code> 4기둥 + 폭 265 mm 미니지붕</strong>을 구성했습니다. 수평 개방 <strong>92.22%</strong>(≥90% PASS)를 유지하면서 전폭 지붕 제거로 <strong>32ch 개방률이 75.92% → 81.88%</strong>로 오히려 상승했고, <code>Z=512</code> 광학 중심이 오픈 HMI 상단(<code>465.4</code>)보다 <strong>46.6 mm 위</strong>라 HMI를 완전히 넘어 360° 통과합니다.</p>
       </div>
       <div class="card">
         <h3>② SW 재활용: 가상 2D 슬라이스 투영</h3>
-        <p>타워 3D(<code>Z=512</code>, 후방 상향 <code>+8°</code>)에서 수평면 부근 링을 가상 2D 스캔으로 투영해 <code>oneweave-native</code> 반사판(<code>Z2_V8</code>/<code>H530</code>)에 연결하고, 전체 3D 점군은 후진(1.45 m 오버행 범퍼 뒤 <strong>2.1 m</strong>)·측면 회피에 활용합니다.</p>
+        <p>좌후방 미니타워 3D(<code>-645, +452.5, Z=512</code>, 후방 상향 <code>+8°</code>)에서 수평면 부근 링을 가상 2D 스캔으로 투영해 <code>oneweave-native</code> 반사판(<code>Z2_V8</code>/<code>H530</code>)에 연결하고, 전체 3D 점군은 후진(1.45 m 오버행 범퍼 뒤 <strong>2.1 m</strong>)·측면 회피에 활용합니다.</p>
       </div>
       <div class="card" style="border-color:var(--ok-border);background:var(--ok-bg)">
         <h3>③ 적재 시 하부 2D 이중 백업</h3>
-        <p>화물 적재 시 타워 3D의 전방 시야는 화물에 가립니다. 매립 보호 하부 대각 <code>SICK nanoScan3 Pro</code>(<code>±695, ±530, Z=126.5</code>, FL 258.0° / RR 255.5°, 0.17° RSSI)가 0~61 cm 기둥 반사판을 <strong>영구 사각 0.0° · 150/250/300 mm 둘레 사각 0.0% (근접 50/100 mm 21.85/2.22%, RL 148.7 mm)</strong>로 백업합니다.</p>
+        <p>화물 적재 시 미니타워 3D의 전방 시야는 화물에 가립니다. 매립 보호 하부 대각 <code>SICK nanoScan3 Pro</code>(<code>±695, ±530, Z=126.5</code>, FL 258.0° / RR 255.5°, 0.17° RSSI)가 0~61 cm 기둥 반사판을 <strong>영구 사각 0.0° · 150/250/300 mm 둘레 사각 0.0% (근접 50/100 mm 21.85/2.22%, RL 148.7 mm)</strong>로 백업합니다.</p>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 3: RECESSED POCKETS 4X (ALL REV C.2, ZERO OVERLAP) -->
+  <!-- SECTION 3: RECESSED POCKETS 4X (ALL REV C.3, ZERO OVERLAP) -->
   <section class="section" id="pockets">
     <div class="section-head">
-      <h2>3. 매립 포켓 4× 확대 단면도 (Rev C.2 실측 수치 기준)</h2>
-      <span class="section-desc">매립 2D 코너 노치(±695,±530 · 철판 안쪽 10 mm) · E1R 8t 경사 커버(X=678~732) · 타워 4기둥 8° 쐐기(Z=512)</span>
+      <h2>3. 매립 포켓 4× 확대 단면도 (Rev C.3 실측 수치 기준)</h2>
+      <span class="section-desc">매립 2D 코너 노치(±695,±530 · 철판 안쪽 10 mm) · E1R 8t 경사 커버(X=678~732) · 좌후방 3D 미니타워(-645,+452.5,512)</span>
     </div>
 
     <div class="grid-3">
@@ -642,26 +642,26 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
         </svg>
       </div>
 
-      <!-- Pocket 3: Rear Tower High-Res 3D (4 Pillars + 8deg Wedge, Z=512) -->
+      <!-- Pocket 3: Rear-Left 3D Mini-Tower (Ø18x3t 4 Pillars + 265mm Mini-Roof + 8deg Wedge, -645, +452.5, 512) -->
       <div class="canvas-box">
-        <svg id="pocket3Svg" viewBox="0 0 390 295" aria-label="뒤 타워 4기둥 개방 3D 매립 단면">
+        <svg id="pocket3Svg" viewBox="0 0 390 295" aria-label="좌후방 3D 미니타워 매립 단면">
           <rect width="390" height="295" fill="#0b1220"/>
-          <text x="14" y="22" fill="#fde047" font-size="12" font-weight="800">③ 뒤 타워 3D (Z=512 · 4기둥 개방)</text>
-          <text x="14" y="38" fill="#94a3b8" font-size="9.6">Hesai XT32 / OS0 · 후방 상향 +8° 쐐기 · 97.22% 개방</text>
+          <text x="14" y="22" fill="#fde047" font-size="11.5" font-weight="800">③ 좌후방 미니타워 3D (-645,+452.5,512)</text>
+          <text x="14" y="38" fill="#94a3b8" font-size="9.2">폭 265 미니지붕 · Ø18×4기둥 92.22% (32ch 81.88% ↑)</text>
           <line x1="214" y1="50" x2="214" y2="270" stroke="#22c55e" stroke-width="1.6" stroke-dasharray="5 4"/>
           <line x1="18" y1="64" x2="226" y2="64" stroke="#22c55e" stroke-width="1.3" stroke-dasharray="5 4"/>
           <text x="208" y="59" fill="#4ade80" font-size="9" font-weight="800" text-anchor="end">지붕 상한 Z=590</text>
-          <!-- Chamfered Hollow Roof Z=566..590 -->
+          <!-- Compact 6t Hollow Mini-Roof (width 265 mm, Y=+320..+585, Z=566..590) -->
           <polygon points="26,64 206,64 190,86 42,86" fill="#334155" stroke="#cbd5e1" stroke-width="1.3"/>
-          <text x="116" y="79" fill="#e2e8f0" font-size="9.2" font-weight="800" text-anchor="middle">중공 경사 지붕 (Z=566~590)</text>
-          <!-- Slim Ø22x3t Pillars (Z=460..566) -->
-          <rect x="44" y="86" width="8" height="114" fill="#94a3b8"/>
-          <rect x="180" y="86" width="8" height="114" fill="#94a3b8"/>
-          <!-- Mid Deck Z=454..460 & Lower Tower Bay -->
+          <text x="116" y="79" fill="#e2e8f0" font-size="8.8" font-weight="800" text-anchor="middle">폭 265 미니지붕 (Z=566~590)</text>
+          <!-- Slim Ø18x3t Pillars (Z=460..566) -->
+          <rect x="44" y="86" width="7" height="114" fill="#94a3b8"/>
+          <rect x="181" y="86" width="7" height="114" fill="#94a3b8"/>
+          <!-- Left Wing Deck Z=454..460 & Lower Battery A Bay -->
           <rect x="24" y="200" width="190" height="8" fill="#64748b" stroke="#cbd5e1" stroke-width="1"/>
           <rect x="24" y="208" width="190" height="58" fill="#1e293b" stroke="#475569" stroke-width="1.2"/>
-          <text x="119" y="226" fill="#cbd5e1" font-size="9.2" font-weight="700" text-anchor="middle">데크 6t (Z=454~460)</text>
-          <text x="119" y="244" fill="#94a3b8" font-size="8.8" text-anchor="middle">하부: Winmate HMI · A 배터리 격실</text>
+          <text x="119" y="226" fill="#cbd5e1" font-size="8.8" font-weight="700" text-anchor="middle">좌측 날개 데크 6t (Y=+155~+585)</text>
+          <text x="119" y="244" fill="#6ee7b7" font-size="8.6" font-weight="700" text-anchor="middle">중앙 40° HMI 상부 무지붕 · A격실 보존</text>
           <!-- 8deg Aluminum Wedge + XT32 (tilted rearward-upward +8 deg) -->
           <polygon points="78,200 156,200 156,180 78,191" fill="#94a3b8"/>
           <g transform="translate(116,146) rotate(8)">
@@ -679,7 +679,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
           <text x="296" y="55" fill="#fde047" font-size="9.2" font-weight="800" text-anchor="middle">후방 상향 +8° 오버행 (2.1 m)</text>
           <text x="294" y="112" fill="#fde047" font-size="9.2" font-weight="800" text-anchor="middle">3~5링 반사판 타격</text>
           <text x="294" y="236" fill="#cbd5e1" font-size="8.8" text-anchor="middle">(0.18° · 30~61 cm)</text>
-          <text x="195" y="284" fill="#94a3b8" font-size="9" text-anchor="middle">Ø22×3t 4기둥으로 좌·우 측면 시야 97.22% 개방</text>
+          <text x="195" y="284" fill="#94a3b8" font-size="8.8" text-anchor="middle">HMI 상단(465.4) +46.6 mm 상부 통과 · 수평 92.22% / 32ch 81.88%</text>
         </svg>
       </div>
     </div>
@@ -722,13 +722,13 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
               </tr>
               <tr>
                 <td><strong>팩 질량 / 로봇 총질량</strong></td>
-                <td><strong>~18 kg</strong> / <strong>480.2 kg</strong> (강재 358.0 kg)</td>
-                <td><strong>~39 kg</strong> (19.5 kg×2) / <strong>501.2 kg</strong></td>
+                <td><strong>~18 kg</strong> / <strong>471.6 kg</strong> (강재 349.3 kg)</td>
+                <td><strong>~39 kg</strong> (19.5 kg×2) / <strong>492.6 kg</strong></td>
               </tr>
               <tr>
                 <td><strong>무게중심 CG (mm)</strong></td>
-                <td><code>(-133.7, +1.1, 147.1)</code> — 저중심 균형</td>
-                <td><code>(-190.7, +1.0, 161.9)</code> — 후방 57.0 mm 이동</td>
+                <td><code>(-124.2, +5.9, 138.1)</code> — 저중심 균형 (-9 mm↓)</td>
+                <td><code>(-182.5, +5.6, 153.5)</code> — 후방 58.3 mm 이동</td>
               </tr>
               <tr>
                 <td><strong>운용 / 안전 인증</strong></td>
@@ -765,8 +765,8 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
   <!-- SECTION 5: MECHANICAL & 7-AXIS SPEC -->
   <section class="section" id="mech">
     <div class="section-head">
-      <h2>5. Rev C.2 1.5 t 기구 사양 — 중앙 QR · 상자형 구동 마운트 · 340 mm X가위 · Latch 7축</h2>
-      <span class="section-desc">실제 221부품 3D CAD(.glb/.step) 기준 · 용접 공차 ISO 13920-B / 후가공 ISO 2768-mK</span>
+      <h2>5. Rev C.3 1.5 t 기구 사양 — 중앙 QR · 상자형 구동 마운트 · 340 mm X가위 · Latch 7축</h2>
+      <span class="section-desc">실제 222부품 3D CAD(.glb/.step) 기준 · 용접 공차 ISO 13920-B / 후가공 ISO 2768-mK</span>
     </div>
 
     <div class="grid-3">
@@ -784,7 +784,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
         <ul>
           <li><strong>구동 모듈 ×2:</strong> <strong><code>Blickle Besthane Soft 75A</code> (<code>Ø185×100</code>)</strong> + 내측 베어링 이중 지지 + <strong><code>10t</code> 상자형 구동 마운트</strong>(앞·뒤 리브 <code>X=±112</code>·내벽 직접 용접, 4t 상판 <code>POD_TOP=194</code> 분리, 바퀴 여유 <strong>5.0 mm</strong>).</li>
           <li><strong>모터·여유:</strong> 40:1 직각감속기 + 110각 48V 1.5 kW 서보 (바퀴와 <code>27.5 mm</code>, 허리띠 외판과 <code>10.0 mm</code> 여유).</li>
-          <li><strong>캐스터 ×4:</strong> <strong><code>LAG G80 7470</code></strong>(<code>Ø100×30</code> 쌍바퀴, 600 kg/개) 배치 <strong><code>(±485, ±448)</code></strong>, 바닥 홀 <code>Ø198</code>, 2D 노치 <strong>21.0 mm</strong> · 내벽 <strong>19.0 mm</strong> · 허리띠 R93 <strong>6.0 mm</strong> (압축 dz=0~20 mm 186부품 간섭 0).</li>
+          <li><strong>캐스터 ×4:</strong> <strong><code>LAG G80 7470</code></strong>(<code>Ø100×30</code> 쌍바퀴, 600 kg/개) 배치 <strong><code>(±485, ±448)</code></strong>, 바닥 홀 <code>Ø198</code>, 2D 노치 <strong>21.0 mm</strong> · 내벽 <strong>19.0 mm</strong> · 허리띠 R93 <strong>6.0 mm</strong> (압축 dz=0~20 mm 188부품 간섭 0).</li>
         </ul>
       </div>
 
@@ -808,8 +808,8 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
   <!-- SECTION 6: FULL BOM & CHECKLIST -->
   <section class="section" id="bom">
     <div class="section-head">
-      <h2>6. Rev C.2 전 슬롯 모델명 풀 BOM &amp; 출도 체크리스트</h2>
-      <span class="section-desc">221부품 CAD · 부품 명세 정합 100% 일치 (가격 미포함 — 업체 전달 안전본)</span>
+      <h2>6. Rev C.3 전 슬롯 모델명 풀 BOM &amp; 출도 체크리스트</h2>
+      <span class="section-desc">222부품 CAD · 부품 명세 정합 100% 일치 (가격 미포함 — 업체 전달 안전본)</span>
     </div>
 
     <div class="table-wrap" style="margin-bottom:16px">
@@ -817,7 +817,7 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
         <thead>
           <tr>
             <th style="width:18%">품목 / 위치</th>
-            <th style="width:28%">★ 표준 기준 모델 (Rev C.2)</th>
+            <th style="width:28%">★ 표준 기준 모델 (Rev C.3)</th>
             <th style="width:28%">대안 / ★ KC 전용 (패키지 E)</th>
             <th style="width:26%">핵심 사양 · 검증 수치</th>
           </tr>
@@ -836,10 +836,10 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
             <td><code>8t</code> 경사 커버(<code>X=678~732</code>, 여유 8.04 mm), <code>45 mm</code> 지주, 상단 통과각 <strong>73.5°</strong>(el+55° 0% 차단).</td>
           </tr>
           <tr>
-            <td><strong>③ 뒤 타워 3D × 1</strong><br>(-645, 0, 512 · 후방 상향 +8°)</td>
+            <td><strong>③ 좌후방 미니타워 3D × 1</strong><br>(-645, +452.5, 512 · 후방 +8°)</td>
             <td class="hi-ok"><strong>Hesai XT32</strong><br><small>(Ø100×76, 0.18°@10Hz, 8° 쐐기)</small></td>
-            <td>• 고성능/KC 대안: <strong>Ouster OS0-32 / OS0-64</strong> (타워 지붕·데크 실효 +31.0°/-26.5°)<br>• 2D 경량 대안: <strong>FreeOptics R2</strong> / <strong>Focusray 0.1°</strong></td>
-            <td><code>Ø22×3t</code> 4기둥 수평 개방 <strong>97.22%</strong>, 데크 <code>Z=454~460</code>, 지붕 <code>Z=566~590</code>(여유 27.41 mm), 후진 오버행 <strong>2.1 m</strong>.</td>
+            <td>• 고성능/KC 대안: <strong>Ouster OS0-32 / OS0-64</strong> (미니지붕·데크 실효 +31.0°/-26.5°)<br>• 2D 경량 대안: <strong>FreeOptics R2</strong> / <strong>Focusray 0.1°</strong></td>
+            <td>좌후방 날개(<code>Y=+320~+585</code>) · <code>Ø18×3t</code> 4기둥 수평 개방 <strong>92.22%</strong> (빈차 32ch <strong>81.88%</strong>), 폭 265 미니지붕(여유 27.41 mm), 후진 오버행 <strong>2.1 m</strong>.</td>
           </tr>
           <tr>
             <td><strong>④ 중앙 하단 QR × 1</strong><br>(X=0, Y=0, 렌즈 Z=100)</td>
@@ -879,9 +879,9 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
           </tr>
           <tr>
             <td><strong>⑩ 배터리 (LFP) · 충전 · HMI</strong></td>
-            <td class="hi-ok"><strong>B-1 메인: 51.2V 40Ah LFP</strong> (520×210×104, ~18 kg)<br>+ <strong>18° 틸트 Winmate W10L100-IPH2</strong> (4t 경사 후드)</td>
+            <td class="hi-ok"><strong>B-1 메인: 51.2V 40Ah LFP</strong> (520×210×104, ~18 kg)<br>+ <strong>40° 완전 개방 Winmate W10L100-IPH2</strong> (4t 오픈 콘솔)</td>
             <td>• 확장: <strong>A 51.2V 100Ah LFP</strong> (EVE LF100LA 8S×2 · 팩 178×228×246 / 트레이 182×234, ~39 kg)<br>• KC: <strong>LFP(KC 62619 사전 확인 권장)</strong> + <strong>M2I TOP</strong> HMI + KC 48V 50A 충전기</td>
-            <td>LFP(인산철) 전용. 후면 충전 타공 <code>Z=174~246</code>, <code>18°</code> 틸트 HMI 전면 <code>Z=272~445</code> (충전↔HMI 여유 20.62 mm).</td>
+            <td>LFP(인산철) 전용. 후면 충전 타공 <code>Z=174~246</code>, <code>40°</code> 오픈 HMI 전면 <code>-748,Z=326 ~ -631,Z=465.4</code> (상부 가림 0% · 충전↔HMI 여유 <strong>61.03 mm</strong>).</td>
           </tr>
         </tbody>
       </table>
@@ -889,28 +889,28 @@ footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 2
 
     <div class="chk-grid">
       <div class="chk"><span class="chk-n">1</span><div><h4>매립 하부 2D 코너 노치(±695,±530) + 슬림 테이퍼 허리띠</h4><p>철판 안쪽 10 mm(베이스 7 mm) / 범퍼 안쪽 25 mm 매립 보호. FL 258.0° / RR 255.5°(영구 사각 0.0°), 150/250/300 mm 사각 0.0%(근접 50/100 mm 21.85/2.22%, RL 148.7 mm), 캐스터 21.0 mm 여유.</p></div></div>
-      <div class="chk"><span class="chk-n">2</span><div><h4>전방 일자 측면 E-STOP(+14.5 mm) &amp; 후면 18° 틸트 HMI</h4><p>전방 상부 외벽(Z=137~190) 파임 없이 일자 복원(+565, ±585, Z=163.5 Ø38 돌출 · 2D 차폐 0°). 후면 Winmate 10.1" HMI 18° 상향 경사(Z=272~445) + 4t 경사 후드 용접 체결.</p></div></div>
-      <div class="chk"><span class="chk-n">3</span><div><h4>뒤 타워 Ø22×3t 4기둥 개방 지붕 (Z=512, 8° 쐐기)</h4><p>데크 Z=454~460, 후방 상향 +8° 쐐기(후진 오버행 2.1 m 포착), 지붕 Z=566~590(여유 27.41 mm), 수평 개방률 97.22% (OS0 선택 시 실효 +31.0°/-26.5°).</p></div></div>
-      <div class="chk"><span class="chk-n">4</span><div><h4>배터리 LFP 2종 공용 플랫폼 (열안정성 인산철 전용)</h4><p>B-1(40Ah 등뼈, 총 480.2 kg) 기본 + A(100Ah 타워 팩 178×228×246, 총 501.2 kg) 무개조 호환. 배터리 KC 62619 적용 대상 여부는 인증기관(KTL/KTC/KTR) 사전 확인 권장.</p></div></div>
+      <div class="chk"><span class="chk-n">2</span><div><h4>40° 완전 개방 HMI 콘솔(상부 무지붕) &amp; 일자 측면 E-STOP</h4><p>기존 1,170 mm 전폭 지붕·중앙 데크를 완전 제거해 HMI 상부 가림 0%(전면 Z=326~465.4 · 충전 여유 61.03 mm). 전방 일자 상부 외벽(+565, ±585, Z=163.5) Ø38 E-STOP +14.5 mm 돌출 유지.</p></div></div>
+      <div class="chk"><span class="chk-n">3</span><div><h4>좌후방 3D 미니타워 (-645,+452.5,512 · Ø18×3t 4기둥)</h4><p>우후방 RR 2D와 대각 균형 · 폭 265 mm 6t 중공 미니지붕(3.30 kg · 여유 27.41 mm) · 수평 개방 92.22% / 32ch 빈차 81.88%(+6.0%p↑) · HMI 상단 +46.6 mm 상부 통과.</p></div></div>
+      <div class="chk"><span class="chk-n">4</span><div><h4>배터리 LFP 2종 공용 플랫폼 (열안정성 인산철 전용)</h4><p>B-1(40Ah 등뼈, 총 471.6 kg) 기본 + A(100Ah 타워 팩 178×228×246, 총 492.6 kg) 무개조 호환. 배터리 KC 62619 적용 대상 여부는 인증기관(KTL/KTC/KTR) 사전 확인 권장.</p></div></div>
       <div class="chk"><span class="chk-n">5</span><div><h4>실측 가능 3면 데이텀 &amp; 일반공차 분리 적용</h4><p>Datum A(바닥 하면 Z=46.0) · Datum B(등뼈 좌측 레일면 Y=+130.0) · Datum C(후면판 외면 X=-750.0). 용접 ISO 13920-B / 가공 ISO 2768-mK.</p></div></div>
       <div class="chk"><span class="chk-n">6</span><div><h4>완제품 인증 사전 확인 (KC EMC · KCs / S마크)</h4><p>완제품 KC EMC · KCs 자율안전확인신고 적용 대상 여부는 인증기관(KTL/KTC/KTR·안전보건공단) 사전 확인 권장 (비대상 시 S마크 · KS B ISO 3691-4 · 발주처 규격 대응).</p></div></div>
     </div>
   </section>
 
   <details>
-    <summary>📎 참고: 원본 1680×1530 도면 대비 Rev C.2 1200×1530 개편 요약</summary>
+    <summary>📎 참고: 원본 1680×1530 도면 대비 Rev C.3 1200×1530 개편 요약</summary>
     <div style="margin-top:10px;font-size:12.8px;color:var(--fg-secondary)">
       <ul>
         <li><strong>차체 폭 축소:</strong> 1680 → 1200 mm (스윕 직경 1.94 m, 회전 반경 0.97 m), 10t 상자형 구동 마운트 및 <code>POD_TOP=194</code>로 하중 경로·바퀴 여유(5.0 mm) 개선.</li>
-        <li><strong>Rev C.2 현장 디자인 3대 반영:</strong> ① 전방 측면 일자 외벽(Z=137~190) 복원 + Ø38 E-STOP +14.5 mm 돌출, ② 하부 대각 2D <code>±695, ±530</code> 매립 보호(철판 안쪽 10 mm/범퍼 25 mm · FL 258.0°/RR 255.5° · 150~300 mm 사각 0.0% · 50/100 mm 21.85/2.22%), ③ 후면 10.1" HMI 18° 상향 틸트 + 4t 경사 매립 후드.</li>
-        <li><strong>전수 CAD 검증 (정지·전진 0~1240·래치·리프트 0~242·캐스터 압축 0~20 mm):</strong> 221부품 정지 24,310쌍 및 동적 스윕 간섭 0건, 단일 연결 컴포넌트(≤0.25 mm, 부유 0), 221/221 수밀 메시.</li>
+        <li><strong>Rev C.3 현장 인체공학·디자인 핵심 반영:</strong> ① HMI 상부 전폭 지붕·중앙 데크 전면 제거 → <code>40°</code> 상향 완전 개방 콘솔(<code>hmi_open_console_4t</code>, 상부 가림 0%, 충전 여유 61.03 mm), ② 뒤 타워 3D를 좌후방 전용 미니타워(<code>-645, +452.5, 512</code>, <code>Ø18×3t</code> 4기둥 + 폭 265 mm 6t 미니지붕)로 이전(수평 92.22% · 32ch 81.88% 상승 · 8.64 kg 경량화), ③ 매립 보호 2D(<code>±695, ±530</code> · 150~300 mm 사각 0.0%) 및 일자 외벽 전방 E-STOP(+14.5 mm) 100% 보존.</li>
+        <li><strong>전수 CAD 검증 (정지·전진 0~1240·래치·리프트 0~242·캐스터 압축 0~20 mm):</strong> 222부품 정지 24,531쌍 및 동적 스윕 간섭 0건, 단일 연결 컴포넌트(≤0.25 mm, 부유 0), 222/222 수밀 메시.</li>
       </ul>
     </div>
     <div class="cad-img"><img src="sensor_layout_compare.png" alt="초기 센서 배치 비교 참고도"></div>
   </details>
 
   <footer>
-    L-type 1.5 t AMR (1200×1530×590 mm) Rev C.2 221부품 설계 개요 · 업체 전달 안전본 (가격 미포함) · 2026-11-22
+    L-type 1.5 t AMR (1200×1530×590 mm) Rev C.3 222부품 설계 개요 · 업체 전달 안전본 (가격 미포함) · 2026-11-22
   </footer>
 </main>
 
@@ -995,10 +995,10 @@ function drawSide(c) {
     } else {
       out += `<line x1="${xT}" y1="${yT}" x2="${xTowEnd + 8}" y2="${yT}" stroke="#ef4444" stroke-width="1.6"/>`;
     }
-    out += `<text x="230" y="256" fill="#fde047" font-size="9.5" font-weight="800" text-anchor="middle">③ XT32/OS0 (Z=512 · 4기둥 97.22%)</text>`;
+    out += `<text x="230" y="256" fill="#fde047" font-size="9.2" font-weight="800" text-anchor="middle">③ 좌후방 XT32 (Z=512 · 92.2% / 32ch 81.9%)</text>`;
   } else {
     out += `<line x1="${xT}" y1="${yT}" x2="66" y2="${yT}" stroke="#38bdf8" stroke-width="2.2"/>`;
-    out += `<text x="230" y="256" fill="#7dd3fc" font-size="9.5" font-weight="800" text-anchor="middle">대안: 타워 2D (Z=512 · 0.1°)</text>`;
+    out += `<text x="230" y="256" fill="#7dd3fc" font-size="9.5" font-weight="800" text-anchor="middle">대안: 좌후방 미니타워 2D (Z=512)</text>`;
   }
 
   // Lower 2D Safety Plane (Z=126.5, recessed ±695)
@@ -1043,13 +1043,13 @@ function drawSide(c) {
     out += `<text x="${xTowEnd + 80}" y="236" fill="#fde68a" font-size="9" text-anchor="middle">전방 E1R + 후방 타워 3D + 하부 2D</text>`;
   }
 
-  // Rev C.2 Chassis (POD_TOP=194, TOWER_DECK=460, ROOF=566..590, 4 pillars!)
+  // Rev C.3 Chassis (POD_TOP=194, Split Decks 460, Rear-Left Mini-Tower Ø18 pillars -732/-558, Mini-Roof -742..-548, Central 40° Open HMI!)
   out += `
     <path d="M ${xR},${yZ(460)} L ${xTowEnd},${yZ(460)} L ${xTowEnd},${yZ(194)} L ${xF},${yZ(194)} L ${xF},${yZ(46)} L ${xR},${yZ(46)} Z"
           fill="#172033" stroke="#cbd5e1" stroke-width="1.9"/>
-    <rect x="${xC(-735)}" y="${yZ(590)}" width="${+(180 * sc).toFixed(1)}" height="${+(24 * sc).toFixed(1)}" fill="#334155" stroke="#cbd5e1" stroke-width="1.2"/>
-    <line x1="${xC(-715)}" y1="${yZ(566)}" x2="${xC(-715)}" y2="${yZ(460)}" stroke="#cbd5e1" stroke-width="2.2"/>
-    <line x1="${xC(-575)}" y1="${yZ(566)}" x2="${xC(-575)}" y2="${yZ(460)}" stroke="#cbd5e1" stroke-width="2.2"/>
+    <rect x="${xC(-742)}" y="${yZ(590)}" width="${+(194 * sc).toFixed(1)}" height="${+(24 * sc).toFixed(1)}" fill="#334155" stroke="#cbd5e1" stroke-width="1.2"/>
+    <line x1="${xC(-732)}" y1="${yZ(566)}" x2="${xC(-732)}" y2="${yZ(460)}" stroke="#cbd5e1" stroke-width="1.8"/>
+    <line x1="${xC(-558)}" y1="${yZ(566)}" x2="${xC(-558)}" y2="${yZ(460)}" stroke="#cbd5e1" stroke-width="1.8"/>
     <rect x="${xR}" y="${yZ(81)}" width="${+(xF - xR).toFixed(1)}" height="${+(35 * sc).toFixed(1)}" fill="rgba(245,158,11,0.35)" stroke="#fbbf24" stroke-width="1"/>
     <rect x="${xC(-558)}" y="${yZ(95)}" width="${+(1293 * sc).toFixed(1)}" height="${+(44 * sc).toFixed(1)}" rx="1.5" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
     <rect x="${xC(85)}" y="${yZ(160)}" width="${+(520 * sc).toFixed(1)}" height="${+(104 * sc).toFixed(1)}" rx="2" fill="rgba(16,185,129,0.45)" stroke="#10b981" stroke-width="1.3"/>
@@ -1065,12 +1065,13 @@ function drawSide(c) {
     <rect x="${xR}" y="${yZ(590)}" width="${+(xF - xR).toFixed(1)}" height="${+(590 * sc).toFixed(1)}" fill="none" stroke="#22c55e" stroke-width="1.4" stroke-dasharray="5 4"/>
   `;
 
-  // Rear 18°-Tilted HMI (Z=272..445) & Rear Charger (Z=174..246) + Proud Flat-Wall Front E-STOP (+565, Z=163.5)
-  out += `<g transform="translate(${xC(-721.9)},${yZ(358.5)}) rotate(18)"><rect x="-1.5" y="-11.8" width="4.8" height="23.6" rx="0.8" fill="#38bdf8" stroke="#bae6fd" stroke-width="0.7"/></g>`;
+  // Rear 40° Open HMI Console (Z=326..465.4, ZERO overhead roof!) & Rear Charger (Z=174..246) + Proud Flat-Wall Front E-STOP (+565, Z=163.5)
+  out += `<polygon points="${xC(-749.7)},${yZ(324)} ${xC(-631.0)},${yZ(465.4)} ${xC(-545)},${yZ(465.4)} ${xC(-545)},${yZ(454)} ${xC(-740)},${yZ(324)}" fill="#334155" stroke="#38bdf8" stroke-width="0.9"/>`;
+  out += `<g transform="translate(${xC(-689.5)},${yZ(395.7)}) rotate(40)"><rect x="-1.4" y="-11.8" width="4.4" height="23.6" rx="0.8" fill="#38bdf8" stroke="#bae6fd" stroke-width="0.8"/></g>`;
   out += `<circle cx="${xC(565)}" cy="${yZ(163.5)}" r="3.4" fill="#dc2626" stroke="#fff" stroke-width="0.9"/>`;
   out += `<rect x="${xR - 3}" y="${yZ(246)}" width="5" height="${+(72 * sc).toFixed(1)}" rx="1" fill="#f97316" stroke="#fde047" stroke-width="0.9"/>`;
-  out += `<line x1="${xR - 4}" y1="${yZ(358)}" x2="380" y2="318" stroke="#38bdf8" stroke-width="1"/>`;
-  out += `<text x="376" y="321" fill="#93c5fd" font-size="8.5" font-weight="800" text-anchor="end">18° 틸트 HMI(272~445) · A배터리</text>`;
+  out += `<line x1="${xR - 4}" y1="${yZ(395)}" x2="380" y2="314" stroke="#38bdf8" stroke-width="1"/>`;
+  out += `<text x="376" y="317" fill="#93c5fd" font-size="8.4" font-weight="800" text-anchor="end">40° 오픈 HMI(326~465·무지붕)</text>`;
   out += `<line x1="${xR - 4}" y1="${yZ(210)}" x2="380" y2="335" stroke="#f97316" stroke-width="1"/>`;
   out += `<text x="376" y="338" fill="#fb923c" font-size="8.5" font-weight="800" text-anchor="end">후면 충전 타공(Z=174~246)</text>`;
 
@@ -1084,8 +1085,8 @@ function drawSide(c) {
   out += `<polygon points="${midX},${yZ(105)} ${midX - 9},${fY} ${midX + 9},${fY}" fill="rgba(20,184,166,0.34)"/>`;
 
   // Bottom clean non-overlapping caption lanes
-  out += `<text x="${midX}" y="404" fill="#4ade80" font-size="10.2" font-weight="800" text-anchor="middle">차체 1200×1530×590 (Rev C.2 221부품 · POD_TOP=194 · 돌출 0 mm)</text>`;
-  out += `<text x="${midX}" y="424" fill="#6ee7b7" font-size="9.3" font-weight="700" text-anchor="middle">중앙 QR(X=0, Z=100) · B-1 40Ah LFP(480.2kg) · A 100Ah LFP(501.2kg · 178×228×246)</text>`;
+  out += `<text x="${midX}" y="404" fill="#4ade80" font-size="10.2" font-weight="800" text-anchor="middle">차체 1200×1530×590 (Rev C.3 222부품 · POD_TOP=194 · 돌출 0 mm)</text>`;
+  out += `<text x="${midX}" y="424" fill="#6ee7b7" font-size="9.3" font-weight="700" text-anchor="middle">중앙 QR(X=0, Z=100) · B-1 40Ah LFP(471.6kg) · A 100Ah LFP(492.6kg · 178×228×246)</text>`;
   return out;
 }
 
@@ -1101,7 +1102,7 @@ function drawTop(c) {
   for (let x = 30; x < 460; x += 40) out += `<line x1="${x}" y1="0" x2="${x}" y2="440"/>`;
   for (let y = 30; y < 440; y += 40) out += `<line x1="0" y1="${y}" x2="460" y2="${y}"/>`;
   out += `</g>`;
-  out += `<text x="230" y="18" fill="${c.tower === 'T3D' ? '#fde047' : '#7dd3fc'}" font-size="10" font-weight="800" text-anchor="middle">${c.tower === 'T3D' ? '▲ 후방(-X) 타워 3D: XT32/OS0 (Z=512 · 4기둥 97.22%)' : '▲ 후방(-X) 타워 2D (Z=512 · 0.1°)'}</text>`;
+  out += `<text x="230" y="18" fill="${c.tower === 'T3D' ? '#fde047' : '#7dd3fc'}" font-size="9.6" font-weight="800" text-anchor="middle">${c.tower === 'T3D' ? '▲ 후방(-X) 좌후방 XT32(-645,+452.5 · 92.2%) · 중앙 40° 오픈 HMI' : '▲ 후방(-X) 좌후방 미니타워 2D · 중앙 40° 오픈 HMI'}</text>`;
   out += `<text x="230" y="431" fill="${c.front === 'E1R' ? '#d8b4fe' : '#fca5a5'}" font-size="10" font-weight="800" text-anchor="middle">${c.front === 'E1R' ? '▼ 전방(+X) 등뼈 E1R (Z=120 · ±82° · 포크 155 / 등뼈 260)' : '▼ 전방(+X) 광각 RGB-D (Z=120 · 20 mm 단차)'}</text>`;
 
   if (c.sweep) {
@@ -1122,8 +1123,8 @@ function drawTop(c) {
     out += `<path d="M ${frX},${frY} L ${frX + 340},${frY} A 340,340 0 1,1 ${frX},${frY - 340} Z" fill="rgba(56,189,248,0.10)" stroke="#38bdf8" stroke-dasharray="3 2"/>`;
   }
 
-  // Rear tower 3D FOV (97.22% open when empty, rear+sides when loaded)
-  const tx = px(0), ty = py(-645);
+  // Rear-Left Mini-Tower 3D FOV at (-645, +452.5) (92.22% horiz / 81.88% 32ch open!)
+  const tx = px(452.5), ty = py(-645);
   const tCol = c.tower === 'T3D' ? '250,204,21' : '56,189,248';
   if (c.cargo) out += `<path d="M ${tx},${ty} L ${tx - 150},${ty + 70} A 165,165 0 1,1 ${tx + 150},${ty + 70} Z" fill="rgba(${tCol},0.16)" stroke="rgb(${tCol})" stroke-dasharray="4 3"/>`;
   else out += `<circle cx="${tx}" cy="${ty}" r="165" fill="rgba(${tCol},0.13)" stroke="rgb(${tCol})" stroke-dasharray="4 3"/>`;
@@ -1136,11 +1137,14 @@ function drawTop(c) {
   out += `<path d="M ${cx},${fy} L ${cx - dxF},${fy + 145} L ${cx + dxF},${fy + 145} Z" fill="rgba(${fRGB},0.24)" stroke="rgb(${fRGB})" stroke-width="1.4"/>`;
   out += `</g>`;
 
-  // Rev C.2 Chassis: Spine width 260 (|Y|<=130), Fork width 155 (|Y|=154..309), Pods |Y|=320..600
+  // Rev C.3 Chassis: Spine width 260 (|Y|<=130), Fork width 155 (|Y|=154..309), Pods |Y|=320..600, Split Tower Decks + Central 40° Open HMI!
   const spHalf = 130 * sc, fkW = 155 * sc;
   out += `
     <rect x="${xL}" y="${yT}" width="${hw * 2}" height="${hl * 2}" rx="12" fill="#111827" stroke="#94a3b8" stroke-width="1.5"/>
-    <rect x="${xL}" y="${yT}" width="${hw * 2}" height="${towH}" rx="10" fill="#273549" stroke="#cbd5e1" stroke-width="1.2"/>
+    <rect x="${xL}" y="${yT}" width="${+(445 * sc).toFixed(1)}" height="${towH}" rx="8" fill="#273549" stroke="#cbd5e1" stroke-width="1.1"/>
+    <rect x="${px(155)}" y="${yT}" width="${+(445 * sc).toFixed(1)}" height="${towH}" rx="8" fill="#273549" stroke="#cbd5e1" stroke-width="1.1"/>
+    <rect x="${px(-143)}" y="${py(-752)}" width="${+(286 * sc).toFixed(1)}" height="${+(121 * sc).toFixed(1)}" rx="3" fill="rgba(56,189,248,0.34)" stroke="#38bdf8" stroke-width="1.4"/>
+    <text x="${cx}" y="${py(-685)}" fill="#bae6fd" font-size="7.4" font-weight="900" text-anchor="middle">40° HMI</text>
     <rect x="${px(-314)}" y="${yT + towH}" width="${+(165 * sc).toFixed(1)}" height="${+(hl * 2 - towH).toFixed(1)}" fill="#0b1220"/>
     <rect x="${px(149)}" y="${yT + towH}" width="${+(165 * sc).toFixed(1)}" height="${+(hl * 2 - towH).toFixed(1)}" fill="#0b1220"/>
     <rect x="${px(-309)}" y="${py(-558)}" width="${fkW.toFixed(1)}" height="${+(1293 * sc).toFixed(1)}" rx="2" fill="#475569" stroke="#cbd5e1" stroke-width="1"/>
@@ -1163,9 +1167,10 @@ function drawTop(c) {
     out += `<rect x="${px(328)}" y="${py(-736)}" width="${+(234 * sc).toFixed(1)}" height="${+(182 * sc).toFixed(1)}" rx="2" fill="rgba(245,158,11,0.38)" stroke="#f59e0b" stroke-dasharray="3 2"/>`;
     out += `<rect x="${px(-562)}" y="${py(-736)}" width="${+(234 * sc).toFixed(1)}" height="${+(182 * sc).toFixed(1)}" rx="2" fill="rgba(245,158,11,0.38)" stroke="#f59e0b" stroke-dasharray="3 2"/>`;
   }
-  // 4 slim tower pillars Ø22
-  [[-715, 540], [-715, -540], [-575, 540], [-575, -540]].forEach(([xM, yM]) => {
-    out += `<circle cx="${px(yM)}" cy="${py(xM)}" r="3.2" fill="#e2e8f0" stroke="#0f172a" stroke-width="1"/>`;
+  // Rear-Left Mini-Tower roof outline & 4 slim Ø18 pillars
+  out += `<rect x="${px(320)}" y="${py(-742)}" width="${+(265 * sc).toFixed(1)}" height="${+(194 * sc).toFixed(1)}" rx="3" fill="none" stroke="#facc15" stroke-width="1.2" stroke-dasharray="3 2"/>`;
+  [[-732, 334], [-732, 571], [-558, 334], [-558, 571]].forEach(([xM, yM]) => {
+    out += `<circle cx="${px(yM)}" cy="${py(xM)}" r="2.6" fill="#e2e8f0" stroke="#0f172a" stroke-width="0.9"/>`;
   });
   // QR at (0,0)
   out += `<rect x="${cx - 8}" y="${cy - 8}" width="16" height="16" rx="2.5" fill="#14b8a6" stroke="#ccfbf1"/>`;
@@ -1205,11 +1210,13 @@ function drawFront(c) {
   out += `<rect x="36" y="${yZ(610)}" width="408" height="${+(610 * sc).toFixed(1)}" fill="rgba(250,204,21,0.045)"/>`;
   out += `<text x="442" y="${yZ(610) + 12}" fill="#fde047" font-size="9.2" font-weight="700" text-anchor="end">반사판 0~61 cm</text>`;
 
-  // Rear Tower lower bay (Z=194..460), 4 slim pillars (Z=460..566), Roof (Z=566..590)
-  out += `<rect x="${xM(-585)}" y="${yZ(460)}" width="${+(1170 * sc).toFixed(1)}" height="${+(266 * sc).toFixed(1)}" rx="3" fill="#131c2e" stroke="#475569" stroke-width="1.3"/>`;
-  out += `<rect x="${xM(-585)}" y="${yZ(590)}" width="${+(1170 * sc).toFixed(1)}" height="${+(24 * sc).toFixed(1)}" rx="3" fill="#334155" stroke="#cbd5e1" stroke-width="1.3"/>`;
-  out += `<rect x="${xM(-551)}" y="${yZ(566)}" width="${+(22 * sc).toFixed(1)}" height="${+(106 * sc).toFixed(1)}" fill="#94a3b8"/>`;
-  out += `<rect x="${xM(529)}" y="${yZ(566)}" width="${+(22 * sc).toFixed(1)}" height="${+(106 * sc).toFixed(1)}" fill="#94a3b8"/>`;
+  // Rev C.3 Rear Tower: L/R lower bays (Z=194..460), central open HMI console back (Z=300..465.4, NO ROOF!), Rear-Left (+Y, screen RIGHT) mini-tower!
+  out += `<rect x="${xM(-585)}" y="${yZ(460)}" width="${+(430 * sc).toFixed(1)}" height="${+(266 * sc).toFixed(1)}" rx="3" fill="#131c2e" stroke="#475569" stroke-width="1.2"/>`;
+  out += `<rect x="${xM(155)}" y="${yZ(460)}" width="${+(430 * sc).toFixed(1)}" height="${+(266 * sc).toFixed(1)}" rx="3" fill="#131c2e" stroke="#475569" stroke-width="1.2"/>`;
+  out += `<rect x="${xM(-155)}" y="${yZ(465.4)}" width="${+(310 * sc).toFixed(1)}" height="${+(165.4 * sc).toFixed(1)}" rx="2" fill="#1e293b" stroke="#38bdf8" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+  out += `<rect x="${xM(320)}" y="${yZ(590)}" width="${+(265 * sc).toFixed(1)}" height="${+(24 * sc).toFixed(1)}" rx="3" fill="#334155" stroke="#cbd5e1" stroke-width="1.3"/>`;
+  out += `<rect x="${xM(325)}" y="${yZ(566)}" width="${+(18 * sc).toFixed(1)}" height="${+(106 * sc).toFixed(1)}" fill="#94a3b8"/>`;
+  out += `<rect x="${xM(562)}" y="${yZ(566)}" width="${+(18 * sc).toFixed(1)}" height="${+(106 * sc).toFixed(1)}" fill="#94a3b8"/>`;
 
   // Pods: |Y| = 320..585, Z=46..194 (POD_TOP=194!)
   const podW = +(265 * sc).toFixed(1);
@@ -1232,10 +1239,10 @@ function drawFront(c) {
     out += `<text x="${cx}" y="${yZ(980)}" fill="#fbbf24" font-size="11.4" font-weight="800" text-anchor="middle">적재 파레트+화물 (폭 1200 mm)</text>`;
   }
 
-  // Sensors: Tower Z=512, FL 2D Z=126.5 (+Y robot-left = screen RIGHT x > cx!), E1R Z=120
+  // Sensors: Rear-Left Mini-Tower (+Y=+452.5, Z=512), FL 2D Z=126.5 (+Y robot-left = screen RIGHT x > cx!), E1R Z=120
   out += `<text x="52" y="20" fill="#fbbf24" font-size="9" font-weight="800">◀ RIGHT (-Y)</text>`;
   out += `<text x="442" y="20" fill="#fbbf24" font-size="9" font-weight="800" text-anchor="end">LEFT (+Y) ▶</text>`;
-  out += dot(cx, yZ(512), 10, c.tower === 'T3D' ? '#facc15' : '#38bdf8', c.tower === 'T3D' ? '3D' : '2D');
+  out += dot(xM(452.5), yZ(512), 10, c.tower === 'T3D' ? '#facc15' : '#38bdf8', c.tower === 'T3D' ? '3D' : '2D');
   out += `<rect x="${xM(490)}" y="${yZ(146)}" width="15" height="12" rx="2" fill="#38bdf8" stroke="#0c4a6e" stroke-width="1.4"/>`;
   out += `<text x="${xM(522)}" y="${yZ(162)}" fill="#7dd3fc" font-size="8" font-weight="800" text-anchor="middle">FL 2D</text>`;
   if (c.low2d === 'TRI3') {
@@ -1257,7 +1264,7 @@ function dot(x, y, r, fill, lbl) {
 }
 
 const BANNERS = {
-  BASE: ['<strong>★ Rev C.2 풀 3D 확정안 (221부품 6/6 PASS · 매립 2D · 18° 틸트 HMI · 일자 E-STOP):</strong> 매립 하부 2D×2(<code>SICK nanoScan3 Pro</code>, ±695,±530, 철판 안쪽 10 mm/범퍼 25 mm, FL 258.0°/RR 255.5°, 150~300 mm 사각 0.0%, 근접 50/100 mm 21.85/2.22%) + 전방 3D(<code>RoboSense E1R</code>, 상단 통과 73.5°) + 뒤 타워 3D(<code>Hesai XT32 / OS0</code>, 4기둥 97.22%, 후진 2.1 m) + <code>18°</code> 틸트 Winmate HMI + 일자 측면 E-STOP(+14.5 mm).', false],
+  BASE: ['<strong>★ Rev C.3 풀 3D 확정안 (222부품 6/6 PASS · 40° 완전 개방 HMI · 좌후방 3D 미니타워 · 매립 2D):</strong> 중앙 HMI 상부 지붕 전면 제거(<code>40°</code> 오픈 콘솔 <code>Z=326~465.4</code> · 가림 0%) + 좌후방 미니타워 3D(<code>Hesai XT32 / OS0</code>, <code>-645,+452.5,512</code>, <code>Ø18×4기둥</code> 수평 92.22% / 32ch 81.88%) + 매립 하부 2D×2(<code>±695,±530</code>, FL 258.0°/RR 255.5°, 150~300 mm 사각 0.0%) + 전방 3D(<code>RoboSense E1R</code>, 상단 통과 73.5%) + 일자 측면 E-STOP(+14.5 mm).', false],
   OPT_T2D: ['<strong>2D 경량 대안 (타워 고정밀 2D · 4대):</strong> 후진 공중 오버행이 불필요한 현장에서는 뒤 타워를 <code>0.1°</code> 2D(<code>FreeOptics R2 / Focusray</code>)로 구성해 구성·연산 부담을 간소화합니다.', true],
   OPT_RGBD: ['<strong>단차 대안 (전방 광각 RGB-D · 4대):</strong> 바닥 20 mm 미세 단차 사전 감지가 필수인 현장에서는 전방 등뼈를 <code>ZED X Mini (2.2 mm)</code> 등 광각 RGB-D로 교체할 수 있습니다.', true],
   OPT_LIBD: ['<strong>기존 SW 유지 대안 (하부 2D 3대):</strong> 전방 좌·우 + 후방 2D 3대 구성으로 기존 2-라이다 팔레트 인식 파이프라인을 수정 없이 유지하는 옵션입니다.', true]

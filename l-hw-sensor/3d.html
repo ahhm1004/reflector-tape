@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M12 42 L32 52 L52 42 L52 24 L32 14 L12 24 Z' fill='none' stroke='%2310b981' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M12 24 L32 34 L52 24 M32 34 L32 52' fill='none' stroke='%2338bdf8' stroke-width='3.5' stroke-linejoin='round'/%3E%3C/svg%3E">
-<title>신규 L-type 1.5 t (1200×1530×590) Rev C.2 3D CAD 뷰어 — 221부품 실물 GLB</title>
+<title>신규 L-type 1.5 t (1200×1530×590) Rev C.3 3D CAD 뷰어 — 222부품 실물 GLB</title>
 <style>
 :root {
   --bg: #080d18;
@@ -234,7 +234,7 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
 
 <nav class="site-nav">
   <div class="brand">
-    <span class="brand-badge">REV C.2 · 221 PARTS</span>
+    <span class="brand-badge">REV C.3 · 222 PARTS</span>
     <span>신규 L-type 1.5 t (1200×1530×590) 실물 3D CAD</span>
   </div>
   <div class="nav-tabs">
@@ -250,18 +250,18 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
   <aside id="panel">
     <div class="audit-strip" id="cadStatusStrip">
       <span>GLB 실물 CAD 로딩 중...</span>
-      <span class="mono" id="cadMeshCountBadge">0 / 221</span>
+      <span class="mono" id="cadMeshCountBadge">0 / 222</span>
     </div>
 
     <div class="box">
       <div class="box-title"><span>★ 배터리 구성 실시간 전환 (LFP 전용)</span></div>
       <div class="btn-stack">
-        <button class="btn batt-btn active" id="btnBattB1" data-batt="B1">B-1 메인 (등뼈 51.2V 40Ah LFP · 480.2 kg)</button>
-        <button class="btn batt-btn" id="btnBattA" data-batt="A">A 확장 (타워 좌우 51.2V 100Ah LFP · 501.2 kg)</button>
+        <button class="btn batt-btn active" id="btnBattB1" data-batt="B1">B-1 메인 (등뼈 51.2V 40Ah LFP · 471.6 kg)</button>
+        <button class="btn batt-btn" id="btnBattA" data-batt="A">A 확장 (타워 좌우 51.2V 100Ah LFP · 492.6 kg)</button>
       </div>
       <div class="info-note" id="battInfo">
         <strong>B-1 메인</strong> · 51.2V 40Ah LFP (2.05 kWh · 18.0 kg · 등뼈 520×210×104)<br>
-        총중량 <span class="mono">480.2 kg</span> · CG <span class="mono">(-133.7, +1.1, 147.1) mm</span>
+        총중량 <span class="mono">471.6 kg</span> · CG <span class="mono">(-124.2, +5.9, 138.1) mm</span>
       </div>
     </div>
 
@@ -271,11 +271,11 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
         <button class="btn" data-pkg="A">A. 2D·5축(고정)</button>
         <button class="btn" data-pkg="B">B. 2D+QR·7축</button>
         <button class="btn" data-pkg="C">C. 준풀3D(전방E1R)</button>
-        <button class="btn active" data-pkg="D">D. 풀 3D 1.5t (Rev C.2 표준)</button>
+        <button class="btn active" data-pkg="D">D. 풀 3D 1.5t (Rev C.3 표준)</button>
       </div>
       <button class="btn kc-btn" data-pkg="E">E. ★ KC 인증 완료 부품 전용 풀패키지</button>
       <div class="info-note" id="pkgInfo">
-        <strong>D. 풀 3D 1.5t (Rev C.2 표준)</strong> · 매립 2D×2(±695,±530) + 전방 E1R + 뒤 타워 XT32 + 18° 틸트 HMI + 일자 측면 E-STOP + 하단 QR + 7축
+        <strong>D. 풀 3D 1.5t (Rev C.3 표준)</strong> · 매립 2D×2(±695,±530) + 전방 E1R + 좌후방 미니타워 XT32(-645,+452.5,512) + 40° 완전 개방 HMI(무지붕) + 일자 측면 E-STOP + 하단 QR + 7축
       </div>
     </div>
 
@@ -350,7 +350,7 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
         <label class="chk"><input type="checkbox" id="kDim" checked><span class="dot" style="background:#22c55e"></span>외곽 한계선 (1530×1200×590 · 돌출 0)</label>
         <label class="chk"><input type="checkbox" id="kFov2D" checked><span class="dot" style="background:#38bdf8"></span>① 매립 하부 2D FL 258.0° / RR 255.5° (±695,±530 · Z=126.5 · 150~300 mm 사각 0.0% · 50/100 mm 21.9/2.2%)</label>
         <label class="chk"><input type="checkbox" id="kFovE1R" checked><span class="dot" style="background:#a855f7"></span>② 정면 E1R (+10° · 상방 73.5° · el=+55° 0% 차단)</label>
-        <label class="chk"><input type="checkbox" id="kFovTower" checked><span class="dot" style="background:#facc15"></span>③ 뒤 타워 XT32 (+8° · Z=512 · 4기둥 개방 97.2%)</label>
+        <label class="chk"><input type="checkbox" id="kFovTower" checked><span class="dot" style="background:#facc15"></span>③ 좌후방 미니타워 XT32 (+8° · -645,+452.5,512 · Ø18×4기둥 92.2% / 32ch 81.9%)</label>
         <label class="chk"><input type="checkbox" id="kQR" checked><span class="dot" style="background:#14b8a6"></span>★ 하단 중앙 QR (Z=100 · Ø85 · 35.75°)</label>
         <label class="chk"><input type="checkbox" id="kCG" checked><span class="dot" style="background:#fbbf24"></span>무게중심(CG) 마커 (B-1 ↔ A 연동)</label>
         <label class="chk"><input type="checkbox" id="kCargo"><span class="dot" style="background:#f59e0b"></span>적재 파레트 + 화물 (1.5 m)</label>
@@ -362,7 +362,7 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
     </div>
 
     <div class="box">
-      <div class="box-title"><span>Rev C.2 핵심 부위 포커스 (클릭 이동)</span></div>
+      <div class="box-title"><span>Rev C.3 핵심 부위 포커스 (클릭 이동)</span></div>
       <div class="part-list">
         <div class="p-item" data-cam="corner2D">
           <span class="dot" style="background:#38bdf8;margin-top:4px"></span>
@@ -381,8 +381,8 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
         <div class="p-item" data-cam="rearTower">
           <span class="dot" style="background:#f97316;margin-top:4px"></span>
           <div>
-            <div class="pt">뒤 타워 4기둥 XT32 · 18° 틸트 Winmate HMI · E-STOP(+14.5 mm)</div>
-            <div class="ps">Ø22 4기둥 97.2% 개방 · 18° 상향 경사 HMI(Z=272~445 · 4t 후드) · 후면/측면 E-STOP(+14.5 mm) · 후면 충전(Z=174~250)</div>
+            <div class="pt">40° 완전 개방 HMI (무지붕) · 좌후방 미니타워 3D · 후면 충전</div>
+            <div class="ps">중앙 HMI 상부 철 구조물 제거(40°↑ Z=326~465 · 가림 0%) · 좌후방 XT32(-645,+452.5,512 · Ø18×4기둥 92.2% / 32ch 81.9%) · 충전 여유 61.0 mm</div>
           </div>
         </div>
         <div class="p-item" data-cam="underQR">
@@ -404,15 +404,15 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
 
     <div class="dl-grid">
       <a class="dl-btn" href="ltype_1200x1530_4sensor.step" download>⬇ SolidWorks (.STEP · 4.6 MB)</a>
-      <a class="dl-btn" style="background:#1d4ed8;border-color:#3b82f6" href="ltype_1200x1530_4sensor.glb" download>⬇ 실물 3D (.GLB · 753 KB)</a>
+      <a class="dl-btn" style="background:#1d4ed8;border-color:#3b82f6" href="ltype_1200x1530_4sensor.glb" download>⬇ 실물 3D (.GLB · 745 KB)</a>
     </div>
-    <a class="dl-btn" style="background:#334155;border-color:#475569;margin-top:-3px" href="vendor_interface.csv" download>⬇ 전 부품 좌표·공차·재질표 (.CSV · 221행)</a>
+    <a class="dl-btn" style="background:#334155;border-color:#475569;margin-top:-3px" href="vendor_interface.csv" download>⬇ 전 부품 좌표·공차·재질표 (.CSV · 222행)</a>
   </aside>
 
   <main id="viewport" data-loaded-meshes="0" data-ready="false">
     <canvas id="c"></canvas>
     <div id="loadingOverlay">
-      <div id="loadingTitle">Rev C.2 실물 3D CAD (.GLB 221부품) 불러오는 중...</div>
+      <div id="loadingTitle">Rev C.3 실물 3D CAD (.GLB 222부품) 불러오는 중...</div>
       <div class="sub-msg" id="loadingSub">ltype_1200x1530_4sensor.glb + ltype_battery_a_opt.glb + parts.json</div>
     </div>
     <div id="hudTop">
@@ -420,8 +420,8 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
         <strong>드래그</strong> 회전 · <strong>휠</strong> 확대 · <strong>부품 호버</strong>로 실측 재질·공차·질량·CAD BBox 확인
       </div>
       <div class="hud-col">
-        <div class="hud-pill" id="hudStatus"><strong>D. 풀 3D 1.5t (Rev C.2 표준)</strong> · 7축(Latch +9 mm) · 리프트 +0 mm</div>
-        <div class="hud-pill mass-pill" id="hudMass"><strong>B-1 40Ah LFP</strong> · <span class="mono">480.2 kg</span> · CG <span class="mono">(-133.7, +1.1, 147.1) mm</span></div>
+        <div class="hud-pill" id="hudStatus"><strong>D. 풀 3D 1.5t (Rev C.3 표준)</strong> · 7축(Latch +9 mm) · 리프트 +0 mm</div>
+        <div class="hud-pill mass-pill" id="hudMass"><strong>B-1 40Ah LFP</strong> · <span class="mono">471.6 kg</span> · CG <span class="mono">(-124.2, +5.9, 138.1) mm</span></div>
       </div>
     </div>
     <div id="tip">
@@ -439,7 +439,7 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
       <span style="color:#4ade80">+Y 좌측</span>
       <span style="color:#60a5fa">+Z 상방</span>
     </div>
-    <div id="axisBadge">Rev C.2 (221부품) · 1530×1200×590 mm · Datum A(Z46) · B(Y+130) · C(X-750)</div>
+    <div id="axisBadge">Rev C.3 (222부품) · 1530×1200×590 mm · Datum A(Z46) · B(Y+130) · C(X-750)</div>
   </main>
 </div>
 
@@ -628,7 +628,7 @@ const glbMeshes = new Map();
 const partsMetaByName = new Map();
 const scissorPivots = []; // { pivot, dirSign (+1 or -1), basePivotY }
 
-// Kinematic part classification (matches all moving parts in Rev C.2 parts.json!)
+// Kinematic part classification (matches all moving parts in Rev C.3 parts.json!)
 // latch_upper_roller_L/R are fixed in the rear carriage vertical guide channel (non-lift carriage group) -> 0 collisions on lift 0..242 mm
 const SLIDE_ONLY_PARTS = new Set([
   'fork_carriage',
@@ -659,12 +659,12 @@ const REAR_CHARGER_PARTS = new Set([
 const SHELL_EXTRA_NAMES = new Set([
   'tower_front_side_L', 'tower_front_side_R',
   'tower_door_L', 'tower_door_R',
-  'tower_chamfered_roof', 'tower_rear_plate_10t', 'hmi_tilted_hood_4t',
+  'tower_mini_roof_6t', 'tower_rear_plate_10t', 'hmi_open_console_4t',
 ]);
 
 // ============================================================================
 // OPTIONAL SWAPPABLE HARDWARE PREVIEWS (OS0-64 / Tower 2D / Front Charger)
-// Positioned in exact Rev C.2 GLB coordinates and clipped with robotClipMaterials
+// Positioned in exact Rev C.3 GLB coordinates and clipped with robotClipMaterials
 // ============================================================================
 const matOptTower3D = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.30, metalness: 0.50, side: THREE.DoubleSide });
 const matOptDark    = new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.14, metalness: 0.85, side: THREE.DoubleSide });
@@ -674,16 +674,17 @@ const matOptCharge  = new THREE.MeshStandardMaterial({ color: 0xc2410c, roughnes
 const matOptCopper  = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.24, metalness: 0.85, side: THREE.DoubleSide });
 robotClipMaterials.push(matOptTower3D, matOptDark, matOptSlate, matOpt2DBody, matOptCharge, matOptCopper);
 
-// Ouster OS0-64 swap model at exact XT32_POS = (-645, 0, 512) -> GLB (0, 0.512, -0.645)
+// Ouster OS0-64 swap model at exact Rev C.3 XT32_POS = (-645, +452.5, 512) -> GLB (+0.4525, +0.512, -0.645)
+const XT32_CAD_POS = [-645.0, 452.5, 512.0];
 const os0MeshGroup = new THREE.Group();
-os0MeshGroup.position.copy(cad2glb(-645, 0, 512));
+os0MeshGroup.position.copy(cad2glb(...XT32_CAD_POS));
 {
   const meta = {
     name: 'lidar_3d_rear_OS0_opt', kind: 'lidar3dr',
-    model: 'Ouster OS0-64 / OS0-32 (선택 교체 · 센서 90° / 타워 지붕·데크 실효 +31.0°/-26.5° · 0° 수평 마운트)',
-    material: '구매품 (알루미늄 IP68)', tol: '±0.5', datum_ref: 'A|C', mass_kg: 0.45,
-    note: 'XT32 베이스 호환 · 타워 지붕/데크 수직 시야 한계 +31.0° / -26.5° · Ø22 4기둥 97.2% 수평 개방',
-    bbox_mm: [-688.5, -601.5, -43.5, 43.5, 475, 549],
+    model: 'Ouster OS0-64 / OS0-32 (선택 교체 · 좌후방 미니타워 · 센서 90° / 미니지붕 실효 +31.0°/-26.5°)',
+    material: '구매품 (알루미늄 IP68)', tol: '±0.5', datum_ref: 'A|B|C', mass_kg: 0.45,
+    note: '좌후방 미니타워(-645,+452.5,512) XT32 베이스 호환 · Ø18×3t 4기둥 92.2% 수평 개방',
+    bbox_mm: [-688.5, -601.5, 409.0, 496.0, 475, 549],
   };
   const b = new THREE.Mesh(new THREE.CylinderGeometry(0.0435, 0.0435, 0.016, 32), matOptTower3D);
   b.position.y = -0.029; tagAuxiliary(b, meta); os0MeshGroup.add(b);
@@ -695,16 +696,16 @@ os0MeshGroup.position.copy(cad2glb(-645, 0, 512));
 os0MeshGroup.visible = false;
 robotGroup.add(os0MeshGroup);
 
-// Rear Tower 2D LiDAR swap model (Packages A / B / C) at (-645, 0, 512)
+// Rear-Left Mini-Tower 2D LiDAR swap model (Packages A / B / C) at (-645, +452.5, 512)
 const t2dMeshGroup = new THREE.Group();
-t2dMeshGroup.position.copy(cad2glb(-645, 0, 512));
+t2dMeshGroup.position.copy(cad2glb(...XT32_CAD_POS));
 {
   const meta = {
     name: 'lidar_2d_rear_tower_opt', kind: 'lidar2d',
-    model: '뒤 타워 고정밀 2D 라이다 (패키지 A/B/C · 3D 제외 옵션)',
-    material: '구매품 (IP65)', tol: '±0.5', datum_ref: 'A|C', mass_kg: 0.35,
-    note: 'Z=512 mm · 반사판 측위 전용(공중 3D 오버행 미감지)',
-    bbox_mm: [-677, -613, -32, 32, 476, 540],
+    model: '좌후방 미니타워 고정밀 2D 라이다 (패키지 A/B/C · 3D 제외 옵션)',
+    material: '구매품 (IP65)', tol: '±0.5', datum_ref: 'A|B|C', mass_kg: 0.35,
+    note: '좌후방(-645,+452.5,512) · 반사판 측위 전용(공중 3D 오버행 미감지)',
+    bbox_mm: [-677, -613, 420.5, 484.5, 476, 540],
   };
   const b = new THREE.Mesh(new THREE.BoxGeometry(0.064, 0.036, 0.064), matOpt2DBody);
   b.position.y = -0.018; tagAuxiliary(b, meta); t2dMeshGroup.add(b);
@@ -735,7 +736,7 @@ robotGroup.add(frontChargeGroup);
 // RAYCAST-VERIFIED SENSOR FOV OVERLAYS (EXACT GLB COORDS — NEVER CLIPPED!)
 // ============================================================================
 
-// 1. Lower 2D Safety LiDARs (Rev C.2 recessed, Z=126.5 mm): FL (+695,+530) 258.0°, RR (-695,-530) 255.5°, 150/250/300 mm perimeter blind 0.0%, 50/100 mm 21.85/2.22%, max near depth RL 148.66 mm
+// 1. Lower 2D Safety LiDARs (Rev C.3 recessed, Z=126.5 mm): FL (+695,+530) 258.0°, RR (-695,-530) 255.5°, 150/250/300 mm perimeter blind 0.0%, 50/100 mm 21.85/2.22%, max near depth RL 148.66 mm
 const fov2DGroup = new THREE.Group();
 function buildMeasured2DSector(xCad, yCad, zCad, azStartDeg, azEndDeg, radiusM, fillHex, edgeHex) {
   const grp = new THREE.Group();
@@ -819,13 +820,14 @@ const fovE1RGroup = new THREE.Group();
 }
 scene.add(fovE1RGroup);
 
-// 3. Rear Tower 3D FOV (Z=512 mm, +8° rearward-upward for XT32, 97.2% 360° open through 4× Ø22 pillars)
+// 3. Rear-Left Mini-Tower 3D FOV (-645, +452.5, 512 -> GLB [+0.4525, +0.512, -0.645], +8° rear-up, 92.2% horiz / 81.9% 32ch open!)
 const fovXT32Group = new THREE.Group();
 const fovOS0Group  = new THREE.Group();
 const fovT2DGroup  = new THREE.Group();
 
 function buildTower3DFov(targetGroup, elUpSensorDeg, elDnSensorDeg, tiltRearUpDeg, colHex) {
-  const o = cad2glb(-645, 0, 512);
+  const o = cad2glb(...XT32_CAD_POS);
+  targetGroup.userData.originGlb = [o.x, o.y, o.z];
   const r = 2.15;
   const segs = 72;
   const tilt = THREE.MathUtils.degToRad(tiltRearUpDeg);
@@ -894,9 +896,10 @@ buildTower3DFov(fovXT32Group, 15, -16, 8, 0xfacc15); // Hesai XT32: -16..+15° t
 buildTower3DFov(fovOS0Group, 31.0, -26.5, 0, 0xf59e0b);  // Ouster OS0-64: tower roof/deck effective VFOV +31.0° / -26.5°
 fovOS0Group.visible = false;
 
-// Tower 2D horizontal ring (Packages A/B/C) at Z=512
+// Tower 2D horizontal ring (Packages A/B/C) at (-645, +452.5, 512)
 {
-  const o = cad2glb(-645, 0, 512);
+  const o = cad2glb(...XT32_CAD_POS);
+  fovT2DGroup.userData.originGlb = [o.x, o.y, o.z];
   const ringPts = [];
   for (let i = 0; i <= 72; i++) {
     const a = (i / 72) * Math.PI * 2;
@@ -957,7 +960,7 @@ scene.add(qrSceneGroup);
 // CG MARKER, ENVELOPE BOX & SITE SCENARIO OVERLAYS (GLB COORDS — NEVER CLIPPED)
 // ============================================================================
 
-// CG Marker (shifts dynamically between B-1 (-131.8, 1.6, 147.0) and A (-189.1, 1.6, 161.8))
+// CG Marker (shifts dynamically between B-1 (-124.2, 5.9, 138.1) and A (-182.5, 5.6, 153.5))
 const cgMarkerGroup = new THREE.Group();
 {
   const sphere = new THREE.Mesh(
@@ -1040,7 +1043,7 @@ for (const [xm, lbl] of [[2560, '전방 기둥 반사판'], [-2560, '후방 기�
 }
 scene.add(reflGroup);
 
-// Rear Charging Station Dock (aligned to Rev C.2 rear charger pads Z=184..236, Y=±34..96)
+// Rear Charging Station Dock (aligned to Rev C.3 rear charger pads Z=184..236, Y=±34..96)
 const dockGroup = new THREE.Group();
 makeCadBox(-1180, -920, -240, 240, 0, 640,
   new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.50, metalness: 0.40 }),
@@ -1120,10 +1123,10 @@ function createCadMaterial(meta, isShell) {
 // ============================================================================
 let auditData = null;
 let massCgData = {
-  total_robot_b1_kg: 480.20,
-  cg_b1_mm: [-133.7, 1.1, 147.1],
-  total_robot_with_a_only_kg: 501.20,
-  cg_with_a_only_mm: [-190.7, 1.0, 161.9],
+  total_robot_b1_kg: 471.56,
+  cg_b1_mm: [-124.2, 5.9, 138.1],
+  total_robot_with_a_only_kg: 492.56,
+  cg_with_a_only_mm: [-182.5, 5.6, 153.5],
 };
 
 let activeBatt = 'B1'; // 'B1' | 'A'
@@ -1136,27 +1139,27 @@ const PKG_SPECS = {
   A: {
     label: 'A. 2D·5축(고정)',
     front3d: false, tower: 'T2D', qr: false, latch: false, kc: false,
-    desc: '<strong>A. 2D·5축(고정)</strong> · 매립 하부 대각 2D×2 + 타워 2D · 전방 3D/QR/Latch 제외 · 포크 진입 높이 Z=51 mm 고정 (Latch 잠금)',
+    desc: '<strong>A. 2D·5축(고정)</strong> · 매립 하부 대각 2D×2 + 좌후방 미니타워 2D · 전방 3D/QR/Latch 제외 · 포크 진입 높이 Z=51 mm 고정 (Latch 잠금)',
   },
   B: {
     label: 'B. 2D+QR·7축',
     front3d: false, tower: 'T2D', qr: true, latch: true, kc: false,
-    desc: '<strong>B. 2D+QR·7축</strong> · 매립 하부 대각 2D×2 + 타워 2D + 중앙 하단 QR(Z=100) + 7축(Latch -15~+30 mm)',
+    desc: '<strong>B. 2D+QR·7축</strong> · 매립 하부 대각 2D×2 + 좌후방 미니타워 2D + 중앙 하단 QR(Z=100) + 7축(Latch -15~+30 mm)',
   },
   C: {
     label: 'C. 준풀3D(전방E1R)',
     front3d: true, tower: 'T2D', qr: true, latch: true, kc: false,
-    desc: '<strong>C. 준풀3D(전방E1R)</strong> · 매립 하부 대각 2D×2 + 정면 E1R(+10°) + 타워 2D + 18° 틸트 HMI + 하단 QR + 후면 충전 + 7축',
+    desc: '<strong>C. 준풀3D(전방E1R)</strong> · 매립 하부 대각 2D×2 + 정면 E1R(+10°) + 좌후방 미니타워 2D + 40° 완전 개방 HMI(무지붕) + 하단 QR + 후면 충전 + 7축',
   },
   D: {
-    label: 'D. 풀 3D 1.5t (Rev C.2 표준)',
+    label: 'D. 풀 3D 1.5t (Rev C.3 표준)',
     front3d: true, tower: 'XT32', qr: true, latch: true, kc: false,
-    desc: '<strong>D. 풀 3D 1.5t (Rev C.2 표준)</strong> · 매립 2D×2(±695,±530 · FL 258.0°/RR 255.5° · 150~300 mm 사각 0.0%) + 정면 E1R + 뒤 타워 XT32/OS0(4기둥 97.2%) + 18° 틸트 HMI + 일자 측면 E-STOP + 하단 QR + 7축',
+    desc: '<strong>D. 풀 3D 1.5t (Rev C.3 표준)</strong> · 매립 2D×2(±695,±530 · FL 258.0°/RR 255.5° · 150~300 mm 사각 0.0%) + 정면 E1R + 좌후방 미니타워 XT32/OS0(-645,+452.5,512 · Ø18×4기둥 92.2% / 32ch 81.9%) + 40° 완전 개방 HMI(상부 가림 0%) + 일자 측면 E-STOP + 하단 QR + 7축',
   },
   E: {
     label: 'E. ★ KC 인증 완료 부품 전용 풀패키지',
     front3d: true, tower: 'XT32', qr: true, latch: true, kc: true,
-    desc: '<strong>E. ★ KC 인증 완료 부품 전용 풀패키지</strong> · SICK nanoScan3 Pro(KC/PLd) + RoboSense E1R + 뒤 타워 3D + 하단 QR + Advantech MIC-711-OX + Moxa EDS-G4008 + Flexi Soft + 18° 틸트 Winmate HMI + KC 인증 LFP 배터리(B-1 40Ah / A 100Ah) · ※ 완제품 KC/KCs 적용 대상 여부는 인증기관 사전 확인 권장',
+    desc: '<strong>E. ★ KC 인증 완료 부품 전용 풀패키지</strong> · SICK nanoScan3 Pro(KC/PLd) + RoboSense E1R + 좌후방 미니타워 3D + 하단 QR + Advantech MIC-711-OX + Moxa EDS-G4008 + Flexi Soft + 40° 완전 개방 Winmate HMI + KC 인증 LFP 배터리(B-1 40Ah / A 100Ah) · ※ 완제품 KC/KCs 적용 대상 여부는 인증기관 사전 확인 권장',
   },
 };
 
@@ -1383,7 +1386,7 @@ function updateKinematics() {
   const ext  = +$('sExt').value;
   const lift = +$('sLift').value;
 
-  // Nominal Rev C.2 GLB rest pose is Latch = +9 mm (tine bottom Z=51, top Z=95)
+  // Nominal Rev C.3 GLB rest pose is Latch = +9 mm (tine bottom Z=51, top Z=95)
   const dLatch = latch - 9;
   const tineBottom = 51 + dLatch;
   const tineTop    = 95 + dLatch + lift;
@@ -1409,7 +1412,7 @@ function updateKinematics() {
   forkLatchGroup.position.y = mm(dLatch);
   forkLiftGroup.position.y  = mm(lift);
 
-  // Unfold real Rev C.2 GLB 340 mm X-scissor H-frames cleanly around their exact CAD midpoints
+  // Unfold real Rev C.3 GLB 340 mm X-scissor H-frames cleanly around their exact CAD midpoints
   const baseRad = THREE.MathUtils.degToRad(3.5);
   const zTopInner = 87.57 + lift;
   const zFoot     = lift > 0 ? Math.max(12.0, 52.83 - lift * 0.8) : 52.83;
@@ -1455,14 +1458,14 @@ $('btnTravelMode').addEventListener('click', () => {
 const CAM_VIEWS = {
   iso:       { pos: [1.85, 1.38, 2.05],   tgt: [0.0, 0.26, 0.0],    op: null },
   front:     { pos: [0.0, 0.36, 2.55],    tgt: [0.0, 0.26, 0.0],    op: null },
-  rear:      { pos: [0.0, 0.44, -2.55],   tgt: [0.0, 0.30, -0.35],  op: null },
+  rear:      { pos: [0.0, 0.68, -2.45],   tgt: [0.0, 0.36, -0.45],  op: null },
   left:      { pos: [2.80, 0.44, 0.0],    tgt: [0.0, 0.28, 0.0],    op: null },
   right:     { pos: [-2.80, 0.44, 0.0],   tgt: [0.0, 0.28, 0.0],    op: null },
   top:       { pos: [0.0, 3.05, 0.04],    tgt: [0.0, 0.12, 0.0],    op: null },
-  // Detail focus presets
+  // Detail focus presets (Rev C.3: rearTower frames open 40° HMI + rear-left mini-tower XT32 at X_glb=+0.4525)
   corner2D:  { pos: [1.22, 0.38, 1.28],   tgt: [0.52, 0.13, 0.68],  op: 92 },
   frontE1R:  { pos: [0.52, 0.34, 1.52],   tgt: [0.0, 0.13, 0.70],   op: 92 },
-  rearTower: { pos: [0.92, 0.58, -1.72],  tgt: [0.0, 0.34, -0.64],  op: 64 },
+  rearTower: { pos: [0.76, 0.88, -1.76],  tgt: [0.16, 0.41, -0.66], op: 88 },
   underQR:   { pos: [1.02, 0.38, 0.68],   tgt: [0.0, 0.11, 0.18],   op: 24 },
   latchView: { pos: [1.18, 0.48, -0.22],  tgt: [0.22, 0.13, -0.45], op: 28 },
 };
@@ -1610,6 +1613,13 @@ function syncDebugState() {
     os0Disabled: $('btnOS0').disabled,
     battB1Visible: glbMeshes.get('battery_lfp_40ah_b1')?.visible ?? null,
     battOptVisible: batteryOptGroup.visible,
+    xt32FovOriginGlb: fovXT32Group.userData.originGlb || null,
+    os0FovOriginGlb: fovOS0Group.userData.originGlb || null,
+    t2dFovOriginGlb: fovT2DGroup.userData.originGlb || null,
+    os0MeshPosGlb: [os0MeshGroup.position.x, os0MeshGroup.position.y, os0MeshGroup.position.z],
+    t2dMeshPosGlb: [t2dMeshGroup.position.x, t2dMeshGroup.position.y, t2dMeshGroup.position.z],
+    hasOpenConsole: glbMeshes.has('hmi_open_console_4t'),
+    hasMiniRoof: glbMeshes.has('tower_mini_roof_6t'),
   };
 }
 
@@ -1682,7 +1692,7 @@ async function initCAD() {
       for (const bp of partsJson.battery_a_option.parts) partsMetaByName.set(bp.name, bp);
     }
 
-    // Collect all Mesh nodes from main 220-part GLB
+    // Collect all Mesh nodes from main 222-part GLB
     const mainMeshes = [];
     mainGltf.scene.traverse(obj => {
       if (obj.isMesh) mainMeshes.push(obj);
@@ -1730,7 +1740,7 @@ async function initCAD() {
     const g3 = auditData?.gates?.gate3_connectivity?.connected_components ?? 1;
     const g6wt = auditData?.gates?.gate6_glb_mass?.glb_watertight_count ?? mainMeshes.length;
     $('cadStatusStrip').innerHTML =
-      `<span>✓ Rev C.2 실물 GLB · 정지·전진(0~1240)·래치·리프트·캐스터 간섭 ${g2} · 연결 ${g3} · 수밀 ${g6wt}/${mainMeshes.length}</span>` +
+      `<span>✓ Rev C.3 실물 GLB · 정지·전진(0~1240)·래치·리프트·캐스터 간섭 ${g2} · 연결 ${g3} · 수밀 ${g6wt}/${mainMeshes.length}</span>` +
       `<span class="mono" id="cadMeshCountBadge">${mainMeshes.length} / ${partsJson.parts.length}</span>`;
 
     // Apply URL query parameters if provided (?pkg=A..E&batt=B1|A)
