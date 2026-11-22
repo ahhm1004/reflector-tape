@@ -404,7 +404,7 @@ input[type="range"]:disabled { opacity: 0.35; cursor: not-allowed; }
 
     <div class="dl-grid">
       <a class="dl-btn" href="ltype_1200x1530_4sensor.step" download>⬇ SolidWorks (.STEP · 4.5 MB)</a>
-      <a class="dl-btn" style="background:#1d4ed8;border-color:#3b82f6" href="ltype_1200x1530_4sensor.glb" download>⬇ 실물 3D (.GLB · 777 KB)</a>
+      <a class="dl-btn" style="background:#1d4ed8;border-color:#3b82f6" href="ltype_1200x1530_4sensor.glb" download>⬇ 실물 3D (.GLB · 813 KB)</a>
     </div>
     <a class="dl-btn" style="background:#334155;border-color:#475569;margin-top:-3px" href="vendor_interface.csv" download>⬇ 전 부품 좌표·공차·재질표 (.CSV · 220행)</a>
   </aside>
@@ -957,7 +957,7 @@ scene.add(qrSceneGroup);
 // CG MARKER, ENVELOPE BOX & SITE SCENARIO OVERLAYS (GLB COORDS — NEVER CLIPPED)
 // ============================================================================
 
-// CG Marker (shifts dynamically between B-1 (-132.1, 1.6, 147.0) and A (-189.3, 1.6, 161.8))
+// CG Marker (shifts dynamically between B-1 (-132.1, 1.6, 147.0) and A (-189.4, 1.6, 161.8))
 const cgMarkerGroup = new THREE.Group();
 {
   const sphere = new THREE.Mesh(
@@ -1123,7 +1123,7 @@ let massCgData = {
   total_robot_b1_kg: 478.17,
   cg_b1_mm: [-132.1, 1.6, 147.0],
   total_robot_with_a_only_kg: 499.17,
-  cg_with_a_only_mm: [-189.3, 1.6, 161.8],
+  cg_with_a_only_mm: [-189.4, 1.6, 161.8],
 };
 
 let activeBatt = 'B1'; // 'B1' | 'A'
