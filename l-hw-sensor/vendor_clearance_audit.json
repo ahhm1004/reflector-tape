@@ -1,7 +1,7 @@
 {
-  "revision": "Rev C.1",
+  "revision": "Rev C.2",
   "all_pass": true,
-  "audit_elapsed_s": 39.85,
+  "audit_elapsed_s": 54.35,
   "datums": {
     "A": "바닥판 하면 (Z = 46.0 mm)",
     "B": "중앙 등뼈 좌측 HGR20 레일 가공면 (Y = +130.0 mm)",
@@ -41,8 +41,8 @@
     },
     "gate2_all_pairs_interference": {
       "interference_threshold_mm3": 0.001,
-      "total_pairs": 24090,
-      "aabb_overlap_candidates": 160,
+      "total_pairs": 24310,
+      "aabb_overlap_candidates": 198,
       "interference_count": 0,
       "interferences": [],
       "battery_a_opt_interference_count": 0,
@@ -52,7 +52,7 @@
     "gate3_connectivity": {
       "contact_threshold_mm": 0.25,
       "connected_components": 1,
-      "main_component_size": 220,
+      "main_component_size": 221,
       "floating_parts_count": 0,
       "floating_parts": [],
       "detached_groups": [],
@@ -147,7 +147,7 @@
       "lift_sweep_collisions": 0,
       "lift_sweep_details": [],
       "caster_center_y_mm": 448.0,
-      "caster_checked_parts_count": 186,
+      "caster_checked_parts_count": 187,
       "caster_compression_dz_tested_mm": [
         0.0,
         10.0,
@@ -166,41 +166,47 @@
     },
     "gate5_raycast_fov": {
       "lidar_2d_fl_center_mm": [
-        716.0,
-        551.0,
+        695.0,
+        530.0,
         126.5
       ],
       "lidar_2d_rr_center_mm": [
-        -716.0,
-        -551.0,
+        -695.0,
+        -530.0,
         126.5
       ],
-      "lidar_2d_fl_open_deg": 266.5,
-      "lidar_2d_rr_open_deg": 264.0,
-      "lidar_2d_req_deg": 250.0,
+      "lidar_2d_fl_open_deg": 258.0,
+      "lidar_2d_rr_open_deg": 255.5,
+      "lidar_2d_req_deg": 240.0,
       "lidar_2d_blind_wedge_deg": 0.0,
-      "lidar_2d_overlap_per_side_deg": 85.25,
+      "lidar_2d_overlap_per_side_deg": 76.75,
       "lidar_2d_perimeter_points": 270,
-      "lidar_2d_perimeter_50mm_visible_pct": 100.0,
-      "lidar_2d_perimeter_50mm_blind_pct": 0.0,
-      "lidar_2d_perimeter_50mm_blind_count": 0,
-      "lidar_2d_perimeter_100mm_visible_pct": 100.0,
-      "lidar_2d_perimeter_100mm_blind_pct": 0.0,
-      "lidar_2d_perimeter_100mm_blind_count": 0,
+      "lidar_2d_perimeter_50mm_visible_pct": 78.15,
+      "lidar_2d_perimeter_50mm_blind_pct": 21.85,
+      "lidar_2d_perimeter_50mm_blind_count": 59,
+      "lidar_2d_perimeter_100mm_visible_pct": 97.78,
+      "lidar_2d_perimeter_100mm_blind_pct": 2.22,
+      "lidar_2d_perimeter_100mm_blind_count": 6,
       "lidar_2d_perimeter_150mm_visible_pct": 100.0,
       "lidar_2d_perimeter_150mm_blind_pct": 0.0,
       "lidar_2d_perimeter_150mm_blind_count": 0,
-      "lidar_2d_max_blind_depth_mm": 40.0,
+      "lidar_2d_perimeter_250mm_visible_pct": 100.0,
+      "lidar_2d_perimeter_250mm_blind_pct": 0.0,
+      "lidar_2d_perimeter_250mm_blind_count": 0,
+      "lidar_2d_perimeter_300mm_visible_pct": 100.0,
+      "lidar_2d_perimeter_300mm_blind_pct": 0.0,
+      "lidar_2d_perimeter_300mm_blind_count": 0,
+      "lidar_2d_max_blind_depth_mm": 148.66,
       "lidar_2d_max_blind_point_mm": [
-        -805.0,
-        555.0
+        -865.0,
+        710.0
       ],
-      "lidar_2d_fr_max_blind_depth_mm": 0.0,
-      "lidar_2d_rl_max_blind_depth_mm": 40.0,
-      "lidar_2d_near_blind_area_cm2": 101.2,
+      "lidar_2d_fr_max_blind_depth_mm": 112.36,
+      "lidar_2d_rl_max_blind_depth_mm": 148.66,
+      "lidar_2d_near_blind_area_cm2": 1286.0,
       "xt32_horiz_open_pct": 97.22,
       "xt32_horiz_req_pct": 90.0,
-      "xt32_32ch_empty_open_pct": 75.91,
+      "xt32_32ch_empty_open_pct": 75.92,
       "e1r_window_top_mm": [
         722.13,
         0.0,
@@ -225,33 +231,33 @@
     "gate6_glb_mass": {
       "tessellate_tol_mm": 0.15,
       "glb_max_bbox_err_mm": 0.0336,
-      "glb_watertight_count": 220,
-      "glb_total_meshes": 220,
+      "glb_watertight_count": 221,
+      "glb_total_meshes": 221,
       "glb_watertight_ratio": 1.0,
-      "glb_triangles": 47774,
-      "steel_structure_kg": 356.13,
-      "total_robot_kg": 478.35,
+      "glb_triangles": 48578,
+      "steel_structure_kg": 357.98,
+      "total_robot_kg": 480.2,
       "pass_ok": true
     }
   },
   "mass_cg": {
-    "steel_structure_kg": 356.13,
+    "steel_structure_kg": 357.98,
     "aluminum_kg": 7.95,
     "other_material_kg": 4.92,
     "purchased_components_kg": 109.35,
-    "total_robot_b1_kg": 478.35,
+    "total_robot_b1_kg": 480.2,
     "cg_b1_mm": [
-      -131.8,
-      1.6,
-      147.0
+      -133.7,
+      1.1,
+      147.1
     ],
-    "total_solid_volume_L": 88.928,
+    "total_solid_volume_L": 89.224,
     "battery_a_opt_module_kg": 39.0,
-    "total_robot_with_a_only_kg": 499.35,
+    "total_robot_with_a_only_kg": 501.2,
     "cg_with_a_only_mm": [
-      -189.1,
-      1.6,
-      161.8
+      -190.7,
+      1.0,
+      161.9
     ]
   },
   "clearances": [
@@ -355,7 +361,7 @@
       "check": "후면 충전 하우징 ↔ Winmate 10.1\" HMI",
       "part_a": "rear_charger_housing",
       "part_b": "rear_hmi_10in",
-      "clearance_mm": 15.62,
+      "clearance_mm": 20.62,
       "min_req_mm": 10.0,
       "pass_ok": true
     },
@@ -396,13 +402,15 @@
     "e1r_hfov_half_deg": 82.0,
     "e1r_hfov_half_req_deg": 60.0,
     "e1r_hfov_pass": true,
-    "lidar_2d_fl_open_deg": 266.5,
-    "lidar_2d_rr_open_deg": 264.0,
+    "lidar_2d_fl_open_deg": 258.0,
+    "lidar_2d_rr_open_deg": 255.5,
     "lidar_2d_blind_wedge_deg": 0.0,
-    "lidar_2d_perimeter_50mm_blind_pct": 0.0,
-    "lidar_2d_perimeter_100mm_blind_pct": 0.0,
+    "lidar_2d_perimeter_50mm_blind_pct": 21.85,
+    "lidar_2d_perimeter_100mm_blind_pct": 2.22,
     "lidar_2d_perimeter_150mm_blind_pct": 0.0,
-    "lidar_2d_max_blind_depth_mm": 40.0,
+    "lidar_2d_perimeter_250mm_blind_pct": 0.0,
+    "lidar_2d_perimeter_300mm_blind_pct": 0.0,
+    "lidar_2d_max_blind_depth_mm": 148.66,
     "xt32_horiz_open_pct": 97.22,
     "qr_working_dist_mm": 100.0,
     "qr_wd_range_mm": [
@@ -413,8 +421,8 @@
     "qr_wd_pass": true
   },
   "step_reimport": {
-    "solids": 220,
-    "expected_solids": 220,
+    "solids": 221,
+    "expected_solids": 221,
     "invalid_solids": 0,
     "length_mm": 1530.0,
     "width_mm": 1200.0,
