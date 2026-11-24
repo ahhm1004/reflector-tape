@@ -1,0 +1,304 @@
+{
+  "revision": "Rev A.2",
+  "model": "HD-30X 1.5t Compact High-Clearance 4WD/4WS X-Scissor Weighing Fork AMR",
+  "all_pass": true,
+  "audit_elapsed_s": 43.39,
+  "datums": {
+    "A": "연속 8t 바닥판 하면 (Z = 85.0 mm · 지상고 G = 85.0 mm)",
+    "B": "중앙 등뼈 좌측 HGR20 레일 가공면 (Y = +115.0 mm)",
+    "C": "후면 10t 메인 벽판 외면 (X = -765.0 mm)",
+    "general_tol_weld": "ISO 13920-B",
+    "general_tol_machined": "ISO 2768-mK"
+  },
+  "glb_coord_mapping": "X_glb = Y_cad / 1000, Y_glb = Z_cad / 1000, Z_glb = X_cad / 1000 (Three.js Y-up, right-handed det=+1)",
+  "envelope": {
+    "x_min": -780.0,
+    "x_max": 780.0,
+    "y_min": -600.0,
+    "y_max": 600.0,
+    "z_min": 0.0,
+    "z_max": 760.0,
+    "length_mm": 1560.0,
+    "width_mm": 1200.0,
+    "height_mm": 760.0,
+    "ground_clearance_mm": 85.0,
+    "non_wheel_z_min_mm": 85.0,
+    "stowed_fork_z_mm": [
+      85.0,
+      135.0
+    ],
+    "pickup_fork_z_mm": [
+      10.0,
+      60.0
+    ],
+    "pickup_fork_tip_z_top_mm": 48.08,
+    "invalid_solids": [],
+    "pass_ok": true
+  },
+  "gates": {
+    "gate1_envelope": {
+      "x_min": -780.0,
+      "x_max": 780.0,
+      "y_min": -600.0,
+      "y_max": 600.0,
+      "z_min": 0.0,
+      "z_max": 760.0,
+      "length_mm": 1560.0,
+      "width_mm": 1200.0,
+      "height_mm": 760.0,
+      "ground_clearance_mm": 85.0,
+      "non_wheel_z_min_mm": 85.0,
+      "stowed_fork_z_mm": [
+        85.0,
+        135.0
+      ],
+      "pickup_fork_z_mm": [
+        10.0,
+        60.0
+      ],
+      "pickup_fork_tip_z_top_mm": 48.08,
+      "invalid_solids": [],
+      "pass_ok": true
+    },
+    "gate2_interference": {
+      "interference_threshold_mm3": 0.001,
+      "total_pairs": 27261,
+      "aabb_overlap_candidates": 227,
+      "interference_count": 0,
+      "interferences": [],
+      "opt_200ah_interference_count": 0,
+      "opt_200ah_interferences": [],
+      "pass_ok": true
+    },
+    "gate3_connectivity": {
+      "contact_threshold_mm": 0.25,
+      "connected_components": 1,
+      "main_component_size": 234,
+      "floating_parts_count": 0,
+      "floating_parts": [],
+      "detached_groups": [],
+      "pass_ok": true
+    },
+    "gate4_dynamic_kinematic": {
+      "drop_tested_dz_mm": [
+        -75.0,
+        -37.5,
+        0.0
+      ],
+      "drop_collisions": 0,
+      "drop_details": [],
+      "pickup_z_bottom_mm": 10.0,
+      "pickup_z_top_mm": 60.0,
+      "ext_tested_mm": [
+        0.0,
+        300.0,
+        600.0,
+        900.0,
+        1200.0
+      ],
+      "ext_collisions": 0,
+      "ext_details": [],
+      "rail_block_on_rail_pass": true,
+      "rail_block_support": {
+        "L": {
+          "rail_x_mm": [
+            -685.0,
+            680.0
+          ],
+          "block_x_at_0_mm": [
+            -670.0,
+            -565.0
+          ],
+          "block_x_at_max_ext_mm": [
+            530.0,
+            635.0
+          ],
+          "margin_rear_mm": 15.0,
+          "margin_front_mm": 45.0,
+          "pass_ok": true
+        },
+        "R": {
+          "rail_x_mm": [
+            -685.0,
+            680.0
+          ],
+          "block_x_at_0_mm": [
+            -670.0,
+            -565.0
+          ],
+          "block_x_at_max_ext_mm": [
+            530.0,
+            635.0
+          ],
+          "margin_rear_mm": 15.0,
+          "margin_front_mm": 45.0,
+          "pass_ok": true
+        }
+      },
+      "lift_tested_rel_stowed_mm": [
+        0.0,
+        60.0,
+        120.0,
+        185.0,
+        260.0
+      ],
+      "lift_collisions": 0,
+      "lift_details": [],
+      "lifted_z_top_mm": 320.0,
+      "pod_top_z_mm": 285.0,
+      "scissor_stored_z_min_mm": 88.09,
+      "steer_tested_deg": [
+        0.0,
+        -45.0,
+        45.0,
+        -90.0,
+        90.0
+      ],
+      "steer_collisions": 0,
+      "steer_details": [],
+      "bump_tested_mm": [
+        -35.0,
+        0.0,
+        35.0
+      ],
+      "bump_collisions": 0,
+      "bump_details": [],
+      "total_dynamic_collisions": 0,
+      "pass_ok": true
+    },
+    "gate5_stability_load": {
+      "steel_structure_kg": 535.94,
+      "aluminum_kg": 11.2,
+      "other_material_kg": 5.52,
+      "purchased_components_kg": 171.25,
+      "total_empty_kg": 723.92,
+      "cg_empty_mm": [
+        -138.7,
+        10.1,
+        210.9
+      ],
+      "total_solid_volume_L": 129.032,
+      "payload_kg": 1500.0,
+      "payload_x_center_mm": 110.0,
+      "front_axle_x_mm": 410.0,
+      "rear_axle_x_mm": -410.0,
+      "wheelbase_mm": 820.0,
+      "track_mm": 864.0,
+      "empty_front_wheel_kg": 119.8,
+      "empty_rear_wheel_kg": 242.2,
+      "loaded_total_kg": 2223.92,
+      "loaded_cg_x_mm": 29.1,
+      "loaded_avg_wheel_kg": 556.0,
+      "loaded_front_wheel_kg": 595.4,
+      "loaded_rear_wheel_kg": 516.6,
+      "loaded_max_wheel_kg": 595.4,
+      "wheel_rating_kg": 1100.0,
+      "wheel_load_safety_factor": 1.85,
+      "empty_fork_extended_cg_x_mm": 54.1,
+      "empty_fork_extended_axle_margin_mm": 355.9,
+      "pass_ok": true
+    },
+    "gate6_optical_raycast": {
+      "lidar_2d_fl_center_mm": [
+        705.0,
+        530.0,
+        180.0
+      ],
+      "lidar_2d_rr_center_mm": [
+        -705.0,
+        -530.0,
+        180.0
+      ],
+      "lidar_2d_fl_open_deg": 257.5,
+      "lidar_2d_rr_open_deg": 263.75,
+      "lidar_2d_blind_wedge_deg": 0.0,
+      "lidar_2d_overlap_per_side_deg": 80.62,
+      "lidar_2d_perim_100mm_blind_pct": 0.74,
+      "lidar_2d_perim_150mm_blind_pct": 0.0,
+      "lidar_2d_perim_250mm_blind_pct": 0.0,
+      "lidar_2d_perim_300mm_blind_pct": 0.0,
+      "xt32_center_mm": [
+        -650.0,
+        440.0,
+        675.0
+      ],
+      "xt32_horiz_open_pct": 91.11,
+      "xt32_32ch_open_pct": 82.72,
+      "e1r_center_mm": [
+        712.0,
+        0.0,
+        165.0
+      ],
+      "e1r_armor_recess_pillars_mm": 20.83,
+      "e1r_armor_recess_floor_mm": 28.79,
+      "e1r_top_up_deg": 72.25,
+      "e1r_dn_deg": 63.25,
+      "e1r_hfov_half_deg": 64.0,
+      "e1r_el55_across_60_blocked_pct": 0.0,
+      "e1r_dn35_across_60_blocked_pct": 0.0,
+      "e1r_full_120x90_blocked_pct": 0.0,
+      "qr_center_mm": [
+        0.0,
+        0.0,
+        140.0
+      ],
+      "qr_half_angles_deg": {
+        "+X": 38.25,
+        "-X": 38.25,
+        "+Y": 38.25,
+        "-Y": 38.25
+      },
+      "qr_min_half_deg": 38.25,
+      "pass_ok": true
+    },
+    "gate7_glb_precision": {
+      "tessellate_tol_mm": 0.2,
+      "max_bbox_err_mm": 0.1367,
+      "watertight_count": 234,
+      "total_meshes": 234,
+      "watertight_ratio": 1.0,
+      "triangles": 40850,
+      "pass_ok": true
+    }
+  },
+  "mass_stability": {
+    "steel_structure_kg": 535.94,
+    "aluminum_kg": 11.2,
+    "other_material_kg": 5.52,
+    "purchased_components_kg": 171.25,
+    "total_empty_kg": 723.92,
+    "cg_empty_mm": [
+      -138.7,
+      10.1,
+      210.9
+    ],
+    "total_solid_volume_L": 129.032,
+    "payload_kg": 1500.0,
+    "payload_x_center_mm": 110.0,
+    "front_axle_x_mm": 410.0,
+    "rear_axle_x_mm": -410.0,
+    "wheelbase_mm": 820.0,
+    "track_mm": 864.0,
+    "empty_front_wheel_kg": 119.8,
+    "empty_rear_wheel_kg": 242.2,
+    "loaded_total_kg": 2223.92,
+    "loaded_cg_x_mm": 29.1,
+    "loaded_avg_wheel_kg": 556.0,
+    "loaded_front_wheel_kg": 595.4,
+    "loaded_rear_wheel_kg": 516.6,
+    "loaded_max_wheel_kg": 595.4,
+    "wheel_rating_kg": 1100.0,
+    "wheel_load_safety_factor": 1.85,
+    "empty_fork_extended_cg_x_mm": 54.1,
+    "empty_fork_extended_axle_margin_mm": 355.9
+  },
+  "step_reimport": {
+    "solids": 234,
+    "expected_solids": 234,
+    "invalid_solids": 0,
+    "length_mm": 1560.0,
+    "width_mm": 1200.0,
+    "height_mm": 760.0,
+    "pass_ok": true
+  }
+}
