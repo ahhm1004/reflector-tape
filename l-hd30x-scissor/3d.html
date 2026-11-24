@@ -978,9 +978,9 @@ label.chk span.lbl {
     <section class="pinned-sec" aria-label="기체 모델 사양">
       <div class="sec-title-row">
         <span class="sec-title">HD-30X Rev A.5</span>
-        <span class="state-pill" id="modelPartsPill">338부품 · 실물 B-Rep</span>
+        <span class="state-pill" id="modelPartsPill">341부품 · 실물 B-Rep</span>
       </div>
-      <div class="model-badge-sub">2단 Y-네스티드 L=305 X-가위 · 48V EHA Ø40 · 786.7 kg · 1,560×1,200×760 · Z476.8 (+76.8/+101.8)</div>
+      <div class="model-badge-sub">2단 Y-네스티드 L=305 X-가위 · 48V EHA Ø40 · 794.7 kg · 1,560×1,200×760 · Z476.8 (+76.8/+101.8)</div>
     </section>
 
     <!-- ALWAYS VISIBLE 2: Real-Kinematics Continuous Animation Studio -->
@@ -1120,11 +1120,11 @@ label.chk span.lbl {
           </div>
         </div>
 
-        <div class="mass-line" id="massSummary">786.7 kg · T10 +76.8/+101.8mm · 338부품</div>
+        <div class="mass-line" id="massSummary">794.7 kg · T10 +76.8/+101.8mm · 341부품</div>
 
         <div class="cad-file-meta">
           <div class="cad-file-name" id="dlFileName">HD30X_RevA5_Full3D_100Ah.step</div>
-          <div class="cad-file-sub" id="dlFileMeta">338부품 · 10.23 MB · CG (-151.7, +9.4, 201.3)</div>
+          <div class="cad-file-sub" id="dlFileMeta">341부품 · 10.28 MB · CG (-156.6, +7.3, 205.0)</div>
         </div>
         <div class="dl-actions">
           <a class="p-btn primary sm" id="dlStepBtn" href="cad/HD30X_RevA5_Full3D_100Ah.step" download>STEP 받기</a>
@@ -1253,7 +1253,7 @@ label.chk span.lbl {
 
     <div id="loadingOverlay">
       <div id="loadingTitle">HD-30X Rev A.5 3D CAD 불러오는 중...</div>
-      <div class="sub-msg" id="loadingSub">hd30x_1500kg_scissor.glb · 338 부품</div>
+      <div class="sub-msg" id="loadingSub">hd30x_1500kg_scissor.glb · 341 부품</div>
     </div>
 
     <div id="vpAnimHud">
@@ -1373,8 +1373,8 @@ const ARCH_CONFIGS = {
     },
     shellExtra: new Set([
       'tower_door_L', 'tower_door_R',
-      'tower_deck_L_6t', 'tower_deck_R_6t',
-      'tower_front_L', 'tower_front_R',
+      'tower_deck_L_6t', 'tower_deck_R_6t', 'tower_deck_ctr_6t',
+      'tower_front_L', 'tower_front_R', 'tower_front_ctr', 'tower_ctr_hmi_riser_4t',
     ]),
     bomFiles: {
       china_oem: { file: 'HD30X_RevA5_BOM_China_OEM.csv', href: 'cad/HD30X_RevA5_BOM_China_OEM.csv' },
@@ -1387,11 +1387,11 @@ const ARCH_CONFIGS = {
         csvFile: 'HD30X_RevA5_Full3D_100Ah.csv',
         stepHref: 'cad/HD30X_RevA5_Full3D_100Ah.step',
         csvHref: 'cad/HD30X_RevA5_Full3D_100Ah.csv',
-        partCount: 338,
-        stepBytes: 10723242,
-        totalEmptyKg: 786.66,
-        cgEmptyMm: [-151.7, 9.4, 201.3],
-        sf: 1.83,
+        partCount: 341,
+        stepBytes: 10777759,
+        totalEmptyKg: 794.68,
+        cgEmptyMm: [-156.6, 7.3, 205.0],
+        sf: 1.84,
       },
       Semi3D_E1R_100Ah: {
         id: 'Semi3D_E1R_100Ah',
@@ -1399,11 +1399,11 @@ const ARCH_CONFIGS = {
         csvFile: 'HD30X_RevA5_Semi3D_E1R_100Ah.csv',
         stepHref: 'cad/HD30X_RevA5_Semi3D_E1R_100Ah.step',
         csvHref: 'cad/HD30X_RevA5_Semi3D_E1R_100Ah.csv',
-        partCount: 338,
-        stepBytes: 10741714,
-        totalEmptyKg: 785.9,
-        cgEmptyMm: [-151.2, 9.0, 200.9],
-        sf: 1.83,
+        partCount: 341,
+        stepBytes: 10796232,
+        totalEmptyKg: 793.91,
+        cgEmptyMm: [-156.1, 6.9, 204.6],
+        sf: 1.84,
       },
       '2D_Basic_100Ah': {
         id: '2D_Basic_100Ah',
@@ -1411,10 +1411,10 @@ const ARCH_CONFIGS = {
         csvFile: 'HD30X_RevA5_2D_Basic_100Ah.csv',
         stepHref: 'cad/HD30X_RevA5_2D_Basic_100Ah.step',
         csvHref: 'cad/HD30X_RevA5_2D_Basic_100Ah.csv',
-        partCount: 337,
-        stepBytes: 10738982,
-        totalEmptyKg: 785.53,
-        cgEmptyMm: [-151.6, 9.0, 200.9],
+        partCount: 340,
+        stepBytes: 10793514,
+        totalEmptyKg: 793.55,
+        cgEmptyMm: [-156.5, 6.9, 204.6],
         sf: 1.84,
       },
       Full3D_200Ah: {
@@ -1423,11 +1423,11 @@ const ARCH_CONFIGS = {
         csvFile: 'HD30X_RevA5_Full3D_200Ah.csv',
         stepHref: 'cad/HD30X_RevA5_Full3D_200Ah.step',
         csvHref: 'cad/HD30X_RevA5_Full3D_200Ah.csv',
-        partCount: 343,
-        stepBytes: 10829131,
-        totalEmptyKg: 832.8,
-        cgEmptyMm: [-137.7, 9.1, 197.8],
-        sf: 1.79,
+        partCount: 346,
+        stepBytes: 10883655,
+        totalEmptyKg: 840.82,
+        cgEmptyMm: [-142.5, 7.1, 201.3],
+        sf: 1.80,
       },
     },
     varSummaries: {
