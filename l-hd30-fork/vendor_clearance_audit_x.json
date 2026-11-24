@@ -1,16 +1,74 @@
 {
-  "revision": "Rev A.4",
-  "model": "HD-30X 1.5t Compact High-Clearance 4WD/4WS Long-Link X-Scissor Weighing Fork AMR",
+  "revision": "Rev A.5",
+  "model": "HD-30X 1.5t Compact High-Clearance 4WD/4WS 2-Tier Y-Nested X-Scissor Weighing Fork AMR",
   "all_pass": true,
-  "audit_elapsed_s": 47.36,
+  "audit_elapsed_s": 189.38,
   "datums": {
     "A": "연속 8t 바닥판 하면 (Z = 85.0 mm · 지상고 G = 85.0 mm)",
-    "B": "중앙 등뼈 좌측 HGR20 레일 가공면 (Y = +115.0 mm)",
+    "B": "중앙 등뼈 좌측 HIWIN HGR25 레일 가공면 (Y = +100.0 mm)",
     "C": "후면 10t 메인 벽판 외면 (X = -765.0 mm)",
     "general_tol_weld": "ISO 13920-B",
     "general_tol_machined": "ISO 2768-mK"
   },
   "glb_coord_mapping": "X_glb = Y_cad / 1000, Y_glb = Z_cad / 1000, Z_glb = X_cad / 1000 (Three.js Y-up, right-handed det=+1)",
+  "mechanism_params": {
+    "pod_top": 275.0,
+    "fork_h": 62.0,
+    "fork_lower_h": 46.0,
+    "fork_nose_h": 52.0,
+    "fork_y_ctr": 217.0,
+    "fork_x": [
+      -512.0,
+      745.0
+    ],
+    "drop_single_dz": -75.0,
+    "drop_window_dz": -55.0,
+    "scissor_L": 305.0,
+    "scissor_tiers": 2,
+    "scissor_theta_deg": [
+      8.0,
+      55.0
+    ],
+    "scissor_x_local": [
+      -82.5,
+      402.5
+    ],
+    "scissor_raw_stroke": 414.79,
+    "lost_motion_mm": {
+      "single": 10.0,
+      "window": 30.0
+    },
+    "fork_z_top_max": 476.79,
+    "window_travel_z": [
+      300.0,
+      362.0
+    ],
+    "heel_mast_x": [
+      -542.0,
+      -512.0
+    ],
+    "heel_mast_range": [
+      87.0,
+      274.0,
+      490.0
+    ],
+    "heel_lockpin_z": 300.0,
+    "lc_x": [
+      -380.0,
+      590.0
+    ],
+    "wheel_travel": [
+      -25.0,
+      25.0
+    ],
+    "tower_front_x": -555.0,
+    "spine_half_w": 100.0,
+    "pod_inner_y": 306.0,
+    "torque_box_x": [
+      -701.0,
+      -654.0
+    ]
+  },
   "envelope": {
     "x_min": -780.0,
     "x_max": 780.0,
@@ -21,17 +79,23 @@
     "length_mm": 1560.0,
     "width_mm": 1200.0,
     "height_mm": 760.0,
+    "pod_top_mm": 275.0,
     "ground_clearance_mm": 85.0,
     "non_wheel_z_min_mm": 85.0,
     "stowed_fork_z_mm": [
       85.0,
-      135.0
+      147.0
     ],
-    "pickup_fork_z_mm": [
+    "pickup_single_fork_z_mm": [
       10.0,
-      60.0
+      72.0
     ],
-    "pickup_fork_tip_z_top_mm": 48.08,
+    "pickup_window_fork_z_mm": [
+      30.0,
+      92.0
+    ],
+    "pickup_fork_tip_single_z_top_mm": 62.06,
+    "pickup_fork_tip_window_z_top_mm": 82.06,
     "invalid_solids": [],
     "pass_ok": true
   },
@@ -46,24 +110,30 @@
       "length_mm": 1560.0,
       "width_mm": 1200.0,
       "height_mm": 760.0,
+      "pod_top_mm": 275.0,
       "ground_clearance_mm": 85.0,
       "non_wheel_z_min_mm": 85.0,
       "stowed_fork_z_mm": [
         85.0,
-        135.0
+        147.0
       ],
-      "pickup_fork_z_mm": [
+      "pickup_single_fork_z_mm": [
         10.0,
-        60.0
+        72.0
       ],
-      "pickup_fork_tip_z_top_mm": 48.08,
+      "pickup_window_fork_z_mm": [
+        30.0,
+        92.0
+      ],
+      "pickup_fork_tip_single_z_top_mm": 62.06,
+      "pickup_fork_tip_window_z_top_mm": 82.06,
       "invalid_solids": [],
       "pass_ok": true
     },
     "gate2_interference": {
       "interference_threshold_mm3": 0.001,
-      "total_pairs": 30628,
-      "aabb_overlap_candidates": 275,
+      "total_pairs": 56953,
+      "aabb_overlap_candidates": 623,
       "interference_count": 0,
       "interferences": [],
       "opt_200ah_interference_count": 0,
@@ -73,7 +143,7 @@
     "gate3_connectivity": {
       "contact_threshold_mm": 0.25,
       "connected_components": 1,
-      "main_component_size": 248,
+      "main_component_size": 338,
       "floating_parts_count": 0,
       "floating_parts": [],
       "detached_groups": [],
@@ -82,13 +152,22 @@
     "gate4_dynamic_kinematic": {
       "drop_tested_dz_mm": [
         -75.0,
+        -55.0,
         -37.5,
         0.0
       ],
       "drop_collisions": 0,
       "drop_details": [],
+      "pickup_single_z_mm": [
+        10.0,
+        72.0
+      ],
+      "pickup_window_z_mm": [
+        30.0,
+        92.0
+      ],
       "pickup_z_bottom_mm": 10.0,
-      "pickup_z_top_mm": 60.0,
+      "pickup_z_top_mm": 72.0,
       "ext_tested_mm": [
         0.0,
         300.0,
@@ -102,58 +181,85 @@
       "rail_block_support": {
         "L": {
           "rail_x_mm": [
-            -685.0,
-            680.0
+            -752.0,
+            758.0
           ],
-          "block_x_at_0_mm": [
-            -670.0,
-            -565.0
+          "rear_block_x0_mm": [
+            -732.0,
+            -672.0
           ],
-          "block_x_at_max_ext_mm": [
-            530.0,
-            635.0
+          "front_block_x0_mm": [
+            -522.0,
+            -462.0
           ],
-          "margin_rear_mm": 15.0,
-          "margin_front_mm": 45.0,
+          "block_span_mm": 270.0,
+          "block_pitch_mm": 210.0,
+          "front_block_x_max_ext_mm": [
+            678.0,
+            738.0
+          ],
+          "margin_rear_mm": 20.0,
+          "margin_front_mm": 20.0,
           "pass_ok": true
         },
         "R": {
           "rail_x_mm": [
-            -685.0,
-            680.0
+            -752.0,
+            758.0
           ],
-          "block_x_at_0_mm": [
-            -670.0,
-            -565.0
+          "rear_block_x0_mm": [
+            -732.0,
+            -672.0
           ],
-          "block_x_at_max_ext_mm": [
-            530.0,
-            635.0
+          "front_block_x0_mm": [
+            -522.0,
+            -462.0
           ],
-          "margin_rear_mm": 15.0,
-          "margin_front_mm": 45.0,
+          "block_span_mm": 270.0,
+          "block_pitch_mm": 210.0,
+          "front_block_x_max_ext_mm": [
+            678.0,
+            738.0
+          ],
+          "margin_rear_mm": 20.0,
+          "margin_front_mm": 20.0,
           "pass_ok": true
         }
       },
-      "lift_tested_rel_stowed_mm": [
-        0.0,
-        100.0,
-        225.0,
-        315.0,
-        390.0
+      "lift_tested_poses_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          100.0,
+          0.0,
+          0.0
+        ],
+        [
+          215.0,
+          100.0,
+          100.0
+        ],
+        [
+          329.79,
+          110.0,
+          218.0
+        ]
       ],
       "lift_collisions": 0,
       "lift_details": [],
-      "lifted_z_bottom_mm": 400.0,
-      "lifted_z_top_mm": 450.0,
+      "lifted_z_bottom_mm": 414.79,
+      "lifted_z_top_mm": 476.79,
       "window_travel_z_mm": [
-        310.0,
-        360.0
+        300.0,
+        362.0
       ],
-      "pod_top_z_mm": 285.0,
-      "t10_single_clearance_mm": 65.0,
-      "t10_window_clearance_mm": 40.0,
-      "scissor_stored_z_min_mm": 85.93,
+      "pod_top_z_mm": 275.0,
+      "t10_single_clearance_mm": 101.79,
+      "t10_window_clearance_mm": 76.79,
+      "scissor_stored_z_min_mm": 85.0,
       "steer_tested_deg": [
         0.0,
         -45.0,
@@ -164,9 +270,9 @@
       "steer_collisions": 0,
       "steer_details": [],
       "bump_tested_mm": [
-        -35.0,
+        -25.0,
         0.0,
-        35.0
+        25.0
       ],
       "bump_collisions": 0,
       "bump_details": [],
@@ -174,35 +280,36 @@
       "pass_ok": true
     },
     "gate5_stability_load": {
-      "steel_structure_kg": 538.34,
-      "aluminum_kg": 11.6,
-      "other_material_kg": 5.52,
-      "purchased_components_kg": 173.05,
-      "total_empty_kg": 728.51,
+      "steel_structure_kg": 573.0,
+      "aluminum_kg": 13.11,
+      "other_material_kg": 5.75,
+      "purchased_components_kg": 194.8,
+      "total_empty_kg": 786.66,
       "cg_empty_mm": [
-        -138.3,
-        10.0,
-        210.0
+        -151.7,
+        9.4,
+        201.3
       ],
-      "total_solid_volume_L": 129.435,
+      "total_solid_volume_L": 137.62,
       "payload_kg": 1500.0,
       "payload_x_center_mm": 110.0,
       "front_axle_x_mm": 410.0,
       "rear_axle_x_mm": -410.0,
       "wheelbase_mm": 820.0,
-      "track_mm": 864.0,
-      "empty_front_wheel_kg": 120.7,
-      "empty_rear_wheel_kg": 243.6,
-      "loaded_total_kg": 2228.51,
-      "loaded_cg_x_mm": 28.8,
-      "loaded_avg_wheel_kg": 557.1,
-      "loaded_front_wheel_kg": 596.3,
-      "loaded_rear_wheel_kg": 518.0,
-      "loaded_max_wheel_kg": 596.3,
+      "track_mm": 866.0,
+      "empty_front_wheel_kg": 123.9,
+      "empty_rear_wheel_kg": 269.4,
+      "loaded_total_kg": 2286.66,
+      "loaded_cg_x_mm": 20.0,
+      "loaded_avg_wheel_kg": 571.7,
+      "loaded_front_wheel_kg": 599.5,
+      "loaded_rear_wheel_kg": 543.8,
+      "loaded_max_wheel_kg": 599.5,
       "wheel_rating_kg": 1100.0,
-      "wheel_load_safety_factor": 1.84,
-      "empty_fork_extended_cg_x_mm": 60.8,
-      "empty_fork_extended_axle_margin_mm": 349.2,
+      "wheel_load_safety_factor": 1.83,
+      "empty_fork_mass_kg": 170.61,
+      "empty_fork_extended_cg_x_mm": 108.6,
+      "empty_fork_extended_axle_margin_mm": 301.4,
       "pass_ok": true
     },
     "gate6_optical_raycast": {
@@ -216,11 +323,11 @@
         -530.0,
         180.0
       ],
-      "lidar_2d_fl_open_deg": 257.5,
-      "lidar_2d_rr_open_deg": 263.75,
+      "lidar_2d_fl_open_deg": 257.0,
+      "lidar_2d_rr_open_deg": 263.25,
       "lidar_2d_blind_wedge_deg": 0.0,
-      "lidar_2d_overlap_per_side_deg": 80.62,
-      "lidar_2d_perim_100mm_blind_pct": 0.74,
+      "lidar_2d_overlap_per_side_deg": 80.12,
+      "lidar_2d_perim_100mm_blind_pct": 2.96,
       "lidar_2d_perim_150mm_blind_pct": 0.0,
       "lidar_2d_perim_250mm_blind_pct": 0.0,
       "lidar_2d_perim_300mm_blind_pct": 0.0,
@@ -229,8 +336,37 @@
         440.0,
         675.0
       ],
-      "xt32_horiz_open_pct": 91.11,
-      "xt32_32ch_open_pct": 82.72,
+      "xt32_horiz_open_pct": 90.97,
+      "xt32_32ch_open_pct": 83.43,
+      "xt32_loaded_cargo_box_mm": "1100x1100x1200 (X=-390..+710, |Y|<=550, Z=425..1625)",
+      "xt32_loaded_cargo_horiz_open_pct": 65.97,
+      "xt32_loaded_cargo_blocked_deg": 90.0,
+      "xt32_loaded_cargo_blind_sector_deg": [
+        0.0,
+        359.5
+      ],
+      "xt32_loaded_mitigation": "적재 주행 시 전방 120°×90° 매립 E1R + 대각 2D(FL/RR) + 후·좌측 XT32 개방 섹터 다중 센서 융합으로 사각 해소",
+      "safety_plc_muting_spec": {
+        "controller": "SICK Flexi Soft (FX3-CPU3 + XTIO x2, ISO 13849-1 PLd / SIL2)",
+        "trigger_states": [
+          "fork_out",
+          "lift_up",
+          "sync_in",
+          "lift_down",
+          "sync_out"
+        ],
+        "speed_interlock_max_mps": 0.3,
+        "muted_sensor": "lidar_2d_FL (+705, +530, Z=180.0)",
+        "muted_corridor_world_mm": {
+          "x_min": 780.0,
+          "y_abs_max": 350.0,
+          "az_world_deg": [
+            -62.0,
+            -15.0
+          ]
+        },
+        "outer_perimeter_active": "Outer lateral/rear protective fields (|Y|>350 & RR 2D) remain 100% ACTIVE during muting"
+      },
       "e1r_center_mm": [
         712.0,
         0.0,
@@ -240,7 +376,7 @@
       "e1r_armor_recess_floor_mm": 28.79,
       "e1r_top_up_deg": 72.25,
       "e1r_dn_deg": 63.25,
-      "e1r_hfov_half_deg": 64.0,
+      "e1r_hfov_half_deg": 63.0,
       "e1r_el55_across_60_blocked_pct": 0.0,
       "e1r_dn35_across_60_blocked_pct": 0.0,
       "e1r_full_120x90_blocked_pct": 0.0,
@@ -261,112 +397,317 @@
     "gate7_glb_precision": {
       "tessellate_tol_mm": 0.2,
       "max_bbox_err_mm": 0.1367,
-      "watertight_count": 248,
-      "total_meshes": 248,
+      "watertight_count": 338,
+      "total_meshes": 338,
       "watertight_ratio": 1.0,
-      "triangles": 49234,
+      "triangles": 117202,
       "pass_ok": true
     },
     "gate8_structural_t10": {
       "rated_payload_kg": 1500.0,
       "rated_payload_n": 14715.0,
-      "scissor_link_L_mm": 520.0,
-      "scissor_bar_section_mm": "16x20 (+Ø26 forged pivot boss)",
+      "scissor_tiers": 2,
+      "scissor_link_L_mm": 305.0,
+      "scissor_folded_footprint_mm": 302.03,
+      "t11_window_width_mm": 355.0,
+      "t11_window_docking_margin_mm": 26.48,
+      "scissor_bar_section_mm": "9.5x19->11.5 (+Ø22 forged boss)",
       "scissor_material": "SCM440 HRC40 (Sy=850 MPa)",
-      "scissor_collapsed_deg": 2.0,
-      "scissor_collapsed_h_mm": 38.14,
-      "scissor_max_deg": 48.0,
-      "scissor_pure_stroke_mm": 368.29,
-      "cam_wedge_assist_mm": 21.71,
-      "total_lift_stroke_mm": 390.0,
-      "z_fork_top_max_mm": 450.0,
-      "pod_top_mm": 285.0,
-      "t10_single_pallet_bottom_mm": 350.0,
-      "t10_single_clearance_mm": 65.0,
+      "scissor_collapsed_deg": 8.0,
+      "scissor_collapsed_h_mm": 53.84,
+      "scissor_max_deg": 55.0,
+      "scissor_raw_2tier_stroke_mm": 414.79,
+      "lost_motion_single_mm": 10.0,
+      "lost_motion_window_mm": 30.0,
+      "net_lift_single_mm": 404.79,
+      "net_lift_window_mm": 384.79,
+      "fake_cam_wedge_mm": 0.0,
+      "z_fork_top_max_mm": 476.79,
+      "pod_top_mm": 275.0,
+      "t10_single_pallet_bottom_mm": 376.79,
+      "t10_single_clearance_mm": 101.79,
       "t10_single_pass": true,
-      "t10_window_pallet_bottom_mm": 325.0,
-      "t10_window_clearance_mm": 40.0,
+      "t10_window_pallet_bottom_mm": 351.79,
+      "t10_window_clearance_mm": 76.79,
       "t10_window_pass": true,
       "window_travel_fork_z_mm": [
-        310.0,
-        360.0
+        300.0,
+        362.0
       ],
-      "work_angle_deg": 12.0,
-      "bar_axial_force_n": 8655.7,
-      "bar_mid_moment_nmm": 233893.4,
-      "bar_axial_stress_mpa": 27.05,
-      "bar_bending_stress_mpa": 219.28,
-      "bar_combined_stress_mpa": 246.32,
-      "bar_yield_sf": 3.45,
-      "bar_boss_net_stress_mpa": 223.27,
-      "bar_boss_yield_sf": 3.81,
-      "bar_euler_buckling_half_sf": 23.61,
-      "bar_johnson_buckling_half_sf": 20.97,
-      "bar_euler_buckling_full_sf": 5.9,
-      "bar_combined_interaction_sf": 3.27,
+      "window_travel_top_deck_gap_mm": 38.0,
+      "bar_axial_force_n": 6500.0,
+      "bar_mid_moment_nmm": 138887.4,
+      "bar_axial_stress_mpa": 36.01,
+      "bar_bending_stress_mpa": 242.99,
+      "bar_combined_stress_mpa": 279.0,
+      "bar_yield_sf": 3.05,
+      "bar_boss_net_stress_mpa": 284.77,
+      "bar_boss_yield_sf": 2.98,
+      "bar_euler_buckling_half_sf": 18.17,
+      "bar_johnson_buckling_half_sf": 15.94,
+      "bar_euler_buckling_full_sf": 4.54,
+      "bar_combined_interaction_sf": 2.87,
       "bar_pass": true,
-      "pivot_pin_d_mm": 16.0,
-      "pivot_pin_shear_force_n": 8653.6,
-      "pivot_pin_double_shear_mpa": 21.52,
-      "pivot_pin_double_shear_sf": 22.8,
-      "pivot_pin_single_shear_mpa": 43.04,
-      "pivot_pin_single_shear_sf": 11.4,
-      "pivot_pin_bearing_mpa": 33.8,
-      "pivot_pin_bearing_sf": 25.15,
+      "pivot_pin_d_mm": 12.0,
+      "pivot_pin_shear_force_n": 6500.0,
+      "pivot_pin_double_shear_mpa": 28.74,
+      "pivot_pin_double_shear_sf": 17.08,
+      "pivot_pin_single_shear_mpa": 57.47,
+      "pivot_pin_single_shear_sf": 8.54,
+      "pivot_pin_bearing_mpa": 57.02,
+      "pivot_pin_bearing_sf": 14.91,
       "pin_pass": true,
-      "ballscrew_spec": "Ø26 C7 (root Ø22, C0a=96 kN)",
-      "ballscrew_axial_thrust_n": 34614.3,
-      "ballscrew_nut_sf": 2.77,
-      "ballscrew_shaft_stress_mpa": 91.06,
-      "ballscrew_shaft_yield_sf": 9.33,
-      "ballscrew_buckling_sf": 10.7,
-      "tierod_spec": "Ø20 SCM440",
-      "tierod_stress_mpa": 55.09,
-      "tierod_sf": 15.43,
-      "ballscrew_pass": true,
+      "eha_spec": "48V 1.5 kW EHA + 4x Ø40 (OD 46) 250 bar micro cylinders + progressive roller-cam (S=160 mm)",
+      "hyd_cyl_avail_kn": 31.42,
+      "hyd_cyl_req_kn": 10.6,
+      "hyd_cyl_thrust_sf": 2.96,
+      "hyd_cyl_hoop_mpa": 166.67,
+      "hyd_cyl_hoop_sf": 5.1,
+      "hyd_sync_strap_mpa": 66.23,
+      "hyd_sync_strap_sf": 12.83,
+      "hyd_pass": true,
+      "loadcell_type": "IP68 Pancake Compression Ø50x20 mm + 4x 0.8t SUS301 Flexure + 4x M10 Captive Bolt",
       "loadcell_count": 4,
       "loadcell_each_kg": 1000.0,
       "loadcell_combined_kg": 4000.0,
-      "loadcell_wheelbase_mm": 595.0,
+      "loadcell_x_mm": [
+        -380.0,
+        590.0
+      ],
+      "loadcell_wheelbase_mm": 970.0,
       "loadcell_capacity_sf": 2.67,
       "loadcell_pass": true,
+      "pass_ok": true
+    },
+    "gate9_real_brep_kinematics": {
+      "gate9a_real_pallet_brep": {
+        "stages": {
+          "stage1_fork_out_single": {
+            "fork_z_mm": [
+              10.0,
+              72.0
+            ],
+            "ext_mm": 1200.0,
+            "pallet_x_ctr": 1360.0,
+            "collisions": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage1_fork_out_window": {
+            "fork_z_mm": [
+              30.0,
+              92.0
+            ],
+            "ext_mm": 1200.0,
+            "pallet_x_ctr": 1360.0,
+            "collisions": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage2_lift_up_window": {
+            "ext_mm": 1200.0,
+            "pallet_x_ctr": 1360.0,
+            "pallet_bot_z_mm": 351.79,
+            "pod_top_clearance_mm": 76.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage3_sync_in_window_ext600": {
+            "ext_mm": 600.0,
+            "pallet_x_ctr": 760.0,
+            "pallet_bot_z_mm": 351.79,
+            "pod_top_clearance_mm": 76.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage3_sync_in_window_ext0": {
+            "ext_mm": 0.0,
+            "pallet_x_ctr": 160.0,
+            "pallet_bot_z_mm": 351.79,
+            "pod_top_clearance_mm": 76.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage2_lift_up_single": {
+            "ext_mm": 1200.0,
+            "pallet_x_ctr": 1360.0,
+            "pallet_bot_z_mm": 376.79,
+            "pod_top_clearance_mm": 101.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage3_sync_in_single_ext600": {
+            "ext_mm": 600.0,
+            "pallet_x_ctr": 760.0,
+            "pallet_bot_z_mm": 376.79,
+            "pod_top_clearance_mm": 101.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage3_sync_in_single_ext0": {
+            "ext_mm": 0.0,
+            "pallet_x_ctr": 160.0,
+            "pallet_bot_z_mm": 376.79,
+            "pod_top_clearance_mm": 101.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage4_lift_down_single": {
+            "fork_z_mm": [
+              85.0,
+              147.0
+            ],
+            "pallet_bot_z_mm": 275.0,
+            "collisions": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage4_lift_down_window_spine": {
+            "fork_z_mm": [
+              300.0,
+              362.0
+            ],
+            "pallet_bot_board_z_mm": [
+              275.0,
+              300.0
+            ],
+            "pallet_upper_deck_z_mm": [
+              400.0,
+              425.0
+            ],
+            "weigh_shoe_to_upper_deck_gap_mm": 38.0,
+            "skid_z_min_mm": 300.0,
+            "loadcell_load_kg": 0.0,
+            "collisions": 0,
+            "details": [],
+            "pass_ok": true
+          }
+        },
+        "pass_ok": true
+      },
+      "gate9b_rail_mast_guide": {
+        "hgr25_rail_support_pass": true,
+        "hgr25_pitch_moment_empty_nm": 374.4,
+        "hgr25_mp0_rated_nm": 1850.0,
+        "hgr25_pitch_sf": 4.94,
+        "heel_mast_stowed_z_mm": [
+          87.0,
+          274.0
+        ],
+        "heel_mast_deployed_max_z_mm": 490.0,
+        "heel_mast_tower_clearance_mm": 13.0,
+        "overlap_s0_s1_at_max_mm": 76.0,
+        "overlap_s1_s2_at_max_mm": 76.0,
+        "overlap_s2_heel_at_max_mm": 75.21,
+        "overlap_s0_heel_at_drop_mm": 28.0,
+        "heel_separation_mm": 0.0,
+        "lockpin_window_z_mm": 300.0,
+        "pass_ok": true
+      },
+      "gate9c_vert_susp_steer_60pose": {
+        "suspension_type": "4x Ø25 SUJ2 vertical hardened shafts + LM25 bushings + 4x coaxial coil springs (1:1 ratio)",
+        "travel_mm": [
+          -25.0,
+          25.0
+        ],
+        "camber_tilt_deg": 0.0,
+        "x_scrub_mm": 0.0,
+        "motion_ratio": 1.0,
+        "combined_poses_tested": 60,
+        "combined_brep_collisions": 0,
+        "collision_details": [],
+        "avg_spring_load_kgf": 142.9,
+        "max_spring_load_kgf": 149.9,
+        "spring_limit_kgf": 200.0,
+        "pass_ok": true
+      },
+      "gate9d_loadcell_hat_eha_torquebox": {
+        "loadcell_x_mm": [
+          -380.0,
+          590.0
+        ],
+        "loadcell_wheelbase_mm": 970.0,
+        "loadcell_midpoint_mm": 105.0,
+        "nominal_payload_x_mm": 110.0,
+        "nominal_rear_share_pct": 49.48,
+        "nominal_front_share_pct": 50.52,
+        "eccentric_150mm_min_share_pct": 34.02,
+        "loadcell_symmetry_pass": true,
+        "hat_shoe_I_yy_mm4": 609337.9,
+        "hat_shoe_udl_deflection_mm": 0.7,
+        "overload_stopper_gap_mm": 1.5,
+        "hat_deflection_pct_of_stopper": 46.7,
+        "hat_pass": true,
+        "eha_cyl_avail_kn": 31.42,
+        "eha_cyl_req_kn": 10.6,
+        "eha_cyl_sf": 2.96,
+        "eha_pass": true,
+        "torque_box_x_mm": [
+          -701.0,
+          -654.0
+        ],
+        "torque_box_shear_full_mpa": 10.38,
+        "torque_box_shear_neck_mpa": 15.87,
+        "torque_box_pod_tip_twist_mm": 1.52,
+        "torque_box_pass": true,
+        "pass_ok": true
+      },
       "pass_ok": true
     }
   },
   "mass_stability": {
-    "steel_structure_kg": 538.34,
-    "aluminum_kg": 11.6,
-    "other_material_kg": 5.52,
-    "purchased_components_kg": 173.05,
-    "total_empty_kg": 728.51,
+    "steel_structure_kg": 573.0,
+    "aluminum_kg": 13.11,
+    "other_material_kg": 5.75,
+    "purchased_components_kg": 194.8,
+    "total_empty_kg": 786.66,
     "cg_empty_mm": [
-      -138.3,
-      10.0,
-      210.0
+      -151.7,
+      9.4,
+      201.3
     ],
-    "total_solid_volume_L": 129.435,
+    "total_solid_volume_L": 137.62,
     "payload_kg": 1500.0,
     "payload_x_center_mm": 110.0,
     "front_axle_x_mm": 410.0,
     "rear_axle_x_mm": -410.0,
     "wheelbase_mm": 820.0,
-    "track_mm": 864.0,
-    "empty_front_wheel_kg": 120.7,
-    "empty_rear_wheel_kg": 243.6,
-    "loaded_total_kg": 2228.51,
-    "loaded_cg_x_mm": 28.8,
-    "loaded_avg_wheel_kg": 557.1,
-    "loaded_front_wheel_kg": 596.3,
-    "loaded_rear_wheel_kg": 518.0,
-    "loaded_max_wheel_kg": 596.3,
+    "track_mm": 866.0,
+    "empty_front_wheel_kg": 123.9,
+    "empty_rear_wheel_kg": 269.4,
+    "loaded_total_kg": 2286.66,
+    "loaded_cg_x_mm": 20.0,
+    "loaded_avg_wheel_kg": 571.7,
+    "loaded_front_wheel_kg": 599.5,
+    "loaded_rear_wheel_kg": 543.8,
+    "loaded_max_wheel_kg": 599.5,
     "wheel_rating_kg": 1100.0,
-    "wheel_load_safety_factor": 1.84,
-    "empty_fork_extended_cg_x_mm": 60.8,
-    "empty_fork_extended_axle_margin_mm": 349.2
+    "wheel_load_safety_factor": 1.83,
+    "empty_fork_mass_kg": 170.61,
+    "empty_fork_extended_cg_x_mm": 108.6,
+    "empty_fork_extended_axle_margin_mm": 301.4
   },
   "step_reimport": {
-    "solids": 248,
-    "expected_solids": 248,
+    "solids": 338,
+    "expected_solids": 338,
     "invalid_solids": 0,
     "length_mm": 1560.0,
     "width_mm": 1200.0,

@@ -1,66 +1,124 @@
 {
-  "rev": "Rev A.4",
-  "revision": "Rev A.4",
+  "rev": "Rev A.5",
+  "revision": "Rev A.5",
   "model": "HD-30C-R",
-  "model_full": "HD-30C-R 1.5t Retractable Reach Counterbalanced 4WD/4WS Weighing Fork AMR",
-  "strategy": "공통 HD-30C-R Rev A.4 지게차급 고강성 인입식 리치 U자 일체형 장갑 프레임 1벌 공유 (140×70×12t 마스트+16t 거셋·460 mm 리치 캐리어 HGH35HA×8·404 mm 수직 HGR35 캐리지 HGH35HA×4·Ø65×28 콤비롤러 dz=320·28t 백플레이트·120×40 단조 포크·440 mm 스트로크 T10 +50 mm -> 수납 1,960×1,200×995 mm 돌출 0 + 포드 상면 Z=310 무충격 안착 + 장갑 E1R 25.5 mm 매립 + 855 mm 폐쇄 타워·Ø24×4t 롤케이지·995 mm 지붕 XT32 + 12축 서보) + 센서/배터리 실물 교체 및 블랭킹 커버 마감",
+  "model_full": "HD-30C-R 1.5t Retractable Reach Counterbalanced 4WD/4WS Weighing Fork AMR (2-Stage FFL Duplex + iForks)",
+  "elevator_spec": "적재 주행 시 4t 이상 화물 승강기 전용 / 3t 표준 승강기는 공차 단독 탑승",
+  "strategy": "공통 HD-30C-R Rev A.5 2단 풀-프리리프트 듀플렉스 리치 프레임 1벌 공유 (외측 144×70×12t Z=850 + 내측 수납 Z=830 + 2:1 BL534 체인 + 총 행정 500 mm Z_fork_top=50..550 -> pod_top=350 대비 통판 양면 +75 mm·단면 +100 mm · stow_double Z=395..440 + 전동 락핀 + 고마찰 패드 + 팝업 스토퍼 · Option A iForks 포크 내장 4점 로드셀 축인장 0 N · 수직 LM30 + ISO 10243 스프링 ±25 mm + Ø250×100 Vulkollan 95A + Ø220 선회베어링 직결치합 피니언 0 mm · 리치 1,150 mm 힐 +950 범퍼 +20 mm 클리어 · HTD-8M 벨트 + Igus E2.26 · 축거 1,455 mm · 수납 2,040×1,200×995 mm)",
   "chassis_envelope_mm": [
-    1960.0,
+    2040.0,
     1200.0,
     995.0
   ],
   "stowed_envelope_mm": [
-    1960.0,
+    2040.0,
     1200.0,
     995.0
   ],
   "total_envelope_mm": [
-    1960.0,
+    2040.0,
     1200.0,
     995.0
   ],
   "extended_envelope_mm": [
-    3040.0,
+    3160.0,
     1200.0,
     995.0
   ],
   "glb_coord_mapping": "X_glb = Y_cad / 1000, Y_glb = Z_cad / 1000, Z_glb = X_cad / 1000 (Three.js Y-up, det=+1)",
+  "kinematics_3d_params": {
+    "pod_top": 350.0,
+    "reach_max": 1150.0,
+    "fork_h": 45.0,
+    "fork_beam_h": 33.0,
+    "fork_cover_h": 10.0,
+    "fork_air_gap": 2.0,
+    "duplex_outer_z": [
+      85.0,
+      850.0
+    ],
+    "duplex_inner_stowed_z": [
+      85.0,
+      830.0
+    ],
+    "duplex_inner_stroke": 250.0,
+    "duplex_inner_ffl_stow_double": 40.0,
+    "duplex_inner_ffl_max_lift": 150.0,
+    "carriage_h": 360.0,
+    "carriage_shank_offset": 95.0,
+    "carriage_stroke": 350.0,
+    "total_lift_stroke": 500.0,
+    "z_fork_min": [
+      5.0,
+      50.0
+    ],
+    "z_fork_double_entry": [
+      35.0,
+      80.0
+    ],
+    "z_fork_stow_single": [
+      105.0,
+      150.0
+    ],
+    "stow_double_z": [
+      395.0,
+      440.0
+    ],
+    "z_fork_max": [
+      505.0,
+      550.0
+    ],
+    "x_heel_stow": -200.0,
+    "x_heel_ext": 950.0,
+    "x_tip_stow": 900.0,
+    "x_tip_ext": 2050.0,
+    "x_bumper_front": 930.0,
+    "x_bumper_rear": -1110.0,
+    "wheel_travel": 25.0,
+    "wheel_dia": 250.0,
+    "wheel_width": 100.0,
+    "wheelbase_mm": 1455.0,
+    "track_mm": 836.0,
+    "x_wf": 645.0,
+    "x_wr": -810.0,
+    "y_w": 418.0
+  },
   "all_variants_pass": true,
-  "total_variants_elapsed_s": 49.99,
+  "total_variants_elapsed_s": 102.19,
   "master_gates": {
     "envelope": {
-      "x_min": -1030.0,
+      "x_min": -1110.0,
       "x_max": 930.0,
       "y_min": -600.0,
       "y_max": 600.0,
       "z_min": 0.0,
       "z_max": 995.0,
-      "chassis_length_mm": 1960.0,
+      "chassis_length_mm": 2040.0,
       "chassis_width_mm": 1200.0,
-      "total_length_mm": 1960.0,
-      "stowed_length_mm": 1960.0,
-      "extended_length_mm": 3040.0,
+      "total_length_mm": 2040.0,
+      "stowed_length_mm": 2040.0,
+      "extended_length_mm": 3160.0,
       "width_mm": 1200.0,
       "height_mm": 995.0,
       "ground_clearance_mm": 85.0,
       "fork_stowed_x_range_mm": [
-        -232.0,
-        910.0
+        -250.0,
+        900.0
       ],
       "fork_stowed_protrusion_mm": 0.0,
       "fork_stowed_z_bottom_mm": 105.0,
-      "fork_stowed_z_top_mm": 145.0,
+      "fork_stowed_z_top_mm": 150.0,
       "fork_z_bottom_mm": 5.0,
-      "fork_z_top_mm": 45.0,
-      "fork_tip_z_top_mm": 21.448,
-      "pod_deck_top_z_mm": 310.0,
+      "fork_z_top_mm": 50.0,
+      "fork_tip_z_top_mm": 21.207,
+      "pod_deck_top_z_mm": 350.0,
       "invalid_solids": [],
       "pass_ok": true
     },
     "interference": {
       "interference_threshold_mm3": 0.001,
-      "total_pairs": 21945,
-      "aabb_overlap_candidates": 178,
+      "total_pairs": 32640,
+      "aabb_overlap_candidates": 256,
       "interference_count": 0,
       "interferences": [],
       "opt_200ah_interference_count": 0,
@@ -70,7 +128,7 @@
     "connectivity": {
       "contact_threshold_mm": 0.25,
       "connected_components": 1,
-      "main_component_size": 210,
+      "main_component_size": 256,
       "floating_parts_count": 0,
       "floating_parts": [],
       "detached_groups": [],
@@ -79,48 +137,88 @@
     "dynamic_kinematic": {
       "reach_tested_mm": [
         0.0,
-        275.0,
-        550.0,
-        825.0,
-        1100.0
+        287.5,
+        575.0,
+        862.5,
+        1150.0
       ],
       "reach_collisions": 0,
       "reach_details": [],
-      "lift_tested_mm": [
-        -100.0,
-        -80.0,
-        0.0,
-        140.0,
-        240.0,
-        340.0
+      "lift_tested_poses": [
+        {
+          "pose": "floor_single_entry",
+          "dz_inner": 0.0,
+          "dz_fork_delta": -100.0
+        },
+        {
+          "pose": "floor_double_entry",
+          "dz_inner": 0.0,
+          "dz_fork_delta": -70.0
+        },
+        {
+          "pose": "single_weigh_hover",
+          "dz_inner": 0.0,
+          "dz_fork_delta": -30.0
+        },
+        {
+          "pose": "stow_single",
+          "dz_inner": 0.0,
+          "dz_fork_delta": 0.0
+        },
+        {
+          "pose": "stow_double",
+          "dz_inner": 40.0,
+          "dz_fork_delta": 290.0
+        },
+        {
+          "pose": "max_lift_ffl",
+          "dz_inner": 150.0,
+          "dz_fork_delta": 400.0
+        },
+        {
+          "pose": "max_lift_50_50",
+          "dz_inner": 250.0,
+          "dz_fork_delta": 400.0
+        }
       ],
       "lift_collisions": 0,
       "lift_details": [],
       "combo_tested": [
         {
-          "pose": "ext_floor_pickup",
-          "dx_mm": 1100.0,
-          "dz_mm": -100.0
+          "pose": "ext_single_entry",
+          "dx_mm": 1150.0,
+          "dz_inner": 0.0,
+          "dz_fork_delta": -100.0
+        },
+        {
+          "pose": "ext_double_entry",
+          "dx_mm": 1150.0,
+          "dz_inner": 0.0,
+          "dz_fork_delta": -70.0
         },
         {
           "pose": "ext_weigh_hover",
-          "dx_mm": 1100.0,
-          "dz_mm": -80.0
+          "dx_mm": 1150.0,
+          "dz_inner": 0.0,
+          "dz_fork_delta": -30.0
         },
         {
-          "pose": "ext_double_deck_lift",
-          "dx_mm": 1100.0,
-          "dz_mm": 340.0
+          "pose": "ext_max_lift_ffl",
+          "dx_mm": 1150.0,
+          "dz_inner": 150.0,
+          "dz_fork_delta": 400.0
         },
         {
           "pose": "mid_retract_deck",
-          "dx_mm": 550.0,
-          "dz_mm": 340.0
+          "dx_mm": 575.0,
+          "dz_inner": 150.0,
+          "dz_fork_delta": 400.0
         },
         {
-          "pose": "ext_max_lift",
-          "dx_mm": 1100.0,
-          "dz_mm": 340.0
+          "pose": "ext_max_lift_50_50",
+          "dx_mm": 1150.0,
+          "dz_inner": 250.0,
+          "dz_fork_delta": 400.0
         }
       ],
       "combo_collisions": 0,
@@ -135,9 +233,9 @@
       "steer_collisions": 0,
       "steer_details": [],
       "bump_tested_mm": [
-        -35.0,
+        -25.0,
         0.0,
-        35.0
+        25.0
       ],
       "bump_collisions": 0,
       "bump_details": [],
@@ -145,85 +243,99 @@
       "pass_ok": true
     },
     "stability_load": {
-      "steel_structure_kg": 819.9,
-      "cast_iron_cw_kg": 1094.61,
-      "aluminum_kg": 10.63,
-      "other_material_kg": 6.07,
-      "purchased_components_kg": 244.42,
-      "reach_moving_assembly_kg": 359.38,
-      "total_empty_kg": 2175.63,
+      "steel_structure_kg": 927.74,
+      "cast_iron_cw_kg": 945.65,
+      "aluminum_kg": 11.57,
+      "other_material_kg": 9.34,
+      "purchased_components_kg": 298.12,
+      "reach_moving_assembly_kg": 366.61,
+      "total_empty_kg": 2192.42,
       "cg_empty_mm": [
-        -555.4,
-        45.8,
-        349.1
+        -544.3,
+        3.32,
+        329.18
       ],
       "cg_empty_extended_mm": [
-        -373.7,
-        45.8,
-        349.1
+        -352.0,
+        3.32,
+        329.18
       ],
-      "total_solid_volume_L": 335.195,
+      "cg_y_abs_mm": 3.32,
+      "total_solid_volume_L": 346.312,
       "payload_kg": 1500.0,
       "payload_lc_mm": 550.0,
-      "payload_x_mm": 1460.0,
-      "front_axle_x_mm": 620.0,
-      "rear_axle_x_mm": -660.0,
-      "wheelbase_mm": 1280.0,
-      "track_mm": 844.0,
-      "stabilizing_moment_kgm": 2161.9,
-      "overturning_moment_kgm": 1260.0,
-      "iso22915_tipping_sf": 1.716,
-      "sf_extended": 1.716,
-      "empty_front_wheel_kg": 88.9,
-      "empty_rear_wheel_kg": 998.9,
-      "loaded_total_kg": 3675.63,
-      "loaded_cg_x_mm": 374.6,
-      "loaded_front_wheel_kg": 1485.5,
-      "loaded_rear_wheel_kg": 352.3,
-      "stowed_pallet_x_mm": 360.0,
-      "stowed_loaded_cg_x_mm": -181.8,
-      "stowed_loaded_front_wheel_kg": 686.6,
-      "stowed_loaded_rear_wheel_kg": 1151.3,
-      "stowed_travel_brake_06g_sf": 2.832,
-      "wheel_rating_kg": 1750.0,
+      "payload_x_mm": 1500.0,
+      "front_axle_x_mm": 645.0,
+      "rear_axle_x_mm": -810.0,
+      "wheelbase_mm": 1455.0,
+      "track_mm": 836.0,
+      "empty_rear_arm_mm": 265.7,
+      "empty_front_axle_pct": 18.26,
+      "sf_rear_empty_06g": 1.345,
+      "stabilizing_moment_kgm": 2185.8,
+      "overturning_moment_kgm": 1282.5,
+      "iso22915_tipping_sf": 1.704,
+      "sf_extended": 1.704,
+      "sf_fwd_ext_03g": 1.268,
+      "empty_front_wheel_kg": 200.2,
+      "empty_rear_wheel_kg": 896.0,
+      "loaded_total_kg": 3692.42,
+      "loaded_cg_x_mm": 400.4,
+      "loaded_front_wheel_kg": 1535.8,
+      "loaded_front_wheel_fl_kg": 1543.0,
+      "loaded_front_wheel_fr_kg": 1528.5,
+      "worst_single_wheel_kg": 1543.0,
+      "loaded_rear_wheel_kg": 310.4,
+      "stowed_pallet_x_mm": 350.0,
+      "stowed_loaded_cg_x_mm": -181.0,
+      "stowed_loaded_front_wheel_kg": 798.1,
+      "stowed_loaded_rear_wheel_kg": 1048.1,
+      "stowed_travel_brake_06g_sf": 2.894,
+      "wheel_rating_kg": 2000.0,
+      "wheel_rating_4ws_derated_kg": 1600.0,
+      "elevator_spec": "적재 주행 시 4t 이상 화물 승강기 전용 / 3t 표준 승강기는 공차 단독 탑승",
       "pass_ok": true
     },
     "optical_raycast": {
       "lidar_2d_fl_center_mm": [
-        855.0,
-        530.0,
+        865.0,
+        534.0,
         180.0
       ],
       "lidar_2d_rr_center_mm": [
-        -955.0,
-        -530.0,
+        -1042.0,
+        -534.0,
         180.0
       ],
-      "lidar_2d_fl_open_deg": 263.75,
-      "lidar_2d_rr_open_deg": 265.25,
+      "lidar_2d_fl_open_deg": 264.0,
+      "lidar_2d_rr_open_deg": 264.25,
       "lidar_2d_blind_wedge_deg": 0.0,
-      "lidar_2d_overlap_per_side_deg": 84.5,
-      "lidar_2d_perim_100mm_blind_pct": 3.33,
+      "lidar_2d_overlap_per_side_deg": 84.12,
+      "lidar_2d_perim_100mm_blind_pct": 8.52,
       "lidar_2d_perim_150mm_blind_pct": 0.0,
       "lidar_2d_perim_250mm_blind_pct": 0.0,
       "lidar_2d_perim_300mm_blind_pct": 0.0,
+      "fl_2d_reach_safety_field_note": "리치 전개(reach>0) 시 포크/마스트가 중앙 전방 구간에 진입하므로 SICK Flexi Soft 안전 필드 셋(크립/도킹 존) 동적 스위칭 필수 적용",
       "xt32_center_mm": [
-        -845.0,
+        -905.0,
         435.0,
         925.0
       ],
-      "xt32_horiz_open_pct": 92.78,
-      "xt32_32ch_open_pct": 76.44,
+      "xt32_horiz_open_pct": 92.22,
+      "xt32_32ch_open_pct": 74.64,
       "xt32_above_mast_mm": 75.0,
+      "xt32_loaded_800mm_cargo_horiz_open_pct": 76.53,
+      "xt32_loaded_800mm_cargo_occluded_deg": 56.5,
+      "xt32_loaded_occlusion_note": "H=800 mm 파레트 화물 적재(Z=350..1,150) 시 XT32 수평 전방 섹터 약 56.5° 차폐 -> 우전방 E1R(Z=242, 파레트 하부 가림 0%) + 대각 2D로 전방 장애물 완전 보완",
       "e1r_center_mm": [
         868.0,
-        -422.0,
-        232.0
+        -418.0,
+        242.0
       ],
       "e1r_hood_recess_mm": 25.5,
       "e1r_hood_z_range_mm": [
         191.0,
-        302.0
+        342.0
       ],
       "e1r_vert_35_45_blocked_pct": 0.0,
       "e1r_horiz_60_blocked_pct": 0.0,
@@ -231,7 +343,7 @@
       "e1r_dn35_across_60_blocked_pct": 0.0,
       "e1r_full_grid_60x_m35_p45_blocked_pct": 0.0,
       "qr_center_mm": [
-        -790.0,
+        -860.0,
         0.0,
         140.0
       ],
@@ -246,18 +358,18 @@
     },
     "glb_precision": {
       "tessellate_tol_mm": 0.2,
-      "max_bbox_err_mm": 0.1492,
-      "watertight_count": 210,
-      "total_meshes": 210,
+      "max_bbox_err_mm": 0.1554,
+      "watertight_count": 256,
+      "total_meshes": 256,
       "watertight_ratio": 1.0,
-      "triangles": 44640,
+      "triangles": 50378,
       "pass_ok": true
     },
     "step_reimport": {
-      "solids": 210,
-      "expected_solids": 210,
+      "solids": 256,
+      "expected_solids": 256,
       "invalid_solids": 0,
-      "length_mm": 1960.0,
+      "length_mm": 2040.0,
       "width_mm": 1200.0,
       "height_mm": 995.0,
       "pass_ok": true
@@ -266,107 +378,315 @@
       "load_case": {
         "payload_kg": 1500.0,
         "lc_mm": 550.0,
-        "x_heel_mm": -190.0,
-        "x_load_mm": 360.0
+        "x_heel_mm": -200.0,
+        "x_load_mm": 350.0
       },
       "forged_fork_blade": {
         "width_mm": 120.0,
-        "thickness_mm": 40.0,
+        "structural_beam_h_mm": 33.0,
+        "weigh_cover_h_mm": 10.0,
+        "total_thickness_mm": 45.0,
+        "thickness_mm": 45.0,
         "usable_length_mm": 1100.0,
-        "I_mm4": 640000.0,
-        "S_mm3": 32000.0,
-        "bending_stress_mpa": 126.46,
+        "I_mm4": 359370.0,
+        "S_mm3": 21780.0,
+        "bending_stress_mpa": 185.8,
         "yield_mpa": 750.0,
-        "sf": 5.93,
-        "tip_deflection_mm": 7.59,
+        "sf": 4.04,
+        "tip_deflection_mm": 13.52,
         "pass_ok": true
       },
-      "weighing_backplate": {
-        "thickness_mm": 28.0,
-        "width_mm": 408.0,
-        "height_mm": 439.0,
-        "side_web_width_mm": 148.0,
-        "transfer_arm_mm": 71.0,
-        "bending_stress_mpa": 54.41,
-        "yield_mpa": 325.0,
-        "sf": 5.97,
-        "pass_ok": true
-      },
-      "pitch_combi_rollers": {
-        "diameter_mm": 65.0,
-        "width_mm": 28.0,
-        "dz_span_mm": 324.0,
-        "load_kn": 14.82,
-        "C0_kn": 65.0,
-        "C_kn": 42.0,
-        "sf_static": 4.39,
-        "sf_dyn": 2.83,
+      "iforks_embedded_loadcells": {
+        "architecture": "Option A: iForks Fork-Embedded 4-Point Shear/Compression Load Cells (Zero Combi-Roller)",
+        "cells_count": 4,
+        "cell_rating_kg": 1000.0,
+        "combined_rating_kg": 4000.0,
+        "sf": 2.67,
+        "wheelbase_mm": 740.0,
+        "overload_stop_gap_mm": 1.2,
+        "pitch_axial_tension_N": 0.0,
+        "combi_roller_friction_err_kg": 0.0,
         "pass_ok": true
       },
       "vertical_mast_carriage": {
-        "height_mm": 408.0,
+        "height_mm": 360.0,
+        "plate_thickness_mm": 28.0,
+        "plate_bending_stress_mpa": 98.3,
+        "plate_sf": 3.31,
         "rail_width_mm": 34.0,
         "block_length_mm": [
           138.0,
           138.0
         ],
-        "block_gap_mm": 132.0,
+        "block_gap_mm": 84.0,
         "blocks_total": 4,
         "blocks_fit_ok": true,
-        "dz_span_mm": 270.0,
-        "block_load_kn": 21.39,
+        "dz_span_mm": 222.0,
+        "block_load_kn": 23.26,
         "C0_kn": 113.4,
         "C_kn": 64.9,
-        "sf_static": 5.3,
-        "sf_dyn": 3.03,
+        "sf_static": 4.88,
+        "sf_dyn": 2.79,
+        "pass_ok": true
+      },
+      "duplex_inner_mast": {
+        "stowed_z_range_mm": [
+          85.0,
+          830.0
+        ],
+        "max_stroke_mm": 250.0,
+        "block_dz_span_mm": 350.0,
+        "block_load_kn": 18.04,
+        "C0_kn": 82.2,
+        "C_kn": 46.7,
+        "sf_static": 4.56,
+        "sf_dyn": 2.59,
         "pass_ok": true
       },
       "mast_column": {
         "depth_x_mm": 144.0,
         "width_y_mm": 70.0,
         "wall_t_mm": 12.0,
-        "height_z_mm": 760.0,
+        "height_z_mm": 765.0,
         "section_area_mm2": 4560.0,
         "I_yy_single_mm4": 10794240.0,
         "S_yy_twin_mm3": 299840.0,
         "gusset_mm": [
-          450.0,
+          262.0,
           260.0,
           16.0
         ],
-        "bending_stress_mpa": 43.26,
+        "bending_stress_mpa": 46.89,
         "yield_mpa": 325.0,
-        "sf_static": 7.51,
-        "sf_2g": 3.76,
+        "sf_static": 6.93,
+        "sf_2g": 3.47,
         "pass_ok": true
       },
       "reach_carrier": {
-        "length_x_mm": 460.0,
-        "rail_z_span_mm": 125.0,
+        "length_x_mm": 440.0,
+        "rail_z_span_mm": 156.0,
         "block_length_mm": [
           138.0,
           138.0
         ],
-        "block_gap_mm": 182.0,
+        "block_gap_mm": 162.0,
         "blocks_total": 8,
         "blocks_fit_ok": true,
-        "dx_span_mm": 320.0,
+        "dx_span_mm": 300.0,
         "rail_overhang_mm": 0.0,
-        "block_load_ideal_kn": 11.89,
-        "block_load_kn": 17.84,
-        "block_load_single_rail_worst_kn": 23.79,
+        "block_load_ideal_kn": 13.04,
+        "block_load_kn": 19.56,
+        "block_load_single_rail_worst_kn": 26.08,
         "C0_kn": 113.4,
         "C_kn": 64.9,
-        "sf_static": 6.36,
-        "sf_dyn": 3.64,
+        "sf_static": 5.8,
+        "sf_dyn": 3.32,
         "pass_ok": true
       },
       "t10_double_deck_clearance": {
-        "z_fork_top_max_mm": 485.0,
+        "z_fork_top_max_mm": 550.0,
+        "single_deck_clearance_mm": 100.0,
         "double_deck_pallet_drop_mm": 125.0,
-        "pallet_bottom_z_max_mm": 360.0,
-        "pod_top_z_mm": 310.0,
-        "clearance_mm": 50.0,
+        "pallet_bottom_z_max_mm": 425.0,
+        "pod_top_z_mm": 350.0,
+        "clearance_mm": 75.0,
+        "pass_ok": true
+      },
+      "pass_ok": true
+    },
+    "gate9_real_kinematics_pallets": {
+      "gate9a_real_pallets_8step": {
+        "steps": [
+          {
+            "step": "step1_single_entry",
+            "pallet_type": "single",
+            "pallet_x_mm": [
+              950.0,
+              2050.0
+            ],
+            "pallet_z_bot_mm": 0.0,
+            "reach_mm": 1150.0,
+            "dz_inner_mm": 0.0,
+            "fork_z_mm": [
+              5.0,
+              50.0
+            ],
+            "collisions": 0,
+            "pass_ok": true
+          },
+          {
+            "step": "step2_single_weigh",
+            "pallet_type": "single",
+            "pallet_x_mm": [
+              950.0,
+              2050.0
+            ],
+            "pallet_z_bot_mm": 20.0,
+            "reach_mm": 1150.0,
+            "dz_inner_mm": 0.0,
+            "fork_z_mm": [
+              75.0,
+              120.0
+            ],
+            "collisions": 0,
+            "pass_ok": true
+          },
+          {
+            "step": "step3_single_lift_deck",
+            "pallet_type": "single",
+            "pallet_x_mm": [
+              950.0,
+              2050.0
+            ],
+            "pallet_z_bot_mm": 450.0,
+            "reach_mm": 1150.0,
+            "dz_inner_mm": 150.0,
+            "fork_z_mm": [
+              505.0,
+              550.0
+            ],
+            "collisions": 0,
+            "pass_ok": true
+          },
+          {
+            "step": "step4_single_stow",
+            "pallet_type": "single",
+            "pallet_x_mm": [
+              -200.0,
+              900.0
+            ],
+            "pallet_z_bot_mm": 350.0,
+            "reach_mm": 0.0,
+            "dz_inner_mm": 0.0,
+            "fork_z_mm": [
+              105.0,
+              150.0
+            ],
+            "collisions": 0,
+            "pass_ok": true
+          },
+          {
+            "step": "step5_double_entry",
+            "pallet_type": "double",
+            "pallet_x_mm": [
+              950.0,
+              2050.0
+            ],
+            "pallet_z_bot_mm": 0.0,
+            "reach_mm": 1150.0,
+            "dz_inner_mm": 0.0,
+            "fork_z_mm": [
+              35.0,
+              80.0
+            ],
+            "collisions": 0,
+            "pass_ok": true
+          },
+          {
+            "step": "step6_double_lift_deck",
+            "pallet_type": "double",
+            "pallet_x_mm": [
+              950.0,
+              2050.0
+            ],
+            "pallet_z_bot_mm": 425.0,
+            "reach_mm": 1150.0,
+            "dz_inner_mm": 150.0,
+            "fork_z_mm": [
+              505.0,
+              550.0
+            ],
+            "collisions": 0,
+            "pass_ok": true
+          },
+          {
+            "step": "step7_double_retract_mid",
+            "pallet_type": "double",
+            "pallet_x_mm": [
+              375.0,
+              1475.0
+            ],
+            "pallet_z_bot_mm": 425.0,
+            "reach_mm": 575.0,
+            "dz_inner_mm": 150.0,
+            "fork_z_mm": [
+              505.0,
+              550.0
+            ],
+            "collisions": 0,
+            "pass_ok": true
+          },
+          {
+            "step": "step8_double_stow",
+            "pallet_type": "double",
+            "pallet_x_mm": [
+              -200.0,
+              900.0
+            ],
+            "pallet_z_bot_mm": 350.0,
+            "reach_mm": 0.0,
+            "dz_inner_mm": 40.0,
+            "fork_z_mm": [
+              395.0,
+              440.0
+            ],
+            "collisions": 0,
+            "pass_ok": true
+          }
+        ],
+        "total_collisions": 0,
+        "collisions": [],
+        "pass_ok": true
+      },
+      "gate9b_rail_constraints": {
+        "outer_mast_derail_mm": 0.0,
+        "outer_mast_bot_margin_mm": 15.0,
+        "outer_mast_top_margin_mm": 15.0,
+        "inner_mast_derail_mm": 0.0,
+        "inner_mast_bot_margin_mm": 15.0,
+        "inner_mast_top_margin_ffl_mm": 15.0,
+        "inner_mast_top_margin_5050_mm": 115.0,
+        "reach_derail_mm": 0.0,
+        "reach_rear_margin_mm": 16.0,
+        "reach_front_margin_mm": 17.0,
+        "front_bearing_clearance_mm": 25.0,
+        "pass_ok": true
+      },
+      "gate9c_susp_steer_mesh_torque": {
+        "combined_bump_steer_collisions": 0,
+        "combined_details": [],
+        "pinion_mesh_gap_mm": {
+          "FL": 0.0,
+          "FR": 0.0,
+          "RL": 0.0,
+          "RR": 0.0
+        },
+        "pinion_mesh_overlap_mm3": {
+          "FL": 0.0,
+          "FR": 0.0,
+          "RL": 0.0,
+          "RR": 0.0
+        },
+        "steer_gear_ratio": 137.5,
+        "steer_torque_peak_nm": 697.7,
+        "steer_scrub_req_nm": 418.0,
+        "drive_torque_peak_nm": 696.3,
+        "step_30mm_climb_angle_deg": 40.54,
+        "step_30mm_climb_torque_req_nm": 404.5,
+        "busbar_200ah_rr_min_dist_mm": 20.0,
+        "pass_ok": true
+      },
+      "gate9d_all_dir_stability_iforks": {
+        "cg_y_abs_mm": 3.32,
+        "empty_front_axle_pct": 18.26,
+        "sf_rear_empty_06g": 1.345,
+        "sf_extended": 1.704,
+        "sf_fwd_ext_03g": 1.268,
+        "worst_single_wheel_kg": 1543.0,
+        "wheel_rating_kg": 2000.0,
+        "iforks_pitch_tension_N": 0.0,
+        "iforks_stop_gap_mm": 1.2,
+        "iforks_wheelbase_mm": 740.0,
         "pass_ok": true
       },
       "pass_ok": true
@@ -376,169 +696,380 @@
     "load_case": {
       "payload_kg": 1500.0,
       "lc_mm": 550.0,
-      "x_heel_mm": -190.0,
-      "x_load_mm": 360.0
+      "x_heel_mm": -200.0,
+      "x_load_mm": 350.0
     },
     "forged_fork_blade": {
       "width_mm": 120.0,
-      "thickness_mm": 40.0,
+      "structural_beam_h_mm": 33.0,
+      "weigh_cover_h_mm": 10.0,
+      "total_thickness_mm": 45.0,
+      "thickness_mm": 45.0,
       "usable_length_mm": 1100.0,
-      "I_mm4": 640000.0,
-      "S_mm3": 32000.0,
-      "bending_stress_mpa": 126.46,
+      "I_mm4": 359370.0,
+      "S_mm3": 21780.0,
+      "bending_stress_mpa": 185.8,
       "yield_mpa": 750.0,
-      "sf": 5.93,
-      "tip_deflection_mm": 7.59,
+      "sf": 4.04,
+      "tip_deflection_mm": 13.52,
       "pass_ok": true
     },
-    "weighing_backplate": {
-      "thickness_mm": 28.0,
-      "width_mm": 408.0,
-      "height_mm": 439.0,
-      "side_web_width_mm": 148.0,
-      "transfer_arm_mm": 71.0,
-      "bending_stress_mpa": 54.41,
-      "yield_mpa": 325.0,
-      "sf": 5.97,
-      "pass_ok": true
-    },
-    "pitch_combi_rollers": {
-      "diameter_mm": 65.0,
-      "width_mm": 28.0,
-      "dz_span_mm": 324.0,
-      "load_kn": 14.82,
-      "C0_kn": 65.0,
-      "C_kn": 42.0,
-      "sf_static": 4.39,
-      "sf_dyn": 2.83,
+    "iforks_embedded_loadcells": {
+      "architecture": "Option A: iForks Fork-Embedded 4-Point Shear/Compression Load Cells (Zero Combi-Roller)",
+      "cells_count": 4,
+      "cell_rating_kg": 1000.0,
+      "combined_rating_kg": 4000.0,
+      "sf": 2.67,
+      "wheelbase_mm": 740.0,
+      "overload_stop_gap_mm": 1.2,
+      "pitch_axial_tension_N": 0.0,
+      "combi_roller_friction_err_kg": 0.0,
       "pass_ok": true
     },
     "vertical_mast_carriage": {
-      "height_mm": 408.0,
+      "height_mm": 360.0,
+      "plate_thickness_mm": 28.0,
+      "plate_bending_stress_mpa": 98.3,
+      "plate_sf": 3.31,
       "rail_width_mm": 34.0,
       "block_length_mm": [
         138.0,
         138.0
       ],
-      "block_gap_mm": 132.0,
+      "block_gap_mm": 84.0,
       "blocks_total": 4,
       "blocks_fit_ok": true,
-      "dz_span_mm": 270.0,
-      "block_load_kn": 21.39,
+      "dz_span_mm": 222.0,
+      "block_load_kn": 23.26,
       "C0_kn": 113.4,
       "C_kn": 64.9,
-      "sf_static": 5.3,
-      "sf_dyn": 3.03,
+      "sf_static": 4.88,
+      "sf_dyn": 2.79,
+      "pass_ok": true
+    },
+    "duplex_inner_mast": {
+      "stowed_z_range_mm": [
+        85.0,
+        830.0
+      ],
+      "max_stroke_mm": 250.0,
+      "block_dz_span_mm": 350.0,
+      "block_load_kn": 18.04,
+      "C0_kn": 82.2,
+      "C_kn": 46.7,
+      "sf_static": 4.56,
+      "sf_dyn": 2.59,
       "pass_ok": true
     },
     "mast_column": {
       "depth_x_mm": 144.0,
       "width_y_mm": 70.0,
       "wall_t_mm": 12.0,
-      "height_z_mm": 760.0,
+      "height_z_mm": 765.0,
       "section_area_mm2": 4560.0,
       "I_yy_single_mm4": 10794240.0,
       "S_yy_twin_mm3": 299840.0,
       "gusset_mm": [
-        450.0,
+        262.0,
         260.0,
         16.0
       ],
-      "bending_stress_mpa": 43.26,
+      "bending_stress_mpa": 46.89,
       "yield_mpa": 325.0,
-      "sf_static": 7.51,
-      "sf_2g": 3.76,
+      "sf_static": 6.93,
+      "sf_2g": 3.47,
       "pass_ok": true
     },
     "reach_carrier": {
-      "length_x_mm": 460.0,
-      "rail_z_span_mm": 125.0,
+      "length_x_mm": 440.0,
+      "rail_z_span_mm": 156.0,
       "block_length_mm": [
         138.0,
         138.0
       ],
-      "block_gap_mm": 182.0,
+      "block_gap_mm": 162.0,
       "blocks_total": 8,
       "blocks_fit_ok": true,
-      "dx_span_mm": 320.0,
+      "dx_span_mm": 300.0,
       "rail_overhang_mm": 0.0,
-      "block_load_ideal_kn": 11.89,
-      "block_load_kn": 17.84,
-      "block_load_single_rail_worst_kn": 23.79,
+      "block_load_ideal_kn": 13.04,
+      "block_load_kn": 19.56,
+      "block_load_single_rail_worst_kn": 26.08,
       "C0_kn": 113.4,
       "C_kn": 64.9,
-      "sf_static": 6.36,
-      "sf_dyn": 3.64,
+      "sf_static": 5.8,
+      "sf_dyn": 3.32,
       "pass_ok": true
     },
     "t10_double_deck_clearance": {
-      "z_fork_top_max_mm": 485.0,
+      "z_fork_top_max_mm": 550.0,
+      "single_deck_clearance_mm": 100.0,
       "double_deck_pallet_drop_mm": 125.0,
-      "pallet_bottom_z_max_mm": 360.0,
-      "pod_top_z_mm": 310.0,
-      "clearance_mm": 50.0,
+      "pallet_bottom_z_max_mm": 425.0,
+      "pod_top_z_mm": 350.0,
+      "clearance_mm": 75.0,
+      "pass_ok": true
+    },
+    "pass_ok": true
+  },
+  "gate9_real_kinematics_pallets": {
+    "gate9a_real_pallets_8step": {
+      "steps": [
+        {
+          "step": "step1_single_entry",
+          "pallet_type": "single",
+          "pallet_x_mm": [
+            950.0,
+            2050.0
+          ],
+          "pallet_z_bot_mm": 0.0,
+          "reach_mm": 1150.0,
+          "dz_inner_mm": 0.0,
+          "fork_z_mm": [
+            5.0,
+            50.0
+          ],
+          "collisions": 0,
+          "pass_ok": true
+        },
+        {
+          "step": "step2_single_weigh",
+          "pallet_type": "single",
+          "pallet_x_mm": [
+            950.0,
+            2050.0
+          ],
+          "pallet_z_bot_mm": 20.0,
+          "reach_mm": 1150.0,
+          "dz_inner_mm": 0.0,
+          "fork_z_mm": [
+            75.0,
+            120.0
+          ],
+          "collisions": 0,
+          "pass_ok": true
+        },
+        {
+          "step": "step3_single_lift_deck",
+          "pallet_type": "single",
+          "pallet_x_mm": [
+            950.0,
+            2050.0
+          ],
+          "pallet_z_bot_mm": 450.0,
+          "reach_mm": 1150.0,
+          "dz_inner_mm": 150.0,
+          "fork_z_mm": [
+            505.0,
+            550.0
+          ],
+          "collisions": 0,
+          "pass_ok": true
+        },
+        {
+          "step": "step4_single_stow",
+          "pallet_type": "single",
+          "pallet_x_mm": [
+            -200.0,
+            900.0
+          ],
+          "pallet_z_bot_mm": 350.0,
+          "reach_mm": 0.0,
+          "dz_inner_mm": 0.0,
+          "fork_z_mm": [
+            105.0,
+            150.0
+          ],
+          "collisions": 0,
+          "pass_ok": true
+        },
+        {
+          "step": "step5_double_entry",
+          "pallet_type": "double",
+          "pallet_x_mm": [
+            950.0,
+            2050.0
+          ],
+          "pallet_z_bot_mm": 0.0,
+          "reach_mm": 1150.0,
+          "dz_inner_mm": 0.0,
+          "fork_z_mm": [
+            35.0,
+            80.0
+          ],
+          "collisions": 0,
+          "pass_ok": true
+        },
+        {
+          "step": "step6_double_lift_deck",
+          "pallet_type": "double",
+          "pallet_x_mm": [
+            950.0,
+            2050.0
+          ],
+          "pallet_z_bot_mm": 425.0,
+          "reach_mm": 1150.0,
+          "dz_inner_mm": 150.0,
+          "fork_z_mm": [
+            505.0,
+            550.0
+          ],
+          "collisions": 0,
+          "pass_ok": true
+        },
+        {
+          "step": "step7_double_retract_mid",
+          "pallet_type": "double",
+          "pallet_x_mm": [
+            375.0,
+            1475.0
+          ],
+          "pallet_z_bot_mm": 425.0,
+          "reach_mm": 575.0,
+          "dz_inner_mm": 150.0,
+          "fork_z_mm": [
+            505.0,
+            550.0
+          ],
+          "collisions": 0,
+          "pass_ok": true
+        },
+        {
+          "step": "step8_double_stow",
+          "pallet_type": "double",
+          "pallet_x_mm": [
+            -200.0,
+            900.0
+          ],
+          "pallet_z_bot_mm": 350.0,
+          "reach_mm": 0.0,
+          "dz_inner_mm": 40.0,
+          "fork_z_mm": [
+            395.0,
+            440.0
+          ],
+          "collisions": 0,
+          "pass_ok": true
+        }
+      ],
+      "total_collisions": 0,
+      "collisions": [],
+      "pass_ok": true
+    },
+    "gate9b_rail_constraints": {
+      "outer_mast_derail_mm": 0.0,
+      "outer_mast_bot_margin_mm": 15.0,
+      "outer_mast_top_margin_mm": 15.0,
+      "inner_mast_derail_mm": 0.0,
+      "inner_mast_bot_margin_mm": 15.0,
+      "inner_mast_top_margin_ffl_mm": 15.0,
+      "inner_mast_top_margin_5050_mm": 115.0,
+      "reach_derail_mm": 0.0,
+      "reach_rear_margin_mm": 16.0,
+      "reach_front_margin_mm": 17.0,
+      "front_bearing_clearance_mm": 25.0,
+      "pass_ok": true
+    },
+    "gate9c_susp_steer_mesh_torque": {
+      "combined_bump_steer_collisions": 0,
+      "combined_details": [],
+      "pinion_mesh_gap_mm": {
+        "FL": 0.0,
+        "FR": 0.0,
+        "RL": 0.0,
+        "RR": 0.0
+      },
+      "pinion_mesh_overlap_mm3": {
+        "FL": 0.0,
+        "FR": 0.0,
+        "RL": 0.0,
+        "RR": 0.0
+      },
+      "steer_gear_ratio": 137.5,
+      "steer_torque_peak_nm": 697.7,
+      "steer_scrub_req_nm": 418.0,
+      "drive_torque_peak_nm": 696.3,
+      "step_30mm_climb_angle_deg": 40.54,
+      "step_30mm_climb_torque_req_nm": 404.5,
+      "busbar_200ah_rr_min_dist_mm": 20.0,
+      "pass_ok": true
+    },
+    "gate9d_all_dir_stability_iforks": {
+      "cg_y_abs_mm": 3.32,
+      "empty_front_axle_pct": 18.26,
+      "sf_rear_empty_06g": 1.345,
+      "sf_extended": 1.704,
+      "sf_fwd_ext_03g": 1.268,
+      "worst_single_wheel_kg": 1543.0,
+      "wheel_rating_kg": 2000.0,
+      "iforks_pitch_tension_N": 0.0,
+      "iforks_stop_gap_mm": 1.2,
+      "iforks_wheelbase_mm": 740.0,
       "pass_ok": true
     },
     "pass_ok": true
   },
   "bom_files": {
     "china_oem": {
-      "file": "HD30C_RevA4_BOM_China_OEM.csv",
-      "bytes": 7536,
-      "label": "중국 OEM 실부품 BOM (무가격 · LFP 전용 · HD-30C-R Rev A.4 4종 공통)"
+      "file": "HD30C_RevA5_BOM_China_OEM.csv",
+      "bytes": 7864,
+      "label": "중국 OEM 실부품 BOM (무가격 · LFP 전용 · HD-30C-R Rev A.5 4종 공통)"
     },
     "korea_kc": {
-      "file": "HD30C_RevA4_BOM_Korea_KC.csv",
-      "bytes": 7810,
-      "label": "한국 KC/KCs 인증 실부품 BOM (무가격 · LFP 전용 · CAS/DACELL·SICK·Mean Well)"
+      "file": "HD30C_RevA5_BOM_Korea_KC.csv",
+      "bytes": 7745,
+      "label": "한국 KC/KCs 인증 실부품 BOM (무가격 · LFP 전용 · CAS/DACELL·HIWIN·SICK·Mean Well)"
     }
   },
   "variants": [
     {
       "id": "Full3D_100Ah",
-      "label": "HD30C_RevA4_Full3D_100Ah — 1.5t 지게차급 고강성 인입식 리치 풀 3D(장갑 XT32+우전방 포드 노즈 매립 E1R) · 계량 포크 · 4WD/4WS · 51.2V 100Ah LFP (마스터)",
-      "step_file": "HD30C_RevA4_Full3D_100Ah.step",
-      "csv_file": "HD30C_RevA4_Full3D_100Ah.csv",
-      "step_bytes": 5274302,
-      "csv_bytes": 57926,
-      "part_count": 210,
-      "steel_kg": 819.9,
-      "cast_iron_cw_kg": 1094.61,
-      "aluminum_kg": 10.63,
-      "purchased_kg": 244.42,
-      "total_empty_kg": 2175.63,
+      "label": "HD30C_RevA5_Full3D_100Ah — 1.5t 2단 풀-프리리프트 듀플렉스 리치 풀 3D(장갑 XT32+매립 E1R) · iForks 4점 로드셀 · 직선가이드 4WD/4WS · 51.2V 100Ah LFP (마스터)",
+      "step_file": "HD30C_RevA5_Full3D_100Ah.step",
+      "csv_file": "HD30C_RevA5_Full3D_100Ah.csv",
+      "step_bytes": 6752465,
+      "csv_bytes": 73739,
+      "part_count": 256,
+      "steel_kg": 927.74,
+      "cast_iron_cw_kg": 945.65,
+      "aluminum_kg": 11.57,
+      "purchased_kg": 298.12,
+      "total_empty_kg": 2192.42,
       "cg_empty_mm": [
-        -555.4,
-        45.8,
-        349.1
+        -544.3,
+        3.32,
+        329.18
       ],
       "cg_empty_extended_mm": [
-        -373.7,
-        45.8,
-        349.1
+        -352.0,
+        3.32,
+        329.18
       ],
-      "iso22915_tipping_sf": 1.716,
-      "loaded_front_wheel_kg": 1485.5,
-      "loaded_rear_wheel_kg": 352.3,
-      "stowed_loaded_front_wheel_kg": 686.6,
-      "stowed_loaded_rear_wheel_kg": 1151.3,
+      "sf_rear_empty_06g": 1.345,
+      "iso22915_tipping_sf": 1.704,
+      "sf_fwd_ext_03g": 1.268,
+      "loaded_front_wheel_kg": 1535.8,
+      "worst_single_wheel_kg": 1543.0,
+      "loaded_rear_wheel_kg": 310.4,
+      "stowed_loaded_front_wheel_kg": 798.1,
+      "stowed_loaded_rear_wheel_kg": 1048.1,
       "chassis_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "stowed_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "total_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "extended_envelope_mm": [
-        3040.0,
+        3160.0,
         1200.0,
         995.0
       ],
@@ -547,68 +1078,74 @@
       "components": 1,
       "floating": 0,
       "dynamic_collisions": 0,
-      "step_roundtrip_solids": 210,
+      "gate9_pass": true,
+      "step_roundtrip_solids": 256,
       "step_roundtrip_invalid": 0,
       "step_roundtrip_ok": true,
       "all_pass": true,
-      "elapsed_s": 2.05,
+      "elapsed_s": 5.8,
       "config": {
         "front_e1r": true,
         "rear_sensor": "3D_XT32",
         "battery": "100Ah_LFP",
-        "weighing": "4pt_ShearBeam_4000kg_ShockFree",
-        "reach_stroke_mm": 1100.0,
+        "weighing": "iForks_4pt_Embedded_4000kg_ZeroTension",
+        "mast": "2Stage_FFL_Duplex_500mm",
+        "suspension": "Vertical_LM30_ISO10243_25mm",
+        "reach_stroke_mm": 1150.0,
         "servo_axes": 12
       },
       "added_parts": [],
       "removed_parts": [],
-      "diff_summary": "Rev A.4 마스터본 (지게차급 140×70×12t SM490 마스트+16t 하부 거셋·460 mm 리치 캐리어 HGH35HA×8·404 mm 수직 HGR35 캐리지 HGH35HA×4·Ø65×28 콤비롤러 dz=320·28t 계량 백플레이트·120×40 단조 포크·440 mm 스트로크 T10 양면파레트 +50 mm 여유 -> 수납 1,960×1,200×995 mm 돌출 0 + 포드 상면 Z=310 무충격 안착 + 장갑 E1R 25.5 mm 매립 + 855 mm 폐쇄 타워·Ø24×4t 롤케이지·995 mm 지붕 XT32 + 12축 서보 + 100Ah LFP)"
+      "diff_summary": "Rev A.5 마스터본 (2단 풀-프리리프트 듀플렉스 마스트 외측 850/내측 수납 830/총 행정 500 mm Z_fork_top=50..550 -> pod_top=350 대비 통판 양면 +75 mm·단면 +100 mm · stow_double Z=395..440 비접촉+락핀+팝업 스토퍼 · iForks 포크 내장 4점 로드셀 120x45 축인장 0 N · 수직 LM30+ISO 10243 스프링 ±25 mm + Ø250x100 Vulkollan 95A 2t + Ø220 선회베어링 직결치합 피니언 0 mm · 리치 1,150 mm 힐 +950 범퍼 +20 mm 클리어 · HTD-8M 벨트구동 · 드래그체인 · 축거 1,455 mm · 수납 2,040x1,200x995 mm)"
     },
     {
       "id": "Semi3D_E1R_100Ah",
-      "label": "HD30C_RevA4_Semi3D_E1R_100Ah — 1.5t 지게차급 인입식 리치 준풀 3D(우전방 매립 장갑 E1R + 장갑 케이지 평면 2D) · 계량 포크 · 100Ah LFP",
-      "step_file": "HD30C_RevA4_Semi3D_E1R_100Ah.step",
-      "csv_file": "HD30C_RevA4_Semi3D_E1R_100Ah.csv",
-      "step_bytes": 5292740,
-      "csv_bytes": 57887,
-      "part_count": 210,
-      "steel_kg": 819.9,
-      "cast_iron_cw_kg": 1094.61,
-      "aluminum_kg": 10.31,
-      "purchased_kg": 243.97,
-      "total_empty_kg": 2174.86,
+      "label": "HD30C_RevA5_Semi3D_E1R_100Ah — 1.5t 2단 듀플렉스 리치 준풀 3D(매립 장갑 E1R + 장갑 케이지 평면 2D) · iForks · 100Ah LFP",
+      "step_file": "HD30C_RevA5_Semi3D_E1R_100Ah.step",
+      "csv_file": "HD30C_RevA5_Semi3D_E1R_100Ah.csv",
+      "step_bytes": 6770914,
+      "csv_bytes": 73683,
+      "part_count": 256,
+      "steel_kg": 927.74,
+      "cast_iron_cw_kg": 945.65,
+      "aluminum_kg": 11.25,
+      "purchased_kg": 297.67,
+      "total_empty_kg": 2191.65,
       "cg_empty_mm": [
-        -555.3,
-        45.6,
-        348.9
+        -544.17,
+        3.17,
+        328.98
       ],
       "cg_empty_extended_mm": [
-        -373.5,
-        45.6,
-        348.9
+        -351.8,
+        3.17,
+        328.98
       ],
-      "iso22915_tipping_sf": 1.715,
-      "loaded_front_wheel_kg": 1485.6,
-      "loaded_rear_wheel_kg": 351.9,
-      "stowed_loaded_front_wheel_kg": 686.6,
-      "stowed_loaded_rear_wheel_kg": 1150.8,
+      "sf_rear_empty_06g": 1.347,
+      "iso22915_tipping_sf": 1.703,
+      "sf_fwd_ext_03g": 1.267,
+      "loaded_front_wheel_kg": 1535.8,
+      "worst_single_wheel_kg": 1542.7,
+      "loaded_rear_wheel_kg": 310.0,
+      "stowed_loaded_front_wheel_kg": 798.1,
+      "stowed_loaded_rear_wheel_kg": 1047.7,
       "chassis_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "stowed_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "total_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "extended_envelope_mm": [
-        3040.0,
+        3160.0,
         1200.0,
         995.0
       ],
@@ -617,17 +1154,20 @@
       "components": 1,
       "floating": 0,
       "dynamic_collisions": 0,
-      "step_roundtrip_solids": 210,
+      "gate9_pass": true,
+      "step_roundtrip_solids": 256,
       "step_roundtrip_invalid": 0,
       "step_roundtrip_ok": true,
       "all_pass": true,
-      "elapsed_s": 15.87,
+      "elapsed_s": 38.64,
       "config": {
         "front_e1r": true,
         "rear_sensor": "2D_flat",
         "battery": "100Ah_LFP",
-        "weighing": "4pt_ShearBeam_4000kg_ShockFree",
-        "reach_stroke_mm": 1100.0,
+        "weighing": "iForks_4pt_Embedded_4000kg_ZeroTension",
+        "mast": "2Stage_FFL_Duplex_500mm",
+        "suspension": "Vertical_LM30_ISO10243_25mm",
+        "reach_stroke_mm": 1150.0,
         "servo_axes": 12
       },
       "added_parts": [
@@ -642,49 +1182,52 @@
     },
     {
       "id": "2D_Basic_100Ah",
-      "label": "HD30C_RevA4_2D_Basic_100Ah — 1.5t 지게차급 인입식 리치 기본 2D(장갑 포켓 블랭킹 + 장갑 케이지 평면 2D) · 계량 포크 · 100Ah LFP",
-      "step_file": "HD30C_RevA4_2D_Basic_100Ah.step",
-      "csv_file": "HD30C_RevA4_2D_Basic_100Ah.csv",
-      "step_bytes": 5292753,
-      "csv_bytes": 57806,
-      "part_count": 210,
-      "steel_kg": 820.11,
-      "cast_iron_cw_kg": 1094.61,
-      "aluminum_kg": 10.31,
-      "purchased_kg": 243.42,
-      "total_empty_kg": 2174.52,
+      "label": "HD30C_RevA5_2D_Basic_100Ah — 1.5t 2단 듀플렉스 리치 기본 2D(장갑 포켓 블랭킹 + 장갑 케이지 평면 2D) · iForks · 100Ah LFP",
+      "step_file": "HD30C_RevA5_2D_Basic_100Ah.step",
+      "csv_file": "HD30C_RevA5_2D_Basic_100Ah.csv",
+      "step_bytes": 6770928,
+      "csv_bytes": 73628,
+      "part_count": 256,
+      "steel_kg": 927.96,
+      "cast_iron_cw_kg": 945.65,
+      "aluminum_kg": 11.25,
+      "purchased_kg": 297.12,
+      "total_empty_kg": 2191.33,
       "cg_empty_mm": [
-        -555.5,
-        45.7,
-        348.9
+        -544.38,
+        3.23,
+        328.99
       ],
       "cg_empty_extended_mm": [
-        -373.7,
-        45.7,
-        348.9
+        -351.98,
+        3.23,
+        328.99
       ],
-      "iso22915_tipping_sf": 1.715,
-      "loaded_front_wheel_kg": 1485.4,
-      "loaded_rear_wheel_kg": 351.9,
-      "stowed_loaded_front_wheel_kg": 686.4,
-      "stowed_loaded_rear_wheel_kg": 1150.8,
+      "sf_rear_empty_06g": 1.346,
+      "iso22915_tipping_sf": 1.703,
+      "sf_fwd_ext_03g": 1.267,
+      "loaded_front_wheel_kg": 1535.6,
+      "worst_single_wheel_kg": 1542.7,
+      "loaded_rear_wheel_kg": 310.0,
+      "stowed_loaded_front_wheel_kg": 798.0,
+      "stowed_loaded_rear_wheel_kg": 1047.7,
       "chassis_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "stowed_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "total_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "extended_envelope_mm": [
-        3040.0,
+        3160.0,
         1200.0,
         995.0
       ],
@@ -693,17 +1236,20 @@
       "components": 1,
       "floating": 0,
       "dynamic_collisions": 0,
-      "step_roundtrip_solids": 210,
+      "gate9_pass": true,
+      "step_roundtrip_solids": 256,
       "step_roundtrip_invalid": 0,
       "step_roundtrip_ok": true,
       "all_pass": true,
-      "elapsed_s": 16.93,
+      "elapsed_s": 33.01,
       "config": {
         "front_e1r": false,
         "rear_sensor": "2D_flat",
         "battery": "100Ah_LFP",
-        "weighing": "4pt_ShearBeam_4000kg_ShockFree",
-        "reach_stroke_mm": 1100.0,
+        "weighing": "iForks_4pt_Embedded_4000kg_ZeroTension",
+        "mast": "2Stage_FFL_Duplex_500mm",
+        "suspension": "Vertical_LM30_ISO10243_25mm",
+        "reach_stroke_mm": 1150.0,
         "servo_axes": 12
       },
       "added_parts": [
@@ -716,53 +1262,56 @@
         "lidar_3d_front_E1R",
         "lidar_3d_rear_XT32"
       ],
-      "diff_summary": "우전방 장갑 포켓 내 E1R 제거 + 3t 강판 블랭킹 커버(blank_cover_e1r_front) / 좌후방 장갑 롤케이지 내 XT32 -> 수평 2D 라이다 교체 / 대각 2D×2 + QR + 계량 포크 + 100Ah LFP"
+      "diff_summary": "우전방 장갑 포켓 내 E1R 제거 + 3t 강판 블랭킹 커버(blank_cover_e1r_front) / 좌후방 장갑 롤케이지 내 XT32 -> 수평 2D 라이다 교체 / 대각 2D×2 + QR + iForks + 100Ah LFP"
     },
     {
       "id": "Full3D_200Ah",
-      "label": "HD30C_RevA4_Full3D_200Ah — 1.5t 지게차급 인입식 리치 풀 3D(장갑 XT32+매립 장갑 E1R) · 계량 포크 · 51.2V 200Ah LFP 듀얼 팩",
-      "step_file": "HD30C_RevA4_Full3D_200Ah.step",
-      "csv_file": "HD30C_RevA4_Full3D_200Ah.csv",
-      "step_bytes": 5369663,
-      "csv_bytes": 58982,
-      "part_count": 214,
-      "steel_kg": 819.9,
-      "cast_iron_cw_kg": 1094.61,
-      "aluminum_kg": 11.83,
-      "purchased_kg": 284.42,
-      "total_empty_kg": 2218.12,
+      "label": "HD30C_RevA5_Full3D_200Ah — 1.5t 2단 듀플렉스 리치 풀 3D(장갑 XT32+매립 E1R) · iForks · 51.2V 200Ah LFP 듀얼 팩",
+      "step_file": "HD30C_RevA5_Full3D_200Ah.step",
+      "csv_file": "HD30C_RevA5_Full3D_200Ah.csv",
+      "step_bytes": 6841870,
+      "csv_bytes": 74522,
+      "part_count": 259,
+      "steel_kg": 927.74,
+      "cast_iron_cw_kg": 911.81,
+      "aluminum_kg": 12.77,
+      "purchased_kg": 338.12,
+      "total_empty_kg": 2201.07,
       "cg_empty_mm": [
-        -544.9,
-        36.7,
-        346.1
+        -535.45,
+        1.45,
+        327.94
       ],
       "cg_empty_extended_mm": [
-        -366.7,
-        36.7,
-        346.1
+        -343.91,
+        1.45,
+        327.94
       ],
-      "iso22915_tipping_sf": 1.737,
-      "loaded_front_wheel_kg": 1496.4,
-      "loaded_rear_wheel_kg": 362.7,
-      "stowed_loaded_front_wheel_kg": 697.4,
-      "stowed_loaded_rear_wheel_kg": 1161.7,
+      "sf_rear_empty_06g": 1.395,
+      "iso22915_tipping_sf": 1.697,
+      "sf_fwd_ext_03g": 1.263,
+      "loaded_front_wheel_kg": 1543.3,
+      "worst_single_wheel_kg": 1546.4,
+      "loaded_rear_wheel_kg": 307.3,
+      "stowed_loaded_front_wheel_kg": 805.6,
+      "stowed_loaded_rear_wheel_kg": 1044.9,
       "chassis_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "stowed_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "total_envelope_mm": [
-        1960.0,
+        2040.0,
         1200.0,
         995.0
       ],
       "extended_envelope_mm": [
-        3040.0,
+        3160.0,
         1200.0,
         995.0
       ],
@@ -771,17 +1320,20 @@
       "components": 1,
       "floating": 0,
       "dynamic_collisions": 0,
-      "step_roundtrip_solids": 214,
+      "gate9_pass": true,
+      "step_roundtrip_solids": 259,
       "step_roundtrip_invalid": 0,
       "step_roundtrip_ok": true,
       "all_pass": true,
-      "elapsed_s": 15.14,
+      "elapsed_s": 24.73,
       "config": {
         "front_e1r": true,
         "rear_sensor": "3D_XT32",
         "battery": "200Ah_LFP",
-        "weighing": "4pt_ShearBeam_4000kg_ShockFree",
-        "reach_stroke_mm": 1100.0,
+        "weighing": "iForks_4pt_Embedded_4000kg_ZeroTension",
+        "mast": "2Stage_FFL_Duplex_500mm",
+        "suspension": "Vertical_LM30_ISO10243_25mm",
+        "reach_stroke_mm": 1150.0,
         "servo_axes": 12
       },
       "added_parts": [
@@ -792,9 +1344,10 @@
         "parallel_busbar_200ah"
       ],
       "removed_parts": [
+        "counterweight_mid_pod_R_trim_100ah",
         "battery_lfp_100ah_main"
       ],
-      "diff_summary": "Rev A.4 지게차급 고강성 풀 3D 인입식 리치 프레임 + 4점 계량 + 4WD/4WS 유지 / 후방 우측 타워 100Ah 기본 팩 + 우측 포드 중앙 격실(X=-480..+460) 2차 100Ah 확장 팩(총 200Ah · 10.24 kWh · 82 kg) + 병렬 고전류 버스바 실장"
+      "diff_summary": "Rev A.5 듀플렉스 풀 3D + iForks + 직선가이드 4WD/4WS 유지 / 후방 우측 타워 100Ah 기본 팩 + 우측 포드 중앙 격실(X=-608..+445) 2차 100Ah 확장 팩(총 200Ah · 10.24 kWh · 82 kg) + RR 휠웰 ≥15 mm 이격 병렬 버스바 실장"
     }
   ]
 }

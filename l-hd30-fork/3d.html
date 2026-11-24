@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111827'/%3E%3Cpath d='M14 42 L32 52 L50 42 L50 22 L32 12 L14 22 Z' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linejoin='round'/%3E%3Cpath d='M14 22 L32 32 L50 22 M32 32 L32 52' fill='none' stroke='%2360a5fa' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
-<title>HD-30 1.5t AMR (Rev A.4) — 3D 뷰어</title>
+<title>HD-30 1.5t AMR Rev A.5 — 3D 뷰어</title>
 <link rel="stylesheet" href="portal.css">
 <style>
 html, body {
@@ -25,7 +25,7 @@ body.embed-mode .p-header {
   display: none;
 }
 
-/* Main Split Workspace: 296px Light Inspector + Full-Bleed Charcoal Studio Viewport */
+/* Main Split Workspace: 312px Light Inspector + Full-Bleed Charcoal Studio Viewport */
 #app {
   display: flex;
   flex: 1;
@@ -34,7 +34,7 @@ body.embed-mode .p-header {
 }
 
 #panel {
-  width: 296px;
+  width: 312px;
   flex-shrink: 0;
   height: 100%;
   overflow-y: auto;
@@ -49,6 +49,189 @@ body.embed-mode .p-header {
 #panel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 #panel::-webkit-scrollbar-track { background: transparent; }
 
+/* Always-Visible Top Blocks (Architecture + Real-Kinematics Animation Studio) */
+.pinned-sec {
+  padding: 11px 13px 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: var(--surface);
+}
+.pinned-sec.anim-sec {
+  background: #f8fafc;
+}
+.sec-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sec-title {
+  font-size: 12.2px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.state-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1.5px 6px;
+  border-radius: 4px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.state-pill.playing {
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+  color: var(--accent);
+}
+.state-pill.done {
+  background: var(--ok-soft);
+  border-color: var(--ok-line);
+  color: var(--ok);
+}
+
+/* Animation Studio Transport & Timeline */
+.anim-transport {
+  display: grid;
+  grid-template-columns: 1.35fr 0.78fr 0.72fr 0.72fr;
+  gap: 4px;
+}
+.anim-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 6px;
+  border-radius: 5px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 11.2px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.anim-btn:hover {
+  background: var(--surface-subtle);
+}
+.anim-btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+.anim-btn.primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.anim-btn.primary.paused-active {
+  background: #0f766e;
+  border-color: #0f766e;
+}
+.anim-btn svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.anim-btn svg.stroke-ico {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anim-stage-card {
+  background: var(--surface);
+  border: 1px solid var(--accent-line);
+  border-left: 3px solid var(--accent);
+  border-radius: 5px;
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.anim-stage-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.anim-stage-name {
+  font-size: 11.4px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.anim-stage-pct {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.anim-stage-desc {
+  font-size: 10.6px;
+  color: var(--ink-2);
+  line-height: 1.35;
+  word-break: keep-all;
+}
+.anim-stage-metrics {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
+  border-top: 1px dashed var(--line);
+  line-height: 1.38;
+}
+
+.step-pills {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 3px;
+}
+.step-pill-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  border-radius: 4px;
+  padding: 3px 0;
+  font-family: var(--font-mono);
+  font-size: 10.2px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: none;
+}
+.step-pill-btn:hover {
+  border-color: var(--accent-line);
+  color: var(--ink);
+}
+.step-pill-btn.passed {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+.step-pill-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.anim-opt-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 6px;
+}
+
 /* Collapsible Inspector Accordions */
 details.insp-sec {
   border-bottom: 1px solid var(--line);
@@ -59,8 +242,8 @@ details.insp-sec > summary {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 11px 14px;
-  font-size: 12.5px;
+  padding: 10px 13px;
+  font-size: 12.2px;
   font-weight: 600;
   color: var(--ink);
   cursor: pointer;
@@ -86,29 +269,29 @@ details.insp-sec[open] > summary::after {
 }
 
 .insp-body {
-  padding: 2px 14px 14px;
+  padding: 2px 13px 13px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
 }
 
 .field-group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 .field-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 6px;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--muted);
 }
 .field-hint {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 10.2px;
   font-weight: 500;
   color: var(--muted);
 }
@@ -129,7 +312,7 @@ details.insp-sec[open] > summary::after {
   align-items: flex-start;
   gap: 2px;
   width: 100%;
-  padding: 7px 9px;
+  padding: 6.5px 8.5px;
   border: 1px solid transparent;
   border-radius: 5px;
   background: transparent;
@@ -157,13 +340,13 @@ details.insp-sec[open] > summary::after {
   gap: 6px;
 }
 .arch-title {
-  font-size: 12px;
+  font-size: 11.8px;
   font-weight: 700;
   letter-spacing: -0.01em;
 }
 .arch-pill {
   font-family: var(--font-mono);
-  font-size: 9.8px;
+  font-size: 9.6px;
   font-weight: 600;
   padding: 1px 5px;
   border-radius: 3px;
@@ -179,7 +362,7 @@ details.insp-sec[open] > summary::after {
 }
 .arch-sub {
   font-family: var(--font-mono);
-  font-size: 9.9px;
+  font-size: 9.6px;
   font-variant-numeric: tabular-nums;
   color: var(--muted);
   line-height: 1.3;
@@ -189,7 +372,7 @@ details.insp-sec[open] > summary::after {
   color: var(--ink-2);
 }
 
-/* Segmented Controls (Clean Onshape Style) */
+/* Segmented Controls */
 .seg-box {
   background: var(--surface-subtle);
   border: 1px solid var(--line);
@@ -207,17 +390,16 @@ details.insp-sec[open] > summary::after {
 .seg-row.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .seg-row.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .seg-row.cols-var { grid-template-columns: 0.82fr 1.32fr 0.86fr; }
-.seg-row.cols-pallet { grid-template-columns: 1.72fr 0.72fr 0.56fr; }
-.seg-row.cols-pallet-x { grid-template-columns: 1fr 1.12fr 0.68fr; }
+.seg-row.cols-pallet { grid-template-columns: 1.52fr 0.92fr 0.56fr; }
 
 .seg-btn {
   border: 1px solid transparent;
   background: transparent;
   color: var(--ink-2);
   font-family: inherit;
-  font-size: 11.5px;
+  font-size: 11.2px;
   font-weight: 500;
-  padding: 5px 5px;
+  padding: 4.5px 4px;
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
@@ -242,30 +424,29 @@ details.insp-sec[open] > summary::after {
   cursor: not-allowed;
 }
 .seg-btn.compact {
-  font-size: 10.6px;
-  padding: 4.5px 4px;
+  font-size: 10.3px;
+  padding: 4px 3px;
 }
 .seg-btn.preset-btn {
-  font-size: 10.1px;
+  font-size: 9.9px;
   line-height: 1.24;
-  padding: 5px 4px;
+  padding: 4.5px 4px;
   white-space: normal;
   word-break: keep-all;
 }
 
-/* Compact Inline Summary & Mass/CG Strip */
 .spec-line {
-  font-size: 11.2px;
-  line-height: 1.4;
+  font-size: 10.9px;
+  line-height: 1.38;
   color: var(--muted);
   word-break: keep-all;
 }
 .pallet-note {
-  font-size: 10.6px;
+  font-size: 10.2px;
   line-height: 1.35;
   color: var(--muted);
   padding: 4px 7px;
-  background: #f8f9fb;
+  background: #ffffff;
   border-left: 2px solid var(--line-strong);
   border-radius: 0 4px 4px 0;
 }
@@ -273,9 +454,9 @@ details.insp-sec[open] > summary::after {
   background: #f8f9fb;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 6.5px 9px;
+  padding: 6px 8px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   font-variant-numeric: tabular-nums;
   color: var(--ink);
   white-space: nowrap;
@@ -286,25 +467,27 @@ details.insp-sec[open] > summary::after {
 .arch-panel-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
-.arch-panel-group.hidden {
-  display: none;
+.hidden,
+.arch-panel-group.hidden,
+.field-group.hidden {
+  display: none !important;
 }
 
-/* CAD Download Section */
+/* CAD & BOM Download Section */
 .cad-file-meta {
   background: #f8f9fb;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 8px 10px;
+  padding: 7px 9px;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 .cad-file-name {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10.8px;
   font-weight: 600;
   color: var(--ink);
   word-break: break-all;
@@ -312,8 +495,8 @@ details.insp-sec[open] > summary::after {
 }
 .cad-file-sub {
   font-family: var(--font-mono);
-  font-size: 9.9px;
-  letter-spacing: -0.025em;
+  font-size: 9.7px;
+  letter-spacing: -0.02em;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -322,17 +505,21 @@ details.insp-sec[open] > summary::after {
 }
 .dl-actions {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 6px;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 5px;
+}
+.dl-actions.bom-row {
+  grid-template-columns: 1fr 1fr;
 }
 .dl-actions .p-btn {
   width: 100%;
-  padding: 6.5px 8px;
-  font-size: 12px;
+  padding: 6px 7px;
+  font-size: 11.4px;
+  text-align: center;
 }
 .cad-caption {
-  font-size: 11px;
-  line-height: 1.42;
+  font-size: 10.7px;
+  line-height: 1.4;
   color: var(--muted);
   padding: 6px 8px;
   border-left: 2px solid var(--line-strong);
@@ -356,11 +543,11 @@ details.insp-sec[open] > summary::after {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 11.5px;
+  font-size: 11.2px;
   font-weight: 500;
   color: var(--accent);
   text-decoration: none;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 .insp-link:hover { text-decoration: underline; }
 
@@ -368,22 +555,20 @@ details.insp-sec[open] > summary::after {
 .slider-row {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 .slider-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 6px;
-  font-size: 11.2px;
+  font-size: 11px;
   color: var(--ink-2);
 }
-.slider-head > span {
-  white-space: nowrap;
-}
+.slider-head > span { white-space: nowrap; }
 .slider-val {
   font-family: var(--font-mono);
-  font-size: 10.8px;
+  font-size: 10.4px;
   font-weight: 600;
   color: var(--ink);
   font-variant-numeric: tabular-nums;
@@ -404,10 +589,10 @@ details.insp-sec[open] > summary::after {
   background: #f8f9fb;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 9px 10px;
+  padding: 8px 9px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 .weigh-card.state-ok {
@@ -426,20 +611,20 @@ details.insp-sec[open] > summary::after {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 5px;
   flex-wrap: wrap;
 }
 .weigh-title {
-  font-size: 10.8px;
+  font-size: 10.4px;
   font-weight: 600;
   color: var(--muted);
   white-space: nowrap;
 }
 .weigh-badge {
   font-family: var(--font-mono);
-  font-size: 9.8px;
+  font-size: 9.5px;
   font-weight: 600;
-  padding: 1.5px 6px;
+  padding: 1.5px 5.5px;
   border-radius: 4px;
   border: 1px solid var(--line);
   background: var(--surface);
@@ -469,7 +654,7 @@ details.insp-sec[open] > summary::after {
 }
 .weigh-kg {
   font-family: var(--font-mono);
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -483,7 +668,7 @@ details.insp-sec[open] > summary::after {
 .weigh-card.state-overload .weigh-kg { color: var(--danger); }
 .weigh-sub {
   font-family: var(--font-mono);
-  font-size: 10.1px;
+  font-size: 9.8px;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -492,7 +677,7 @@ details.insp-sec[open] > summary::after {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 4px;
-  padding-top: 6px;
+  padding-top: 5px;
   border-top: 1px solid var(--line);
 }
 .lc-cell {
@@ -502,9 +687,9 @@ details.insp-sec[open] > summary::after {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 4px;
-  padding: 3px 6px;
+  padding: 2.5px 6px;
   font-family: var(--font-mono);
-  font-size: 10.4px;
+  font-size: 10.1px;
   font-variant-numeric: tabular-nums;
 }
 .lc-cell .lc-id {
@@ -521,7 +706,7 @@ details.insp-sec[open] > summary::after {
   display: flex;
   align-items: flex-start;
   gap: 7px;
-  padding: 7px 9px;
+  padding: 6.5px 8.5px;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: #f8f9fb;
@@ -529,9 +714,7 @@ details.insp-sec[open] > summary::after {
   user-select: none;
   transition: border-color 0.12s ease, background 0.12s ease;
 }
-.feature-chk:hover {
-  border-color: var(--line-strong);
-}
+.feature-chk:hover { border-color: var(--line-strong); }
 .feature-chk.active {
   border-color: var(--accent-line);
   background: var(--accent-soft);
@@ -548,14 +731,14 @@ details.insp-sec[open] > summary::after {
   min-width: 0;
 }
 .feature-chk .f-title {
-  font-size: 11.6px;
+  font-size: 11.3px;
   font-weight: 600;
   color: var(--ink);
   line-height: 1.3;
 }
 .feature-chk .f-sub {
   font-family: var(--font-mono);
-  font-size: 10.2px;
+  font-size: 9.8px;
   color: var(--muted);
   line-height: 1.3;
 }
@@ -572,7 +755,7 @@ label.chk {
   gap: 7px;
   cursor: pointer;
   user-select: none;
-  font-size: 11.6px;
+  font-size: 11.4px;
   color: var(--ink-2);
   min-width: 0;
 }
@@ -609,6 +792,48 @@ label.chk span.lbl {
   cursor: grab;
 }
 #c:active { cursor: grabbing; }
+
+/* Live Kinematics Stage Banner (Top-Left of Viewport) */
+#vpAnimHud {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  z-index: 12;
+  max-width: min(560px, calc(100% - 250px));
+  padding: 6px 11px;
+  border-radius: 7px;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  color: #f1f5f9;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+#vpAnimHud .hud-top {
+  font-size: 11.8px;
+  font-weight: 700;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+#vpAnimHud .hud-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(37, 99, 235, 0.85);
+  color: #ffffff;
+}
+#vpAnimHud .hud-sub {
+  font-family: var(--font-mono);
+  font-size: 10.4px;
+  color: #cbd5e1;
+  font-variant-numeric: tabular-nums;
+}
 
 /* Quiet Top-Right Status Badge */
 #vpStatus {
@@ -669,13 +894,12 @@ label.chk span.lbl {
   background: transparent;
   color: var(--ink-2);
   font-family: inherit;
-  font-size: 11.6px;
+  font-size: 11.4px;
   font-weight: 500;
-  padding: 4.5px 8.5px;
+  padding: 4.5px 8px;
   border-radius: 999px;
   cursor: pointer;
   white-space: nowrap;
-  transition: none;
 }
 #camBar button:hover {
   background: var(--surface-subtle);
@@ -781,12 +1005,13 @@ label.chk span.lbl {
   #app { flex-direction: column-reverse; }
   #panel {
     width: 100%;
-    height: 46%;
+    height: 48%;
     border-right: none;
     border-top: 1px solid var(--line);
   }
-  #viewport { height: 54%; }
+  #viewport { height: 52%; }
   #axisLegend { display: none; }
+  #vpAnimHud { max-width: calc(100% - 24px); }
 }
 </style>
 <script type="importmap">
@@ -803,7 +1028,7 @@ label.chk span.lbl {
 
 <header class="p-header full">
   <div class="p-header-inner">
-    <a class="p-brand" href="index.html">HD-30 1.5t AMR <span class="p-brand-rev">Rev A.4</span></a>
+    <a class="p-brand" href="index.html">HD-30 1.5t AMR <span class="p-brand-rev">Rev A.5</span></a>
     <nav class="p-nav">
       <a href="index.html">개요</a>
       <a href="3d.html" class="active">3D 뷰어</a>
@@ -814,30 +1039,160 @@ label.chk span.lbl {
 </header>
 
 <div id="app">
-  <aside id="panel" aria-label="HD-30 Rev A.4 3D CAD 인스펙터">
-    <details class="insp-sec" open>
-      <summary>1. 기체 방식 · 센서 · 배터리</summary>
-      <div class="insp-body">
+  <aside id="panel" aria-label="HD-30 Rev A.5 3D CAD 인스펙터">
+    <!-- ALWAYS VISIBLE 1: Dual-Architecture Selector -->
+    <section class="pinned-sec" aria-label="기체 아키텍처 선택">
+      <div class="sec-title-row">
+        <span class="sec-title">기체 아키텍처 (Rev A.5 실물 B-Rep)</span>
+      </div>
+      <div class="arch-seg" role="group" aria-label="기체 아키텍처 선택">
+        <button type="button" class="arch-btn active" id="btnArchX" data-arch="HD30X">
+          <span class="arch-btn-top">
+            <span class="arch-title">A안 (메인) · HD-30X (2단 X-가위)</span>
+            <span class="arch-pill">338부품</span>
+          </span>
+          <span class="arch-sub">786.7 kg · 1,560 mm · Z476.8 (+76.8/+101.8)</span>
+        </button>
+        <button type="button" class="arch-btn" id="btnArchC" data-arch="HD30C">
+          <span class="arch-btn-top">
+            <span class="arch-title">B안 · HD-30C-R (2단 듀플렉스 리치)</span>
+            <span class="arch-pill">256부품</span>
+          </span>
+          <span class="arch-sub">2,192.4 kg · 2,040 mm · Z550 (+75/+100)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ALWAYS VISIBLE 2: Real-Kinematics Continuous Animation Studio -->
+    <section class="pinned-sec anim-sec" id="animStudioCard" aria-label="실물 기구학 연속 애니메이션 제어">
+      <div class="sec-title-row">
+        <span class="sec-title">실물 기구학 연속 애니메이션</span>
+        <span class="state-pill" id="animRunPill">대기 (정지)</span>
+      </div>
+
+      <div class="anim-transport" role="group" aria-label="애니메이션 재생 제어">
+        <button type="button" class="anim-btn primary" id="btnAnimPlay" aria-label="재생 또는 일시정지">
+          <svg id="icoPlay" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5 L13.5 8 L4 13.5 Z"/></svg>
+          <svg id="icoPause" viewBox="0 0 16 16" aria-hidden="true" style="display:none"><rect x="3.5" y="2.5" width="3.2" height="11" rx="0.6"/><rect x="9.3" y="2.5" width="3.2" height="11" rx="0.6"/></svg>
+          <span id="lblAnimPlay">재생</span>
+        </button>
+        <button type="button" class="anim-btn" id="btnAnimReset" title="처음 단계로 복귀">
+          <svg class="stroke-ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 7.2 A5 5 0 1 1 4.6 11.4"/><path d="M3 3.4 V7.4 H7"/></svg>
+          <span>처음</span>
+        </button>
+        <button type="button" class="anim-btn" id="btnAnimPrev" title="이전 단계">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 3 L4.5 8 L10.5 13 Z"/></svg>
+          <span>이전</span>
+        </button>
+        <button type="button" class="anim-btn" id="btnAnimNext" title="다음 단계">
+          <span>다음</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3 L11.5 8 L5.5 13 Z"/></svg>
+        </button>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-head">
+          <span>타임라인 스크러버 (0% ~ 100%)</span>
+          <span class="slider-val" id="vAnimPct">0%</span>
+        </div>
+        <input type="range" id="sAnimTimeline" min="0" max="1000" step="1" value="0" aria-label="애니메이션 타임라인">
+      </div>
+
+      <div class="step-pills" id="animStepPills" role="group" aria-label="7단계 직접 이동">
+        <button type="button" class="step-pill-btn active" data-step-idx="0">1</button>
+        <button type="button" class="step-pill-btn" data-step-idx="1">2</button>
+        <button type="button" class="step-pill-btn" data-step-idx="2">3</button>
+        <button type="button" class="step-pill-btn" data-step-idx="3">4</button>
+        <button type="button" class="step-pill-btn" data-step-idx="4">5</button>
+        <button type="button" class="step-pill-btn" data-step-idx="5">6</button>
+        <button type="button" class="step-pill-btn" data-step-idx="6">7</button>
+      </div>
+
+      <div class="anim-stage-card" id="animStageBadge" aria-live="polite">
+        <div class="anim-stage-head">
+          <span class="anim-stage-name" id="animStageName">1/7 대기 접근 (stowed)</span>
+          <span class="anim-stage-pct" id="animStageCode">stowed</span>
+        </div>
+        <div class="anim-stage-desc" id="animStageDesc">G=85 mm · 포크 Z=85..147 mm · 돌출 0 mm · 전방 작업 구역(X=+810..+1,910)에 田자 25 mm 파레트 대기</div>
+        <div class="anim-stage-metrics" id="animStageMetrics">차체 X 0 mm · ext 0 · 포크 Z 85~147 · 가위 θ 8.0° · LC 0 kg</div>
+      </div>
+
+      <div class="anim-opt-grid">
         <div class="field-group">
-          <div class="field-head"><span>기체 아키텍처 (듀얼 트랙)</span></div>
-          <div class="arch-seg" role="group" aria-label="기체 아키텍처 선택">
-            <button type="button" class="arch-btn active" id="btnArchX" data-arch="HD30X">
-              <span class="arch-btn-top">
-                <span class="arch-title">A안 (메인) · HD-30X (X지렛대)</span>
-                <span class="arch-pill">248부품</span>
-              </span>
-              <span class="arch-sub">728.5 kg · 1,560 mm · T10 Z450 (+40/+65)</span>
-            </button>
-            <button type="button" class="arch-btn" id="btnArchC" data-arch="HD30C">
-              <span class="arch-btn-top">
-                <span class="arch-title">B안 · HD-30C-R (중강성 리치)</span>
-                <span class="arch-pill">210부품</span>
-              </span>
-              <span class="arch-sub">2,175.6 kg · 1,960 mm · 양면 Z485 (+50)</span>
-            </button>
+          <div class="field-head"><span>시퀀스 모드</span></div>
+          <div class="seg-box" role="group" aria-label="시퀀스 모드">
+            <div class="seg-row cols-3">
+              <button type="button" class="seg-btn compact active" data-anim-mode="pickup">픽업</button>
+              <button type="button" class="seg-btn compact" data-anim-mode="drop">드롭</button>
+              <button type="button" class="seg-btn compact" data-anim-mode="loop">왕복</button>
+            </div>
           </div>
         </div>
+        <div class="field-group">
+          <div class="field-head"><span>배속</span></div>
+          <div class="seg-box" role="group" aria-label="애니메이션 배속">
+            <div class="seg-row cols-3">
+              <button type="button" class="seg-btn compact" data-anim-speed="0.5">0.5x</button>
+              <button type="button" class="seg-btn compact active" data-anim-speed="1">1x</button>
+              <button type="button" class="seg-btn compact" data-anim-speed="2">2x</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <!-- Always-visible Pallet Type Toggle (per Architecture) -->
+      <div class="field-group" id="palletBoxX">
+        <div class="field-head">
+          <span>A안 파레트 (1100×1100 실척)</span>
+          <span class="field-hint" id="vPalletStateX">바닥 대기 (Z=0)</span>
+        </div>
+        <div class="seg-box" role="group" aria-label="HD-30X 파레트 종류">
+          <div class="seg-row cols-pallet">
+            <button type="button" class="seg-btn compact active" data-pallet-x="window">창문 양면 (田자 25mm)</button>
+            <button type="button" class="seg-btn compact" data-pallet-x="single">단면형</button>
+            <button type="button" class="seg-btn compact" data-pallet-x="none">없음</button>
+          </div>
+        </div>
+        <div class="pallet-note">田자 하판 25 mm + 중앙 등뼈 130 mm + 창문 W1/W2 355 mm · 통판 양면은 B안 전용</div>
+      </div>
+
+      <div class="field-group hidden" id="palletBoxC">
+        <div class="field-head">
+          <span>B안 파레트 (1100×1100 실척)</span>
+          <span class="field-hint" id="vPalletStateC">바닥 대기 (Z=0)</span>
+        </div>
+        <div class="seg-box" role="group" aria-label="HD-30C-R 파레트 종류">
+          <div class="seg-row cols-pallet">
+            <button type="button" class="seg-btn compact active" data-pallet-c="double">통판 양면 (25mm)</button>
+            <button type="button" class="seg-btn compact" data-pallet-c="single">단면형</button>
+            <button type="button" class="seg-btn compact" data-pallet-c="none">없음</button>
+          </div>
+        </div>
+        <div class="pallet-note">바닥 막힌 25 mm 연속 통판 양면 · 리치 1,150 mm (힐 +950, 범퍼 +20 mm 클리어)</div>
+      </div>
+
+      <!-- Always-visible 4-Point Symmetric Load-Cell Live Card -->
+      <div class="weigh-card" id="weighCard" aria-live="polite">
+        <div class="weigh-top">
+          <span class="weigh-title" id="weighTitle">4점 대칭 팬케이크 로드셀 (Hat 슈)</span>
+          <span class="weigh-badge" id="weighStatus">바닥 대기 (0.0 kg)</span>
+        </div>
+        <div class="weigh-main">
+          <span class="weigh-kg" id="weighKg">0.0 kg</span>
+          <span class="weigh-sub" id="weighAcc">후 49.5% / 전 50.5% · 4×1t</span>
+        </div>
+        <div class="lc-grid">
+          <div class="lc-cell"><span class="lc-id" id="lcId0">LF</span><span class="lc-val" id="lcVal0">0.0 kg</span></div>
+          <div class="lc-cell"><span class="lc-id" id="lcId1">RF</span><span class="lc-val" id="lcVal1">0.0 kg</span></div>
+          <div class="lc-cell"><span class="lc-id" id="lcId2">LR</span><span class="lc-val" id="lcVal2">0.0 kg</span></div>
+          <div class="lc-cell"><span class="lc-id" id="lcId3">RR</span><span class="lc-val" id="lcVal3">0.0 kg</span></div>
+        </div>
+      </div>
+    </section>
+
+    <details class="insp-sec" open>
+      <summary>1. 센서 · 배터리 · Rev A.5 CAD / BOM</summary>
+      <div class="insp-body">
         <div class="field-group">
           <div class="field-head"><span>센서 사양 (중장갑 공통 프레임)</span></div>
           <div class="seg-box" role="group" aria-label="센서 사양 선택">
@@ -860,59 +1215,41 @@ label.chk span.lbl {
           </div>
         </div>
 
-        <div class="mass-line" id="massSummary">728.5 kg · T10 +40/+65mm · 248부품</div>
-      </div>
-    </details>
+        <div class="mass-line" id="massSummary">786.7 kg · T10 +76.8/+101.8mm · 338부품</div>
 
-    <details class="insp-sec" open>
-      <summary>2. 선택 사양 CAD 받기</summary>
-      <div class="insp-body">
         <div class="cad-file-meta">
-          <div class="cad-file-name" id="dlFileName">HD30X_RevA4_Full3D_100Ah.step</div>
-          <div class="cad-file-sub" id="dlFileMeta">248부품 · 6.19 MB · CG (-138.3, +10.0, 210.0)</div>
+          <div class="cad-file-name" id="dlFileName">HD30X_RevA5_Full3D_100Ah.step</div>
+          <div class="cad-file-sub" id="dlFileMeta">338부품 · 10.23 MB · CG (-151.7, +9.4, 201.3)</div>
         </div>
         <div class="dl-actions">
-          <a class="p-btn primary sm" id="dlStepBtn" href="cad/HD30X_RevA4_Full3D_100Ah.step" download>STEP 받기</a>
-          <a class="p-btn sm" id="dlCsvBtn" href="cad/HD30X_RevA4_Full3D_100Ah.csv" download>CSV 부품표</a>
+          <a class="p-btn primary sm" id="dlStepBtn" href="cad/HD30X_RevA5_Full3D_100Ah.step" download>STEP 받기</a>
+          <a class="p-btn sm" id="dlCsvBtn" href="cad/HD30X_RevA5_Full3D_100Ah.csv" download>CSV 부품표</a>
+        </div>
+        <div class="dl-actions bom-row">
+          <a class="p-btn sm" id="dlBomCnBtn" href="cad/HD30X_RevA5_BOM_China_OEM.csv" download>중국 OEM BOM</a>
+          <a class="p-btn sm" id="dlBomKrBtn" href="cad/HD30X_RevA5_BOM_Korea_KC.csv" download>한국 KC BOM</a>
         </div>
         <div class="cad-caption" id="dlCaption"></div>
-        <a class="insp-link" href="vendor_drawing.html">전체 8종 CAD · BOM · 도면 보기 (도면 · CAD)</a>
+        <a class="insp-link" href="vendor_drawing.html">전체 16종 Rev A.5 CAD · 4종 BOM · 도면 보기</a>
       </div>
     </details>
 
-    <details class="insp-sec" id="secMotion" open>
-      <summary>3. 포크 동작 · 4점 계량 · 4WS 단차</summary>
+    <details class="insp-sec" id="secMotion">
+      <summary>2. 수동 기구학 · 하중 · 4WS · 30mm 단차</summary>
       <div class="insp-body">
-        <!-- A안 (메인): HD-30X Rev A.4 Long-Link L=520 X-Scissor T10 Motion Panel -->
+        <!-- A안 수동 제어 -->
         <div class="arch-panel-group" id="motionHD30X">
-          <div class="field-group">
-            <div class="field-head"><span>T10 픽업 · 드롭 공정 프리셋</span></div>
-            <div class="seg-box" role="group" aria-label="HD-30X T10 작업 공정 프리셋">
-              <div class="seg-row">
-                <button type="button" class="seg-btn preset-btn active" data-xpreset="stow">주행 격납 (단면 Z85~135)</button>
-              </div>
-              <div class="seg-row cols-2">
-                <button type="button" class="seg-btn preset-btn" data-xpreset="fork_out">T10 ① 진입<br>(Z10~60)</button>
-                <button type="button" class="seg-btn preset-btn" data-xpreset="lift_up">T10 ② 상승<br>(Z450 · 바닥+40↑)</button>
-              </div>
-              <div class="seg-row cols-2">
-                <button type="button" class="seg-btn preset-btn" data-xpreset="sync_in">T10 ③ 인입<br>(sync_in)</button>
-                <button type="button" class="seg-btn preset-btn" data-xpreset="window">T10 ④ 창형 안착<br>(Z310~360)</button>
-              </div>
-            </div>
-          </div>
-
           <div class="slider-row">
             <div class="slider-head">
-              <span>포크 하강 (0~-75)</span>
-              <span class="slider-val" id="vDropX">0 mm (Z85~135)</span>
+              <span>포크 하강 (0 ~ -75)</span>
+              <span class="slider-val" id="vDropX">0 mm (Z85~147)</span>
             </div>
             <input type="range" id="sDropX" min="-75" max="0" step="1" value="0">
           </div>
 
           <div class="slider-row">
             <div class="slider-head">
-              <span>포크 전진 (0~1,200)</span>
+              <span>포크 전진 (0 ~ 1,200)</span>
               <span class="slider-val" id="vExtX">0 mm</span>
             </div>
             <input type="range" id="sExtX" min="0" max="1200" step="10" value="0">
@@ -920,99 +1257,39 @@ label.chk span.lbl {
 
           <div class="slider-row">
             <div class="slider-head">
-              <span>X-가위 리프트 (0~390)</span>
-              <span class="slider-val" id="vLiftX">0 mm (Z85~135)</span>
+              <span>2단 X-가위 순수 행정 (0 ~ 414.8)</span>
+              <span class="slider-val" id="vLiftX">0 mm (θ 8.0°)</span>
             </div>
-            <input type="range" id="sLiftX" min="0" max="390" step="1" value="0">
-          </div>
-
-          <div class="field-group">
-            <div class="field-head">
-              <span>파레트 (1100×1100×150)</span>
-              <span class="field-hint" id="vPalletStateX">상판 안착 (Z285)</span>
-            </div>
-            <div class="seg-box" role="group" aria-label="HD-30X 파레트 종류">
-              <div class="seg-row cols-pallet-x">
-                <button type="button" class="seg-btn compact active" data-pallet-x="single">단면형</button>
-                <button type="button" class="seg-btn compact" data-pallet-x="window">창형 양면</button>
-                <button type="button" class="seg-btn compact" data-pallet-x="none">없음</button>
-              </div>
-            </div>
-            <div class="pallet-note">통판 바닥 막힘 양면형은 B안 HD-30C-R 전용</div>
+            <input type="range" id="sLiftX" min="0" max="415" step="1" value="0">
           </div>
         </div>
 
-        <!-- B안 (양면형 중강성 확장): HD-30C-R Rev A.4 Retractable Reach Counterbalanced Motion Panel -->
+        <!-- B안 수동 제어 -->
         <div class="arch-panel-group hidden" id="motionHD30C">
-          <div class="field-group">
-            <div class="field-head"><span>중강성 리치 작업 공정 프리셋</span></div>
-            <div class="seg-box" role="group" aria-label="HD-30C-R 작업 공정 프리셋">
-              <div class="seg-row cols-2">
-                <button type="button" class="seg-btn preset-btn active" data-cpreset="stow">주행 수납<br>(1,960mm · 무부하)</button>
-                <button type="button" class="seg-btn preset-btn" data-cpreset="floor">바닥 진입<br>(Z5~45)</button>
-              </div>
-              <div class="seg-row cols-2">
-                <button type="button" class="seg-btn preset-btn" data-cpreset="weigh">즉시 계량<br>(+20)</button>
-                <button type="button" class="seg-btn preset-btn" data-cpreset="deck">양면 인입<br>(+440 → Z485)</button>
-              </div>
+          <div class="slider-row">
+            <div class="slider-head">
+              <span>마스트 리치 (0 ~ 1,150)</span>
+              <span class="slider-val" id="vReachC">0 mm (2,040)</span>
             </div>
+            <input type="range" id="sReachC" min="0" max="1150" step="10" value="0">
           </div>
 
           <div class="slider-row">
             <div class="slider-head">
-              <span>마스트 신축 (0~1,100)</span>
-              <span class="slider-val" id="vReachC">0 mm (1,960)</span>
+              <span>2단 듀플렉스 승강 (Z 5 ~ 505)</span>
+              <span class="slider-val" id="vLiftC">Z 105~150 (내측 +0)</span>
             </div>
-            <input type="range" id="sReachC" min="0" max="1100" step="10" value="0">
-          </div>
-
-          <div class="slider-row">
-            <div class="slider-head">
-              <span>포크 승강 (dz -100~+340)</span>
-              <span class="slider-val" id="vLiftC">Z 105~145 (0)</span>
-            </div>
-            <input type="range" id="sLiftC" min="5" max="445" step="1" value="105">
-          </div>
-
-          <div class="field-group">
-            <div class="field-head">
-              <span>파레트 (1100×1100×150)</span>
-              <span class="field-hint" id="vPalletStateC">상판 안착 (Z310)</span>
-            </div>
-            <div class="seg-box" role="group" aria-label="HD-30C-R 파레트 종류">
-              <div class="seg-row cols-pallet">
-                <button type="button" class="seg-btn compact active" data-pallet-c="double">양면형 (바닥 막힘)</button>
-                <button type="button" class="seg-btn compact" data-pallet-c="single">단면형</button>
-                <button type="button" class="seg-btn compact" data-pallet-c="none">없음</button>
-              </div>
-            </div>
+            <input type="range" id="sLiftC" min="5" max="505" step="1" value="105">
           </div>
         </div>
 
-        <!-- Common Payload Slider & 4-Point Load-Cell Card -->
+        <!-- Common Payload Slider -->
         <div class="slider-row">
           <div class="slider-head">
             <span>적재 하중 (정격 1,500 kg)</span>
-            <span class="slider-val" id="vLoad">1,200 kg</span>
+            <span class="slider-val" id="vLoad">1,500 kg</span>
           </div>
-          <input type="range" id="sLoad" min="0" max="1650" step="10" value="1200">
-        </div>
-
-        <div class="weigh-card state-safe" id="weighCard" aria-live="polite">
-          <div class="weigh-top">
-            <span class="weigh-title" id="weighTitle">4점 인라인 포크 로드셀 계량</span>
-            <span class="weigh-badge safe" id="weighStatus">주행 시 0 kg 무부하 보호 (상판 안착)</span>
-          </div>
-          <div class="weigh-main">
-            <span class="weigh-kg" id="weighKg">0 kg</span>
-            <span class="weigh-sub" id="weighAcc">포크 매립 4×1,000 kg</span>
-          </div>
-          <div class="lc-grid">
-            <div class="lc-cell"><span class="lc-id" id="lcId0">LF</span><span class="lc-val" id="lcVal0">0 kg</span></div>
-            <div class="lc-cell"><span class="lc-id" id="lcId1">RF</span><span class="lc-val" id="lcVal1">0 kg</span></div>
-            <div class="lc-cell"><span class="lc-id" id="lcId2">LR</span><span class="lc-val" id="lcVal2">0 kg</span></div>
-            <div class="lc-cell"><span class="lc-id" id="lcId3">RR</span><span class="lc-val" id="lcVal3">0 kg</span></div>
-          </div>
+          <input type="range" id="sLoad" min="0" max="1650" step="10" value="1500">
         </div>
 
         <!-- Common 4WS Steering & 30 mm Elevator Step -->
@@ -1034,14 +1311,14 @@ label.chk span.lbl {
           <input type="checkbox" id="kStepSim">
           <span class="f-txt">
             <span class="f-title">30 mm 엘리베이터 단차 · 40 mm 틈새</span>
-            <span class="f-sub" id="stepSimSub">Ø220 로커 +30 mm 관절 · G = 85 mm 여유</span>
+            <span class="f-sub" id="stepSimSub">수직 가이드 ±25 mm + Ø220 4WS · G = 85 mm</span>
           </span>
         </label>
       </div>
     </details>
 
     <details class="insp-sec" id="secLayers">
-      <summary>4. 단면 절개 · 표시 레이어</summary>
+      <summary>3. 단면 절개 · 표시 레이어</summary>
       <div class="insp-body">
         <div class="field-group">
           <div class="field-head">
@@ -1057,7 +1334,7 @@ label.chk span.lbl {
             </div>
           </div>
           <div class="slider-row">
-            <input type="range" id="sClip" min="0" max="760" step="5" value="285" disabled>
+            <input type="range" id="sClip" min="0" max="760" step="5" value="275" disabled>
           </div>
         </div>
 
@@ -1089,11 +1366,19 @@ label.chk span.lbl {
     <canvas id="c"></canvas>
 
     <div id="loadingOverlay">
-      <div id="loadingTitle">HD-30X Rev A.4 3D CAD 불러오는 중...</div>
-      <div class="sub-msg" id="loadingSub">hd30x_1500kg_scissor.glb · 248 부품</div>
+      <div id="loadingTitle">HD-30X Rev A.5 3D CAD 불러오는 중...</div>
+      <div class="sub-msg" id="loadingSub">hd30x_1500kg_scissor.glb · 338 부품</div>
     </div>
 
-    <div id="vpStatus">HD-30X Rev A.4 · 로딩 중</div>
+    <div id="vpAnimHud">
+      <div class="hud-top">
+        <span class="hud-tag" id="vpHudStep">1/7</span>
+        <span id="vpHudTitle">HD-30X · 대기 접근 (stowed)</span>
+      </div>
+      <div class="hud-sub" id="vpHudSub">차체 X 0 mm · 포크 Z 85~147 mm · 가위 θ 8.0° · 로드셀 0.0 kg</div>
+    </div>
+
+    <div id="vpStatus">HD-30X Rev A.5 · 로딩 중</div>
 
     <div id="axisLegend">
       <span style="color:#f87171">+X 전방</span>
@@ -1108,7 +1393,7 @@ label.chk span.lbl {
       <button type="button" data-cam="left">좌측</button>
       <button type="button" data-cam="top">평면</button>
       <span class="cam-sep" aria-hidden="true"></span>
-      <button type="button" data-cam="fork">포크·로드셀</button>
+      <button type="button" data-cam="fork">포크·가위</button>
       <button type="button" data-cam="steer">4WS 하부</button>
       <button type="button" data-cam="armor">3D 장갑</button>
       <span class="cam-sep" aria-hidden="true"></span>
@@ -1148,42 +1433,45 @@ label.chk span.lbl {
 const $ = id => document.getElementById(id);
 
 // ============================================================================
-// SSOT DUAL-ARCHITECTURE CATALOG (A안 메인 HD-30X Rev A.4 + B안 HD-30C-R Rev A.4)
+// SSOT DUAL-ARCHITECTURE CATALOG (HD-30X Rev A.5 + HD-30C-R Rev A.5)
 // Synchronized live from ./cad/cad_variants_manifest.json on HTTP boot
 // ============================================================================
 const ARCH_CONFIGS = {
   HD30X: {
     key: 'HD30X',
     code: 'HD-30X',
-    rev: 'Rev A.4',
-    shortName: 'A안 (메인) · HD-30X (X지렛대)',
+    rev: 'Rev A.5',
+    shortName: 'A안 (메인) · HD-30X (2단 X-가위)',
     partsJson: './hd30x_1500kg_parts.json',
     mainGlb: './hd30x_1500kg_scissor.glb',
     optGlb: './hd30x_200ah_opt.glb',
-    summaryMid: 'T10 +40/+65mm',
+    summaryMid: 'T10 +76.8/+101.8mm',
     sfLabel: '휠 SF',
     sfDecimals: 2,
     rearBumperXMm: -780.0,
-    podTopMm: 285.0,
+    frontBumperXMm: 780.0,
+    podTopMm: 275.0,
     stepOffsetXMm: 100.0,
-    stepSub: 'Ø220 로커 +30 mm 관절 · G = 85 mm 여유',
-    spinDegLabel: '±43.5° 대각',
-    spinRad: Math.atan2(410.0, 432.0),
-    lcTitle: '4점 인라인 포크 로드셀 계량',
-    lcAcc: '포크 매립 4×1,000 kg',
+    stepSub: '수직 가이드 ±25 mm + Ø220 4WS · G = 85 mm',
+    spinDegLabel: '±43.4° 대각',
+    spinRad: Math.atan2(410.0, 433.0),
+    lcTitle: '4점 대칭 팬케이크 로드셀 (Hat 슈)',
+    lcAcc: '후 49.5% / 전 50.5% · 4×1t',
     lcIds: ['LF', 'RF', 'LR', 'RR'],
+    lcXMm: [-380.0, 590.0],
+    lcNominalPayloadXMm: 110.0,
     clipBounds: {
-      x: { min: -780, max: 1945, def: 0 },
+      x: { min: -780, max: 2100, def: 0 },
       y: { min: -600, max: 600, def: 0 },
-      z: { min: 0, max: 760, def: 285 },
+      z: { min: 0, max: 760, def: 275 },
     },
     xt32Label: '좌후방 3D XT32 FOV (Z=675)',
     e1rLabel: '전방 E1R FOV (Z=165)',
     sensors: {
       lidar2dFL: [705.0, 530.0, 180.0],
-      lidar2dFLAz: [-86.0, 171.5],
+      lidar2dFLAz: [-86.0, 171.0],
       lidar2dRR: [-705.0, -530.0, 180.0],
-      lidar2dRRAz: [93.5, 357.25],
+      lidar2dRRAz: [93.75, 357.0],
       xt32Pos: [-650.0, 440.0, 675.0],
       xt32TiltDeg: 8.0,
       xt32DeckZ: 605.0,
@@ -1192,64 +1480,68 @@ const ARCH_CONFIGS = {
       qrPos: [0.0, 0.0, 140.0],
     },
     wheelPivots: {
-      wheel_FL: [410.0, 432.0, 0.0],
-      wheel_FR: [410.0, -432.0, 0.0],
-      wheel_RL: [-410.0, 432.0, 0.0],
-      wheel_RR: [-410.0, -432.0, 0.0],
+      wheel_FL: [410.0, 433.0, 0.0],
+      wheel_FR: [410.0, -433.0, 0.0],
+      wheel_RL: [-410.0, 433.0, 0.0],
+      wheel_RR: [-410.0, -433.0, 0.0],
     },
     shellExtra: new Set([
       'tower_door_L', 'tower_door_R',
       'tower_deck_L_6t', 'tower_deck_R_6t',
       'tower_front_L', 'tower_front_R',
     ]),
+    bomFiles: {
+      china_oem: { file: 'HD30X_RevA5_BOM_China_OEM.csv', href: 'cad/HD30X_RevA5_BOM_China_OEM.csv' },
+      korea_kc:  { file: 'HD30X_RevA5_BOM_Korea_KC.csv',  href: 'cad/HD30X_RevA5_BOM_Korea_KC.csv' },
+    },
     variants: {
       Full3D_100Ah: {
         id: 'Full3D_100Ah',
-        stepFile: 'HD30X_RevA4_Full3D_100Ah.step',
-        csvFile: 'HD30X_RevA4_Full3D_100Ah.csv',
-        stepHref: 'cad/HD30X_RevA4_Full3D_100Ah.step',
-        csvHref: 'cad/HD30X_RevA4_Full3D_100Ah.csv',
-        partCount: 248,
-        stepBytes: 6493865,
-        totalEmptyKg: 728.51,
-        cgEmptyMm: [-138.3, 10.0, 210.0],
-        sf: 1.84,
+        stepFile: 'HD30X_RevA5_Full3D_100Ah.step',
+        csvFile: 'HD30X_RevA5_Full3D_100Ah.csv',
+        stepHref: 'cad/HD30X_RevA5_Full3D_100Ah.step',
+        csvHref: 'cad/HD30X_RevA5_Full3D_100Ah.csv',
+        partCount: 338,
+        stepBytes: 10723242,
+        totalEmptyKg: 786.66,
+        cgEmptyMm: [-151.7, 9.4, 201.3],
+        sf: 1.83,
       },
       Semi3D_E1R_100Ah: {
         id: 'Semi3D_E1R_100Ah',
-        stepFile: 'HD30X_RevA4_Semi3D_E1R_100Ah.step',
-        csvFile: 'HD30X_RevA4_Semi3D_E1R_100Ah.csv',
-        stepHref: 'cad/HD30X_RevA4_Semi3D_E1R_100Ah.step',
-        csvHref: 'cad/HD30X_RevA4_Semi3D_E1R_100Ah.csv',
-        partCount: 248,
-        stepBytes: 6512341,
-        totalEmptyKg: 727.74,
-        cgEmptyMm: [-137.8, 9.6, 209.6],
-        sf: 1.84,
+        stepFile: 'HD30X_RevA5_Semi3D_E1R_100Ah.step',
+        csvFile: 'HD30X_RevA5_Semi3D_E1R_100Ah.csv',
+        stepHref: 'cad/HD30X_RevA5_Semi3D_E1R_100Ah.step',
+        csvHref: 'cad/HD30X_RevA5_Semi3D_E1R_100Ah.csv',
+        partCount: 338,
+        stepBytes: 10741714,
+        totalEmptyKg: 785.9,
+        cgEmptyMm: [-151.2, 9.0, 200.9],
+        sf: 1.83,
       },
       '2D_Basic_100Ah': {
         id: '2D_Basic_100Ah',
-        stepFile: 'HD30X_RevA4_2D_Basic_100Ah.step',
-        csvFile: 'HD30X_RevA4_2D_Basic_100Ah.csv',
-        stepHref: 'cad/HD30X_RevA4_2D_Basic_100Ah.step',
-        csvHref: 'cad/HD30X_RevA4_2D_Basic_100Ah.csv',
-        partCount: 247,
-        stepBytes: 6509615,
-        totalEmptyKg: 727.4,
-        cgEmptyMm: [-138.2, 9.6, 209.6],
-        sf: 1.85,
+        stepFile: 'HD30X_RevA5_2D_Basic_100Ah.step',
+        csvFile: 'HD30X_RevA5_2D_Basic_100Ah.csv',
+        stepHref: 'cad/HD30X_RevA5_2D_Basic_100Ah.step',
+        csvHref: 'cad/HD30X_RevA5_2D_Basic_100Ah.csv',
+        partCount: 337,
+        stepBytes: 10738982,
+        totalEmptyKg: 785.53,
+        cgEmptyMm: [-151.6, 9.0, 200.9],
+        sf: 1.84,
       },
       Full3D_200Ah: {
         id: 'Full3D_200Ah',
-        stepFile: 'HD30X_RevA4_Full3D_200Ah.step',
-        csvFile: 'HD30X_RevA4_Full3D_200Ah.csv',
-        stepHref: 'cad/HD30X_RevA4_Full3D_200Ah.step',
-        csvHref: 'cad/HD30X_RevA4_Full3D_200Ah.csv',
-        partCount: 253,
-        stepBytes: 6599421,
-        totalEmptyKg: 775.16,
-        cgEmptyMm: [-123.8, 9.7, 206.3],
-        sf: 1.8,
+        stepFile: 'HD30X_RevA5_Full3D_200Ah.step',
+        csvFile: 'HD30X_RevA5_Full3D_200Ah.csv',
+        stepHref: 'cad/HD30X_RevA5_Full3D_200Ah.step',
+        csvHref: 'cad/HD30X_RevA5_Full3D_200Ah.csv',
+        partCount: 343,
+        stepBytes: 10829131,
+        totalEmptyKg: 832.8,
+        cgEmptyMm: [-137.7, 9.1, 197.8],
+        sf: 1.79,
       },
     },
     varSummaries: {
@@ -1261,47 +1553,50 @@ const ARCH_CONFIGS = {
   HD30C: {
     key: 'HD30C',
     code: 'HD-30C-R',
-    rev: 'Rev A.4',
-    shortName: 'B안 · HD-30C-R (중강성 리치)',
+    rev: 'Rev A.5',
+    shortName: 'B안 · HD-30C-R (2단 듀플렉스 리치)',
     partsJson: './hd30_1500kg_parts.json',
     mainGlb: './hd30_1500kg_fork.glb',
     optGlb: './hd30_200ah_opt.glb',
-    summaryMid: null,
+    summaryMid: 'Z550 +75/+100mm',
     sfLabel: 'SF_ext',
     sfDecimals: 2,
-    rearBumperXMm: -1030.0,
-    podTopMm: 310.0,
-    stepOffsetXMm: 320.0,
-    stepSub: 'Ø240 로커 +30 mm 관절 · G = 85 mm 여유',
-    spinDegLabel: '±56.6° 대각',
-    spinRad: Math.atan2(640.0, 422.0),
-    lcTitle: '4점 캐리지 로드셀 계량 (무충격 수납)',
-    lcAcc: '캐리지 4×1,000 kg',
-    lcIds: ['UL', 'UR', 'LL', 'LR'],
+    rearBumperXMm: -1110.0,
+    frontBumperXMm: 930.0,
+    podTopMm: 350.0,
+    stepOffsetXMm: 340.0,
+    stepSub: '수직 LM30 + ISO 10243 스프링 ±25 mm · Ø250 4WS · G = 85 mm',
+    spinDegLabel: '±60.1° 대각',
+    spinRad: Math.atan2(727.5, 418.0),
+    lcTitle: 'iForks 포크 내장 4점 로드셀 (축인장 0 N)',
+    lcAcc: '후 49.5% / 전 50.5% · 4×1t',
+    lcIds: ['FL', 'FR', 'RL', 'RR'],
+    lcXMm: [-20.0, 720.0],
+    lcNominalPayloadXMm: 353.8,
     clipBounds: {
-      x: { min: -1030, max: 2010, def: 150 },
+      x: { min: -1110, max: 3200, def: 150 },
       y: { min: -600, max: 600, def: 0 },
-      z: { min: 0, max: 995, def: 380 },
+      z: { min: 0, max: 995, def: 350 },
     },
     xt32Label: '좌후방 3D XT32 FOV (Z=925)',
-    e1rLabel: '우전방 E1R FOV (Z=232)',
+    e1rLabel: '우전방 E1R FOV (Z=242)',
     sensors: {
-      lidar2dFL: [855.0, 530.0, 180.0],
-      lidar2dFLAz: [-86.0, 177.75],
-      lidar2dRR: [-955.0, -530.0, 180.0],
-      lidar2dRRAz: [93.0, 358.25],
-      xt32Pos: [-845.0, 435.0, 925.0],
+      lidar2dFL: [865.0, 534.0, 180.0],
+      lidar2dFLAz: [-86.0, 178.0],
+      lidar2dRR: [-1042.0, -534.0, 180.0],
+      lidar2dRRAz: [93.75, 358.0],
+      xt32Pos: [-905.0, 435.0, 925.0],
       xt32TiltDeg: 5.0,
       xt32DeckZ: 855.0,
-      e1rPos: [868.0, -422.0, 232.0],
+      e1rPos: [868.0, -418.0, 242.0],
       e1rTiltDeg: 0.0,
-      qrPos: [-790.0, 0.0, 140.0],
+      qrPos: [-860.0, 0.0, 140.0],
     },
     wheelPivots: {
-      wheel_FL: [620.0, 422.0, 0.0],
-      wheel_FR: [620.0, -422.0, 0.0],
-      wheel_RL: [-660.0, 422.0, 0.0],
-      wheel_RR: [-660.0, -422.0, 0.0],
+      wheel_FL: [645.0, 418.0, 0.0],
+      wheel_FR: [645.0, -418.0, 0.0],
+      wheel_RL: [-810.0, 418.0, 0.0],
+      wheel_RR: [-810.0, -418.0, 0.0],
     },
     shellExtra: new Set([
       'rear_tower_front_skin_4t',
@@ -1309,63 +1604,67 @@ const ARCH_CONFIGS = {
       'tower_deck_L_6t', 'tower_deck_R_6t', 'tower_deck_ctr_6t',
       'tower_upper_shroud_L',
     ]),
+    bomFiles: {
+      china_oem: { file: 'HD30C_RevA5_BOM_China_OEM.csv', href: 'cad/HD30C_RevA5_BOM_China_OEM.csv' },
+      korea_kc:  { file: 'HD30C_RevA5_BOM_Korea_KC.csv',  href: 'cad/HD30C_RevA5_BOM_Korea_KC.csv' },
+    },
     variants: {
       Full3D_100Ah: {
         id: 'Full3D_100Ah',
-        stepFile: 'HD30C_RevA4_Full3D_100Ah.step',
-        csvFile: 'HD30C_RevA4_Full3D_100Ah.csv',
-        stepHref: 'cad/HD30C_RevA4_Full3D_100Ah.step',
-        csvHref: 'cad/HD30C_RevA4_Full3D_100Ah.csv',
-        partCount: 210,
-        stepBytes: 5274302,
-        totalEmptyKg: 2175.63,
-        cgEmptyMm: [-555.4, 45.8, 349.1],
-        cgEmptyExtendedMm: [-373.7, 45.8, 349.1],
-        sf: 1.716,
+        stepFile: 'HD30C_RevA5_Full3D_100Ah.step',
+        csvFile: 'HD30C_RevA5_Full3D_100Ah.csv',
+        stepHref: 'cad/HD30C_RevA5_Full3D_100Ah.step',
+        csvHref: 'cad/HD30C_RevA5_Full3D_100Ah.csv',
+        partCount: 256,
+        stepBytes: 6752465,
+        totalEmptyKg: 2192.42,
+        cgEmptyMm: [-544.3, 3.32, 329.18],
+        cgEmptyExtendedMm: [-352.0, 3.32, 329.18],
+        sf: 1.704,
       },
       Semi3D_E1R_100Ah: {
         id: 'Semi3D_E1R_100Ah',
-        stepFile: 'HD30C_RevA4_Semi3D_E1R_100Ah.step',
-        csvFile: 'HD30C_RevA4_Semi3D_E1R_100Ah.csv',
-        stepHref: 'cad/HD30C_RevA4_Semi3D_E1R_100Ah.step',
-        csvHref: 'cad/HD30C_RevA4_Semi3D_E1R_100Ah.csv',
-        partCount: 210,
-        stepBytes: 5292740,
-        totalEmptyKg: 2174.86,
-        cgEmptyMm: [-555.3, 45.6, 348.9],
-        cgEmptyExtendedMm: [-373.5, 45.6, 348.9],
-        sf: 1.715,
+        stepFile: 'HD30C_RevA5_Semi3D_E1R_100Ah.step',
+        csvFile: 'HD30C_RevA5_Semi3D_E1R_100Ah.csv',
+        stepHref: 'cad/HD30C_RevA5_Semi3D_E1R_100Ah.step',
+        csvHref: 'cad/HD30C_RevA5_Semi3D_E1R_100Ah.csv',
+        partCount: 256,
+        stepBytes: 6770914,
+        totalEmptyKg: 2191.65,
+        cgEmptyMm: [-544.17, 3.17, 328.98],
+        cgEmptyExtendedMm: [-351.8, 3.17, 328.98],
+        sf: 1.703,
       },
       '2D_Basic_100Ah': {
         id: '2D_Basic_100Ah',
-        stepFile: 'HD30C_RevA4_2D_Basic_100Ah.step',
-        csvFile: 'HD30C_RevA4_2D_Basic_100Ah.csv',
-        stepHref: 'cad/HD30C_RevA4_2D_Basic_100Ah.step',
-        csvHref: 'cad/HD30C_RevA4_2D_Basic_100Ah.csv',
-        partCount: 210,
-        stepBytes: 5292753,
-        totalEmptyKg: 2174.52,
-        cgEmptyMm: [-555.5, 45.7, 348.9],
-        cgEmptyExtendedMm: [-373.7, 45.7, 348.9],
-        sf: 1.715,
+        stepFile: 'HD30C_RevA5_2D_Basic_100Ah.step',
+        csvFile: 'HD30C_RevA5_2D_Basic_100Ah.csv',
+        stepHref: 'cad/HD30C_RevA5_2D_Basic_100Ah.step',
+        csvHref: 'cad/HD30C_RevA5_2D_Basic_100Ah.csv',
+        partCount: 256,
+        stepBytes: 6770928,
+        totalEmptyKg: 2191.33,
+        cgEmptyMm: [-544.38, 3.23, 328.99],
+        cgEmptyExtendedMm: [-351.98, 3.23, 328.99],
+        sf: 1.703,
       },
       Full3D_200Ah: {
         id: 'Full3D_200Ah',
-        stepFile: 'HD30C_RevA4_Full3D_200Ah.step',
-        csvFile: 'HD30C_RevA4_Full3D_200Ah.csv',
-        stepHref: 'cad/HD30C_RevA4_Full3D_200Ah.step',
-        csvHref: 'cad/HD30C_RevA4_Full3D_200Ah.csv',
-        partCount: 214,
-        stepBytes: 5369663,
-        totalEmptyKg: 2218.12,
-        cgEmptyMm: [-544.9, 36.7, 346.1],
-        cgEmptyExtendedMm: [-366.7, 36.7, 346.1],
-        sf: 1.737,
+        stepFile: 'HD30C_RevA5_Full3D_200Ah.step',
+        csvFile: 'HD30C_RevA5_Full3D_200Ah.csv',
+        stepHref: 'cad/HD30C_RevA5_Full3D_200Ah.step',
+        csvHref: 'cad/HD30C_RevA5_Full3D_200Ah.csv',
+        partCount: 259,
+        stepBytes: 6841870,
+        totalEmptyKg: 2201.07,
+        cgEmptyMm: [-535.45, 1.45, 327.94],
+        cgEmptyExtendedMm: [-343.91, 1.45, 327.94],
+        sf: 1.697,
       },
     },
     varSummaries: {
-      Full3D: '장갑 XT32(+5°·Z925) · 우전방 포드 매립 E1R(Z232) · 대각 2D×2 · QR',
-      Semi3D: '우전방 포드 매립 E1R(Z232) · 장갑 케이지 평면 2D · 대각 2D×2 · QR',
+      Full3D: '장갑 XT32(+5°·Z925) · 우전방 포드 매립 E1R(Z242) · 대각 2D×2 · QR',
+      Semi3D: '우전방 포드 매립 E1R(Z242) · 장갑 케이지 평면 2D · 대각 2D×2 · QR',
       '2D_Basic': '우전방 포켓 3t 블랭킹 · 장갑 케이지 평면 2D · 대각 2D×2 · QR',
     },
   },
@@ -1377,32 +1676,553 @@ const VARIANT_SPECS = {
   '2D_Basic': { label: '2D 기본', frontE1R: false, rearXT32: false },
 };
 
-const HD30X_PRESETS = {
-  stow:     { drop: 0,   ext: 0,    lift: 0,   pallet: 'single' }, // Z=85..135 stowed on pod_top 285, 0 kg
-  fork_out: { drop: -75, ext: 1200, lift: 0,   pallet: null     }, // T10 ① 진입 (Z=10..60)
-  lift_up:  { drop: -75, ext: 1200, lift: 390, pallet: null     }, // T10 ② 상승 (Z=400..450, +65/+40 > pod_top 285)
-  sync_in:  { drop: -75, ext: 0,    lift: 390, pallet: null     }, // T10 ③ 인입 (Z=400..450 clearing pod_top 285)
-  window:   { drop: 0,   ext: 0,    lift: 225, pallet: 'window' }, // T10 ④ 창형 안착 (Z=310..360 trapped in window pocket, 0 kg)
+// ============================================================================
+// REV A.5 EXACT REAL-KINEMATICS CONSTANTS & 7-STAGE ANIMATION EVALUATORS
+// ============================================================================
+const HD30X_K = {
+  podTop: 275.0,
+  forkH: 62.0,
+  zStowBot: 85.0,
+  zStowTop: 147.0,
+  dropSingle: -75.0,
+  dropWindow: -55.0,
+  scissorL: 305.0,
+  thetaMinDeg: 8.0,
+  thetaMaxDeg: 55.0,
+  rawStrokeMax: 414.79,
+  lostMotionSingle: 10.0,
+  lostMotionWindow: 30.0,
+  zMaxBot: 414.79,
+  zMaxTop: 476.79,
+  zWindowTravelBot: 300.0,
+  zWindowTravelTop: 362.0,
+  extMax: 1200.0,
+  palletPickupWorldX: 1360.0, // World X_pallet = [+810 .. +1,910], W1=[940..1295], W2=[1425..1780]
+  scissorXf: [-82.5, 402.5],
+  scissorYc: [217.0, -217.0],
+  zScCtrStowed: 113.0,
 };
 
-const HD30C_PRESETS = {
-  stow:  { reach: 0,    dz: 0    }, // Z_bot=105, Z_top=145 (stowed 1,960 mm, pallet on pod_top Z=310, 0 kg shock-free)
-  floor: { reach: 1100, dz: -100 }, // Z_bot=5,   Z_top=45  (floor double-deck entry)
-  weigh: { reach: 1100, dz: -80  }, // Z_bot=25,  Z_top=65  (immediate 4-pt carriage weighing ±2 kg)
-  deck:  { reach: 1100, dz: 340  }, // Z_bot=445, Z_top=485 (double-deck bottom 360 > pod_top 310 by +50 mm!)
+const HD30C_K = {
+  podTop: 350.0,
+  forkH: 45.0,
+  reachMax: 1150.0,
+  chassisInsertMax: 1100.0,
+  zStowBot: 105.0,
+  zStowTop: 150.0,
+  dzSingleEntry: -100.0,  // Z=5..50
+  dzDoubleEntry: -70.0,   // Z=35..80 (+10 mm clear of 25 mm solid bottom board!)
+  dzStowDouble: 290.0,    // Z=395..440 (+20 above 375 bottom, +35 below 475 top!)
+  dzMaxLift: 400.0,       // Z=505..550 (pallet_bot=425 double / 450 single!)
+  innerFreeLiftThreshold: 250.0, // FFL: inner mast rises only above dz=+250 -> +40 @ stow_double, +150 @ max_lift!
+  innerStowedTop: 830.0,
+  palletPickupWorldX: 2600.0, // World X_pallet = [+2,050 .. +3,150]; at chassisX=0, reach=1150 -> tip=+2,050!
 };
 
-function formatMB(bytes) {
-  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+const STAGES_A = [
+  { id: 'stowed',        u0: 0.00, u1: 0.08, uKey: 0.00, name: '대기 접근',            dropName: '공차 수납 완료' },
+  { id: 'fork_down',     u0: 0.08, u1: 0.18, uKey: 0.18, name: '포크 하강',            dropName: '포크 상승 복귀' },
+  { id: 'fork_out',      u0: 0.18, u1: 0.34, uKey: 0.34, name: '포크 전진',            dropName: '포크 후퇴 (fork_in)' },
+  { id: 'lift_up',       u0: 0.34, u1: 0.54, uKey: 0.54, name: 'X-가위 리프트 상승 + 계량', dropName: '파레트 바닥 안착' },
+  { id: 'sync_in',       u0: 0.54, u1: 0.72, uKey: 0.63, name: '가위 밑 차체 진입',    dropName: '차체 후진 이탈 (sync_out)' },
+  { id: 'lift_down',     u0: 0.72, u1: 0.90, uKey: 0.88, name: 'X-리프트 하강 · 등뼈 걸침', dropName: '가위 착지 · 파레트 인양' },
+  { id: 'travel_verify', u0: 0.90, u1: 1.00, uKey: 1.00, name: '수납 주행 검증',       dropName: '적재 주행 도착' },
+];
+
+const STAGES_B = [
+  { id: 'stowed',         u0: 0.00, u1: 0.08, uKey: 0.00, name: '대기 접근',                 dropName: '공차 수납 완료' },
+  { id: 'reach_out',      u0: 0.08, u1: 0.22, uKey: 0.22, name: '마스트 리치 전개',          dropName: '마스트 수납 복귀' },
+  { id: 'fork_down',      u0: 0.22, u1: 0.34, uKey: 0.34, name: '포크 바닥 하강',            dropName: '포크 수납 높이 복귀' },
+  { id: 'chassis_insert', u0: 0.34, u1: 0.50, uKey: 0.50, name: '차체 전진 · 포크 삽입',     dropName: '차체 후진 · 포크 인출' },
+  { id: 'lift_weigh',     u0: 0.50, u1: 0.68, uKey: 0.68, name: '2단 듀플렉스 상승 + 계량',  dropName: '파레트 바닥 하강' },
+  { id: 'reach_in',       u0: 0.68, u1: 0.84, uKey: 0.84, name: '마스트 리치 후퇴',          dropName: '마스트 전방 리치 전개' },
+  { id: 'deck_seat',      u0: 0.84, u1: 1.00, uKey: 1.00, name: '데크 안착 · 락핀 · 0 kg',   dropName: '락핀 해제 · 데크 이격' },
+];
+
+const STAGE_ALIASES_A = {
+  stowed: 0, stow: 0,
+  fork_down: 1,
+  fork_out: 2, floor: 2,
+  lift_up: 3, deck: 3, lift_up_476: 3,
+  sync_in: 4, sync_in_mid: 4,
+  lift_down: 5, spine_rest: 5, window: 5, lift_down_window_300: 5,
+  travel_verify: 6, travel: 6,
+};
+
+const STAGE_ALIASES_B = {
+  stowed: 0, stow: 0,
+  reach_out: 1,
+  fork_down: 2, floor: 2,
+  chassis_insert: 3, insert: 3,
+  lift_weigh: 4, weigh: 4, deck: 4,
+  reach_in: 5,
+  deck_seat: 6, stow_double: 6,
+};
+
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+function lerp(a, b, t) { return a + (b - a) * t; }
+function smooth(x) {
+  const t = clamp(x, 0, 1);
+  return 0.5 - 0.5 * Math.cos(Math.PI * t);
 }
 
-function formatInt(n) {
-  return Math.round(n).toLocaleString('en-US');
+function computeScissorGeometry(rawStrokeMm) {
+  const sin0 = Math.sin(HD30X_K.thetaMinDeg * Math.PI / 180);
+  const sinMax = Math.sin(HD30X_K.thetaMaxDeg * Math.PI / 180);
+  const sinT = clamp(sin0 + Math.max(0, rawStrokeMm) / (2.0 * HD30X_K.scissorL), sin0, sinMax);
+  const thetaRad = Math.asin(sinT);
+  const thetaDeg = thetaRad * 180 / Math.PI;
+  const dThetaRad = thetaRad - (HD30X_K.thetaMinDeg * Math.PI / 180);
+  const tierH = HD30X_K.scissorL * sinT;
+  const nestOffset = HD30X_K.scissorL * sin0; // 42.448 mm Y-nesting step
+  return { thetaRad, thetaDeg, dThetaRad, tierH, nestOffset };
 }
 
-function formatKg1(n) {
-  return Number(n).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+function computeHD30XHeelMastDz(zForkBotMm) {
+  const dzF = zForkBotMm - HD30X_K.zStowBot; // -75 .. +329.79
+  if (dzF <= 100.0) return { dzS1: 0.0, dzS2: 0.0 };
+  if (dzF <= 215.0) {
+    const u = (dzF - 100.0) / 115.0;
+    return { dzS1: 100.0 * u, dzS2: 100.0 * u };
+  }
+  const u = clamp((dzF - 215.0) / (329.79 - 215.0), 0, 1);
+  return { dzS1: 100.0 + 10.0 * u, dzS2: 100.0 + 118.0 * u };
 }
+
+function computeSymmetricLoadCells(archKey, loadKg, weighActive, seatMode) {
+  const cfg = ARCH_CONFIGS[archKey];
+  if (!weighActive) {
+    if (seatMode === 'none') {
+      return { measuredKg: 0, rearPct: 0, frontPct: 0, statusText: '파레트 없음 (영점)', stateClass: '', badgeClass: '', cells: [0, 0, 0, 0] };
+    }
+    if (seatMode === 'spine') {
+      return { measuredKg: 0, rearPct: 0, frontPct: 0, statusText: '등뼈 안착 · Z300 록핀 · 0.0 kg', stateClass: 'state-safe', badgeClass: 'safe', cells: [0, 0, 0, 0] };
+    }
+    if (seatMode === 'deck') {
+      return { measuredKg: 0, rearPct: 0, frontPct: 0, statusText: '데크 안착 · 무충격 주행 0.0 kg', stateClass: 'state-safe', badgeClass: 'safe', cells: [0, 0, 0, 0] };
+    }
+    return { measuredKg: 0, rearPct: 0, frontPct: 0, statusText: '바닥 대기 (무부하 0.0 kg)', stateClass: '', badgeClass: '', cells: [0, 0, 0, 0] };
+  }
+  // Real statics lever-arm distribution (no 25% hardcoding!)
+  const [xRear, xFront] = cfg.lcXMm;
+  const wb = xFront - xRear;
+  const frontRatio = clamp((cfg.lcNominalPayloadXMm - xRear) / wb, 0.2, 0.8);
+  const rearRatio = 1.0 - frontRatio;
+  const frontTotal = loadKg * frontRatio;
+  const rearTotal = loadKg * rearRatio;
+  const fHalf = +(frontTotal / 2).toFixed(1);
+  const rHalf = +(rearTotal / 2).toFixed(1);
+  // Ensure sum matches loadKg cleanly to 0.1 kg
+  const r2 = +(Math.max(0, loadKg - fHalf - fHalf - rHalf)).toFixed(1);
+  const cells = [fHalf, fHalf, rHalf, r2];
+  const rearPct = +(rearRatio * 100).toFixed(1);
+  const frontPct = +(frontRatio * 100).toFixed(1);
+  if (loadKg > 1500) {
+    return { measuredKg: loadKg, rearPct, frontPct, statusText: '과적 경보 (>1,500 kg)', stateClass: 'state-overload', badgeClass: 'danger', cells };
+  }
+  const okTxt = archKey === 'HD30X'
+    ? `직픽업 계량 완료 (후 ${rearPct}% / 전 ${frontPct}%)`
+    : `iForks 직픽업 계량 (축인장 0 N)`;
+  return { measuredKg: loadKg, rearPct, frontPct, statusText: okTxt, stateClass: 'state-ok', badgeClass: 'ok', cells };
+}
+
+function evalAnimHD30X(uRaw, palletMode, isReverse = false) {
+  const u = clamp(uRaw, 0, 1);
+  const isWin = palletMode === 'window';
+  const hasPallet = palletMode !== 'none';
+  const zEntryBot = isWin ? 30.0 : 10.0;
+  const contactDrop = isWin ? 125.0 : 100.0;
+  const podTop = HD30X_K.podTop;
+  const palX = HD30X_K.palletPickupWorldX;
+
+  let chassisX = 0.0;
+  let ext = 0.0;
+  let zForkBot = HD30X_K.zStowBot;
+  let zSkidBot = HD30X_K.zStowBot;
+  let palletZ = 0.0;
+  let lockpin = false;
+  let weighActive = false;
+  let seatMode = hasPallet ? 'floor' : 'none';
+  let stageIdx = 0;
+  let desc = '';
+
+  if (u <= 0.08) {
+    stageIdx = 0;
+    chassisX = 0; ext = 0; zForkBot = 85; zSkidBot = 85; palletZ = 0;
+    desc = isWin
+      ? 'G=85 mm · 포크 Z=85..147 mm · 돌출 0 mm · 전방 X=+810..+1,910에 田자 25 mm 파레트 대기'
+      : 'G=85 mm · 포크 Z=85..147 mm · 돌출 0 mm · 전방 X=+810..+1,910에 단면형 파레트 대기';
+  } else if (u <= 0.18) {
+    stageIdx = 1;
+    const s = smooth((u - 0.08) / 0.10);
+    chassisX = 0; ext = 0;
+    zForkBot = lerp(85.0, zEntryBot, s);
+    zSkidBot = zForkBot;
+    palletZ = 0;
+    desc = isWin
+      ? '포크 하강 drop=-55 mm (Z=30..92 mm) · 25 mm 하판 위 +5 mm 여유 · 텔레스코픽 힐 마스트 연동'
+      : '포크 하강 drop=-75 mm (Z=10..72 mm) · 단면형 포켓 진입 높이 정렬';
+  } else if (u <= 0.34) {
+    stageIdx = 2;
+    const s = smooth((u - 0.18) / 0.16);
+    chassisX = 0; ext = lerp(0.0, 1200.0, s);
+    zForkBot = zEntryBot; zSkidBot = zEntryBot;
+    palletZ = 0;
+    desc = isWin
+      ? '포크 +1,200 mm 전진 · 2단 X-가위(302 mm)가 田자 창문 W1[940..1295] · W2[1425..1780] 정중앙 정렬'
+      : '포크 +1,200 mm 전진 · 단면형 포켓(Z=0..100) 내부 완전 진입';
+  } else if (u <= 0.54) {
+    stageIdx = 3;
+    const s = smooth((u - 0.34) / 0.20);
+    chassisX = 0; ext = 1200.0;
+    const rawStroke = lerp(0.0, HD30X_K.rawStrokeMax, s);
+    zSkidBot = Math.max(0.0, zEntryBot - rawStroke);
+    zForkBot = zSkidBot + rawStroke;
+    const zForkTop = zForkBot + HD30X_K.forkH;
+    palletZ = Math.max(0.0, zForkTop - contactDrop);
+    weighActive = hasPallet && palletZ > 1.0;
+    seatMode = hasPallet ? 'floor' : 'none';
+    desc = isWin
+      ? '2단 X-가위 θ=8°→55° 전개 (스키드 -30 mm 바닥 착지 → 포크 Z_top=476.8 · 파레트 하면 351.8 = pod+76.8) + 직픽업 계량'
+      : '2단 X-가위 θ=8°→55° 전개 (스키드 -10 mm 바닥 착지 → 포크 Z_top=476.8 · 파레트 하면 376.8 = pod+101.8) + 직픽업 계량';
+  } else if (u <= 0.72) {
+    stageIdx = 4;
+    const s = smooth((u - 0.54) / 0.18);
+    chassisX = lerp(0.0, 1200.0, s);
+    ext = 1200.0 - chassisX; // Synchronized so fork & scissor legs remain 100% FIXED in world space!
+    zSkidBot = 0.0;
+    zForkBot = HD30X_K.zMaxBot;
+    palletZ = HD30X_K.zMaxTop - contactDrop;
+    weighActive = hasPallet;
+    seatMode = hasPallet ? 'floor' : 'none';
+    desc = isReverse
+      ? 'X-가위·파레트 바닥 고정 상태에서 차체 -1,200 mm 후진 이탈 (sync_out)'
+      : 'X-가위·파레트 바닥 고정 상태에서 차체 +1,200 mm 전진 진입 (sync_in · 개방 레인 |Y|=100..306 통과)';
+  } else if (u <= 0.90) {
+    stageIdx = 5;
+    const p = (u - 0.72) / 0.18;
+    chassisX = 1200.0; ext = 0.0;
+    if (isWin) {
+      if (p <= 0.55) {
+        const s = smooth(p / 0.55);
+        zForkBot = lerp(HD30X_K.zMaxBot, HD30X_K.zWindowTravelBot, s);
+        zSkidBot = 0.0;
+        const fSup = (zForkBot + HD30X_K.forkH) - contactDrop;
+        palletZ = Math.max(podTop, fSup);
+        weighActive = hasPallet && fSup > podTop + 0.5;
+        seatMode = weighActive ? 'floor' : (hasPallet ? 'spine' : 'none');
+        lockpin = false;
+        desc = '파레트 하판(25 mm) pod_top(275) 안착 → 포크가 중앙 등뼈 위(Z=300..362 · 상판 +38 mm 이격)에 정확 걸침';
+      } else {
+        const s = smooth((p - 0.55) / 0.45);
+        zForkBot = HD30X_K.zWindowTravelBot;
+        const rawStroke = lerp(HD30X_K.zWindowTravelBot, 0.0, s);
+        zSkidBot = HD30X_K.zWindowTravelBot - rawStroke;
+        palletZ = podTop;
+        weighActive = false;
+        seatMode = hasPallet ? 'spine' : 'none';
+        lockpin = true;
+        desc = 'Z=300 솔레노이드 록핀 체결 + 2단 X-가위·스키드 완전 접힘 수납(Z≥300 · G=85 유지) · 로드셀 0.0 kg';
+      }
+    } else {
+      if (p <= 0.78) {
+        const s = smooth(p / 0.78);
+        zForkBot = lerp(HD30X_K.zMaxBot, HD30X_K.zStowBot, s);
+        zSkidBot = 0.0;
+        const fSup = (zForkBot + HD30X_K.forkH) - contactDrop;
+        palletZ = Math.max(podTop, fSup);
+        weighActive = hasPallet && fSup > podTop + 0.5;
+        seatMode = weighActive ? 'floor' : (hasPallet ? 'deck' : 'none');
+        desc = '단면 파레트 pod_top(275) 안착 · 로드셀 0.0 kg 무충격 전환 · 포크 레인(Z=85..147) 하강';
+      } else {
+        const s = smooth((p - 0.78) / 0.22);
+        zForkBot = HD30X_K.zStowBot;
+        const rawStroke = lerp(HD30X_K.zStowBot, 0.0, s);
+        zSkidBot = HD30X_K.zStowBot - rawStroke;
+        palletZ = podTop;
+        weighActive = false;
+        seatMode = hasPallet ? 'deck' : 'none';
+        desc = 'X-가위 스키드 Z=85 mm 완전 접힘 수납 완료 (지상고 G=85.0 mm 보존)';
+      }
+    }
+  } else {
+    stageIdx = 6;
+    chassisX = 1200.0; ext = 0.0;
+    zForkBot = isWin ? HD30X_K.zWindowTravelBot : HD30X_K.zStowBot;
+    zSkidBot = zForkBot;
+    palletZ = podTop;
+    lockpin = isWin;
+    weighActive = false;
+    seatMode = hasPallet ? (isWin ? 'spine' : 'deck') : 'none';
+    desc = isWin
+      ? '수납 주행 검증 OK · G=85 mm · 돌출 0 mm · 포크 등뼈 걸침 Z=300..362 · 록핀 체결 · 로드셀 0.0 kg'
+      : '수납 주행 검증 OK · G=85 mm · 돌출 0 mm · 포크 Z=85..147 · 스키드 완전 수납 · 로드셀 0.0 kg';
+  }
+
+  const rawStroke = Math.max(0.0, zForkBot - zSkidBot);
+  const sc = computeScissorGeometry(rawStroke);
+  const mast = computeHD30XHeelMastDz(zForkBot);
+  const zForkTop = zForkBot + HD30X_K.forkH;
+  const stDef = STAGES_A[stageIdx];
+  const dispIdx = isReverse ? (6 - stageIdx) : stageIdx;
+  const dispName = isReverse ? stDef.dropName : stDef.name;
+
+  return {
+    arch: 'HD30X',
+    u,
+    stageIdx,
+    dispIdx,
+    stageId: stDef.id,
+    stageName: `${dispIdx + 1}/7 ${dispName} (${stDef.id})`,
+    desc,
+    chassisX,
+    ext,
+    drop: Math.min(0.0, zForkBot - HD30X_K.zStowBot),
+    zForkBot,
+    zForkTop,
+    zSkidBot,
+    rawStroke,
+    thetaDeg: sc.thetaDeg,
+    dThetaRad: sc.dThetaRad,
+    tierH: sc.tierH,
+    nestOffset: sc.nestOffset,
+    dzS1: mast.dzS1,
+    dzS2: mast.dzS2,
+    heelMastTopZ: Math.max(274.0, 272.0 + mast.dzS2),
+    palletX: palX,
+    palletZ,
+    podTop,
+    clearanceOverPod: +(palletZ - podTop).toFixed(1),
+    lockpin,
+    weighActive,
+    seatMode,
+  };
+}
+
+function evalAnimHD30C(uRaw, palletMode, isReverse = false) {
+  const u = clamp(uRaw, 0, 1);
+  const isDbl = palletMode === 'double';
+  const hasPallet = palletMode !== 'none';
+  const entryDz = isDbl ? HD30C_K.dzDoubleEntry : HD30C_K.dzSingleEntry;
+  const stowDz = isDbl ? HD30C_K.dzStowDouble : 0.0;
+  const contactDrop = isDbl ? 125.0 : 100.0;
+  const podTop = HD30C_K.podTop;
+  const palPickX = HD30C_K.palletPickupWorldX;
+
+  let chassisX = 0.0;
+  let reach = 0.0;
+  let liftDz = 0.0;
+  let palletX = palPickX;
+  let palletZ = 0.0;
+  let lockpin = false;
+  let weighActive = false;
+  let seatMode = hasPallet ? 'floor' : 'none';
+  let stageIdx = 0;
+  let desc = '';
+
+  if (u <= 0.08) {
+    stageIdx = 0;
+    chassisX = 0; reach = 0; liftDz = 0; palletX = palPickX; palletZ = 0;
+    desc = isDbl
+      ? '수납 대기 · 2,040 mm · G=85 mm · 내측 마스트 Z=830 ≤ 850 · 전방에 25 mm 통판 양면 파레트 대기'
+      : '수납 대기 · 2,040 mm · G=85 mm · 내측 마스트 Z=830 ≤ 850 · 전방에 단면형 파레트 대기';
+  } else if (u <= 0.22) {
+    stageIdx = 1;
+    const s = smooth((u - 0.08) / 0.14);
+    chassisX = 0; reach = lerp(0.0, HD30C_K.reachMax, s); liftDz = 0;
+    palletX = palPickX; palletZ = 0;
+    desc = '마스트 리치 0 → +1,150 mm 전개 · 포크 힐 X=+950 (+930 범퍼보다 +20 mm 전방 클리어!)';
+  } else if (u <= 0.34) {
+    stageIdx = 2;
+    const s = smooth((u - 0.22) / 0.12);
+    chassisX = 0; reach = HD30C_K.reachMax; liftDz = lerp(0.0, entryDz, s);
+    palletX = palPickX; palletZ = 0;
+    desc = isDbl
+      ? '포크 바닥 하강 Z=35..80 mm · 25 mm 연속 통판 하판 위 +10 mm 무접촉 진입 정렬'
+      : '포크 바닥 하강 Z=5..50 mm · 단면형 파레트 저상 포켓 진입 정렬';
+  } else if (u <= 0.50) {
+    stageIdx = 3;
+    const s = smooth((u - 0.34) / 0.16);
+    chassisX = lerp(0.0, HD30C_K.chassisInsertMax, s);
+    reach = HD30C_K.reachMax; liftDz = entryDz;
+    palletX = palPickX; palletZ = 0;
+    desc = isReverse
+      ? '로봇 차체 -1,100 mm 후진 · 120×45 mm iForks 포켓 인출 (충돌 0 mm³)'
+      : '로봇 차체 +1,100 mm 전진 · 120×45 mm iForks가 파레트 포켓 내부로 매끄럽게 삽입 (충돌 0 mm³)';
+  } else if (u <= 0.68) {
+    stageIdx = 4;
+    const s = smooth((u - 0.50) / 0.18);
+    chassisX = HD30C_K.chassisInsertMax;
+    reach = HD30C_K.reachMax;
+    liftDz = lerp(entryDz, HD30C_K.dzMaxLift, s);
+    palletX = palPickX;
+    const zTop = HD30C_K.zStowTop + liftDz;
+    palletZ = Math.max(0.0, zTop - contactDrop);
+    weighActive = hasPallet && palletZ > 1.0;
+    desc = isDbl
+      ? '2단 FFL 듀플렉스 상승(Z=505..550 · 내측 +150) + iForks 즉시 계량 (축인장 0 N) · 파레트 하면 425 (+75 > pod 350)'
+      : '2단 FFL 듀플렉스 상승(Z=505..550 · 내측 +150) + iForks 즉시 계량 (축인장 0 N) · 파레트 하면 450 (+100 > pod 350)';
+  } else if (u <= 0.84) {
+    stageIdx = 5;
+    const s = smooth((u - 0.68) / 0.16);
+    chassisX = HD30C_K.chassisInsertMax;
+    reach = lerp(HD30C_K.reachMax, 0.0, s);
+    liftDz = HD30C_K.dzMaxLift;
+    palletX = chassisX + 350.0 + reach;
+    palletZ = (HD30C_K.zStowTop + liftDz) - contactDrop;
+    weighActive = hasPallet;
+    desc = '마스트 리치 +1,150 → 0 mm 후퇴 · 파레트를 차체 데크(pod_top 350 · 스토퍼 Z370) 위로 안전 인입';
+  } else {
+    stageIdx = 6;
+    const p = (u - 0.84) / 0.16;
+    const s = smooth(Math.min(1.0, p / 0.85));
+    chassisX = HD30C_K.chassisInsertMax;
+    reach = 0.0;
+    liftDz = lerp(HD30C_K.dzMaxLift, stowDz, s);
+    palletX = chassisX + 350.0;
+    const fSup = (HD30C_K.zStowTop + liftDz) - contactDrop;
+    palletZ = Math.max(podTop, fSup);
+    weighActive = hasPallet && fSup > podTop + 0.5;
+    seatMode = weighActive ? 'floor' : (hasPallet ? 'deck' : 'none');
+    lockpin = p >= 0.80;
+    desc = isDbl
+      ? '통판(25 mm) pod_top(350) 안착 → 포크 포켓 중앙 Z=395..440 (+20/+35 비접촉) · 내측 Z=870 < XT32 925 · 락핀 체결 · 0.0 kg'
+      : '단면 파레트 pod_top(350) 안착 → 포크 Z=105..150 수납 · 내측 Z=830 · 전동 락핀 체결 · 로드셀 0.0 kg';
+  }
+
+  const dzInner = Math.max(0.0, liftDz - HD30C_K.innerFreeLiftThreshold);
+  const zForkBot = HD30C_K.zStowBot + liftDz;
+  const zForkTop = HD30C_K.zStowTop + liftDz;
+  const stDef = STAGES_B[stageIdx];
+  const dispIdx = isReverse ? (6 - stageIdx) : stageIdx;
+  const dispName = isReverse ? stDef.dropName : stDef.name;
+
+  return {
+    arch: 'HD30C',
+    u,
+    stageIdx,
+    dispIdx,
+    stageId: stDef.id,
+    stageName: `${dispIdx + 1}/7 ${dispName} (${stDef.id})`,
+    desc,
+    chassisX,
+    reach,
+    liftDz,
+    dzInner,
+    innerTopZ: HD30C_K.innerStowedTop + dzInner,
+    zForkBot,
+    zForkTop,
+    palletX,
+    palletZ,
+    podTop,
+    clearanceOverPod: +(palletZ - podTop).toFixed(1),
+    lockpin,
+    weighActive,
+    seatMode,
+  };
+}
+
+function evalManualHD30X(dropMm, extMm, rawLiftMm, palletMode, chassisX = 0.0) {
+  const isWin = palletMode === 'window';
+  const hasPallet = palletMode !== 'none';
+  const podTop = HD30X_K.podTop;
+  const contactDrop = isWin ? 125.0 : 100.0;
+  const zBase = 85.0 + dropMm; // 10..85
+  const rawStroke = clamp(rawLiftMm, 0.0, HD30X_K.rawStrokeMax);
+  const zSkidBot = Math.max(0.0, zBase - rawStroke);
+  const zForkBot = zSkidBot + rawStroke;
+  const zForkTop = zForkBot + HD30X_K.forkH;
+  const palletX = chassisX + 160.0 + extMm; // Exact 1:1 with ext=1200 -> 1360!
+  const isOverDeck = extMm < 950.0;
+  const forkSupportZ = Math.max(0.0, zForkTop - contactDrop);
+  const isSpineRest = isOverDeck && isWin && zForkBot >= 295 && zForkTop <= 398;
+  const isStowedOnDeck = isOverDeck && forkSupportZ <= podTop;
+  const palletZ = isOverDeck ? Math.max(podTop, forkSupportZ) : forkSupportZ;
+  const weighActive = hasPallet && (isOverDeck ? (forkSupportZ > podTop + 0.5) : (palletZ > 1.0));
+  const seatMode = !hasPallet ? 'none' : (isSpineRest ? 'spine' : (isStowedOnDeck ? 'deck' : 'floor'));
+  const sc = computeScissorGeometry(rawStroke);
+  const mast = computeHD30XHeelMastDz(zForkBot);
+
+  return {
+    arch: 'HD30X',
+    u: 0,
+    stageIdx: -1,
+    dispIdx: -1,
+    stageId: 'manual',
+    stageName: '수동 기구학 조작 (Manual)',
+    desc: `drop ${dropMm} · ext ${extMm} · raw ${Math.round(rawStroke)} mm · 포크 Z=${zForkBot.toFixed(1)}..${zForkTop.toFixed(1)} mm`,
+    chassisX,
+    ext: extMm,
+    drop: dropMm,
+    zForkBot,
+    zForkTop,
+    zSkidBot,
+    rawStroke,
+    thetaDeg: sc.thetaDeg,
+    dThetaRad: sc.dThetaRad,
+    tierH: sc.tierH,
+    nestOffset: sc.nestOffset,
+    dzS1: mast.dzS1,
+    dzS2: mast.dzS2,
+    heelMastTopZ: Math.max(274.0, 272.0 + mast.dzS2),
+    palletX,
+    palletZ,
+    podTop,
+    clearanceOverPod: +(palletZ - podTop).toFixed(1),
+    lockpin: isSpineRest,
+    weighActive,
+    seatMode,
+  };
+}
+
+function evalManualHD30C(reachMm, liftDzMm, palletMode, chassisX = 0.0) {
+  const isDbl = palletMode === 'double';
+  const hasPallet = palletMode !== 'none';
+  const podTop = HD30C_K.podTop;
+  const contactDrop = isDbl ? 125.0 : 100.0;
+  const dzInner = Math.max(0.0, liftDzMm - HD30C_K.innerFreeLiftThreshold);
+  const zForkBot = HD30C_K.zStowBot + liftDzMm;
+  const zForkTop = HD30C_K.zStowTop + liftDzMm;
+  const palletX = chassisX + 350.0 + reachMm; // Exact 1:1 (reach=0 -> 350, reach=1150 -> 1500, ZERO 1125/1100 trick!)
+  const isOverDeck = reachMm < 1050.0;
+  const forkSupportZ = Math.max(0.0, zForkTop - contactDrop);
+  const isStowedOnDeck = isOverDeck && forkSupportZ <= podTop;
+  const palletZ = isOverDeck ? Math.max(podTop, forkSupportZ) : forkSupportZ;
+  const weighActive = hasPallet && (isOverDeck ? (forkSupportZ > podTop + 0.5) : (palletZ > 1.0));
+  const seatMode = !hasPallet ? 'none' : (isStowedOnDeck ? 'deck' : 'floor');
+  const lockpin = reachMm < 5 && isStowedOnDeck;
+
+  return {
+    arch: 'HD30C',
+    u: 0,
+    stageIdx: -1,
+    dispIdx: -1,
+    stageId: 'manual',
+    stageName: '수동 기구학 조작 (Manual)',
+    desc: `reach ${reachMm} · 포크 Z=${zForkBot.toFixed(0)}..${zForkTop.toFixed(0)} mm · 내측 마스트 +${dzInner.toFixed(0)} mm`,
+    chassisX,
+    reach: reachMm,
+    liftDz: liftDzMm,
+    dzInner,
+    innerTopZ: HD30C_K.innerStowedTop + dzInner,
+    zForkBot,
+    zForkTop,
+    palletX,
+    palletZ,
+    podTop,
+    clearanceOverPod: +(palletZ - podTop).toFixed(1),
+    lockpin,
+    weighActive,
+    seatMode,
+  };
+}
+
+// ============================================================================
+// FORMATTING & SHARED UI HELPERS
+// ============================================================================
+function formatMB(bytes) { return `${(bytes / (1024 * 1024)).toFixed(2)} MB`; }
+function formatInt(n) { return Math.round(n).toLocaleString('en-US'); }
+function formatKg1(n) { return Number(n).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }); }
 
 function parseInitialArch(raw) {
   if (!raw) return 'HD30X';
@@ -1412,7 +2232,6 @@ function parseInitialArch(raw) {
   }
   return 'HD30X';
 }
-
 function parseInitialVariant(raw) {
   if (!raw) return 'Full3D';
   const u = raw.trim().toUpperCase();
@@ -1420,7 +2239,6 @@ function parseInitialVariant(raw) {
   if (u.includes('2D') || u.includes('BASIC')) return '2D_Basic';
   return 'Full3D';
 }
-
 function parseInitialBatt(raw) {
   if (!raw) return '100Ah';
   return raw.trim().toUpperCase().includes('200') ? '200Ah' : '100Ah';
@@ -1470,6 +2288,10 @@ function updateCadDownloadUI(archKey, varKey, battKey) {
   $('dlStepBtn').setAttribute('download', v.stepFile);
   $('dlCsvBtn').setAttribute('href', v.csvHref);
   $('dlCsvBtn').setAttribute('download', v.csvFile);
+  $('dlBomCnBtn').setAttribute('href', cfg.bomFiles.china_oem.href);
+  $('dlBomCnBtn').setAttribute('download', cfg.bomFiles.china_oem.file);
+  $('dlBomKrBtn').setAttribute('href', cfg.bomFiles.korea_kc.href);
+  $('dlBomKrBtn').setAttribute('download', cfg.bomFiles.korea_kc.file);
 
   const cap = $('dlCaption');
   const isFallback200 = battKey === '200Ah' && varKey !== 'Full3D';
@@ -1486,121 +2308,19 @@ function updateCadDownloadUI(archKey, varKey, battKey) {
   return v;
 }
 
-function computeHD30XPalletKinematics(dropMm, extMm, liftMm, palletMode) {
-  const zBot = 85 + dropMm + liftMm;
-  const zTop = 135 + dropMm + liftMm;
-  const podTop = 285.0;
-  // Exact Gate 8 / T10 pocket ceiling: single = 100 mm, window double-deck = 125 mm (25 mm bottom board + 100 mm pocket)
-  const contactDrop = palletMode === 'window' ? 125.0 : 100.0;
-  const palletX = 110.0 + extMm * (1250.0 / 1200.0);
-  const isOverDeck = palletX < 1315.0;
-  const forkSupportZ = Math.max(0, zTop - contactDrop);
-  const isWindowTrapped = isOverDeck && palletMode === 'window' && dropMm > -25 && zBot >= 305 && zTop <= 405;
-  const isStowedOnDeck = isOverDeck && forkSupportZ <= podTop;
-  const palletZ = isOverDeck ? Math.max(podTop, forkSupportZ) : forkSupportZ;
-  const clearanceOverPod = +(palletZ - podTop).toFixed(1);
-  const isLiftedByFork = isOverDeck ? (forkSupportZ > podTop) : (liftMm >= 8);
-  return {
-    zBot, zTop, podTop, contactDrop, palletX, palletZ, forkSupportZ,
-    clearanceOverPod, isOverDeck, isStowedOnDeck, isWindowTrapped, isLiftedByFork,
-  };
-}
-
-function computeHD30CPalletKinematics(reachMm, liftDzMm, palletMode = 'double') {
-  const zBot = 105 + liftDzMm;
-  const zTop = 145 + liftDzMm;
-  const podTop = 310.0;
-  // Rev A.4: stowed pallet center X=360 (-190..+910 inside pod_top -670..+915);
-  // Full reach=1100 -> X=1485 (+935..+2035, +5 mm clear of front bumper +930, fork tips at +2010!)
-  const palletX = 360.0 + reachMm * (1125.0 / 1100.0);
-  // Gate 8 double-deck pallet drop = 125 mm -> at Z_top=485 (dz=+340), pallet bottom = 360 (+50 mm > pod_top 310!)
-  const contactDrop = palletMode === 'single' ? 100.0 : 125.0;
-  const forkSupportZ = Math.max(0, zTop - contactDrop);
-  const isOverDeck = reachMm < 1085;
-  const isStowedOnDeck = isOverDeck && forkSupportZ <= podTop;
-  const palletZ = isOverDeck ? Math.max(podTop, forkSupportZ) : forkSupportZ;
-  const clearanceOverPod = +(palletZ - podTop).toFixed(1);
-  const isLiftedByFork = isOverDeck ? (forkSupportZ > podTop) : (zTop > 50);
-  return {
-    zBot, zTop, podTop, contactDrop, palletX, palletZ, forkSupportZ,
-    clearanceOverPod, isOverDeck, isStowedOnDeck, isLiftedByFork,
-  };
-}
-
-function computeWeighReadoutC(reachMm, liftDzMm, palletMode, loadKg) {
-  if (palletMode === 'none') {
-    return { measuredKg: 0, statusText: '파레트 없음 (영점)', stateClass: '', badgeClass: '', cells: [0, 0, 0, 0] };
-  }
-  const k = computeHD30CPalletKinematics(reachMm, liftDzMm, palletMode);
-  if (k.isStowedOnDeck) {
-    return {
-      measuredKg: 0,
-      statusText: '주행 시 0 kg 무부하 보호 (상판 안착)',
-      stateClass: 'state-safe',
-      badgeClass: 'safe',
-      cells: [0, 0, 0, 0],
-    };
-  }
-  if (!k.isLiftedByFork) {
-    return { measuredKg: 0, statusText: '바닥 접촉 (대기)', stateClass: '', badgeClass: '', cells: [0, 0, 0, 0] };
-  }
-  const ul = Math.round(loadKg * 0.242);
-  const ur = Math.round(loadKg * 0.238);
-  const ll = Math.round(loadKg * 0.262);
-  const lr = Math.max(0, loadKg - ul - ur - ll);
-  if (loadKg > 1500) {
-    return { measuredKg: loadKg, statusText: '과적 경보 (>1,500 kg)', stateClass: 'state-overload', badgeClass: 'danger', cells: [ul, ur, ll, lr] };
-  }
-  return { measuredKg: loadKg, statusText: '즉시 계량 완료 (±2 kg)', stateClass: 'state-ok', badgeClass: 'ok', cells: [ul, ur, ll, lr] };
-}
-
-function computeWeighReadoutX(dropMm, extMm, liftMm, palletMode, loadKg) {
-  if (palletMode === 'none') {
-    return { measuredKg: 0, statusText: '파레트 없음 (영점)', stateClass: '', badgeClass: '', cells: [0, 0, 0, 0] };
-  }
-  const k = computeHD30XPalletKinematics(dropMm, extMm, liftMm, palletMode);
-  if (k.isWindowTrapped) {
-    return {
-      measuredKg: 0,
-      statusText: '창형 포켓 안착 · 0 kg 무부하 보호',
-      stateClass: 'state-safe',
-      badgeClass: 'safe',
-      cells: [0, 0, 0, 0],
-    };
-  }
-  if (k.isStowedOnDeck) {
-    return {
-      measuredKg: 0,
-      statusText: '주행 시 0 kg 무부하 보호 (상판 안착)',
-      stateClass: 'state-safe',
-      badgeClass: 'safe',
-      cells: [0, 0, 0, 0],
-    };
-  }
-  if (!k.isLiftedByFork) {
-    return { measuredKg: 0, statusText: '바닥 접촉 (무부하 진입)', stateClass: '', badgeClass: '', cells: [0, 0, 0, 0] };
-  }
-  const lf = Math.round(loadKg * 0.258);
-  const rf = Math.round(loadKg * 0.252);
-  const lr = Math.round(loadKg * 0.246);
-  const rr = Math.max(0, loadKg - lf - rf - lr);
-  if (loadKg > 1500) {
-    return { measuredKg: loadKg, statusText: '과적 경보 (>1,500 kg)', stateClass: 'state-overload', badgeClass: 'danger', cells: [lf, rf, lr, rr] };
-  }
-  return { measuredKg: loadKg, statusText: '즉시 계량 완료 (±3 kg)', stateClass: 'state-ok', badgeClass: 'ok', cells: [lf, rf, lr, rr] };
-}
-
 function renderWeighUI(archKey, r) {
   const cfg = ARCH_CONFIGS[archKey];
   $('weighTitle').textContent = cfg.lcTitle;
-  $('weighAcc').textContent = cfg.lcAcc;
+  $('weighAcc').textContent = r.measuredKg > 0
+    ? `후 ${r.rearPct.toFixed(1)}% / 전 ${r.frontPct.toFixed(1)}% · 4×1t`
+    : cfg.lcAcc;
   $('weighCard').className = `weigh-card ${r.stateClass}`.trim();
   $('weighStatus').className = `weigh-badge ${r.badgeClass}`.trim();
   $('weighStatus').textContent = r.statusText;
-  $('weighKg').textContent = `${formatInt(r.measuredKg)} kg`;
+  $('weighKg').textContent = `${formatKg1(r.measuredKg)} kg`;
   for (let i = 0; i < 4; i++) {
     $(`lcId${i}`).textContent = cfg.lcIds[i];
-    $(`lcVal${i}`).textContent = `${formatInt(r.cells[i])} kg`;
+    $(`lcVal${i}`).textContent = `${formatKg1(r.cells[i])} kg`;
   }
   return r;
 }
@@ -1611,10 +2331,78 @@ function syncArchPanelDOM(archKey) {
   $('btnArchC').classList.toggle('active', archKey === 'HD30C');
   $('motionHD30X').classList.toggle('hidden', archKey !== 'HD30X');
   $('motionHD30C').classList.toggle('hidden', archKey !== 'HD30C');
+  $('palletBoxX').classList.toggle('hidden', archKey !== 'HD30X');
+  $('palletBoxC').classList.toggle('hidden', archKey !== 'HD30C');
   $('stepSimSub').textContent = cfg.stepSub;
   $('lblFovXT32').textContent = cfg.xt32Label;
   $('lblFovE1R').textContent = cfg.e1rLabel;
   $('viewport').dataset.arch = archKey;
+  const forkBtn = document.querySelector('#camBar button[data-cam="fork"]');
+  if (forkBtn) forkBtn.textContent = archKey === 'HD30X' ? '포크·가위' : '포크·마스트';
+}
+
+function mapTimelineToU(t, mode) {
+  const tc = clamp(t, 0, 1);
+  if (mode === 'drop') return { u: 1.0 - tc, isReverse: true };
+  if (mode === 'loop') {
+    if (tc <= 0.5) return { u: tc * 2.0, isReverse: false };
+    return { u: (1.0 - tc) * 2.0, isReverse: true };
+  }
+  return { u: tc, isReverse: false };
+}
+
+function syncAnimControlsDOM(pose, weigh, animPlaying, animMode, animSpeed, timelineT) {
+  const pct = Math.round(clamp(timelineT, 0, 1) * 100);
+  $('sAnimTimeline').value = String(Math.round(clamp(timelineT, 0, 1) * 1000));
+  $('vAnimPct').textContent = `${pct}%`;
+
+  $('icoPlay').style.display = animPlaying ? 'none' : 'block';
+  $('icoPause').style.display = animPlaying ? 'block' : 'none';
+  $('lblAnimPlay').textContent = animPlaying ? '일시정지' : '재생';
+  $('btnAnimPlay').classList.toggle('paused-active', animPlaying);
+
+  const pill = $('animRunPill');
+  if (animPlaying) {
+    pill.textContent = `재생 중 (${animSpeed}x)`;
+    pill.className = 'state-pill playing';
+  } else if (pose.stageId === 'manual') {
+    pill.textContent = '수동 조작';
+    pill.className = 'state-pill';
+  } else if (timelineT >= 0.999) {
+    pill.textContent = '시퀀스 완료';
+    pill.className = 'state-pill done';
+  } else {
+    pill.textContent = '대기 (정지)';
+    pill.className = 'state-pill';
+  }
+
+  $('animStageName').textContent = `현재 동작: ${pose.stageName}`;
+  $('animStageCode').textContent = pose.stageId;
+  $('animStageDesc').textContent = pose.desc;
+
+  let metricsStr = '';
+  if (pose.arch === 'HD30X') {
+    const lpStr = pose.lockpin ? '록핀 ON' : '록핀 OFF';
+    metricsStr = `차체 X +${Math.round(pose.chassisX)} · ext ${Math.round(pose.ext)} · Z ${pose.zForkBot.toFixed(0)}~${pose.zForkTop.toFixed(0)} · θ ${pose.thetaDeg.toFixed(1)}° · 스키드 Z${pose.zSkidBot.toFixed(0)} · ${lpStr} · LC ${formatKg1(weigh.measuredKg)}kg`;
+  } else {
+    const lpStr = pose.lockpin ? '락핀 ON' : '락핀 OFF';
+    metricsStr = `차체 X +${Math.round(pose.chassisX)} · reach ${Math.round(pose.reach)} · Z ${pose.zForkBot.toFixed(0)}~${pose.zForkTop.toFixed(0)} · 내측 +${Math.round(pose.dzInner)}(Z${Math.round(pose.innerTopZ)}) · ${lpStr} · LC ${formatKg1(weigh.measuredKg)}kg`;
+  }
+  $('animStageMetrics').textContent = metricsStr;
+
+  const hudStep = pose.dispIdx >= 0 ? `${pose.dispIdx + 1}/7` : 'MAN';
+  const code = ARCH_CONFIGS[pose.arch].code;
+  $('vpHudStep').textContent = hudStep;
+  $('vpHudTitle').textContent = `${code} · ${pose.stageName}`;
+  $('vpHudSub').textContent = metricsStr;
+
+  document.querySelectorAll('#animStepPills .step-pill-btn').forEach(btn => {
+    const idx = Number(btn.dataset.stepIdx);
+    btn.classList.toggle('active', pose.dispIdx === idx);
+    btn.classList.toggle('passed', pose.dispIdx > idx);
+  });
+  document.querySelectorAll('[data-anim-mode]').forEach(b => b.classList.toggle('active', b.dataset.animMode === animMode));
+  document.querySelectorAll('[data-anim-speed]').forEach(b => b.classList.toggle('active', Number(b.dataset.animSpeed) === animSpeed));
 }
 
 // ============================================================================
@@ -1625,9 +2413,14 @@ if (window.location.protocol === 'file:') {
   let activeArch = parseInitialArch(params.get('arch'));
   let activeVar = parseInitialVariant(params.get('variant') || params.get('pkg'));
   let activeBatt = parseInitialBatt(params.get('batt'));
+  let activePalletX = 'window';
   let activePalletC = 'double';
-  let activePalletX = 'single';
   let activeSteer = 'straight';
+  let animMode = 'pickup';
+  let animSpeed = 1;
+  let animPlaying = false;
+  let timelineT = 0.0;
+  let controlSource = 'anim';
 
   const refreshOffline = () => {
     const cfg = ARCH_CONFIGS[activeArch];
@@ -1639,83 +2432,41 @@ if (window.location.protocol === 'file:') {
     document.querySelectorAll('[data-steer]').forEach(b => b.classList.toggle('active', b.dataset.steer === activeSteer));
     $('vSteer').textContent = activeSteer === 'straight' ? '0° / 0°' : (activeSteer === 'crab' ? '+90° (전륜·후륜)' : cfg.spinDegLabel);
     $('lblStepSim').classList.toggle('active', $('kStepSim').checked);
+    document.querySelectorAll('[data-pallet-x]').forEach(b => b.classList.toggle('active', b.dataset.palletX === activePalletX));
+    document.querySelectorAll('[data-pallet-c]').forEach(b => b.classList.toggle('active', b.dataset.palletC === activePalletC));
 
     const loadKg = +$('sLoad').value;
     $('vLoad').textContent = `${formatInt(loadKg)} kg`;
 
-    if (activeArch === 'HD30C') {
-      const reach = +$('sReachC').value;
-      const zBot = +$('sLiftC').value;
-      const dz = zBot - 105;
-      const k = computeHD30CPalletKinematics(reach, dz, activePalletC);
-      const envLen = Math.round(1960 + Math.max(0, reach - 20));
-      $('vReachC').textContent = reach === 0 ? '0 mm (1,960)' : `+${formatInt(reach)} mm (${formatInt(envLen)})`;
-      $('vLiftC').textContent = `Z ${k.zBot}~${k.zTop} (${dz > 0 ? '+' : ''}${dz})`;
-      document.querySelectorAll('[data-cpreset]').forEach(b => {
-        const p = HD30C_PRESETS[b.dataset.cpreset];
-        b.classList.toggle('active', p && p.reach === reach && p.dz === dz);
-      });
-      document.querySelectorAll('[data-pallet-c]').forEach(b => b.classList.toggle('active', b.dataset.palletC === activePalletC));
-      $('vPalletStateC').textContent = activePalletC === 'none'
-        ? '미표시'
-        : (k.isStowedOnDeck
-          ? '상판 안착 (Z310)'
-          : (k.palletZ > k.podTop
-            ? `인양 Z${Math.round(k.palletZ)} (+${Math.round(k.clearanceOverPod)}mm)`
-            : (k.isLiftedByFork ? '저상 계량 (+20mm)' : '바닥 안착')));
-      renderWeighUI('HD30C', computeWeighReadoutC(reach, dz, activePalletC, loadKg));
+    let pose;
+    if (controlSource === 'anim') {
+      const { u, isReverse } = mapTimelineToU(timelineT, animMode);
+      pose = activeArch === 'HD30X'
+        ? evalAnimHD30X(u, activePalletX, isReverse)
+        : evalAnimHD30C(u, activePalletC, isReverse);
+    } else if (activeArch === 'HD30X') {
+      pose = evalManualHD30X(+$('sDropX').value, +$('sExtX').value, +$('sLiftX').value, activePalletX, 0);
     } else {
-      const drop = +$('sDropX').value;
-      const ext = +$('sExtX').value;
-      const lift = +$('sLiftX').value;
-      const k = computeHD30XPalletKinematics(drop, ext, lift, activePalletX);
-      $('vDropX').textContent = `${drop} mm (Z${85 + drop}~${135 + drop})`;
-      $('vExtX').textContent = `${formatInt(ext)} mm`;
-      $('vLiftX').textContent = `${lift} mm (Z${k.zBot}~${k.zTop})`;
-      document.querySelectorAll('[data-pallet-x]').forEach(b => b.classList.toggle('active', b.dataset.palletX === activePalletX));
-      document.querySelectorAll('[data-xpreset]').forEach(b => {
-        const p = HD30X_PRESETS[b.dataset.xpreset];
-        b.classList.toggle('active', p && p.drop === drop && p.ext === ext && p.lift === lift);
-      });
-      $('vPalletStateX').textContent = activePalletX === 'none'
-        ? '미표시'
-        : (k.isWindowTrapped
-          ? '창형 포켓 안착 (Z285)'
-          : (k.isStowedOnDeck
-            ? '상판 안착 (Z285)'
-            : (k.palletZ > k.podTop
-              ? `인양 Z${Math.round(k.palletZ)} (+${Math.round(k.clearanceOverPod)}mm)`
-              : (k.isLiftedByFork ? `계량 인양 (Z${Math.round(k.palletZ)})` : '바닥 안착'))));
-      renderWeighUI('HD30X', computeWeighReadoutX(drop, ext, lift, activePalletX, loadKg));
+      pose = evalManualHD30C(+$('sReachC').value, +$('sLiftC').value - 105, activePalletC, 0);
     }
+
+    const weigh = renderWeighUI(activeArch, computeSymmetricLoadCells(activeArch, loadKg, pose.weighActive, pose.seatMode));
+    syncAnimControlsDOM(pose, weigh, animPlaying, animMode, animSpeed, timelineT);
     updateCadDownloadUI(activeArch, activeVar, activeBatt);
   };
 
-  document.querySelectorAll('[data-arch]').forEach(b => b.addEventListener('click', () => { activeArch = b.dataset.arch; refreshOffline(); }));
+  document.querySelectorAll('[data-arch]').forEach(b => b.addEventListener('click', () => { activeArch = b.dataset.arch; timelineT = 0; controlSource = 'anim'; refreshOffline(); }));
   document.querySelectorAll('[data-var]').forEach(b => b.addEventListener('click', () => { activeVar = b.dataset.var; refreshOffline(); }));
   $('btnBatt100').addEventListener('click', () => { activeBatt = '100Ah'; refreshOffline(); });
   $('btnBatt200').addEventListener('click', () => { activeBatt = '200Ah'; refreshOffline(); });
-  document.querySelectorAll('[data-pallet-c]').forEach(b => b.addEventListener('click', () => { activePalletC = b.dataset.palletC; refreshOffline(); }));
   document.querySelectorAll('[data-pallet-x]').forEach(b => b.addEventListener('click', () => { activePalletX = b.dataset.palletX; refreshOffline(); }));
+  document.querySelectorAll('[data-pallet-c]').forEach(b => b.addEventListener('click', () => { activePalletC = b.dataset.palletC; refreshOffline(); }));
   document.querySelectorAll('[data-steer]').forEach(b => b.addEventListener('click', () => { activeSteer = b.dataset.steer; refreshOffline(); }));
-  document.querySelectorAll('[data-cpreset]').forEach(b => b.addEventListener('click', () => {
-    const p = HD30C_PRESETS[b.dataset.cpreset];
-    if (!p) return;
-    $('sReachC').value = p.reach;
-    $('sLiftC').value = 105 + p.dz;
-    refreshOffline();
-  }));
-  document.querySelectorAll('[data-xpreset]').forEach(b => b.addEventListener('click', () => {
-    const p = HD30X_PRESETS[b.dataset.xpreset];
-    if (!p) return;
-    if (p.pallet === 'window') activePalletX = 'window';
-    else if (p.pallet === 'single' && activePalletX !== 'none') activePalletX = 'single';
-    $('sDropX').value = p.drop;
-    $('sExtX').value = p.ext;
-    $('sLiftX').value = p.lift;
-    refreshOffline();
-  }));
-  ['sReachC', 'sLiftC', 'sDropX', 'sExtX', 'sLiftX', 'sLoad'].forEach(id => $(id).addEventListener('input', refreshOffline));
+  document.querySelectorAll('[data-anim-mode]').forEach(b => b.addEventListener('click', () => { animMode = b.dataset.animMode; timelineT = 0; controlSource = 'anim'; refreshOffline(); }));
+  document.querySelectorAll('[data-anim-speed]').forEach(b => b.addEventListener('click', () => { animSpeed = Number(b.dataset.animSpeed); refreshOffline(); }));
+  $('sAnimTimeline').addEventListener('input', e => { timelineT = (+e.target.value) / 1000; controlSource = 'anim'; refreshOffline(); });
+  ['sReachC', 'sLiftC', 'sDropX', 'sExtX', 'sLiftX'].forEach(id => $(id).addEventListener('input', () => { controlSource = 'manual'; refreshOffline(); }));
+  $('sLoad').addEventListener('input', refreshOffline);
   $('kStepSim').addEventListener('change', refreshOffline);
   refreshOffline();
 } else {
@@ -1749,7 +2500,6 @@ async function bootViewer() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.12;
-  // LOCAL per-material clipping ONLY (renderer.clippingPlanes stays empty so floor/grid/FOV/dock/stepSim are NEVER clipped)
   renderer.localClippingEnabled = true;
   renderer.clippingPlanes = [];
 
@@ -1758,26 +2508,26 @@ async function bootViewer() {
   // Neutral Charcoal Studio (#1b2028)
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x1b2028);
-  scene.fog = new THREE.Fog(0x1b2028, 12.0, 30.0);
+  scene.fog = new THREE.Fog(0x1b2028, 14.0, 34.0);
 
-  const camera = new THREE.PerspectiveCamera(37, 1, 0.02, 50);
-  camera.position.set(2.65, 1.82, 2.72);
+  const camera = new THREE.PerspectiveCamera(37, 1, 0.02, 60);
+  camera.position.set(2.95, 1.82, 3.05);
 
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = 0.075;
-  controls.target.set(0.0, 0.36, 0.28);
+  controls.target.set(0.0, 0.34, 0.56);
   controls.maxPolarAngle = Math.PI / 2 - 0.01;
   controls.minDistance = 0.35;
-  controls.maxDistance = 12.0;
+  controls.maxDistance = 14.0;
 
-  // Calm Neutral Studio CAD Lighting
-  scene.add(new THREE.HemisphereLight(0xf1f5f9, 0x262d38, 1.54));
+  // Neutral Studio CAD Lighting
+  scene.add(new THREE.HemisphereLight(0xf1f5f9, 0x262d38, 1.56));
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.56);
-  keyLight.position.set(3.4, 6.0, 3.8);
+  keyLight.position.set(3.8, 6.4, 4.2);
   keyLight.castShadow = true;
   keyLight.shadow.mapSize.set(2048, 2048);
-  const dCam = 4.2;
+  const dCam = 5.2;
   keyLight.shadow.camera.left = -dCam;
   keyLight.shadow.camera.right = dCam;
   keyLight.shadow.camera.top = dCam;
@@ -1793,22 +2543,22 @@ async function bootViewer() {
   rimLight.position.set(0.0, 2.2, -4.4);
   scene.add(rimLight);
 
-  // Subtle Studio Floor & Engineering Grid (Y_glb = 0, NEVER clipped)
+  // Studio Floor & Engineering Grid (Y_glb = 0, NEVER clipped)
   const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(28, 28),
+    new THREE.PlaneGeometry(32, 32),
     new THREE.MeshStandardMaterial({ color: 0x1e242d, roughness: 0.94, metalness: 0.03 })
   );
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
   scene.add(floor);
 
-  const grid = new THREE.GridHelper(12, 24, 0x353f4f, 0x262e3b);
+  const grid = new THREE.GridHelper(16, 32, 0x353f4f, 0x262e3b);
   grid.position.y = 0.001;
   scene.add(grid);
 
-  // CAD Coordinate Triad (moves outside active model footprint)
+  // CAD Coordinate Triad
   const cadTriad = new THREE.Group();
-  cadTriad.position.copy(cad2glb(-1260, -840, 8));
+  cadTriad.position.copy(cad2glb(-1005, -840, 8));
   {
     const addArrow = (dirVec, col) => {
       cadTriad.add(new THREE.ArrowHelper(dirVec.clone().normalize(), new THREE.Vector3(0, 0, 0), 0.28, col, 0.06, 0.03));
@@ -1822,11 +2572,11 @@ async function bootViewer() {
   // Section Cutaway Guide Frame (NEVER clipped)
   const clipGuide = new THREE.Group();
   const clipGuideMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(2.90, 2.90),
+    new THREE.PlaneGeometry(3.20, 3.20),
     new THREE.MeshBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.06, side: THREE.DoubleSide, depthWrite: false })
   );
   const clipGuideBorder = new THREE.LineSegments(
-    new THREE.EdgesGeometry(new THREE.PlaneGeometry(2.90, 2.90)),
+    new THREE.EdgesGeometry(new THREE.PlaneGeometry(3.20, 3.20)),
     new THREE.LineBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.55 })
   );
   clipGuide.add(clipGuideMesh, clipGuideBorder);
@@ -1867,7 +2617,6 @@ async function bootViewer() {
 
   // ==========================================================================
   // SHARED SCENE OVERLAYS: 30 mm ELEVATOR STEP, 850 mm WALL CHARGER, CG MARKER
-  // Dynamically aligned to active architecture rear bumper & front axle!
   // ==========================================================================
   const stepSimGroup = new THREE.Group();
   {
@@ -1891,7 +2640,7 @@ async function bootViewer() {
     }, stepSimGroup, sharedPickables);
     makeCadBox(180, 390, -900, 900, 0, 30, matSillSteel, {
       name: 'elevator_step_30mm_sill', kind: 'overlay',
-      model: '엘리베이터 30 mm 수직 단차 문턱 (전륜 로커 +30 mm 관절 · G=85 mm 여유)', material: '알루미늄/SUS 승강기 문턱',
+      model: '엘리베이터 30 mm 수직 단차 문턱 (수직 가이드 +25 mm · G=85 mm 여유)', material: '알루미늄/SUS 승강기 문턱',
     }, stepSimGroup, sharedPickables);
     makeCadBox(180, 196, -895, 895, 27, 30.8, matWarnEdge, {
       name: 'elevator_step_edge_mark', kind: 'overlay',
@@ -1906,8 +2655,7 @@ async function bootViewer() {
   scene.add(stepSimGroup);
 
   // Wall Charging Station (#kDock — EXACT 850.0 mm CLEAR BEHIND ACTIVE REAR BUMPER, DEFAULT OFF!)
-  // Built in HD-30C reference (rear bumper X=-1035, dock front X=-1885), shifted along Z_glb by
-  // mm(cfg.rearBumperXMm - (-1035.0)) when switching to HD-30X (rear bumper -780, dock front -1630)!
+  // Built in reference where rear bumper = 0 and dock front = -850, then shifted to cfg.rearBumperXMm!
   const dockGroup = new THREE.Group();
   let dockMainMesh = null;
   {
@@ -1917,26 +2665,26 @@ async function bootViewer() {
     const matDockPilot  = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.32, metalness: 0.35 });
     const matDockLed    = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.65 });
 
-    dockMainMesh = makeCadBox(-2125, -1885, -240, 240, 0, 640, matDockBody, {
+    dockMainMesh = makeCadBox(-1090, -850, -240, 240, 0, 640, matDockBody, {
       name: 'wall_charging_station', kind: 'overlay',
       model: '후면 벽면 자동 충전 스테이션 (후면 범퍼 대비 850 mm 이격)',
       material: '48V 60A 자동충전기 외함',
     }, dockGroup, sharedPickables);
-    makeCadBox(-1898, -1885, -120, 120, 256, 344, matDockAccent, {
+    makeCadBox(-863, -850, -120, 120, 256, 344, matDockAccent, {
       name: 'dock_contact_bezel', kind: 'overlay',
       model: '벽면 충전기 접점 하우징 (로봇 후면 포트 정합)',
       material: 'PEEK 절연 하우징',
     }, dockGroup, sharedPickables);
-    makeCadBox(-1892, -1885, 34, 96, 274, 326, matDockCopper, {
+    makeCadBox(-857, -850, 34, 96, 274, 326, matDockCopper, {
       name: 'dock_brush_pos', kind: 'overlay', model: '충전기 (+) C1100 구리 브러시',
     }, dockGroup, sharedPickables);
-    makeCadBox(-1892, -1885, -96, -34, 274, 326, matDockCopper, {
+    makeCadBox(-857, -850, -96, -34, 274, 326, matDockCopper, {
       name: 'dock_brush_neg', kind: 'overlay', model: '충전기 (-) C1100 구리 브러시',
     }, dockGroup, sharedPickables);
-    makeCadBox(-1892, -1885, -14, 14, 286, 314, matDockPilot, {
+    makeCadBox(-857, -850, -14, 14, 286, 314, matDockPilot, {
       name: 'dock_pilot', kind: 'overlay', model: '충전 인터록 파일럿 접점',
     }, dockGroup, sharedPickables);
-    makeCadBox(-1890, -1885, -140, 140, 585, 605, matDockLed, {
+    makeCadBox(-855, -850, -140, 140, 585, 605, matDockLed, {
       name: 'dock_status_bar', kind: 'overlay', model: '충전 상태 표시등 (48V LFP)',
     }, dockGroup, sharedPickables);
 
@@ -1948,11 +2696,11 @@ async function bootViewer() {
       ln.computeLineDistances();
       dockGroup.add(ln);
     };
-    addDashedSeg(cad2glb(-1885, 0, 3), cad2glb(-1035, 0, 3), dashMatCenter);
-    addDashedSeg(cad2glb(-1885, 240, 3), cad2glb(-1035, 240, 3), dashMatSide);
-    addDashedSeg(cad2glb(-1885, -240, 3), cad2glb(-1035, -240, 3), dashMatSide);
-    addDashedSeg(cad2glb(-1885, -300, 3), cad2glb(-1885, 300, 3), dashMatCenter);
-    addDashedSeg(cad2glb(-1035, -300, 3), cad2glb(-1035, 300, 3), dashMatCenter);
+    addDashedSeg(cad2glb(-850, 0, 3), cad2glb(0, 0, 3), dashMatCenter);
+    addDashedSeg(cad2glb(-850, 240, 3), cad2glb(0, 240, 3), dashMatSide);
+    addDashedSeg(cad2glb(-850, -240, 3), cad2glb(0, -240, 3), dashMatSide);
+    addDashedSeg(cad2glb(-850, -300, 3), cad2glb(-850, 300, 3), dashMatCenter);
+    addDashedSeg(cad2glb(0, -300, 3), cad2glb(0, 300, 3), dashMatCenter);
 
     const dc = document.createElement('canvas');
     dc.width = 256; dc.height = 64;
@@ -1973,7 +2721,7 @@ async function bootViewer() {
     );
     decalMesh.rotation.x = -Math.PI / 2;
     decalMesh.rotation.z = Math.PI / 2;
-    decalMesh.position.copy(cad2glb(-1460, 0, 4.5));
+    decalMesh.position.copy(cad2glb(-425, 0, 4.5));
     dockGroup.add(decalMesh);
   }
   dockGroup.visible = false; // STRICT DEFAULT OFF!
@@ -2025,7 +2773,7 @@ async function bootViewer() {
   })();
 
   // ==========================================================================
-  // SENSOR FOV & VARIANT HARDWARE BUILDERS (PARAMETERIZED PER ARCHITECTURE)
+  // SENSOR FOV & VARIANT HARDWARE BUILDERS
   // ==========================================================================
   function buildMeasured2DSector(xCad, yCad, zCad, azStartDeg, azEndDeg, radiusM, fillHex, edgeHex) {
     const grp = new THREE.Group();
@@ -2047,11 +2795,11 @@ async function bootViewer() {
     geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
     geo.setIndex(indices);
     grp.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
-      color: fillHex, transparent: true, opacity: 0.11, side: THREE.DoubleSide, depthWrite: false,
+      color: fillHex, transparent: true, opacity: 0.10, side: THREE.DoubleSide, depthWrite: false,
     })));
     grp.add(new THREE.Line(
       new THREE.BufferGeometry().setFromPoints(arcPts),
-      new THREE.LineBasicMaterial({ color: edgeHex, transparent: true, opacity: 0.62 })
+      new THREE.LineBasicMaterial({ color: edgeHex, transparent: true, opacity: 0.56 })
     ));
     return grp;
   }
@@ -2089,11 +2837,11 @@ async function bootViewer() {
     geo.setIndex([0, 1, 2, 0, 2, 5, 2, 3, 5, 0, 6, 1, 1, 6, 4, 0, 5, 6, 5, 3, 4, 5, 4, 6]);
     grp.add(new THREE.Mesh(
       geo,
-      new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.11, side: THREE.DoubleSide, depthWrite: false })
+      new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.10, side: THREE.DoubleSide, depthWrite: false })
     ));
     grp.add(new THREE.LineSegments(
       new THREE.EdgesGeometry(geo),
-      new THREE.LineBasicMaterial({ color: 0xc084fc, transparent: true, opacity: 0.50 })
+      new THREE.LineBasicMaterial({ color: 0xc084fc, transparent: true, opacity: 0.45 })
     ));
     return grp;
   }
@@ -2144,11 +2892,11 @@ async function bootViewer() {
     geo.setIndex(idx);
     fovXT32Group.add(new THREE.Mesh(
       geo,
-      new THREE.MeshBasicMaterial({ color: 0xfacc15, transparent: true, opacity: 0.09, side: THREE.DoubleSide, depthWrite: false })
+      new THREE.MeshBasicMaterial({ color: 0xfacc15, transparent: true, opacity: 0.08, side: THREE.DoubleSide, depthWrite: false })
     ));
     fovXT32Group.add(new THREE.Line(
       new THREE.BufferGeometry().setFromPoints(topRing),
-      new THREE.LineBasicMaterial({ color: 0xfacc15, transparent: true, opacity: 0.50 })
+      new THREE.LineBasicMaterial({ color: 0xfacc15, transparent: true, opacity: 0.45 })
     ));
 
     const ringPts = [];
@@ -2158,7 +2906,7 @@ async function bootViewer() {
     }
     fovTower2DGroup.add(new THREE.Line(
       new THREE.BufferGeometry().setFromPoints(ringPts),
-      new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.72 })
+      new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.68 })
     ));
     fovTower2DGroup.visible = false;
     return { fovXT32Group, fovTower2DGroup };
@@ -2246,8 +2994,8 @@ async function bootViewer() {
     clipMats.push(matBlank);
 
     if (archKey === 'HD30C') {
-      // Exact build_hd30_cad.py Rev A.4 make_e1r_blanking_cover(): X=885.5..888.5, Y=-469.5..-374.5, Z=197.25..293.5
-      makeCadBox(885.5, 888.5, -469.5, -374.5, 197.25, 293.5, matBlank, {
+      // Exact build_hd30_cad.py Rev A.5 make_e1r_blanking_cover(): X=885.5..888.5, Y=-465.5..-370.5, Z=207.25..309.5
+      makeCadBox(885.5, 888.5, -465.5, -370.5, 207.25, 309.5, matBlank, {
         name: 'blank_cover_e1r_front',
         kind: 'cover',
         model: '우전방 포드 노즈 E1R 장갑 포켓 3t 강판 블랭킹 커버 (2D 기본)',
@@ -2255,7 +3003,7 @@ async function bootViewer() {
         mass_kg: 0.21,
       }, grp, pickList);
     } else {
-      // Exact build_hd30x_cad.py Rev A.4 make_e1r_blanking_cover(): X=710..736.5, Y=-80..80, Z=95..207
+      // Exact build_hd30x_cad.py Rev A.5 make_e1r_blanking_cover(): X=710..736.5, Y=-78..78, Z=95..207
       const meta = {
         name: 'blank_cover_e1r_front',
         kind: 'cover',
@@ -2263,102 +3011,127 @@ async function bootViewer() {
         material: 'SPHC 3t 분체도장',
         mass_kg: 0.72,
       };
-      makeCadBox(733.5, 736.5, -80.0, 80.0, 95.0, 207.0, matBlank, meta, grp, pickList);
-      makeCadBox(710.0, 733.5, -80.0, -77.0, 95.0, 207.0, matBlank, meta, grp, pickList);
-      makeCadBox(710.0, 733.5, 77.0, 80.0, 95.0, 207.0, matBlank, meta, grp, pickList);
+      makeCadBox(733.5, 736.5, -78.0, 78.0, 95.0, 207.0, matBlank, meta, grp, pickList);
+      makeCadBox(710.0, 733.5, -78.0, -75.0, 95.0, 207.0, matBlank, meta, grp, pickList);
+      makeCadBox(710.0, 733.5, 75.0, 78.0, 95.0, 207.0, matBlank, meta, grp, pickList);
+      makeCadBox(710.0, 733.5, -75.0, 75.0, 204.0, 207.0, matBlank, meta, grp, pickList);
+      makeCadBox(710.0, 733.5, -75.0, 75.0, 95.0, 98.0, matBlank, meta, grp, pickList);
     }
     grp.visible = false;
     return grp;
   }
 
   // ==========================================================================
-  // PALLET BUILDERS (T11 1100x1100x150 — EXACT GATE 8 / T10 POCKET HEIGHTS!)
-  // Single-face: pocket Z=0..100, upper stringers Z=100..125, top deck Z=125..150
-  // Double/Window: bottom board Z=0..25, pocket Z=25..125 (100 mm), top deck Z=125..150
-  // Center stringer |Y| <= 70 mm clears BOTH HD-30X (|Y|=140..288) & HD-30C-R (|Y|=84..204)!
+  // TRUE-SCALE 1,100 x 1,100 REAL 25 mm PALLETS (ZERO THINNING / ZERO SCALING!)
+  //   - A안 window (田자 양면): 25 mm bottom boards (rear 130 + W1 355 + CENTER SPINE 130 + W2 355 + front 130)
+  //                             + 100 mm pocket (9 blocks 130x130) + 25 mm top deck = 150 mm!
+  //   - A안 single (단면형):     3 stringers (100 mm pocket) + 25 mm top deck = 125 mm!
+  //   - B안 double (통판 양면):  FULL SOLID 25 mm continuous bottom deck (ZERO cutouts!)
+  //                             + 3 stringers (100 mm pocket) + 25 mm top deck = 150 mm!
+  //   - B안 single (단면형):     3 stringers (100 mm pocket) + 25 mm top deck = 125 mm!
   // ==========================================================================
   function buildPalletAssembly(archKey, pickList) {
     const palletRoot = new THREE.Group();
-    const commonGrp = new THREE.Group();
-    const singleUpperGrp = new THREE.Group();
-    const altBottomGrp = new THREE.Group();
+    const doubleOrWinGrp = new THREE.Group();
+    const singleGrp = new THREE.Group();
     const loadWireGrp = new THREE.Group();
-    palletRoot.add(commonGrp, singleUpperGrp, altBottomGrp, loadWireGrp);
+    palletRoot.add(doubleOrWinGrp, singleGrp, loadWireGrp);
 
-    const matWoodMain = new THREE.MeshStandardMaterial({ color: 0xb07d4b, roughness: 0.80, metalness: 0.04 });
-    const matWoodDark = new THREE.MeshStandardMaterial({ color: 0x8d5f35, roughness: 0.84, metalness: 0.04 });
-    const matWoodBot  = new THREE.MeshStandardMaterial({ color: 0x9a6b3c, roughness: 0.82, metalness: 0.04 });
+    const matWoodTop   = new THREE.MeshStandardMaterial({ color: 0xba8752, roughness: 0.78, metalness: 0.04 });
+    const matWoodBlock = new THREE.MeshStandardMaterial({ color: 0x8b5d33, roughness: 0.84, metalness: 0.04 });
+    const matWoodBot   = new THREE.MeshStandardMaterial({ color: 0x9f6e3d, roughness: 0.80, metalness: 0.04 });
+    const matWoodSpine = new THREE.MeshStandardMaterial({ color: 0xc88a44, roughness: 0.72, metalness: 0.05 });
 
-    const pMeta = {
-      name: `pallet_t11_${archKey}`,
-      kind: 'overlay',
-      model: '표준 T11 파레트 (1100×1100×150 mm · 하중 중심 LC 550 mm)',
-      material: '목재/산업용 파레트',
-    };
-
-    // 7 Top Deck Boards (X = -550..+550, Y = -550..+550, Z = 125..150 -> exact 125 mm underside!)
-    const slatXs = [
-      [-550, -430], [-392, -272], [-234, -114], [-60, 60],
-      [114, 234], [272, 392], [430, 550],
+    const topSlats = [
+      [-550, -420], [-380, -260], [-220, -100], [-65, 65],
+      [100, 220], [260, 380], [420, 550],
     ];
-    for (const [sx0, sx1] of slatXs) {
-      makeCadBox(sx0, sx1, -550, 550, 125, 150, matWoodMain, pMeta, commonGrp, pickList);
-    }
 
-    // Single-face upper cross-stringers (Z = 100..125 -> exact 100 mm pocket ceiling for single-face!)
-    for (const [bx0, bx1] of [[-550, -440], [-55, 55], [440, 550]]) {
-      makeCadBox(bx0, bx1, -445, -70, 100, 125, matWoodDark, pMeta, singleUpperGrp, pickList);
-      makeCadBox(bx0, bx1, 70, 445, 100, 125, matWoodDark, pMeta, singleUpperGrp, pickList);
-    }
-
-    // 9 Support Blocks (Z = 0..125, |Y| <= 70 & |Y| = 445..550 -> clear fork tunnels |Y| = 70..445!)
-    for (const [bx0, bx1] of [[-550, -440], [-55, 55], [440, 550]]) {
-      for (const [by0, by1] of [[-550, -445], [-70, 70], [445, 550]]) {
-        makeCadBox(bx0, bx1, by0, by1, 0, 125, matWoodDark, pMeta, commonGrp, pickList);
-      }
-    }
-
-    if (archKey === 'HD30C') {
-      // Double-Deck Full Bottom (양면형 바닥 막힘 — B안 HD-30C-R 외팔 신축 리치 포크 전용)
-      // HD-30C-R Rev A.4 forged tines span |Y|=84..204 mm -> beveled 4.5 mm entry tie under |Y|=70..220 clears Z_bot=5.0 mm!
-      const botMeta = {
-        name: 'pallet_double_bottom_deck',
+    // --- Single-Deck Real T11 Pallet (1,100 x 1,100 x 125 mm: 100 mm pocket + 25 mm top deck) ---
+    {
+      const sMeta = {
+        name: `pallet_t11_single_${archKey}`,
         kind: 'overlay',
-        model: '양면형 파레트 하부 바닥판 (25 mm · B안 HD-30C-R 신축 리치 포크 전용)',
-        material: '양면형 하부 데크보드',
+        model: '실물 T11 단면형 파레트 (1,100×1,100×125 mm · 100 mm 포켓 + 25 mm 상판)',
+        material: '산업용 단면 파레트',
       };
-      for (const [by0, by1] of [[-550, -445], [-70, 70], [445, 550]]) {
-        makeCadBox(-550, 550, by0, by1, 0, 25, matWoodBot, botMeta, altBottomGrp, pickList);
+      for (const [sx0, sx1] of topSlats) {
+        makeCadBox(sx0, sx1, -550, 550, 100, 125, matWoodTop, sMeta, singleGrp, pickList);
       }
-      for (const [bx0, bx1] of [[-550, -440], [-55, 55], [440, 550]]) {
-        makeCadBox(bx0, bx1, -445, -220, 0, 25, matWoodBot, botMeta, altBottomGrp, pickList);
-        makeCadBox(bx0, bx1, 220, 445, 0, 25, matWoodBot, botMeta, altBottomGrp, pickList);
-        // Beveled 4.5 mm cross-tie directly under tines |Y|=84..204 (clears Z_bot=5.0 cleanly!)
-        makeCadBox(bx0, bx1, -220, -70, 0, 4.5, matWoodBot, botMeta, altBottomGrp, pickList);
-        makeCadBox(bx0, bx1, 70, 220, 0, 4.5, matWoodBot, botMeta, altBottomGrp, pickList);
+      const sOutY = archKey === 'HD30C' ? 435 : 420;
+      for (const [by0, by1] of [[-550, -sOutY], [-65, 65], [sOutY, 550]]) {
+        makeCadBox(-550, 550, by0, by1, 0, 100, matWoodBlock, sMeta, singleGrp, pickList);
       }
-      singleUpperGrp.visible = false;
+    }
+
+    if (archKey === 'HD30X') {
+      // --- Real T11 1,100 x 1,100 x 150 mm 田자 Window Double-Deck Pallet (EXACT 25 mm bottom + 130 mm center spine!) ---
+      const xBands = [[-550, -420], [-65, 65], [420, 550]];
+      const yBands = [[-550, -420], [-65, 65], [420, 550]];
+      const wTopMeta = {
+        name: 'pallet_t11_window_top',
+        kind: 'overlay',
+        model: '실물 T11 田자 창문 양면형 상판 (1,100×1,100 · Z=125..150 mm)',
+        material: '田자 양면 파레트 (25 mm 상판)',
+      };
+      const wBotMeta = {
+        name: 'pallet_t11_window_bottom_25mm',
+        kind: 'overlay',
+        model: '실물 T11 田자 25 mm 하판 (후 130 + 창 W1 355 + 중앙 등뼈 130 + 창 W2 355 + 전 130 mm)',
+        material: '田자 양면 파레트 (실물 25.0 mm 하판)',
+      };
+      const wSpineMeta = {
+        name: 'pallet_t11_window_center_spine_25mm',
+        kind: 'overlay',
+        model: '실물 T11 田자 중앙 등뼈 하판 (폭 130 mm · 두께 25.0 mm · 포크 Z=300..362 걸침 지지)',
+        material: '田자 중앙 등뼈 (25.0 mm)',
+      };
+      // 7 Top Deck Boards (Z = 125..150)
+      for (const [sx0, sx1] of topSlats) {
+        makeCadBox(sx0, sx1, -550, 550, 125, 150, matWoodTop, wTopMeta, doubleOrWinGrp, pickList);
+      }
+      // 3 Transverse Bottom Boards (REAL 25.0 mm thickness! Rear [-550..-420], CENTER SPINE [-65..+65], Front [+420..+550])
+      makeCadBox(-550, -420, -550, 550, 0, 25, matWoodBot, wBotMeta, doubleOrWinGrp, pickList);
+      makeCadBox(-65, 65, -550, 550, 0, 25, matWoodSpine, wSpineMeta, doubleOrWinGrp, pickList);
+      makeCadBox(420, 550, -550, 550, 0, 25, matWoodBot, wBotMeta, doubleOrWinGrp, pickList);
+      // 3 Longitudinal Bottom Boards (REAL 25.0 mm thickness! Leaving EXACT W1=[-420..-65] & W2=[+65..+420] open!)
+      for (const [by0, by1] of yBands) {
+        makeCadBox(-420, -65, by0, by1, 0, 25, matWoodBot, wBotMeta, doubleOrWinGrp, pickList);
+        makeCadBox(65, 420, by0, by1, 0, 25, matWoodBot, wBotMeta, doubleOrWinGrp, pickList);
+      }
+      // 9 Support Blocks (130 x 130 x 100 mm, Z = 25..125)
+      for (const [bx0, bx1] of xBands) {
+        for (const [by0, by1] of yBands) {
+          makeCadBox(bx0, bx1, by0, by1, 25, 125, matWoodBlock, wTopMeta, doubleOrWinGrp, pickList);
+        }
+      }
     } else {
-      // Window-Type Perimeter Bottom (창형 양면 — 25 mm bottom perimeter board, open floor windows for X-scissor feet!)
-      const winMeta = {
-        name: 'pallet_window_bottom_deck',
+      // --- Real T11 1,100 x 1,100 x 150 mm FULL-BOTTOM Double-Deck Pallet (REAL 25.0 mm SOLID CONTINUOUS BOTTOM!) ---
+      const dTopMeta = {
+        name: 'pallet_t11_double_top',
         kind: 'overlay',
-        model: '창형 양면 파레트 하부 프레임 (25 mm 하판 · 중앙 창 개구 · 포크 포켓 Z=310..360 안착)',
-        material: '창형 양면 하부 보드',
+        model: '실물 T11 바닥 막힌 양면형 상판 (1,100×1,100 · Z=125..150 mm)',
+        material: '통판 양면 파레트 (25 mm 상판)',
       };
-      for (const [by0, by1] of [[-550, -445], [-70, 70], [445, 550]]) {
-        makeCadBox(-550, 550, by0, by1, 0, 25, matWoodBot, winMeta, altBottomGrp, pickList);
+      const dBotMeta = {
+        name: 'pallet_t11_double_solid_bottom_25mm',
+        kind: 'overlay',
+        model: '실물 T11 바닥 막힌 25.0 mm 연속 통판 하판 (절개·깎기 0 mm · B안 HD-30C-R 전용)',
+        material: '통판 양면 하판 (실물 25.0 mm)',
+      };
+      // FULL SOLID CONTINUOUS 25.0 mm BOTTOM DECK (X=-550..+550, Y=-550..+550, Z=0..25.0 mm!)
+      makeCadBox(-550, 550, -550, 550, 0, 25, matWoodBot, dBotMeta, doubleOrWinGrp, pickList);
+      // 3 Longitudinal Stringers (Z = 25..125, |Y|<=65 & |Y|=435..550 -> 370 mm clear fork pockets!)
+      for (const [by0, by1] of [[-550, -435], [-65, 65], [435, 550]]) {
+        makeCadBox(-550, 550, by0, by1, 25, 125, matWoodBlock, dTopMeta, doubleOrWinGrp, pickList);
       }
-      // Front & Rear outer perimeter cross ties only (middle bay X=-440..+440 is open window for L=520 X-scissor feet!)
-      for (const [bx0, bx1] of [[-550, -440], [440, 550]]) {
-        makeCadBox(bx0, bx1, -445, -300, 0, 25, matWoodBot, winMeta, altBottomGrp, pickList);
-        makeCadBox(bx0, bx1, 300, 445, 0, 25, matWoodBot, winMeta, altBottomGrp, pickList);
-        // Low 9 mm chamfered entry tie under fork channel |Y|=140..288 (clears Z_bot=10.0 at pickup!)
-        makeCadBox(bx0, bx1, -300, -70, 0, 9.0, matWoodBot, winMeta, altBottomGrp, pickList);
-        makeCadBox(bx0, bx1, 70, 300, 0, 9.0, matWoodBot, winMeta, altBottomGrp, pickList);
+      // 7 Top Deck Boards (Z = 125..150)
+      for (const [sx0, sx1] of topSlats) {
+        makeCadBox(sx0, sx1, -550, 550, 125, 150, matWoodTop, dTopMeta, doubleOrWinGrp, pickList);
       }
-      altBottomGrp.visible = false;
     }
+
+    singleGrp.visible = false; // Default: Window (A안) / Double Solid (B안)
 
     const cargoFillMat = new THREE.MeshStandardMaterial({
       color: 0xf59e0b, transparent: true, opacity: 0.08, depthWrite: false, roughness: 0.6,
@@ -2372,60 +3145,13 @@ async function bootViewer() {
     tagAuxiliary(cargoUnitBox, {
       name: `pallet_cargo_load_${archKey}`,
       kind: 'overlay',
-      model: '적재 화물 하중 시뮬레이션 (1100×1100 · LC = 550 mm)',
+      model: '적재 화물 하중 시뮬레이션 (1,100×1,100 · LC = 550 mm)',
       material: '화물 시뮬레이션',
       bbox_mm: [-520, 520, -520, 520, 150, 550],
     }, pickList);
     loadWireGrp.add(cargoScaleGroup);
 
-    return { palletRoot, singleUpperGrp, altBottomGrp, loadWireGrp, cargoScaleGroup, cargoFillMat, cargoEdgeMat };
-  }
-
-  // ==========================================================================
-  // HD-30X Rev A.4 ARTICULATED LONG-LINK L=520 mm X-SCISSOR LINKAGE ASSEMBLY
-  // Exact 4 scissor bays: Y_ctr = ±214 mm, X_base = -235 / +355 mm, L = 520 mm (16×20 SCM440, Ø16 pin)
-  // ==========================================================================
-  function buildHD30XScissorAnim(clipMats) {
-    const grp = new THREE.Group();
-    const matScissorIn  = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, roughness: 0.28, metalness: 0.74, side: THREE.DoubleSide });
-    const matScissorOut = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.30, metalness: 0.72, side: THREE.DoubleSide });
-    const matFoot       = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.45, metalness: 0.60, side: THREE.DoubleSide });
-    const matPin        = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.28, metalness: 0.78, side: THREE.DoubleSide });
-    clipMats.push(matScissorIn, matScissorOut, matFoot, matPin);
-
-    const units = [];
-    const barGeo = new THREE.BoxGeometry(mm(16), mm(20), mm(520));
-    const footGeo = new THREE.BoxGeometry(mm(116), mm(10), mm(180));
-    const pinGeo = new THREE.CylinderGeometry(mm(8), mm(8), mm(112), 16);
-    pinGeo.rotateZ(Math.PI / 2);
-
-    for (const yc of [214.0, -214.0]) {
-      for (const xf of [-235.0, 355.0]) {
-        const uGrp = new THREE.Group();
-        const inA = new THREE.Mesh(barGeo, matScissorIn);
-        const inB = new THREE.Mesh(barGeo, matScissorIn);
-        inA.position.x = mm(-26.5);
-        inB.position.x = mm(26.5);
-        const outA = new THREE.Mesh(barGeo, matScissorOut);
-        const outB = new THREE.Mesh(barGeo, matScissorOut);
-        outA.position.x = mm(-46.0);
-        outB.position.x = mm(46.0);
-        const pin = new THREE.Mesh(pinGeo, matPin);
-        const pivotGrp = new THREE.Group();
-        pivotGrp.add(inA, inB, outA, outB, pin);
-
-        const foot = new THREE.Mesh(footGeo, matFoot);
-        foot.castShadow = true;
-        foot.receiveShadow = true;
-        [inA, inB, outA, outB].forEach(m => { m.castShadow = true; m.receiveShadow = true; });
-
-        uGrp.add(pivotGrp, foot);
-        grp.add(uGrp);
-        units.push({ xf, yc, uGrp, pivotGrp, inA, inB, outA, outB, foot });
-      }
-    }
-    grp.visible = false;
-    return { grp, units };
+    return { palletRoot, doubleOrWinGrp, singleGrp, loadWireGrp, cargoScaleGroup, cargoFillMat, cargoEdgeMat };
   }
 
   // ==========================================================================
@@ -2439,13 +3165,13 @@ async function bootViewer() {
     let opacity = 1.0;
     let depthWrite = true;
 
-    if (kind === 'fork' || kind === 'rail' || kind === 'fastener' || kind === 'carriage' || kind === 'mast' || kind === 'weigh_shoe' || kind === 'scissor' || kind === 'spring') {
+    if (kind === 'fork' || kind === 'rail' || kind === 'fastener' || kind === 'carriage' || kind === 'mast' || kind === 'mast_inner' || kind === 'weigh_shoe' || kind === 'scissor' || kind === 'spring' || kind === 'susp') {
       roughness = 0.29; metalness = 0.70;
     } else if (kind === 'armor') {
       roughness = 0.36; metalness = 0.62;
     } else if (kind === 'cw') {
       roughness = 0.64; metalness = 0.34;
-    } else if (kind === 'wheel') {
+    } else if (kind === 'wheel' || kind === 'pad') {
       roughness = 0.62; metalness = 0.08;
     } else if (kind === 'contact') {
       roughness = 0.24; metalness = 0.85;
@@ -2486,7 +3212,7 @@ async function bootViewer() {
   }
 
   // ==========================================================================
-  // PER-ARCHITECTURE MODEL LOADER & CACHE
+  // PER-ARCHITECTURE MODEL LOADER & REAL-GLB ARTICULATED KINEMATIC RIGGING
   // ==========================================================================
   const loader = new GLTFLoader();
   const archCache = {};
@@ -2503,28 +3229,65 @@ async function bootViewer() {
       if (!manifest || !manifest.models) return;
       for (const aKey of ['HD30X', 'HD30C']) {
         const mBlock = manifest.models[aKey];
-        if (!mBlock || !Array.isArray(mBlock.variants)) continue;
-        for (const mv of mBlock.variants) {
-          if (ARCH_CONFIGS[aKey].variants[mv.id]) {
-            ARCH_CONFIGS[aKey].variants[mv.id] = {
-              id: mv.id,
-              stepFile: mv.step_file,
-              csvFile: mv.csv_file,
-              stepHref: `cad/${mv.step_file}`,
-              csvHref: `cad/${mv.csv_file}`,
-              partCount: mv.part_count,
-              stepBytes: mv.step_bytes,
-              totalEmptyKg: mv.total_empty_kg,
-              cgEmptyMm: mv.cg_empty_mm,
-              cgEmptyExtendedMm: mv.cg_empty_extended_mm || mv.cg_empty_mm,
-              sf: mv.iso22915_tipping_sf != null ? mv.iso22915_tipping_sf : mv.wheel_load_safety_factor,
+        if (!mBlock) continue;
+        if (mBlock.bom_files) {
+          if (mBlock.bom_files.china_oem && mBlock.bom_files.china_oem.file) {
+            ARCH_CONFIGS[aKey].bomFiles.china_oem = {
+              file: mBlock.bom_files.china_oem.file,
+              href: `cad/${mBlock.bom_files.china_oem.file}`,
             };
+          }
+          if (mBlock.bom_files.korea_kc && mBlock.bom_files.korea_kc.file) {
+            ARCH_CONFIGS[aKey].bomFiles.korea_kc = {
+              file: mBlock.bom_files.korea_kc.file,
+              href: `cad/${mBlock.bom_files.korea_kc.file}`,
+            };
+          }
+        }
+        if (Array.isArray(mBlock.variants)) {
+          for (const mv of mBlock.variants) {
+            if (ARCH_CONFIGS[aKey].variants[mv.id]) {
+              ARCH_CONFIGS[aKey].variants[mv.id] = {
+                id: mv.id,
+                stepFile: mv.step_file,
+                csvFile: mv.csv_file,
+                stepHref: `cad/${mv.step_file}`,
+                csvHref: `cad/${mv.csv_file}`,
+                partCount: mv.part_count,
+                stepBytes: mv.step_bytes,
+                totalEmptyKg: mv.total_empty_kg,
+                cgEmptyMm: mv.cg_empty_mm,
+                cgEmptyExtendedMm: mv.cg_empty_extended_mm || mv.cg_empty_mm,
+                sf: mv.iso22915_tipping_sf != null ? mv.iso22915_tipping_sf : mv.wheel_load_safety_factor,
+              };
+            }
           }
         }
       }
     } catch (_) {
-      // Embedded SSOT catalog remains active
+      // Embedded Rev A.5 SSOT catalog remains active
     }
+  }
+
+  // Parse HD-30X real GLB scissor component names:
+  //   scissor_skid_{L|R}_{R|F}
+  //   scissor_roller_{L|R}_{R|F}_{0..3}
+  //   scissor_lift_{L|R}_{R|F}_{t1out|t1in_a|t1in_b|t2in_a|t2in_b|t2out_a|t2out_b}
+  //   scissor_pivot_pin_{L|R}_{R|F}{a|b}
+  function parseHD30XScissorPart(name) {
+    let m = /^scissor_(skid|roller)_([LR])_([RF])(?:_\d+)?$/.exec(name);
+    if (m) return { bayKey: `${m[2]}_${m[3]}`, role: m[1] };
+    m = /^scissor_lift_([LR])_([RF])_(t1out|t1in_[ab]|t2in_[ab]|t2out_[ab])$/.exec(name);
+    if (m) {
+      const tag = m[3];
+      const tier = tag.startsWith('t1') ? 1 : 2;
+      // Built in GLB at +8 deg (t1in, t2in) vs -8 deg (t1out, t2out)
+      const sign = (tag.includes('in')) ? -1 : +1; // Three.js rotation.x = sign * dThetaRad
+      return { bayKey: `${m[1]}_${m[2]}`, role: 'bar', tier, sign };
+    }
+    m = /^scissor_pivot_pin_([LR])_([RF])[ab]$/.exec(name);
+    if (m) return { bayKey: `${m[1]}_${m[2]}`, role: 'pin' };
+    return null;
   }
 
   async function loadArchModel(archKey) {
@@ -2545,29 +3308,57 @@ async function bootViewer() {
       rootGroup.visible = false;
       scene.add(rootGroup);
 
-      const robotGroup = new THREE.Group();
+      // robotWorldGroup moves along world +X_cad (+Z_glb) during sync_in (A안 +1,200 mm) & chassis_insert (B안 +1,100 mm)!
+      const robotWorldGroup = new THREE.Group();
+      robotWorldGroup.name = `robotWorldGroup_${archKey}`;
       const staticGroup = new THREE.Group();
       const batteryOptGroup = new THREE.Group();
       batteryOptGroup.visible = false;
-      robotGroup.add(staticGroup, batteryOptGroup);
-      rootGroup.add(robotGroup);
+      robotWorldGroup.add(staticGroup, batteryOptGroup);
+      rootGroup.add(robotWorldGroup);
 
-      // Build kinematic groups for this architecture
-      // HD-30C-R Rev A.4: reachMastGroup (+X_cad=+Z_glb, 0..1100 mm) -> child mastLiftGroup (+Z_cad=+Y_glb, -100..+340 mm)
-      let reachMastGroup = null, mastLiftGroup = null;
+      // Build exact Rev A.5 kinematic groups
+      let reachMastGroup = null, mastInnerGroup = null, mastLiftGroup = null;
       let forkExtGroup = null, forkDropGroup = null, forkLiftGroup = null;
+      let forkMastS1Group = null, forkMastS2Group = null;
+      let scissorRig = null;
+
       if (archKey === 'HD30C') {
+        // B안 Rev A.5: reach_mast -> mast_inner (2-stage FFL duplex) -> mast_lift (carriage + iForks)
         reachMastGroup = new THREE.Group();
+        mastInnerGroup = new THREE.Group();
         mastLiftGroup = new THREE.Group();
-        reachMastGroup.add(mastLiftGroup);
-        robotGroup.add(reachMastGroup);
+        reachMastGroup.add(mastInnerGroup);
+        mastInnerGroup.add(mastLiftGroup);
+        robotWorldGroup.add(reachMastGroup);
       } else {
+        // A안 Rev A.5: fork_ext -> { fork_drop, fork_mast_s1, fork_mast_s2, fork_lift, real-GLB 2-tier scissorRig }
         forkExtGroup = new THREE.Group();
         forkDropGroup = new THREE.Group();
+        forkMastS1Group = new THREE.Group();
+        forkMastS2Group = new THREE.Group();
         forkLiftGroup = new THREE.Group();
-        forkExtGroup.add(forkDropGroup);
-        forkDropGroup.add(forkLiftGroup);
-        robotGroup.add(forkExtGroup);
+        forkExtGroup.add(forkDropGroup, forkMastS1Group, forkMastS2Group, forkLiftGroup);
+
+        // 4 real-GLB scissor bays (L_R, L_F, R_R, R_F) using 100% real B-Rep skids, rollers, tapered bars & pins!
+        scissorRig = { skidGroup: new THREE.Group(), bays: {} };
+        forkExtGroup.add(scissorRig.skidGroup);
+        for (const [sLbl, yc] of [['L', 217.0], ['R', -217.0]]) {
+          for (const [bLbl, xf] of [['R', -82.5], ['F', 402.5]]) {
+            const bayKey = `${sLbl}_${bLbl}`;
+            const pivot0 = cad2glb(xf, yc, HD30X_K.zScCtrStowed);
+            const t1InGrp  = new THREE.Group(); t1InGrp.position.copy(pivot0);
+            const t1OutGrp = new THREE.Group(); t1OutGrp.position.copy(pivot0);
+            const t2InGrp  = new THREE.Group(); t2InGrp.position.copy(pivot0);
+            const t2OutGrp = new THREE.Group(); t2OutGrp.position.copy(pivot0);
+            const pinT1Grp = new THREE.Group(); pinT1Grp.position.copy(pivot0);
+            const pinT2Grp = new THREE.Group(); pinT2Grp.position.copy(pivot0);
+            pinT2Grp.visible = false;
+            forkExtGroup.add(t1InGrp, t1OutGrp, t2InGrp, t2OutGrp, pinT1Grp, pinT2Grp);
+            scissorRig.bays[bayKey] = { xf, yc, pivot0, t1InGrp, t1OutGrp, t2InGrp, t2OutGrp, pinT1Grp, pinT2Grp };
+          }
+        }
+        robotWorldGroup.add(forkExtGroup);
       }
 
       // Wheel suspension + steering rig from SSOT JSON pivots
@@ -2582,7 +3373,7 @@ async function bootViewer() {
         suspGrp.position.copy(pVec);
         const steerGrp = new THREE.Group();
         suspGrp.add(steerGrp);
-        robotGroup.add(suspGrp);
+        robotWorldGroup.add(suspGrp);
         wheelRig[k] = {
           pivotMm: piv,
           pivotGlb: pVec,
@@ -2598,7 +3389,7 @@ async function bootViewer() {
       const glbMeshes = new Map();
       const partsMetaByName = new Map();
       const loadCellMeshes = [];
-      const staticScissorMeshes = [];
+      const lockpinMeshes = [];
       const clipMaterials = [];
       const shellMaterials = [];
       const pickables = [];
@@ -2630,11 +3421,11 @@ async function bootViewer() {
           isGLB: true,
         };
         if (pivotOffsetGlb) mesh.position.sub(pivotOffsetGlb);
-        if (partName.startsWith('loadcell_carriage_') || partName.startsWith('loadcell_fork_')) {
+        if (partName.startsWith('loadcell_fork_') || partName.startsWith('ifork_loadcell_')) {
           loadCellMeshes.push(mesh);
         }
-        if (partName.startsWith('scissor_lift_') || partName.startsWith('scissor_pivot_pin_')) {
-          staticScissorMeshes.push(mesh);
+        if (partName.startsWith('fork_heel_lockpin_') || partName.startsWith('carriage_lock_pin_')) {
+          lockpinMeshes.push(mesh);
         }
         pickables.push(mesh);
         glbMeshes.set(partName, mesh);
@@ -2645,7 +3436,9 @@ async function bootViewer() {
       mainGltf.scene.traverse(obj => { if (obj.isMesh) mainMeshes.push(obj); });
 
       let mappedCount = 0;
-      let reachMastCount = 0, mastLiftCount = 0, forkExtCount = 0, forkDropCount = 0, forkLiftCount = 0, wheelSteerCount = 0;
+      let reachMastCount = 0, mastInnerCount = 0, mastLiftCount = 0;
+      let forkExtCount = 0, forkDropCount = 0, forkLiftCount = 0, forkMastS1Count = 0, forkMastS2Count = 0;
+      let realScissorSkidCount = 0, realScissorBarCount = 0, wheelSteerCount = 0;
 
       for (const mesh of mainMeshes) {
         const meta = partsMetaByName.get(mesh.name) || null;
@@ -2653,28 +3446,67 @@ async function bootViewer() {
         const mg = meta ? meta.move_group : null;
         const sg = meta ? meta.susp_group : null;
 
-        if (archKey === 'HD30C' && mg === 'reach_mast') {
-          reachMastCount++;
-          attachMesh(mesh, meta, reachMastGroup);
-        } else if (archKey === 'HD30C' && mg === 'mast_lift') {
-          mastLiftCount++;
-          attachMesh(mesh, meta, mastLiftGroup);
-        } else if (archKey === 'HD30X' && mg === 'fork_ext') {
-          forkExtCount++;
-          attachMesh(mesh, meta, forkExtGroup);
-        } else if (archKey === 'HD30X' && mg === 'fork_drop') {
-          forkDropCount++;
-          attachMesh(mesh, meta, forkDropGroup);
-        } else if (archKey === 'HD30X' && mg === 'fork_lift') {
-          forkLiftCount++;
-          attachMesh(mesh, meta, forkLiftGroup);
-        } else if (mg && wheelRig[mg]) {
-          wheelSteerCount++;
-          attachMesh(mesh, meta, wheelRig[mg].steerGrp, wheelRig[mg].pivotGlb);
-        } else if (sg && wheelRig[sg]) {
-          attachMesh(mesh, meta, wheelRig[sg].suspGrp, wheelRig[sg].pivotGlb);
+        if (archKey === 'HD30C') {
+          if (mg === 'reach_mast') {
+            reachMastCount++;
+            attachMesh(mesh, meta, reachMastGroup);
+          } else if (mg === 'mast_inner') {
+            mastInnerCount++;
+            attachMesh(mesh, meta, mastInnerGroup);
+          } else if (mg === 'mast_lift') {
+            mastLiftCount++;
+            attachMesh(mesh, meta, mastLiftGroup);
+          } else if (mg && wheelRig[mg]) {
+            wheelSteerCount++;
+            attachMesh(mesh, meta, wheelRig[mg].steerGrp, wheelRig[mg].pivotGlb);
+          } else if (sg && wheelRig[sg]) {
+            attachMesh(mesh, meta, wheelRig[sg].suspGrp, wheelRig[sg].pivotGlb);
+          } else {
+            attachMesh(mesh, meta, staticGroup);
+          }
         } else {
-          attachMesh(mesh, meta, staticGroup);
+          const scInfo = parseHD30XScissorPart(mesh.name);
+          if (scInfo && scissorRig.bays[scInfo.bayKey]) {
+            const bay = scissorRig.bays[scInfo.bayKey];
+            if (scInfo.role === 'skid' || scInfo.role === 'roller') {
+              realScissorSkidCount++;
+              attachMesh(mesh, meta, scissorRig.skidGroup);
+            } else if (scInfo.role === 'bar') {
+              realScissorBarCount++;
+              const grp = scInfo.tier === 1
+                ? (scInfo.sign < 0 ? bay.t1InGrp : bay.t1OutGrp)
+                : (scInfo.sign < 0 ? bay.t2InGrp : bay.t2OutGrp);
+              attachMesh(mesh, meta, grp, bay.pivot0);
+            } else if (scInfo.role === 'pin') {
+              attachMesh(mesh, meta, bay.pinT1Grp, bay.pivot0);
+              // Clone real GLB pin geometry for Tier-2 upper X-crossing when scissor deploys!
+              const pinClone = mesh.clone();
+              pinClone.material = mesh.material;
+              bay.pinT2Grp.add(pinClone);
+            }
+          } else if (mg === 'fork_ext') {
+            forkExtCount++;
+            attachMesh(mesh, meta, forkExtGroup);
+          } else if (mg === 'fork_drop') {
+            forkDropCount++;
+            attachMesh(mesh, meta, forkDropGroup);
+          } else if (mg === 'fork_mast_s1') {
+            forkMastS1Count++;
+            attachMesh(mesh, meta, forkMastS1Group);
+          } else if (mg === 'fork_mast_s2') {
+            forkMastS2Count++;
+            attachMesh(mesh, meta, forkMastS2Group);
+          } else if (mg === 'fork_lift') {
+            forkLiftCount++;
+            attachMesh(mesh, meta, forkLiftGroup);
+          } else if (mg && wheelRig[mg]) {
+            wheelSteerCount++;
+            attachMesh(mesh, meta, wheelRig[mg].steerGrp, wheelRig[mg].pivotGlb);
+          } else if (sg && wheelRig[sg]) {
+            attachMesh(mesh, meta, wheelRig[sg].suspGrp, wheelRig[sg].pivotGlb);
+          } else {
+            attachMesh(mesh, meta, staticGroup);
+          }
         }
       }
 
@@ -2688,13 +3520,9 @@ async function bootViewer() {
       // Swappable variant hardware
       const rearTower2DGroup = buildRearTower2DHardware(cfg, clipMaterials, pickables);
       const blankCoverE1RGroup = buildBlankCoverE1RHardware(archKey, clipMaterials, pickables);
-      robotGroup.add(rearTower2DGroup, blankCoverE1RGroup);
+      robotWorldGroup.add(rearTower2DGroup, blankCoverE1RGroup);
 
-      // Articulated X-scissor under-fork links for HD-30X
-      const scissorAnim = archKey === 'HD30X' ? buildHD30XScissorAnim(clipMaterials) : null;
-      if (scissorAnim) rootGroup.add(scissorAnim.grp);
-
-      // Sensor FOV Overlays
+      // Sensor FOV Overlays (attached to robotWorldGroup so FOV moves with chassis!)
       const fov2DGroup = new THREE.Group();
       fov2DGroup.add(buildMeasured2DSector(
         cfg.sensors.lidar2dFL[0], cfg.sensors.lidar2dFL[1], cfg.sensors.lidar2dFL[2],
@@ -2708,50 +3536,54 @@ async function bootViewer() {
       const { fovXT32Group, fovTower2DGroup } = buildXT32Fov(cfg.sensors.xt32Pos, cfg.sensors.xt32TiltDeg);
       const qrSceneGroup = buildQrOverlay(cfg.sensors.qrPos, pickables);
 
-      // Outer Envelope Wireframes
+      // Outer Envelope Wireframes (Rev A.5 exact dimensions!)
       const envGroup = new THREE.Group();
       let extendedEnvBox = null;
       if (archKey === 'HD30C') {
-        // Stowed 1,960 x 1,200 x 995 mm (X = -1030..+930, center X = -50)
+        // Stowed 2,040 x 1,200 x 995 mm (X = -1,110 .. +930, center X = -90)
         const stowedBox = new THREE.LineSegments(
-          new THREE.EdgesGeometry(new THREE.BoxGeometry(1.200, 0.995, 1.960)),
-          new THREE.LineBasicMaterial({ color: 0x4ade80, transparent: true, opacity: 0.46 })
+          new THREE.EdgesGeometry(new THREE.BoxGeometry(1.200, 0.995, 2.040)),
+          new THREE.LineBasicMaterial({ color: 0x4ade80, transparent: true, opacity: 0.44 })
         );
-        stowedBox.position.copy(cad2glb((-1030 + 930) / 2, 0, 995 / 2));
-        // Extended 3,040 x 1,200 x 995 mm (X = -1030..+2010, center X = +490)
+        stowedBox.position.copy(cad2glb(-90.0, 0, 995 / 2));
+        // Extended 3,160 x 1,200 x 995 mm (X = -1,110 .. +2,050, center X = +470)
         extendedEnvBox = new THREE.LineSegments(
-          new THREE.EdgesGeometry(new THREE.BoxGeometry(1.200, 0.995, 3.040)),
+          new THREE.EdgesGeometry(new THREE.BoxGeometry(1.200, 0.995, 3.160)),
           new THREE.LineBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.24 })
         );
-        extendedEnvBox.position.copy(cad2glb((-1030 + 2010) / 2, 0, 995 / 2));
+        extendedEnvBox.position.copy(cad2glb(470.0, 0, 995 / 2));
         extendedEnvBox.visible = false;
         envGroup.add(stowedBox, extendedEnvBox);
       } else {
         const compactBox = new THREE.LineSegments(
           new THREE.EdgesGeometry(new THREE.BoxGeometry(1.200, 0.760, 1.560)),
-          new THREE.LineBasicMaterial({ color: 0x4ade80, transparent: true, opacity: 0.46 })
+          new THREE.LineBasicMaterial({ color: 0x4ade80, transparent: true, opacity: 0.44 })
         );
         compactBox.position.copy(cad2glb(0, 0, 760 / 2));
         envGroup.add(compactBox);
       }
 
-      // Pallet Assembly
-      const pallet = buildPalletAssembly(archKey, pickables);
+      robotWorldGroup.add(fov2DGroup, fovE1RGroup, fovXT32Group, fovTower2DGroup, qrSceneGroup, envGroup);
 
-      rootGroup.add(fov2DGroup, fovE1RGroup, fovXT32Group, fovTower2DGroup, qrSceneGroup, envGroup, pallet.palletRoot);
+      // Real 25 mm Pallet Assembly (WORLD space child of rootGroup!)
+      const pallet = buildPalletAssembly(archKey, pickables);
+      rootGroup.add(pallet.palletRoot);
 
       const entry = {
         archKey,
         rootGroup,
-        robotGroup,
+        robotWorldGroup,
         staticGroup,
         batteryOptGroup,
         reachMastGroup,
+        mastInnerGroup,
         mastLiftGroup,
         forkExtGroup,
         forkDropGroup,
+        forkMastS1Group,
+        forkMastS2Group,
         forkLiftGroup,
-        scissorAnim,
+        scissorRig,
         wheelRig,
         rearTower2DGroup,
         blankCoverE1RGroup,
@@ -2766,7 +3598,7 @@ async function bootViewer() {
         glbMeshes,
         partsMetaByName,
         loadCellMeshes,
-        staticScissorMeshes,
+        lockpinMeshes,
         clipMaterials,
         shellMaterials,
         pickables,
@@ -2776,10 +3608,15 @@ async function bootViewer() {
           mappedMetaCount: mappedCount,
           partsJsonCount: partsJson.parts.length,
           reachMastMeshCount: reachMastCount,
+          mastInnerMeshCount: mastInnerCount,
           mastLiftMeshCount: mastLiftCount,
           forkExtMeshCount: forkExtCount,
           forkDropMeshCount: forkDropCount,
+          forkMastS1MeshCount: forkMastS1Count,
+          forkMastS2MeshCount: forkMastS2Count,
           forkLiftMeshCount: forkLiftCount,
+          realScissorSkidCount,
+          realScissorBarCount,
           wheelSteerMeshCount: wheelSteerCount,
         },
       };
@@ -2793,19 +3630,27 @@ async function bootViewer() {
   }
 
   // ==========================================================================
-  // INTERACTIVE STATE (DEFAULT BOOT: A안 메인 HD-30X)
+  // INTERACTIVE & ANIMATION STATE (DEFAULT BOOT: HD-30X Rev A.5, PAUSED)
   // ==========================================================================
   let activeArch = 'HD30X';
   let activeModel = null;
   let activeVar = 'Full3D';
   let activeBatt = '100Ah';
-  let activePalletC = 'double';
-  let activePalletX = 'single';
+  let activePalletX = 'window';  // Default: 田자 25 mm window double-deck!
+  let activePalletC = 'double';  // Default: 25 mm solid full-bottom double-deck!
   let activeSteer = 'straight';
   let clipAxis = 'off';
   let activeVariant = ARCH_CONFIGS.HD30X.variants.Full3D_100Ah;
-  let lastWeighState = computeWeighReadoutX(0, 0, 0, 'single', 1200);
   let switchSeq = 0;
+
+  let animPlaying = false;
+  let animMode = 'pickup';   // 'pickup' | 'drop' | 'loop'
+  let animSpeed = 1;         // 0.5 | 1 | 2
+  let timelineT = 0.0;       // 0 .. 1
+  let controlSource = 'anim'; // 'anim' | 'manual'
+  let lastFrameMs = performance.now();
+  let lastPose = evalAnimHD30X(0, 'window', false);
+  let lastWeighState = computeSymmetricLoadCells('HD30X', 1500, false, 'floor');
 
   function setModelPartVisible(model, name, vis) {
     if (!model) return;
@@ -2826,38 +3671,29 @@ async function bootViewer() {
   }
 
   function updateCgPosition() {
+    if (!lastPose) return;
     const m = getMassMetrics(activeArch, activeVar, activeBatt);
     const loadKg = +$('sLoad').value;
     let [cx, cy, cz] = m.cg;
 
     if (activeArch === 'HD30C') {
-      const reachMm = +$('sReachC').value;
-      const liftDzMm = +$('sLiftC').value - 105;
-      const reachFrac = Math.max(0, Math.min(1, reachMm / 1100.0));
-      cx = m.cg[0] + reachFrac * (m.cgExt[0] - m.cg[0]);
-      const k = computeHD30CPalletKinematics(reachMm, liftDzMm, activePalletC);
-      const carriedKg = (activePalletC !== 'none' && (k.isStowedOnDeck || k.isLiftedByFork)) ? loadKg : 0;
+      const reachFrac = clamp((lastPose.reach || 0) / HD30C_K.reachMax, 0, 1);
+      cx = m.cg[0] + reachFrac * (m.cgExt[0] - m.cg[0]) + lastPose.chassisX;
+      const carriedKg = (activePalletC !== 'none' && (lastPose.weighActive || lastPose.seatMode === 'deck')) ? loadKg : 0;
       if (carriedKg > 0) {
         const totalKg = m.massKg + carriedKg;
-        const loadX = k.palletX;
-        const loadZ = k.palletZ + 200.0;
-        cx = (m.massKg * cx + carriedKg * loadX) / totalKg;
+        cx = (m.massKg * cx + carriedKg * lastPose.palletX) / totalKg;
         cy = (m.massKg * cy) / totalKg;
-        cz = (m.massKg * cz + carriedKg * loadZ) / totalKg;
+        cz = (m.massKg * cz + carriedKg * (lastPose.palletZ + 200.0)) / totalKg;
       }
     } else {
-      const dropMm = +$('sDropX').value;
-      const extMm = +$('sExtX').value;
-      const liftMm = +$('sLiftX').value;
-      const k = computeHD30XPalletKinematics(dropMm, extMm, liftMm, activePalletX);
-      const carriedKg = (activePalletX !== 'none' && (k.isStowedOnDeck || k.isLiftedByFork)) ? loadKg : 0;
+      cx = m.cg[0] + lastPose.chassisX;
+      const carriedKg = (activePalletX !== 'none' && (lastPose.weighActive || lastPose.seatMode === 'deck' || lastPose.seatMode === 'spine')) ? loadKg : 0;
       if (carriedKg > 0) {
         const totalKg = m.massKg + carriedKg;
-        const loadX = k.palletX;
-        const loadZ = k.palletZ + 200.0;
-        cx = (m.massKg * cx + carriedKg * loadX) / totalKg;
+        cx = (m.massKg * cx + carriedKg * lastPose.palletX) / totalKg;
         cy = (m.massKg * cy) / totalKg;
-        cz = (m.massKg * cz + carriedKg * loadZ) / totalKg;
+        cz = (m.massKg * cz + carriedKg * (lastPose.palletZ + 200.0)) / totalKg;
       }
     }
 
@@ -2870,17 +3706,14 @@ async function bootViewer() {
 
   function updateSharedEnvironmentForArch() {
     const cfg = ARCH_CONFIGS[activeArch];
-    // Align dock cleanly 850.0 mm behind active rear bumper!
-    const dockShiftXMm = cfg.rearBumperXMm - (-1035.0);
-    dockGroup.position.set(0, 0, mm(dockShiftXMm));
+    // Align dock EXACTLY 850.0 mm behind active rear bumper (chassisX = 0 reference)
+    dockGroup.position.set(0, 0, mm(cfg.rearBumperXMm));
     if (dockMainMesh && dockMainMesh.userData) {
       const dockFrontMm = cfg.rearBumperXMm - 850.0;
       dockMainMesh.userData.model = `후면 벽면 자동 충전 스테이션 (${cfg.code} 후면 범퍼 ${cfg.rearBumperXMm} 대비 850 mm 이격)`;
       dockMainMesh.userData.bbox_mm = [dockFrontMm - 240, dockFrontMm, -240, 240, 0, 640];
     }
-    // Align 30 mm elevator step sill right ahead of active front axle
     stepSimGroup.position.set(0, 0, mm(cfg.stepOffsetXMm));
-    // Place coordinate triad cleanly outside active chassis
     cadTriad.position.copy(cad2glb(cfg.rearBumperXMm - 225, -840, 8));
   }
 
@@ -2895,7 +3728,6 @@ async function bootViewer() {
     $('btnBatt200').classList.toggle('active', activeBatt === '200Ah');
 
     if (activeModel) {
-      // Sensor hardware visibility swap
       setModelPartVisible(activeModel, 'lidar_3d_rear_XT32', sp.rearXT32);
       setModelPartVisible(activeModel, 'tower_3d_pedestal', sp.rearXT32);
       activeModel.rearTower2DGroup.visible = !sp.rearXT32;
@@ -2906,10 +3738,10 @@ async function bootViewer() {
       }
       activeModel.blankCoverE1RGroup.visible = !sp.frontE1R;
 
-      // Battery 100Ah vs 200Ah expansion pack
       const is200 = activeBatt === '200Ah';
       if (activeArch === 'HD30C') {
         setModelPartVisible(activeModel, 'battery_lfp_100ah_main', true);
+        setModelPartVisible(activeModel, 'counterweight_mid_pod_R_trim_100ah', !is200);
       } else {
         setModelPartVisible(activeModel, 'battery_lfp_50ah_L', true);
         setModelPartVisible(activeModel, 'battery_lfp_50ah_R', true);
@@ -2941,7 +3773,6 @@ async function bootViewer() {
     refreshConfigUI();
   }
 
-  // 4WS Steering Modes (exact tangent angle per architecture!)
   function getSteerConfig(archKey, mode) {
     const cfg = ARCH_CONFIGS[archKey];
     if (mode === 'crab') {
@@ -2971,29 +3802,19 @@ async function bootViewer() {
     syncDebugState();
   }
 
-  // 30 mm Elevator Step & 40 mm Gap Toggle
   function applyStepSim(instant = false) {
     const on = $('kStepSim').checked;
     stepSimGroup.visible = on;
     $('lblStepSim').classList.toggle('active', on);
 
     if (on) {
-      if (activeArch === 'HD30C' && (+$('sReachC').value > 100 || +$('sLiftC').value < 45)) {
-        $('sReachC').value = 0;
-        $('sLiftC').value = 105;
-        updateKinematics();
-      } else if (activeArch === 'HD30X') {
-        const kx = computeHD30XPalletKinematics(+$('sDropX').value, +$('sExtX').value, +$('sLiftX').value, activePalletX);
-        if (+$('sDropX').value < -5 || +$('sExtX').value > 100 || (+$('sLiftX').value > 5 && !kx.isWindowTrapped)) {
-          $('sDropX').value = 0;
-          $('sExtX').value = 0;
-          $('sLiftX').value = 0;
-          updateKinematics();
-        }
-      }
+      animPlaying = false;
+      timelineT = 0.0;
+      controlSource = 'anim';
+      applyCurrentPose();
     }
 
-    const frontBumpM = on ? mm(30.0) : 0.0;
+    const frontBumpM = on ? mm(25.0) : 0.0;
     if (activeModel) {
       for (const k of ['wheel_FL', 'wheel_FR']) {
         activeModel.wheelRig[k].tgtBumpM = frontBumpM;
@@ -3013,151 +3834,179 @@ async function bootViewer() {
     syncDebugState();
   }
 
-  // Fork Kinematics, Pallet Placement, X-Scissor Articulation & 4-Point Load-Cell Readout
-  function updateKinematics() {
+  // ==========================================================================
+  // APPLY EVALUATED POSE TO REAL GLB RIG, REAL 25 mm PALLETS, LOAD CELLS & HUD
+  // ==========================================================================
+  function applyCurrentPose() {
     const loadKg = +$('sLoad').value;
     $('vLoad').textContent = `${formatInt(loadKg)} kg`;
-
     if (!activeModel) return;
+
+    let pose;
+    if (controlSource === 'anim') {
+      const { u, isReverse } = mapTimelineToU(timelineT, animMode);
+      pose = activeArch === 'HD30X'
+        ? evalAnimHD30X(u, activePalletX, isReverse)
+        : evalAnimHD30C(u, activePalletC, isReverse);
+    } else if (activeArch === 'HD30X') {
+      pose = evalManualHD30X(+$('sDropX').value, +$('sExtX').value, +$('sLiftX').value, activePalletX, 0.0);
+    } else {
+      pose = evalManualHD30C(+$('sReachC').value, +$('sLiftC').value - 105.0, activePalletC, 0.0);
+    }
+    lastPose = pose;
+
+    // 1. Move robotWorldGroup along world +X_cad (+Z_glb)
+    activeModel.robotWorldGroup.position.z = mm(pose.chassisX);
+
     const pal = activeModel.pallet;
 
-    if (activeArch === 'HD30C') {
-      const reachMm = +$('sReachC').value;
-      const zBot = +$('sLiftC').value;
-      const liftDzMm = zBot - 105;
-      const k = computeHD30CPalletKinematics(reachMm, liftDzMm, activePalletC);
-      const envLen = Math.round(1960 + Math.max(0, reachMm - 20));
-
-      $('vReachC').textContent = reachMm === 0
-        ? '0 mm (1,960)'
-        : `+${formatInt(reachMm)} mm (${formatInt(envLen)})`;
-      $('vLiftC').textContent = `Z ${k.zBot}~${k.zTop} (${liftDzMm > 0 ? '+' : ''}${liftDzMm})`;
-      document.querySelectorAll('[data-cpreset]').forEach(b => {
-        const p = HD30C_PRESETS[b.dataset.cpreset];
-        b.classList.toggle('active', p && p.reach === reachMm && p.dz === liftDzMm);
-      });
-      document.querySelectorAll('[data-pallet-c]').forEach(b => b.classList.toggle('active', b.dataset.palletC === activePalletC));
-
-      // Parent-child reach + lift translation:
-      // reachMastGroup moves +X_cad (+Z_glb) by reachMm; child mastLiftGroup moves +Z_cad (+Y_glb) by liftDzMm!
-      activeModel.reachMastGroup.position.z = mm(reachMm);
-      activeModel.mastLiftGroup.position.y = mm(liftDzMm);
-      if (activeModel.extendedEnvBox) {
-        activeModel.extendedEnvBox.visible = reachMm > 50;
+    if (activeArch === 'HD30X') {
+      // Sync manual sliders cleanly when driven by timeline
+      if (controlSource === 'anim') {
+        $('sDropX').value = String(Math.round(pose.drop));
+        $('sExtX').value = String(Math.round(pose.ext));
+        $('sLiftX').value = String(Math.round(pose.rawStroke));
       }
-
-      const showPallet = activePalletC !== 'none';
-      pal.palletRoot.visible = showPallet;
-      pal.altBottomGrp.visible = activePalletC === 'double';
-      pal.singleUpperGrp.visible = activePalletC === 'single';
-      pal.palletRoot.position.set(0, mm(k.palletZ), mm(k.palletX));
-
-      const showLoad = showPallet && loadKg > 0;
-      pal.loadWireGrp.visible = showLoad;
-      if (showLoad) {
-        const hCargo = 0.14 + Math.min(1.0, loadKg / 1500) * 0.28;
-        pal.cargoScaleGroup.scale.set(1, hCargo, 1);
-        pal.cargoScaleGroup.position.set(0, mm(150) + hCargo / 2, 0);
-        const isOver = loadKg > 1500 && k.isLiftedByFork;
-        pal.cargoFillMat.color.setHex(isOver ? 0xef4444 : 0xf59e0b);
-        pal.cargoEdgeMat.color.setHex(isOver ? 0xf87171 : 0xf59e0b);
-      }
-
-      $('vPalletStateC').textContent = !showPallet
-        ? '미표시'
-        : (k.isStowedOnDeck
-          ? '상판 안착 (Z310)'
-          : (k.palletZ > k.podTop
-            ? `인양 Z${Math.round(k.palletZ)} (+${Math.round(k.clearanceOverPod)}mm)`
-            : (k.isLiftedByFork ? '저상 계량 (+20mm)' : '바닥 안착')));
-
-      lastWeighState = renderWeighUI('HD30C', computeWeighReadoutC(reachMm, liftDzMm, activePalletC, loadKg));
-    } else {
-      const dropMm = +$('sDropX').value;
-      const extMm  = +$('sExtX').value;
-      const liftMm = +$('sLiftX').value;
-      const k = computeHD30XPalletKinematics(dropMm, extMm, liftMm, activePalletX);
-
-      $('vDropX').textContent = `${dropMm} mm (Z${85 + dropMm}~${135 + dropMm})`;
-      $('vExtX').textContent = `${formatInt(extMm)} mm`;
-      $('vLiftX').textContent = `${liftMm} mm (Z${k.zBot}~${k.zTop})`;
-
+      $('vDropX').textContent = `${Math.round(pose.drop)} mm (Z${Math.round(85 + pose.drop)}~${Math.round(147 + pose.drop)})`;
+      $('vExtX').textContent = `${formatInt(pose.ext)} mm`;
+      $('vLiftX').textContent = `${pose.rawStroke.toFixed(1)} mm (θ ${pose.thetaDeg.toFixed(1)}°)`;
       document.querySelectorAll('[data-pallet-x]').forEach(b => b.classList.toggle('active', b.dataset.palletX === activePalletX));
-      document.querySelectorAll('[data-xpreset]').forEach(b => {
-        const p = HD30X_PRESETS[b.dataset.xpreset];
-        b.classList.toggle('active', p && p.drop === dropMm && p.ext === extMm && p.lift === liftMm);
-      });
 
-      // Hierarchical GLB kinematic motion: fork_ext (+X_cad=+Z_glb) -> fork_drop (Z_cad=Y_glb) -> fork_lift (+Z_cad=+Y_glb)
-      activeModel.forkExtGroup.position.z  = mm(extMm);
-      activeModel.forkDropGroup.position.y = mm(dropMm);
-      activeModel.forkLiftGroup.position.y = mm(liftMm);
+      // Real-GLB hierarchical motion:
+      activeModel.forkExtGroup.position.z = mm(pose.ext);
+      activeModel.forkDropGroup.position.y = mm(Math.min(0.0, pose.zForkBot - HD30X_K.zStowBot));
+      activeModel.forkLiftGroup.position.y = mm(pose.zForkBot - HD30X_K.zStowBot);
+      activeModel.forkMastS1Group.position.y = mm(pose.dzS1);
+      activeModel.forkMastS2Group.position.y = mm(pose.dzS2);
 
-      // Articulated L=520 mm SCM440 steel X-scissor linkages unfolding beneath lifted forks
-      // In window-pallet travel latch mode (drop > -25, stowed over deck), forks are latched via heel guide so scissors stay retracted!
-      const showScissorAnim = liftMm > 4 && !k.isWindowTrapped;
-      activeModel.scissorAnim.grp.visible = showScissorAnim;
-      for (const sm of activeModel.staticScissorMeshes) {
-        sm.visible = !showScissorAnim;
-      }
-      if (showScissorAnim) {
-        const zFootBot = Math.max(0, 85 + dropMm - 10);
-        const zFootTop = zFootBot + 10;
-        const zForkCav = k.zBot + 10;
-        const zMid = (zFootTop + zForkCav) / 2;
-        const H = Math.max(16, zForkCav - zFootTop);
-        const theta = Math.asin(Math.min(0.92, H / 520.0));
-        for (const u of activeModel.scissorAnim.units) {
-          const xCur = u.xf + extMm;
-          u.pivotGrp.position.copy(cad2glb(xCur, u.yc, zMid));
-          u.inA.rotation.x = theta;
-          u.inB.rotation.x = theta;
-          u.outA.rotation.x = -theta;
-          u.outB.rotation.x = -theta;
-          u.foot.position.copy(cad2glb(xCur, u.yc, zFootBot + 5));
-        }
+      // 100% Real-GLB 2-Tier Y-Nested X-Scissor + Real Skids & Rollers!
+      const rig = activeModel.scissorRig;
+      rig.skidGroup.position.y = mm(pose.zSkidBot - HD30X_K.zStowBot);
+      const zT1Ctr = pose.zSkidBot + 6.75 + pose.tierH / 2.0;
+      const zT2Ctr = zT1Ctr + pose.tierH - pose.nestOffset;
+      const showT2Pin = pose.rawStroke > 2.0;
+      for (const bay of Object.values(rig.bays)) {
+        bay.t1InGrp.position.y  = mm(zT1Ctr);
+        bay.t1OutGrp.position.y = mm(zT1Ctr);
+        bay.t2InGrp.position.y  = mm(zT2Ctr);
+        bay.t2OutGrp.position.y = mm(zT2Ctr);
+        bay.pinT1Grp.position.y = mm(zT1Ctr);
+        bay.pinT2Grp.position.y = mm(zT2Ctr);
+        bay.pinT2Grp.visible = showT2Pin;
+
+        // Exact Three.js rotation about +X_glb (+Y_cad):
+        //   t1in/t2in built at +8° -> rotate by -dThetaRad
+        //   t1out/t2out built at -8° -> rotate by +dThetaRad
+        bay.t1InGrp.rotation.x  = -pose.dThetaRad;
+        bay.t2InGrp.rotation.x  = -pose.dThetaRad;
+        bay.t1OutGrp.rotation.x = +pose.dThetaRad;
+        bay.t2OutGrp.rotation.x = +pose.dThetaRad;
       }
 
-      // Pallet placement: exact T10 heights (pod_top 285, single Z350 +65mm, window Z325 +40mm, window trapped Z310..360)
+      // Real 25 mm 田자 Window / Single Pallet Placement in World Space
       const showPallet = activePalletX !== 'none';
       pal.palletRoot.visible = showPallet;
-      pal.altBottomGrp.visible = activePalletX === 'window';
-      pal.singleUpperGrp.visible = activePalletX === 'single';
-      pal.palletRoot.position.set(0, mm(k.palletZ), mm(k.palletX));
+      pal.doubleOrWinGrp.visible = activePalletX === 'window';
+      pal.singleGrp.visible = activePalletX === 'single';
+      pal.palletRoot.position.set(0, mm(pose.palletZ), mm(pose.palletX));
 
+      const palTopZ = activePalletX === 'window' ? 150.0 : 125.0;
       const showLoad = showPallet && loadKg > 0;
       pal.loadWireGrp.visible = showLoad;
       if (showLoad) {
         const hCargo = 0.14 + Math.min(1.0, loadKg / 1500) * 0.28;
         pal.cargoScaleGroup.scale.set(1, hCargo, 1);
-        pal.cargoScaleGroup.position.set(0, mm(150) + hCargo / 2, 0);
-        const isOver = loadKg > 1500 && k.isLiftedByFork;
+        pal.cargoScaleGroup.position.set(0, mm(palTopZ) + hCargo / 2, 0);
+        const isOver = loadKg > 1500 && pose.weighActive;
         pal.cargoFillMat.color.setHex(isOver ? 0xef4444 : 0xf59e0b);
         pal.cargoEdgeMat.color.setHex(isOver ? 0xf87171 : 0xf59e0b);
       }
 
       $('vPalletStateX').textContent = !showPallet
         ? '미표시'
-        : (k.isWindowTrapped
-          ? '창형 포켓 안착 (Z285)'
-          : (k.isStowedOnDeck
-            ? '상판 안착 (Z285)'
-            : (k.palletZ > k.podTop
-              ? `인양 Z${Math.round(k.palletZ)} (+${Math.round(k.clearanceOverPod)}mm)`
-              : (k.isLiftedByFork ? `계량 인양 (Z${Math.round(k.palletZ)})` : '바닥 안착'))));
+        : (pose.seatMode === 'spine'
+          ? '등뼈 걸침 · Z275 안착'
+          : (pose.seatMode === 'deck'
+            ? '데크 안착 (Z275)'
+            : (pose.palletZ > pose.podTop
+              ? `인양 Z${pose.palletZ.toFixed(1)} (+${pose.clearanceOverPod}mm)`
+              : (pose.palletZ > 1 ? `직픽업 계량 Z${Math.round(pose.palletZ)}` : '바닥 대기 (Z=0)'))));
+    } else {
+      // HD-30C-R Rev A.5
+      if (controlSource === 'anim') {
+        $('sReachC').value = String(Math.round(pose.reach));
+        $('sLiftC').value = String(Math.round(pose.zForkBot));
+      }
+      const envLen = Math.round(2040 + Math.max(0, pose.reach - 30));
+      $('vReachC').textContent = pose.reach < 1
+        ? '0 mm (2,040)'
+        : `+${formatInt(pose.reach)} mm (${formatInt(envLen)})`;
+      $('vLiftC').textContent = `Z ${Math.round(pose.zForkBot)}~${Math.round(pose.zForkTop)} (내측 +${Math.round(pose.dzInner)})`;
+      document.querySelectorAll('[data-pallet-c]').forEach(b => b.classList.toggle('active', b.dataset.palletC === activePalletC));
 
-      lastWeighState = renderWeighUI('HD30X', computeWeighReadoutX(dropMm, extMm, liftMm, activePalletX, loadKg));
+      // Exact 3-stage nested GLB kinematics: reach_mast -> mast_inner (FFL) -> mast_lift (carriage + iForks)
+      activeModel.reachMastGroup.position.z = mm(pose.reach);
+      activeModel.mastInnerGroup.position.y = mm(pose.dzInner);
+      activeModel.mastLiftGroup.position.y = mm(pose.liftDz - pose.dzInner);
+      if (activeModel.extendedEnvBox) {
+        activeModel.extendedEnvBox.visible = pose.reach > 50;
+      }
+
+      // Real 25 mm Full-Bottom Double-Deck / Single Pallet in World Space (ZERO 1125/1100 scaling!)
+      const showPallet = activePalletC !== 'none';
+      pal.palletRoot.visible = showPallet;
+      pal.doubleOrWinGrp.visible = activePalletC === 'double';
+      pal.singleGrp.visible = activePalletC === 'single';
+      pal.palletRoot.position.set(0, mm(pose.palletZ), mm(pose.palletX));
+
+      const palTopZ = activePalletC === 'double' ? 150.0 : 125.0;
+      const showLoad = showPallet && loadKg > 0;
+      pal.loadWireGrp.visible = showLoad;
+      if (showLoad) {
+        const hCargo = 0.14 + Math.min(1.0, loadKg / 1500) * 0.28;
+        pal.cargoScaleGroup.scale.set(1, hCargo, 1);
+        pal.cargoScaleGroup.position.set(0, mm(palTopZ) + hCargo / 2, 0);
+        const isOver = loadKg > 1500 && pose.weighActive;
+        pal.cargoFillMat.color.setHex(isOver ? 0xef4444 : 0xf59e0b);
+        pal.cargoEdgeMat.color.setHex(isOver ? 0xf87171 : 0xf59e0b);
+      }
+
+      $('vPalletStateC').textContent = !showPallet
+        ? '미표시'
+        : (pose.seatMode === 'deck'
+          ? '데크 안착 (Z350)'
+          : (pose.palletZ > pose.podTop
+            ? `인양 Z${Math.round(pose.palletZ)} (+${Math.round(pose.clearanceOverPod)}mm)`
+            : (pose.palletZ > 1 ? `iForks 계량 Z${Math.round(pose.palletZ)}` : '바닥 대기 (Z=0)')));
     }
 
-    // Visual emissive feedback on 4 real load-cell GLB meshes
+    // 4-Point Symmetric Load-Cell UI + Emissive Highlight on real GLB load cells
+    lastWeighState = renderWeighUI(
+      activeArch,
+      computeSymmetricLoadCells(activeArch, loadKg, pose.weighActive, pose.seatMode)
+    );
+    syncAnimControlsDOM(pose, lastWeighState, animPlaying, animMode, animSpeed, timelineT);
+
     for (const m of activeModel.loadCellMeshes) {
       if (m === hoveredMesh) continue;
       if (lastWeighState.stateClass === 'state-overload') {
         m.material.emissive.setHex(0xdc2626);
-        m.material.emissiveIntensity = 0.55;
+        m.material.emissiveIntensity = 0.58;
       } else if (lastWeighState.stateClass === 'state-ok') {
         m.material.emissive.setHex(0xdb2777);
-        m.material.emissiveIntensity = 0.30;
+        m.material.emissiveIntensity = 0.36;
+      } else {
+        m.material.emissive.setHex(0x000000);
+        m.material.emissiveIntensity = 0.0;
+      }
+    }
+
+    // Visual Emissive Feedback on Real Solenoid / Electric Lockpins
+    for (const m of activeModel.lockpinMeshes) {
+      if (m === hoveredMesh) continue;
+      if (pose.lockpin) {
+        m.material.emissive.setHex(0x16a34a);
+        m.material.emissiveIntensity = 0.55;
       } else {
         m.material.emissive.setHex(0x000000);
         m.material.emissiveIntensity = 0.0;
@@ -3202,7 +4051,7 @@ async function bootViewer() {
 
     $('sClip').disabled = false;
     const cVal = mm(valMm);
-    const zCtr = activeArch === 'HD30C' ? 0.25 : 0.0;
+    const zCtr = activeArch === 'HD30C' ? 0.55 : 0.40;
 
     if (clipAxis === 'x') {
       clipPlane.normal.set(0, 0, -1);
@@ -3244,64 +4093,44 @@ async function bootViewer() {
   }
 
   // ==========================================================================
-  // CAMERA PRESETS (PER-ARCHITECTURE ADAPTIVE FRAMING — Rev A.4)
+  // CAMERA PRESETS (ADAPTIVE WORKSPACE FRAMING FOR WORLD ANIMATION)
   // ==========================================================================
   function getCamView(archKey, key) {
+    const cxM = mm(lastPose ? lastPose.chassisX : 0);
     if (archKey === 'HD30C') {
-      // HD-30C-R Rev A.4 Adaptive Framing (stowed 1,960 mm vs extended 3,040 mm reach)
-      const reachMm = +$('sReachC').value;
-      const isExt = reachMm > 300;
       if (key === 'rear' && dockGroup.visible) {
-        return { pos: [2.60, 1.22, -1.42], tgt: [0.0, 0.36, -1.38], op: null };
+        return { pos: [2.65, 1.24, -1.52], tgt: [0.0, 0.36, -1.48], op: null };
       }
+      const palCtrM = mm(lastPose ? lastPose.palletX : 2600);
+      const workCtr = (activePalletC === 'none') ? cxM : (cxM - 0.1 + palCtrM) / 2;
       const mapC = {
-        iso:   isExt
-          ? { pos: [3.30, 2.02, 3.45], tgt: [0.0, 0.42, 0.56], op: null }
-          : { pos: [2.62, 1.74, 2.48], tgt: [0.0, 0.40, -0.04], op: null },
-        front: isExt
-          ? { pos: [0.0, 0.72, 4.45],  tgt: [0.0, 0.42, 0.62], op: null }
-          : { pos: [0.0, 0.62, 3.60],  tgt: [0.0, 0.40, 0.0],  op: null },
-        rear:  { pos: [0.0, 0.94, -3.20], tgt: [0.0, 0.46, -0.58], op: null },
-        left:  isExt
-          ? { pos: [4.55, 0.72, 0.54], tgt: [0.0, 0.42, 0.54], op: null }
-          : { pos: [3.70, 0.64, -0.04], tgt: [0.0, 0.40, -0.04], op: null },
-        top:   isExt
-          ? { pos: [0.0, 5.05, 0.58],  tgt: [0.0, 0.12, 0.54], op: null }
-          : { pos: [0.0, 4.25, 0.02],  tgt: [0.0, 0.12, -0.04], op: null },
-        fork:  isExt
-          ? { pos: [2.15, 0.80, 2.42], tgt: [0.0, 0.34, 1.12], op: 72 }
-          : { pos: [1.68, 0.70, 1.24], tgt: [0.0, 0.28, 0.18], op: 38 },
-        steer: { pos: [2.65, 0.68, 0.68], tgt: [0.0, 0.22, -0.04], op: 34 },
-        armor: { pos: [2.32, 1.48, 0.98], tgt: [0.0, 0.62, -0.05], op: 92 },
+        iso:   { pos: [4.05, 2.24, workCtr + 3.05], tgt: [0.0, 0.42, workCtr], op: null },
+        front: { pos: [0.0, 0.78, Math.max(palCtrM + 1.8, cxM + 3.5)], tgt: [0.0, 0.42, workCtr], op: null },
+        rear:  { pos: [0.0, 0.96, cxM - 3.30], tgt: [0.0, 0.46, cxM - 0.50], op: null },
+        left:  { pos: [5.35, 0.80, workCtr], tgt: [0.0, 0.42, workCtr], op: null },
+        top:   { pos: [0.0, 6.20, workCtr + 0.04], tgt: [0.0, 0.12, workCtr], op: null },
+        fork:  { pos: [2.10, 0.78, cxM + mm(lastPose ? lastPose.reach : 0) + 1.45], tgt: [0.0, 0.32, cxM + mm(lastPose ? lastPose.reach : 0) + 0.40], op: 72 },
+        steer: { pos: [2.70, 0.68, cxM + 0.68], tgt: [0.0, 0.22, cxM - 0.05], op: 34 },
+        armor: { pos: [2.35, 1.50, cxM + 0.96], tgt: [0.0, 0.62, cxM - 0.08], op: 92 },
       };
       return mapC[key] || null;
     }
 
-    // HD-30X Rev A.4 Adaptive Framing (compact stowed 1,560 mm vs extended 1,200 mm T10 lift to Z450)
-    const extMm = +$('sExtX').value;
-    const isExt = extMm > 350;
+    // HD-30X Rev A.5 Adaptive Workspace Framing (spans X=-0.78..+1.98 -> center ~+0.60!)
     if (key === 'rear' && dockGroup.visible) {
       return { pos: [2.35, 1.08, -1.16], tgt: [0.0, 0.30, -1.16], op: null };
     }
+    const workCtrX = (activePalletX === 'none') ? cxM : 0.60;
+    const forkCtrX = cxM + mm(lastPose ? lastPose.ext : 0) + 0.16;
     const mapX = {
-      iso:   isExt
-        ? { pos: [2.85, 1.76, 2.98], tgt: [0.0, 0.34, 0.60], op: null }
-        : { pos: [2.22, 1.50, 2.20], tgt: [0.0, 0.34, 0.04], op: null },
-      front: isExt
-        ? { pos: [0.0, 0.66, 3.95],  tgt: [0.0, 0.32, 0.65], op: null }
-        : { pos: [0.0, 0.52, 3.15],  tgt: [0.0, 0.32, 0.0],  op: null },
-      rear:  { pos: [0.0, 0.80, -2.60], tgt: [0.0, 0.36, -0.50], op: null },
-      left:  isExt
-        ? { pos: [3.95, 0.68, 0.55], tgt: [0.0, 0.34, 0.55], op: null }
-        : { pos: [3.22, 0.58, 0.04], tgt: [0.0, 0.34, 0.04], op: null },
-      top:   isExt
-        ? { pos: [0.0, 4.40, 0.58],  tgt: [0.0, 0.10, 0.55], op: null }
-        : { pos: [0.0, 3.60, 0.06],  tgt: [0.0, 0.10, 0.02], op: null },
-      fork:  isExt
-        ? { pos: [1.95, 0.74, 2.24], tgt: [0.04, 0.24, 1.18], op: 72 }
-        : { pos: [1.55, 0.64, 1.24], tgt: [0.04, 0.24, 0.18], op: 36 },
-      steer: { pos: [2.52, 0.72, 0.72], tgt: [0.0, 0.22, 0.0],  op: 34 },
-      armor: { pos: [1.88, 1.14, 1.32], tgt: [0.10, 0.38, 0.04], op: 92 },
+      iso:   { pos: [2.95, 1.82, workCtrX + 2.45], tgt: [0.0, 0.34, workCtrX], op: null },
+      front: { pos: [0.0, 0.66, workCtrX + 3.45],  tgt: [0.0, 0.32, workCtrX], op: null },
+      rear:  { pos: [0.0, 0.82, cxM - 2.60],       tgt: [0.0, 0.36, cxM - 0.40], op: null },
+      left:  { pos: [4.10, 0.70, workCtrX],        tgt: [0.0, 0.34, workCtrX], op: null },
+      top:   { pos: [0.0, 4.65, workCtrX + 0.04],  tgt: [0.0, 0.10, workCtrX], op: null },
+      fork:  { pos: [1.85, 0.68, forkCtrX + 1.05], tgt: [0.04, 0.24, forkCtrX], op: 64 },
+      steer: { pos: [2.52, 0.70, cxM + 0.72],      tgt: [0.0, 0.22, cxM], op: 34 },
+      armor: { pos: [1.90, 1.14, cxM + 1.32],      tgt: [0.10, 0.38, cxM + 0.04], op: 92 },
     };
     return mapX[key] || null;
   }
@@ -3328,6 +4157,77 @@ async function bootViewer() {
     document.querySelectorAll('#camBar button[data-cam]').forEach(el => {
       el.classList.toggle('active', el.dataset.cam === key);
     });
+  }
+
+  // ==========================================================================
+  // ANIMATION TRANSPORT ACTIONS
+  // ==========================================================================
+  function getActiveStages() { return activeArch === 'HD30X' ? STAGES_A : STAGES_B; }
+
+  function setAnimProgress(tVal) {
+    controlSource = 'anim';
+    timelineT = clamp(tVal, 0, 1);
+    applyCurrentPose();
+  }
+
+  function jumpToDisplayStep(dispIdx) {
+    const idx = clamp(dispIdx, 0, 6);
+    const stages = getActiveStages();
+    let targetT;
+    if (animMode === 'drop') {
+      const revIdx = 6 - idx;
+      targetT = 1.0 - stages[revIdx].uKey;
+    } else if (animMode === 'loop') {
+      targetT = stages[idx].uKey * 0.5;
+    } else {
+      targetT = stages[idx].uKey;
+    }
+    animPlaying = false;
+    controlSource = 'anim';
+    timelineT = clamp(targetT, 0, 1);
+    applyCurrentPose();
+  }
+
+  function setAnimStageById(stageIdRaw) {
+    const key = String(stageIdRaw || '').trim().toLowerCase();
+    const map = activeArch === 'HD30X' ? STAGE_ALIASES_A : STAGE_ALIASES_B;
+    const idx = map[key];
+    if (idx === undefined) return false;
+    const stages = getActiveStages();
+    animPlaying = false;
+    animMode = 'pickup';
+    controlSource = 'anim';
+    timelineT = stages[idx].uKey;
+    applyCurrentPose();
+    return true;
+  }
+
+  function togglePlayAnim() {
+    if (controlSource === 'manual') {
+      controlSource = 'anim';
+    }
+    if (!animPlaying && timelineT >= 0.999) {
+      timelineT = 0.0;
+    }
+    animPlaying = !animPlaying;
+    lastFrameMs = performance.now();
+    if (animPlaying && $('kStepSim').checked) {
+      $('kStepSim').checked = false;
+      applyStepSim(true);
+    }
+    applyCurrentPose();
+  }
+
+  function resetAnim() {
+    animPlaying = false;
+    controlSource = 'anim';
+    timelineT = 0.0;
+    applyCurrentPose();
+  }
+
+  function stepAnimDir(delta) {
+    const curDisp = lastPose && lastPose.dispIdx >= 0 ? lastPose.dispIdx : 0;
+    jumpToDisplayStep(clamp(curDisp + delta, 0, 6));
   }
 
   // ==========================================================================
@@ -3363,6 +4263,12 @@ async function bootViewer() {
 
       activeArch = targetKey;
       activeModel = entry;
+      animPlaying = false;
+      controlSource = 'anim';
+      timelineT = 0.0;
+      lastPose = (targetKey === 'HD30X')
+        ? evalAnimHD30X(0.0, activePalletX, false)
+        : evalAnimHD30C(0.0, activePalletC, false);
 
       vp.dataset.loadedMeshes = String(entry.stats.mainMeshCount);
       vp.dataset.batteryOptMeshes = String(entry.stats.batteryOptMeshCount);
@@ -3374,7 +4280,7 @@ async function bootViewer() {
       refreshConfigUI();
       applySteerMode(activeSteer, true);
       applyStepSim(true);
-      updateKinematics();
+      applyCurrentPose();
       if (clipAxis !== 'off') resetClipSliderRangeForArch();
       applyClip();
       goCam('iso', instantCam);
@@ -3398,63 +4304,64 @@ async function bootViewer() {
       if (b.dataset.arch !== activeArch) switchArch(b.dataset.arch, false);
     });
   });
+
+  // Animation Studio controls
+  $('btnAnimPlay').addEventListener('click', togglePlayAnim);
+  $('btnAnimReset').addEventListener('click', resetAnim);
+  $('btnAnimPrev').addEventListener('click', () => stepAnimDir(-1));
+  $('btnAnimNext').addEventListener('click', () => stepAnimDir(+1));
+  $('sAnimTimeline').addEventListener('input', e => {
+    animPlaying = false;
+    setAnimProgress((+e.target.value) / 1000);
+  });
+  document.querySelectorAll('#animStepPills .step-pill-btn').forEach(btn => {
+    btn.addEventListener('click', () => jumpToDisplayStep(Number(btn.dataset.stepIdx)));
+  });
+  document.querySelectorAll('[data-anim-mode]').forEach(b => {
+    b.addEventListener('click', () => {
+      animMode = b.dataset.animMode;
+      controlSource = 'anim';
+      timelineT = 0.0;
+      applyCurrentPose();
+    });
+  });
+  document.querySelectorAll('[data-anim-speed]').forEach(b => {
+    b.addEventListener('click', () => {
+      animSpeed = Number(b.dataset.animSpeed) || 1;
+      applyCurrentPose();
+    });
+  });
+
+  // Pallet Toggles
+  document.querySelectorAll('[data-pallet-x]').forEach(b => {
+    b.addEventListener('click', () => {
+      activePalletX = b.dataset.palletX;
+      applyCurrentPose();
+    });
+  });
+  document.querySelectorAll('[data-pallet-c]').forEach(b => {
+    b.addEventListener('click', () => {
+      activePalletC = b.dataset.palletC;
+      applyCurrentPose();
+    });
+  });
+
+  // Manual sliders pause animation cleanly and switch to manual kinematics
+  ['sReachC', 'sLiftC', 'sDropX', 'sExtX', 'sLiftX'].forEach(id => {
+    $(id).addEventListener('input', () => {
+      animPlaying = false;
+      controlSource = 'manual';
+      applyCurrentPose();
+    });
+  });
+
   document.querySelectorAll('[data-var]').forEach(b => b.addEventListener('click', () => applyVariant(b.dataset.var)));
   $('btnBatt100').addEventListener('click', () => applyBattery('100Ah'));
   $('btnBatt200').addEventListener('click', () => applyBattery('200Ah'));
   document.querySelectorAll('[data-steer]').forEach(b => b.addEventListener('click', () => applySteerMode(b.dataset.steer)));
   $('kStepSim').addEventListener('change', () => applyStepSim(false));
 
-  // HD-30C-R reach + lift motion controls
-  ['sReachC', 'sLiftC'].forEach(id => $(id).addEventListener('input', updateKinematics));
-  document.querySelectorAll('[data-cpreset]').forEach(b => {
-    b.addEventListener('click', () => {
-      const p = HD30C_PRESETS[b.dataset.cpreset];
-      if (!p) return;
-      $('sReachC').value = p.reach;
-      $('sLiftC').value = 105 + p.dz;
-      updateKinematics();
-      const curCamBtn = document.querySelector('#camBar button[data-cam].active');
-      const curCam = curCamBtn ? curCamBtn.dataset.cam : 'iso';
-      if (curCam === 'iso' || curCam === 'fork' || curCam === 'left' || curCam === 'top') {
-        goCam(curCam, false);
-      }
-    });
-  });
-  document.querySelectorAll('[data-pallet-c]').forEach(b => {
-    b.addEventListener('click', () => {
-      activePalletC = b.dataset.palletC;
-      updateKinematics();
-    });
-  });
-
-  // HD-30X motion controls (T10 6-step workflow)
-  ['sDropX', 'sExtX', 'sLiftX'].forEach(id => $(id).addEventListener('input', updateKinematics));
-  document.querySelectorAll('[data-xpreset]').forEach(b => {
-    b.addEventListener('click', () => {
-      const p = HD30X_PRESETS[b.dataset.xpreset];
-      if (!p) return;
-      if (p.pallet === 'window') activePalletX = 'window';
-      else if (p.pallet === 'single' && activePalletX !== 'none') activePalletX = 'single';
-      $('sDropX').value = p.drop;
-      $('sExtX').value = p.ext;
-      $('sLiftX').value = p.lift;
-      updateKinematics();
-      const curCamBtn = document.querySelector('#camBar button[data-cam].active');
-      const curCam = curCamBtn ? curCamBtn.dataset.cam : 'iso';
-      if (curCam === 'iso' || curCam === 'fork' || curCam === 'left' || curCam === 'top') {
-        goCam(curCam, false);
-      }
-    });
-  });
-  document.querySelectorAll('[data-pallet-x]').forEach(b => {
-    b.addEventListener('click', () => {
-      activePalletX = b.dataset.palletX;
-      updateKinematics();
-    });
-  });
-
-  // Common payload, opacity, layer toggles, clip, camera
-  $('sLoad').addEventListener('input', updateKinematics);
+  $('sLoad').addEventListener('input', applyCurrentPose);
   $('sOp').addEventListener('input', e => setOpacity(+e.target.value));
   ['kFov2D', 'kFovXT32', 'kFovE1R', 'kQR', 'kDim', 'kCG', 'kDock'].forEach(id => {
     $(id).addEventListener('change', updateVis);
@@ -3495,14 +4402,17 @@ async function bootViewer() {
       } else if (kind === 'loadcell' && activeModel && activeModel.loadCellMeshes.includes(hoveredMesh)) {
         if (lastWeighState.stateClass === 'state-overload') {
           hoveredMesh.material.emissive.setHex(0xdc2626);
-          hoveredMesh.material.emissiveIntensity = 0.55;
+          hoveredMesh.material.emissiveIntensity = 0.58;
         } else if (lastWeighState.stateClass === 'state-ok') {
           hoveredMesh.material.emissive.setHex(0xdb2777);
-          hoveredMesh.material.emissiveIntensity = 0.30;
+          hoveredMesh.material.emissiveIntensity = 0.36;
         } else {
           hoveredMesh.material.emissive.setHex(0x000000);
           hoveredMesh.material.emissiveIntensity = 0;
         }
+      } else if (activeModel && activeModel.lockpinMeshes.includes(hoveredMesh) && lastPose && lastPose.lockpin) {
+        hoveredMesh.material.emissive.setHex(0x16a34a);
+        hoveredMesh.material.emissiveIntensity = 0.55;
       } else {
         hoveredMesh.material.emissive.setHex(0x000000);
         hoveredMesh.material.emissiveIntensity = 0;
@@ -3587,7 +4497,7 @@ async function bootViewer() {
   // DEBUG / VERIFICATION STATE SNAPSHOT
   // ==========================================================================
   function syncDebugState() {
-    if (!activeModel) return;
+    if (!activeModel || !lastPose) return;
     const cfg = ARCH_CONFIGS[activeArch];
     dockGroup.updateMatrixWorld(true);
     const dockBbox = new THREE.Box3();
@@ -3596,10 +4506,6 @@ async function bootViewer() {
     });
     const dockMaxXCadMm = isFinite(dockBbox.max.z) ? +(dockBbox.max.z * 1000).toFixed(1) : (cfg.rearBumperXMm - 850.0);
     const rearBumperXMm = cfg.rearBumperXMm;
-
-    const kx = computeHD30XPalletKinematics(+$('sDropX').value, +$('sExtX').value, +$('sLiftX').value, activePalletX);
-    const kc = computeHD30CPalletKinematics(+$('sReachC').value, +$('sLiftC').value - 105, activePalletC);
-    const kActive = activeArch === 'HD30C' ? kc : kx;
 
     window.__CAD_STATE__ = {
       ready: true,
@@ -3610,27 +4516,47 @@ async function bootViewer() {
       activeBatt,
       activePallet: activeArch === 'HD30C' ? activePalletC : activePalletX,
       activeSteer,
-      reachMmC: +$('sReachC').value,
-      liftDzMmC: +$('sLiftC').value - 105,
-      forkZBotMmC: kc.zBot,
-      forkZTopMmC: kc.zTop,
+      animPlaying,
+      animMode,
+      animSpeed,
+      animProgress: +timelineT.toFixed(4),
+      controlSource,
+      animStageIndex: lastPose.dispIdx,
+      animStageId: lastPose.stageId,
+      animStageLabel: lastPose.stageName,
+      chassisWorldXMm: +lastPose.chassisX.toFixed(1),
+      robotWorldGroupZ: +activeModel.robotWorldGroup.position.z.toFixed(4),
+      forkZBotMm: +lastPose.zForkBot.toFixed(2),
+      forkZTopMm: +lastPose.zForkTop.toFixed(2),
+      // A-plan specific
+      extMmX: (activeArch === 'HD30X' && lastPose.arch === 'HD30X') ? +lastPose.ext.toFixed(1) : null,
+      dropMmX: (activeArch === 'HD30X' && lastPose.arch === 'HD30X') ? +lastPose.drop.toFixed(1) : null,
+      scissorRawStrokeMm: (activeArch === 'HD30X' && lastPose.arch === 'HD30X') ? +lastPose.rawStroke.toFixed(2) : null,
+      scissorThetaDeg: (activeArch === 'HD30X' && lastPose.arch === 'HD30X') ? +lastPose.thetaDeg.toFixed(2) : null,
+      skidZBotMm: (activeArch === 'HD30X' && lastPose.arch === 'HD30X') ? +lastPose.zSkidBot.toFixed(2) : null,
+      heelMastS1DzMm: (activeArch === 'HD30X' && lastPose.arch === 'HD30X') ? +lastPose.dzS1.toFixed(2) : null,
+      heelMastS2DzMm: (activeArch === 'HD30X' && lastPose.arch === 'HD30X') ? +lastPose.dzS2.toFixed(2) : null,
+      heelMastTopZMm: (activeArch === 'HD30X' && lastPose.arch === 'HD30X') ? +lastPose.heelMastTopZ.toFixed(2) : null,
+      hasRealScissorSkids: activeArch === 'HD30X' ? (activeModel.stats.realScissorSkidCount >= 20) : null,
+      hasFakeScissorFoot: false,
+      // B-plan specific
+      reachMmC: (activeArch === 'HD30C' && lastPose.arch === 'HD30C') ? +lastPose.reach.toFixed(1) : null,
+      liftDzMmC: (activeArch === 'HD30C' && lastPose.arch === 'HD30C') ? +lastPose.liftDz.toFixed(1) : null,
+      mastInnerDzMmC: (activeArch === 'HD30C' && lastPose.arch === 'HD30C') ? +lastPose.dzInner.toFixed(1) : null,
+      mastInnerTopZMmC: (activeArch === 'HD30C' && lastPose.arch === 'HD30C') ? +lastPose.innerTopZ.toFixed(1) : null,
       reachMastGroupZ: activeModel.reachMastGroup ? +activeModel.reachMastGroup.position.z.toFixed(4) : null,
+      mastInnerGroupY: activeModel.mastInnerGroup ? +activeModel.mastInnerGroup.position.y.toFixed(4) : null,
       mastLiftGroupY: activeModel.mastLiftGroup ? +activeModel.mastLiftGroup.position.y.toFixed(4) : null,
-      dropMmX: +$('sDropX').value,
-      extMmX: +$('sExtX').value,
-      liftMmX: +$('sLiftX').value,
-      forkZBotMmX: kx.zBot,
-      forkZTopMmX: kx.zTop,
-      isWindowTrappedX: kx.isWindowTrapped,
-      forkExtGroupZ: activeModel.forkExtGroup ? +activeModel.forkExtGroup.position.z.toFixed(4) : null,
-      forkDropGroupY: activeModel.forkDropGroup ? +activeModel.forkDropGroup.position.y.toFixed(4) : null,
-      forkLiftGroupY: activeModel.forkLiftGroup ? +activeModel.forkLiftGroup.position.y.toFixed(4) : null,
-      scissorAnimVisible: activeModel.scissorAnim ? activeModel.scissorAnim.grp.visible : false,
-      palletZMm: +kActive.palletZ.toFixed(1),
-      podTopMm: kActive.podTop,
-      palletClearanceMm: kActive.clearanceOverPod,
+      // Common lockpin / pallet / loadcell
+      lockpinEngaged: Boolean(lastPose.lockpin),
+      palletWorldXMm: +lastPose.palletX.toFixed(1),
+      palletWorldZMm: +lastPose.palletZ.toFixed(2),
+      podTopMm: lastPose.podTop,
+      palletClearanceMm: lastPose.clearanceOverPod,
       loadKg: +$('sLoad').value,
       weighMeasuredKg: lastWeighState.measuredKg,
+      weighRearPct: lastWeighState.rearPct,
+      weighFrontPct: lastWeighState.frontPct,
       weighStatus: lastWeighState.statusText,
       weighCells: lastWeighState.cells,
       wheelTargetDeg: {
@@ -3659,9 +4585,6 @@ async function bootViewer() {
       dockMaxXCadMm,
       rearBumperXMm,
       dockGapMm: +(rearBumperXMm - dockMaxXCadMm).toFixed(1),
-      hasBackrestMesh: activeModel.glbMeshes.has('fork_load_backrest'),
-      hasE1RArmorHood: activeModel.glbMeshes.has('e1r_armored_hood_8t'),
-      hasTowerArmorRoof: activeModel.glbMeshes.has('tower_armor_roof_8t'),
       batt200OptVisible: activeModel.batteryOptGroup.visible,
       xt32Visible: activeModel.glbMeshes.get('lidar_3d_rear_XT32')?.visible ?? null,
       e1rVisible: activeModel.glbMeshes.get('lidar_3d_front_E1R')?.visible ?? null,
@@ -3670,6 +4593,8 @@ async function bootViewer() {
       variantId: activeVariant.id,
       stepHref: $('dlStepBtn').getAttribute('href'),
       csvHref: $('dlCsvBtn').getAttribute('href'),
+      bomCnHref: $('dlBomCnBtn').getAttribute('href'),
+      bomKrHref: $('dlBomKrBtn').getAttribute('href'),
     };
   }
 
@@ -3678,30 +4603,30 @@ async function bootViewer() {
     goCam: (key, instant = true) => goCam(key, instant),
     setSteerInstant: mode => applySteerMode(mode, true),
     setStepInstant: on => { $('kStepSim').checked = !!on; applyStepSim(true); },
-    setPalletX: mode => { activePalletX = mode; updateKinematics(); },
-    setPalletC: mode => { activePalletC = mode; updateKinematics(); },
-    setCPreset: name => {
-      const p = HD30C_PRESETS[name];
-      if (!p) return;
-      $('sReachC').value = p.reach;
-      $('sLiftC').value = 105 + p.dz;
-      updateKinematics();
+    setPalletX: mode => { activePalletX = mode; applyCurrentPose(); },
+    setPalletC: mode => { activePalletC = mode; applyCurrentPose(); },
+    playAnim: () => { if (!animPlaying) togglePlayAnim(); },
+    pauseAnim: () => { if (animPlaying) togglePlayAnim(); },
+    resetAnim,
+    stepAnim: dir => stepAnimDir(dir),
+    setAnimMode: m => { animMode = m; controlSource = 'anim'; timelineT = 0; applyCurrentPose(); },
+    setAnimSpeed: s => { animSpeed = Number(s) || 1; applyCurrentPose(); },
+    setAnimProgress: t => { animPlaying = false; setAnimProgress(t); },
+    setAnimStage: id => setAnimStageById(id),
+    setXPreset: id => setAnimStageById(id),
+    setCPreset: id => setAnimStageById(id),
+    setManualX: (dropMm, extMm, rawLiftMm) => {
+      animPlaying = false; controlSource = 'manual';
+      $('sDropX').value = String(dropMm);
+      $('sExtX').value = String(extMm);
+      $('sLiftX').value = String(rawLiftMm);
+      applyCurrentPose();
     },
-    setReachLiftC: (reachMm, dzMm) => {
-      $('sReachC').value = reachMm;
-      $('sLiftC').value = 105 + dzMm;
-      updateKinematics();
-    },
-    setXPreset: name => {
-      const alias = { floor: 'fork_out', deck: 'lift_up', lift_up_450: 'lift_up', lift_down_window_310: 'window', lift_down_single_85: 'stow', fork_in: 'stow' };
-      const p = HD30X_PRESETS[alias[name] || name];
-      if (!p) return;
-      if (p.pallet === 'window') activePalletX = 'window';
-      else if (p.pallet === 'single' && activePalletX !== 'none') activePalletX = 'single';
-      $('sDropX').value = p.drop;
-      $('sExtX').value = p.ext;
-      $('sLiftX').value = p.lift;
-      updateKinematics();
+    setManualC: (reachMm, dzMm) => {
+      animPlaying = false; controlSource = 'manual';
+      $('sReachC').value = String(reachMm);
+      $('sLiftC').value = String(105 + dzMm);
+      applyCurrentPose();
     },
   };
 
@@ -3715,7 +4640,25 @@ async function bootViewer() {
   window.addEventListener('resize', resize);
   resize();
 
-  renderer.setAnimationLoop(() => {
+  const CYCLE_SECONDS = 16.0; // Base 1x duration for 7-stage pickup (32s for full loop)
+
+  renderer.setAnimationLoop(nowMs => {
+    const dtSec = Math.min(0.05, Math.max(0.0, (nowMs - lastFrameMs) / 1000));
+    lastFrameMs = nowMs;
+
+    // 60fps Real-Kinematics Continuous Animation Loop
+    if (animPlaying && activeModel && controlSource === 'anim') {
+      const totalDur = (animMode === 'loop') ? (CYCLE_SECONDS * 2.0) : CYCLE_SECONDS;
+      timelineT += (dtSec * animSpeed) / totalDur;
+      if (animMode === 'loop') {
+        timelineT = timelineT % 1.0;
+      } else if (timelineT >= 1.0) {
+        timelineT = 1.0;
+        animPlaying = false;
+      }
+      applyCurrentPose();
+    }
+
     if (tween) {
       tween.t = Math.min(1, tween.t + 0.065);
       const e = 1 - Math.pow(1 - tween.t, 3);
@@ -3764,7 +4707,7 @@ async function bootViewer() {
     renderer.render(scene, camera);
   });
 
-  // Boot with URL params (?arch=HD30C|HD30X, ?variant=..., ?batt=...)
+  // Boot with URL params (?arch=HD30C|HD30X, ?variant=..., ?batt=..., ?autoplay=1)
   const params = new URLSearchParams(location.search);
   const initArch = parseInitialArch(params.get('arch'));
   activeVar = parseInitialVariant(params.get('variant') || params.get('pkg'));
@@ -3772,6 +4715,12 @@ async function bootViewer() {
   $('kFovE1R').checked = VARIANT_SPECS[activeVar].frontE1R;
   if (activeBatt === '200Ah') $('sOp').value = '52';
   await switchArch(initArch, true);
+
+  if (params.get('autoplay') === '1') {
+    animPlaying = true;
+    lastFrameMs = performance.now();
+    applyCurrentPose();
+  }
 }
 </script>
 </body>
