@@ -1,0 +1,259 @@
+{
+  "revision": "Rev A.1",
+  "model": "HD-30 1.5t Counterbalanced 4WD/4WS Weighing Fork AMR",
+  "strategy": "공통 HD-30 Rev A.1 카운터밸런스 4WD/4WS·계량 마스터 프레임 1벌 공유 + 센서/배터리 실물 교체 및 블랭킹 커버 마감",
+  "chassis_envelope_mm": [
+    1560.0,
+    1200.0,
+    945.0
+  ],
+  "total_envelope_mm": [
+    2725.0,
+    1200.0,
+    945.0
+  ],
+  "glb_coord_mapping": "X_glb = Y_cad / 1000, Y_glb = Z_cad / 1000, Z_glb = X_cad / 1000 (Three.js Y-up, det=+1)",
+  "all_variants_pass": true,
+  "total_variants_elapsed_s": 40.84,
+  "bom_files": {
+    "china_oem": {
+      "file": "HD30_RevA1_BOM_China_OEM.csv",
+      "bytes": 5819,
+      "label": "중국 OEM 실부품 BOM (무가격 · LFP 전용 · 4종 공통)"
+    },
+    "korea_kc": {
+      "file": "HD30_RevA1_BOM_Korea_KC.csv",
+      "bytes": 6345,
+      "label": "한국 KC/KCs 인증 실부품 BOM (무가격 · LFP 전용 · CAS/DACELL·SICK·Mean Well)"
+    }
+  },
+  "variants": [
+    {
+      "id": "Full3D_100Ah",
+      "label": "HD30_RevA1_Full3D_100Ah — 풀 3D(XT32+E1R) · 계량 포크 · 4WD/4WS · 51.2V 100Ah LFP (마스터)",
+      "step_file": "HD30_RevA1_Full3D_100Ah.step",
+      "csv_file": "HD30_RevA1_Full3D_100Ah.csv",
+      "step_bytes": 4401624,
+      "csv_bytes": 48129,
+      "part_count": 189,
+      "steel_kg": 691.76,
+      "cast_iron_cw_kg": 1512.54,
+      "aluminum_kg": 10.61,
+      "purchased_kg": 226.4,
+      "total_empty_kg": 2447.2,
+      "cg_empty_mm": [
+        -541.9,
+        1.8,
+        359.9
+      ],
+      "iso22915_tipping_sf": 1.559,
+      "loaded_front_wheel_kg": 1611.1,
+      "loaded_rear_wheel_kg": 362.5,
+      "chassis_envelope_mm": [
+        1560.0,
+        1200.0,
+        945.0
+      ],
+      "total_envelope_mm": [
+        2725.0,
+        1200.0,
+        945.0
+      ],
+      "invalid_solids": 0,
+      "interferences": 0,
+      "components": 1,
+      "floating": 0,
+      "dynamic_collisions": 0,
+      "step_roundtrip_solids": 189,
+      "step_roundtrip_invalid": 0,
+      "step_roundtrip_ok": true,
+      "all_pass": true,
+      "elapsed_s": 1.67,
+      "config": {
+        "front_e1r": true,
+        "rear_sensor": "3D_XT32",
+        "battery": "100Ah_LFP",
+        "weighing": "4pt_ShearBeam_4000kg"
+      },
+      "added_parts": [],
+      "removed_parts": [],
+      "diff_summary": "Rev A.1 마스터본 (좌후방 XT32 + 전방 마스트 E1R + 대각 매립 2D×2 + 중앙 하향 QR + 4점 로드셀 계량 캐리지 + 4WD/4WS Ø260 + 51.2V 100Ah LFP)"
+    },
+    {
+      "id": "Semi3D_E1R_100Ah",
+      "label": "HD30_RevA1_Semi3D_E1R_100Ah — 준풀 3D(전방 E1R + 좌후방 평면 2D) · 계량 포크 · 100Ah LFP",
+      "step_file": "HD30_RevA1_Semi3D_E1R_100Ah.step",
+      "csv_file": "HD30_RevA1_Semi3D_E1R_100Ah.csv",
+      "step_bytes": 4419219,
+      "csv_bytes": 48131,
+      "part_count": 189,
+      "steel_kg": 691.76,
+      "cast_iron_cw_kg": 1512.54,
+      "aluminum_kg": 8.93,
+      "purchased_kg": 225.95,
+      "total_empty_kg": 2445.07,
+      "cg_empty_mm": [
+        -541.6,
+        1.5,
+        359.5
+      ],
+      "iso22915_tipping_sf": 1.557,
+      "loaded_front_wheel_kg": 1611.3,
+      "loaded_rear_wheel_kg": 361.3,
+      "chassis_envelope_mm": [
+        1560.0,
+        1200.0,
+        945.0
+      ],
+      "total_envelope_mm": [
+        2725.0,
+        1200.0,
+        945.0
+      ],
+      "invalid_solids": 0,
+      "interferences": 0,
+      "components": 1,
+      "floating": 0,
+      "dynamic_collisions": 0,
+      "step_roundtrip_solids": 189,
+      "step_roundtrip_invalid": 0,
+      "step_roundtrip_ok": true,
+      "all_pass": true,
+      "elapsed_s": 12.83,
+      "config": {
+        "front_e1r": true,
+        "rear_sensor": "2D_flat",
+        "battery": "100Ah_LFP",
+        "weighing": "4pt_ShearBeam_4000kg"
+      },
+      "added_parts": [
+        "tower_2d_pedestal_flat",
+        "lidar_2d_rear_tower"
+      ],
+      "removed_parts": [
+        "tower_3d_pedestal",
+        "lidar_3d_rear_XT32"
+      ],
+      "diff_summary": "전방 E1R 유지 / 좌후방 XT32+5° 쐐기 제거 → 수평 평면 받침 + 2D 라이다(tower_2d_pedestal_flat + lidar_2d_rear_tower) 교체 / 100Ah LFP"
+    },
+    {
+      "id": "2D_Basic_100Ah",
+      "label": "HD30_RevA1_2D_Basic_100Ah — 기본 2D(전방 블랭킹 + 좌후방 평면 2D) · 계량 포크 · 100Ah LFP",
+      "step_file": "HD30_RevA1_2D_Basic_100Ah.step",
+      "csv_file": "HD30_RevA1_2D_Basic_100Ah.csv",
+      "step_bytes": 4419094,
+      "csv_bytes": 48044,
+      "part_count": 189,
+      "steel_kg": 692.05,
+      "cast_iron_cw_kg": 1512.54,
+      "aluminum_kg": 8.93,
+      "purchased_kg": 225.4,
+      "total_empty_kg": 2444.81,
+      "cg_empty_mm": [
+        -541.7,
+        1.5,
+        359.5
+      ],
+      "iso22915_tipping_sf": 1.557,
+      "loaded_front_wheel_kg": 1611.1,
+      "loaded_rear_wheel_kg": 361.3,
+      "chassis_envelope_mm": [
+        1560.0,
+        1200.0,
+        945.0
+      ],
+      "total_envelope_mm": [
+        2725.0,
+        1200.0,
+        945.0
+      ],
+      "invalid_solids": 0,
+      "interferences": 0,
+      "components": 1,
+      "floating": 0,
+      "dynamic_collisions": 0,
+      "step_roundtrip_solids": 189,
+      "step_roundtrip_invalid": 0,
+      "step_roundtrip_ok": true,
+      "all_pass": true,
+      "elapsed_s": 13.37,
+      "config": {
+        "front_e1r": false,
+        "rear_sensor": "2D_flat",
+        "battery": "100Ah_LFP",
+        "weighing": "4pt_ShearBeam_4000kg"
+      },
+      "added_parts": [
+        "tower_2d_pedestal_flat",
+        "blank_cover_e1r_front",
+        "lidar_2d_rear_tower"
+      ],
+      "removed_parts": [
+        "tower_3d_pedestal",
+        "lidar_3d_front_E1R",
+        "lidar_3d_rear_XT32"
+      ],
+      "diff_summary": "전방 E1R 제거 + 3t 강판 블랭킹 커버(blank_cover_e1r_front) / 좌후방 XT32 → 수평 2D 라이다 교체 / 대각 2D×2 + QR + 계량 포크 + 100Ah LFP"
+    },
+    {
+      "id": "Full3D_200Ah",
+      "label": "HD30_RevA1_Full3D_200Ah — 풀 3D(XT32+E1R) · 계량 포크 · 51.2V 200Ah LFP 듀얼 팩",
+      "step_file": "HD30_RevA1_Full3D_200Ah.step",
+      "csv_file": "HD30_RevA1_Full3D_200Ah.csv",
+      "step_bytes": 4468241,
+      "csv_bytes": 48789,
+      "part_count": 192,
+      "steel_kg": 691.76,
+      "cast_iron_cw_kg": 1512.54,
+      "aluminum_kg": 11.05,
+      "purchased_kg": 266.4,
+      "total_empty_kg": 2488.44,
+      "cg_empty_mm": [
+        -533.4,
+        1.9,
+        357.6
+      ],
+      "iso22915_tipping_sf": 1.569,
+      "loaded_front_wheel_kg": 1625.3,
+      "loaded_rear_wheel_kg": 368.9,
+      "chassis_envelope_mm": [
+        1560.0,
+        1200.0,
+        945.0
+      ],
+      "total_envelope_mm": [
+        2725.0,
+        1200.0,
+        945.0
+      ],
+      "invalid_solids": 0,
+      "interferences": 0,
+      "components": 1,
+      "floating": 0,
+      "dynamic_collisions": 0,
+      "step_roundtrip_solids": 192,
+      "step_roundtrip_invalid": 0,
+      "step_roundtrip_ok": true,
+      "all_pass": true,
+      "elapsed_s": 12.97,
+      "config": {
+        "front_e1r": true,
+        "rear_sensor": "3D_XT32",
+        "battery": "200Ah_LFP",
+        "weighing": "4pt_ShearBeam_4000kg"
+      },
+      "added_parts": [
+        "battery_mount_rail_F_L",
+        "battery_mount_rail_F_R",
+        "battery_lfp_200ah_R",
+        "battery_lfp_200ah_F",
+        "charge_busbar_duct_200ah"
+      ],
+      "removed_parts": [
+        "battery_lfp_100ah_main",
+        "charge_busbar_duct"
+      ],
+      "diff_summary": "풀 3D + 계량 캐리지 + 4WD/4WS 유지 / 기본 100Ah 단일 팩 제거 → 51.2V 200Ah LFP 듀얼 팩(battery_lfp_200ah_L/R, 82 kg) + 병렬 고전류 버스바 실장"
+    }
+  ]
+}

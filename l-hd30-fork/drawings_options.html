@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111827'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-weight='700'%3EH%3C/text%3E%3C/svg%3E">
+<title>HD-30 1.5t AMR (Rev A.1) — 옵션 · 배터리 · KC 매트릭스</title>
+<link rel="stylesheet" href="portal.css">
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-subtle);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+  .ctrl-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .ctrl-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .ctrl-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .ctrl-lbl {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .chk-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12.2px;
+    color: var(--ink-2);
+    cursor: pointer;
+    user-select: none;
+  }
+  .chk-item input { margin: 0; accent-color: var(--accent); }
+  .cad-dl-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+  }
+  .cad-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .sub-cap {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0 0 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .sub-cap span { font-size: 11.8px; font-weight: 500; color: var(--muted); }
+  .kpi-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .d-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+  }
+  .d-card .k { font-size: 11px; color: var(--muted); font-weight: 600; }
+  .d-card .v { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-top: 3px; }
+  .d-card .s { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .ok-t { color: var(--ok); font-weight: 700; }
+  .warn-t { color: var(--warn); font-weight: 700; }
+  .kc-t { color: var(--accent); font-weight: 700; }
+  .bom-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .p-footer {
+    margin-top: 36px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  @media (max-width: 960px) {
+    .kpi-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .kpi-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="p-header">
+  <div class="p-header-inner">
+    <a class="p-brand" href="index.html">HD-30 1.5t AMR <span class="p-brand-rev">Rev A.1</span></a>
+    <nav class="p-nav">
+      <a href="index.html">개요</a>
+      <a href="3d.html">3D 뷰어</a>
+      <a href="drawings_options.html" class="active">옵션 · KC</a>
+      <a href="vendor_drawing.html">도면 · CAD</a>
+    </nav>
+  </div>
+</header>
+
+<main class="p-wrap">
+  <div class="p-page-head">
+    <div>
+      <div class="p-kicker">OPTIONS · LFP BATTERY · KC CERTIFICATION MATRIX (PRICE-FREE)</div>
+      <h1 class="p-title">HD-30 1.5t 옵션 · LFP 배터리 · KC 부품 매트릭스</h1>
+      <p class="p-subtitle">공통 HD-30 Rev A.1 카운터밸런스 4WD/4WS·계량 마스터 프레임(<code>1,560 × 1,200 mm</code> · 전장 <code>2,725 mm</code> · 전고 <code>945 mm</code>) 기준 센서 패키지 3종과 LFP 배터리 2종(<code>100Ah / 200Ah</code>), 그리고 중국 OEM 대 한국 KC 12슬롯 부품 구성을 무가격으로 대조합니다.</p>
+    </div>
+    <div class="p-btn-row no-print">
+      <a id="btnOpen3d" href="3d.html" class="p-btn primary">3D 뷰어 열기</a>
+      <a href="vendor_drawing.html" class="p-btn">업체 도면 · CAD</a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: INTERACTIVE SENSOR PACKAGE & BATTERY SELECTOR + MATCHING CAD DOWNLOAD -->
+  <section class="p-section" style="margin-top:0">
+    <div class="p-card tight ctrl-stack no-print">
+      <div class="ctrl-row">
+        <div class="ctrl-group">
+          <span class="ctrl-lbl">센서 패키지</span>
+          <div class="p-seg" role="group" aria-label="센서 패키지 선택">
+            <button type="button" class="pkg-btn active" data-pkg="FULL3D">Full 3D (XT32 + E1R)</button>
+            <button type="button" class="pkg-btn" data-pkg="SEMI3D">Semi 3D (E1R + 타워 2D)</button>
+            <button type="button" class="pkg-btn" data-pkg="BASIC2D">2D 기본 (타워 2D)</button>
+          </div>
+        </div>
+        <div class="ctrl-group">
+          <span class="ctrl-lbl">배터리 (LFP 전용)</span>
+          <div class="p-seg" role="group" aria-label="배터리 선택">
+            <button type="button" class="bat-btn active" data-bat="100">100Ah LFP (표준, 42 kg)</button>
+            <button type="button" class="bat-btn" data-bat="200">200Ah LFP (대용량 듀얼, 82 kg)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cad-dl-bar">
+        <div class="ctrl-group">
+          <label class="chk-item"><input type="checkbox" id="chkPallet" checked> 양면 파레트 1.5t</label>
+          <label class="chk-item"><input type="checkbox" id="chkStep" checked> 30mm 단차</label>
+        </div>
+        <div class="cad-meta">
+          <span class="p-tag ok">PASS</span>
+          <span id="cadVariantInfo" class="mono">Full3D_100Ah · 189부품 · 2,447.2 kg · SF 1.559</span>
+          <a id="btnDlStep" href="cad/HD30_RevA1_Full3D_100Ah.step" download class="p-btn sm primary">Full3D_100Ah STEP (4.20 MB)</a>
+          <a id="btnDlCsv" href="cad/HD30_RevA1_Full3D_100Ah.csv" download class="p-btn sm">CSV (47 KB)</a>
+          <a id="btnDl200Extra" href="cad/HD30_RevA1_Full3D_200Ah.step" download class="p-btn sm" style="display:none">200Ah 듀얼 STEP (4.26 MB)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-cap">
+      <div id="mainTitle">Full 3D (XT32 + E1R) — HD-30 Rev A.1 마스터 구성</div>
+      <span id="mainSpecBadge"></span>
+    </div>
+    <div class="p-svg-box">
+      <svg id="sideMain" viewBox="0 0 980 410" role="img" aria-label="선택 사양 HD-30 측면도"></svg>
+    </div>
+
+    <div class="p-grid-2" style="margin-top:16px">
+      <div>
+        <div class="sub-cap">
+          <div>평면도 (센서 · 배터리 · 4WD/4WS 실장)</div>
+          <span>전폭 1,200 × 전장 2,725 mm</span>
+        </div>
+        <div class="p-svg-box">
+          <svg id="topMain" viewBox="0 0 460 420" role="img" aria-label="선택 사양 HD-30 평면도"></svg>
+        </div>
+      </div>
+      <div>
+        <div class="sub-cap">
+          <div>선택 사양 기구 · 센서 · 안정도 요약</div>
+          <span>4종 공통 1,560×1,200 프레임</span>
+        </div>
+        <div class="p-table-wrap">
+          <table class="p-table">
+            <thead><tr><th style="width:28%">부위 / 항목</th><th>선택 사양 구성 상태</th></tr></thead>
+            <tbody id="detailBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="kpi-cards" id="kpiCards"></div>
+  </section>
+
+  <!-- SECTION 2: CORE MECHANISM DETAIL SVGs (FORK WEIGHING + STEP/GAP CLEARANCE) -->
+  <section class="p-section" id="mech-details">
+    <div class="p-section-head">
+      <div>
+        <h2 class="p-section-title">2. 핵심 기구 상세: 4점 로드셀 바닥 직픽업 포크 & 30 mm 단차 극복 주행부</h2>
+        <p class="p-section-desc">선택한 배터리(100Ah / 200Ah)의 축 하중·안정도를 실시간 반영한 백색 캔버스 단면도</p>
+      </div>
+    </div>
+
+    <div class="p-grid-2">
+      <div>
+        <div class="sub-cap">
+          <div>바닥 직픽업 단조 포크 + 4점 로드셀 계량 캐리지</div>
+          <span>Z=5~43 mm (끝단 21.1 mm) · 4,000 kg 정격</span>
+        </div>
+        <div class="p-svg-box">
+          <svg id="forkWeighSvg" viewBox="0 0 560 285" role="img" aria-label="포크 및 4점 로드셀 계량 상세 단면"></svg>
+        </div>
+      </div>
+      <div>
+        <div class="sub-cap">
+          <div>Ø260 4WD/4WS 30 mm 단차 & 50 mm 틈새 극복</div>
+          <span>지상고 G=85 mm · ±35 mm 로커 서스펜션</span>
+        </div>
+        <div class="p-svg-box">
+          <svg id="stepClearSvg" viewBox="0 0 560 285" role="img" aria-label="30mm 단차 및 50mm 틈 통과 상세 단면"></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: BATTERY 100Ah vs 200Ah LFP COMPARISON -->
+  <section class="p-section" id="battery-compare">
+    <div class="p-section-head">
+      <div>
+        <h2 class="p-section-title">3. 배터리 100Ah LFP (표준) vs 200Ah LFP (대용량 듀얼) 비교</h2>
+        <p class="p-section-desc">열안정성 우선 LFP(인산철) 전용 · QR 광학창(X=-240) 양측 분리 배치로 동일 프레임 무개조 확장</p>
+      </div>
+    </div>
+
+    <div class="p-svg-box" style="margin-bottom:14px">
+      <svg id="batCompareSvg" viewBox="0 0 980 315" role="img" aria-label="100Ah 표준과 200Ah 듀얼 LFP 배터리 배치 및 무게중심 비교도"></svg>
+    </div>
+
+    <div class="p-table-wrap">
+      <table class="p-table">
+        <thead>
+          <tr>
+            <th style="width:22%">비교 항목</th>
+            <th style="width:39%">100Ah LFP — 표준 단일 팩 (42 kg)</th>
+            <th style="width:39%">200Ah LFP — 대용량 듀얼 팩 (82 kg)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="strong">전압 · 용량 · 에너지</td><td class="strong">51.2V 100Ah LFP (5.12 kWh)</td><td class="strong">51.2V 200Ah LFP (10.24 kWh · 2.0×)</td></tr>
+          <tr><td class="strong">셀 구성 · 장착 격실</td><td><code>EVE LF100LA</code> 16S ×1 · 중앙 후방 격실 (<code>X=-530..-315, |Y|≤355, Z=105..335</code>)</td><td><code>EVE LF100LA</code> 16S ×2 병렬 + 35sq 버스바 · 중앙 전·후방 분리 실장 (<code>X=-530..-315</code> & <code>-160..+95</code>)</td></tr>
+          <tr><td class="strong">QR 광학 간섭</td><td>QR 중앙 베이(<code>X=-240</code>) 후방 이격 · 간섭 0</td><td>QR 베이(<code>X=-240</code>) 전·후방 양측 분리 · 광학 간섭 0</td></tr>
+          <tr><td class="strong">팩 질량 / 로봇 자중</td><td>팩 <strong>42 kg</strong> / 공차 자중 <strong>2,447.2 kg</strong> (189부품)</td><td>팩 <strong>82 kg</strong> (+41 kg 모듈) / 공차 자중 <strong>2,488.4 kg</strong> (192부품)</td></tr>
+          <tr><td class="strong">CG · 전복 안전율 SF</td><td class="mono">(-541.9, 1.8, 359.9) · <strong>SF = 1.559</strong></td><td class="mono">(-533.4, 1.9, 357.6) · <strong>SF = 1.569</strong> (+0.010)</td></tr>
+          <tr><td class="strong">적재 1.5t 전/후륜 하중</td><td class="mono">전 1,611.1 / 후 362.5 kg/륜 (정격 1,800)</td><td class="mono">전 1,625.3 / 후 368.9 kg/륜 (정격 1,800)</td></tr>
+          <tr><td class="strong">적합 운용 · 정비</td><td>표준 1교대 + 자동 기회충전(Z=260~340) · 상부 볼트 해치 착탈</td><td>다교대 연속 장시간 가동 · 동일 해치 및 마스터 격실 무개조 호환</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 4: 12-SLOT CHINA OEM vs KOREA KC HARDWARE MATRIX (PRICE-FREE) -->
+  <section class="p-section" id="kc-matrix">
+    <div class="p-section-head">
+      <div>
+        <h2 class="p-section-title">4. 중국 OEM vs 한국 KC/KCs 12슬롯 실부품 대응 매트릭스 (무가격)</h2>
+        <p class="p-section-desc">동일 HD-30 Rev A.1 기구·전장 인터페이스 기준 — 국내 납품 시 전 슬롯 정식 KC / KCs 취득 부품군으로 무개조 치환</p>
+      </div>
+    </div>
+
+    <div class="p-table-wrap">
+      <table class="p-table">
+        <thead>
+          <tr>
+            <th style="width:17%">HW 슬롯 (12종)</th>
+            <th style="width:26%">중국 OEM 기준 모델</th>
+            <th style="width:28%">한국 KC / KCs 인증 대응 모델</th>
+            <th style="width:29%">인증 등급 · 발주 필수 조건</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="strong">1. 4WD/4WS 휠 모듈 ×4<br><span class="muted">Ø260×110 · ±90°</span></td>
+            <td>고하중 <code>Vulkollan 92A</code> Ø260×110 + 1.5 kW 동축 인휠 + 400W 조향 서보 ×4</td>
+            <td><span class="p-tag blue">KC (EMC)</span><br><strong style="display:inline-block;margin-top:4px">Blickle / Rader-Vogel Ø260×110</strong> + 국내 KC 48V 1.5 kW/400W 서보 + 정품 선회베어링</td>
+            <td>1,800 kg/륜 정격 · 30 mm 단차(39.7°) · 50 mm 틈(침하 2.43 mm) · 소형 캐스터 0</td>
+          </tr>
+          <tr>
+            <td class="strong">2. 저상 마스트 · 리프트<br><span class="muted">Z=790 · 0~450 mm</span></td>
+            <td><code>TBI/HIWIN</code> 중국 HGR30×2 + Ø32 C7 볼스크류×2 + <code>Kinco</code> 1.5 kW 서보(브레이크)×2</td>
+            <td><span class="p-tag blue">KC (EMC)</span><br><strong style="display:inline-block;margin-top:4px">HIWIN 정품 HGR30</strong> + 정품 Ø32 C7 볼스크류 + <code>FASTECH / LS / Delta</code> KC 1.5 kW 서보×2</td>
+            <td>정전 시 무여자 전자브레이크 자동 잠금 · 마스트 전고 790 mm (XT32 Z=865 하부 75 mm 통과)</td>
+          </tr>
+          <tr>
+            <td class="strong">3. 4점 로드셀 · 트랜스미터<br><span class="muted">계량 캐리지 4,000 kg</span></td>
+            <td><code>Zemic / Keli</code> 17-4PH 전단빔 1,000 kg ×4 (IP68) + 4ch CANopen/Modbus 트랜스미터</td>
+            <td><span class="p-tag blue">KC + 계량검교정</span><br><strong style="display:inline-block;margin-top:4px">CAS / DACELL 17-4PH 1t ×4</strong> + <code>CAS / Laumas TLB4</code> KC 4ch 트랜스미터</td>
+            <td>과부하 스토퍼 0.8 mm ×4 + 가이드 롤러 ×4 · 리프트 즉시 ±0.1~0.2% 계량 및 정기 검교정 대응</td>
+          </tr>
+          <tr>
+            <td class="strong">4. 단조 포크 · 끝단 광전<br><span class="muted">Z=5~43 · 끝단 21.1</span></td>
+            <td><code>42CrMo4</code> 단조 포크 120×38×L1,100 ×2 + <code>WTB4FP</code> 동급 광전센서 ×2</td>
+            <td><span class="p-tag ok">ISO 2330 정품</span><br><strong style="display:inline-block;margin-top:4px">ISO 2330 42CrMo4 단조 포크</strong> + 정품 <code>SICK WTB4FP</code> 끝단 광전 ×2</td>
+            <td>양면·단면 파레트 바닥 직픽업 · 거위목 로드 백레스트 Z=225~520 (2D 스캔면 +45 mm 이격)</td>
+          </tr>
+          <tr>
+            <td class="strong">5. 48V 10축 서보 드라이브<br><span class="muted">구동4 · 조향4 · 리프트2</span></td>
+            <td><code>Kinco FD144S</code> ×6 + <code>Kinco FD114S</code> ×4 (CANopen 1 Mbps · STO 2ch)</td>
+            <td><span class="p-tag blue">KC (EMC)</span><br><strong style="display:inline-block;margin-top:4px">FASTECH / LS Electric / Delta</strong> 국내 정식 KC 48V 서보 드라이브 ×10</td>
+            <td>해외 미인증 직구 배제 · STO 2ch 단자 내장 및 국내 공식 대리점 KC 필증 확보 조건</td>
+          </tr>
+          <tr>
+            <td class="strong">6. 배터리 팩 (LFP 전용)<br><span class="muted">100Ah / 200Ah</span></td>
+            <td><code>EVE LF100LA</code> 16S 51.2V 100Ah LFP ×1 (42 kg) 또는 ×2 병렬 (82 kg) + 스마트 BMS</td>
+            <td><span class="p-tag ok">KC 62619 + UN38.3</span><br><strong style="display:inline-block;margin-top:4px">국내 팩 단위 KC 62619 인증</strong> 51.2V 100Ah / 200Ah LFP 팩</td>
+            <td>열안정성 우선 LFP 전용 · 인증기관(KTL/KTC/KTR) 팩 단위 KC 62619 적용 범위 사전 확인</td>
+          </tr>
+          <tr>
+            <td class="strong">7. 하부 매립 안전 2D ×2<br><span class="muted">FL/RR · Z=180 mm</span></td>
+            <td><code>SICK nanoScan3 Pro I/O</code> ×2 (또는 <code>Keli / Oleia</code> PLd 안전 2D ×2)</td>
+            <td><span class="p-tag blue">KC + KCs/PLd</span><br><strong style="display:inline-block;margin-top:4px">SICK nanoScan3 Pro I/O ×2</strong> (국내 정식 KC + KCs / ISO 13849 PLd)</td>
+            <td>FL 263.25° / RR 263.50° · 100~300 mm 사각 0.0% · 30 mm 단차 피치 바닥 오검지 회피</td>
+          </tr>
+          <tr>
+            <td class="strong">8. 마스트 상단 전방 3D<br><span class="muted">+470, 0, Z=755</span></td>
+            <td><code>RoboSense E1R</code> (120°H × 90°V · 0° 마운트 · 2D_Basic은 3t 블랭킹 커버)</td>
+            <td><span class="p-tag warn">정식 KC 발주 조건</span><br><strong style="display:inline-block;margin-top:4px">RoboSense E1R</strong> (국내 공식 파트너 KC 적합등록 필증 포함 발주)</td>
+            <td>바닥 파레트 포켓(-45°) ~ 랙 상부(+45°) 차단 0.0% · 미등록 해외 직구 금지</td>
+          </tr>
+          <tr>
+            <td class="strong">9. 좌후방 미니타워 3D/2D<br><span class="muted">-870, +440, Z=865</span></td>
+            <td><code>Hesai XT32</code> (+5° 쐐기) [Full3D] / <code>FreeOptics R2</code> 평면 2D [Semi3D·2D_Basic]</td>
+            <td><span class="p-tag blue">국내 공식 KC</span><br><strong style="display:inline-block;margin-top:4px">Hesai XT32 / Ouster OS0-64</strong> (KC) / 국산 <code>Autonics LSE</code> (KC 2D)</td>
+            <td>마스트 상단(790) 위로 +75 mm 통과 · 4기둥 수평 개방 93.33% · 3점 M6 공용 데크 무개조 교체</td>
+          </tr>
+          <tr>
+            <td class="strong">10. 중앙 하향 QR · 6축 IMU<br><span class="muted">QR -240,0,140</span></td>
+            <td><code>Hikrobot MV-ID2004M-06S</code> + Ø95 AR 유리 베젤 + 산업용 6축 IMU</td>
+            <td><span class="p-tag blue">국내 정식 KC</span><br><strong style="display:inline-block;margin-top:4px">Cognex DataMan 280 / Hikrobot</strong> (정식 KC) + <code>Xsens MTi</code> 6축 IMU (KC)</td>
+            <td>4방향 광학 반각 38.25° · 바닥 1.0 mm 리세스 보호 · 경사 주행 및 로드셀 기울기 보정</td>
+          </tr>
+          <tr>
+            <td class="strong">11. 연산 · PTP · 전원/충전<br><span class="muted">우측 전장실 · Z=260~340</span></td>
+            <td><code>Advantech MIC-711-OX</code> + <code>Moxa EDS-G4008</code> + 48V→24V/12V DC-DC + 48V 자동충전</td>
+            <td><span class="p-tag blue">KC 적합등록/안전확인</span><br><strong style="display:inline-block;margin-top:4px">Advantech MIC-711-OX (KC)</strong> + <code>Moxa EDS-G4008 (KC)</code> + <code>Mean Well KC</code> 전원·충전기</td>
+            <td>IEEE 1588v2 하드웨어 PTP 동기 · 후면 매립 PEEK 3접점 충전부 (범퍼 +140 / HMI -170 mm)</td>
+          </tr>
+          <tr>
+            <td class="strong">12. 안전 PLC · HMI · 범퍼<br><span class="muted">40° HMI · E-STOP×5</span></td>
+            <td><code>SICK Flexi Soft</code> + <code>Winmate/Kinco 10.1"</code> HMI + <code>Mayser</code> 범퍼 + 비상정지 ×5</td>
+            <td><span class="p-tag blue">KC + KCs/PLe</span><br><strong style="display:inline-block;margin-top:4px">SICK Flexi Soft / Pilz</strong> + <code>Winmate W10L100-IPH2 / M2I TOP</code> + <code>Mayser SL/W</code> + <code>IDEC/SICK</code> E-STOP×5</td>
+            <td>40° 무지붕 콘솔 (타공 239×170) · 비상정지 5점 이중화 10축 STO + 리프트 브레이크 직결</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PRICE-FREE REGIONAL BOM CSV DOWNLOAD STRIP -->
+    <div class="p-card tight bom-strip no-print">
+      <div>
+        <strong style="font-size:13px">무가격 지역별 실부품 BOM CSV (전 4종 CAD 공통 · LFP 전용)</strong>
+        <div class="muted" style="font-size:12px">외부 제작사·부품사 사양 협의 및 견적 의뢰용 — 가격 정보 미포함</div>
+      </div>
+      <div class="p-btn-row">
+        <a href="cad/HD30_RevA1_BOM_China_OEM.csv" download class="p-btn sm">중국 OEM 무가격 BOM (.csv)</a>
+        <a href="cad/HD30_RevA1_BOM_Korea_KC.csv" download class="p-btn sm primary">한국 KC 무가격 BOM (.csv)</a>
+      </div>
+    </div>
+
+    <div class="p-note warn" style="margin-top:12px">
+      <strong>완제품 KC (EMC) · KCs 자율안전확인 및 배터리 KC 62619 사전 확인 안내:</strong>
+      개별 부품 100%를 정식 KC/KCs 인증 부품으로 구성하더라도 완성된 HD-30 1.5t AMR의 <strong>완제품 전자파 적합성(KC EMC)</strong>, <strong>산업용 로봇 자율안전확인신고(KCs · KS B ISO 3691-4 기술문서)</strong>, 그리고 <strong>51.2V LFP 배터리 팩 KC 62619</strong>의 적용 범위는 인증기관(KTL/KTC/KTR·안전보건공단)과 출하 전 사전 확인을 권장합니다. 부품 단계에서 정식 KC/KCs 인증품을 선적용하면 완제품 EMC 재설계 위험과 현장 납품 심사 기간을 크게 줄일 수 있습니다.
+    </div>
+  </section>
+
+  <footer class="p-footer">
+    <span>HD-30 1.5t Counterbalanced 4WD/4WS Weighing Fork AMR · Rev A.1 옵션 · 배터리 · KC 매트릭스</span>
+    <span>외부 전달 가능본 (가격 미포함 · LFP 전용) · 2026-11-24</span>
+  </footer>
+</main>
+
+<script>
+(() => {
+const CAD_VARIANTS = {
+  Full3D_100Ah: {
+    id: 'Full3D_100Ah',
+    step: 'cad/HD30_RevA1_Full3D_100Ah.step',
+    csv:  'cad/HD30_RevA1_Full3D_100Ah.csv',
+    parts: 189, mass: '2,447.2 kg', sf: '1.559',
+    frontLoad: '1,611.1', rearLoad: '362.5',
+    cg: '(-541.9, 1.8, 359.9)', stepSize: '4.20 MB', csvSize: '47 KB'
+  },
+  Semi3D_E1R_100Ah: {
+    id: 'Semi3D_E1R_100Ah',
+    step: 'cad/HD30_RevA1_Semi3D_E1R_100Ah.step',
+    csv:  'cad/HD30_RevA1_Semi3D_E1R_100Ah.csv',
+    parts: 189, mass: '2,445.1 kg', sf: '1.557',
+    frontLoad: '1,611.3', rearLoad: '361.3',
+    cg: '(-541.6, 1.5, 359.5)', stepSize: '4.21 MB', csvSize: '47 KB'
+  },
+  '2D_Basic_100Ah': {
+    id: '2D_Basic_100Ah',
+    step: 'cad/HD30_RevA1_2D_Basic_100Ah.step',
+    csv:  'cad/HD30_RevA1_2D_Basic_100Ah.csv',
+    parts: 189, mass: '2,444.8 kg', sf: '1.557',
+    frontLoad: '1,611.1', rearLoad: '361.3',
+    cg: '(-541.7, 1.5, 359.5)', stepSize: '4.21 MB', csvSize: '47 KB'
+  },
+  Full3D_200Ah: {
+    id: 'Full3D_200Ah',
+    step: 'cad/HD30_RevA1_Full3D_200Ah.step',
+    csv:  'cad/HD30_RevA1_Full3D_200Ah.csv',
+    parts: 192, mass: '2,488.4 kg', sf: '1.569',
+    frontLoad: '1,625.3', rearLoad: '368.9',
+    cg: '(-533.4, 1.9, 357.6)', stepSize: '4.26 MB', csvSize: '48 KB'
+  }
+};
+
+const PKGS = {
+  FULL3D: {
+    name: 'Full 3D (XT32 + E1R) — HD-30 Rev A.1 마스터 구성',
+    badge: '좌후방 XT32 (+75 mm) + 마스트 상단 E1R + 매립 2D×2 + 중앙 QR + 4점 계량',
+    frontE1R: true, rearXT32: true,
+    rows: [
+      ['좌후방 미니타워 (Z=865)', '<span class="ok-t">Hesai XT32 (+5° 쐐기)</span> — 마스트 상단(790) 위로 +75 mm 통과, 수평 93.33% / 32ch 86.59% (대안 Ouster OS0-64)'],
+      ['마스트 상단 전방 (Z=755)', '<span class="ok-t">RoboSense E1R (120°×90°)</span> — 바닥 파레트 포켓(-45°) ~ 랙 상부(+45°) 차단 0.0%'],
+      ['하부 매립 안전 2D (Z=180)', '<span class="ok-t">SICK nanoScan3 Pro I/O ×2</span> — FL 263.25° / RR 263.50°, 100~300 mm 사각 0.0%'],
+      ['계량 포크 · 4WD/4WS', '단조 포크 <code>Z=5~43 mm</code> (끝단 <code>21.1 mm</code>) · 연속 450 mm · 4점 로드셀(<code>±0.2%</code>) · Ø260 4WD/4WS (<code>G=85 mm</code>)'],
+      ['연산 · 안전 · HMI', '<code>Advantech MIC-711-OX</code> + <code>Moxa EDS-G4008</code> + <code>SICK Flexi Soft</code> (10축 STO) + 40° 10.1" HMI']
+    ],
+    kpis: [
+      ['공중 장애물 · 3D SLAM', '전 · 후방 풀 3D', 'E1R (차단 0%) + XT32 (마스트 +75 mm, 93.3%)'],
+      ['하부 2D 둘레 사각', '100~300 mm 0.0%', 'FL 263.25° / RR 263.50° · 겹침 83.38°'],
+      ['포크 계량 · 직픽업', 'Z=5~43 mm · ±0.2%', '양면·단면 직픽업 · 4점 전단빔 4,000 kg'],
+      ['단차 · 틈새 극복', '30 mm / 50 mm PASS', 'Ø260 4WD/4WS (39.7° · 침하 2.43 mm · G=85)']
+    ]
+  },
+  SEMI3D: {
+    name: 'Semi 3D (E1R + 좌후방 타워 2D) — 전방 파레트 3D 집중 구성',
+    badge: '마스트 상단 E1R 유지 + 좌후방 수평 2D 교체 + 매립 2D×2 + QR + 4점 계량',
+    frontE1R: true, rearXT32: false,
+    rows: [
+      ['좌후방 미니타워 (Z=865)', '<span class="kc-t">수평 평면 받침 + 2D 라이다</span> (<code>FreeOptics R2</code> / KC <code>Autonics LSE</code>) — 반사판·2D 맵핑 집중 (후진 3D 제외)'],
+      ['마스트 상단 전방 (Z=755)', '<span class="ok-t">RoboSense E1R (120°×90°) 유지</span> — 양면 파레트 포켓 인식 및 전방 공중 장애물 0% 차단'],
+      ['하부 매립 안전 2D (Z=180)', '<span class="ok-t">SICK nanoScan3 Pro I/O ×2</span> — FL 263.25° / RR 263.50°, 100~300 mm 사각 0.0%'],
+      ['계량 포크 · 4WD/4WS', '단조 포크 <code>Z=5~43 mm</code> · 4점 로드셀(<code>±0.2%</code>) · Ø260 4WD/4WS (마스터 기구 100% 동일)'],
+      ['프레임 · 업그레이드', '공통 3점 M6 레벨링 데크 적용 — 추후 좌후방 XT32 무개조 업그레이드 가능']
+    ],
+    kpis: [
+      ['공중 장애물 · 파레트 3D', '전방 3D / 후방 2D', '전방 파레트 인식·장애물 E1R 유지'],
+      ['하부 2D · 반사판', '263.3°/263.5° + 타워 2D', '100~300 mm 사각 0.0% · 3점 M6 공용'],
+      ['포크 계량 · 직픽업', 'Z=5~43 mm · ±0.2%', '양면·단면 직픽업 · 4점 로드셀 공통'],
+      ['단차 · 틈새 극복', '30 mm / 50 mm PASS', 'Ø260 4WD/4WS · SF 1.557 (100Ah)']
+    ]
+  },
+  BASIC2D: {
+    name: '2D 기본 (전방 블랭킹 + 좌후방 타워 2D) — 표준 2D 주행 · 계량 구성',
+    badge: '전방 3t 블랭킹 커버 + 좌후방 수평 2D + 매립 2D×2 + 중앙 QR + 4점 계량',
+    frontE1R: false, rearXT32: false,
+    rows: [
+      ['좌후방 미니타워 (Z=865)', '<span class="kc-t">수평 평면 받침 + 2D 라이다</span> (<code>FreeOptics R2</code> / KC <code>Autonics LSE</code>) — 마스트(+75 mm) 위 360° 2D 스캔'],
+      ['마스트 상단 전방 (Z=755)', '<span class="warn-t">전방 E1R 제거 + 3t 강판 블랭킹 커버</span> (<code>blank_cover_e1r_front</code>) 마감 · 추후 E1R 볼트온 호환'],
+      ['하부 매립 안전 2D (Z=180)', '<span class="ok-t">SICK nanoScan3 Pro I/O ×2</span> — FL 263.25° / RR 263.50°, 100~300 mm 사각 0.0%'],
+      ['중앙 QR · 계량 포크', '<code>QR (-240, Z=140 · 38.25°)</code> + 4점 로드셀(<code>±0.2%</code>) + 바닥 밀착 포크 <code>Z=5~43 mm</code> 동일 유지'],
+      ['적합 현장', '표준 2D 반사판·QR 정밀 도킹 및 바닥 직픽업·계량이 핵심인 정형 물류 현장']
+    ],
+    kpis: [
+      ['센서 구성', '2D×3 + 중앙 QR + 광전×2', '3D 미장착 · 3t 블랭킹 커버 깔끔 마감'],
+      ['하부 2D 둘레 사각', '100~300 mm 0.0%', 'FL 263.25° / RR 263.50° · 겹침 83.38°'],
+      ['포크 계량 · 직픽업', 'Z=5~43 mm · ±0.2%', '양면·단면 직픽업 · 4점 로드셀 공통'],
+      ['단차 · 틈새 극복', '30 mm / 50 mm PASS', 'Ø260 4WD/4WS · SF 1.557 (100Ah)']
+    ]
+  }
+};
+
+function resolveCad(pkg, bat) {
+  if (pkg === 'FULL3D') {
+    return {
+      primary: bat === '200' ? CAD_VARIANTS.Full3D_200Ah : CAD_VARIANTS.Full3D_100Ah,
+      extra200: false
+    };
+  }
+  if (pkg === 'SEMI3D') {
+    return { primary: CAD_VARIANTS.Semi3D_E1R_100Ah, extra200: bat === '200' };
+  }
+  return { primary: CAD_VARIANTS['2D_Basic_100Ah'], extra200: bat === '200' };
+}
+
+function drawSideOpt(p, bat, pallet, step) {
+  const fY = 348, sc = 0.14;
+  const x0 = 400;
+  const xC = mm => +(x0 + mm * sc).toFixed(1);
+  const yZ = mm => +(fY - mm * sc).toFixed(1);
+  const is200 = bat === '200';
+
+  let out = `<rect width="980" height="410" fill="#ffffff"/>`;
+  out += `<g stroke="#eef2f6" stroke-width="0.9">`;
+  for (let z = 500; z <= 2000; z += 500) {
+    const yy = yZ(z);
+    out += `<line x1="42" y1="${yy}" x2="948" y2="${yy}"/>`;
+    out += `<text x="37" y="${yy + 3.5}" fill="#64748b" font-size="9.0" text-anchor="end">${z}</text>`;
+  }
+  out += `</g>`;
+
+  if (step) {
+    const sx = xC(1950), sTop = yZ(30), gw = +(50 * sc).toFixed(1);
+    out += `<line x1="40" y1="${fY}" x2="${sx - gw}" y2="${fY}" stroke="#334155" stroke-width="1.8"/>`;
+    out += `<rect x="${sx - gw}" y="${fY}" width="${gw}" height="9" fill="#fef2f2" stroke="#dc2626" stroke-width="0.9"/>`;
+    out += `<path d="M ${sx},${fY + 9} L ${sx},${sTop} L 948,${sTop}" fill="none" stroke="#334155" stroke-width="1.8"/>`;
+    out += `<rect x="${sx}" y="${sTop}" width="${+(948 - sx).toFixed(1)}" height="${+(fY - sTop).toFixed(1)}" fill="#f1f5f9"/>`;
+    out += `<text x="${xC(2520)}" y="${sTop - 8}" fill="#dc2626" font-size="8.8" font-weight="700" text-anchor="middle">30 mm 단차 + 50 mm 틈</text>`;
+  } else {
+    out += `<line x1="40" y1="${fY}" x2="948" y2="${fY}" stroke="#334155" stroke-width="1.8"/>`;
+  }
+
+  // Pillars
+  out += `<rect x="44" y="44" width="18" height="${fY - 44}" fill="#e2e8f0" stroke="#64748b"/>`;
+  out += `<rect x="920" y="44" width="22" height="${fY - 44}" fill="#e2e8f0" stroke="#64748b"/>`;
+
+  // Rear Tower Sensor FOV
+  const xXT = xC(-870), yXT = yZ(865);
+  if (p.rearXT32) {
+    const yUp = Math.max(44, +(yXT - (xXT - 64) * Math.tan(15 * Math.PI / 180)).toFixed(1));
+    const yDn = Math.min(fY, +(yXT + (xXT - 64) * Math.tan(16 * Math.PI / 180)).toFixed(1));
+    out += `<polygon points="${xXT},${yXT} 64,${yUp} 64,${yDn}" fill="rgba(217,119,6,0.09)" stroke="#d97706" stroke-dasharray="4 3"/>`;
+    out += `<line x1="${xXT}" y1="${yXT}" x2="918" y2="${yXT}" stroke="#d97706" stroke-width="1.3" stroke-dasharray="5 3"/>`;
+    out += `<text x="165" y="178" fill="#92400e" font-size="8.8" font-weight="700" text-anchor="middle">좌후방 XT32 Z=865 (93.3%)</text>`;
+  } else {
+    out += `<line x1="${xXT}" y1="${yXT}" x2="64" y2="${yXT}" stroke="#0284c7" stroke-width="2"/>`;
+    out += `<line x1="${xXT}" y1="${yXT}" x2="918" y2="${yXT}" stroke="#0284c7" stroke-width="1.4" stroke-dasharray="5 3"/>`;
+    out += `<text x="165" y="178" fill="#0369a1" font-size="8.8" font-weight="700" text-anchor="middle">좌후방 수평 2D Z=865 (+75 mm)</text>`;
+  }
+
+  // Front Mast E1R FOV
+  const xE1 = xC(470), yE1 = yZ(755);
+  if (p.frontE1R) {
+    const xUp = Math.min(918, +(xE1 + (yE1 - 44)).toFixed(1));
+    const xDn = Math.min(918, +(xE1 + (fY - yE1)).toFixed(1));
+    out += `<polygon points="${xE1},${yE1} ${xUp},44 918,44 918,${fY} ${xDn},${fY}" fill="rgba(109,40,217,0.08)" stroke="#6d28d9" stroke-width="1.1"/>`;
+    out += `<text x="770" y="28" fill="#6d28d9" font-size="9.2" font-weight="700" text-anchor="middle">전방 E1R Z=755 (120°×90° · 차단 0.0%)</text>`;
+  } else {
+    out += `<text x="770" y="28" fill="#a16207" font-size="9.2" font-weight="700" text-anchor="middle">전방 3t 강판 블랭킹 커버 (E1R 미장착)</text>`;
+  }
+
+  // Lower 2D Z=180
+  const y2D = yZ(180);
+  out += `<line x1="${xC(-965)}" y1="${y2D}" x2="64" y2="${y2D}" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="6 3"/>`;
+  out += `<line x1="${xC(455)}" y1="${y2D}" x2="918" y2="${y2D}" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="6 3"/>`;
+
+  // Robot Chassis & Counterweight
+  out += `<path d="M ${xC(-1020)},${yZ(690)} L ${xC(-580)},${yZ(690)} L ${xC(-580)},${yZ(388)} L ${xC(510)},${yZ(388)} L ${xC(510)},${yZ(85)} L ${xC(-1020)},${yZ(85)} Z" fill="#f1f5f9" stroke="#1e293b" stroke-width="1.6"/>`;
+  out += `<rect x="${xC(-1010)}" y="${yZ(685)}" width="${+(400 * sc).toFixed(1)}" height="${+(297 * sc).toFixed(1)}" fill="#e2e8f0" stroke="#94a3b8" stroke-width="0.8"/>`;
+
+  // Batteries (100Ah rear always, + 200Ah front when selected)
+  out += `<rect x="${xC(-530)}" y="${yZ(335)}" width="${+(215 * sc).toFixed(1)}" height="${+(230 * sc).toFixed(1)}" rx="2" fill="#dcfce7" stroke="#15803d" stroke-width="1.3"/>`;
+  if (is200) {
+    out += `<rect x="${xC(-160)}" y="${yZ(335)}" width="${+(255 * sc).toFixed(1)}" height="${+(230 * sc).toFixed(1)}" rx="2" fill="#bbf7d0" stroke="#15803d" stroke-width="1.5"/>`;
+  }
+
+  // Mini-tower
+  out += `<rect x="${xC(-1016)}" y="${yZ(945)}" width="${+(292 * sc).toFixed(1)}" height="${+(25 * sc).toFixed(1)}" fill="#cbd5e1" stroke="#334155" stroke-width="1.1"/>`;
+  out += `<line x1="${xC(-1005)}" y1="${yZ(920)}" x2="${xC(-1005)}" y2="${yZ(696)}" stroke="#475569" stroke-width="1.5"/>`;
+  out += `<line x1="${xC(-735)}" y1="${yZ(920)}" x2="${xC(-735)}" y2="${yZ(696)}" stroke="#475569" stroke-width="1.5"/>`;
+
+  // 40 deg HMI & Rear Charger
+  out += `<polygon points="${xC(-1020)},${yZ(510)} ${xC(-880)},${yZ(679)} ${xC(-858)},${yZ(679)} ${xC(-1005)},${yZ(510)}" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>`;
+  out += `<rect x="${xC(-1024)}" y="${yZ(340)}" width="5" height="${+(80 * sc).toFixed(1)}" rx="1" fill="#c2410c"/>`;
+
+  // Mast, Loadcells & Forged Fork
+  out += `<polygon points="${xC(125)},${yZ(388)} ${xC(280)},${yZ(740)} ${xC(280)},${yZ(388)}" fill="#cbd5e1" stroke="#475569" stroke-width="0.9"/>`;
+  out += `<rect x="${xC(280)}" y="${yZ(790)}" width="${+(75 * sc).toFixed(1)}" height="${+(693 * sc).toFixed(1)}" fill="#cbd5e1" stroke="#1e293b" stroke-width="1.2"/>`;
+  out += `<rect x="${xC(410)}" y="${yZ(256)}" width="${+(25 * sc).toFixed(1)}" height="${+(36 * sc).toFixed(1)}" fill="#dc2626"/>`;
+  out += `<rect x="${xC(410)}" y="${yZ(150)}" width="${+(25 * sc).toFixed(1)}" height="${+(36 * sc).toFixed(1)}" fill="#dc2626"/>`;
+  out += `<polygon points="${xC(444)},${yZ(265)} ${xC(482)},${yZ(265)} ${xC(482)},${yZ(43)} ${xC(1530)},${yZ(43)} ${xC(1690)},${yZ(21.1)} ${xC(1690)},${yZ(5)} ${xC(444)},${yZ(5)}" fill="#475569" stroke="#1e293b" stroke-width="1.1"/>`;
+
+  // Pallet
+  if (pallet) {
+    const xP1 = xC(590), xP2 = xC(1690), pW = +(xP2 - xP1).toFixed(1);
+    out += `<rect x="${xP1}" y="${yZ(158)}" width="${pW}" height="${+(115 * sc).toFixed(1)}" fill="rgba(217,119,6,0.16)" stroke="#b45309" stroke-width="1"/>`;
+    out += `<rect x="${xP1 + 4}" y="${yZ(1140)}" width="${+(pW - 8).toFixed(1)}" height="${+(yZ(158) - yZ(1140)).toFixed(1)}" rx="4" fill="rgba(245,158,11,0.08)" stroke="#b45309" stroke-width="1.2" stroke-dasharray="6 4"/>`;
+    out += `<text x="${+((xP1 + xP2) / 2).toFixed(1)}" y="${yZ(680)}" fill="#92400e" font-size="9.4" font-weight="700" text-anchor="middle">양면 파레트 1.5t</text>`;
+  }
+
+  // Wheels Ø260
+  const rW = +(130 * sc).toFixed(1);
+  out += `<circle cx="${xC(-715)}" cy="${yZ(130)}" r="${rW}" fill="#ffffff" stroke="#1d4ed8" stroke-width="2.1"/>`;
+  out += `<circle cx="${xC(280)}" cy="${yZ(130)}" r="${rW}" fill="#ffffff" stroke="#1d4ed8" stroke-width="2.1"/>`;
+
+  // QR
+  const xQR = xC(-240);
+  out += `<rect x="${xQR - 4.5}" y="${yZ(165)}" width="9" height="6.5" rx="1.2" fill="#0f766e" stroke="#ffffff"/>`;
+  out += `<polygon points="${xQR},${yZ(140)} ${xQR - 10},${fY} ${xQR + 10},${fY}" fill="rgba(15,118,110,0.20)"/>`;
+
+  // Sensor Dots
+  out += `<circle cx="${xXT}" cy="${yXT}" r="5.2" fill="${p.rearXT32 ? '#d97706' : '#0284c7'}" stroke="#ffffff" stroke-width="1.3"/>`;
+  if (p.frontE1R) {
+    out += `<rect x="${xE1 - 4.5}" y="${yE1 - 4.5}" width="9" height="9" rx="2" fill="#6d28d9" stroke="#ffffff" stroke-width="1"/>`;
+  } else {
+    out += `<rect x="${xE1 - 3}" y="${yE1 - 5}" width="6" height="10" rx="1" fill="#64748b" stroke="#1e293b" stroke-width="0.9"/>`;
+  }
+  out += `<rect x="${xC(-965) - 4}" y="${y2D - 4}" width="8" height="8" rx="1.5" fill="#0284c7" stroke="#ffffff" stroke-width="1"/>`;
+  out += `<rect x="${xC(455) - 4}" y="${y2D - 4}" width="8" height="8" rx="1.5" fill="#0284c7" stroke="#ffffff" stroke-width="1"/>`;
+
+  // Top title pill
+  out += `<rect x="14" y="10" width="510" height="24" rx="5" fill="#eff6ff" stroke="#bfdbfe"/>`;
+  out += `<text x="24" y="26" fill="#1d4ed8" font-size="9.6" font-weight="700">${p.name}</text>`;
+
+  // Bottom 2-line captions
+  const bTxt = is200
+    ? '배터리: 51.2V 200Ah LFP 듀얼 팩 (82 kg · 10.24 kWh · 자중 2,488.4 kg · SF 1.569)'
+    : '배터리: 51.2V 100Ah LFP 표준 팩 (42 kg · 5.12 kWh · 자중 2,447.2 kg · SF 1.559)';
+  out += `<text x="490" y="375" fill="#111827" font-size="9.4" font-weight="700" text-anchor="middle">${bTxt}</text>`;
+  out += `<text x="490" y="395" fill="#64748b" font-size="8.7" text-anchor="middle">차체 1,560×1,200 (전장 2,725 · 전고 945) · 지상고 G=85 mm · 포크 Z=5~43 mm · 4점 로드셀 ±0.2%</text>`;
+  return out;
+}
+
+function drawTopOpt(p, bat) {
+  const cx = 230, y0 = 172, sc = 0.106;
+  const px = yMm => +(cx + yMm * sc).toFixed(1);
+  const py = xMm => +(y0 + xMm * sc).toFixed(1);
+  const is200 = bat === '200';
+
+  let out = `<rect width="460" height="420" fill="#ffffff"/>`;
+  out += `<text x="230" y="20" fill="#475569" font-size="9.0" font-weight="700" text-anchor="middle">후방 (-X) · ${p.rearXT32 ? '좌후방 XT32 (93.3%)' : '좌후방 수평 2D'} · 40° 오픈 HMI · 후면 충전</text>`;
+
+  // Chassis
+  out += `<rect x="${px(-600)}" y="${py(-1035)}" width="${+(1200 * sc).toFixed(1)}" height="${+(1560 * sc).toFixed(1)}" rx="8" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>`;
+  out += `<rect x="${px(-585)}" y="${py(-1010)}" width="${+(1170 * sc).toFixed(1)}" height="${+(430 * sc).toFixed(1)}" rx="4" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>`;
+  out += `<rect x="${px(-143)}" y="${py(-1020)}" width="${+(286 * sc).toFixed(1)}" height="${+(150 * sc).toFixed(1)}" rx="2.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.1"/>`;
+  out += `<rect x="${px(-120)}" y="${py(-1039)}" width="${+(240 * sc).toFixed(1)}" height="5" rx="1" fill="#c2410c"/>`;
+
+  // Batteries
+  out += `<rect x="${px(-355)}" y="${py(-530)}" width="${+(710 * sc).toFixed(1)}" height="${+(215 * sc).toFixed(1)}" rx="2.5" fill="#dcfce7" stroke="#15803d" stroke-width="1.3"/>`;
+  out += `<text x="${cx}" y="${py(-410)}" fill="#14532d" font-size="7.4" font-weight="700" text-anchor="middle">100Ah 후방</text>`;
+  if (is200) {
+    out += `<rect x="${px(-335)}" y="${py(-160)}" width="${+(670 * sc).toFixed(1)}" height="${+(255 * sc).toFixed(1)}" rx="2.5" fill="#bbf7d0" stroke="#15803d" stroke-width="1.4"/>`;
+    out += `<text x="${cx}" y="${py(-25)}" fill="#14532d" font-size="7.4" font-weight="700" text-anchor="middle">+100Ah 전방</text>`;
+  } else {
+    out += `<rect x="${px(-335)}" y="${py(-160)}" width="${+(670 * sc).toFixed(1)}" height="${+(255 * sc).toFixed(1)}" rx="2.5" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="4 3"/>`;
+    out += `<text x="${cx}" y="${py(-25)}" fill="#64748b" font-size="7.2" text-anchor="middle">200Ah 예비 격실</text>`;
+  }
+
+  // 4WD/4WS Wheels
+  const wL = +(260 * sc).toFixed(1), wT = +(110 * sc).toFixed(1);
+  for (const [wx, wy] of [[280, 370], [280, -370], [-715, 370], [-715, -370]]) {
+    out += `<rect x="${(px(wy) - wT / 2).toFixed(1)}" y="${(py(wx) - wL / 2).toFixed(1)}" width="${wT}" height="${wL}" rx="2.5" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1"/>`;
+  }
+
+  // QR at (-240, 0)
+  out += `<rect x="${cx - 8}" y="${py(-240) - 8}" width="16" height="16" rx="2.5" fill="#0f766e" stroke="#ffffff"/>`;
+  out += `<text x="${cx}" y="${py(-240) + 2.8}" fill="#ffffff" font-size="7.2" font-weight="700" text-anchor="middle">QR</text>`;
+
+  // Mast, Weigh Plate & Forks
+  out += `<rect x="${px(-210)}" y="${py(280)}" width="${+(420 * sc).toFixed(1)}" height="${+(75 * sc).toFixed(1)}" fill="#cbd5e1" stroke="#334155" stroke-width="1"/>`;
+  out += `<rect x="${px(-355)}" y="${py(435)}" width="${+(710 * sc).toFixed(1)}" height="${+(12 * sc).toFixed(1)}" fill="#dc2626"/>`;
+  out += `<rect x="${px(220)}" y="${py(444)}" width="${+(120 * sc).toFixed(1)}" height="${+(1246 * sc).toFixed(1)}" rx="2" fill="#64748b" stroke="#1e293b" stroke-width="1.1"/>`;
+  out += `<rect x="${px(-340)}" y="${py(444)}" width="${+(120 * sc).toFixed(1)}" height="${+(1246 * sc).toFixed(1)}" rx="2" fill="#64748b" stroke="#1e293b" stroke-width="1.1"/>`;
+
+  // Sensors
+  out += `<circle cx="${px(440)}" cy="${py(-870)}" r="9.5" fill="${p.rearXT32 ? '#d97706' : '#0284c7'}" stroke="#ffffff" stroke-width="1.4"/>`;
+  out += `<text x="${px(440)}" y="${py(-870) + 2.8}" fill="#ffffff" font-size="7.2" font-weight="700" text-anchor="middle">${p.rearXT32 ? '3D' : '2D'}</text>`;
+  out += `<circle cx="${px(530)}" cy="${py(455)}" r="8" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>`;
+  out += `<circle cx="${px(-530)}" cy="${py(-965)}" r="8" fill="#0284c7" stroke="#ffffff" stroke-width="1.2"/>`;
+
+  if (p.frontE1R) {
+    out += `<rect x="${cx - 14}" y="${py(470) - 5.5}" width="28" height="11" rx="2.5" fill="#6d28d9" stroke="#ffffff"/>`;
+    out += `<text x="${cx}" y="${py(470) + 2.8}" fill="#ffffff" font-size="7.2" font-weight="700" text-anchor="middle">E1R</text>`;
+  } else {
+    out += `<rect x="${cx - 18}" y="${py(470) - 5}" width="36" height="10" rx="2" fill="#94a3b8" stroke="#334155"/>`;
+    out += `<text x="${cx}" y="${py(470) + 2.6}" fill="#ffffff" font-size="6.8" font-weight="700" text-anchor="middle">BLANK</text>`;
+  }
+
+  // Left/right side notes
+  out += `<text x="20" y="90" fill="#0369a1" font-size="8.4" font-weight="700">RR 2D 263.5°</text>`;
+  out += `<text x="20" y="218" fill="#1d4ed8" font-size="8.4" font-weight="700">4WD/4WS ×4</text>`;
+  out += `<text x="20" y="234" fill="#64748b" font-size="8.0">Ø260×110</text>`;
+  out += `<text x="440" y="236" fill="#0369a1" font-size="8.4" font-weight="700" text-anchor="end">FL 2D 263.25°</text>`;
+  out += `<text x="440" y="252" fill="#dc2626" font-size="8.2" font-weight="700" text-anchor="end">4점 로드셀</text>`;
+
+  out += `<text x="230" y="388" fill="#111827" font-size="9.0" font-weight="700" text-anchor="middle">전방 (+X) · 단조 포크 1,100 mm · 4점 로드셀 계량 캐리지</text>`;
+  out += `<text x="230" y="406" fill="#15803d" font-size="8.6" font-weight="600" text-anchor="middle">${is200 ? '200Ah LFP 듀얼 (QR -240 전·후방 분리 · 간섭 0)' : '100Ah LFP 표준 (QR -240 후방 이격 · 200Ah 무개조 확장)'}</text>`;
+  return out;
+}
+
+function drawForkWeigh(bat) {
+  const is200 = bat === '200';
+  const sf = is200 ? '1.569' : '1.559';
+  let out = `<rect width="560" height="285" fill="#ffffff"/>`;
+  out += `<text x="16" y="22" fill="#b91c1c" font-size="11.2" font-weight="700">2피스 4점 계량 캐리지 & 바닥 밀착 단조 포크 (Z=5~43 mm)</text>`;
+  out += `<text x="16" y="38" fill="#64748b" font-size="9.2">하부 레그·로드휠 0개 · 양면형(Closed-Bottom) 및 단면형 파레트 전종 대응</text>`;
+
+  out += `<line x1="16" y1="238" x2="544" y2="238" stroke="#334155" stroke-width="1.8"/>`;
+
+  // Mast + Inner Carriage
+  out += `<rect x="24" y="64" width="38" height="158" fill="#e2e8f0" stroke="#334155" stroke-width="1.2"/>`;
+  out += `<text x="43" y="148" fill="#334155" font-size="8.6" font-weight="700" text-anchor="middle" transform="rotate(-90 43 148)">마스트 · 볼스크류</text>`;
+  out += `<rect x="64" y="84" width="58" height="126" rx="2" fill="#f1f5f9" stroke="#334155" stroke-width="1.2"/>`;
+  out += `<text x="93" y="142" fill="#111827" font-size="8.8" font-weight="700" text-anchor="middle">이너 캐리지</text>`;
+  out += `<text x="93" y="156" fill="#64748b" font-size="8.0" text-anchor="middle">HGH30CA×4</text>`;
+
+  // 4-pt Load cells + stopper
+  out += `<rect x="122" y="94" width="36" height="26" rx="2" fill="#fee2e2" stroke="#dc2626" stroke-width="1.4"/>`;
+  out += `<text x="140" y="110" fill="#991b1b" font-size="8.2" font-weight="700" text-anchor="middle">LC 1t</text>`;
+  out += `<rect x="122" y="174" width="36" height="26" rx="2" fill="#fee2e2" stroke="#dc2626" stroke-width="1.4"/>`;
+  out += `<text x="140" y="190" fill="#991b1b" font-size="8.2" font-weight="700" text-anchor="middle">LC 1t</text>`;
+  out += `<rect x="122" y="139" width="32" height="16" rx="2" fill="#fef3c7" stroke="#b45309" stroke-width="1.1"/>`;
+
+  // Floating ITA Backplate + Backrest
+  out += `<rect x="158" y="80" width="16" height="152" rx="1.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.3"/>`;
+  out += `<rect x="174" y="68" width="12" height="62" rx="1.5" fill="#cbd5e1" stroke="#475569" stroke-width="1.1"/>`;
+
+  // Forged Cantilever Fork entering cleanly inside double-sided pallet pocket above bottom board (floor Z=5 dashed ref)
+  out += `<line x1="192" y1="234" x2="492" y2="234" stroke="#64748b" stroke-width="1" stroke-dasharray="3 2"/>`;
+  out += `<polygon points="174,146 192,146 192,196 430,196 492,208 492,218 174,218" fill="#475569" stroke="#1e293b" stroke-width="1.3"/>`;
+  out += `<rect x="444" y="206" width="18" height="7" rx="1.5" fill="#f59e0b" stroke="#92400e" stroke-width="0.9"/>`;
+
+  // Closed-Bottom Double-Sided Pallet
+  out += `<rect x="228" y="156" width="298" height="16" fill="rgba(217,119,6,0.22)" stroke="#b45309" stroke-width="1.1"/>`;
+  out += `<rect x="228" y="172" width="22" height="50" fill="rgba(217,119,6,0.14)" stroke="#b45309" stroke-width="1" stroke-dasharray="3 2"/>`;
+  out += `<rect x="504" y="172" width="22" height="50" fill="rgba(217,119,6,0.14)" stroke="#b45309" stroke-width="1" stroke-dasharray="3 2"/>`;
+  out += `<rect x="228" y="222" width="298" height="14" fill="rgba(217,119,6,0.28)" stroke="#92400e" stroke-width="1.1"/>`;
+  out += `<text x="377" y="167" fill="#78350f" font-size="8.6" font-weight="700" text-anchor="middle">양면형 파레트 상판 · 유효장 1,100 mm</text>`;
+  out += `<text x="377" y="188" fill="#92400e" font-size="8.5" font-weight="700" text-anchor="middle">포크 두께 38 mm · 끝단 21.1 mm 테이퍼 (하부 보드 위 자유 진입)</text>`;
+
+  // Callouts
+  out += `<line x1="140" y1="94" x2="140" y2="54" stroke="#dc2626" stroke-width="1.1"/>`;
+  out += `<text x="146" y="57" fill="#dc2626" font-size="8.8" font-weight="700">17-4PH 전단빔 1,000 kg ×4 (IP68 · 합산 4,000 kg)</text>`;
+  out += `<line x1="154" y1="147" x2="224" y2="128" stroke="#b45309" stroke-width="1"/>`;
+  out += `<text x="228" y="131" fill="#92400e" font-size="8.6" font-weight="700">과부하 스토퍼 0.8 mm + 횡력 가이드 롤러 ×4</text>`;
+  out += `<text x="228" y="102" fill="#15803d" font-size="8.8" font-weight="700">들림 즉시 ±0.1~0.2% (±2~3 kg) · 전복 안전율 SF ${sf}</text>`;
+  out += `<text x="228" y="80" fill="#1d4ed8" font-size="8.5" font-weight="700">플로팅 ITA Class 2A 계량 백플레이트 (폭 710 mm)</text>`;
+
+  out += `<text x="280" y="260" fill="#111827" font-size="9.0" font-weight="700" text-anchor="middle">연속 승강 0~450 mm (포크 하면 Z=5..455) · 끝단 SICK WTB4FP 광전 ×2 매립</text>`;
+  out += `<text x="280" y="276" fill="#64748b" font-size="8.4" text-anchor="middle">6축 IMU 경사 보정 연동 · Laumas TLB4 / CAS 4ch CANopen 트랜스미터</text>`;
+  return out;
+}
+
+function drawStepClear(bat) {
+  const is200 = bat === '200';
+  const fLoad = is200 ? '1,625.3' : '1,611.1';
+  const rLoad = is200 ? '368.9' : '362.5';
+  let out = `<rect width="560" height="285" fill="#ffffff"/>`;
+  out += `<text x="16" y="22" fill="#1d4ed8" font-size="11.2" font-weight="700">Ø260×110 4WD/4WS · 30 mm 직각 단차 & 50 mm 엘리베이터 틈</text>`;
+  out += `<text x="16" y="38" fill="#64748b" font-size="9.2">소형 캐스터 0개 · ±35 mm 로커 서스펜션 · 연속 12t 바닥판 지상고 G=85 mm</text>`;
+
+  // Left section: 30 mm step
+  out += `<text x="140" y="60" fill="#111827" font-size="9.2" font-weight="700" text-anchor="middle">30 mm 직각 단차 (등판각 39.7°)</text>`;
+  out += `<rect x="24" y="72" width="232" height="12" fill="#e2e8f0" stroke="#334155" stroke-width="1.1"/>`;
+  out += `<rect x="24" y="156" width="68" height="9" fill="#cbd5e1" stroke="#334155" stroke-width="1.1"/>`;
+  // Coilover + rocker
+  out += `<rect x="46" y="84" width="20" height="32" rx="2" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>`;
+  out += `<path d="M 49,90 L 63,96 L 49,102 L 63,108 L 49,114" fill="none" stroke="#1d4ed8" stroke-width="1.2"/>`;
+  out += `<rect x="40" y="116" width="112" height="10" rx="2" fill="#94a3b8" stroke="#334155" stroke-width="1"/>`;
+  out += `<rect x="116" y="126" width="52" height="10" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>`;
+  // Wheel R=44
+  out += `<circle cx="142" cy="190" r="44" fill="#f8fafc" stroke="#1d4ed8" stroke-width="5.5"/>`;
+  out += `<circle cx="142" cy="190" r="21" fill="#dbeafe" stroke="#1e3a8a" stroke-width="1.2"/>`;
+  out += `<circle cx="142" cy="190" r="4" fill="#1e3a8a"/>`;
+  // 30mm Step
+  out += `<path d="M 18,234 L 178,234 L 178,208 L 264,208" fill="none" stroke="#334155" stroke-width="2"/>`;
+  out += `<rect x="178" y="208" width="86" height="26" fill="#f1f5f9"/>`;
+  out += `<line x1="142" y1="190" x2="178" y2="208" stroke="#dc2626" stroke-width="1.5"/>`;
+  out += `<line x1="142" y1="190" x2="142" y2="234" stroke="#dc2626" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+  out += `<text x="220" y="225" fill="#dc2626" font-size="8.6" font-weight="700" text-anchor="middle">30 mm 턱</text>`;
+  out += `<text x="192" y="182" fill="#dc2626" font-size="8.8" font-weight="700">39.7°</text>`;
+  out += `<line x1="34" y1="165" x2="34" y2="234" stroke="#15803d" stroke-width="1.3"/>`;
+  out += `<text x="40" y="202" fill="#15803d" font-size="8.6" font-weight="700">G=85 mm</text>`;
+
+  // Divider
+  out += `<line x1="280" y1="50" x2="280" y2="246" stroke="#dfe3ea" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+
+  // Right section: 50 mm gap
+  out += `<text x="420" y="60" fill="#111827" font-size="9.2" font-weight="700" text-anchor="middle">50 mm 엘리베이터 틈새 (침하 2.43 mm)</text>`;
+  out += `<rect x="304" y="72" width="232" height="12" fill="#e2e8f0" stroke="#334155" stroke-width="1.1"/>`;
+  out += `<rect x="386" y="116" width="68" height="10" rx="2" fill="#94a3b8" stroke="#334155" stroke-width="1"/>`;
+  out += `<circle cx="420" cy="192" r="44" fill="#f8fafc" stroke="#1d4ed8" stroke-width="5.5"/>`;
+  out += `<circle cx="420" cy="192" r="21" fill="#dbeafe" stroke="#1e3a8a" stroke-width="1.2"/>`;
+  out += `<text x="420" y="195" fill="#1e3a8a" font-size="8.6" font-weight="700" text-anchor="middle">Ø260</text>`;
+  out += `<rect x="300" y="232" width="106" height="16" fill="#e2e8f0" stroke="#334155" stroke-width="1.2"/>`;
+  out += `<rect x="434" y="232" width="106" height="16" fill="#e2e8f0" stroke="#334155" stroke-width="1.2"/>`;
+  out += `<line x1="406" y1="242" x2="434" y2="242" stroke="#c2410c" stroke-width="1.8"/>`;
+  out += `<text x="420" y="102" fill="#1d4ed8" font-size="8.6" font-weight="700" text-anchor="middle">Vulkollan 92A · 정격 1,800 kg/륜</text>`;
+  out += `<text x="420" y="142" fill="#15803d" font-size="8.6" font-weight="700" text-anchor="middle">50 mm 틈 침하 2.43 mm (걸림 0)</text>`;
+
+  out += `<text x="280" y="260" fill="#111827" font-size="9.0" font-weight="700" text-anchor="middle">${is200 ? '200Ah' : '100Ah'} 적재 1.5t 윤하중: 전륜 ${fLoad} kg / 후륜 ${rLoad} kg (정격 1,800 kg/륜)</text>`;
+  out += `<text x="280" y="276" fill="#64748b" font-size="8.4" text-anchor="middle">±90° 4WS (크랩·스핀·아커만) · Ø305 휠웰 무간섭 · 바운스 ±35 mm 충돌 0</text>`;
+  return out;
+}
+
+function drawBatCompare(bat) {
+  const is200 = bat === '200';
+  const c100 = !is200 ? '#1d4ed8' : '#15803d';
+  const c200 = is200 ? '#1d4ed8' : '#b45309';
+  const w100 = !is200 ? 2.2 : 1.2;
+  const w200 = is200 ? 2.2 : 1.2;
+
+  let out = `<rect width="980" height="315" fill="#ffffff"/>`;
+
+  // LEFT CARD: 100Ah LFP
+  out += `<rect x="14" y="14" width="466" height="287" rx="8" fill="${!is200 ? '#f8fbff' : '#fafbfc'}" stroke="${c100}" stroke-width="${w100}"/>`;
+  out += `<text x="28" y="38" fill="${c100}" font-size="12.2" font-weight="700">100Ah LFP (표준 단일 팩) — 51.2V · 5.12 kWh${!is200 ? ' [선택됨]' : ''}</text>`;
+  out += `<text x="28" y="56" fill="#64748b" font-size="9.8">EVE LF100LA 16S ×1 (215×710×230 · 42 kg) · 공차 자중 2,447.2 kg · SF 1.559</text>`;
+
+  // Chassis cutaway left
+  out += `<path d="M 46,120 L 122,120 L 122,174 L 336,174 L 336,232 L 46,232 Z" fill="#e2e8f0" stroke="#334155" stroke-width="1.4"/>`;
+  out += `<rect x="336" y="218" width="112" height="12" fill="#64748b" stroke="#1e293b" stroke-width="1.1"/>`;
+  out += `<rect x="298" y="98" width="14" height="120" fill="#cbd5e1" stroke="#334155" stroke-width="1"/>`;
+  // Counterweight rear
+  out += `<rect x="52" y="126" width="66" height="100" fill="#cbd5e1" stroke="#64748b" stroke-width="0.9"/>`;
+  // Rear 100Ah battery
+  out += `<rect x="136" y="182" width="48" height="44" rx="3" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>`;
+  out += `<text x="160" y="201" fill="#14532d" font-size="8.0" font-weight="700" text-anchor="middle">100Ah</text>`;
+  out += `<text x="160" y="213" fill="#14532d" font-size="7.6" font-weight="700" text-anchor="middle">42 kg</text>`;
+  // QR at X=-240
+  out += `<rect x="195" y="212" width="18" height="16" rx="2" fill="#0f766e"/>`;
+  out += `<text x="204" y="250" fill="#0f766e" font-size="8.6" font-weight="700" text-anchor="middle">QR (-240)</text>`;
+  // Reserved front bay
+  out += `<rect x="224" y="182" width="52" height="44" rx="3" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="4 3"/>`;
+  out += `<text x="250" y="207" fill="#64748b" font-size="8.0" text-anchor="middle">예비 격실</text>`;
+  // CG marker
+  out += `<circle cx="132" cy="196" r="5.5" fill="#d97706" stroke="#ffffff" stroke-width="1.4"/>`;
+  out += `<line x1="132" y1="188" x2="132" y2="150" stroke="#b45309" stroke-width="1.2" stroke-dasharray="3 2"/>`;
+  out += `<text x="128" y="144" fill="#92400e" font-size="8.8" font-weight="700" text-anchor="start">CG (-541.9, 1.8, 359.9)</text>`;
+  out += `<text x="247" y="274" fill="#111827" font-size="9.2" font-weight="700" text-anchor="middle">전륜 1,611.1 / 후륜 362.5 kg/륜 · SF 1.559 (189부품)</text>`;
+  out += `<text x="247" y="291" fill="#475569" font-size="8.8" text-anchor="middle">표준 1교대 + 후면 기회충전 최적 · 상부 볼트 해치 착탈 정비</text>`;
+
+  // RIGHT CARD: 200Ah LFP Dual
+  out += `<rect x="500" y="14" width="466" height="287" rx="8" fill="${is200 ? '#f8fbff' : '#fafbfc'}" stroke="${c200}" stroke-width="${w200}"/>`;
+  out += `<text x="514" y="38" fill="${c200}" font-size="12.2" font-weight="700">200Ah LFP (대용량 듀얼 팩) — 51.2V · 10.24 kWh${is200 ? ' [선택됨]' : ''}</text>`;
+  out += `<text x="514" y="56" fill="#64748b" font-size="9.8">EVE LF100LA 16S ×2 병렬 (82 kg · 35sq 버스바) · 공차 자중 2,488.4 kg · SF 1.569</text>`;
+
+  // Chassis cutaway right
+  out += `<path d="M 532,120 L 608,120 L 608,174 L 822,174 L 822,232 L 532,232 Z" fill="#e2e8f0" stroke="#334155" stroke-width="1.4"/>`;
+  out += `<rect x="822" y="218" width="112" height="12" fill="#64748b" stroke="#1e293b" stroke-width="1.1"/>`;
+  out += `<rect x="784" y="98" width="14" height="120" fill="#cbd5e1" stroke="#334155" stroke-width="1"/>`;
+  out += `<rect x="538" y="126" width="66" height="100" fill="#cbd5e1" stroke="#64748b" stroke-width="0.9"/>`;
+  // Rear 100Ah
+  out += `<rect x="622" y="182" width="48" height="44" rx="3" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/>`;
+  out += `<text x="646" y="201" fill="#14532d" font-size="8.0" font-weight="700" text-anchor="middle">100Ah</text>`;
+  out += `<text x="646" y="213" fill="#14532d" font-size="7.6" font-weight="700" text-anchor="middle">후방</text>`;
+  // QR at X=-240 (completely clear!)
+  out += `<rect x="681" y="212" width="18" height="16" rx="2" fill="#0f766e"/>`;
+  out += `<text x="690" y="250" fill="#0f766e" font-size="8.6" font-weight="700" text-anchor="middle">QR (-240 간섭 0)</text>`;
+  // Front +100Ah
+  out += `<rect x="710" y="182" width="52" height="44" rx="3" fill="#bbf7d0" stroke="#15803d" stroke-width="1.6"/>`;
+  out += `<text x="736" y="201" fill="#14532d" font-size="8.0" font-weight="700" text-anchor="middle">+100Ah</text>`;
+  out += `<text x="736" y="213" fill="#14532d" font-size="7.6" font-weight="700" text-anchor="middle">전방</text>`;
+  // Parallel busbar bridge above QR
+  out += `<path d="M 646,182 L 646,177 L 736,177 L 736,182" fill="none" stroke="#c2410c" stroke-width="2"/>`;
+  // CG marker
+  out += `<circle cx="622" cy="197" r="5.5" fill="#c2410c" stroke="#ffffff" stroke-width="1.4"/>`;
+  out += `<line x1="622" y1="189" x2="622" y2="150" stroke="#c2410c" stroke-width="1.2" stroke-dasharray="3 2"/>`;
+  out += `<text x="616" y="144" fill="#9a3412" font-size="8.7" font-weight="700" text-anchor="start">CG (-533.4, 1.9, 357.6) · SF +0.010</text>`;
+  out += `<text x="733" y="274" fill="#111827" font-size="9.2" font-weight="700" text-anchor="middle">전륜 1,625.3 / 후륜 368.9 kg/륜 · SF 1.569 (192부품)</text>`;
+  out += `<text x="733" y="291" fill="#475569" font-size="8.8" text-anchor="middle">다교대 연속 장시간 주행 · 마스터 프레임 무개조 병렬 실장 (간섭 0)</text>`;
+  return out;
+}
+
+const sp = new URLSearchParams(location.search);
+const rawPkg = (sp.get('pkg') || '').toUpperCase();
+let curPkg = PKGS[rawPkg] ? rawPkg : 'FULL3D';
+let curBat = (sp.get('batt') || '') === '200' ? '200' : '100';
+
+function render() {
+  const pallet = document.getElementById('chkPallet').checked;
+  const step = document.getElementById('chkStep').checked;
+  const p = PKGS[curPkg];
+  const { primary: cv, extra200 } = resolveCad(curPkg, curBat);
+
+  document.getElementById('mainTitle').textContent = p.name;
+  document.getElementById('mainSpecBadge').textContent = p.badge;
+  document.getElementById('btnOpen3d').href = `3d.html?pkg=${curPkg}&batt=${curBat}`;
+
+  const btnStep = document.getElementById('btnDlStep');
+  const btnCsv  = document.getElementById('btnDlCsv');
+  const btn200  = document.getElementById('btnDl200Extra');
+  btnStep.href = cv.step;
+  btnStep.textContent = `${cv.id} STEP (${cv.stepSize})`;
+  btnCsv.href = cv.csv;
+  btnCsv.textContent = `${cv.id} CSV (${cv.csvSize})`;
+  document.getElementById('cadVariantInfo').textContent =
+    `${cv.id} · ${cv.parts}부품 · ${cv.mass} · SF ${cv.sf}` +
+    (extra200 ? ' (200Ah 듀얼 실장은 Full3D_200Ah STEP 병행 참조)' : '');
+  btn200.style.display = extra200 ? 'inline-flex' : 'none';
+
+  document.getElementById('sideMain').innerHTML = drawSideOpt(p, curBat, pallet, step);
+  document.getElementById('topMain').innerHTML = drawTopOpt(p, curBat);
+  document.getElementById('forkWeighSvg').innerHTML = drawForkWeigh(curBat);
+  document.getElementById('stepClearSvg').innerHTML = drawStepClear(curBat);
+  document.getElementById('batCompareSvg').innerHTML = drawBatCompare(curBat);
+
+  document.getElementById('detailBody').innerHTML =
+    p.rows.map(([k, v]) => `<tr><td class="strong">${k}</td><td>${v}</td></tr>`).join('');
+  document.getElementById('kpiCards').innerHTML =
+    p.kpis.map(([k, v, s]) => `<div class="d-card"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
+
+  document.querySelectorAll('.pkg-btn').forEach(b => b.classList.toggle('active', b.dataset.pkg === curPkg));
+  document.querySelectorAll('.bat-btn').forEach(b => b.classList.toggle('active', b.dataset.bat === curBat));
+}
+
+document.querySelectorAll('.pkg-btn').forEach(b => b.addEventListener('click', () => { curPkg = b.dataset.pkg; render(); }));
+document.querySelectorAll('.bat-btn').forEach(b => b.addEventListener('click', () => { curBat = b.dataset.bat; render(); }));
+['chkPallet', 'chkStep'].forEach(id => document.getElementById(id).addEventListener('change', render));
+
+render();
+})();
+</script>
+</body>
+</html>
