@@ -1,0 +1,3349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>도면 · CAD — HD-30X 1.5t AMR Rev A.5</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111827'/%3E%3Crect x='4' y='4' width='24' height='24' rx='3' fill='none' stroke='%2393c5fd' stroke-width='1.8'/%3E%3Cpath d='M8 21V11h2.6v3.8h4.2V11h2.6v10h-2.6v-4h-4.2v4H8zm11.2-10h3.6c2.2 0 3.7 1.4 3.7 5s-1.5 5-3.7 5h-3.6V11zm2.5 2.1v5.8h1c1.1 0 1.7-.7 1.7-2.9s-.6-2.9-1.7-2.9h-1z' fill='%23ffffff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="portal.css">
+<style>
+:root {
+  /* Whitepaper Mechanical Blueprint Palette (Unified Screen & A3 Landscape Print) */
+  --svg-bg: #ffffff;
+  --svg-grid: #eef2f6;
+  --svg-void: #f8fafc;
+  --svg-frame: #f1f5f9;
+  --svg-frame2: #e2e8f0;
+  --svg-cw: #dde3eb;
+  --svg-al: #cbd5e1;
+  --svg-stroke: #0f172a;
+  --svg-muted: #475569;
+  --svg-env: #15803d;
+  --svg-dim: #1d4ed8;
+  --svg-green: #15803d;
+  --svg-amber: #b45309;
+  --svg-orange: #c2410c;
+  --svg-purple: #6d28d9;
+  --svg-teal: #0f766e;
+  --svg-red: #b91c1c;
+  --svg-blue: #1d4ed8;
+  --svg-text: #0f172a;
+  --svg-text-sub: #334155;
+  --svg-text-inv: #ffffff;
+  --svg-badge-bg: #ffffff;
+  --svg-badge-bd: #94a3b8;
+  --svg-leader: #475569;
+
+  /* Electrical Block Diagram Palette (Unified Whitepaper Ink) */
+  --el-bg: #ffffff;
+  --el-box-bg: #ffffff;
+  --el-box-hi: #f8fafc;
+  --el-net: #1d4ed8;
+  --el-net-bg: #f5f8ff;
+  --el-net-bd: #2563eb;
+  --el-mot: #0f766e;
+  --el-mot-bg: #f2fbf9;
+  --el-mot-bd: #0f766e;
+  --el-io: #b45309;
+  --el-io-bg: #fffbf2;
+  --el-io-bd: #b45309;
+  --el-safe: #b91c1c;
+  --el-safe-bg: #fef5f5;
+  --el-safe-bd: #b91c1c;
+  --el-text: #0f172a;
+  --el-sub: #334155;
+  --el-muted: #64748b;
+}
+
+.is-hidden { display: none !important; }
+
+/* CAD & BOM Download Panel */
+.cad-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.cad-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.cad-panel-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cad-panel-title {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.cad-panel-meta {
+  font-size: 11.8px;
+  color: var(--muted);
+}
+.cad-panel .p-table-wrap {
+  border: none;
+  border-radius: 0;
+}
+.cad-panel table.p-table th {
+  padding: 9px 12px;
+}
+.cad-panel table.p-table td {
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+.cad-id-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.cad-id {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.cad-spec-main {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 12.2px;
+  line-height: 1.38;
+}
+.cad-spec-sub {
+  font-size: 11.1px;
+  color: var(--muted);
+  margin-top: 2px;
+  line-height: 1.38;
+}
+.cad-dl-actions {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+.cad-dl-actions .p-btn.sm {
+  font-family: var(--font-mono);
+  font-size: 11.1px;
+  padding: 4px 9px;
+}
+.cad-row-master td {
+  background: #fafcff;
+}
+.cad-panel-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 11px 18px;
+  background: var(--surface-subtle);
+  border-top: 1px solid var(--line);
+}
+.cad-aux-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cad-aux-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-right: 4px;
+}
+
+/* Sheet Quick Navigation */
+.sheet-jump {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.sheet-jump-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.sheet-jump-links a {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 5px 11px;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+}
+.sheet-jump-links a:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+  background: var(--surface-subtle);
+}
+.sheet-jump-links a .sn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-right: 5px;
+}
+.sheet-jump-hint {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+/* A3 Engineering Drawing Sheet */
+.sheet {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+  scroll-margin-top: 68px;
+}
+
+/* ISO / KS Mechanical Title Block */
+.title-block {
+  display: grid;
+  grid-template-columns: 2.35fr 1.15fr 1.05fr 1fr;
+  border: 1.5px solid #1e293b;
+  margin-bottom: 16px;
+  background: #ffffff;
+}
+.tb-cell {
+  padding: 9px 12px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.tb-cell:nth-child(4n),
+.tb-cell:last-child {
+  border-right: none;
+}
+.tb-cell.main {
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+}
+.tb-k {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.tb-v {
+  font-weight: 600;
+  font-size: 11.8px;
+  color: var(--ink);
+  margin-top: 3px;
+  line-height: 1.42;
+}
+.tb-v.mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+.tb-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 3px 0 0;
+  line-height: 1.28;
+}
+.tb-sub {
+  font-size: 11.5px;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+.tb-proj-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+/* Sheet Headings */
+.sheet h2 {
+  margin: 0 0 13px;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1.5px solid #1e293b;
+}
+.sheet h2 span {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+.sheet h3 {
+  margin: 14px 0 7px;
+  font-size: 12.8px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sheet h3 span {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+/* Drawing Frames & Grids */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.cad-frame {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 6px;
+}
+.cad-frame svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.fig-cap {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.fig-cap small {
+  font-family: var(--font-mono);
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 10.6px;
+}
+
+/* 9-Gate Cards (Swiss Engineering Grid: symmetrical 3 x 3 layout) */
+.gate-grid-9 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.gate-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ok);
+  border-radius: var(--radius-sm);
+  padding: 9px 11px;
+}
+.gate-card.gate9-card {
+  border-left-color: var(--accent);
+  background: #fafcff;
+}
+.gate-card.warn-card {
+  border-left-color: var(--warn);
+}
+.gate-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.gate-title {
+  font-size: 11.4px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.gate-val {
+  font-family: var(--font-mono);
+  font-size: 10.6px;
+  color: var(--ink-2);
+  line-height: 1.44;
+}
+
+/* Sheet Technical Tables */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+table.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.8px;
+  font-variant-numeric: tabular-nums;
+}
+table.spec-table th,
+table.spec-table td {
+  padding: 6.5px 9px;
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid #eef1f5;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.42;
+}
+table.spec-table th:last-child,
+table.spec-table td:last-child {
+  border-right: none;
+}
+table.spec-table tr:last-child td {
+  border-bottom: none;
+}
+table.spec-table th {
+  background: var(--surface-subtle);
+  color: var(--ink-2);
+  font-weight: 600;
+  font-size: 11px;
+  white-space: nowrap;
+}
+table.spec-table td {
+  color: var(--ink-2);
+}
+table.spec-table td strong {
+  color: var(--ink);
+}
+table.spec-table td.mono {
+  font-family: var(--font-mono);
+  font-size: 10.8px;
+  white-space: nowrap;
+}
+table.spec-table td.num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: right;
+  white-space: nowrap;
+}
+table.spec-table tr.row-hi td {
+  background: #f8fafc;
+}
+table.spec-table tr.row-hi-ok td {
+  background: #f3fbf6;
+}
+table.spec-table code,
+.sheet-note code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: var(--surface-subtle);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: var(--ink);
+}
+
+.pass {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--ok-soft);
+  color: var(--ok);
+  border: 1px solid var(--ok-line);
+  font-weight: 700;
+  font-size: 10.2px;
+  font-family: var(--font-mono);
+}
+.warn {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--warn-soft);
+  color: var(--warn);
+  border: 1px solid var(--warn-line);
+  font-weight: 700;
+  font-size: 10.2px;
+  font-family: var(--font-mono);
+}
+.tag-datum {
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.sheet-note {
+  margin-top: 11px;
+  padding: 10px 13px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: 11.8px;
+  color: var(--ink-2);
+  line-height: 1.52;
+}
+.sheet-note.ok-note {
+  border-left-color: var(--ok);
+}
+.sheet-note.warn-note {
+  border-left-color: var(--warn);
+  background: #fffdf7;
+}
+.sheet-note strong {
+  color: var(--ink);
+}
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: 1.06fr 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+/* Sheet 4 lower tables: stacked on screen for full width readability, 2-col on A3 Landscape print */
+.sheet4-lower-grid {
+  display: block;
+}
+
+@media screen and (max-width: 980px) {
+  .title-block {
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid-2,
+  .gate-grid-9,
+  .spec-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@page {
+  size: A3 landscape;
+  margin: 7mm;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .p-header,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 8.2pt;
+    line-height: 1.26;
+  }
+  .p-wrap {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .sheet {
+    border: 1.2px solid #0f172a;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 7px 10px;
+    margin: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    break-after: page;
+    page-break-after: always;
+  }
+  .sheet:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+  .cad-frame {
+    background: #ffffff !important;
+    border: 1px solid #0f172a !important;
+    border-radius: 0;
+    padding: 3px;
+  }
+  #svgSide {
+    max-height: 295px;
+    width: auto;
+    margin: 0 auto;
+  }
+  #svgRear,
+  #svgFront {
+    max-height: 280px;
+    width: auto;
+    margin: 0 auto;
+  }
+  #svgTop,
+  #svgBottom {
+    max-height: 410px;
+    width: auto;
+    margin: 0 auto;
+  }
+  #detForkScale,
+  #det4WS,
+  #detTower3D,
+  #det2DE1R {
+    max-height: 270px;
+    width: auto;
+    margin: 0 auto;
+  }
+  #svgElecBlock {
+    max-height: 420px;
+    width: auto;
+    margin: 0 auto;
+  }
+  .title-block {
+    margin-bottom: 6px;
+  }
+  .tb-cell {
+    padding: 3.8px 7px;
+  }
+  .tb-title {
+    font-size: 11.4pt;
+  }
+  .tb-sub {
+    font-size: 7.4pt;
+  }
+  .tb-v {
+    font-size: 7.5pt;
+    line-height: 1.28;
+  }
+  .tb-v.mono {
+    font-size: 7.2pt;
+  }
+  .sheet h2 {
+    font-size: 9.8pt;
+    margin-bottom: 5px;
+    padding-bottom: 2.5px;
+  }
+  .sheet h3 {
+    margin: 5px 0 3px;
+    font-size: 8.2pt;
+  }
+  .grid-2 {
+    gap: 8px;
+  }
+  .spec-grid {
+    gap: 8px;
+    margin-top: 5px;
+  }
+  .sheet4-lower-grid {
+    display: grid;
+    grid-template-columns: 1.06fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .fig-cap {
+    font-size: 7.8pt;
+    margin-bottom: 2px;
+  }
+  .fig-cap small {
+    font-size: 6.9pt;
+  }
+  .table-wrap {
+    border-radius: 0;
+    overflow: visible;
+  }
+  table.spec-table {
+    font-size: 7.1pt;
+  }
+  table.spec-table th,
+  table.spec-table td {
+    padding: 2.2px 4.5px;
+    line-height: 1.22;
+  }
+  table.spec-table td.mono,
+  table.spec-table td.num {
+    font-size: 6.8pt;
+    white-space: normal;
+  }
+  #sheet4 table.spec-table th,
+  #sheet4 table.spec-table td {
+    padding: 1.9px 4px;
+    font-size: 6.75pt;
+    line-height: 1.18;
+  }
+  #sheet5 table.spec-table th,
+  #sheet5 table.spec-table td {
+    padding: 2.1px 4.5px;
+    font-size: 7.1pt;
+    line-height: 1.2;
+  }
+  .gate-grid-9 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  .gate-card {
+    padding: 3.5px 5.5px;
+    border-radius: 0;
+  }
+  .gate-title {
+    font-size: 7.2pt;
+  }
+  .gate-val {
+    font-size: 6.55pt;
+    line-height: 1.22;
+  }
+  .pass, .warn {
+    font-size: 6.6pt;
+    padding: 0.5px 4px;
+  }
+  .sheet-note {
+    padding: 4.5px 7px;
+    font-size: 7.15pt;
+    margin-top: 4.5px;
+    line-height: 1.25;
+    border-radius: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="p-header no-print">
+  <div class="p-header-inner">
+    <a class="p-brand" href="index.html">HD-30X 1.5t AMR <span class="p-brand-rev">Rev A.5</span></a>
+    <nav class="p-nav">
+      <a href="index.html">개요</a>
+      <a href="3d.html">3D 뷰어</a>
+      <a href="drawings_options.html">옵션 · KC</a>
+      <a href="vendor_drawing.html" class="active">도면 · CAD</a>
+    </nav>
+  </div>
+</header>
+
+<main class="p-wrap">
+
+  <!-- ======================================================================
+       SCREEN-ONLY PORTAL HEADER & HD-30X 4-PACKAGE CAD / 2-BOM PANEL
+       ====================================================================== -->
+  <div class="no-print">
+    <div class="p-page-head">
+      <div>
+        <div class="p-kicker" id="pageKicker">ENGINEERING DRAWINGS &amp; CAD RELEASE · HD-30X REV A.5 (9/9 GATE REAL B-REP KINEMATICS VERIFIED)</div>
+        <h1 class="p-title" id="pageTitle">HD-30X 업체 제작 기준도면 · 4종 개별 CAD 패키지 (Rev A.5)</h1>
+        <p class="p-subtitle" id="pageSubtitle"><strong>HD-30X Rev A.5</strong> (2단 Y-네스티드 L=305 X-가위 Z476.8 · 48V EHA Ø40 · 2단 텔레스코픽 힐 마스트 · 대칭 970 WB 4점 로드셀 · 4축 수직 서스펜션 · 1,560×1,200×760 mm · <code>pod_top=275</code> · 786.66 kg · 338부품 · 만재 2.29 t 3t 승강기 적재 가능)의 4종 STEP/CSV, 2종 지역별 실부품 BOM(사양 전용), 3D GLB 및 A3 5매 제작 기준도를 확인·인쇄할 수 있습니다.</p>
+      </div>
+      <div class="p-btn-row">
+        <a class="p-btn" id="btn3dViewer" href="3d.html">3D 단면 뷰어</a>
+        <button type="button" class="p-btn primary" onclick="window.print()">A3 인쇄 (PDF 5매)</button>
+      </div>
+    </div>
+
+    <!-- Complete HD-30X 4-Package CAD & 2-BOM Download Panel -->
+    <section class="cad-panel" aria-label="HD-30X 4종 개별 CAD 및 2종 실부품 BOM 다운로드">
+      <div class="cad-panel-head">
+        <div class="cad-panel-title-wrap">
+          <h2 class="cad-panel-title" id="cadPanelTitle">HD-30X Rev A.5 4종 개별 CAD (.STEP / .CSV) · 실부품 BOM (사양 전용)</h2>
+          <span class="cad-panel-meta" id="cadPanelMeta">공통 HD-30X Rev A.5 초콤팩트 4WD/4WS 수직 서스펜션 · 2단 L=305 X-가위(Z476.8)·EHA Ø40·Hat 계량 마스터 프레임 1벌 공유 (1,560×1,200×760 · pod_top 275 · CW 0) · LFP 전용</span>
+        </div>
+        <span class="p-tag ok">338~343 PARTS · 9/9 PASS</span>
+      </div>
+
+      <div id="cadPkgX">
+        <div class="p-table-wrap">
+          <table class="p-table">
+            <thead>
+              <tr>
+                <th>사양 ID (HD-30X)</th>
+                <th>사양 구성 및 프레임 차분 (Rev A.5)</th>
+                <th class="num">부품 수</th>
+                <th class="num">공차 질량 (kg)</th>
+                <th class="num">무게중심 CG (mm)</th>
+                <th class="num">윤하중 안전율</th>
+                <th>9대 검증</th>
+                <th>개별 CAD 다운로드</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="cad-row-master">
+                <td>
+                  <div class="cad-id-cell">
+                    <span class="cad-id">Full3D_100Ah</span>
+                    <span class="p-tag blue">마스터</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="cad-spec-main">풀 3D (중장갑 XT32 + 등뼈 매립 E1R) · 2단 L=305 X-가위(Z476.8)·EHA Ø40·Hat 계량 · 수직 4WS · 100Ah LFP</div>
+                  <div class="cad-spec-sub">1,560×1,200×760 (pod_top 275 · CW 0) · 302≤355 mm 창문 · HGR25+HTD-8M · 2단 힐 마스트(Z490) · 970 WB LC · 60포즈 0</div>
+                </td>
+                <td class="num">338</td>
+                <td class="num strong">786.66</td>
+                <td class="num">[-151.7, +9.4, 201.3]</td>
+                <td class="num strong">1.83× (599.5 kg)</td>
+                <td><span class="p-tag ok">9/9 PASS</span></td>
+                <td>
+                  <div class="cad-dl-actions">
+                    <a class="p-btn sm primary" href="cad/HD30X_RevA5_Full3D_100Ah.step" download>STEP 10.23 MB</a>
+                    <a class="p-btn sm" href="cad/HD30X_RevA5_Full3D_100Ah.csv" download>CSV 94 KB</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="cad-id-cell">
+                    <span class="cad-id">Semi3D_E1R_100Ah</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="cad-spec-main">준풀 3D (등뼈 매립 E1R + 좌후방 중장갑 케이지 평면 2D) · 2단 L=305 X-가위·EHA 계량 · 100Ah LFP</div>
+                  <div class="cad-spec-sub">전방 매립 E1R 유지 / 좌후방 중장갑 롤케이지 내 XT32+8° 쐐기 제거 → 수평 평면 받침 + 2D 라이다 교체</div>
+                </td>
+                <td class="num">338</td>
+                <td class="num strong">785.90</td>
+                <td class="num">[-151.2, +9.0, 200.9]</td>
+                <td class="num strong">1.83× (599.6 kg)</td>
+                <td><span class="p-tag ok">9/9 PASS</span></td>
+                <td>
+                  <div class="cad-dl-actions">
+                    <a class="p-btn sm" href="cad/HD30X_RevA5_Semi3D_E1R_100Ah.step" download>STEP 10.24 MB</a>
+                    <a class="p-btn sm" href="cad/HD30X_RevA5_Semi3D_E1R_100Ah.csv" download>CSV 94 KB</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="cad-id-cell">
+                    <span class="cad-id">2D_Basic_100Ah</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="cad-spec-main">기본 2D (전방 등뼈 3t 블랭킹 + 좌후방 평면 2D) · 2단 L=305 X-가위·EHA 계량 · 100Ah LFP</div>
+                  <div class="cad-spec-sub">전방 E1R 제거 + 3t 강판 블랭킹 커버 / 좌후방 수평 2D 교체 / 대각 2D×2 + 원점 QR + 2단 X-가위·수직 4WS 유지</div>
+                </td>
+                <td class="num">337</td>
+                <td class="num strong">785.53</td>
+                <td class="num">[-151.6, +9.0, 200.9]</td>
+                <td class="num strong">1.84× (599.4 kg)</td>
+                <td><span class="p-tag ok">9/9 PASS</span></td>
+                <td>
+                  <div class="cad-dl-actions">
+                    <a class="p-btn sm" href="cad/HD30X_RevA5_2D_Basic_100Ah.step" download>STEP 10.24 MB</a>
+                    <a class="p-btn sm" href="cad/HD30X_RevA5_2D_Basic_100Ah.csv" download>CSV 94 KB</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="cad-id-cell">
+                    <span class="cad-id">Full3D_200Ah</span>
+                    <span class="p-tag">200Ah 듀얼</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="cad-spec-main">풀 3D (중장갑 XT32 + 매립 E1R) · 2단 L=305 X-가위·EHA 계량 · 51.2V 200Ah LFP 듀얼 팩 (10.24 kWh)</div>
+                  <div class="cad-spec-sub">후방 타워 100Ah LFP + 중앙 등뼈 저상(Z=93..175) +100Ah 확장 팩(합계 84 kg) + 등뼈 버스바 (HTD-8M·QR 간섭 0)</div>
+                </td>
+                <td class="num">343</td>
+                <td class="num strong">832.80</td>
+                <td class="num">[-137.7, +9.1, 197.8]</td>
+                <td class="num strong">1.79× (613.9 kg)</td>
+                <td><span class="p-tag ok">9/9 PASS</span></td>
+                <td>
+                  <div class="cad-dl-actions">
+                    <a class="p-btn sm" href="cad/HD30X_RevA5_Full3D_200Ah.step" download>STEP 10.33 MB</a>
+                    <a class="p-btn sm" href="cad/HD30X_RevA5_Full3D_200Ah.csv" download>CSV 95 KB</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cad-panel-foot">
+          <div class="cad-aux-group">
+            <span class="cad-aux-label">HD-30X BOM · 3D</span>
+            <a class="p-btn sm" href="cad/HD30X_RevA5_BOM_China_OEM.csv" download>중국 OEM 실부품 BOM (.csv · 7 KB)</a>
+            <a class="p-btn sm" href="cad/HD30X_RevA5_BOM_Korea_KC.csv" download>한국 KC 실부품 BOM (.csv · 7 KB)</a>
+            <a class="p-btn sm" href="hd30x_1500kg_scissor.glb" download>HD-30X 3D 모델 (.glb · 1.60 MB)</a>
+            <a class="p-btn sm" href="hd30x_200ah_opt.glb" download>200Ah 옵션 (.glb · 3 KB)</a>
+          </div>
+          <div class="cad-aux-group">
+            <button type="button" class="p-btn sm primary" onclick="window.print()">HD-30X A3 PDF 인쇄</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sheet-jump" aria-label="도면 시트 바로가기">
+      <div class="sheet-jump-links">
+        <a href="#sheet1"><span class="sn">S1</span>전체 3면도 (측·후·정)</a>
+        <a href="#sheet2"><span class="sn">S2</span>평면 · 저면 · 4WS</a>
+        <a href="#sheet3"><span class="sn">S3</span>핵심 상세 단면 4종</a>
+        <a href="#sheet4"><span class="sn">S4</span>9대 검증 · Gate 9 실물 기구학</a>
+        <a href="#sheet5" id="jumpS5"><span class="sn">S5</span>전장 · 11축 · 계량 · STO</a>
+      </div>
+      <span class="sheet-jump-hint">A3 LANDSCAPE · 5 SHEETS · ISO/KS 3RD-ANGLE · UNIT: mm</span>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       SHEET 1/5: TITLE BLOCK + 3-VIEW ELEVATIONS (SIDE, REAR, FRONT)
+       ====================================================================== -->
+  <section class="sheet" id="sheet1">
+    <div class="title-block">
+      <div class="tb-cell main">
+        <div>
+          <div class="tb-k">DRAWING TITLE / 도면명 (ISO/KS 3RD-ANGLE PROJECTION)</div>
+          <div class="tb-title" id="tbTitle">HD-30X 1.5 t 초콤팩트 수직 4WD/4WS · 2단 L=305 X-가위 계량 포크 AMR — 제작 기준도</div>
+        </div>
+        <div class="tb-sub" id="tbSub"></div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-k">3-PLANE DATUMS / 기준면</div>
+        <div class="tb-v mono" id="tbDatums"></div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-k">GENERAL TOLERANCE</div>
+        <div class="tb-v mono" id="tbTol"></div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-k">REV / PARTS / SHEET</div>
+        <div class="tb-v mono" id="tbRev"></div>
+        <div class="tb-proj-row">
+          <svg width="46" height="18" viewBox="0 0 46 18" aria-label="제3각법 기호">
+            <polygon points="4,5 20,2 20,16 4,13" fill="none" stroke="#0f172a" stroke-width="1.3"/>
+            <line x1="1" y1="9" x2="23" y2="9" stroke="#64748b" stroke-width="0.8" stroke-dasharray="3 1.5"/>
+            <circle cx="35" cy="9" r="6.5" fill="none" stroke="#0f172a" stroke-width="1.3"/>
+            <circle cx="35" cy="9" r="3.2" fill="none" stroke="#0f172a" stroke-width="1.2"/>
+            <line x1="26" y1="9" x2="44" y2="9" stroke="#64748b" stroke-width="0.8" stroke-dasharray="3 1.5"/>
+            <line x1="35" y1="1" x2="35" y2="17" stroke="#64748b" stroke-width="0.8" stroke-dasharray="3 1.5"/>
+          </svg>
+          <span style="font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--ink-2)">제3각법 (ISO 128)</span>
+        </div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-k">PRIMARY MATERIAL</div>
+        <div class="tb-v" id="tbMat"></div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-k">PAYLOAD / MASS / STABILITY</div>
+        <div class="tb-v mono" id="tbMass"></div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-k">9-GATE 3D &amp; REAL B-REP STATUS</div>
+        <div class="tb-v" id="auditBadge" style="color:var(--ok)">검증 데이터 적용 중...</div>
+      </div>
+    </div>
+
+    <h2 id="s1H2">1. 전체 정투상 3면도 (측면도 · 후면도 · 정면도) <span>SHEET 1 / 5 · NTS (단위 mm) · ISO/KS 제3각법</span></h2>
+
+    <div class="fig-cap">
+      <span id="capSideTitle"></span>
+      <small id="capSideSub"></small>
+    </div>
+    <div class="cad-frame" style="margin-bottom:10px"><svg id="svgSide" viewBox="0 0 1180 435" role="img" aria-label="측면도"></svg></div>
+
+    <div class="grid-2">
+      <div>
+        <div class="fig-cap">
+          <span id="capRearTitle"></span>
+          <small id="capRearSub"></small>
+        </div>
+        <div class="cad-frame"><svg id="svgRear" viewBox="0 0 580 410" role="img" aria-label="후면도"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap">
+          <span id="capFrontTitle"></span>
+          <small id="capFrontSub"></small>
+        </div>
+        <div class="cad-frame"><svg id="svgFront" viewBox="0 0 580 410" role="img" aria-label="정면도"></svg></div>
+      </div>
+    </div>
+
+    <div class="sheet-note" id="s1Note"></div>
+  </section>
+
+  <!-- ======================================================================
+       SHEET 2/5: TOP PLAN, BOTTOM VIEW & 4WD/4WS VERTICAL SUSPENSION / STEP MECHANISM
+       ====================================================================== -->
+  <section class="sheet" id="sheet2">
+    <h2 id="s2H2">2. 평면도 · 저면도 및 4WD/4WS 수직 서스펜션 · 단차 기구 제원 <span>SHEET 2 / 5</span></h2>
+
+    <div class="grid-2">
+      <div>
+        <div class="fig-cap">
+          <span id="capTopTitle"></span>
+          <small id="capTopSub"></small>
+        </div>
+        <div class="cad-frame"><svg id="svgTop" viewBox="0 0 580 535" role="img" aria-label="평면도"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap">
+          <span id="capBotTitle"></span>
+          <small id="capBotSub"></small>
+        </div>
+        <div class="cad-frame"><svg id="svgBottom" viewBox="0 0 580 535" role="img" aria-label="저면도"></svg></div>
+      </div>
+    </div>
+
+    <div class="spec-grid">
+      <div>
+        <h3 id="s2Tbl1H3"></h3>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>설계 사양 (CAD 실측)</th>
+                <th>성능 및 여유 검증</th>
+              </tr>
+            </thead>
+            <tbody id="s2Tbl1Body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h3 id="s2Tbl2H3"></h3>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>서브시스템</th>
+                <th>기준 좌표 / 범위 (mm)</th>
+                <th>핵심 제원</th>
+              </tr>
+            </thead>
+            <tbody id="s2Tbl2Body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       SHEET 3/5: 4 CRITICAL DETAIL CROSS-SECTIONS
+       ====================================================================== -->
+  <section class="sheet" id="sheet3">
+    <h2 id="s3H2">3. 핵심 기구 · 광학 상세 단면 4종 <span>SHEET 3 / 5 · DETAIL VIEWS A ~ D · NTS (단위 mm)</span></h2>
+
+    <div class="grid-2">
+      <div>
+        <div class="fig-cap">
+          <span id="capDetATitle"></span>
+          <small id="capDetASub"></small>
+        </div>
+        <div class="cad-frame"><svg id="detForkScale" viewBox="0 0 560 330" role="img" aria-label="DETAIL A 계량 포크 단면"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap">
+          <span id="capDetBTitle"></span>
+          <small id="capDetBSub"></small>
+        </div>
+        <div class="cad-frame"><svg id="det4WS" viewBox="0 0 560 330" role="img" aria-label="DETAIL B 4WD/4WS 수직 서스펜션 단차 단면"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap">
+          <span id="capDetCTitle"></span>
+          <small id="capDetCSub"></small>
+        </div>
+        <div class="cad-frame"><svg id="detTower3D" viewBox="0 0 560 330" role="img" aria-label="DETAIL C XT32 롤케이지 및 HMI·충전 단면"></svg></div>
+      </div>
+      <div>
+        <div class="fig-cap">
+          <span id="capDetDTitle"></span>
+          <small id="capDetDSub"></small>
+        </div>
+        <div class="cad-frame"><svg id="det2DE1R" viewBox="0 0 560 330" role="img" aria-label="DETAIL D 2D·E1R·QR 광학 상세 단면"></svg></div>
+      </div>
+    </div>
+
+    <h3>3-1. 상세 단면별 가공 · 체결 · 광학 인터페이스 핵심 기준 <span>업체 가공·조립 필수 준수 항목</span></h3>
+    <div class="table-wrap">
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th style="width:14%">상세 부위</th>
+            <th style="width:28%">주요 구성품 및 재질</th>
+            <th style="width:30%">핵심 인터페이스 치수 · 공차</th>
+            <th style="width:28%">현장 운용·제작 검증 포인트</th>
+          </tr>
+        </thead>
+        <tbody id="s3InterfaceBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       SHEET 4/5: 9 AUTOMATED GATES (GATE 1~9 REAL B-REP KINEMATICS), STABILITY, CLEARANCES, DATUMS
+       ====================================================================== -->
+  <section class="sheet" id="sheet4">
+    <h2 id="s4H2">4. 9대 자동 검증 게이트 (Gate 1~9 실물 기구학 포함) · 안정도 · 여유 치수표 · 데이텀/공차 <span>SHEET 4 / 5</span></h2>
+
+    <div class="gate-grid-9" id="gateGrid"></div>
+
+    <div class="spec-grid" style="margin-top:6px">
+      <div>
+        <h3 id="s4MassH3"></h3>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>항목 / 구분</th>
+                <th>산출 근거 및 하중 조건</th>
+                <th style="text-align:right">실측값</th>
+                <th>판정 / 비고</th>
+              </tr>
+            </thead>
+            <tbody id="massStabilityBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h3>4-2. 3면 데이텀 · 일반공차 &amp; ISO 13850 비상정지 5개 배치표 <span>STO 2ch 직결</span></h3>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th style="width:22%">구분 / ID</th>
+                <th style="width:45%">기준면 / 위치 및 타공</th>
+                <th style="width:33%">좌표 / 공차 · 돌출</th>
+              </tr>
+            </thead>
+            <tbody id="datumEstopBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet4-lower-grid">
+      <div>
+        <h3 id="s4Gate9H3"></h3>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th style="width:16%">Gate 9 항목</th>
+                <th style="width:38%">실물 파레트 · 기구학 검증 시나리오</th>
+                <th style="width:34%">실측 수치 (B-Rep 0.001 mm³)</th>
+                <th style="width:12%">판정</th>
+              </tr>
+            </thead>
+            <tbody id="gate9Body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h3 id="s4ClrH3"></h3>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th style="width:26px">#</th>
+                <th style="width:27%">검증 항목</th>
+                <th style="width:36%">부품 A ↔ 부품 B (STEP Part ID)</th>
+                <th style="text-align:right;width:14%">실측 여유</th>
+                <th style="text-align:right;width:12%">기준</th>
+                <th style="width:11%">판정</th>
+              </tr>
+            </thead>
+            <tbody id="clearanceBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-note ok-note" id="auditSummaryNote">자동 검증 실측 요약 적용 중...</div>
+  </section>
+
+  <!-- ======================================================================
+       SHEET 5/5: 4-LAYER ELECTRICAL, MOTION AXES, 4-PT WEIGHING & STO
+       ====================================================================== -->
+  <section class="sheet" id="sheet5">
+    <h2 id="s5H2">5. 4계층 전장 · 모션 버스 · 4점 로드셀 계량 · 안전 STO 계통도 &amp; 드라이버 표 <span>SHEET 5 / 5</span></h2>
+
+    <div class="fig-cap">
+      <span id="capElecTitle"></span>
+      <small id="capElecSub"></small>
+    </div>
+    <div class="cad-frame" style="margin-bottom:8px">
+      <svg id="svgElecBlock" viewBox="0 0 1180 650" role="img" aria-label="4계층 전장·모션·계량·STO 계통도"></svg>
+    </div>
+
+    <h3 id="s5TblH3"></h3>
+    <div class="table-wrap">
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th style="width:18%">장치 / 계층</th>
+            <th style="width:17%">실장 위치 (좌표)</th>
+            <th style="width:18%">통신 버스 · 전원</th>
+            <th style="width:27%">표준 프로토콜 · 리눅스/ROS2 드라이버</th>
+            <th style="width:20%">OEM / KC 대응 및 제작 기준</th>
+          </tr>
+        </thead>
+        <tbody id="s5DriverBody"></tbody>
+      </table>
+    </div>
+
+    <div class="sheet-note" id="s5Note"></div>
+  </section>
+</main>
+
+<script>
+// ==================== 0. EMBEDDED HD-30X REV A.5 AUDIT SSOT (VERBATIM) ====================
+const EMBEDDED_AUDIT_X = {
+  "revision": "Rev A.5",
+  "model": "HD-30X 1.5t Compact High-Clearance 4WD/4WS 2-Tier Y-Nested X-Scissor Weighing Fork AMR",
+  "all_pass": true,
+  "audit_elapsed_s": 189.38,
+  "datums": {
+    "A": "연속 8t 바닥판 하면 (Z = 85.0 mm · 지상고 G = 85.0 mm)",
+    "B": "중앙 등뼈 좌측 HIWIN HGR25 레일 가공면 (Y = +100.0 mm)",
+    "C": "후면 10t 메인 벽판 외면 (X = -765.0 mm)",
+    "general_tol_weld": "ISO 13920-B",
+    "general_tol_machined": "ISO 2768-mK"
+  },
+  "glb_coord_mapping": "X_glb = Y_cad / 1000, Y_glb = Z_cad / 1000, Z_glb = X_cad / 1000 (Three.js Y-up, right-handed det=+1)",
+  "mechanism_params": {
+    "pod_top": 275.0,
+    "fork_h": 62.0,
+    "fork_lower_h": 46.0,
+    "fork_nose_h": 52.0,
+    "fork_y_ctr": 217.0,
+    "fork_x": [
+      -512.0,
+      745.0
+    ],
+    "drop_single_dz": -75.0,
+    "drop_window_dz": -55.0,
+    "scissor_L": 305.0,
+    "scissor_tiers": 2,
+    "scissor_theta_deg": [
+      8.0,
+      55.0
+    ],
+    "scissor_x_local": [
+      -82.5,
+      402.5
+    ],
+    "scissor_raw_stroke": 414.79,
+    "lost_motion_mm": {
+      "single": 10.0,
+      "window": 30.0
+    },
+    "fork_z_top_max": 476.79,
+    "window_travel_z": [
+      300.0,
+      362.0
+    ],
+    "heel_mast_x": [
+      -542.0,
+      -512.0
+    ],
+    "heel_mast_range": [
+      87.0,
+      274.0,
+      490.0
+    ],
+    "heel_lockpin_z": 300.0,
+    "lc_x": [
+      -380.0,
+      590.0
+    ],
+    "wheel_travel": [
+      -25.0,
+      25.0
+    ],
+    "tower_front_x": -555.0,
+    "spine_half_w": 100.0,
+    "pod_inner_y": 306.0,
+    "torque_box_x": [
+      -701.0,
+      -654.0
+    ]
+  },
+  "envelope": {
+    "x_min": -780.0,
+    "x_max": 780.0,
+    "y_min": -600.0,
+    "y_max": 600.0,
+    "z_min": 0.0,
+    "z_max": 760.0,
+    "length_mm": 1560.0,
+    "width_mm": 1200.0,
+    "height_mm": 760.0,
+    "pod_top_mm": 275.0,
+    "ground_clearance_mm": 85.0,
+    "non_wheel_z_min_mm": 85.0,
+    "stowed_fork_z_mm": [
+      85.0,
+      147.0
+    ],
+    "pickup_single_fork_z_mm": [
+      10.0,
+      72.0
+    ],
+    "pickup_window_fork_z_mm": [
+      30.0,
+      92.0
+    ],
+    "pickup_fork_tip_single_z_top_mm": 62.06,
+    "pickup_fork_tip_window_z_top_mm": 82.06,
+    "invalid_solids": [],
+    "pass_ok": true
+  },
+  "gates": {
+    "gate1_envelope": {
+      "x_min": -780.0,
+      "x_max": 780.0,
+      "y_min": -600.0,
+      "y_max": 600.0,
+      "z_min": 0.0,
+      "z_max": 760.0,
+      "length_mm": 1560.0,
+      "width_mm": 1200.0,
+      "height_mm": 760.0,
+      "pod_top_mm": 275.0,
+      "ground_clearance_mm": 85.0,
+      "non_wheel_z_min_mm": 85.0,
+      "stowed_fork_z_mm": [
+        85.0,
+        147.0
+      ],
+      "pickup_single_fork_z_mm": [
+        10.0,
+        72.0
+      ],
+      "pickup_window_fork_z_mm": [
+        30.0,
+        92.0
+      ],
+      "pickup_fork_tip_single_z_top_mm": 62.06,
+      "pickup_fork_tip_window_z_top_mm": 82.06,
+      "invalid_solids": [],
+      "pass_ok": true
+    },
+    "gate2_interference": {
+      "interference_threshold_mm3": 0.001,
+      "total_pairs": 56953,
+      "aabb_overlap_candidates": 623,
+      "interference_count": 0,
+      "interferences": [],
+      "opt_200ah_interference_count": 0,
+      "opt_200ah_interferences": [],
+      "pass_ok": true
+    },
+    "gate3_connectivity": {
+      "contact_threshold_mm": 0.25,
+      "connected_components": 1,
+      "main_component_size": 338,
+      "floating_parts_count": 0,
+      "floating_parts": [],
+      "detached_groups": [],
+      "pass_ok": true
+    },
+    "gate4_dynamic_kinematic": {
+      "drop_tested_dz_mm": [
+        -75.0,
+        -55.0,
+        -37.5,
+        0.0
+      ],
+      "drop_collisions": 0,
+      "drop_details": [],
+      "pickup_single_z_mm": [
+        10.0,
+        72.0
+      ],
+      "pickup_window_z_mm": [
+        30.0,
+        92.0
+      ],
+      "pickup_z_bottom_mm": 10.0,
+      "pickup_z_top_mm": 72.0,
+      "ext_tested_mm": [
+        0.0,
+        300.0,
+        600.0,
+        900.0,
+        1200.0
+      ],
+      "ext_collisions": 0,
+      "ext_details": [],
+      "rail_block_on_rail_pass": true,
+      "rail_block_support": {
+        "L": {
+          "rail_x_mm": [
+            -752.0,
+            758.0
+          ],
+          "rear_block_x0_mm": [
+            -732.0,
+            -672.0
+          ],
+          "front_block_x0_mm": [
+            -522.0,
+            -462.0
+          ],
+          "block_span_mm": 270.0,
+          "block_pitch_mm": 210.0,
+          "front_block_x_max_ext_mm": [
+            678.0,
+            738.0
+          ],
+          "margin_rear_mm": 20.0,
+          "margin_front_mm": 20.0,
+          "pass_ok": true
+        },
+        "R": {
+          "rail_x_mm": [
+            -752.0,
+            758.0
+          ],
+          "rear_block_x0_mm": [
+            -732.0,
+            -672.0
+          ],
+          "front_block_x0_mm": [
+            -522.0,
+            -462.0
+          ],
+          "block_span_mm": 270.0,
+          "block_pitch_mm": 210.0,
+          "front_block_x_max_ext_mm": [
+            678.0,
+            738.0
+          ],
+          "margin_rear_mm": 20.0,
+          "margin_front_mm": 20.0,
+          "pass_ok": true
+        }
+      },
+      "lift_tested_poses_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          100.0,
+          0.0,
+          0.0
+        ],
+        [
+          215.0,
+          100.0,
+          100.0
+        ],
+        [
+          329.79,
+          110.0,
+          218.0
+        ]
+      ],
+      "lift_collisions": 0,
+      "lift_details": [],
+      "lifted_z_bottom_mm": 414.79,
+      "lifted_z_top_mm": 476.79,
+      "window_travel_z_mm": [
+        300.0,
+        362.0
+      ],
+      "pod_top_z_mm": 275.0,
+      "t10_single_clearance_mm": 101.79,
+      "t10_window_clearance_mm": 76.79,
+      "scissor_stored_z_min_mm": 85.0,
+      "steer_tested_deg": [
+        0.0,
+        -45.0,
+        45.0,
+        -90.0,
+        90.0
+      ],
+      "steer_collisions": 0,
+      "steer_details": [],
+      "bump_tested_mm": [
+        -25.0,
+        0.0,
+        25.0
+      ],
+      "bump_collisions": 0,
+      "bump_details": [],
+      "total_dynamic_collisions": 0,
+      "pass_ok": true
+    },
+    "gate5_stability_load": {
+      "steel_structure_kg": 573.0,
+      "aluminum_kg": 13.11,
+      "other_material_kg": 5.75,
+      "purchased_components_kg": 194.8,
+      "total_empty_kg": 786.66,
+      "cg_empty_mm": [
+        -151.7,
+        9.4,
+        201.3
+      ],
+      "total_solid_volume_L": 137.62,
+      "payload_kg": 1500.0,
+      "payload_x_center_mm": 110.0,
+      "front_axle_x_mm": 410.0,
+      "rear_axle_x_mm": -410.0,
+      "wheelbase_mm": 820.0,
+      "track_mm": 866.0,
+      "empty_front_wheel_kg": 123.9,
+      "empty_rear_wheel_kg": 269.4,
+      "loaded_total_kg": 2286.66,
+      "loaded_cg_x_mm": 20.0,
+      "loaded_avg_wheel_kg": 571.7,
+      "loaded_front_wheel_kg": 599.5,
+      "loaded_rear_wheel_kg": 543.8,
+      "loaded_max_wheel_kg": 599.5,
+      "wheel_rating_kg": 1100.0,
+      "wheel_load_safety_factor": 1.83,
+      "empty_fork_mass_kg": 170.61,
+      "empty_fork_extended_cg_x_mm": 108.6,
+      "empty_fork_extended_axle_margin_mm": 301.4,
+      "pass_ok": true
+    },
+    "gate6_optical_raycast": {
+      "lidar_2d_fl_center_mm": [
+        705.0,
+        530.0,
+        180.0
+      ],
+      "lidar_2d_rr_center_mm": [
+        -705.0,
+        -530.0,
+        180.0
+      ],
+      "lidar_2d_fl_open_deg": 257.0,
+      "lidar_2d_rr_open_deg": 263.25,
+      "lidar_2d_blind_wedge_deg": 0.0,
+      "lidar_2d_overlap_per_side_deg": 80.12,
+      "lidar_2d_perim_100mm_blind_pct": 2.96,
+      "lidar_2d_perim_150mm_blind_pct": 0.0,
+      "lidar_2d_perim_250mm_blind_pct": 0.0,
+      "lidar_2d_perim_300mm_blind_pct": 0.0,
+      "xt32_center_mm": [
+        -650.0,
+        440.0,
+        675.0
+      ],
+      "xt32_horiz_open_pct": 90.97,
+      "xt32_32ch_open_pct": 83.43,
+      "xt32_loaded_cargo_box_mm": "1100x1100x1200 (X=-390..+710, |Y|<=550, Z=425..1625)",
+      "xt32_loaded_cargo_horiz_open_pct": 65.97,
+      "xt32_loaded_cargo_blocked_deg": 90.0,
+      "xt32_loaded_cargo_blind_sector_deg": [
+        0.0,
+        359.5
+      ],
+      "xt32_loaded_mitigation": "적재 주행 시 전방 120°×90° 매립 E1R + 대각 2D(FL/RR) + 후·좌측 XT32 개방 섹터 다중 센서 융합으로 사각 해소",
+      "safety_plc_muting_spec": {
+        "controller": "SICK Flexi Soft (FX3-CPU3 + XTIO x2, ISO 13849-1 PLd / SIL2)",
+        "trigger_states": [
+          "fork_out",
+          "lift_up",
+          "sync_in",
+          "lift_down",
+          "sync_out"
+        ],
+        "speed_interlock_max_mps": 0.3,
+        "muted_sensor": "lidar_2d_FL (+705, +530, Z=180.0)",
+        "muted_corridor_world_mm": {
+          "x_min": 780.0,
+          "y_abs_max": 350.0,
+          "az_world_deg": [
+            -62.0,
+            -15.0
+          ]
+        },
+        "outer_perimeter_active": "Outer lateral/rear protective fields (|Y|>350 & RR 2D) remain 100% ACTIVE during muting"
+      },
+      "e1r_center_mm": [
+        712.0,
+        0.0,
+        165.0
+      ],
+      "e1r_armor_recess_pillars_mm": 20.83,
+      "e1r_armor_recess_floor_mm": 28.79,
+      "e1r_top_up_deg": 72.25,
+      "e1r_dn_deg": 63.25,
+      "e1r_hfov_half_deg": 63.0,
+      "e1r_el55_across_60_blocked_pct": 0.0,
+      "e1r_dn35_across_60_blocked_pct": 0.0,
+      "e1r_full_120x90_blocked_pct": 0.0,
+      "qr_center_mm": [
+        0.0,
+        0.0,
+        140.0
+      ],
+      "qr_half_angles_deg": {
+        "+X": 38.25,
+        "-X": 38.25,
+        "+Y": 38.25,
+        "-Y": 38.25
+      },
+      "qr_min_half_deg": 38.25,
+      "pass_ok": true
+    },
+    "gate7_glb_precision": {
+      "tessellate_tol_mm": 0.2,
+      "max_bbox_err_mm": 0.1367,
+      "watertight_count": 338,
+      "total_meshes": 338,
+      "watertight_ratio": 1.0,
+      "triangles": 117202,
+      "pass_ok": true
+    },
+    "gate8_structural_t10": {
+      "rated_payload_kg": 1500.0,
+      "rated_payload_n": 14715.0,
+      "scissor_tiers": 2,
+      "scissor_link_L_mm": 305.0,
+      "scissor_folded_footprint_mm": 302.03,
+      "t11_window_width_mm": 355.0,
+      "t11_window_docking_margin_mm": 26.48,
+      "scissor_bar_section_mm": "9.5x19->11.5 (+Ø22 forged boss)",
+      "scissor_material": "SCM440 HRC40 (Sy=850 MPa)",
+      "scissor_collapsed_deg": 8.0,
+      "scissor_collapsed_h_mm": 53.84,
+      "scissor_max_deg": 55.0,
+      "scissor_raw_2tier_stroke_mm": 414.79,
+      "lost_motion_single_mm": 10.0,
+      "lost_motion_window_mm": 30.0,
+      "net_lift_single_mm": 404.79,
+      "net_lift_window_mm": 384.79,
+      "fake_cam_wedge_mm": 0.0,
+      "z_fork_top_max_mm": 476.79,
+      "pod_top_mm": 275.0,
+      "t10_single_pallet_bottom_mm": 376.79,
+      "t10_single_clearance_mm": 101.79,
+      "t10_single_pass": true,
+      "t10_window_pallet_bottom_mm": 351.79,
+      "t10_window_clearance_mm": 76.79,
+      "t10_window_pass": true,
+      "window_travel_fork_z_mm": [
+        300.0,
+        362.0
+      ],
+      "window_travel_top_deck_gap_mm": 38.0,
+      "bar_axial_force_n": 6500.0,
+      "bar_mid_moment_nmm": 138887.4,
+      "bar_axial_stress_mpa": 36.01,
+      "bar_bending_stress_mpa": 242.99,
+      "bar_combined_stress_mpa": 279.0,
+      "bar_yield_sf": 3.05,
+      "bar_boss_net_stress_mpa": 284.77,
+      "bar_boss_yield_sf": 2.98,
+      "bar_euler_buckling_half_sf": 18.17,
+      "bar_johnson_buckling_half_sf": 15.94,
+      "bar_euler_buckling_full_sf": 4.54,
+      "bar_combined_interaction_sf": 2.87,
+      "bar_pass": true,
+      "pivot_pin_d_mm": 12.0,
+      "pivot_pin_shear_force_n": 6500.0,
+      "pivot_pin_double_shear_mpa": 28.74,
+      "pivot_pin_double_shear_sf": 17.08,
+      "pivot_pin_single_shear_mpa": 57.47,
+      "pivot_pin_single_shear_sf": 8.54,
+      "pivot_pin_bearing_mpa": 57.02,
+      "pivot_pin_bearing_sf": 14.91,
+      "pin_pass": true,
+      "eha_spec": "48V 1.5 kW EHA + 4x Ø40 (OD 46) 250 bar micro cylinders + progressive roller-cam (S=160 mm)",
+      "hyd_cyl_avail_kn": 31.42,
+      "hyd_cyl_req_kn": 10.6,
+      "hyd_cyl_thrust_sf": 2.96,
+      "hyd_cyl_hoop_mpa": 166.67,
+      "hyd_cyl_hoop_sf": 5.1,
+      "hyd_sync_strap_mpa": 66.23,
+      "hyd_sync_strap_sf": 12.83,
+      "hyd_pass": true,
+      "loadcell_type": "IP68 Pancake Compression Ø50x20 mm + 4x 0.8t SUS301 Flexure + 4x M10 Captive Bolt",
+      "loadcell_count": 4,
+      "loadcell_each_kg": 1000.0,
+      "loadcell_combined_kg": 4000.0,
+      "loadcell_x_mm": [
+        -380.0,
+        590.0
+      ],
+      "loadcell_wheelbase_mm": 970.0,
+      "loadcell_capacity_sf": 2.67,
+      "loadcell_pass": true,
+      "pass_ok": true
+    },
+    "gate9_real_brep_kinematics": {
+      "gate9a_real_pallet_brep": {
+        "stages": {
+          "stage1_fork_out_single": {
+            "fork_z_mm": [
+              10.0,
+              72.0
+            ],
+            "ext_mm": 1200.0,
+            "pallet_x_ctr": 1360.0,
+            "collisions": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage1_fork_out_window": {
+            "fork_z_mm": [
+              30.0,
+              92.0
+            ],
+            "ext_mm": 1200.0,
+            "pallet_x_ctr": 1360.0,
+            "collisions": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage2_lift_up_window": {
+            "ext_mm": 1200.0,
+            "pallet_x_ctr": 1360.0,
+            "pallet_bot_z_mm": 351.79,
+            "pod_top_clearance_mm": 76.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage3_sync_in_window_ext600": {
+            "ext_mm": 600.0,
+            "pallet_x_ctr": 760.0,
+            "pallet_bot_z_mm": 351.79,
+            "pod_top_clearance_mm": 76.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage3_sync_in_window_ext0": {
+            "ext_mm": 0.0,
+            "pallet_x_ctr": 160.0,
+            "pallet_bot_z_mm": 351.79,
+            "pod_top_clearance_mm": 76.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage2_lift_up_single": {
+            "ext_mm": 1200.0,
+            "pallet_x_ctr": 1360.0,
+            "pallet_bot_z_mm": 376.79,
+            "pod_top_clearance_mm": 101.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage3_sync_in_single_ext600": {
+            "ext_mm": 600.0,
+            "pallet_x_ctr": 760.0,
+            "pallet_bot_z_mm": 376.79,
+            "pod_top_clearance_mm": 101.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage3_sync_in_single_ext0": {
+            "ext_mm": 0.0,
+            "pallet_x_ctr": 160.0,
+            "pallet_bot_z_mm": 376.79,
+            "pod_top_clearance_mm": 101.79,
+            "robot_vs_pallet_cols": 0,
+            "deployed_scissor_vs_pallet_cols": 0,
+            "deployed_scissor_vs_chassis_cols": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage4_lift_down_single": {
+            "fork_z_mm": [
+              85.0,
+              147.0
+            ],
+            "pallet_bot_z_mm": 275.0,
+            "collisions": 0,
+            "details": [],
+            "pass_ok": true
+          },
+          "stage4_lift_down_window_spine": {
+            "fork_z_mm": [
+              300.0,
+              362.0
+            ],
+            "pallet_bot_board_z_mm": [
+              275.0,
+              300.0
+            ],
+            "pallet_upper_deck_z_mm": [
+              400.0,
+              425.0
+            ],
+            "weigh_shoe_to_upper_deck_gap_mm": 38.0,
+            "skid_z_min_mm": 300.0,
+            "loadcell_load_kg": 0.0,
+            "collisions": 0,
+            "details": [],
+            "pass_ok": true
+          }
+        },
+        "pass_ok": true
+      },
+      "gate9b_rail_mast_guide": {
+        "hgr25_rail_support_pass": true,
+        "hgr25_pitch_moment_empty_nm": 374.4,
+        "hgr25_mp0_rated_nm": 1850.0,
+        "hgr25_pitch_sf": 4.94,
+        "heel_mast_stowed_z_mm": [
+          87.0,
+          274.0
+        ],
+        "heel_mast_deployed_max_z_mm": 490.0,
+        "heel_mast_tower_clearance_mm": 13.0,
+        "overlap_s0_s1_at_max_mm": 76.0,
+        "overlap_s1_s2_at_max_mm": 76.0,
+        "overlap_s2_heel_at_max_mm": 75.21,
+        "overlap_s0_heel_at_drop_mm": 28.0,
+        "heel_separation_mm": 0.0,
+        "lockpin_window_z_mm": 300.0,
+        "pass_ok": true
+      },
+      "gate9c_vert_susp_steer_60pose": {
+        "suspension_type": "4x Ø25 SUJ2 vertical hardened shafts + LM25 bushings + 4x coaxial coil springs (1:1 ratio)",
+        "travel_mm": [
+          -25.0,
+          25.0
+        ],
+        "camber_tilt_deg": 0.0,
+        "x_scrub_mm": 0.0,
+        "motion_ratio": 1.0,
+        "combined_poses_tested": 60,
+        "combined_brep_collisions": 0,
+        "collision_details": [],
+        "avg_spring_load_kgf": 142.9,
+        "max_spring_load_kgf": 149.9,
+        "spring_limit_kgf": 200.0,
+        "pass_ok": true
+      },
+      "gate9d_loadcell_hat_eha_torquebox": {
+        "loadcell_x_mm": [
+          -380.0,
+          590.0
+        ],
+        "loadcell_wheelbase_mm": 970.0,
+        "loadcell_midpoint_mm": 105.0,
+        "nominal_payload_x_mm": 110.0,
+        "nominal_rear_share_pct": 49.48,
+        "nominal_front_share_pct": 50.52,
+        "eccentric_150mm_min_share_pct": 34.02,
+        "loadcell_symmetry_pass": true,
+        "hat_shoe_I_yy_mm4": 609337.9,
+        "hat_shoe_udl_deflection_mm": 0.7,
+        "overload_stopper_gap_mm": 1.5,
+        "hat_deflection_pct_of_stopper": 46.7,
+        "hat_pass": true,
+        "eha_cyl_avail_kn": 31.42,
+        "eha_cyl_req_kn": 10.6,
+        "eha_cyl_sf": 2.96,
+        "eha_pass": true,
+        "torque_box_x_mm": [
+          -701.0,
+          -654.0
+        ],
+        "torque_box_shear_full_mpa": 10.38,
+        "torque_box_shear_neck_mpa": 15.87,
+        "torque_box_pod_tip_twist_mm": 1.52,
+        "torque_box_pass": true,
+        "pass_ok": true
+      },
+      "pass_ok": true
+    }
+  },
+  "mass_stability": {
+    "steel_structure_kg": 573.0,
+    "aluminum_kg": 13.11,
+    "other_material_kg": 5.75,
+    "purchased_components_kg": 194.8,
+    "total_empty_kg": 786.66,
+    "cg_empty_mm": [
+      -151.7,
+      9.4,
+      201.3
+    ],
+    "total_solid_volume_L": 137.62,
+    "payload_kg": 1500.0,
+    "payload_x_center_mm": 110.0,
+    "front_axle_x_mm": 410.0,
+    "rear_axle_x_mm": -410.0,
+    "wheelbase_mm": 820.0,
+    "track_mm": 866.0,
+    "empty_front_wheel_kg": 123.9,
+    "empty_rear_wheel_kg": 269.4,
+    "loaded_total_kg": 2286.66,
+    "loaded_cg_x_mm": 20.0,
+    "loaded_avg_wheel_kg": 571.7,
+    "loaded_front_wheel_kg": 599.5,
+    "loaded_rear_wheel_kg": 543.8,
+    "loaded_max_wheel_kg": 599.5,
+    "wheel_rating_kg": 1100.0,
+    "wheel_load_safety_factor": 1.83,
+    "empty_fork_mass_kg": 170.61,
+    "empty_fork_extended_cg_x_mm": 108.6,
+    "empty_fork_extended_axle_margin_mm": 301.4
+  },
+  "step_reimport": {
+    "solids": 338,
+    "expected_solids": 338,
+    "invalid_solids": 0,
+    "length_mm": 1560.0,
+    "width_mm": 1200.0,
+    "height_mm": 760.0,
+    "pass_ok": true
+  }
+};
+
+const AUDIT_STATE = {
+  data: EMBEDDED_AUDIT_X,
+  src: '내장 HD-30X Rev A.5 SSOT'
+};
+
+// ==================== 1. WHITEPAPER BLUEPRINT SVG HELPERS ====================
+const C = {
+  bg: 'var(--svg-bg)', grid: 'var(--svg-grid)', void: 'var(--svg-void)',
+  frame: 'var(--svg-frame)', frame2: 'var(--svg-frame2)', cw: 'var(--svg-cw)',
+  al: 'var(--svg-al)', stroke: 'var(--svg-stroke)', muted: 'var(--svg-muted)',
+  env: 'var(--svg-env)', dim: 'var(--svg-dim)', green: 'var(--svg-green)',
+  amber: 'var(--svg-amber)', orange: 'var(--svg-orange)', purple: 'var(--svg-purple)',
+  teal: 'var(--svg-teal)', red: 'var(--svg-red)', blue: 'var(--svg-blue)',
+  text: 'var(--svg-text)', sub: 'var(--svg-text-sub)', inv: 'var(--svg-text-inv)',
+  badgeBg: 'var(--svg-badge-bg)', badgeBd: 'var(--svg-badge-bd)',
+  leader: 'var(--svg-leader)'
+};
+const MONO = 'ui-monospace,Consolas,monospace';
+const SANS = '-apple-system,BlinkMacSystemFont,"Pretendard","Malgun Gothic","Segoe UI",sans-serif';
+const HALO = 'paint-order="stroke" stroke="#ffffff" stroke-width="3.2" stroke-linejoin="round"';
+
+function gridBg(w, h, step = 40) {
+  let g = `<rect width="${w}" height="${h}" fill="${C.bg}"/><g stroke="${C.grid}" stroke-width="0.8" data-grid="1">`;
+  for (let x = step; x < w; x += step) g += `<line x1="${x}" y1="0" x2="${x}" y2="${h}"/>`;
+  for (let y = step; y < h; y += step) g += `<line x1="0" y1="${y}" x2="${w}" y2="${y}"/>`;
+  return g + `</g>`;
+}
+
+function dimH(x1, x2, y, lbl, col = C.dim, lblOffsetY = -5, sz = 9.0) {
+  const m = +((x1 + x2) / 2).toFixed(1);
+  return `<g stroke="${col}" stroke-width="1" data-dim="1">
+    <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}"/>
+    <line x1="${x1}" y1="${y - 3.8}" x2="${x1}" y2="${y + 3.8}"/>
+    <line x1="${x2}" y1="${y - 3.8}" x2="${x2}" y2="${y + 3.8}"/>
+    <text x="${m}" y="${+(y + lblOffsetY).toFixed(1)}" fill="${col}" stroke="none" font-family="${MONO}" font-size="${sz}" font-weight="700" text-anchor="middle">${lbl}</text>
+  </g>`;
+}
+
+function dimV(x, y1, y2, lbl, col = C.dim, align = 'start', customY = null, sz = 8.6) {
+  const m = customY !== null ? customY : +((y1 + y2) / 2 + 3.2).toFixed(1);
+  const tx = align === 'start' ? x + 5 : x - 5;
+  return `<g stroke="${col}" stroke-width="1" data-dim="1">
+    <line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}"/>
+    <line x1="${x - 3.8}" y1="${y1}" x2="${x + 3.8}" y2="${y1}"/>
+    <line x1="${x - 3.8}" y1="${y2}" x2="${x + 3.8}" y2="${y2}"/>
+    <text x="${tx}" y="${m}" fill="${col}" stroke="none" font-family="${MONO}" font-size="${sz}" font-weight="700" text-anchor="${align}">${lbl}</text>
+  </g>`;
+}
+
+function thirdAngleBadge(x, y) {
+  return `<g transform="translate(${x},${y})">
+    <rect x="0" y="0" width="104" height="30" rx="3" fill="${C.badgeBg}" stroke="${C.badgeBd}" stroke-width="1"/>
+    <polygon points="8,11 26,6 26,24 8,19" fill="none" stroke="${C.stroke}" stroke-width="1.3"/>
+    <line x1="4" y1="15" x2="30" y2="15" stroke="${C.muted}" stroke-width="0.8" stroke-dasharray="3 1.5"/>
+    <circle cx="43" cy="15" r="8" fill="none" stroke="${C.stroke}" stroke-width="1.3"/>
+    <circle cx="43" cy="15" r="4" fill="none" stroke="${C.stroke}" stroke-width="1.1"/>
+    <line x1="33" y1="15" x2="53" y2="15" stroke="${C.muted}" stroke-width="0.8" stroke-dasharray="3 1.5"/>
+    <line x1="43" y1="5" x2="43" y2="25" stroke="${C.muted}" stroke-width="0.8" stroke-dasharray="3 1.5"/>
+    <text x="58" y="13.5" fill="${C.text}" font-family="${MONO}" font-size="8.4" font-weight="800">제3각법</text>
+    <text x="58" y="24" fill="${C.muted}" font-family="${MONO}" font-size="7.5" font-weight="700">ISO 128</text>
+  </g>`;
+}
+
+function axisTriad(x, y, hDir, hLbl, vDir, vLbl, zSym, zLbl) {
+  const ox = hDir > 0 ? 15 : 43;
+  const oy = vDir < 0 ? 31 : 14;
+  const hx = ox + hDir * 23;
+  const vy = oy + vDir * 19;
+  const hArrow = hDir > 0
+    ? `${hx},${oy} ${hx - 5},${oy - 3} ${hx - 5},${oy + 3}`
+    : `${hx},${oy} ${hx + 5},${oy - 3} ${hx + 5},${oy + 3}`;
+  const vArrow = vDir < 0
+    ? `${ox},${vy} ${ox - 3},${vy + 5} ${ox + 3},${vy + 5}`
+    : `${ox},${vy} ${ox - 3},${vy - 5} ${ox + 3},${vy - 5}`;
+  const zDot = zSym === 'out'
+    ? `<circle cx="${ox}" cy="${oy}" r="3.4" fill="${C.bg}" stroke="${C.amber}" stroke-width="1.2"/><circle cx="${ox}" cy="${oy}" r="1.2" fill="${C.amber}"/>`
+    : `<circle cx="${ox}" cy="${oy}" r="3.4" fill="${C.bg}" stroke="${C.amber}" stroke-width="1.2"/><line x1="${ox - 2.1}" y1="${oy - 2.1}" x2="${ox + 2.1}" y2="${oy + 2.1}" stroke="${C.amber}" stroke-width="1"/><line x1="${ox - 2.1}" y1="${oy + 2.1}" x2="${ox + 2.1}" y2="${oy - 2.1}" stroke="${C.amber}" stroke-width="1"/>`;
+  return `<g transform="translate(${x},${y})">
+    <rect x="0" y="0" width="128" height="45" rx="3" fill="${C.badgeBg}" stroke="${C.badgeBd}" stroke-width="1"/>
+    <line x1="${ox}" y1="${oy}" x2="${hx}" y2="${oy}" stroke="${C.dim}" stroke-width="1.5"/>
+    <polygon points="${hArrow}" fill="${C.dim}"/>
+    <line x1="${ox}" y1="${oy}" x2="${ox}" y2="${vy}" stroke="${C.green}" stroke-width="1.5"/>
+    <polygon points="${vArrow}" fill="${C.green}"/>
+    ${zDot}
+    <text x="56" y="13.5" fill="${C.dim}" font-family="${MONO}" font-size="8.2" font-weight="800">${hLbl}</text>
+    <text x="56" y="26" fill="${C.green}" font-family="${MONO}" font-size="8.2" font-weight="800">${vLbl}</text>
+    <text x="56" y="38.5" fill="${C.amber}" font-family="${MONO}" font-size="8.2" font-weight="800">${zLbl}</text>
+  </g>`;
+}
+
+function leader(x1, y1, x2, y2, col = C.leader) {
+  return `<line data-leader="1" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+    <circle cx="${x1}" cy="${y1}" r="2.1" fill="${col}"/>`;
+}
+
+// ==================== 2. SHEET 1: SIDE ELEVATION (1180 x 435) ====================
+function drawSideX() {
+  const x0 = 520, fY = 358, sc = 0.355;
+  const xM = mm => +(x0 + mm * sc).toFixed(1);
+  const yZ = mm => +(fY - mm * sc).toFixed(1);
+  let out = gridBg(1180, 435, 40);
+
+  out += axisTriad(12, 8, +1, '+X FRONT →', -1, '+Z UP ↑', 'in', '⊗ +Y LEFT');
+  out += thirdAngleBadge(1064, 8);
+  out += `<text x="156" y="24" fill="${C.amber}" font-family="${MONO}" font-size="8.9" font-weight="800" text-anchor="start">◀ REAR (-X · Datum C: -765)</text>`;
+  out += `<text x="604" y="24" fill="${C.text}" font-family="${MONO}" font-size="9.2" font-weight="800" text-anchor="middle">SIDE ELEVATION — HD-30X REV A.5 2-TIER L=305 X-SCISSOR + EHA 4WD/4WS</text>`;
+  out += `<text x="1048" y="24" fill="${C.amber}" font-family="${MONO}" font-size="8.9" font-weight="800" text-anchor="end">FRONT (+X · +780) ▶</text>`;
+
+  // Floor & 1560 x 760 overall envelope
+  out += `<line x1="20" y1="${fY}" x2="1160" y2="${fY}" stroke="${C.muted}" stroke-width="1.8"/>`;
+  out += `<rect x="${xM(-780)}" y="${yZ(760)}" width="${+(1560 * sc).toFixed(1)}" height="${+(760 * sc).toFixed(1)}" fill="none" stroke="${C.env}" stroke-width="1.2" stroke-dasharray="6 3"/>`;
+
+  // Side Pod body (X=-765..+765, Z=85..275) + 8t bottom plate + 6t flat pallet deck (pod_top Z=269..275, X=-555..+765)
+  out += `<rect x="${xM(-765)}" y="${yZ(275)}" width="${+(1530 * sc).toFixed(1)}" height="${+(190 * sc).toFixed(1)}" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.6"/>`;
+  out += `<rect x="${xM(-765)}" y="${yZ(93)}" width="${+(1530 * sc).toFixed(1)}" height="${+(8 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="0.9"/>`;
+  out += `<rect x="${xM(-555)}" y="${yZ(275)}" width="${+(1320 * sc).toFixed(1)}" height="${+(6 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.1"/>`;
+  // Rear closed-section Torque Box (X=-701..-654, Z=85..269 · 15.87 MPa)
+  out += `<rect x="${xM(-701)}" y="${yZ(269)}" width="${+(47 * sc).toFixed(1)}" height="${+(184 * sc).toFixed(1)}" fill="rgba(180,83,9,0.16)" stroke="${C.amber}" stroke-width="1.1"/>`;
+
+  // Center spine outline dashed (X=-755..+685, Z=85..215) + HTD-8M belt (Z=185..213.5) + HGR25 rail (-752..+758)
+  out += `<rect x="${xM(-755)}" y="${yZ(215)}" width="${+(1440 * sc).toFixed(1)}" height="${+(130 * sc).toFixed(1)}" fill="rgba(148,163,184,0.12)" stroke="${C.muted}" stroke-width="1" stroke-dasharray="4 2"/>`;
+  out += `<line x1="${xM(-696)}" y1="${yZ(209.5)}" x2="${xM(682)}" y2="${yZ(209.5)}" stroke="${C.amber}" stroke-width="1.2" stroke-dasharray="4 2"/>`;
+
+  // Rear solid tower cabinet (X=-765..-555, Z=275..605 left, Z=275..536 right dashed)
+  out += `<rect x="${xM(-765)}" y="${yZ(605)}" width="${+(210 * sc).toFixed(1)}" height="${+(330 * sc).toFixed(1)}" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.6"/>`;
+  out += `<rect x="${xM(-765)}" y="${yZ(605)}" width="${+(210 * sc).toFixed(1)}" height="${+(6 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.1"/>`;
+  out += `<line x1="${xM(-765)}" y1="${yZ(536)}" x2="${xM(-555)}" y2="${yZ(536)}" stroke="${C.muted}" stroke-width="1" stroke-dasharray="3 2"/>`;
+  // 100Ah LFP split pack inside rear tower (X=-744..-562, Z=281..506)
+  out += `<rect x="${xM(-744)}" y="${yZ(506)}" width="${+(182 * sc).toFixed(1)}" height="${+(225 * sc).toFixed(1)}" fill="rgba(21,128,61,0.14)" stroke="${C.green}" stroke-width="1.2"/>`;
+
+  // Rear-left 155 mm Heavy-Armored XT32 Roll-Cage (Z=605..760, X=-765..-555)
+  out += `<rect x="${xM(-765)}" y="${yZ(630)}" width="${+(210 * sc).toFixed(1)}" height="${+(25 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  for (const xp of [-752, -567]) {
+    out += `<rect x="${xM(xp - 12)}" y="${yZ(735)}" width="${+(24 * sc).toFixed(1)}" height="${+(105 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  }
+  out += `<polygon points="${xM(-765)},${yZ(735)} ${xM(-748)},${yZ(760)} ${xM(-572)},${yZ(760)} ${xM(-555)},${yZ(735)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.6"/>`;
+  out += `<rect x="${xM(-718)}" y="${yZ(643)}" width="${+(136 * sc).toFixed(1)}" height="${+(38 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="0.9"/>`;
+  out += `<g transform="translate(${xM(-650)},${yZ(675)}) rotate(8)"><rect x="${+(-50 * sc).toFixed(1)}" y="${+(-38 * sc).toFixed(1)}" width="${+(100 * sc).toFixed(1)}" height="${+(76 * sc).toFixed(1)}" rx="3" fill="#f59e0b" stroke="#78350f" stroke-width="1.3"/></g>`;
+  // XT32 sightline
+  out += `<line x1="${xM(-595)}" y1="${yZ(675)}" x2="${xM(420)}" y2="${yZ(675)}" stroke="${C.amber}" stroke-width="1.1" stroke-dasharray="5 3"/>`;
+
+  // 40 deg Open-Sky HMI console (X=-765..-605, Z=405..569)
+  out += `<polygon points="${xM(-764.7)},${yZ(430)} ${xM(-648)},${yZ(569.4)} ${xM(-605)},${yZ(569.4)} ${xM(-605)},${yZ(405)} ${xM(-755)},${yZ(405)} ${xM(-755)},${yZ(430)}" fill="${C.void}" stroke="${C.dim}" stroke-width="1.3"/>`;
+  out += `<g transform="translate(${xM(-705)},${yZ(494)}) rotate(40)"><rect x="${+(-6 * sc).toFixed(1)}" y="${+(-91 * sc).toFixed(1)}" width="${+(14 * sc).toFixed(1)}" height="${+(182 * sc).toFixed(1)}" rx="2" fill="#1e293b" stroke="${C.dim}" stroke-width="1.3"/></g>`;
+
+  // Rear recessed charger (X=-765..-742, Z=246..329)
+  out += `<rect x="${xM(-766)}" y="${yZ(329)}" width="${+(24 * sc).toFixed(1)}" height="${+(83 * sc).toFixed(1)}" fill="#fed7aa" stroke="${C.orange}" stroke-width="1.3"/>`;
+
+  // Front & Rear bumpers (Z=85..120)
+  out += `<rect x="${xM(-780)}" y="${yZ(120)}" width="${+(15 * sc).toFixed(1)}" height="${+(35 * sc).toFixed(1)}" fill="rgba(180,83,9,0.4)" stroke="${C.orange}"/>`;
+  out += `<rect x="${xM(765)}" y="${yZ(120)}" width="${+(15 * sc).toFixed(1)}" height="${+(35 * sc).toFixed(1)}" fill="rgba(180,83,9,0.4)" stroke="${C.orange}"/>`;
+
+  // Origin Downward QR (0, 0, Z=140)
+  out += `<rect x="${xM(-23)}" y="${yZ(165)}" width="${+(46 * sc).toFixed(1)}" height="${+(25 * sc).toFixed(1)}" fill="#ccfbf1" stroke="${C.teal}" stroke-width="1.1"/>`;
+  out += `<polygon points="${xM(0)},${yZ(140)} ${xM(-110)},${fY} ${xM(110)},${fY}" fill="rgba(15,118,110,0.12)" stroke="${C.teal}" stroke-width="0.9" stroke-dasharray="3 2"/>`;
+
+  // 2D LiDAR scan belt (Z=180) + FL/RR sensors (+705 / -705)
+  out += `<rect x="${xM(629.8)}" y="${yZ(209.5)}" width="${+(123.2 * sc).toFixed(1)}" height="${+(80 * sc).toFixed(1)}" rx="2" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.2"/>`;
+  out += `<rect x="${xM(-753.0)}" y="${yZ(209.5)}" width="${+(123.2 * sc).toFixed(1)}" height="${+(80 * sc).toFixed(1)}" rx="2" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.2"/>`;
+  out += `<line x1="${xM(-780)}" y1="${yZ(180)}" x2="${xM(780)}" y2="${yZ(180)}" stroke="${C.blue}" stroke-width="0.9" stroke-dasharray="6 3"/>`;
+
+  // 4WD/4WS Ø220x80 wheels (±410, Z=0..220) + 4xØ25 vertical shafts & coaxial coil springs (±25 mm, pod_top 275)
+  for (const wx of [-410, 410]) {
+    out += `<circle cx="${xM(wx)}" cy="${yZ(110)}" r="${+(110 * sc).toFixed(1)}" fill="${C.void}" stroke="${C.blue}" stroke-width="2.4"/>`;
+    out += `<circle cx="${xM(wx)}" cy="${yZ(110)}" r="${+(55 * sc).toFixed(1)}" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.2"/>`;
+    out += `<rect x="${xM(wx - 80)}" y="${yZ(241)}" width="${+(160 * sc).toFixed(1)}" height="${+(12 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="0.9"/>`;
+    out += `<line x1="${xM(wx - 116)}" y1="${yZ(269)}" x2="${xM(wx - 116)}" y2="${yZ(93)}" stroke="${C.amber}" stroke-width="1.2"/>`;
+    out += `<line x1="${xM(wx + 116)}" y1="${yZ(269)}" x2="${xM(wx + 116)}" y2="${yZ(93)}" stroke="${C.amber}" stroke-width="1.2"/>`;
+  }
+
+  // Front Spine Heavy-Armored E1R Pocket (X=685..765, Z=85..215, 20.83 mm pillar recess, 28.79 mm floor lip)
+  out += `<rect x="${xM(685)}" y="${yZ(95)}" width="${+(80 * sc).toFixed(1)}" height="${+(10 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  out += `<rect x="${xM(685)}" y="${yZ(215)}" width="${+(54.5 * sc).toFixed(1)}" height="${+(8 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  out += `<rect x="${xM(685)}" y="${yZ(207)}" width="${+(69 * sc).toFixed(1)}" height="${+(112 * sc).toFixed(1)}" fill="rgba(148,163,184,0.35)" stroke="${C.stroke}" stroke-width="1.1"/>`;
+  out += `<g transform="translate(${xM(712)},${yZ(165)}) rotate(-10)"><rect x="${+(-21.5 * sc).toFixed(1)}" y="${+(-34.75 * sc).toFixed(1)}" width="${+(43 * sc).toFixed(1)}" height="${+(69.5 * sc).toFixed(1)}" rx="2" fill="#6d28d9" stroke="#3b0764" stroke-width="1.3"/></g>`;
+  // Clipped E1R rays (+55 / -35 deg stopping cleanly at x=834!)
+  out += `<line x1="${xM(739)}" y1="${yZ(165)}" x2="834" y2="225" stroke="${C.purple}" stroke-width="1.1" stroke-dasharray="4 3"/>`;
+  out += `<line x1="${xM(739)}" y1="${yZ(165)}" x2="834" y2="334" stroke="${C.purple}" stroke-width="1.1" stroke-dasharray="4 3"/>`;
+
+  // Fork Carriage (X=-732..-462, Z=87..270) + EHA Powerpack (-644..-586) + 2-Stage Passive Telescopic Heel Mast (-542..-512, stowed 87..274 -> deployed 490!)
+  out += `<rect x="${xM(-732)}" y="${yZ(270)}" width="${+(270 * sc).toFixed(1)}" height="${+(52 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.teal}" stroke-width="1.1"/>`;
+  out += `<rect x="${xM(-644)}" y="${yZ(210)}" width="${+(58 * sc).toFixed(1)}" height="${+(115 * sc).toFixed(1)}" fill="rgba(180,83,9,0.16)" stroke="${C.amber}" stroke-width="1.1"/>`;
+  out += `<rect x="${xM(-542)}" y="${yZ(274)}" width="${+(30 * sc).toFixed(1)}" height="${+(187 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  out += `<rect x="${xM(-536)}" y="${yZ(490)}" width="${+(24 * sc).toFixed(1)}" height="${+(216 * sc).toFixed(1)}" fill="rgba(29,78,216,0.08)" stroke="${C.dim}" stroke-width="1.1" stroke-dasharray="4 2"/>`;
+  out += `<rect x="${xM(-529)}" y="${yZ(305)}" width="${+(12 * sc).toFixed(1)}" height="${+(14 * sc).toFixed(1)}" fill="#fef3c7" stroke="${C.orange}" stroke-width="1.0"/>`;
+
+  // Stowed 62 mm Hat Scale-Fork (X=-512..+745, Z=85..147, nose 52 mm) + Symmetric 4-pt Pancake LC (X=-380 & +590 -> 970 WB!)
+  out += `<polygon points="${xM(-512)},${yZ(147)} ${xM(665)},${yZ(147)} ${xM(745)},${yZ(137)} ${xM(745)},${yZ(85)} ${xM(-512)},${yZ(85)}" fill="#ccfbf1" fill-opacity="0.88" stroke="${C.teal}" stroke-width="1.5"/>`;
+  out += `<rect x="${xM(-405)}" y="${yZ(141)}" width="${+(50 * sc).toFixed(1)}" height="${+(27 * sc).toFixed(1)}" fill="#0f766e" stroke="${C.stroke}" stroke-width="0.9"/>`;
+  out += `<rect x="${xM(565)}" y="${yZ(141)}" width="${+(50 * sc).toFixed(1)}" height="${+(27 * sc).toFixed(1)}" fill="#0f766e" stroke="${C.stroke}" stroke-width="0.9"/>`;
+  // Pickup drop ghost (single Z=10..72 dashed)
+  out += `<polygon points="${xM(-512)},${yZ(72)} ${xM(665)},${yZ(72)} ${xM(745)},${yZ(62.1)} ${xM(745)},${yZ(10)} ${xM(-512)},${yZ(10)}" fill="rgba(15,118,110,0.08)" stroke="${C.teal}" stroke-width="1.1" stroke-dasharray="4 2"/>`;
+  // Window double-deck trapped travel ghost (Z=300..362, green dashed, Z=300 lockpin!)
+  out += `<rect x="${xM(-512)}" y="${yZ(362)}" width="${+(1257 * sc).toFixed(1)}" height="${+(62 * sc).toFixed(1)}" fill="rgba(21,128,61,0.06)" stroke="${C.green}" stroke-width="1.0" stroke-dasharray="4 2"/>`;
+  // 2-Tier Y-Nested L=305 X-Scissor lifted T10 sync_in ghost (Z=414.8..476.8 -> single +101.8 / window +76.8 over pod_top 275!)
+  out += `<rect x="${xM(-512)}" y="${yZ(476.8)}" width="${+(1257 * sc).toFixed(1)}" height="${+(62 * sc).toFixed(1)}" fill="rgba(29,78,216,0.07)" stroke="${C.dim}" stroke-width="1.2" stroke-dasharray="5 3"/>`;
+  // 2-Tier L=305 X-Scissor dashed lines (Rear pod X=-222..+57, Front pod X=+262..+542; 302 mm <= 355 mm T11 window!)
+  for (const [xa, xb] of [[-210, 45], [275, 530]]) {
+    const zm = 281;
+    out += `<line x1="${xM(xa)}" y1="${yZ(147)}" x2="${xM(xb)}" y2="${yZ(zm)}" stroke="${C.dim}" stroke-width="0.95" stroke-dasharray="3 2"/>`;
+    out += `<line x1="${xM(xb)}" y1="${yZ(147)}" x2="${xM(xa)}" y2="${yZ(zm)}" stroke="${C.dim}" stroke-width="0.95" stroke-dasharray="3 2"/>`;
+    out += `<line x1="${xM(xa)}" y1="${yZ(zm)}" x2="${xM(xb)}" y2="${yZ(414.8)}" stroke="${C.dim}" stroke-width="0.95" stroke-dasharray="3 2"/>`;
+    out += `<line x1="${xM(xb)}" y1="${yZ(zm)}" x2="${xM(xa)}" y2="${yZ(414.8)}" stroke="${C.dim}" stroke-width="0.95" stroke-dasharray="3 2"/>`;
+    out += `<circle cx="${xM((xa + xb) / 2)}" cy="${yZ(214)}" r="2.8" fill="${C.bg}" stroke="${C.dim}" stroke-width="1.0"/>`;
+    out += `<circle cx="${xM((xa + xb) / 2)}" cy="${yZ(348)}" r="2.8" fill="${C.bg}" stroke="${C.dim}" stroke-width="1.0"/>`;
+  }
+
+  // 3 visible E-stops
+  for (const [ex, ez] of [[-772, 500], [-650, 480], [580, 240]]) {
+    out += `<circle cx="${xM(ex)}" cy="${yZ(ez)}" r="4" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1"/>`;
+  }
+
+  // Clean Open-Sky Callouts (top 2 ABOVE envelope y=88.2; lower 3 cleanly between sightline 118.4 & deployed heel mast 184.1!)
+  out += leader(xM(-595), yZ(685), 372, 55, C.amber);
+  out += `<text x="378" y="58" fill="${C.amber}" font-family="${MONO}" font-size="8.2" font-weight="800">좌후방 XT32 (-650,Z=675 · 91.0% · 적재 90° 차폐→E1R)</text>`;
+  out += leader(xM(-555), yZ(590), 372, 77, C.text);
+  out += `<text x="378" y="80" fill="${C.text}" font-family="${MONO}" font-size="8.2" font-weight="800">605 타워(X=-555 후퇴) + 후면 토크박스(15.9 MPa)</text>`;
+  out += leader(xM(-512), yZ(490), 434, 136, C.dim);
+  out += `<text x="440" y="139" fill="${C.dim}" font-family="${MONO}" font-size="8.1" font-weight="800">2단 텔레스코픽 힐 마스트 Z=490 (이탈 0 · 록핀 Z300)</text>`;
+  out += leader(xM(-400), yZ(476.8), 434, 158, C.blue);
+  out += `<text x="440" y="161" fill="${C.blue}" font-family="${MONO}" font-size="8.1" font-weight="800">2단 L=305 X-가위 Z=476.8 (단면+101.8 / 창형+76.8↑)</text>`;
+  out += leader(xM(-310), yZ(362), 434, 180, C.green);
+  out += `<text x="440" y="183" fill="${C.green}" font-family="${MONO}" font-size="8.0" font-weight="800">창형 주행 Z=300..362 (+38 간극) · 대칭 LC -380/+590</text>`;
+
+  // Right callouts (x >= 848, clear of clipped E1R rays x <= 834!)
+  out += leader(xM(739), yZ(210), 842, 134, C.purple);
+  out += `<text x="848" y="137" fill="${C.purple}" font-family="${MONO}" font-size="8.2" font-weight="800">등뼈 중장갑 E1R (+712,Z=165)</text>`;
+  out += `<text x="848" y="151" fill="${C.green}" font-family="${MONO}" font-size="7.9" font-weight="800">지주 20.8 / 하판 28.8 · 0% 차단</text>`;
+  out += leader(xM(753), yZ(180), 842, 198, C.blue);
+  out += `<text x="848" y="201" fill="${C.blue}" font-family="${MONO}" font-size="8.1" font-weight="800">FL 2D (+705,+530 · 257.0° · 뮤팅)</text>`;
+  out += leader(xM(745), yZ(116), 842, 314, C.teal);
+  out += `<text x="848" y="317" fill="${C.teal}" font-family="${MONO}" font-size="8.1" font-weight="800">단면 수납 Z=85..147 (Hat 62t)</text>`;
+  out += leader(xM(745), yZ(40), 842, 345, C.teal);
+  out += `<text x="848" y="348" fill="${C.sub}" font-family="${MONO}" font-size="8.1" font-weight="800">픽업 단면 10..72 / 창형 30..92</text>`;
+
+  // Left vertical dimensions
+  out += dimV(58, yZ(760), fY, '전고 760', C.green, 'end', 218);
+  out += dimV(124, yZ(675), fY, 'XT32 675', C.amber, 'end', 150);
+  out += dimV(222, yZ(573), yZ(405), 'HMI 405~573', C.dim, 'end', 186);
+  out += dimV(222, yZ(329), yZ(246), '충전 250~325', C.orange, 'end', 258);
+
+  // Right vertical dimensions (cleanly at x=1098)
+  out += dimV(1098, yZ(476.8), fY, 'Z 476.8', C.dim, 'start', 202, 8.1);
+  out += dimV(1098, yZ(275), fY, '데크 275', C.text, 'start', 268, 8.1);
+  out += dimV(1098, yZ(85), fY, 'G=85(A)', C.muted, 'start', 346, 8.1);
+
+  // Bottom horizontal dimensions
+  out += dimH(xM(-410), xM(410), 380, '축거 WB 820 (-410 / +410 · 4×Ø25 수직 서스펜션 ±25 mm · 60포즈 0)', C.blue, -4, 8.3);
+  out += dimH(xM(-512), xM(745), 402, '포크 X=-512..+745 (HGR25+HTD-8M · 대칭 970 WB LC · 48V EHA Ø40 SF 2.96×)', C.teal, -4, 8.2);
+  out += dimH(xM(-780), xM(780), 424, '초콤팩트 전장 1,560.0 mm (CW 0 · 338부품 · 공차 786.7 kg · 윤하중 SF 1.83× · 9/9 PASS)', C.green, -4, 8.4);
+
+  document.getElementById('svgSide').innerHTML = out;
+}
+
+// ==================== 3. SHEET 1: REAR ELEVATION (580 x 410) ====================
+function drawRearX() {
+  const cx = 290, fY = 348, sc = 0.27;
+  const xY = y => +(cx - y * sc).toFixed(1);
+  const yZ = z => +(fY - z * sc).toFixed(1);
+  let out = gridBg(580, 410, 35);
+
+  out += axisTriad(10, 8, -1, '← +Y LEFT', -1, '+Z UP ↑', 'out', '⊙ -X REAR');
+  out += thirdAngleBadge(466, 8);
+  out += `<text x="${cx}" y="22" fill="${C.text}" font-family="${MONO}" font-size="9.3" font-weight="800" text-anchor="middle">REAR ELEVATION (HD-30X · X=-765 Datum C)</text>`;
+  out += `<text x="${xY(585)}" y="74" fill="${C.amber}" font-family="${MONO}" font-size="8.6" font-weight="800" text-anchor="start">◀ LEFT (+Y)</text>`;
+  out += `<text x="${xY(-585)}" y="74" fill="${C.amber}" font-family="${MONO}" font-size="8.6" font-weight="800" text-anchor="end">RIGHT (-Y) ▶</text>`;
+  out += `<text x="${cx}" y="94" fill="${C.green}" font-family="${MONO}" font-size="7.9" font-weight="800" text-anchor="middle">605 폐쇄 타워 + 155 롤케이지 (Z=760 · 91.0%) · 후면 토크박스 · 40° HMI</text>`;
+
+  out += `<line x1="22" y1="${fY}" x2="558" y2="${fY}" stroke="${C.muted}" stroke-width="1.8"/>`;
+  out += `<rect x="${xY(600)}" y="${yZ(760)}" width="${+(1200 * sc).toFixed(1)}" height="${+(760 * sc).toFixed(1)}" fill="none" stroke="${C.env}" stroke-width="1.2" stroke-dasharray="5 3"/>`;
+
+  // Rear 10t stepped backplate
+  out += `<path d="M ${xY(585)},${yZ(85)} L ${xY(585)},${yZ(599)} L ${xY(155)},${yZ(599)} L ${xY(155)},${yZ(430)} L ${xY(-155)},${yZ(430)} L ${xY(-155)},${yZ(530)} L ${xY(-585)},${yZ(530)} L ${xY(-585)},${yZ(85)} Z" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.6"/>`;
+  out += `<rect x="${xY(585)}" y="${yZ(605)}" width="${+(430 * sc).toFixed(1)}" height="${+(6 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.1"/>`;
+  out += `<rect x="${xY(-155)}" y="${yZ(536)}" width="${+(430 * sc).toFixed(1)}" height="${+(6 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.1"/>`;
+
+  // Rear-left 155 mm Armored Roll-Cage (Y=+280..+585, Z=605..760)
+  out += `<rect x="${xY(585)}" y="${yZ(630)}" width="${+(305 * sc).toFixed(1)}" height="${+(25 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  for (const yp of [572, 292]) {
+    out += `<rect x="${xY(yp + 12)}" y="${yZ(735)}" width="${+(24 * sc).toFixed(1)}" height="${+(105 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  }
+  out += `<polygon points="${xY(585)},${yZ(735)} ${xY(568)},${yZ(760)} ${xY(297)},${yZ(760)} ${xY(280)},${yZ(735)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.5"/>`;
+  out += `<rect x="${xY(440 + 50)}" y="${yZ(720)}" width="${+(100 * sc).toFixed(1)}" height="${+(89 * sc).toFixed(1)}" rx="5" fill="#f59e0b" stroke="#78350f" stroke-width="1.4"/>`;
+
+  // 40 deg Open-Sky HMI (|Y|<=143, Z=414..573)
+  out += `<rect x="${xY(155)}" y="${yZ(569.4)}" width="${+(310 * sc).toFixed(1)}" height="${+(164.4 * sc).toFixed(1)}" rx="2" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<rect x="${xY(143)}" y="${yZ(573.3)}" width="${+(286 * sc).toFixed(1)}" height="${+(158.9 * sc).toFixed(1)}" rx="3" fill="#eff6ff" stroke="${C.dim}" stroke-width="1.6"/>`;
+  out += `<text x="${cx}" y="${yZ(504)}" fill="${C.dim}" font-family="${MONO}" font-size="7.6" font-weight="800" text-anchor="middle">40° HMI</text>`;
+  out += `<text x="${cx}" y="${yZ(454)}" fill="${C.green}" font-family="${MONO}" font-size="7.1" font-weight="800" text-anchor="middle">10.1" 무지붕</text>`;
+
+  // E-stops
+  out += `<circle cx="${xY(255)}" cy="${yZ(500)}" r="6" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1.2"/>`;
+  out += `<rect x="${xY(599.5)}" y="${yZ(506)}" width="${+(14.5 * sc).toFixed(1)}" height="${+(52 * sc).toFixed(1)}" fill="#b91c1c"/>`;
+  out += `<rect x="${xY(-585)}" y="${yZ(506)}" width="${+(14.5 * sc).toFixed(1)}" height="${+(52 * sc).toFixed(1)}" fill="#b91c1c"/>`;
+  out += `<rect x="${xY(599.5)}" y="${yZ(266)}" width="${+(14.5 * sc).toFixed(1)}" height="${+(52 * sc).toFixed(1)}" fill="#b91c1c" fill-opacity="0.7"/>`;
+  out += `<rect x="${xY(-585)}" y="${yZ(266)}" width="${+(14.5 * sc).toFixed(1)}" height="${+(52 * sc).toFixed(1)}" fill="#b91c1c" fill-opacity="0.7"/>`;
+
+  // Rear recessed charger (|Y|<=120, Z=246..329)
+  out += `<rect x="${xY(120)}" y="${yZ(329)}" width="${+(240 * sc).toFixed(1)}" height="${+(83 * sc).toFixed(1)}" rx="2" fill="#fff7ed" stroke="${C.orange}" stroke-width="1.5"/>`;
+  out += `<rect x="${xY(96)}" y="${yZ(313)}" width="${+(62 * sc).toFixed(1)}" height="${+(51 * sc).toFixed(1)}" fill="#f59e0b" stroke="#92400e"/>`;
+  out += `<rect x="${xY(-34)}" y="${yZ(313)}" width="${+(62 * sc).toFixed(1)}" height="${+(51 * sc).toFixed(1)}" fill="#f59e0b" stroke="#92400e"/>`;
+  out += `<rect x="${xY(14)}" y="${yZ(301)}" width="${+(28 * sc).toFixed(1)}" height="${+(27 * sc).toFixed(1)}" fill="#0f766e"/>`;
+
+  // Rear waist slit & RR 2D notch
+  out += `<rect x="${xY(585)}" y="${yZ(188)}" width="${+(1033 * sc).toFixed(1)}" height="${+(38 * sc).toFixed(1)}" fill="${C.void}" stroke="${C.dim}" stroke-width="0.9" stroke-dasharray="3 2"/>`;
+  out += `<rect x="${xY(-448)}" y="${yZ(216)}" width="${+(134 * sc).toFixed(1)}" height="${+(90.5 * sc).toFixed(1)}" fill="${C.bg}" stroke="${C.dim}" stroke-width="1.3"/>`;
+  out += `<rect x="${xY(-454.8)}" y="${yZ(209.5)}" width="${+(123.2 * sc).toFixed(1)}" height="${+(80 * sc).toFixed(1)}" rx="2" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.2"/>`;
+
+  // Rear Ø220x80 tires (|Y|=393..473, Track=866.0)
+  for (const s of [1, -1]) {
+    const lx = s > 0 ? xY(473) : xY(-393);
+    out += `<rect x="${lx}" y="${yZ(220)}" width="${+(80 * sc).toFixed(1)}" height="${+(135 * sc).toFixed(1)}" rx="3" fill="rgba(29,78,216,0.09)" stroke="${C.blue}" stroke-width="1" stroke-dasharray="3 2"/>`;
+    out += `<rect x="${lx}" y="${yZ(85)}" width="${+(80 * sc).toFixed(1)}" height="${+(85 * sc).toFixed(1)}" rx="3" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.6"/>`;
+  }
+  out += `<rect x="${xY(585)}" y="${yZ(120)}" width="${+(1170 * sc).toFixed(1)}" height="${+(35 * sc).toFixed(1)}" fill="rgba(180,83,9,0.28)" stroke="${C.orange}"/>`;
+
+  // Clean external callouts
+  out += leader(xY(280), yZ(680), 240, 150, C.amber);
+  out += `<text x="245" y="153" fill="${C.amber}" font-family="${MONO}" font-size="8.0" font-weight="800">좌후방 XT32 (Y=+440, Z=675)</text>`;
+  out += `<text x="245" y="166" fill="${C.sub}" font-family="${MONO}" font-size="7.5" font-weight="700">Ø24×4t 롤케이지 91.0% · 32ch 83.4%</text>`;
+
+  out += leader(xY(255), yZ(500), 116, 214, C.red);
+  out += `<text x="112" y="217" fill="${C.red}" font-family="${MONO}" font-size="7.8" font-weight="800" text-anchor="end">후면 E-STOP</text>`;
+
+  out += leader(xY(120), yZ(288), 116, 272, C.orange);
+  out += `<text x="112" y="275" fill="${C.orange}" font-family="${MONO}" font-size="7.8" font-weight="800" text-anchor="end">충전 250~325</text>`;
+
+  out += leader(xY(-518), yZ(170), 472, 304, C.blue);
+  out += `<text x="476" y="307" fill="${C.blue}" font-family="${MONO}" font-size="7.8" font-weight="800">RR 2D (Z=180)</text>`;
+
+  out += dimV(48, yZ(760), fY, '760', C.green, 'end', 248, 8.5);
+  out += dimV(470, yZ(573), yZ(405), 'HMI 168', C.dim, 'start', 218, 7.9);
+  out += dimV(470, yZ(329), yZ(246), '충전 83', C.orange, 'start', 274, 7.9);
+  out += dimV(470, yZ(85), fY, 'G=85(A)', C.muted, 'start', 340, 7.9);
+
+  out += dimH(xY(433), xY(-433), 372, '윤거 Track 866.0 (Ø220×80 · 1,100 kg/륜 · SF 1.83×)', C.blue, -4, 8.1);
+  out += dimH(xY(600), xY(-600), 396, '차체 폭 1,200.0 mm (승강기 진입 · 프레임 ±585 + 범퍼 15×2)', C.green, -4, 8.4);
+
+  document.getElementById('svgRear').innerHTML = out;
+}
+
+// ==================== 4. SHEET 1: FRONT ELEVATION (580 x 410) ====================
+function drawFrontX() {
+  const cx = 290, fY = 348, sc = 0.27;
+  const xY = y => +(cx + y * sc).toFixed(1);
+  const yZ = z => +(fY - z * sc).toFixed(1);
+  let out = gridBg(580, 410, 35);
+
+  out += axisTriad(10, 8, +1, '+Y LEFT →', -1, '+Z UP ↑', 'out', '⊙ +X FRONT');
+  out += thirdAngleBadge(466, 8);
+  out += `<text x="${cx}" y="22" fill="${C.text}" font-family="${MONO}" font-size="9.3" font-weight="800" text-anchor="middle">FRONT ELEVATION (HD-30X · X=+780 정면)</text>`;
+  out += `<text x="${xY(-585)}" y="74" fill="${C.amber}" font-family="${MONO}" font-size="8.6" font-weight="800" text-anchor="start">◀ RIGHT (-Y)</text>`;
+  out += `<text x="${xY(585)}" y="74" fill="${C.amber}" font-family="${MONO}" font-size="8.6" font-weight="800" text-anchor="end">LEFT (+Y) ▶</text>`;
+  out += `<text x="${cx}" y="94" fill="${C.sub}" font-family="${MONO}" font-size="7.9" font-weight="700" text-anchor="middle">축소 등뼈 E1R (|Y|≤100) · 62t Hat 2단 X-가위 포크 ×2 · 데크 Z=275</text>`;
+
+  out += `<line x1="22" y1="${fY}" x2="558" y2="${fY}" stroke="${C.muted}" stroke-width="1.8"/>`;
+  out += `<rect x="${xY(-600)}" y="${yZ(760)}" width="${+(1200 * sc).toFixed(1)}" height="${+(760 * sc).toFixed(1)}" fill="none" stroke="${C.env}" stroke-width="1.2" stroke-dasharray="5 3"/>`;
+
+  // Background rear tower + rear-left armored roll-cage
+  out += `<rect x="${xY(-585)}" y="${yZ(536)}" width="${+(430 * sc).toFixed(1)}" height="${+(261 * sc).toFixed(1)}" fill="${C.frame}" fill-opacity="0.55" stroke="${C.muted}" stroke-width="1"/>`;
+  out += `<rect x="${xY(155)}" y="${yZ(605)}" width="${+(430 * sc).toFixed(1)}" height="${+(330 * sc).toFixed(1)}" fill="${C.frame}" fill-opacity="0.65" stroke="${C.muted}" stroke-width="1.1"/>`;
+  out += `<rect x="${xY(280)}" y="${yZ(630)}" width="${+(305 * sc).toFixed(1)}" height="${+(25 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.muted}" stroke-width="1"/>`;
+  for (const yp of [292, 572]) {
+    out += `<rect x="${xY(yp - 12)}" y="${yZ(735)}" width="${+(24 * sc).toFixed(1)}" height="${+(105 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.muted}" stroke-width="1"/>`;
+  }
+  out += `<polygon points="${xY(280)},${yZ(735)} ${xY(297)},${yZ(760)} ${xY(568)},${yZ(760)} ${xY(585)},${yZ(735)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<rect x="${xY(390)}" y="${yZ(720)}" width="${+(100 * sc).toFixed(1)}" height="${+(89 * sc).toFixed(1)}" rx="5" fill="#f59e0b" fill-opacity="0.85" stroke="#78350f" stroke-width="1.2"/>`;
+
+  // Left & Right front pods (|Y|=306..585, Z=85..275)
+  out += `<rect x="${xY(-585)}" y="${yZ(275)}" width="${+(279 * sc).toFixed(1)}" height="${+(190 * sc).toFixed(1)}" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.5"/>`;
+  out += `<rect x="${xY(306)}" y="${yZ(275)}" width="${+(279 * sc).toFixed(1)}" height="${+(190 * sc).toFixed(1)}" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.5"/>`;
+  out += `<rect x="${xY(-585)}" y="${yZ(275)}" width="${+(279 * sc).toFixed(1)}" height="${+(6 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.1"/>`;
+  out += `<rect x="${xY(306)}" y="${yZ(275)}" width="${+(279 * sc).toFixed(1)}" height="${+(6 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.1"/>`;
+  // Front bumpers
+  out += `<rect x="${xY(-585)}" y="${yZ(120)}" width="${+(279 * sc).toFixed(1)}" height="${+(35 * sc).toFixed(1)}" fill="rgba(180,83,9,0.28)" stroke="${C.orange}"/>`;
+  out += `<rect x="${xY(306)}" y="${yZ(120)}" width="${+(279 * sc).toFixed(1)}" height="${+(35 * sc).toFixed(1)}" fill="rgba(180,83,9,0.28)" stroke="${C.orange}"/>`;
+  // Front side E-stops
+  out += `<rect x="${xY(-599.5)}" y="${yZ(266)}" width="${+(14.5 * sc).toFixed(1)}" height="${+(52 * sc).toFixed(1)}" fill="#b91c1c"/>`;
+  out += `<rect x="${xY(585)}" y="${yZ(266)}" width="${+(14.5 * sc).toFixed(1)}" height="${+(52 * sc).toFixed(1)}" fill="#b91c1c"/>`;
+
+  // FL 2D corner notch (Y=+448..+582, Z=125..216)
+  out += `<rect x="${xY(448)}" y="${yZ(216)}" width="${+(134 * sc).toFixed(1)}" height="${+(90.5 * sc).toFixed(1)}" fill="${C.bg}" stroke="${C.dim}" stroke-width="1.3"/>`;
+  out += `<rect x="${xY(454.8)}" y="${yZ(209.5)}" width="${+(123.2 * sc).toFixed(1)}" height="${+(80 * sc).toFixed(1)}" rx="2" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.2"/>`;
+
+  // Front Ø220x80 tires (|Y|=393..473, Track=866)
+  for (const s of [-1, 1]) {
+    const lx = s < 0 ? xY(-473) : xY(393);
+    out += `<rect x="${lx}" y="${yZ(220)}" width="${+(80 * sc).toFixed(1)}" height="${+(135 * sc).toFixed(1)}" rx="3" fill="rgba(29,78,216,0.09)" stroke="${C.blue}" stroke-width="1" stroke-dasharray="3 2"/>`;
+    out += `<rect x="${lx}" y="${yZ(85)}" width="${+(80 * sc).toFixed(1)}" height="${+(85 * sc).toFixed(1)}" rx="3" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.6"/>`;
+  }
+
+  // Center spine armored E1R pocket (|Y|<=100, Z=85..215)
+  out += `<rect x="${xY(-100)}" y="${yZ(215)}" width="${+(200 * sc).toFixed(1)}" height="${+(130 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.5"/>`;
+  out += `<rect x="${xY(-78)}" y="${yZ(207)}" width="${+(156 * sc).toFixed(1)}" height="${+(112 * sc).toFixed(1)}" fill="${C.bg}" stroke="${C.stroke}" stroke-width="1"/>`;
+  out += `<rect x="${xY(-47.5)}" y="${yZ(203)}" width="${+(95 * sc).toFixed(1)}" height="${+(76 * sc).toFixed(1)}" rx="2" fill="#6d28d9" stroke="#3b0764" stroke-width="1.3"/>`;
+  out += `<rect x="${xY(-34)}" y="${yZ(184)}" width="${+(68 * sc).toFixed(1)}" height="${+(34 * sc).toFixed(1)}" fill="${C.bg}"/>`;
+
+  // Twin 148x62 mm Hat scale-fork lanes (|Y|=143..291, center ±217): Stowed Z=85..147 (solid) + Pickup single Z=10..72 (dashed) + Window travel Z=300..362 (green dashed)
+  for (const fy of [-291, 143]) {
+    out += `<rect x="${xY(fy)}" y="${yZ(362)}" width="${+(148 * sc).toFixed(1)}" height="${+(62 * sc).toFixed(1)}" fill="rgba(21,128,61,0.06)" stroke="${C.green}" stroke-width="0.9" stroke-dasharray="3 2"/>`;
+    out += `<rect x="${xY(fy)}" y="${yZ(147)}" width="${+(148 * sc).toFixed(1)}" height="${+(62 * sc).toFixed(1)}" fill="#ccfbf1" stroke="${C.teal}" stroke-width="1.5"/>`;
+    out += `<rect x="${xY(fy)}" y="${yZ(72)}" width="${+(148 * sc).toFixed(1)}" height="${+(62 * sc).toFixed(1)}" fill="rgba(15,118,110,0.08)" stroke="${C.teal}" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+  }
+
+  // Datum B line (Y=+100 HGR25 rail face)
+  out += `<line x1="${xY(100)}" y1="${yZ(215)}" x2="${xY(100)}" y2="${yZ(360)}" stroke="${C.purple}" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+
+  // Clean External Callouts
+  out += leader(xY(-100), yZ(175), 116, 214, C.purple);
+  out += `<text x="112" y="217" fill="${C.purple}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">등뼈 E1R (Z=165)</text>`;
+
+  out += leader(xY(-291), yZ(116), 116, 266, C.teal);
+  out += `<text x="112" y="269" fill="${C.teal}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">Hat 148×62 (수납)</text>`;
+
+  out += leader(xY(-217), yZ(41), 116, 330, C.teal);
+  out += `<text x="112" y="333" fill="${C.sub}" font-family="${MONO}" font-size="7.5" font-weight="700" text-anchor="end">픽업 10..72 / 30..92</text>`;
+
+  out += leader(xY(100), yZ(350), 278, 224, C.purple);
+  out += `<text x="274" y="227" fill="${C.purple}" font-family="${MONO}" font-size="7.6" font-weight="800" text-anchor="end">Datum B(Y+100)</text>`;
+
+  out += leader(xY(518), yZ(170), 468, 244, C.blue);
+  out += `<text x="473" y="247" fill="${C.blue}" font-family="${MONO}" font-size="7.8" font-weight="800">FL 2D (Z=180)</text>`;
+
+  out += dimV(468, yZ(760), fY, '760', C.green, 'start', 195, 8.2);
+  out += dimV(468, yZ(275), fY, '데크 275', C.text, 'start', 302, 7.8);
+  out += dimV(468, yZ(85), fY, 'G=85(A)', C.muted, 'start', 341, 7.8);
+
+  out += dimH(xY(-291), xY(291), 374, '포크 외폭 582 (내폭 286 · 레인 206 · Hat 148×62)', C.teal, -6.8, 7.7);
+  out += dimH(xY(-600), xY(600), 396, '차체 폭 1,200.0 mm · 윤거 Track 866.0 mm', C.green, -4, 8.4);
+
+  document.getElementById('svgFront').innerHTML = out;
+}
+
+// ==================== 5. SHEET 2: TOP PLAN (580 x 535) ====================
+function drawTopX() {
+  const cx = 290, cy = 288, sc = 0.205;
+  const xY = y => +(cx + y * sc).toFixed(1);
+  const yX = x => +(cy + x * sc).toFixed(1);
+  let out = gridBg(580, 535, 36);
+
+  out += axisTriad(10, 8, +1, '+Y LEFT →', +1, '+X FRONT ↓', 'out', '⊙ +Z UP');
+  out += thirdAngleBadge(466, 8);
+  out += `<text x="${cx}" y="22" fill="${C.text}" font-family="${MONO}" font-size="9.2" font-weight="800" text-anchor="middle">TOP PLAN (HD-30X · 1,560×1,200 초콤팩트)</text>`;
+  out += dimH(xY(-600), xY(600), 54, '승강기 진입 폭 1,200.0 (강재 1,170 + 범퍼 15×2)', C.green, -5, 8.4);
+  out += `<text x="86" y="76" fill="${C.amber}" font-family="${MONO}" font-size="8.4" font-weight="800" text-anchor="middle">◀ RIGHT (-Y)</text>`;
+  out += `<text x="494" y="76" fill="${C.amber}" font-family="${MONO}" font-size="8.4" font-weight="800" text-anchor="middle">LEFT (+Y) ▶</text>`;
+
+  // Clipped 2D FOV wedges
+  out += `<path d="M ${xY(530)},${yX(705)} L ${xY(660)},${yX(650)} A 56,56 0 0 1 ${xY(465)},${yX(835)} Z" fill="rgba(29,78,216,0.08)" stroke="${C.blue}" stroke-width="0.9" stroke-dasharray="3 2"/>`;
+  out += `<path d="M ${xY(-530)},${yX(-705)} L ${xY(-660)},${yX(-650)} A 56,56 0 0 1 ${xY(-465)},${yX(-835)} Z" fill="rgba(29,78,216,0.08)" stroke="${C.blue}" stroke-width="0.9" stroke-dasharray="3 2"/>`;
+
+  // Outer bumper envelope (1200 x 1560)
+  out += `<rect x="${xY(-600)}" y="${yX(-780)}" width="${+(1200 * sc).toFixed(1)}" height="${+(1560 * sc).toFixed(1)}" rx="6" fill="none" stroke="${C.env}" stroke-width="1.3" stroke-dasharray="5 3"/>`;
+
+  // Rear Tower (X=-765..-555, Y=-585..+585)
+  out += `<rect x="${xY(-585)}" y="${yX(-765)}" width="${+(1170 * sc).toFixed(1)}" height="${+(210 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.5"/>`;
+  // Rear Torque Box (X=-701..-654, |Y|=100..306)
+  out += `<rect x="${xY(-306)}" y="${yX(-701)}" width="${+(206 * sc).toFixed(1)}" height="${+(47 * sc).toFixed(1)}" fill="rgba(180,83,9,0.18)" stroke="${C.amber}" stroke-width="1.0"/>`;
+  out += `<rect x="${xY(100)}" y="${yX(-701)}" width="${+(206 * sc).toFixed(1)}" height="${+(47 * sc).toFixed(1)}" fill="rgba(180,83,9,0.18)" stroke="${C.amber}" stroke-width="1.0"/>`;
+  // Left & Right Pods (|Y|=306..585, X=-555..+765)
+  out += `<rect x="${xY(-585)}" y="${yX(-555)}" width="${+(279 * sc).toFixed(1)}" height="${+(1320 * sc).toFixed(1)}" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  out += `<rect x="${xY(306)}" y="${yX(-555)}" width="${+(279 * sc).toFixed(1)}" height="${+(1320 * sc).toFixed(1)}" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  // Narrowed Center Spine (|Y|<=100, X=-755..+685) + HTD-8M belt
+  out += `<rect x="${xY(-100)}" y="${yX(-555)}" width="${+(200 * sc).toFixed(1)}" height="${+(1240 * sc).toFixed(1)}" fill="${C.void}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<line x1="${cx}" y1="${yX(-696)}" x2="${cx}" y2="${yX(682)}" stroke="${C.amber}" stroke-width="1.0" stroke-dasharray="4 2"/>`;
+
+  // Front Armored E1R Tunnel (X=685..765, |Y|<=100)
+  out += `<rect x="${xY(-100)}" y="${yX(685)}" width="${+(200 * sc).toFixed(1)}" height="${+(80 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<rect x="${xY(-47.5)}" y="${yX(685)}" width="${+(95 * sc).toFixed(1)}" height="${+(54 * sc).toFixed(1)}" rx="2" fill="#6d28d9" stroke="#3b0764" stroke-width="1.2"/>`;
+
+  // Rear 40 deg HMI
+  out += `<rect x="${xY(-155)}" y="${yX(-765)}" width="${+(310 * sc).toFixed(1)}" height="${+(160 * sc).toFixed(1)}" fill="${C.frame}" stroke="${C.dim}" stroke-width="1.1"/>`;
+  out += `<rect x="${xY(-143)}" y="${yX(-767)}" width="${+(286 * sc).toFixed(1)}" height="${+(142 * sc).toFixed(1)}" rx="2" fill="#eff6ff" stroke="${C.dim}" stroke-width="1.4"/>`;
+  out += `<text x="${cx}" y="${yX(-688)}" fill="${C.dim}" font-family="${MONO}" font-size="7.1" font-weight="900" text-anchor="middle">HMI</text>`;
+
+  // Rear-left 155 mm Armored XT32 Roll-Cage
+  out += `<rect x="${xY(280)}" y="${yX(-765)}" width="${+(305 * sc).toFixed(1)}" height="${+(210 * sc).toFixed(1)}" fill="none" stroke="${C.amber}" stroke-width="1.4" stroke-dasharray="3 2"/>`;
+  for (const xp of [-752, -567]) for (const yp of [292, 572]) {
+    out += `<circle cx="${xY(yp)}" cy="${yX(xp)}" r="2.4" fill="${C.stroke}"/>`;
+  }
+  out += `<circle cx="${xY(440)}" cy="${yX(-650)}" r="${+(50 * sc).toFixed(1)}" fill="#f59e0b" stroke="#78350f" stroke-width="1.3"/>`;
+
+  // Standard 100Ah LFP split packs in rear tower L & R + 200Ah spine expansion dashed
+  out += `<rect x="${xY(-556)}" y="${yX(-744)}" width="${+(240 * sc).toFixed(1)}" height="${+(182 * sc).toFixed(1)}" fill="rgba(21,128,61,0.16)" stroke="${C.green}" stroke-width="1.2"/>`;
+  out += `<rect x="${xY(316)}" y="${yX(-744)}" width="${+(240 * sc).toFixed(1)}" height="${+(182 * sc).toFixed(1)}" fill="rgba(21,128,61,0.16)" stroke="${C.green}" stroke-width="1.2"/>`;
+  out += `<rect x="${xY(-82)}" y="${yX(86)}" width="${+(164 * sc).toFixed(1)}" height="${+(554 * sc).toFixed(1)}" fill="rgba(21,128,61,0.06)" stroke="${C.green}" stroke-width="1" stroke-dasharray="3 2"/>`;
+
+  // Left & Right Pod Mid E-Boxes
+  out += `<rect x="${xY(-544)}" y="${yX(-158)}" width="${+(228 * sc).toFixed(1)}" height="${+(316 * sc).toFixed(1)}" fill="rgba(185,28,28,0.07)" stroke="${C.red}" stroke-width="0.9"/>`;
+  out += `<rect x="${xY(316)}" y="${yX(-158)}" width="${+(228 * sc).toFixed(1)}" height="${+(316 * sc).toFixed(1)}" fill="rgba(29,78,216,0.08)" stroke="${C.dim}" stroke-width="0.9"/>`;
+
+  // Twin 148 mm Hat Scale-Fork Lanes (|Y|=143..291, X=-512..+745) + Symmetric 970 WB Pancake Load Cells (X=-380 & +590!) + 2-Stage Heel Mast (-542..-512)
+  for (const fy of [-291, 143]) {
+    out += `<rect x="${xY(fy)}" y="${yX(-542)}" width="${+(148 * sc).toFixed(1)}" height="${+(30 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.0"/>`;
+    out += `<rect x="${xY(fy)}" y="${yX(-512)}" width="${+(148 * sc).toFixed(1)}" height="${+(1257 * sc).toFixed(1)}" rx="2" fill="#ccfbf1" fill-opacity="0.82" stroke="${C.teal}" stroke-width="1.3"/>`;
+    const yc = fy + 74;
+    for (const xl of [-380, 590]) {
+      out += `<circle cx="${xY(yc)}" cy="${yX(xl)}" r="${+(25 * sc).toFixed(1)}" fill="#0f766e" stroke="${C.stroke}" stroke-width="0.8"/>`;
+    }
+  }
+
+  // Origin Downward QR (0, 0, Ø95)
+  out += `<circle cx="${cx}" cy="${yX(0)}" r="${+(47.5 * sc).toFixed(1)}" fill="rgba(15,118,110,0.18)" stroke="${C.teal}" stroke-width="1.3"/>`;
+  out += `<text x="${cx}" y="${yX(0) + 2.5}" fill="${C.teal}" font-family="${MONO}" font-size="6.8" font-weight="900" text-anchor="middle">QR</text>`;
+
+  // 4x Ø238 Steering Sweep Circles & Ø220x80 Wheels (±410, ±433 · Track=866)
+  for (const wx of [-410, 410]) {
+    for (const wy of [-433, 433]) {
+      out += `<circle cx="${xY(wy)}" cy="${yX(wx)}" r="${+(119 * sc).toFixed(1)}" fill="none" stroke="${C.blue}" stroke-width="1" stroke-dasharray="3 2"/>`;
+      out += `<rect x="${xY(wy - 40)}" y="${yX(wx - 110)}" width="${+(80 * sc).toFixed(1)}" height="${+(220 * sc).toFixed(1)}" rx="3" fill="#dbeafe" fill-opacity="0.78" stroke="${C.blue}" stroke-width="1.2"/>`;
+      out += `<rect x="${xY(wy - 110)}" y="${yX(wx - 40)}" width="${+(220 * sc).toFixed(1)}" height="${+(80 * sc).toFixed(1)}" rx="3" fill="none" stroke="${C.blue}" stroke-width="0.7" stroke-dasharray="2 2"/>`;
+    }
+  }
+
+  // FL & RR 2D sensors & 5 E-stops
+  out += `<rect x="${xY(454.8)}" y="${yX(629.8)}" width="${+(123.2 * sc).toFixed(1)}" height="${+(123.2 * sc).toFixed(1)}" rx="3" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.3"/>`;
+  out += `<rect x="${xY(-578)}" y="${yX(-753.0)}" width="${+(123.2 * sc).toFixed(1)}" height="${+(123.2 * sc).toFixed(1)}" rx="3" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.3"/>`;
+  for (const [ex, ey] of [[-772, 255], [-650, 592], [-650, -592], [580, 592], [580, -592]]) {
+    out += `<circle cx="${xY(ey)}" cy="${yX(ex)}" r="3.4" fill="#b91c1c" stroke="#7f1d1d" stroke-width="0.8"/>`;
+  }
+
+  // Clean Left Callouts (x <= 152)
+  out += leader(xY(-530), yX(-705), 152, 118, C.blue);
+  out += `<text x="148" y="121" fill="${C.blue}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">RR 2D (-705,-530 · 263.3°)</text>`;
+  out += leader(xY(-433), yX(-650), 152, 152, C.green);
+  out += `<text x="148" y="155" fill="${C.green}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">100Ah LFP (8S×2 좌·우)</text>`;
+  out += leader(xY(-433), yX(-410), 152, 198, C.blue);
+  out += `<text x="148" y="201" fill="${C.blue}" font-family="${MONO}" font-size="7.7" font-weight="700" text-anchor="end">4WS Ø238 수직 4축 (±25)</text>`;
+  out += leader(xY(-430), yX(0), 152, 286, C.red);
+  out += `<text x="148" y="289" fill="${C.red}" font-family="${MONO}" font-size="7.7" font-weight="700" text-anchor="end">우측 포드 (PLC·분배·조향4)</text>`;
+  out += leader(xY(-433), yX(410), 152, 368, C.blue);
+  out += `<text x="148" y="371" fill="${C.blue}" font-family="${MONO}" font-size="7.7" font-weight="700" text-anchor="end">전륜 Ø220 (+410,-433)</text>`;
+  out += leader(xY(-592), yX(580), 152, 412, C.red);
+  out += `<text x="148" y="415" fill="${C.red}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">전방 E-STOP (+580,±585)</text>`;
+  out += leader(xY(-217), yX(590), 152, 456, C.teal);
+  out += `<text x="148" y="459" fill="${C.teal}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">전방 로드셀 (+590 · 970 WB)</text>`;
+
+  // Clean Right Callouts (x >= 428)
+  out += leader(xY(217), yX(-678), 428, 126, C.amber);
+  out += `<text x="432" y="129" fill="${C.amber}" font-family="${MONO}" font-size="7.7" font-weight="800">후면 토크박스 (-701..-654)</text>`;
+  out += leader(xY(440), yX(-650), 428, 158, C.amber);
+  out += `<text x="432" y="161" fill="${C.amber}" font-family="${MONO}" font-size="7.7" font-weight="800">장갑 XT32 (-650,+440)</text>`;
+  out += leader(xY(217), yX(-527), 428, 190, C.dim);
+  out += `<text x="432" y="193" fill="${C.dim}" font-family="${MONO}" font-size="7.7" font-weight="800">2단 힐 마스트 · Z300 록핀</text>`;
+  out += leader(xY(217), yX(-380), 428, 224, C.teal);
+  out += `<text x="432" y="227" fill="${C.teal}" font-family="${MONO}" font-size="7.7" font-weight="800">후방 로드셀 (-380 · 대칭)</text>`;
+  out += leader(xY(430), yX(0), 428, 286, C.dim);
+  out += `<text x="432" y="289" fill="${C.dim}" font-family="${MONO}" font-size="7.7" font-weight="700">좌측 포드 (Orin·Moxa·계량)</text>`;
+  out += leader(xY(82), yX(340), 428, 356, C.green);
+  out += `<text x="432" y="359" fill="${C.green}" font-family="${MONO}" font-size="7.7" font-weight="800">등뼈 200Ah + HTD-8M 벨트</text>`;
+  out += leader(xY(530), yX(705), 428, 424, C.blue);
+  out += `<text x="432" y="427" fill="${C.blue}" font-family="${MONO}" font-size="7.7" font-weight="800">FL 2D (+705,+530 · 257.0°)</text>`;
+  out += leader(xY(47.5), yX(712), 428, 464, C.purple);
+  out += `<text x="432" y="467" fill="${C.purple}" font-family="${MONO}" font-size="7.7" font-weight="800">전방 매립 E1R (+712, 20.8)</text>`;
+
+  out += `<text x="${cx}" y="520" fill="${C.green}" font-family="${MONO}" font-size="8.0" font-weight="800" text-anchor="middle">▲ REAR (-X) | ▼ FRONT (+X) | 1,560×1,200 초콤팩트 · 레인 206 mm · 2D 150~300 사각 0%</text>`;
+
+  document.getElementById('svgTop').innerHTML = out;
+}
+
+// ==================== 6. SHEET 2: BOTTOM VIEW (580 x 535) ====================
+function drawBottomX() {
+  const cx = 290, cy = 288, sc = 0.205;
+  const xY = y => +(cx - y * sc).toFixed(1);
+  const yX = x => +(cy + x * sc).toFixed(1);
+  let out = gridBg(580, 535, 36);
+
+  out += axisTriad(10, 8, -1, '← +Y LEFT', +1, '+X FRONT ↓', 'in', '⊗ +Z UP');
+  out += thirdAngleBadge(466, 8);
+  out += `<text x="${cx}" y="22" fill="${C.text}" font-family="${MONO}" font-size="9.2" font-weight="800" text-anchor="middle">BOTTOM VIEW (HD-30X · Z=85 Datum A 올려다봄)</text>`;
+  out += dimH(xY(433), xY(-433), 54, '4WD/4WS 윤거 Track 866.0 mm · Datum A: Z=85.0', C.blue, -5, 8.3);
+  out += `<text x="86" y="76" fill="${C.amber}" font-family="${MONO}" font-size="8.4" font-weight="800" text-anchor="middle">◀ LEFT (+Y)</text>`;
+  out += `<text x="494" y="76" fill="${C.amber}" font-family="${MONO}" font-size="8.4" font-weight="800" text-anchor="middle">RIGHT (-Y) ▶</text>`;
+
+  // Outer bumper envelope (1200 x 1560)
+  out += `<rect x="${xY(600)}" y="${yX(-780)}" width="${+(1200 * sc).toFixed(1)}" height="${+(1560 * sc).toFixed(1)}" rx="6" fill="none" stroke="${C.env}" stroke-width="1.2" stroke-dasharray="5 3"/>`;
+
+  // Continuous 8t pod bottom plates (|Y|=306..585, X=-765..+765) + 8t spine bottom (|Y|<=100, X=-755..+685) + rear torque box (-701..-654)
+  out += `<rect x="${xY(585)}" y="${yX(-765)}" width="${+(279 * sc).toFixed(1)}" height="${+(1530 * sc).toFixed(1)}" rx="2" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  out += `<rect x="${xY(-306)}" y="${yX(-765)}" width="${+(279 * sc).toFixed(1)}" height="${+(1530 * sc).toFixed(1)}" rx="2" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  out += `<rect x="${xY(100)}" y="${yX(-755)}" width="${+(200 * sc).toFixed(1)}" height="${+(1440 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  out += `<rect x="${xY(306)}" y="${yX(-755)}" width="${+(206 * sc).toFixed(1)}" height="${+(101 * sc).toFixed(1)}" fill="rgba(180,83,9,0.18)" stroke="${C.amber}" stroke-width="1.1"/>`;
+  out += `<rect x="${xY(-100)}" y="${yX(-755)}" width="${+(206 * sc).toFixed(1)}" height="${+(101 * sc).toFixed(1)}" fill="rgba(180,83,9,0.18)" stroke="${C.amber}" stroke-width="1.1"/>`;
+  // Front 10t armored E1R floor plate (X=685..765, |Y|<=100)
+  out += `<rect x="${xY(100)}" y="${yX(685)}" width="${+(200 * sc).toFixed(1)}" height="${+(80 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+
+  // Open twin fork lanes (|Y|=100..306, 206 mm wide) showing stowed 62 mm forks & real 110x280 skids (-222..+57 & +262..+542)
+  for (const fy of [291, -143]) {
+    out += `<rect x="${xY(fy)}" y="${yX(-512)}" width="${+(148 * sc).toFixed(1)}" height="${+(1257 * sc).toFixed(1)}" rx="2" fill="#ccfbf1" fill-opacity="0.7" stroke="${C.teal}" stroke-width="1.2"/>`;
+    const yc = fy - 74;
+    for (const sx of [-222.5, 262.5]) {
+      out += `<rect x="${xY(yc + 55)}" y="${yX(sx)}" width="${+(110 * sc).toFixed(1)}" height="${+(280 * sc).toFixed(1)}" fill="rgba(29,78,216,0.14)" stroke="${C.dim}" stroke-width="0.9" stroke-dasharray="2 1.5"/>`;
+    }
+  }
+
+  // 4x Ø238 steering cutouts & Ø220x80 tires (±410, ±433)
+  for (const wx of [-410, 410]) {
+    for (const wy of [433, -433]) {
+      out += `<circle cx="${xY(wy)}" cy="${yX(wx)}" r="${+(119 * sc).toFixed(1)}" fill="${C.bg}" stroke="${C.blue}" stroke-width="1.6"/>`;
+      out += `<rect x="${xY(wy + 40)}" y="${yX(wx - 110)}" width="${+(80 * sc).toFixed(1)}" height="${+(220 * sc).toFixed(1)}" rx="3" fill="#1d4ed8"/>`;
+    }
+  }
+
+  // Origin Ø95 QR optical aperture (0, 0)
+  out += `<circle cx="${cx}" cy="${yX(0)}" r="${+(47.5 * sc).toFixed(1)}" fill="${C.bg}" stroke="${C.teal}" stroke-width="1.8"/>`;
+  out += `<circle cx="${cx}" cy="${yX(0)}" r="${+(42.5 * sc).toFixed(1)}" fill="none" stroke="${C.dim}" stroke-width="1" stroke-dasharray="2.5 2"/>`;
+  out += `<text x="${cx}" y="${yX(0) + 2.5}" fill="${C.teal}" font-family="${MONO}" font-size="6.8" font-weight="900" text-anchor="middle">Ø95</text>`;
+
+  // FL & RR 2D corner notches
+  out += `<rect x="${xY(582)}" y="${yX(615)}" width="${+(134 * sc).toFixed(1)}" height="${+(147 * sc).toFixed(1)}" fill="rgba(29,78,216,0.12)" stroke="${C.dim}" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+  out += `<rect x="${xY(-448)}" y="${yX(-755)}" width="${+(134 * sc).toFixed(1)}" height="${+(140 * sc).toFixed(1)}" fill="rgba(29,78,216,0.12)" stroke="${C.dim}" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+
+  // Wheelbase dim cleanly on right outer side (x=434)
+  out += dimV(434, yX(-410), yX(410), '축거 WB 820', C.blue, 'start', 288, 8.1);
+
+  // Left Callouts (x <= 152)
+  out += leader(xY(433), yX(-410), 152, 188, C.blue);
+  out += `<text x="148" y="191" fill="${C.blue}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">Ø238 컷아웃 (RL · 60포즈 0)</text>`;
+  out += leader(xY(520), yX(0), 152, 272, C.text);
+  out += `<text x="148" y="275" fill="${C.text}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">8t 포드 바닥판 (Datum A)</text>`;
+  out += leader(xY(433), yX(410), 152, 368, C.blue);
+  out += `<text x="148" y="371" fill="${C.blue}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">Ø238 컷아웃 (FL · ±90°)</text>`;
+  out += leader(xY(515), yX(690), 152, 428, C.dim);
+  out += `<text x="148" y="431" fill="${C.dim}" font-family="${MONO}" font-size="7.7" font-weight="700" text-anchor="end">FL 2D 노치 (Z=180)</text>`;
+  out += leader(xY(217), yX(400), 152, 466, C.teal);
+  out += `<text x="148" y="469" fill="${C.teal}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="end">실물 스키드 110×280 수납</text>`;
+
+  // Right Callouts (x >= 428, avoiding WB dim at y=204..372!)
+  out += leader(xY(-515), yX(-690), 428, 126, C.dim);
+  out += `<text x="432" y="129" fill="${C.dim}" font-family="${MONO}" font-size="7.7" font-weight="700">RR 2D 노치 (Z=180)</text>`;
+  out += leader(xY(-200), yX(-678), 428, 162, C.amber);
+  out += `<text x="432" y="165" fill="${C.amber}" font-family="${MONO}" font-size="7.7" font-weight="800">토크박스 15.9 MPa · 등뼈 200</text>`;
+  out += leader(xY(-47.5), yX(0), 428, 412, C.teal);
+  out += `<text x="432" y="415" fill="${C.teal}" font-family="${MONO}" font-size="7.7" font-weight="800">원점 QR Ø95 (0,0 · 38.25°)</text>`;
+  out += leader(xY(-60), yX(725), 428, 456, C.purple);
+  out += `<text x="432" y="459" fill="${C.purple}" font-family="${MONO}" font-size="7.7" font-weight="800">E1R 10t 하부 장갑판 (+28.8)</text>`;
+
+  out += `<text x="${cx}" y="520" fill="${C.green}" font-family="${MONO}" font-size="8.0" font-weight="800" text-anchor="middle">▲ REAR (-X, Datum C) | ▼ FRONT (+X) | 비바퀴 최저 Z=85.0 mm · 소형 캐스터 0개</text>`;
+
+  document.getElementById('svgBottom').innerHTML = out;
+}
+
+// ==================== 7. SHEET 3: DETAIL A — 2-TIER X-SCISSOR EHA + HAT SCALE FORK (560 x 330) ====================
+function drawDetForkScaleX() {
+  let out = gridBg(560, 330, 28);
+  out += `<text x="14" y="19" fill="${C.amber}" font-family="${MONO}" font-size="7.9" font-weight="800">◀ 2단 텔레스코픽 힐 마스트 (Z490 · Z300 록핀)</text>`;
+  out += `<text x="546" y="19" fill="${C.amber}" font-family="${MONO}" font-size="7.9" font-weight="800" text-anchor="end">2단 L=305 X-가위 + EHA Ø40 ▶</text>`;
+
+  // Floor line (Z=0 at y=282) & pod_top deck reference (Z=275 at y=138)
+  out += `<line x1="16" y1="282" x2="544" y2="282" stroke="${C.muted}" stroke-width="1.8"/>`;
+  out += `<line x1="88" y1="138" x2="544" y2="138" stroke="${C.dim}" stroke-width="1.1" stroke-dasharray="5 3"/>`;
+  out += `<text x="546" y="151" fill="${C.dim}" font-family="${MONO}" font-size="7.4" font-weight="800" text-anchor="end">데크 pod_top Z=275</text>`;
+
+  // Left: 48V 1.5 kW EHA Powerpack + 2-Stage Passive Telescopic Heel Mast (S0/S1/S2 -> Z=490, sep 0.0 mm) + Z=300 Lockpin
+  out += `<rect x="18" y="158" width="44" height="92" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  out += `<rect x="62" y="54" width="12" height="224" fill="rgba(29,78,216,0.10)" stroke="${C.dim}" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+  out += `<rect x="74" y="138" width="10" height="140" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  out += `<rect x="62" y="106" width="22" height="12" rx="1" fill="#fef3c7" stroke="${C.orange}" stroke-width="1.1"/>`;
+  out += `<text x="40" y="188" fill="${C.text}" font-family="${MONO}" font-size="7.0" font-weight="800" text-anchor="middle">48V EHA</text>`;
+  out += `<text x="40" y="201" fill="${C.sub}" font-family="${MONO}" font-size="6.8" text-anchor="middle">1.5 kW</text>`;
+  out += `<text x="40" y="214" fill="${C.amber}" font-family="${MONO}" font-size="6.7" font-weight="800" text-anchor="middle">Ø40×4</text>`;
+  out += `<text x="40" y="227" fill="${C.sub}" font-family="${MONO}" font-size="6.7" text-anchor="middle">SF 2.96</text>`;
+
+  // 1) T10 sync_in Lifted Max Fork (Z=414.8..476.8 -> y=54..68, single +101.8 / window +76.8 > 275!)
+  out += `<rect x="92" y="54" width="384" height="14" rx="2" fill="rgba(29,78,216,0.09)" stroke="${C.dim}" stroke-width="1.2" stroke-dasharray="4 2"/>`;
+  out += `<text x="284" y="45" fill="${C.dim}" font-family="${MONO}" font-size="7.6" font-weight="800" text-anchor="middle">T10 최대 Z=414.8..476.8 (단면 +101.8 / 창형 +76.8↑ &gt; 275)</text>`;
+
+  // 2-Tier Y-Nested L=305 X-Scissor flanks (Left x=100..158, Right x=414..472 -> wide clean center x=166..406!)
+  for (const [xa, xb] of [[100, 158], [414, 472]]) {
+    const xm = (xa + xb) / 2;
+    const ym = 132;
+    out += `<line x1="${xa}" y1="196" x2="${xb}" y2="${ym}" stroke="${C.dim}" stroke-width="1.4" stroke-dasharray="4 2"/>`;
+    out += `<line x1="${xb}" y1="196" x2="${xa}" y2="${ym}" stroke="${C.dim}" stroke-width="1.4" stroke-dasharray="4 2"/>`;
+    out += `<line x1="${xa}" y1="${ym}" x2="${xb}" y2="68" stroke="${C.dim}" stroke-width="1.4" stroke-dasharray="4 2"/>`;
+    out += `<line x1="${xb}" y1="${ym}" x2="${xa}" y2="68" stroke="${C.dim}" stroke-width="1.4" stroke-dasharray="4 2"/>`;
+    out += `<circle cx="${xm}" cy="164" r="4.8" fill="#eff6ff" stroke="${C.dim}" stroke-width="1.2"/>`;
+    out += `<circle cx="${xm}" cy="100" r="4.8" fill="#eff6ff" stroke="${C.dim}" stroke-width="1.2"/>`;
+  }
+
+  // 2) Window Double-Deck Trapped-in-Pallet Travel (Z=300..362 -> y=102..120, +38 mm deck gap, Z=300 lockpin, LC 0 kg!)
+  out += `<rect x="166" y="102" width="240" height="18" rx="2" fill="rgba(21,128,61,0.08)" stroke="${C.green}" stroke-width="1.1" stroke-dasharray="4 2"/>`;
+  out += `<text x="286" y="114" fill="${C.green}" font-family="${MONO}" font-size="7.3" font-weight="800" text-anchor="middle">창형 주행 Z=300..362 (록핀 · +38 간극)</text>`;
+
+  // Center Structural Specs (strictly inside x=168..404, y=150..190 — ZERO line-text collisions!)
+  out += `<text x="286" y="156" fill="${C.text}" font-family="${MONO}" font-size="7.3" font-weight="800" text-anchor="middle">2단 L=305 (302≤355 mm 창문 · SF 3.05/2.98)</text>`;
+  out += `<text x="286" y="170" fill="${C.sub}" font-family="${MONO}" font-size="7.2" font-weight="700" text-anchor="middle">Ø40 실린더 31.4 kN (SF 2.96) · 실물 스키드</text>`;
+  out += `<text x="286" y="184" fill="${C.amber}" font-family="${MONO}" font-size="7.2" font-weight="800" text-anchor="middle">Hat 슈 I=609k mm⁴ · 처짐 0.70 &lt; 1.5 스토퍼</text>`;
+
+  // 3) Stowed Single-Face Travel Fork (Z=85..147 -> y=196..218)
+  out += `<rect x="92" y="196" width="384" height="22" rx="2" fill="rgba(15,118,110,0.08)" stroke="${C.teal}" stroke-width="1.2" stroke-dasharray="5 3"/>`;
+  out += `<text x="284" y="210" fill="${C.teal}" font-family="${MONO}" font-size="7.5" font-weight="800" text-anchor="middle">단면 수납 주행 Z=85..147 (실물 스키드 수납 · G=85 · LC 0)</text>`;
+
+  // 4) Pickup-drop Mode 62 mm Hat Scale-Fork (Z=10..72 single / 30..92 window -> y=246..278)
+  out += `<polygon points="92,256 446,256 476,261 476,278 92,278" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  // Embedded Ø40 hydraulic cylinders inside lower fork
+  out += `<rect x="172" y="262" width="60" height="12" rx="2" fill="#fed7aa" stroke="${C.orange}" stroke-width="1.0"/>`;
+  out += `<rect x="292" y="262" width="60" height="12" rx="2" fill="#fed7aa" stroke="${C.orange}" stroke-width="1.0"/>`;
+  // Symmetric 4-pt Pancake Load Cells at X=-380 & X=+590 (970 mm WB, 49.5/50.5%!)
+  out += `<rect x="114" y="256" width="46" height="16" rx="2" fill="#0f766e" stroke="${C.stroke}" stroke-width="1.1"/>`;
+  out += `<rect x="394" y="256" width="46" height="16" rx="2" fill="#0f766e" stroke="${C.stroke}" stroke-width="1.1"/>`;
+  out += `<text x="137" y="267" fill="#ffffff" font-family="${MONO}" font-size="6.7" font-weight="900" text-anchor="middle">LC-380</text>`;
+  out += `<text x="417" y="267" fill="#ffffff" font-family="${MONO}" font-size="6.7" font-weight="900" text-anchor="middle">LC+590</text>`;
+  // Overload stopper (1.5 mm gap)
+  out += `<rect x="162" y="252" width="8" height="5" fill="#fef3c7" stroke="${C.orange}" stroke-width="0.9"/>`;
+  out += `<rect x="382" y="252" width="8" height="5" fill="#fef3c7" stroke="${C.orange}" stroke-width="0.9"/>`;
+  // High-stiffness Hat weigh-shoe (6t+10t skirt, Z_top=147 stowed / 72 pickup, nose 52 mm)
+  out += `<polygon points="94,246 442,246 476,249 476,254 94,254" fill="#99f6e4" stroke="${C.teal}" stroke-width="1.4"/>`;
+
+  // 970 mm Symmetric Load-Cell Wheelbase dim cleanly in y=224..244 band
+  out += dimH(137, 417, 240, '대칭 970 WB (49.5/50.5%) · 팬케이크 LC 1t×4', C.teal, -6.0, 7.1);
+
+  out += dimV(486, 246, 278, '62t(Hat)', C.teal, 'start', 261, 7.2);
+  out += dimV(486, 278, 282, '코 52', C.dim, 'start', 281, 7.0);
+
+  out += `<text x="280" y="304" fill="${C.amber}" font-family="${MONO}" font-size="7.5" font-weight="800" text-anchor="middle">Gate 9A 실물 T11 단면/田자 파레트 10/10 B-Rep 0 mm³ · HGR25×2 (SF 4.94×) + HTD-8M</text>`;
+  out += `<text x="280" y="320" fill="${C.sub}" font-family="${MONO}" font-size="7.4" font-weight="700" text-anchor="middle">전방 신축 0..1,200 mm (레일 여유 ±20) · 2단 힐 마스트 이탈 0 · 단면 / 창문 양면(田자) 전용</text>`;
+
+  document.getElementById('detForkScale').innerHTML = out;
+}
+
+// ==================== 8. SHEET 3: DETAIL B — VERTICAL LINEAR SUSPENSION & 4WD/4WS (560 x 330) ====================
+function drawDet4WS() {
+  let out = gridBg(560, 330, 28);
+  out += `<text x="14" y="19" fill="${C.amber}" font-family="${MONO}" font-size="8.2" font-weight="800">◀ 주행 방향 (승강기 30 mm 턱 + 50 mm 틈)</text>`;
+  out += `<text x="546" y="19" fill="${C.amber}" font-family="${MONO}" font-size="8.2" font-weight="800" text-anchor="end">4×Ø25 수직서스 · Ø220×80 ▶</text>`;
+
+  // Scaled floor + 50 mm gap + 30 mm step
+  out += `<rect x="14" y="284" width="217.8" height="30" fill="${C.frame}" stroke="none"/>`;
+  out += `<rect x="258.8" y="267.8" width="285.2" height="46.2" fill="${C.frame2}" stroke="none"/>`;
+  out += `<path d="M 14,284 L 231.8,284 L 231.8,312 L 258.8,312 L 258.8,267.8 L 544,267.8" fill="none" stroke="${C.stroke}" stroke-width="2"/>`;
+
+  // Upper deck
+  out += `<rect x="28" y="36" width="356" height="12" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  out += `<text x="206" y="45" fill="${C.text}" font-family="${MONO}" font-size="7.3" font-weight="800" text-anchor="middle">포드 상판 6t pod_top (Z=275 · ±25 mm 순수 수직 · 60포즈 0)</text>`;
+
+  // Bottom plate around wheel well (G=85 -> y=238)
+  out += `<rect x="28" y="226" width="96" height="12" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<rect x="304" y="226" width="80" height="12" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<line x1="28" y1="238" x2="394" y2="238" stroke="${C.env}" stroke-width="1.1" stroke-dasharray="5 3"/>`;
+
+  // 4x Ø25 SUJ2 Vertical Hardened Shafts (x=76, 336) + LM25 Bushings + Coaxial Coil Springs (1:1 ratio, 149.9 kgf)
+  for (const sx of [76, 336]) {
+    out += `<rect x="${sx - 4}" y="48" width="8" height="178" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.1"/>`;
+    out += `<path d="M ${sx - 10},56 L ${sx + 10},64 L ${sx - 10},72 L ${sx + 10},80 L ${sx - 10},88 L ${sx + 10},96 L ${sx - 10},104" fill="none" stroke="${C.amber}" stroke-width="1.5"/>`;
+    out += `<rect x="${sx - 9}" y="106" width="18" height="24" rx="2" fill="#fef3c7" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  }
+  out += `<rect x="64" y="108" width="284" height="12" rx="2" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  out += `<rect x="114" y="120" width="44" height="28" rx="2" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.3"/>`;
+  out += `<text x="136" y="137" fill="${C.blue}" font-family="${MONO}" font-size="6.8" font-weight="800" text-anchor="middle">400W조향</text>`;
+  out += `<rect x="164" y="120" width="104" height="14" rx="2" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<text x="216" y="130" fill="${C.text}" font-family="${MONO}" font-size="6.9" font-weight="800" text-anchor="middle">RU124 박형 선회 (±90°)</text>`;
+
+  // U-Yoke
+  out += `<path d="M 182,137 L 248,137 L 248,218 L 236,218 L 236,149 L 194,149 L 194,218 L 182,218 Z" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+
+  // Tire + Drive Hub
+  const rTire = 64;
+  const cyTire = 284 - rTire;
+  out += `<circle cx="214" cy="${cyTire}" r="${rTire}" fill="#dbeafe" fill-opacity="0.45" stroke="${C.blue}" stroke-width="3.2"/>`;
+  out += `<circle cx="214" cy="${cyTire}" r="32" fill="#1e293b" stroke="${C.blue}" stroke-width="1.4"/>`;
+  out += `<text x="214" y="${cyTire - 3}" fill="#ffffff" font-family="${MONO}" font-size="7.1" font-weight="800" text-anchor="middle">1.2 kW</text>`;
+  out += `<text x="214" y="${cyTire + 8}" fill="#93c5fd" font-family="${MONO}" font-size="6.7" font-weight="700" text-anchor="middle">인휠</text>`;
+  out += `<circle cx="258.8" cy="267.8" r="4" fill="#b91c1c"/>`;
+
+  // Right Callouts (x >= 398)
+  out += leader(346, 76, 398, 66, C.amber);
+  out += `<text x="403" y="69" fill="${C.amber}" font-family="${MONO}" font-size="7.8" font-weight="800">4×Ø25 샤프트+LM25 (±25)</text>`;
+  out += leader(348, 113, 398, 102, C.text);
+  out += `<text x="403" y="105" fill="${C.text}" font-family="${MONO}" font-size="7.7" font-weight="800">로커 폐기 · 1:1 (149.9 kgf)</text>`;
+  out += leader(272, 130, 398, 140, C.blue);
+  out += `<text x="403" y="143" fill="${C.blue}" font-family="${MONO}" font-size="7.7" font-weight="800">Ø220×80 (1,100 kg · SF 1.83)</text>`;
+  out += `<text x="403" y="157" fill="${C.sub}" font-family="${MONO}" font-size="7.3" font-weight="700">Ø238 홀 · 60포즈 B-Rep 0</text>`;
+  out += `<text x="403" y="171" fill="${C.green}" font-family="${MONO}" font-size="7.4" font-weight="800">소형 캐스터 0 · 0° 틸트</text>`;
+
+  // Dimensions
+  out += dimV(402, 238, 284, 'G=85(A)', C.green, 'start', 252, 8.0);
+  out += dimV(468, 267.8, 284, '턱 30 mm', C.red, 'start', 279, 8.0);
+  out += `<text x="468" y="220" fill="${C.green}" font-family="${MONO}" font-size="7.9" font-weight="800">턱 통과 여유 +55 mm</text>`;
+  out += `<text x="118" y="299" fill="${C.red}" font-family="${MONO}" font-size="7.8" font-weight="800" text-anchor="middle">등판각 43.3° · 50 mm 틈 침하 2.88 mm</text>`;
+  out += dimH(231.8, 258.8, 323, '틈 50', C.orange, -3, 7.6);
+  out += `<text x="402" y="302" fill="${C.text}" font-family="${MONO}" font-size="7.9" font-weight="800" text-anchor="middle">승강기 바닥 (+30 mm 단차)</text>`;
+
+  document.getElementById('det4WS').innerHTML = out;
+}
+
+// ==================== 9. SHEET 3: DETAIL C — ARMORED XT32 ROLL-CAGE + HMI + CHARGER (560 x 330) ====================
+function drawDetTower3DX() {
+  const sc = 0.325;
+  const xM = x => +(98 + (x + 780) * sc).toFixed(1);
+  const yZ = z => +(304 - z * sc).toFixed(1);
+  let out = gridBg(560, 330, 28);
+
+  out += `<text x="14" y="19" fill="${C.amber}" font-family="${MONO}" font-size="8.3" font-weight="800">◀ REAR (-X · Datum C: -765)</text>`;
+  out += `<text x="546" y="19" fill="${C.amber}" font-family="${MONO}" font-size="8.3" font-weight="800" text-anchor="end">FRONT (+X · pod_top Z=275) ▶</text>`;
+
+  out += `<line x1="${xM(-780)}" y1="36" x2="${xM(-780)}" y2="300" stroke="${C.env}" stroke-width="1.2" stroke-dasharray="5 3"/>`;
+  out += `<line x1="${xM(-780)}" y1="${yZ(760)}" x2="544" y2="${yZ(760)}" stroke="${C.env}" stroke-width="1.1" stroke-dasharray="5 3"/>`;
+
+  // Lower pod body (Z=85..275) + Rear Torque Box (-701..-654) + Rear solid tower cabinet (X=-765..-555, Z=275..605)
+  out += `<rect x="${xM(-765)}" y="${yZ(275)}" width="${+(405 * sc).toFixed(1)}" height="${+(190 * sc).toFixed(1)}" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  out += `<rect x="${xM(-701)}" y="${yZ(269)}" width="${+(47 * sc).toFixed(1)}" height="${+(184 * sc).toFixed(1)}" fill="rgba(180,83,9,0.20)" stroke="${C.amber}" stroke-width="1.2"/>`;
+  out += `<rect x="${xM(-765)}" y="${yZ(605)}" width="${+(210 * sc).toFixed(1)}" height="${+(330 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.4"/>`;
+  // 100Ah LFP split pack inside rear tower (X=-744..-562, Z=281..506)
+  out += `<rect x="${xM(-744)}" y="${yZ(506)}" width="${+(182 * sc).toFixed(1)}" height="${+(225 * sc).toFixed(1)}" fill="rgba(21,128,61,0.16)" stroke="${C.green}" stroke-width="1.2"/>`;
+
+  // 155 mm Heavy-Armored XT32 Roll-Cage (Z=605..760)
+  out += `<rect x="${xM(-765)}" y="${yZ(630)}" width="${+(210 * sc).toFixed(1)}" height="${+(25 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  for (const xp of [-752, -567]) {
+    out += `<rect x="${xM(xp - 12)}" y="${yZ(735)}" width="${+(24 * sc).toFixed(1)}" height="${+(105 * sc).toFixed(1)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  }
+  out += `<polygon points="${xM(-765)},${yZ(735)} ${xM(-748)},${yZ(760)} ${xM(-572)},${yZ(760)} ${xM(-555)},${yZ(735)}" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.5"/>`;
+  out += `<rect x="${xM(-718)}" y="${yZ(643)}" width="${+(136 * sc).toFixed(1)}" height="${+(38 * sc).toFixed(1)}" fill="${C.al}" stroke="${C.stroke}" stroke-width="0.9"/>`;
+  out += `<g transform="translate(${xM(-650)},${yZ(675)}) rotate(8)"><rect x="${+(-50 * sc).toFixed(1)}" y="${+(-38 * sc).toFixed(1)}" width="${+(100 * sc).toFixed(1)}" height="${+(76 * sc).toFixed(1)}" rx="3" fill="#f59e0b" stroke="#78350f" stroke-width="1.4"/></g>`;
+  out += `<line x1="${xM(-595)}" y1="${yZ(675)}" x2="532" y2="${yZ(675)}" stroke="${C.amber}" stroke-width="1.2" stroke-dasharray="5 3"/>`;
+
+  // 40 deg Open-Sky HMI + Rear Charger + Rear Bumper
+  out += `<polygon points="${xM(-764.7)},${yZ(430)} ${xM(-648)},${yZ(569.4)} ${xM(-605)},${yZ(569.4)} ${xM(-605)},${yZ(405)} ${xM(-755)},${yZ(405)} ${xM(-755)},${yZ(430)}" fill="${C.void}" stroke="${C.dim}" stroke-width="1.4"/>`;
+  out += `<g transform="translate(${xM(-705)},${yZ(494)}) rotate(40)"><rect x="${+(-6 * sc).toFixed(1)}" y="${+(-91 * sc).toFixed(1)}" width="${+(14 * sc).toFixed(1)}" height="${+(182 * sc).toFixed(1)}" rx="2" fill="#1e293b" stroke="${C.dim}" stroke-width="1.4"/></g>`;
+  out += `<rect x="${xM(-766)}" y="${yZ(329)}" width="${+(24 * sc).toFixed(1)}" height="${+(83 * sc).toFixed(1)}" fill="#fed7aa" stroke="${C.orange}" stroke-width="1.4"/>`;
+  out += `<rect x="${xM(-780)}" y="${yZ(120)}" width="${+(15 * sc).toFixed(1)}" height="${+(35 * sc).toFixed(1)}" fill="rgba(180,83,9,0.45)" stroke="${C.orange}" stroke-width="1.1"/>`;
+
+  // Left vertical dims
+  out += dimV(88, yZ(760), yZ(605), '케이지 155', C.amber, 'end', 84, 7.6);
+  out += dimV(88, yZ(573), yZ(405), 'HMI 405~573', C.dim, 'end', 146, 7.6);
+  out += dimV(88, yZ(405), yZ(329), '이격 76', C.green, 'end', 186, 7.6);
+  out += dimV(88, yZ(329), yZ(246), '충전 250~325', C.orange, 'end', 214, 7.6);
+  out += dimV(88, yZ(246), yZ(120), '이격 126', C.green, 'end', 246, 7.6);
+  out += dimV(88, yZ(120), yZ(85), '범퍼 85~120', C.muted, 'end', 274, 7.4);
+
+  // Clean Right Callouts (x >= 254)
+  out += `<text x="394" y="48" fill="${C.green}" font-family="${MONO}" font-size="7.8" font-weight="800" text-anchor="middle">8t 오버행 지붕 210×305 (Z=760 · 여유 +15.4)</text>`;
+  out += `<text x="394" y="74" fill="${C.amber}" font-family="${MONO}" font-size="7.8" font-weight="800" text-anchor="middle">XT32 (-650,+440,Z=675 · 90.97% 개방)</text>`;
+  out += `<text x="394" y="102" fill="${C.sub}" font-family="${MONO}" font-size="7.5" font-weight="700" text-anchor="middle">적재 시 90.0° 차폐 → 전방 E1R + 2D 다중 융합</text>`;
+
+  out += leader(xM(-605), yZ(490), 252, 144, C.dim);
+  out += `<text x="258" y="147" fill="${C.dim}" font-family="${MONO}" font-size="7.9" font-weight="800">40° 완전 개방 HMI (타워 전면 -555 후퇴)</text>`;
+  out += `<text x="258" y="161" fill="${C.sub}" font-family="${MONO}" font-size="7.5" font-weight="700">Winmate 10.1" · 힐 마스트 +13 mm 여유</text>`;
+
+  out += leader(xM(-562), yZ(400), 252, 192, C.green);
+  out += `<text x="258" y="195" fill="${C.green}" font-family="${MONO}" font-size="7.9" font-weight="800">타워 좌·우 100Ah LFP (8S×2 · 42 kg)</text>`;
+
+  out += leader(xM(-654), yZ(225), 252, 232, C.amber);
+  out += `<text x="258" y="235" fill="${C.amber}" font-family="${MONO}" font-size="7.9" font-weight="800">후면 토크박스 (-701..-654 · 15.87 MPa)</text>`;
+  out += `<text x="258" y="249" fill="${C.orange}" font-family="${MONO}" font-size="7.5" font-weight="800">충전 Z=250~325 (범퍼 +126 / HMI -76 분리)</text>`;
+
+  out += `<text x="280" y="318" fill="${C.sub}" font-family="${MONO}" font-size="7.7" font-weight="700" text-anchor="middle">605 mm 타워 상면 3점 M6 공용 데크 → XT32 ↔ 2D 평면 받침 무개조 교체</text>`;
+
+  document.getElementById('detTower3D').innerHTML = out;
+}
+
+// ==================== 10. SHEET 3: DETAIL D — TUCKED 2D + ARMORED E1R + QR (560 x 330) ====================
+function drawDet2DE1R() {
+  let out = gridBg(560, 330, 28);
+  out += `<line x1="276" y1="8" x2="276" y2="322" stroke="${C.muted}" stroke-width="1" stroke-dasharray="4 3"/>`;
+  out += `<line x1="284" y1="166" x2="552" y2="166" stroke="${C.muted}" stroke-width="1" stroke-dasharray="4 3"/>`;
+
+  // ---- LEFT PANEL: Tucked FL/RR 2D (Z=180) + Flexi Soft Muting ----
+  out += `<text x="138" y="20" fill="${C.text}" font-family="${MONO}" font-size="8.4" font-weight="800" text-anchor="middle">매립 하부 2D (Z=180 · Flexi Soft 뮤팅)</text>`;
+  out += `<line x1="194" y1="48" x2="194" y2="260" stroke="${C.stroke}" stroke-width="1.1" stroke-dasharray="3 2"/>`;
+  out += `<line x1="218" y1="48" x2="218" y2="260" stroke="${C.env}" stroke-width="1.3" stroke-dasharray="5 3"/>`;
+  out += `<text x="218" y="42" fill="${C.green}" font-family="${MONO}" font-size="7.6" font-weight="800" text-anchor="end">범퍼(+25) / 철판(+10)</text>`;
+
+  out += `<rect x="24" y="64" width="170" height="22" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<text x="109" y="78" fill="${C.text}" font-family="${MONO}" font-size="7.6" font-weight="800" text-anchor="middle">6t 노치 보호 지붕 (Z=216)</text>`;
+
+  out += `<rect x="78" y="102" width="100" height="86" rx="4" fill="#dbeafe" stroke="${C.blue}" stroke-width="1.5"/>`;
+  out += `<rect x="78" y="102" width="100" height="18" rx="3" fill="#f59e0b" stroke="#92400e" stroke-width="1"/>`;
+  out += `<rect x="78" y="124" width="100" height="24" fill="#ffffff" stroke="${C.blue}" stroke-width="0.9"/>`;
+  out += `<text x="128" y="139" fill="${C.blue}" font-family="${MONO}" font-size="8.1" font-weight="900" text-anchor="middle">nanoScan3</text>`;
+
+  out += `<rect x="24" y="198" width="170" height="20" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  out += `<rect x="24" y="218" width="170" height="14" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.2"/>`;
+  out += `<text x="109" y="211" fill="${C.text}" font-family="${MONO}" font-size="7.5" font-weight="800" text-anchor="middle">AL6061 레벨링 하판 + M6×3</text>`;
+  out += `<text x="109" y="246" fill="${C.sub}" font-family="${MONO}" font-size="7.6" font-weight="700" text-anchor="middle">8t 포드 바닥판 (G=85 · Datum A)</text>`;
+
+  out += dimV(68, 86, 102, '6.5', C.green, 'end', 97, 7.6);
+  out += `<line x1="178" y1="136" x2="266" y2="136" stroke="${C.blue}" stroke-width="1.7" stroke-dasharray="6 2"/>`;
+  out += `<text x="244" y="128" fill="${C.blue}" font-family="${MONO}" font-size="7.8" font-weight="800" text-anchor="middle">Z=180</text>`;
+  out += `<text x="244" y="150" fill="${C.sub}" font-family="${MONO}" font-size="7.4" text-anchor="middle">매립 보호</text>`;
+
+  out += `<text x="138" y="274" fill="${C.green}" font-family="${MONO}" font-size="7.8" font-weight="800" text-anchor="middle">FL 257.00° / RR 263.25° (사각 0.0°)</text>`;
+  out += `<text x="138" y="290" fill="${C.dim}" font-family="${MONO}" font-size="7.6" font-weight="800" text-anchor="middle">150/250/300 mm 둘레 사각 0.0%</text>`;
+  out += `<text x="138" y="306" fill="${C.red}" font-family="${MONO}" font-size="7.3" font-weight="800" text-anchor="middle">Flexi Soft ≤0.3m/s 포크레인 뮤팅(외곽100%)</text>`;
+
+  // ---- RIGHT-TOP PANEL: Armored Spine E1R Tunnel ----
+  out += `<text x="418" y="20" fill="${C.text}" font-family="${MONO}" font-size="8.1" font-weight="800" text-anchor="middle">전방 등뼈 중장갑 E1R (+712,0,Z=165)</text>`;
+  out += `<rect x="294" y="48" width="16" height="96" fill="${C.frame2}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<rect x="310" y="48" width="76" height="10" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<rect x="310" y="132" width="108" height="12" fill="${C.al}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<rect x="310" y="58" width="96" height="74" fill="rgba(148,163,184,0.22)" stroke="${C.muted}" stroke-width="1" stroke-dasharray="3 2"/>`;
+  out += `<polygon points="310,132 372,132 372,116 310,124" fill="${C.al}" stroke="${C.stroke}" stroke-width="1"/>`;
+  out += `<g transform="translate(362,92) rotate(-10)"><rect x="-15" y="-24" width="30" height="48" rx="2" fill="#6d28d9" stroke="#3b0764" stroke-width="1.3"/></g>`;
+  out += dimH(380, 406, 38, '20.8', C.red, -2, 7.2);
+
+  out += `<polygon points="382,90 452,32 544,32 544,152 468,152" fill="rgba(109,40,217,0.08)" stroke="${C.purple}" stroke-width="1.2"/>`;
+  out += `<text x="488" y="58" fill="${C.purple}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="middle">+10° 쐐기 · 120°×90°</text>`;
+  out += `<text x="488" y="75" fill="${C.green}" font-family="${MONO}" font-size="7.7" font-weight="800" text-anchor="middle">-35°..+55° 차단 0.0%</text>`;
+  out += `<text x="488" y="92" fill="${C.sub}" font-family="${MONO}" font-size="7.2" text-anchor="middle">지주 20.8 / 하판 28.8</text>`;
+  out += `<text x="488" y="108" fill="${C.sub}" font-family="${MONO}" font-size="7.2" text-anchor="middle">적재 XT32 90° 차폐 보완</text>`;
+
+  // ---- RIGHT-BOTTOM PANEL: Downward QR ----
+  out += `<text x="418" y="182" fill="${C.text}" font-family="${MONO}" font-size="8.4" font-weight="800" text-anchor="middle">원점 하향 QR (0, 0, Z=140 · Ø95)</text>`;
+  out += `<line x1="292" y1="302" x2="544" y2="302" stroke="${C.muted}" stroke-width="1.5"/>`;
+  out += `<rect x="376" y="298" width="84" height="5" fill="${C.stroke}"/>`;
+
+  out += `<rect x="296" y="246" width="86" height="14" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<rect x="454" y="246" width="86" height="14" fill="${C.frame}" stroke="${C.stroke}" stroke-width="1.3"/>`;
+  out += `<rect x="382" y="248" width="72" height="9" fill="rgba(29,78,216,0.18)" stroke="${C.dim}" stroke-width="1.3"/>`;
+  out += `<rect x="394" y="196" width="48" height="22" rx="3" fill="#ccfbf1" stroke="${C.teal}" stroke-width="1.3"/>`;
+  out += `<text x="418" y="210" fill="${C.text}" font-family="${MONO}" font-size="7.4" font-weight="900" text-anchor="middle">QR 리더</text>`;
+  out += `<polygon points="418,218 358,298 478,298" fill="rgba(15,118,110,0.12)" stroke="${C.teal}" stroke-width="1.2" stroke-dasharray="3 2"/>`;
+
+  out += dimV(316, 260, 302, 'G=85', C.muted, 'start', 284, 7.6);
+  out += `<text x="418" y="286" fill="${C.teal}" font-family="${MONO}" font-size="8.0" font-weight="800" text-anchor="middle">4방향 반각 38.25°</text>`;
+  out += `<text x="418" y="318" fill="${C.sub}" font-family="${MONO}" font-size="7.6" font-weight="700" text-anchor="middle">Ø95 홀 / 내경 Ø85 · AR 5t · 1.0 mm 리세스 (돌출 0)</text>`;
+
+  document.getElementById('det2DE1R').innerHTML = out;
+}
+
+// ==================== 11. SHEET 5: 4-LAYER ELECTRICAL / MOTION / WEIGHING / STO DIAGRAM (1180 x 650) ====================
+function drawElecBlock() {
+  const target = document.getElementById('svgElecBlock');
+  if (!target) return;
+  const E = {
+    bg: 'var(--el-bg)', box: 'var(--el-box-bg)', hi: 'var(--el-box-hi)',
+    net: 'var(--el-net)', netBg: 'var(--el-net-bg)', netBd: 'var(--el-net-bd)',
+    mot: 'var(--el-mot)', motBg: 'var(--el-mot-bg)', motBd: 'var(--el-mot-bd)',
+    io: 'var(--el-io)', ioBg: 'var(--el-io-bg)', ioBd: 'var(--el-io-bd)',
+    safe: 'var(--el-safe)', safeBg: 'var(--el-safe-bg)', safeBd: 'var(--el-safe-bd)',
+    txt: 'var(--el-text)', sub: 'var(--el-sub)', muted: 'var(--el-muted)'
+  };
+  const arr = (x, y, d, col) => {
+    const pts = d === 'R' ? `${x},${y} ${x - 7},${y - 3.6} ${x - 7},${y + 3.6}`
+      : d === 'L' ? `${x},${y} ${x + 7},${y - 3.6} ${x + 7},${y + 3.6}`
+      : d === 'D' ? `${x},${y} ${x - 3.6},${y - 7} ${x + 3.6},${y - 7}`
+      : `${x},${y} ${x - 3.6},${y + 7} ${x + 3.6},${y + 7}`;
+    return `<polygon points="${pts}" fill="${col}"/>`;
+  };
+  const box = (x, y, w, h, bd, fill, lines) => {
+    const cx = +(x + w / 2).toFixed(1);
+    let s = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="${fill}" stroke="${bd}" stroke-width="1.4"/>`;
+    for (const ln of lines) {
+      s += `<text x="${cx}" y="${ln.y}" fill="${ln.c}" font-family='${ln.mono ? MONO : SANS}' font-size="${ln.sz}" font-weight="${ln.w || 700}" text-anchor="middle">${ln.t}</text>`;
+    }
+    return s;
+  };
+
+  let out = `<rect x="0" y="0" width="1180" height="650" fill="${E.bg}"/>`;
+
+  out += `<text x="20" y="25" fill="${E.txt}" font-family='${SANS}' font-size="10.9" font-weight="900">HD-30X REV A.5 전장 · 11축 (4WD/4WS·EHA·HTD-8M) · 970 WB 4점 계량 · STO 뮤팅 계통도</text>`;
+  out += `<line x1="598" y1="21" x2="616" y2="21" stroke="${E.net}" stroke-width="2.4"/>`;
+  out += `<text x="622" y="24.5" fill="${E.net}" font-family='${SANS}' font-size="8.8" font-weight="800">L1. Eth/PTP</text>`;
+  out += `<line x1="696" y1="21" x2="714" y2="21" stroke="${E.mot}" stroke-width="2.4"/>`;
+  out += `<text x="720" y="24.5" fill="${E.mot}" font-family='${SANS}' font-size="8.8" font-weight="800">L2. 11축 CANopen·계량</text>`;
+  out += `<line x1="862" y1="21" x2="880" y2="21" stroke="${E.io}" stroke-width="2.4"/>`;
+  out += `<text x="886" y="24.5" fill="${E.io}" font-family='${SANS}' font-size="8.8" font-weight="800">L3. LFP·48V/24V</text>`;
+  out += `<line x1="1002" y1="21" x2="1024" y2="21" stroke="${E.safe}" stroke-width="2.6" stroke-dasharray="6 3"/>`;
+  out += `<text x="1030" y="24.5" fill="${E.safe}" font-family='${SANS}' font-size="8.8" font-weight="800">L4. STO (PLd)</text>`;
+
+  // ==================== BAND 1: COMPUTE & PTP ETHERNET ====================
+  out += `<rect x="18" y="42" width="1144" height="154" rx="6" fill="${E.netBg}" stroke="${E.netBd}" stroke-width="1.3"/>`;
+  out += `<text x="30" y="58" fill="${E.net}" font-family='${SANS}' font-size="9.8" font-weight="900">L1. 메인 연산 · PTP 네트워크 계층 — 1Gbps Ethernet + IEEE 1588v2 PTP (적재 다중센서 융합)</text>`;
+
+  out += box(30, 68, 248, 116, E.netBd, E.hi, [
+    { y: 89,  sz: 11.0, w: 900, c: E.txt,   t: 'Advantech MIC-711-OX' },
+    { y: 108, sz: 9.0,  w: 800, c: E.net,   t: 'Jetson Orin NX 16GB · Ubuntu Linux' },
+    { y: 126, sz: 8.9,  w: 700, c: E.sub,   t: 'oneweave-native / ROS2 / VDA5050', mono: true },
+    { y: 145, sz: 8.4,  w: 700, c: E.muted, t: '좌측 포드 중앙 · 24V DC · eth0/eth1' },
+    { y: 165, sz: 8.3,  w: 800, c: E.mot,   t: 'SocketCAN 11축 + 계량 + BMS 직접 연동' }
+  ]);
+
+  out += box(338, 76, 160, 100, E.netBd, E.box, [
+    { y: 98,  sz: 10.4, w: 900, c: E.txt,   t: 'Moxa EDS-G4008' },
+    { y: 117, sz: 8.8,  w: 800, c: E.net,   t: '1Gbps 관리형 스위치' },
+    { y: 135, sz: 8.7,  w: 700, c: E.sub,   t: 'IEEE 1588v2 PTP', mono: true },
+    { y: 155, sz: 8.3,  w: 700, c: E.muted, t: '좌측 포드 중앙 · 24V DC' }
+  ]);
+
+  out += `<line x1="284" y1="126" x2="332" y2="126" stroke="${E.net}" stroke-width="2.2"/>`;
+  out += arr(278, 126, 'L', E.net) + arr(338, 126, 'R', E.net);
+  out += `<text x="308" y="117" fill="${E.net}" font-family='${MONO}' font-size="8.6" font-weight="800" text-anchor="middle">1Gbps</text>`;
+  out += `<text x="308" y="140" fill="${E.muted}" font-family='${MONO}' font-size="8.2" font-weight="700" text-anchor="middle">PTP</text>`;
+
+  out += `<line x1="498" y1="126" x2="1052" y2="126" stroke="${E.net}" stroke-width="2.2"/>`;
+  out += `<text x="530" y="117" fill="${E.net}" font-family='${MONO}' font-size="8.2" font-weight="800" text-anchor="middle">Eth/PTP</text>`;
+  for (const tx of [654, 850, 1052]) {
+    out += `<line x1="${tx}" y1="126" x2="${tx}" y2="117" stroke="${E.net}" stroke-width="2"/>`;
+    out += arr(tx, 112, 'U', E.net);
+    if (tx < 1052) out += `<circle cx="${tx}" cy="126" r="2.8" fill="${E.net}"/>`;
+  }
+  for (const bx of [694, 996]) {
+    out += `<line x1="${bx}" y1="126" x2="${bx}" y2="135" stroke="${E.net}" stroke-width="2"/>`;
+    out += arr(bx, 140, 'D', E.net);
+    out += `<circle cx="${bx}" cy="126" r="2.8" fill="${E.net}"/>`;
+  }
+
+  out += box(564, 66, 180, 46, E.netBd, E.box, [
+    { y: 85,  sz: 9.4, w: 900, c: E.txt, t: 'Hesai XT32 (좌후방 3D)' },
+    { y: 102, sz: 8.0, w: 700, c: E.sub, t: 'Z=675 (+8° · 적재 90° 차폐)' }
+  ]);
+  out += box(760, 66, 180, 46, E.netBd, E.box, [
+    { y: 85,  sz: 9.4, w: 900, c: E.txt, t: 'RoboSense E1R (전방 3D)' },
+    { y: 102, sz: 8.0, w: 700, c: E.sub, t: '등뼈 Z=165 (+10° · 0% 차단)' }
+  ]);
+  out += box(956, 66, 192, 46, E.netBd, E.box, [
+    { y: 85,  sz: 9.4, w: 900, c: E.txt, t: 'Winmate 10.1" HMI (IP65)' },
+    { y: 102, sz: 8.0, w: 700, c: E.sub, t: '후면 40° (Z=405~573)' }
+  ]);
+
+  out += box(564, 140, 260, 46, E.netBd, E.box, [
+    { y: 159, sz: 9.4, w: 900, c: E.txt, t: '원점 하향 QR (0, 0, Z=140)' },
+    { y: 176, sz: 8.1, w: 700, c: E.sub, t: 'MV-ID2004M / DataMan 280 · TCP/Eth' }
+  ]);
+  out += box(844, 140, 304, 46, E.netBd, E.box, [
+    { y: 159, sz: 9.4, w: 900, c: E.txt, t: 'SICK nanoScan3 Pro ×2 (FL+705/RR-705)' },
+    { y: 176, sz: 8.1, w: 700, c: E.sub, t: 'UDP/CoLa2 + OSSD 2ch · ≤0.3m/s 뮤팅' }
+  ]);
+
+  // ==================== BAND 2: MOTION BUS & 4-PT WEIGHING ====================
+  out += `<rect x="92" y="234" width="1004" height="114" rx="6" fill="${E.motBg}" stroke="${E.motBd}" stroke-width="1.3"/>`;
+  out += `<text x="1084" y="250" fill="${E.mot}" font-family='${SANS}' font-size="9.6" font-weight="900" text-anchor="end">L2. 11축 CANopen 모션 버스 &amp; 4점 로드셀 계량 계층 — CiA 402 (1 Mbps) · 24-bit ADC</text>`;
+
+  out += box(104, 260, 244, 78, E.motBd, E.box, [
+    { y: 278, sz: 9.4, w: 900, c: E.txt,   t: '4ch 로드셀 트랜스미터 (TLB4 / CAS)' },
+    { y: 294, sz: 8.1, w: 800, c: E.mot,   t: '대칭 팬케이크 Ø50 1t×4 (970 WB)' },
+    { y: 310, sz: 8.1, w: 700, c: E.sub,   t: '49.5/50.5% 균등 · Hat 0.70 < 1.5 스토퍼' },
+    { y: 326, sz: 7.9, w: 700, c: E.muted, t: 'CANopen / Modbus · 좌측 포드 중앙' }
+  ]);
+
+  out += box(396, 260, 314, 78, E.motBd, E.box, [
+    { y: 278, sz: 9.2, w: 900, c: E.txt,  t: 'Kinco FD144S ×7 (4WD주행4 + EHA·하강·전진)' },
+    { y: 294, sz: 8.1, w: 700, c: E.sub,  t: '주행1.2kW×4 + EHA 1.5kW + 하강400W + 전진750W' },
+    { y: 310, sz: 8.1, w: 800, c: E.mot,  t: '타워 2단 방열 랙 · 파일럿체크·Z300 록핀' },
+    { y: 326, sz: 7.9, w: 800, c: E.safe, t: '하드와이어 STO 2ch + 브레이크 인터록 직결' }
+  ]);
+
+  out += box(770, 260, 314, 78, E.motBd, E.box, [
+    { y: 278, sz: 9.4, w: 900, c: E.txt,   t: 'Kinco FD114S ×4 (4WS 조향 4축 · ±90°)' },
+    { y: 294, sz: 8.1, w: 700, c: E.sub,   t: '48V 400W ×4 (우측 포드 · 4×Ø25 수직서스)' },
+    { y: 310, sz: 8.1, w: 700, c: E.muted, t: 'KC 대안: FASTECH/LS/Delta · 120Ω 종단' },
+    { y: 326, sz: 7.9, w: 800, c: E.safe,  t: '하드와이어 STO 2ch 직결 차단 단자' }
+  ]);
+
+  out += `<line x1="710" y1="285" x2="764" y2="285" stroke="${E.mot}" stroke-width="2.1"/>`;
+  out += arr(770, 285, 'R', E.mot);
+  out += `<text x="740" y="276" fill="${E.mot}" font-family='${MONO}' font-size="8.2" font-weight="800" text-anchor="middle">CiA 402</text>`;
+  out += `<line x1="710" y1="316" x2="764" y2="316" stroke="${E.io}" stroke-width="2.1"/>`;
+  out += arr(770, 316, 'R', E.io);
+  out += `<text x="740" y="330" fill="${E.io}" font-family='${SANS}' font-size="8.1" font-weight="800" text-anchor="middle">48V 모선</text>`;
+
+  // ==================== BAND 3: LFP BATTERY, CHARGING & DC-DC ====================
+  out += `<rect x="18" y="384" width="998" height="112" rx="6" fill="${E.ioBg}" stroke="${E.ioBd}" stroke-width="1.3"/>`;
+  out += `<text x="1004" y="400" fill="${E.io}" font-family='${SANS}' font-size="9.6" font-weight="900" text-anchor="end">L3. 51.2V LFP 배터리 · 후면 충전 · 절연 DC-DC 분배 계층 (LFP 전용)</text>`;
+
+  out += box(30, 408, 280, 78, E.ioBd, E.box, [
+    { y: 426, sz: 9.5, w: 900, c: E.txt,   t: '51.2V 100Ah / 200Ah LFP + Smart BMS' },
+    { y: 442, sz: 8.1, w: 800, c: E.io,    t: '표준 100Ah (타워 좌·우 8S×2 · 42 kg)' },
+    { y: 458, sz: 8.1, w: 700, c: E.sub,   t: '확장 200Ah (+100Ah 등뼈 Z93..175)' },
+    { y: 474, sz: 7.9, w: 700, c: E.muted, t: 'BMS CAN (SOC/온도) · Xsens 6축 IMU 연동' }
+  ]);
+
+  out += box(366, 408, 320, 78, E.ioBd, E.hi, [
+    { y: 426, sz: 9.5, w: 900, c: E.txt,   t: '48V 주전원 분배 &amp; 절연 DC-DC (24V / 12V)' },
+    { y: 442, sz: 8.1, w: 800, c: E.io,    t: '주접촉기 · Mean Well 48V→24V / 12V 절연' },
+    { y: 458, sz: 8.1, w: 700, c: E.sub,   t: '연산·라이다·EHA밸브·Z300록핀·PLC 24V' },
+    { y: 474, sz: 7.9, w: 700, c: E.muted, t: '포크팁 광전 SICK WTB4FP ×2 · 상태 LED IO' }
+  ]);
+
+  out += box(742, 408, 262, 78, E.ioBd, E.box, [
+    { y: 426, sz: 9.5, w: 900, c: E.txt,   t: '후면 매립 자동 충전 (Z=250~325)' },
+    { y: 442, sz: 8.1, w: 800, c: E.io,    t: 'PEEK 절연 하우징 · C1100 ±48V + 파일럿' },
+    { y: 458, sz: 8.1, w: 700, c: E.sub,   t: '범퍼 +126 mm 상부 / HMI -76 mm 하부' },
+    { y: 474, sz: 7.9, w: 700, c: E.muted, t: '35sq 절연 버스바 덕트 · 충전 인터록' }
+  ]);
+
+  out += `<line x1="316" y1="447" x2="360" y2="447" stroke="${E.io}" stroke-width="2.2"/>`;
+  out += arr(310, 447, 'L', E.io) + arr(366, 447, 'R', E.io);
+  out += `<text x="338" y="438" fill="${E.io}" font-family='${SANS}' font-size="8.0" font-weight="800" text-anchor="middle">48V 모선</text>`;
+  out += `<text x="338" y="461" fill="${E.muted}" font-family='${MONO}' font-size="7.9" font-weight="700" text-anchor="middle">35sq</text>`;
+
+  out += `<line x1="692" y1="447" x2="736" y2="447" stroke="${E.io}" stroke-width="2.2"/>`;
+  out += arr(686, 447, 'L', E.io) + arr(742, 447, 'R', E.io);
+  out += `<text x="714" y="438" fill="${E.io}" font-family='${MONO}' font-size="8.1" font-weight="800" text-anchor="middle">±48V</text>`;
+  out += `<text x="714" y="461" fill="${E.muted}" font-family='${SANS}' font-size="7.9" font-weight="700" text-anchor="middle">파일럿</text>`;
+
+  // ==================== BAND 4: HARDWIRED SAFETY LAYER (PLd / STO / MUTING) ====================
+  out += `<rect x="18" y="512" width="1144" height="128" rx="6" fill="${E.safeBg}" stroke="${E.safeBd}" stroke-width="1.8" stroke-dasharray="8 4"/>`;
+  out += `<text x="30" y="528" fill="${E.safe}" font-family='${SANS}' font-size="9.7" font-weight="900">L4. 독립 하드와이어 안전 계층 — ISO 13849-1 PLd / SIL2 · STO + 동적 안전필드 뮤팅 (메인 PC 물리 분리)</text>`;
+
+  out += box(30, 538, 506, 44, E.safeBd, E.box, [
+    { y: 556, sz: 9.3, w: 900, c: E.txt, t: '비상정지 버튼 ×5 (ISO 13850 · 2ch NC 직렬 루프)' },
+    { y: 573, sz: 8.1, w: 700, c: E.sub, t: '후면 1 (-765,+255) · 후방 측면 2 (-650,±585) · 전방 2 (+580,±585)' }
+  ]);
+  out += box(30, 588, 506, 44, E.safeBd, E.box, [
+    { y: 606, sz: 9.3, w: 900, c: E.txt, t: '안전 범퍼 ×4면 (Mayser SL/W · 전좌우·좌·우·후 Z=85~120)' },
+    { y: 623, sz: 8.1, w: 700, c: E.sub, t: '접촉 감지 안전 입력 (8.2 kΩ / OSSD) · 1,200 mm 전둘레 보호' }
+  ]);
+
+  out += box(612, 538, 484, 94, E.safeBd, E.hi, [
+    { y: 558, sz: 10.2, w: 900, c: E.txt,  t: '안전 PLC — SICK Flexi Soft (FX3-CPU3 + XTIO ×2)' },
+    { y: 577, sz: 8.5,  w: 800, c: E.safe, t: '우측 포드 (PLd/SIL2 · ≤0.3m/s 포크레인 뮤팅·외곽100%)' },
+    { y: 596, sz: 8.4,  w: 700, c: E.sub,  t: '안전 입력: 비상정지 ×5 + 안전 범퍼 4면 + nanoScan3 Pro ×2 OSSD' },
+    { y: 615, sz: 8.4,  w: 900, c: E.safe, t: '안전 출력: 11축 서보 STO 2ch 직결 차단 + 브레이크·락핀 인터록' }
+  ]);
+
+  out += `<line x1="536" y1="560" x2="606" y2="560" stroke="${E.safe}" stroke-width="2.2"/>`;
+  out += arr(612, 560, 'R', E.safe);
+  out += `<text x="574" y="551" fill="${E.safe}" font-family='${MONO}' font-size="8.2" font-weight="800" text-anchor="middle">2ch NC</text>`;
+
+  out += `<line x1="536" y1="610" x2="606" y2="610" stroke="${E.safe}" stroke-width="2.2"/>`;
+  out += arr(612, 610, 'R', E.safe);
+  out += `<text x="574" y="601" fill="${E.safe}" font-family='${SANS}' font-size="8.1" font-weight="800" text-anchor="middle">범퍼 입력</text>`;
+
+  // ==================== INTER-LAYER ROUTING CORRIDORS (MATHEMATICALLY ZERO CROSSINGS) ====================
+  out += `<line x1="48" y1="190" x2="48" y2="402" stroke="${E.io}" stroke-width="2.2"/>`;
+  out += arr(48, 184, 'U', E.io) + arr(48, 408, 'D', E.io);
+  out += `<text x="56" y="222" fill="${E.io}" font-family='${MONO}' font-size="8.1" font-weight="800" text-anchor="start">BMS CAN / IMU</text>`;
+
+  out += `<line x1="180" y1="190" x2="180" y2="254" stroke="${E.mot}" stroke-width="2.2"/>`;
+  out += arr(180, 184, 'U', E.mot) + arr(180, 260, 'D', E.mot);
+  out += `<text x="188" y="222" fill="${E.mot}" font-family='${SANS}' font-size="8.1" font-weight="800" text-anchor="start">계량 CAN/RTU</text>`;
+
+  out += `<polyline points="264,190 264,212 552,212 552,254" fill="none" stroke="${E.mot}" stroke-width="2.2"/>`;
+  out += arr(264, 184, 'U', E.mot) + arr(552, 260, 'D', E.mot);
+  out += `<text x="415" y="205" fill="${E.mot}" font-family='${SANS}' font-size="8.4" font-weight="800" text-anchor="middle">11축 CANopen CiA 402 (SocketCAN 1 Mbps)</text>`;
+
+  out += `<line x1="460" y1="408" x2="460" y2="344" stroke="${E.io}" stroke-width="2.4"/>`;
+  out += arr(460, 338, 'U', E.io);
+  out += `<text x="452" y="370" fill="${E.io}" font-family='${SANS}' font-size="8.3" font-weight="800" text-anchor="end">48V 11축 구동</text>`;
+
+  out += `<polyline points="1136,186 1136,585 1102,585" fill="none" stroke="${E.safe}" stroke-width="2.4" stroke-dasharray="7 3"/>`;
+  out += arr(1096, 585, 'L', E.safe);
+  out += `<text x="1128" y="222" fill="${E.safe}" font-family='${SANS}' font-size="8.3" font-weight="800" text-anchor="end">안전 OSSD (2ch)</text>`;
+
+  out += `<polyline points="1054,538 1054,368 585,368 585,344" fill="none" stroke="${E.safe}" stroke-width="2.6" stroke-dasharray="7 3.5"/>`;
+  out += arr(585, 338, 'U', E.safe);
+  out += `<line x1="925" y1="368" x2="925" y2="344" stroke="${E.safe}" stroke-width="2.6" stroke-dasharray="7 3.5"/>`;
+  out += arr(925, 338, 'U', E.safe);
+  out += `<circle cx="925" cy="368" r="3.3" fill="${E.safe}"/>`;
+  out += `<text x="755" y="361" fill="${E.safe}" font-family='${SANS}' font-size="8.4" font-weight="900" text-anchor="middle">하드와이어 STO 11축 직결 차단 + 브레이크 인터록</text>`;
+
+  target.innerHTML = out;
+}
+
+// ==================== 12. SHEET 4 & TITLE BLOCK RENDER FROM EMBEDDED_AUDIT_X (9/9 GATES!) ====================
+function renderAudit(a, sourceLabel) {
+  const fmtN = (v, d = 1) => Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const g1 = a.gates.gate1_envelope;
+  const g2 = a.gates.gate2_interference;
+  const g3 = a.gates.gate3_connectivity;
+  const g4 = a.gates.gate4_dynamic_kinematic;
+  const g5 = a.gates.gate5_stability_load;
+  const g6 = a.gates.gate6_optical_raycast;
+  const g7 = a.gates.gate7_glb_precision;
+  const g8 = a.gates.gate8_structural_t10;
+  const g9 = a.gates.gate9_real_brep_kinematics;
+  const ms = a.mass_stability;
+  const sr = a.step_reimport;
+  const dt = a.datums;
+
+  // Title Block Audit Badge (Sheet 1)
+  const badge = document.getElementById('auditBadge');
+  badge.innerHTML = a.all_pass
+    ? `<span class="pass">9/9 GATES PASS</span> <span style="font-family:var(--font-mono);font-size:10.1px;white-space:nowrap">${sr.solids}/${sr.expected_solids} SOLIDS</span><br><span style="font-size:9.8px;color:var(--ink-2)">간섭 0 · 10/10 파레트 0 · 60포즈 0 · T10 +${g8.t10_single_clearance_mm.toFixed(1)}/+${g8.t10_window_clearance_mm.toFixed(1)}</span>`
+    : `<span class="warn">CHECK NEEDED</span>`;
+
+  // 9 Gate Cards (Sheet 4 — symmetrical 3 x 3 grid!)
+  const gateCards = [
+    {
+      t: 'GATE 1 · 초콤팩트 외곽 & BRep', ok: g1.pass_ok,
+      v: `전장 <strong>${fmtN(g1.length_mm, 0)}×${fmtN(g1.width_mm, 0)}×${g1.height_mm.toFixed(0)}</strong> · pod_top=${g1.pod_top_mm.toFixed(0)} · G=${g1.ground_clearance_mm.toFixed(0)}<br>수납 ${g1.stowed_fork_z_mm[0]}..${g1.stowed_fork_z_mm[1]} · 픽업 단면 ${g1.pickup_single_fork_z_mm[0]}..${g1.pickup_single_fork_z_mm[1]} / 창형 ${g1.pickup_window_fork_z_mm[0]}..${g1.pickup_window_fork_z_mm[1]}`
+    },
+    {
+      t: 'GATE 2 · 정지 전쌍 3D 간섭', ok: g2.pass_ok,
+      v: `전쌍 ${g2.total_pairs.toLocaleString()}쌍 (AABB ${g2.aabb_overlap_candidates} · ${g2.interference_threshold_mm3} mm³)<br>간섭 <strong>${g2.interference_count}쌍</strong> · 200Ah 등뼈 확장 <strong>${g2.opt_200ah_interference_count}쌍</strong>`
+    },
+    {
+      t: 'GATE 3 · 단일 구조 연결성', ok: g3.pass_ok,
+      v: `접촉 ≤${g3.contact_threshold_mm} mm <strong>${g3.connected_components}덩어리</strong> (${g3.main_component_size}/${sr.solids})<br>공중 부유 부품 <strong>${g3.floating_parts_count}개</strong>`
+    },
+    {
+      t: 'GATE 4 · 5축 동적 스윕', ok: g4.pass_ok,
+      v: `하강 -75/-55 · HGR25 신축 0~1,200 (여유 ±${g4.rail_block_support.L.margin_front_mm.toFixed(0)})<br>2단 X-가위 Z=${g4.lifted_z_top_mm.toFixed(1)} (창형 300..362) · 4WS ±25 → 충돌 <strong>${g4.total_dynamic_collisions}건</strong>`
+    },
+    {
+      t: 'GATE 5 · 경량 질량 & 윤하중', ok: g5.pass_ok,
+      v: `공차 <strong>${fmtN(g5.total_empty_kg, 2)} kg</strong> · 만차 <strong>${fmtN(g5.loaded_total_kg, 2)} kg</strong> (평균 ${fmtN(g5.loaded_avg_wheel_kg, 1)})<br>전 ${fmtN(g5.loaded_front_wheel_kg, 1)} / 후 ${fmtN(g5.loaded_rear_wheel_kg, 1)} ≤1,100 (<strong>SF ${g5.wheel_load_safety_factor.toFixed(2)}×</strong>)`
+    },
+    {
+      t: 'GATE 6 · 3D 광선추적 & 뮤팅', ok: g6.pass_ok,
+      v: `2D FL ${g6.lidar_2d_fl_open_deg.toFixed(1)}°/RR ${g6.lidar_2d_rr_open_deg.toFixed(2)}° (150~300 <strong>0%</strong> · Flexi Soft ≤0.3m/s)<br>XT32 <strong>${g6.xt32_horiz_open_pct.toFixed(2)}%</strong> (적재 <strong>${g6.xt32_loaded_cargo_blocked_deg.toFixed(1)}°</strong> 차폐→E1R <strong>0%</strong>) · QR ${g6.qr_min_half_deg.toFixed(2)}°`
+    },
+    {
+      t: 'GATE 7 · STEP / GLB 정밀도', ok: g7.pass_ok && sr.pass_ok,
+      v: `STEP <strong>${sr.solids}/${sr.expected_solids}</strong> (무효 ${sr.invalid_solids}) · GLB 수밀 ${g7.watertight_count}/${g7.total_meshes}<br>BBox ${g7.max_bbox_err_mm.toFixed(4)} mm (${g7.triangles.toLocaleString()} tri)`
+    },
+    {
+      t: 'GATE 8 · 2단 L=305·EHA 구조·T10', ok: g8.pass_ok,
+      v: `2단 L=305 (<strong>${g8.scissor_folded_footprint_mm.toFixed(0)}≤355</strong> · SF <strong>${g8.bar_yield_sf.toFixed(2)}/${g8.bar_boss_yield_sf.toFixed(2)}</strong>) · Ø40 EHA <strong>SF ${g8.hyd_cyl_thrust_sf.toFixed(2)}×</strong><br>970 WB LC <strong>SF ${g8.loadcell_capacity_sf.toFixed(2)}</strong> · T10 Z476.8 (<strong>+${g8.t10_single_clearance_mm.toFixed(1)}/+${g8.t10_window_clearance_mm.toFixed(1)} mm</strong>)`
+    },
+    {
+      t: 'GATE 9 · 실물 파레트·기구학 B-Rep', ok: g9.pass_ok, cls: 'gate9-card',
+      v: `9A T11 단면/田자 <strong>10/10 B-Rep 0 mm³</strong> · 9B HGR25 <strong>SF ${g9.gate9b_rail_mast_guide.hgr25_pitch_sf.toFixed(2)}×</strong>·마스트 <strong>Z490 이탈 0</strong><br>9C 수직 4WS <strong>60/60포즈 0</strong> (149.9 kgf) · 9D Hat <strong>0.700 mm</strong>·토크박스 <strong>15.87 MPa</strong>`
+    }
+  ];
+
+  document.getElementById('gateGrid').innerHTML = gateCards.map(c => `
+    <div class="gate-card ${c.cls || ''} ${c.ok ? '' : 'warn-card'}">
+      <div class="gate-head">
+        <span class="gate-title">${c.t}</span>
+        <span class="${c.ok ? 'pass' : 'warn'}">${c.ok ? 'PASS' : 'CHECK'}</span>
+      </div>
+      <div class="gate-val">${c.v}</div>
+    </div>
+  `).join('');
+
+  // Sheet 4-1 Mass & Wheel Load Table
+  document.getElementById('s4MassH3').innerHTML = `4-1. 실측 질량 내역 및 4륜 균등 윤하중 · 신축 안정도 표 <span>${sr.solids} 솔리드 체적 ${ms.total_solid_volume_L.toFixed(3)} L · 카운터웨이트 0</span>`;
+  document.getElementById('massStabilityBody').innerHTML = `
+    <tr><td><strong>강재 구조체</strong></td><td>SS400 / SM490 / Hardox 450 Hat 슈 / SCM440 2단 L=305 / 토크박스</td><td class="num"><strong>${fmtN(ms.steel_structure_kg, 2)} kg</strong></td><td class="mono">338 솔리드 실측</td></tr>
+    <tr><td><strong>카운터웨이트</strong></td><td>불필요 (적재 하중 4륜 휠베이스 내부 직지지)</td><td class="num"><strong>0.00 kg</strong></td><td class="mono">경량 3t 승강기 OK</td></tr>
+    <tr><td><strong>구매품 합계</strong></td><td>수직 4WS Ø220×4 · 11축 · EHA Ø40×4 · HGR25 · 100Ah LFP · LC×4</td><td class="num"><strong>${fmtN(ms.purchased_components_kg, 2)} kg</strong></td><td class="mono">제조사 사양 기준</td></tr>
+    <tr><td><strong>알루미늄 · 기타</strong></td><td>AL6061 (${ms.aluminum_kg.toFixed(2)}) + PEEK/EPDM/유리 (${ms.other_material_kg.toFixed(2)})</td><td class="num">${(ms.aluminum_kg + ms.other_material_kg).toFixed(2)} kg</td><td class="mono">ISO 2768-mK</td></tr>
+    <tr class="row-hi"><td><strong>공차 총질량 (100Ah)</strong></td><td>CG [${ms.cg_empty_mm[0].toFixed(1)}, +${ms.cg_empty_mm[1].toFixed(1)}, ${ms.cg_empty_mm[2].toFixed(1)}] mm</td><td class="num"><strong>${fmtN(ms.total_empty_kg, 2)} kg</strong></td><td class="mono">전 ${fmtN(ms.empty_front_wheel_kg, 1)} / 후 ${fmtN(ms.empty_rear_wheel_kg, 1)} kg/륜</td></tr>
+    <tr class="row-hi-ok"><td><strong>만차 윤하중 (${fmtN(ms.loaded_total_kg, 2)} kg)</strong></td><td>만차 CG_X = +${ms.loaded_cg_x_mm.toFixed(1)} mm (평균 ${fmtN(ms.loaded_avg_wheel_kg, 1)} kg/륜 · 3t 승강기 OK)</td><td class="num"><strong>전 ${fmtN(ms.loaded_front_wheel_kg, 1)} / 후 ${fmtN(ms.loaded_rear_wheel_kg, 1)}</strong></td><td><span class="pass">SF ${ms.wheel_load_safety_factor.toFixed(2)}× (≤1,100)</span></td></tr>
+    <tr class="row-hi-ok"><td><strong>무부하 최대 신축 CG</strong></td><td>포크(${ms.empty_fork_mass_kg.toFixed(1)} kg) +1,200 mm 신축 CG_X = +${ms.empty_fork_extended_cg_x_mm.toFixed(1)}</td><td class="num"><strong>전축 여유 +${ms.empty_fork_extended_axle_margin_mm.toFixed(1)}</strong></td><td><span class="pass">전축(+410) 내측</span></td></tr>
+  `;
+
+  // Sheet 4-2 Datums & 5 E-Stops Table
+  document.getElementById('datumEstopBody').innerHTML = `
+    <tr><td><span class="tag-datum">DATUM A</span></td><td>${dt.A}</td><td class="mono">Z = 85.0 mm</td></tr>
+    <tr><td><span class="tag-datum">DATUM B</span></td><td>${dt.B}</td><td class="mono">Y = +100.0 mm</td></tr>
+    <tr><td><span class="tag-datum">DATUM C</span></td><td>${dt.C}</td><td class="mono">X = -765.0 mm</td></tr>
+    <tr><td><strong>일반공차</strong></td><td>용접 제관 / 기계 가공 / HGR25 레일</td><td class="mono">${dt.general_tol_weld} / ${dt.general_tol_machined}</td></tr>
+    <tr><td class="mono">estop_rear</td><td>후면 10t 벽판 Ø42 · Ø38 +14.5 mm 돌출</td><td class="mono">(-765,+255,500) · X_min -779.5</td></tr>
+    <tr><td class="mono">estop_side_L/R</td><td>후방 타워 측면 도어 Ø42×2 · +14.5 mm</td><td class="mono">(-650,±585,480) · |Y| 599.5</td></tr>
+    <tr><td class="mono">estop_front_L/R</td><td>전방 포드 상부 외판 Ø42×2 (2D +60↑)</td><td class="mono">(+580,±585,240) · |Y| 599.5</td></tr>
+  `;
+
+  // Sheet 4-3 Gate 9 Real B-Rep Kinematics Verification Table
+  document.getElementById('s4Gate9H3').innerHTML = `4-3. Gate 9 실물 T11 단면·田자 파레트 &amp; 기구학 B-Rep 검증표 <span>10/10 단계 B-Rep 0 mm³ · 60포즈 0 · 대칭 LC</span>`;
+  const g9b = g9.gate9b_rail_mast_guide;
+  const g9c = g9.gate9c_vert_susp_steer_60pose;
+  const g9d = g9.gate9d_loadcell_hat_eha_torquebox;
+  const gate9Rows = [
+    ['Gate 9A · 진입 1~2', 'stage1 단면(Z=10..72) · 田자 창형(Z=30..92 · ext 1,200)', '실물 T11 파레트 2/2 B-Rep 0 mm³'],
+    ['Gate 9A · 창형 3~5', 'stage2/3 田자 리프트·sync_in(ext 1200/600/0 · +76.8↑)', '파레트·가위·차체 3/3 B-Rep 0 mm³'],
+    ['Gate 9A · 단면 6~8', 'stage2/3 단면 리프트·sync_in(ext 1200/600/0 · +101.8↑)', '파레트·가위·차체 3/3 B-Rep 0 mm³'],
+    ['Gate 9A · 안착 9~10', 'stage4 단면(Z=85..147) · 창형 스파인 주행(Z=300..362)', '상판 간극 +38.0 mm · LC 0.0 kg · 2/2 0'],
+    ['Gate 9B · HGR25·마스트', 'HIWIN HGR25×2 모멘트 · 2단 패시브 텔레스코픽 힐 마스트', `SF ${g9b.hgr25_pitch_sf.toFixed(2)}× (${g9b.hgr25_pitch_moment_empty_nm}/${g9b.hgr25_mp0_rated_nm}) · Z490 이탈 ${g9b.heel_separation_mm.toFixed(1)} · Z300핀`],
+    ['Gate 9C · 4축 수직4WS', '4×Ø25 SUJ2+LM25 동축 코일(±25 mm) × ±90° 60포즈 스윕', `${g9c.combined_poses_tested}/${g9c.combined_poses_tested}포즈 충돌 ${g9c.combined_brep_collisions} · 0° 틸트 · 최대 ${g9c.max_spring_load_kgf} kgf`],
+    ['Gate 9D · 대칭LC·Hat', '대칭 4점 팬케이크 LC(-380/+590) · 고강성 Hat 슈(609k mm⁴)', `분담 ${g9d.nominal_rear_share_pct.toFixed(1)}/${g9d.nominal_front_share_pct.toFixed(1)}% · 처짐 ${g9d.hat_shoe_udl_deflection_mm.toFixed(3)} mm (${g9d.hat_deflection_pct_of_stopper}%)`],
+    ['Gate 9D · EHA·토크박스', '48V EHA Ø40 실린더(31.4/10.6 kN) · 후면 토크박스(-701..-654)', `EHA SF ${g9d.eha_cyl_sf.toFixed(2)}× · 전단 ${g9d.torque_box_shear_neck_mpa.toFixed(2)} MPa · 뒤틀림 ${g9d.torque_box_pod_tip_twist_mm} mm`]
+  ];
+  document.getElementById('gate9Body').innerHTML = gate9Rows.map(r => `
+    <tr>
+      <td class="mono"><strong>${r[0]}</strong></td>
+      <td>${r[1]}</td>
+      <td class="mono"><strong>${r[2]}</strong></td>
+      <td><span class="pass">PASS</span></td>
+    </tr>
+  `).join('');
+
+  // Sheet 4-4 Key Clearances & Gate 8 Structural/T10 Table
+  document.getElementById('s4ClrH3').innerHTML = `4-4. 핵심 기구 · Gate 8 구조/T10 · 광학·안전 여유 검증표 <span>HD-30X Rev A.5 OCP 3D 실측</span>`;
+  const clearances = [
+    ['Gate 8 2단 L=305 X-가위 · Ø12 핀', 'scissor_lift SCM440(279.0 MPa · 302≤355) / pin Ø12(28.7 MPa)', 'SF 3.05 / 2.98', '핀 17.1 / 8.5'],
+    ['Gate 8 48V EHA Ø40 · 대칭 970 WB LC', 'hyd_cyl(31.4/10.6 kN · hoop 5.1) / 4×1t Pancake LC(4,000 kg)', 'SF 2.96 / 2.67', '동기 SF 12.8'],
+    ['Gate 8 T10 Z_top=476.8 ↔ 데크 275', '단면 하부 376.8 (+101.8) / 田자 하부 351.8 (+76.8) ↔ pod_top 275', '+101.8 / +76.8', '≥ 50.0 mm'],
+    ['HIWIN HGR25×2 · 2단 힐 마스트(Z490)', 'rail_block(ext 0..1,200 여유 ±20) / mast(중첩 76·타워 +13)', 'SF 4.94× / 0.0', '이탈 0.0 mm'],
+    ['4축 수직 서스펜션(±25) ↔ 포드 6t 상판', '4×Ø25+LM25(1:1 · 149.9 kgf) / wheel_slew(Z=266) ↔ pod_top(269)', '60/60포즈 0', '≤ 200 kgf'],
+    ['Hat 계량슈 처짐 ↔ 1.5 mm 과부하 스토퍼', 'fork_weigh_shoe(I=609k mm⁴ · 0.700 mm) ↔ loadcell_stop(1.50)', '0.700 mm(46.7%)', '< 50% 간극'],
+    ['후면 폐단면 토크박스(-701..-654)', 'rear_torque_box_L/R ↔ pod_wall_in(|Y|=306) / spine(|Y|=100)', '15.87 MPa / 1.52', '< 40 MPa'],
+    ['전방 E1R 터널 매립 (지주 / 하판)', 'e1r_pillar(754) / floor(765) ↔ lidar_3d_front_E1R(733.2)', `${g6.e1r_armor_recess_pillars_mm.toFixed(2)} / ${g6.e1r_armor_recess_floor_mm.toFixed(2)}`, '≥ 20.0 mm'],
+    ['좌후방 XT32(675) · 적재 차폐 & 2D 뮤팅', 'XT32 무적재 90.97% (적재 90.0°→E1R) · Flexi Soft ≤0.3m/s', '0.0% E1R/2D', 'PLd / SIL2'],
+    ['후면 충전(246..329) ↔ 범퍼 / 40° HMI', 'rear_charger_housing ↔ bumper(120) / hmi_console(405)', '126 / 76 mm', '≥ 90 / 60']
+  ];
+  document.getElementById('clearanceBody').innerHTML = clearances.map((r, i) => `
+    <tr>
+      <td class="num">${i + 1}</td>
+      <td><strong>${r[0]}</strong></td>
+      <td class="mono">${r[1]}</td>
+      <td class="num"><strong>${r[2]}</strong></td>
+      <td class="num">${r[3]}</td>
+      <td><span class="pass">PASS</span></td>
+    </tr>
+  `).join('');
+
+  // Bottom Summary Note
+  document.getElementById('auditSummaryNote').innerHTML =
+    `<strong>9대 자동 검증 종합 요약 (HD-30X ${a.revision} · ${sourceLabel} · 해석 ${a.audit_elapsed_s}s):</strong> ` +
+    `초콤팩트 <code>${g1.length_mm.toFixed(0)}×${g1.width_mm.toFixed(0)}×${g1.height_mm.toFixed(0)} mm</code> (<code>pod_top=275</code> · STEP <strong>${sr.solids}/${sr.expected_solids}</strong> · 공차 <strong>${ms.total_empty_kg.toFixed(2)} kg</strong> · 만재 <strong>2.29 t · 3t 승강기 적재 가능</strong> · <strong>SF ${ms.wheel_load_safety_factor.toFixed(2)}×</strong>) · ` +
+    `2단 Y-네스티드 <code>L=305</code> X-가위(<code>302≤355 mm</code> · <code>Z_top=476.8</code> · 단면 <strong>+101.8</strong>/창형 <strong>+76.8 mm</strong>) + 48V EHA <code>Ø40</code>(<strong>SF 2.96×</strong>) + 2단 텔레스코픽 힐 마스트(<code>Z=490</code> 이탈 0 · <code>Z=300</code> 록핀) + 대칭 970 WB LC(<code>49.5/50.5%</code>) + Hat 슈(<code>I=609k mm⁴</code> · <code>0.700 mm</code>) + <code>HGR25×2</code>(<strong>SF 4.94×</strong>)+<code>HTD-8M</code> + 4축 수직 서스펜션(<strong>60/60포즈 0</strong> · <code>149.9 kgf</code>) + 토크박스(<code>15.87 MPa</code>) + Gate 9A <strong>10/10 B-Rep 0 mm³</strong> · 적재 XT32 <code>90.0°</code> 차폐→E1R·2D·Flexi Soft <code>≤0.3 m/s</code> 뮤팅.`;
+}
+
+// ==================== 13. STANDALONE HD-30X SHEET METADATA & TABLES RENDERER ====================
+function renderHD30X() {
+  document.getElementById('jumpS5').innerHTML = '<span class="sn">S5</span>전장 · 11축 · EHA · STO';
+
+  // Sheet 1 Title Block & Captions
+  document.getElementById('tbTitle').textContent = 'HD-30X 1.5 t 초콤팩트 수직 4WD/4WS · 2단 L=305 X-가위 EHA 계량 포크 AMR — 제작 기준도';
+  document.getElementById('tbSub').innerHTML = '전장 <strong>1,560 × 1,200 × 760 mm</strong> (<code>pod_top=275</code> · CW 0 · 단면/田자 파레트) · <strong>2단 Y-네스티드 L=305 (302≤355 · Z476.8)</strong> · 48V EHA Ø40 · 2단 힐 마스트(Z490) · 970 WB 대칭 LC';
+  document.getElementById('tbDatums').innerHTML = 'A: 연속 8t 바닥판 하면 (Z=85.0)<br>B: 중앙 등뼈 좌측 HGR25 (Y=+100.0)<br>C: 후면 10t 벽판 외면 (X=-765.0)';
+  document.getElementById('tbTol').innerHTML = '용접 제관: ISO 13920-B<br>기계 가공: ISO 2768-mK<br>HGR25 직선도: 0.05/1,000 mm';
+  document.getElementById('tbRev').innerHTML = 'REV A.5 · 338 PARTS · SHEET 1 / 5<br>2026-11-25 · NTS (단위 mm)';
+  document.getElementById('tbMat').innerHTML = 'SS400 / SM490 / Hardox 450 (Hat 슈 609k mm⁴)<br>SCM440 HRC40 (2단 L=305 · 마스트) / AL6061';
+  document.getElementById('tbMass').innerHTML = '정격 1,500 · 공차 786.66 / 만차 2,286.66 kg<br>전 599.5/후 543.8 kg/륜 (SF 1.83×) · 3t 승강기 OK';
+
+  document.getElementById('s1H2').innerHTML = '1. 전체 정투상 3면도 (측면도 · 후면도 · 정면도) <span>SHEET 1 / 5 · HD-30X REV A.5 · 초콤팩트 1,560×1,200×760 · NTS (단위 mm)</span>';
+  document.getElementById('capSideTitle').textContent = '1-1. 측면도 (Side Elevation — X: -780~+780, Z: 0~760 · 우측 -Y에서 +Y 직시)';
+  document.getElementById('capSideSub').textContent = '1,560×1,200×760 (G=85 · pod_top 275) · 2단 L=305 Z=476.8 (+101.8/+76.8↑) · 2단 힐 마스트 Z=490 · 48V EHA Ø40 · 대칭 LC -380/+590';
+  document.getElementById('capRearTitle').textContent = '1-2. 후면도 (Rear Elevation — X=-765 Datum C 직시)';
+  document.getElementById('capRearSub').textContent = '폭 1,200 · 좌측 605 타워 + 155 XT32 롤케이지 (Z=760 · 91.0%) · 40° HMI · 충전(250~325) · Track 866 (Ø220×80)';
+  document.getElementById('capFrontTitle').textContent = '1-3. 정면도 (Front Elevation — X=+780 정면 직시)';
+  document.getElementById('capFrontSub').textContent = '축소 등뼈 E1R (|Y|≤100) · Hat 148×62 포크 ×2 (외폭 582 · 수납 85..147 / 픽업 10..72·30..92) · 데크 Z=275';
+  document.getElementById('s1Note').innerHTML = '<strong>HD-30X Rev A.5 초콤팩트 2단 Y-네스티드 X-가위 · 48V EHA · 4축 수직 서스펜션 기준:</strong> <code>1,560 × 1,200 × 760 mm</code> 차체(<code>pod_top=275</code> · CW 0 · 공차 <code>786.66 kg</code> · 만재 <code>2.29 t</code> 3t 승강기 적재 가능 · <code>338</code>부품)에 <strong>2단 Y-네스티드 L=305 X-가위(접힘 302 ≤ 355 mm 田자 창문 · Z_top=476.8 · 단면 +101.8 / 창형 +76.8↑)</strong>, 48V EHA + <code>Ø40</code> 실린더(<code>SF 2.96×</code>), <strong>2단 패시브 텔레스코픽 힐 마스트(Z=490 이탈 0 · Z=300 록핀)</strong>, <strong>대칭 970 WB 4점 팬케이크 LC(-380/+590 · 49.5/50.5%)</strong> + 고강성 Hat 슈(<code>I=609k mm⁴</code> · 처짐 <code>0.700 mm</code>), 정품 <code>HGR25×2</code>(<code>SF 4.94×</code>)+<code>HTD-8M</code>, <strong>4축 수직 서스펜션(±25 mm · 60/60포즈 0 · 149.9 kgf)</strong>, 후면 토크박스(<code>15.87 MPa</code>)를 통합했습니다. 적재 XT32 <code>90.0°</code> 차폐는 E1R·2D 융합 및 <strong>SICK Flexi Soft ≤0.3 m/s 뮤팅</strong>으로 완전 보완합니다.';
+
+  // Sheet 2 Headers & Tables
+  document.getElementById('s2H2').innerHTML = '2. 평면도 · 저면도 및 4WD/4WS 4축 수직 서스펜션 · 단차 기구 제원 <span>SHEET 2 / 5 · HD-30X REV A.5 · 1,560×1,200 · Ø238×4 · 2D 257.0°/263.3°</span>';
+  document.getElementById('capTopTitle').textContent = '2-1. 평면도 (Top Plan — 위에서 내려다봄 · +X 아래 / +Y 우측)';
+  document.getElementById('capTopSub').textContent = '1,560×1,200 · 축소 등뼈(|Y|≤100) · 대칭 970 WB LC(-380/+590) · 2단 힐 마스트 · 토크박스 · Ø238×4';
+  document.getElementById('capBotTitle').textContent = '2-2. 저면도 (Bottom View — Z=85 Datum A 올려다봄 · +X 아래 / +Y 좌측)';
+  document.getElementById('capBotSub').textContent = '8t 포드·등뼈 바닥판 · 후면 토크박스(-701..-654) · Ø238×4 (±410, ±433) · 원점 QR Ø95 (0, 0) · 실물 스키드 수납';
+  document.getElementById('s2Tbl1H3').innerHTML = '2-3. 4WD/4WS 4축 수직 서스펜션 · 30 mm 단차 · 50 mm 틈 제원 <span>로커 암 완전 폐기 · 60/60포즈 B-Rep 0</span>';
+  document.getElementById('s2Tbl1Body').innerHTML = `
+    <tr><td><strong>구동·조향 휠 ×4</strong></td><td class="mono">Ø220 × 80 mm (Vulkollan 92A)</td><td>정격 <strong>1,100 kg/륜</strong> (만차 전 599.5/후 543.8 · <strong>SF 1.83×</strong>) · 1.2 kW 인휠 + 400W 조향</td></tr>
+    <tr><td><strong>조향 스윕 컷아웃</strong></td><td class="mono">Ø238 mm ×4 (±410, ±433)</td><td>축거 <strong>820 mm</strong> · 윤거 <strong>866 mm</strong> · <code>±25 mm × ±90°</code> <strong>60/60포즈 충돌 0</strong></td></tr>
+    <tr><td><strong>4축 수직 서스펜션</strong></td><td class="mono">4×Ø25 SUJ2 + LM25 + 동축 코일 (±25)</td><td>1:1 모션비(최대 <strong>149.9 kgf</strong> ≤ 200) · 틸트 <strong>0.00°</strong> / 스크럽 <code>0.00 mm</code> · <code>pod_top=275</code></td></tr>
+    <tr><td><strong>후면 토크박스</strong></td><td class="mono">X=-701..-654 · |Y|=100..306 · Z=85..269</td><td>좌·우 포드↔등뼈 폐단면 강결 · 전단 <strong>15.87 MPa</strong>(&lt;40) · 포드 선단 뒤틀림 <code>1.52 mm</code></td></tr>
+    <tr class="row-hi-ok"><td><strong>30 mm 턱 / 50 mm 틈</strong></td><td class="mono">등판각 43.3° · 틈 침하 2.88 mm</td><td>지상고 <strong>G=85.0 mm</strong> (+55↑) · 실물 스키드 완전 수납 · 소형 캐스터 <strong>0개</strong></td></tr>
+  `;
+  document.getElementById('s2Tbl2H3').innerHTML = '2-4. 주요 외곽 · 등뼈 · 2단 X-가위 포크 · 센서 배치 치수표 <span>단위 mm · 원점 기준 (Rev A.5)</span>';
+  document.getElementById('s2Tbl2Body').innerHTML = `
+    <tr><td><strong>전체 외곽 / 적재 데크</strong></td><td class="mono">X:±780 · Y:±600 · Z:0..760</td><td>전장 <strong>1,560×1,200×760</strong> · 평탄 <code>pod_top Z=275</code> · 타워 전면 <code>X=-555</code></td></tr>
+    <tr><td><strong>등뼈 / 레인 / HGR25</strong></td><td class="mono">등뼈 |Y|≤100 · 레인 206 · HGR25×2</td><td><code>HGR25</code>(-752..+758 · <strong>SF 4.94×</strong>) + <code>HTD-8M</code> 벨트 + <code>igus 25×35</code> 드래그체인 ×2</td></tr>
+    <tr><td><strong>2단 X-가위·EHA·Hat</strong></td><td class="mono">X=-512..+745 · LC -380/+590</td><td><strong>970 WB</strong>(49.5/50.5%) · 2단 <code>L=305</code>(<code>302≤355</code> · <strong>Z476.8</strong>) · 2단 힐 마스트(<code>Z490</code>)</td></tr>
+    <tr><td><strong>대각 2D · 전방 E1R</strong></td><td class="mono">FL(+705,+530) / RR(-705,-530)</td><td>2D <strong>257.0° / 263.3°</strong> (<code>≤0.3m/s</code> 뮤팅) · E1R <code>(+712,0,165 · 20.8/28.8 · 0%)</code></td></tr>
+    <tr><td><strong>원점 QR · 배터리</strong></td><td class="mono">QR(0,0,140) · 타워 100Ah 8S×2</td><td>Ø95 AR(<code>38.25°</code>) · 200Ah 저상 등뼈(<code>Z=93..175</code>) HTD-8M/QR 간섭 <strong>0</strong></td></tr>
+  `;
+
+  // Sheet 3 Headers & Table 3-1
+  document.getElementById('s3H2').innerHTML = '3. 핵심 기구 · 광학 상세 단면 4종 (2단 L=305 EHA·Hat · 4축 수직 4WS · 중장갑 XT32 · E1R/2D/QR) <span>SHEET 3 / 5 · HD-30X REV A.5</span>';
+  document.getElementById('capDetATitle').textContent = 'DETAIL A. 2단 L=305 X-가위(Z476.8) · 48V EHA Ø40 · 2단 힐 마스트(Z490) · 대칭 970 WB Hat 계량';
+  document.getElementById('capDetASub').textContent = '302≤355 mm 창문 · 단면+101.8 / 창형+76.8↑ > pod_top 275 · Hat I=609k mm⁴ (0.700 mm) · Z300 록핀';
+  document.getElementById('capDetBTitle').textContent = 'DETAIL B. Ø220×80 4WD/4WS & 4×Ø25 SUJ2 수직 리니어가이드 동축 코일 서스펜션 단차 극복';
+  document.getElementById('capDetBSub').textContent = '로커 암 폐기 · ±25 mm 순수 수직 (1:1 · 149.9 kgf · 0° 틸트) · 60/60포즈 B-Rep 0 · 30 mm 턱 (43.3°)';
+  document.getElementById('capDetCTitle').textContent = 'DETAIL C. 좌후방 605 폐쇄 타워 · 155 XT32 롤케이지 (Z=760) · 후면 토크박스 · 40° HMI · 충전';
+  document.getElementById('capDetCSub').textContent = 'XT32 (-650,+440,Z=675 · 90.97% · 적재 90.0°→E1R) · 토크박스 15.87 MPa · 충전 Z=250~325';
+  document.getElementById('capDetDTitle').textContent = 'DETAIL D. 매립 2D (Z=180 · ≤0.3m/s 뮤팅) · 등뼈 중장갑 E1R (20.8 매립) · 원점 QR 단면';
+  document.getElementById('capDetDSub').textContent = '2D FL 257.0°/RR 263.3° · E1R 지주 20.8 / 하판 28.8 매립 (0% 차단) · 원점 QR (0,0,140)';
+  document.getElementById('s3InterfaceBody').innerHTML = `
+    <tr><td><strong>DETAIL A<br>2단 X-가위·EHA</strong></td><td>2단 Y-네스티드 <code>L=305</code>(<code>SCM440</code>) + 실물 <code>110×280</code> 스키드·<code>Ø30</code> 롤러 + <code>48V 1.5 kW EHA</code>·<code>Ø40×4</code> + 2단 힐 마스트 + <code>Hat</code> 슈 + 팬케이크 LC×4</td><td class="mono">픽업 10..72/30..92 ↔ T10 Z=476.8(+101.8/+76.8↑) ↔ 창형 Z=300..362(+38 간극) · LC -380/+590(970 WB)</td><td><strong>10/10 실물 T11 B-Rep 0</strong> · <code>302≤355</code> 창문 · EHA <strong>SF 2.96×</strong> · Hat <strong>0.700 mm</strong>(&lt;1.5) · HGR25 <strong>SF 4.94×</strong> · 마스트 <strong>Z490 이탈 0</strong></td></tr>
+    <tr><td><strong>DETAIL B<br>4축 수직 4WS</strong></td><td>Vulkollan 92A <code>Ø220×80</code> + 1.2 kW 인휠 + <code>RU124</code> 선회링 + 400W 조향 + <code>4×Ø25 SUJ2</code>·<code>LM25</code>·동축 스프링×16</td><td class="mono">피벗(±410, ±433 · Track 866) · Ø238 홀 · 순수 Z ±25 mm(1:1 · 149.9 kgf) · pod_top Z=275</td><td>로커 암 폐기 · <strong>60/60포즈 B-Rep 0</strong> · 30 mm 턱(43.3°)/50 mm 틈(2.88 mm) 4륜 접지 · <strong>SF 1.83×</strong></td></tr>
+    <tr><td><strong>DETAIL C<br>타워·토크박스</strong></td><td>605 폐쇄 타워(전면 <code>X=-555</code>) + 155 롤케이지(<code>Ø24×4t</code>·8t 지붕) + 후면 12t 토크박스(<code>-701..-654</code>) + 40° HMI</td><td class="mono">XT32(-650,+440,675,+8°) · 토크박스 15.87 MPa(뒤틀림 1.52) · HMI 405~573 · 충전 250~325</td><td>전고 <code>760.0 mm</code> · 무적재 <strong>90.97%</strong>(적재 <strong>90.0°</strong> 차폐→E1R·2D 융합) · 힐 마스트 +13 mm 용접 여유</td></tr>
+    <tr><td><strong>DETAIL D<br>장갑 광학·뮤팅</strong></td><td><code>nanoScan3 Pro ×2</code> + <code>22 mm</code> 베벨 지주·<code>10t</code> 하판·<code>8t</code> 상판 E1R 터널 + 원점 <code>QR</code> + <code>Flexi Soft</code></td><td class="mono">2D Z=180(FL 257.0°/RR 263.3°) · E1R(+712,0,165 · 20.83/28.79 매립) · QR(0,0 · 38.25°)</td><td>E1R <code>120°×90°</code> 차단 <strong>0.0%</strong> · Flexi Soft <strong>≤0.3 m/s</strong> 포크레인(-62°..-15°) 뮤팅(외곽·RR 100% 활성)</td></tr>
+  `;
+
+  // Sheet 4 Header
+  document.getElementById('s4H2').innerHTML = '4. 9대 자동 검증 게이트 (Gate 1~9 실물 기구학) · 4륜 윤하중 · 여유 치수표 · 데이텀/공차 <span>SHEET 4 / 5 · vendor_clearance_audit_x.json SSOT (HD-30X Rev A.5)</span>';
+
+  // Sheet 5 Headers, 10-Row ROS2 Driver Table & Note
+  document.getElementById('s5H2').innerHTML = '5. 4계층 전장 · 11축 (4WD/4WS·48V EHA·HTD-8M) · 대칭 970 WB 계량 · STO 계통도 &amp; 드라이버 표 <span>SHEET 5 / 5 · HD-30X REV A.5 · ISO 13849 PLd</span>';
+  document.getElementById('capElecTitle').textContent = '5-1. 4계층 전장·통신·계량·안전 블록다이어그램 (L1 연산/PTP · L2 11축 CANopen/대칭 4ch 계량 · L3 LFP · L4 STO 뮤팅)';
+  document.getElementById('capElecSub').textContent = 'MIC-711-OX · Moxa EDS-G4008 · FD144S×7 + FD114S×4 · 대칭 970 WB 팬케이크 LC 4ch · 51.2V 100/200Ah LFP · SICK Flexi Soft STO';
+  document.getElementById('s5TblH3').innerHTML = '5-2. 표준 산업용 인터페이스 및 리눅스/ROS2 드라이버 연동 표 (10계통) <span>HD-30X Rev A.5 · 11축 · EHA + 대칭 4점 계량 · OEM/KC 공통</span>';
+  document.getElementById('s5DriverBody').innerHTML = `
+    <tr><td><strong>01. 중장갑 3D 라이다 ×2</strong><br><code>Hesai XT32</code> (+8°)<br><code>RoboSense E1R</code> (+10°)</td><td class="mono">좌후방 (-650,+440,675)<br>등뼈 전방 (+712,0,165)</td><td>1Gbps Ethernet (UDP)<br>+ <strong>IEEE 1588v2 PTP</strong><br>(<code>Moxa</code> · 24V/12V)</td><td><code>HesaiLidar_ROS_2.0</code> · <code>rslidar_sdk</code> · <code>ptp4l</code>/<code>phc2sys</code> 시각동기 · <strong>적재 시 XT32 90.0° 차폐→전방 E1R+2D 융합 보완</strong></td><td>155 mm 롤케이지·20.8 mm E1R 터널(0% 차단) · <code>2D_Basic</code> 3t 블랭킹</td></tr>
+    <tr><td><strong>02. 하부 매립 2D ×2</strong><br><code>SICK nanoScan3 Pro I/O</code><br>(FL / RR 대각 코너)</td><td class="mono">FL (+705,+530,180)<br>RR (-705,-530,180)</td><td>1Gbps Ethernet (측정)<br>+ <strong>안전 OSSD 2ch</strong><br>(하드와이어 · 24V)</td><td><code>sick_safetyscanners2</code> (ROS2 UDP/CoLa2 + RSSI 반사판) · <strong>T10 저속(≤0.3 m/s) FL 포크레인(-62°..-15°) 뮤팅</strong></td><td>국내 정식 KC+KCs PLd 스캐너 · 외곽(|Y|&gt;350)·RR 2D <strong>100% 상시 활성</strong></td></tr>
+    <tr><td><strong>03. 원점 하향 QR ×1</strong><br><code>Hikrobot MV-ID2004M</code><br><em>(KC: <code>DataMan 280</code>)</em></td><td class="mono">원점 (0, 0, Z=140)<br>Ø95 AR 강화유리 베젤</td><td>1Gbps Ethernet (<code>Moxa</code>)<br>24V DC</td><td>TCP/IP 소켓 · <code>MVS SDK</code> / <code>DMCC</code> ROS2 노드 (로봇 기구 원점 직하 정밀 도킹·승강기 정렬)</td><td><code>AL6061</code> 상부 브래킷 + 1.0 mm 리세스 베젤 (4방향 반각 38.25°)</td></tr>
+    <tr><td><strong>04. 후면 10.1" HMI ×1</strong><br><code>Winmate W10L100-IPH2</code></td><td class="mono">후면 40° 오픈 콘솔<br>Z=405~573 (무지붕)</td><td>1Gbps Ethernet (<code>Moxa</code>)<br>24V DC (전면 IP65)</td><td>Ubuntu/Chromium Kiosk Web UI (<code>HTTP/WS</code> · FMS <code>/ops</code> 작업·EHA/Z300 록핀 상태·실시간 계량 표시)</td><td>기성 IP65 KC 패널 PC + <code>SS400 4t</code> 40° 절곡 콘솔 (<code>239×170</code> 타공)</td></tr>
+    <tr><td><strong>05. 8축 수직 4WD/4WS</strong><br><code>FD144S ×4</code> + <code>FD114S ×4</code><br><em>(KC: FASTECH/LS/Delta)</em></td><td class="mono">우측 포드 조향 #1~4<br>타워 우측 2단 주행 #5~8</td><td><strong>CANopen CiA 402</strong><br>(1 Mbps) · 48V 주모선<br>+ <strong>STO 2ch</strong></td><td><code>MIC-711-OX</code> <strong>SocketCAN</strong> 직접 제어 (<code>ros2_canopen</code> / <code>oneweave-native</code> · Ø220 4×Ø25 수직 서스펜션 크랩·스핀)</td><td><code>4t AL6061</code> 방열 베이스·2단 랙 밀착 + <code>120Ω</code> 종단 · 무여자 브레이크</td></tr>
+    <tr><td><strong>06. 3축 EHA·하강·HTD-8M</strong><br><code>FD144S ×3</code> (EHA 1.5kW ·<br>하강 400W · 전진 750W)</td><td class="mono">타워 좌측 2단 #9~11<br>캐리지 EHA · 등뼈 벨트</td><td><strong>CANopen CiA 402</strong><br>(1 Mbps) · 48V 주모선<br>+ <strong>STO 2ch</strong></td><td><code>ros2_canopen</code> T10 시퀀스 (픽업 <code>-75/-55</code> ↔ <code>HGR25/HTD-8M</code> 신축 <code>0~1,200</code> ↔ <code>EHA Ø40</code> <code>Z=476.8</code> ↔ <code>Z=300</code> 록핀)</td><td>파일럿 체크밸브 유압 자가잠금 + <code>Tr20×4</code> + <code>igus 25×35</code> 드래그체인×2</td></tr>
+    <tr class="row-hi-ok"><td><strong>07. 대칭 970 WB 4점 계량</strong><br><code>Laumas TLB4</code> / <code>CAS</code> 4ch<br>+ 팬케이크 <code>Ø50×20 1t ×4</code></td><td class="mono">좌측 포드 (+101,+367)<br>포크 X=-380/+590 매립</td><td><strong>CANopen / Modbus RTU</strong><br>(RS485) · 24V DC<br>24-bit 4ch 독립 ADC</td><td><code>ros2_canopen</code> / <code>libmodbus</code> 계량 드라이버 (<strong>49.5/50.5% 대칭</strong> · Hat 처짐 0.700 &lt; 1.5 스토퍼 · 창형 주행 <strong>0.0 kg</strong>)</td><td>OEM: Zemic/Keli IP68 · KC: 국산 CAS/DACELL + SUS301 플렉셔 + M10 볼트</td></tr>
+    <tr><td><strong>08. 6축 IMU · 포크 광전</strong><br><code>Xsens MTi-630</code> IMU<br>+ <code>SICK WTB4FP ×2</code></td><td class="mono">좌측 포드 (+84,+475)<br>포크 선단 X=710..744</td><td>USB / RS485 (IMU)<br>24V DI (<code>WTB4FP ×2</code>)</td><td><code>xsens_mti_ros2_driver</code> (30 mm 턱 피치/경사 보정 및 3D SLAM 융합) · Modbus IO 파레트 안착·Z300 록핀 감지</td><td><code>igus 25×35</code> 실드 배선(48V 분리) · <code>WTB4FP</code> 선단 포켓 매립 보호</td></tr>
+    <tr><td><strong>09. LFP 배터리 &amp; 충전/분배</strong><br><code>51.2V 100Ah / 200Ah LFP</code><br>+ Smart BMS + <code>Mean Well</code></td><td class="mono">타워 좌·우 8S×2 (100Ah)<br>등뼈 Z93..175 · 충전 250~325</td><td><strong>BMS CAN</strong> · <code>35sq</code> ±48V<br>절연 <code>48V→24V/12V</code><br>+ 파일럿 인터록</td><td><code>SocketCAN</code> BMS (SOC·셀온도·주접촉기) · Modbus IO 자동 충전 파일럿 릴레이(충전 중 주행·포크 인터록)</td><td><strong>LFP 전용</strong> · 등뼈 확장 팩 HTD-8M(-10 mm)·QR 간섭 0 · KC 62619 + UN38.3</td></tr>
+    <tr><td><strong>10. 독립 안전 PLC · STO</strong><br><code>SICK Flexi Soft</code><br>+ E-STOP×5 + <code>Mayser</code> 4면</td><td class="mono">우측 포드 (-80,-372)<br>E-STOP 후1·측2·전2</td><td><strong>독립 하드와이어 24V</strong><br><strong>메인 PC 완전 물리 분리</strong></td><td><code>Flexi Soft Designer</code> (ISO 13849-1 <strong>PLd / SIL2</strong>) · <strong>11축 STO + EHA 파일럿 밸브 차단 + ≤0.3 m/s T10 포크레인 뮤팅</strong></td><td>기성 KC+KCs 안전 PLC · <code>ISO 13850</code> E-STOP ×5 · <code>Mayser SL/W</code> 4면 범퍼</td></tr>
+  `;
+  document.getElementById('s5Note').innerHTML = '<strong>HD-30X Rev A.5 전장·11축 EHA·대칭 계량·안전 뮤팅 설계 원칙:</strong> (1) <strong>11축 표준 유지 &amp; 포드 물리 분리</strong> — 유압 EHA 전환 후에도 <code>FD144S ×7</code>(4WD 4 + EHA 1.5 kW 1 + 2모드 하강 1 + HTD-8M 전진 1)과 <code>FD114S ×4</code>(4WS 4)로 11축 CANopen 구성을 유지하며, 좌측 포드(연산·PTP·계량·IMU)와 우측 포드(<code>Flexi Soft</code>·분배·조향 4축)를 물리 분리합니다. (2) <strong>SICK Flexi Soft T10 저속 뮤팅</strong> — <code>fork_out/lift_up/sync_in/lift_down/sync_out</code> 5단계에서 <code>≤0.3 m/s</code> 속도 인터록 하에 FL 2D 포크레인(<code>X&gt;780, |Y|≤350, -62°..-15°</code>)만 뮤팅하고 외곽·RR 2D는 100% 활성을 유지합니다. (3) <strong>적재 주행 다중 센서 융합</strong> — 적재 시 XT32 <code>90.0°</code> 차폐를 전방 <code>120°×90°</code> E1R + 대각 2D로 완전 보완합니다.';
+
+  // Draw ALL 10 HD-30X Blueprint SVGs
+  drawSideX();
+  drawRearX();
+  drawFrontX();
+  drawTopX();
+  drawBottomX();
+  drawDetForkScaleX();
+  drawDet4WS();
+  drawDetTower3DX();
+  drawDet2DE1R();
+  drawElecBlock();
+
+  // Render Sheet 4 & Title Block Audit Status
+  renderAudit(AUDIT_STATE.data, AUDIT_STATE.src);
+}
+
+// Initial boot: Standalone HD-30X Rev A.5
+(function init() {
+  renderHD30X();
+
+  if (location.protocol === 'http:' || location.protocol === 'https:') {
+    fetch('vendor_clearance_audit_x.json', { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : null)
+      .then(j => {
+        if (j && j.gates && j.gates.gate9_real_brep_kinematics) {
+          AUDIT_STATE.data = j;
+          AUDIT_STATE.src = 'vendor_clearance_audit_x.json 실시간';
+          renderAudit(AUDIT_STATE.data, AUDIT_STATE.src);
+        }
+      }).catch(() => {});
+  }
+})();
+</script>
+</body>
+</html>

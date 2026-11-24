@@ -1,0 +1,3892 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111827'/%3E%3Cpath d='M14 42 L32 52 L50 42 L50 22 L32 12 L14 22 Z' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linejoin='round'/%3E%3Cpath d='M14 22 L32 32 L50 22 M32 32 L32 52' fill='none' stroke='%2360a5fa' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>HD-30C-R 1.5t AMR Rev A.5 — 3D 뷰어</title>
+<link rel="stylesheet" href="portal.css">
+<style>
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+body.cad-viewer-page {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+}
+body.cad-viewer-page .p-header {
+  flex-shrink: 0;
+}
+body.embed-mode .p-header {
+  display: none;
+}
+
+/* Main Split Workspace: 312px Light Inspector + Full-Bleed Charcoal Studio Viewport */
+#app {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+#panel {
+  width: 312px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+#panel::-webkit-scrollbar { width: 6px; }
+#panel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+#panel::-webkit-scrollbar-track { background: transparent; }
+
+/* Always-Visible Top Blocks (Architecture + Real-Kinematics Animation Studio) */
+.pinned-sec {
+  padding: 11px 13px 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: var(--surface);
+}
+.pinned-sec.anim-sec {
+  background: #f8fafc;
+}
+.sec-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sec-title {
+  font-size: 12.2px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.state-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1.5px 6px;
+  border-radius: 4px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.state-pill.playing {
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+  color: var(--accent);
+}
+.state-pill.done {
+  background: var(--ok-soft);
+  border-color: var(--ok-line);
+  color: var(--ok);
+}
+
+/* Animation Studio Transport & Timeline */
+.anim-transport {
+  display: grid;
+  grid-template-columns: 1.35fr 0.78fr 0.72fr 0.72fr;
+  gap: 4px;
+}
+.anim-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 6px;
+  border-radius: 5px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 11.2px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.anim-btn:hover {
+  background: var(--surface-subtle);
+}
+.anim-btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+.anim-btn.primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.anim-btn.primary.paused-active {
+  background: #0f766e;
+  border-color: #0f766e;
+}
+.anim-btn svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.anim-btn svg.stroke-ico {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anim-stage-card {
+  background: var(--surface);
+  border: 1px solid var(--accent-line);
+  border-left: 3px solid var(--accent);
+  border-radius: 5px;
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.anim-stage-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.anim-stage-name {
+  font-size: 11.4px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.anim-stage-pct {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.anim-stage-desc {
+  font-size: 10.6px;
+  color: var(--ink-2);
+  line-height: 1.35;
+  word-break: keep-all;
+}
+.anim-stage-metrics {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
+  border-top: 1px dashed var(--line);
+  line-height: 1.38;
+}
+
+.step-pills {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 3px;
+}
+.step-pill-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  border-radius: 4px;
+  padding: 3px 0;
+  font-family: var(--font-mono);
+  font-size: 10.2px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: none;
+}
+.step-pill-btn:hover {
+  border-color: var(--accent-line);
+  color: var(--ink);
+}
+.step-pill-btn.passed {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+.step-pill-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.anim-opt-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 6px;
+}
+
+/* Collapsible Inspector Accordions */
+details.insp-sec {
+  border-bottom: 1px solid var(--line);
+}
+details.insp-sec > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 13px;
+  font-size: 12.2px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  background: var(--surface);
+  transition: background 0.12s ease;
+}
+details.insp-sec > summary::-webkit-details-marker { display: none; }
+details.insp-sec > summary:hover { background: #fafbfc; }
+details.insp-sec > summary::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 1.6px solid var(--muted);
+  border-bottom: 1.6px solid var(--muted);
+  transform: rotate(-45deg);
+  transition: transform 0.14s ease;
+  flex-shrink: 0;
+  margin-right: 2px;
+}
+details.insp-sec[open] > summary::after {
+  transform: rotate(45deg);
+}
+
+.insp-body {
+  padding: 2px 13px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.field-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.field-hint {
+  font-family: var(--font-mono);
+  font-size: 10.2px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* Standalone HD-30C-R Rev A.5 Model Badge Card */
+.model-badge-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 7.5px 9.5px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+.arch-btn-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.arch-title {
+  font-size: 11.8px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+.arch-pill {
+  font-family: var(--font-mono);
+  font-size: 9.6px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
+  flex-shrink: 0;
+}
+.arch-sub {
+  font-family: var(--font-mono);
+  font-size: 9.6px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+/* Segmented Controls */
+.seg-box {
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.seg-row {
+  display: grid;
+  gap: 2px;
+}
+.seg-row.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.seg-row.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.seg-row.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.seg-row.cols-var { grid-template-columns: 0.82fr 1.32fr 0.86fr; }
+.seg-row.cols-pallet { grid-template-columns: 1.52fr 0.92fr 0.56fr; }
+
+.seg-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: inherit;
+  font-size: 11.2px;
+  font-weight: 500;
+  padding: 4.5px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.seg-btn:hover:not(:disabled):not(.active) {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.55);
+}
+.seg-btn.active {
+  background: var(--surface);
+  color: var(--accent);
+  font-weight: 600;
+  border-color: var(--accent-line);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.06);
+}
+.seg-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+.seg-btn.compact {
+  font-size: 10.3px;
+  padding: 4px 3px;
+}
+.seg-btn.preset-btn {
+  font-size: 9.9px;
+  line-height: 1.24;
+  padding: 4.5px 4px;
+  white-space: normal;
+  word-break: keep-all;
+}
+
+.spec-line {
+  font-size: 10.9px;
+  line-height: 1.38;
+  color: var(--muted);
+  word-break: keep-all;
+}
+.pallet-note {
+  font-size: 10.2px;
+  line-height: 1.35;
+  color: var(--muted);
+  padding: 4px 7px;
+  background: #ffffff;
+  border-left: 2px solid var(--line-strong);
+  border-radius: 0 4px 4px 0;
+}
+.mass-line {
+  background: #f8f9fb;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.arch-panel-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hidden,
+.arch-panel-group.hidden,
+.field-group.hidden {
+  display: none !important;
+}
+
+/* CAD & BOM Download Section */
+.cad-file-meta {
+  background: #f8f9fb;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cad-file-name {
+  font-family: var(--font-mono);
+  font-size: 10.8px;
+  font-weight: 600;
+  color: var(--ink);
+  word-break: break-all;
+  line-height: 1.35;
+}
+.cad-file-sub {
+  font-family: var(--font-mono);
+  font-size: 9.7px;
+  letter-spacing: -0.02em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dl-actions {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 5px;
+}
+.dl-actions.bom-row {
+  grid-template-columns: 1fr 1fr;
+}
+.dl-actions .p-btn {
+  width: 100%;
+  padding: 6px 7px;
+  font-size: 11.4px;
+  text-align: center;
+}
+.cad-caption {
+  font-size: 10.7px;
+  line-height: 1.4;
+  color: var(--muted);
+  padding: 6px 8px;
+  border-left: 2px solid var(--line-strong);
+  background: #f8f9fb;
+  border-radius: 0 4px 4px 0;
+  display: none;
+}
+.cad-caption.visible { display: block; }
+.cad-caption.warn-tone {
+  border-left-color: var(--warn);
+  background: var(--warn-soft);
+  color: #713f12;
+}
+.cad-caption a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.cad-caption a:hover { text-decoration: underline; }
+.insp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.2px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: 1px;
+}
+.insp-link:hover { text-decoration: underline; }
+
+/* Kinematics Sliders */
+.slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.slider-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--ink-2);
+}
+.slider-head > span { white-space: nowrap; }
+.slider-val {
+  font-family: var(--font-mono);
+  font-size: 10.4px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.slider-row input[type="range"] {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.slider-row input[type="range"]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 4-Point Load-Cell Live Readout Card */
+.weigh-card {
+  background: #f8f9fb;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.weigh-card.state-ok {
+  border-color: var(--ok-line);
+  background: #f7fdf9;
+}
+.weigh-card.state-safe {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+.weigh-card.state-overload {
+  border-color: var(--danger-line);
+  background: var(--danger-soft);
+}
+.weigh-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.weigh-title {
+  font-size: 10.4px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.weigh-badge {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 1.5px 5.5px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.weigh-badge.ok {
+  background: var(--ok-soft);
+  border-color: var(--ok-line);
+  color: var(--ok);
+}
+.weigh-badge.safe {
+  background: #dbeafe;
+  border-color: var(--accent-line);
+  color: var(--accent);
+}
+.weigh-badge.danger {
+  background: #fee2e2;
+  border-color: var(--danger-line);
+  color: var(--danger);
+}
+.weigh-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.weigh-kg {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.weigh-card.state-ok .weigh-kg { color: var(--ok); }
+.weigh-card.state-safe .weigh-kg { color: var(--accent); }
+.weigh-card.state-overload .weigh-kg { color: var(--danger); }
+.weigh-sub {
+  font-family: var(--font-mono);
+  font-size: 9.8px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.lc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding-top: 5px;
+  border-top: 1px solid var(--line);
+}
+.lc-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 2.5px 6px;
+  font-family: var(--font-mono);
+  font-size: 10.1px;
+  font-variant-numeric: tabular-nums;
+}
+.lc-cell .lc-id {
+  font-weight: 600;
+  color: #be185d;
+}
+.lc-cell .lc-val {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Standalone Feature Toggle Row (Elevator Step) */
+.feature-chk {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 6.5px 8.5px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #f8f9fb;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+.feature-chk:hover { border-color: var(--line-strong); }
+.feature-chk.active {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+.feature-chk input {
+  margin: 2px 0 0;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+.feature-chk .f-txt {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.feature-chk .f-title {
+  font-size: 11.3px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.feature-chk .f-sub {
+  font-family: var(--font-mono);
+  font-size: 9.8px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+/* Layer Checkboxes */
+.chk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+label.chk {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 11.4px;
+  color: var(--ink-2);
+  min-width: 0;
+}
+label.chk input {
+  margin: 0;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+label.chk .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+label.chk span.lbl {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Right 3D Studio Viewport */
+#viewport {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  background: #1b2028;
+  overflow: hidden;
+}
+#c {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+#c:active { cursor: grabbing; }
+
+/* Live Kinematics Stage Banner (Top-Left of Viewport) */
+#vpAnimHud {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  z-index: 12;
+  max-width: min(560px, calc(100% - 250px));
+  padding: 6px 11px;
+  border-radius: 7px;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  color: #f1f5f9;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+#vpAnimHud .hud-top {
+  font-size: 11.8px;
+  font-weight: 700;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+#vpAnimHud .hud-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(37, 99, 235, 0.85);
+  color: #ffffff;
+}
+#vpAnimHud .hud-sub {
+  font-family: var(--font-mono);
+  font-size: 10.4px;
+  color: #cbd5e1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Quiet Top-Right Status Badge */
+#vpStatus {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 10;
+  padding: 4.5px 10px;
+  border-radius: 6px;
+  background: rgba(17, 24, 39, 0.58);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: #e5e7eb;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+/* Subtle Bottom-Left Coordinate Legend */
+#axisLegend {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(17, 24, 39, 0.48);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  pointer-events: none;
+}
+
+/* Floating Light Camera Pill (Bottom-Center) */
+#camBar {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.26);
+  max-width: calc(100% - 28px);
+  overflow-x: auto;
+}
+#camBar button {
+  border: none;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: inherit;
+  font-size: 11.4px;
+  font-weight: 500;
+  padding: 4.5px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+#camBar button:hover {
+  background: var(--surface-subtle);
+  color: var(--ink);
+}
+#camBar button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+.cam-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--line);
+  margin: 0 3px;
+  flex-shrink: 0;
+}
+
+/* Clean White Hover Inspector Card */
+#tip {
+  position: absolute;
+  pointer-events: none;
+  display: none;
+  z-index: 25;
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 12px;
+  min-width: 210px;
+  max-width: 340px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+}
+#tip .t-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+#tip .t-name {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11.8px;
+  color: var(--ink);
+}
+#tip .t-kind {
+  font-family: var(--font-mono);
+  font-size: 9.8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--surface-subtle);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+#tip .t-model {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 3px;
+  line-height: 1.35;
+}
+#tip .t-meta {
+  font-family: var(--font-mono);
+  font-size: 10.6px;
+  color: var(--ink-2);
+  margin-top: 4px;
+  line-height: 1.38;
+}
+#tip .t-bbox {
+  font-family: var(--font-mono);
+  font-size: 10.2px;
+  color: var(--muted);
+  margin-top: 3px;
+  padding-top: 4px;
+  border-top: 1px solid var(--surface-subtle);
+}
+
+/* Loading & file:// CORS Notice Overlay */
+#loadingOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(27, 32, 40, 0.88);
+  color: #f3f4f6;
+  font-size: 13px;
+  font-weight: 600;
+}
+#loadingOverlay .sub-msg {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  #app { flex-direction: column-reverse; }
+  #panel {
+    width: 100%;
+    height: 48%;
+    border-right: none;
+    border-top: 1px solid var(--line);
+  }
+  #viewport { height: 52%; }
+  #axisLegend { display: none; }
+  #vpAnimHud { max-width: calc(100% - 24px); }
+}
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/three.module.js",
+    "three/addons/": "./vendor/three/"
+  }
+}
+</script>
+</head>
+<body class="cad-viewer-page">
+<script>if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('embed-mode');</script>
+
+<header class="p-header full">
+  <div class="p-header-inner">
+    <a class="p-brand" href="index.html">HD-30C-R 1.5t AMR <span class="p-brand-rev">Rev A.5</span></a>
+    <nav class="p-nav">
+      <a href="index.html">개요</a>
+      <a href="3d.html" class="active">3D 뷰어</a>
+      <a href="drawings_options.html">옵션 · KC</a>
+      <a href="vendor_drawing.html">도면 · CAD</a>
+    </nav>
+  </div>
+</header>
+
+<div id="app">
+  <aside id="panel" aria-label="HD-30C-R Rev A.5 3D CAD 인스펙터">
+    <!-- ALWAYS VISIBLE 1: Standalone Model Summary -->
+    <section class="pinned-sec" aria-label="HD-30C-R 기체 사양">
+      <div class="sec-title-row">
+        <span class="sec-title">HD-30C-R Rev A.5 실물 B-Rep</span>
+        <span class="state-pill done">9/9 PASS</span>
+      </div>
+      <div class="model-badge-card">
+        <span class="arch-btn-top">
+          <span class="arch-title">2단 풀-프리리프트 듀플렉스 리치</span>
+          <span class="arch-pill">256부품</span>
+        </span>
+        <span class="arch-sub">2,192.4 kg · 수납 2,040 / 전개 3,160 · Z550 (+75/+100)</span>
+        <span class="arch-sub">iForks 내장 4점 LC (0 N) · 수직 LM30 2t 4WS</span>
+      </div>
+    </section>
+
+    <!-- ALWAYS VISIBLE 2: Real-Kinematics Continuous Animation Studio -->
+    <section class="pinned-sec anim-sec" id="animStudioCard" aria-label="실물 기구학 연속 애니메이션 제어">
+      <div class="sec-title-row">
+        <span class="sec-title">실물 기구학 연속 애니메이션</span>
+        <span class="state-pill" id="animRunPill">대기 (정지)</span>
+      </div>
+
+      <div class="anim-transport" role="group" aria-label="애니메이션 재생 제어">
+        <button type="button" class="anim-btn primary" id="btnAnimPlay" aria-label="재생 또는 일시정지">
+          <svg id="icoPlay" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5 L13.5 8 L4 13.5 Z"/></svg>
+          <svg id="icoPause" viewBox="0 0 16 16" aria-hidden="true" style="display:none"><rect x="3.5" y="2.5" width="3.2" height="11" rx="0.6"/><rect x="9.3" y="2.5" width="3.2" height="11" rx="0.6"/></svg>
+          <span id="lblAnimPlay">재생</span>
+        </button>
+        <button type="button" class="anim-btn" id="btnAnimReset" title="처음 단계로 복귀">
+          <svg class="stroke-ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.2 7.2 A5 5 0 1 1 4.6 11.4"/><path d="M3 3.4 V7.4 H7"/></svg>
+          <span>처음</span>
+        </button>
+        <button type="button" class="anim-btn" id="btnAnimPrev" title="이전 단계">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 3 L4.5 8 L10.5 13 Z"/></svg>
+          <span>이전</span>
+        </button>
+        <button type="button" class="anim-btn" id="btnAnimNext" title="다음 단계">
+          <span>다음</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3 L11.5 8 L5.5 13 Z"/></svg>
+        </button>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-head">
+          <span>타임라인 스크러버 (0% ~ 100%)</span>
+          <span class="slider-val" id="vAnimPct">0%</span>
+        </div>
+        <input type="range" id="sAnimTimeline" min="0" max="1000" step="1" value="0" aria-label="애니메이션 타임라인">
+      </div>
+
+      <div class="step-pills" id="animStepPills" role="group" aria-label="7단계 직접 이동">
+        <button type="button" class="step-pill-btn active" data-step-idx="0">1</button>
+        <button type="button" class="step-pill-btn" data-step-idx="1">2</button>
+        <button type="button" class="step-pill-btn" data-step-idx="2">3</button>
+        <button type="button" class="step-pill-btn" data-step-idx="3">4</button>
+        <button type="button" class="step-pill-btn" data-step-idx="4">5</button>
+        <button type="button" class="step-pill-btn" data-step-idx="5">6</button>
+        <button type="button" class="step-pill-btn" data-step-idx="6">7</button>
+      </div>
+
+      <div class="anim-stage-card" id="animStageBadge" aria-live="polite">
+        <div class="anim-stage-head">
+          <span class="anim-stage-name" id="animStageName">현재 동작: 1/7 파레트 앞 접근 (approach)</span>
+          <span class="anim-stage-pct" id="animStageCode">approach</span>
+        </div>
+        <div class="anim-stage-desc" id="animStageDesc">포크 100% 차체 수납(reach=0 · 돌출 0 · Z=105..150) 상태로 파레트(+1,450..+2,550) 바로 앞 접근 (범퍼 +1,430 · +20 mm 여유)</div>
+        <div class="anim-stage-metrics" id="animStageMetrics">차체 X +0 · reach 0 · Z 105~150 · 내측 +0(Z830) · 락핀 OFF · LC 0.0kg</div>
+      </div>
+
+      <div class="anim-opt-grid">
+        <div class="field-group">
+          <div class="field-head"><span>시퀀스 모드</span></div>
+          <div class="seg-box" role="group" aria-label="시퀀스 모드">
+            <div class="seg-row cols-3">
+              <button type="button" class="seg-btn compact active" data-anim-mode="pickup">픽업</button>
+              <button type="button" class="seg-btn compact" data-anim-mode="drop">드롭</button>
+              <button type="button" class="seg-btn compact" data-anim-mode="loop">왕복</button>
+            </div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-head"><span>배속</span></div>
+          <div class="seg-box" role="group" aria-label="애니메이션 배속">
+            <div class="seg-row cols-3">
+              <button type="button" class="seg-btn compact" data-anim-speed="0.5">0.5x</button>
+              <button type="button" class="seg-btn compact active" data-anim-speed="1">1x</button>
+              <button type="button" class="seg-btn compact" data-anim-speed="2">2x</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Always-visible Pallet Type Toggle (HD-30C-R) -->
+      <div class="field-group" id="palletBoxC">
+        <div class="field-head">
+          <span>파레트 (1100×1100 실척)</span>
+          <span class="field-hint" id="vPalletStateC">바닥 대기 (Z=0)</span>
+        </div>
+        <div class="seg-box" role="group" aria-label="HD-30C-R 파레트 종류">
+          <div class="seg-row cols-pallet">
+            <button type="button" class="seg-btn compact active" data-pallet-c="double">통판 양면 (25mm)</button>
+            <button type="button" class="seg-btn compact" data-pallet-c="single">단면형</button>
+            <button type="button" class="seg-btn compact" data-pallet-c="none">없음</button>
+          </div>
+        </div>
+        <div class="pallet-note">파레트 앞 수납 접근(reach=0) → 개방 중앙 베이(|Y|&lt;266) 하강 → 파레트 앞 직선 전진 삽입(+1,150 mm)</div>
+      </div>
+
+      <!-- Always-visible 4-Point Symmetric Load-Cell Live Card -->
+      <div class="weigh-card" id="weighCard" aria-live="polite">
+        <div class="weigh-top">
+          <span class="weigh-title" id="weighTitle">iForks 포크 내장 4점 로드셀 (축인장 0 N)</span>
+          <span class="weigh-badge" id="weighStatus">바닥 대기 (무부하 0.0 kg)</span>
+        </div>
+        <div class="weigh-main">
+          <span class="weigh-kg" id="weighKg">0.0 kg</span>
+          <span class="weigh-sub" id="weighAcc">후 49.5% / 전 50.5% · 4×1t</span>
+        </div>
+        <div class="lc-grid">
+          <div class="lc-cell"><span class="lc-id" id="lcId0">FL</span><span class="lc-val" id="lcVal0">0.0 kg</span></div>
+          <div class="lc-cell"><span class="lc-id" id="lcId1">FR</span><span class="lc-val" id="lcVal1">0.0 kg</span></div>
+          <div class="lc-cell"><span class="lc-id" id="lcId2">RL</span><span class="lc-val" id="lcVal2">0.0 kg</span></div>
+          <div class="lc-cell"><span class="lc-id" id="lcId3">RR</span><span class="lc-val" id="lcVal3">0.0 kg</span></div>
+        </div>
+      </div>
+    </section>
+
+    <details class="insp-sec" open>
+      <summary>1. 센서 · 배터리 · Rev A.5 CAD / BOM</summary>
+      <div class="insp-body">
+        <div class="field-group">
+          <div class="field-head"><span>센서 사양 (중장갑 공통 프레임)</span></div>
+          <div class="seg-box" role="group" aria-label="센서 사양 선택">
+            <div class="seg-row cols-var">
+              <button type="button" class="seg-btn active" data-var="Full3D">Full 3D</button>
+              <button type="button" class="seg-btn" data-var="Semi3D">Semi 3D (E1R)</button>
+              <button type="button" class="seg-btn" data-var="2D_Basic">2D 기본</button>
+            </div>
+          </div>
+          <div class="spec-line" id="varSummary">장갑 XT32(+5°·Z925) · 우전방 포드 매립 E1R(Z242) · 대각 2D×2 · QR</div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-head"><span>배터리 (LFP 전용)</span></div>
+          <div class="seg-box" role="group" aria-label="배터리 용량 선택">
+            <div class="seg-row cols-2">
+              <button type="button" class="seg-btn active" id="btnBatt100" data-batt="100Ah">100Ah LFP (표준)</button>
+              <button type="button" class="seg-btn" id="btnBatt200" data-batt="200Ah">200Ah LFP (대용량)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mass-line" id="massSummary">2,192.4 kg · Z550 +75/+100mm · 256부품</div>
+
+        <div class="cad-file-meta">
+          <div class="cad-file-name" id="dlFileName">HD30C_RevA5_Full3D_100Ah.step</div>
+          <div class="cad-file-sub" id="dlFileMeta">256부품 · 6.44 MB · CG (-544.3, +3.3, 329.2)</div>
+        </div>
+        <div class="dl-actions">
+          <a class="p-btn primary sm" id="dlStepBtn" href="cad/HD30C_RevA5_Full3D_100Ah.step" download>STEP 받기</a>
+          <a class="p-btn sm" id="dlCsvBtn" href="cad/HD30C_RevA5_Full3D_100Ah.csv" download>CSV 부품표</a>
+        </div>
+        <div class="dl-actions bom-row">
+          <a class="p-btn sm" id="dlBomCnBtn" href="cad/HD30C_RevA5_BOM_China_OEM.csv" download>중국 OEM BOM</a>
+          <a class="p-btn sm" id="dlBomKrBtn" href="cad/HD30C_RevA5_BOM_Korea_KC.csv" download>한국 KC BOM</a>
+        </div>
+        <div class="cad-caption" id="dlCaption"></div>
+        <a class="insp-link" href="vendor_drawing.html">전체 4종 Rev A.5 CAD · 2종 BOM · A3 도면 보기</a>
+      </div>
+    </details>
+
+    <details class="insp-sec" id="secMotion">
+      <summary>2. 수동 기구학 · 하중 · 4WS · 30mm 단차</summary>
+      <div class="insp-body">
+        <!-- HD-30C-R 수동 제어 -->
+        <div class="arch-panel-group" id="motionHD30C">
+          <div class="slider-row">
+            <div class="slider-head">
+              <span>마스트 리치 (0 ~ 1,150)</span>
+              <span class="slider-val" id="vReachC">0 mm (2,040)</span>
+            </div>
+            <input type="range" id="sReachC" min="0" max="1150" step="10" value="0">
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-head">
+              <span>2단 듀플렉스 승강 (Z 5 ~ 505)</span>
+              <span class="slider-val" id="vLiftC">Z 105~150 (내측 +0)</span>
+            </div>
+            <input type="range" id="sLiftC" min="5" max="505" step="1" value="105">
+          </div>
+        </div>
+
+        <!-- Payload Slider -->
+        <div class="slider-row">
+          <div class="slider-head">
+            <span>적재 하중 (정격 1,500 kg)</span>
+            <span class="slider-val" id="vLoad">1,500 kg</span>
+          </div>
+          <input type="range" id="sLoad" min="0" max="1650" step="10" value="1500">
+        </div>
+
+        <!-- 4WS Steering & 30 mm Elevator Step -->
+        <div class="field-group">
+          <div class="field-head">
+            <span>4WD / 4WS 조향 모드</span>
+            <span class="field-hint" id="vSteer">0° / 0°</span>
+          </div>
+          <div class="seg-box" role="group" aria-label="4WS 조향 모드">
+            <div class="seg-row cols-3">
+              <button type="button" class="seg-btn compact active" data-steer="straight">직진 0°</button>
+              <button type="button" class="seg-btn compact" data-steer="crab">게걸음 ±90°</button>
+              <button type="button" class="seg-btn compact" data-steer="spin">제자리 회전</button>
+            </div>
+          </div>
+        </div>
+
+        <label class="feature-chk" id="lblStepSim">
+          <input type="checkbox" id="kStepSim">
+          <span class="f-txt">
+            <span class="f-title">30 mm 엘리베이터 단차 · 40 mm 틈새</span>
+            <span class="f-sub" id="stepSimSub">수직 LM30 + ISO 10243 스프링 ±25 mm · Ø250 4WS · G = 85 mm</span>
+          </span>
+        </label>
+      </div>
+    </details>
+
+    <details class="insp-sec" id="secLayers">
+      <summary>3. 단면 절개 · 표시 레이어</summary>
+      <div class="insp-body">
+        <div class="field-group">
+          <div class="field-head">
+            <span>3축 단면 절개</span>
+            <span class="field-hint" id="vClip">비활성</span>
+          </div>
+          <div class="seg-box" role="group" aria-label="단면 절개 축">
+            <div class="seg-row cols-4">
+              <button type="button" class="seg-btn active" data-clip="off">끄기</button>
+              <button type="button" class="seg-btn" data-clip="x">X</button>
+              <button type="button" class="seg-btn" data-clip="y">Y</button>
+              <button type="button" class="seg-btn" data-clip="z">Z</button>
+            </div>
+          </div>
+          <div class="slider-row">
+            <input type="range" id="sClip" min="0" max="995" step="5" value="350" disabled>
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <div class="slider-head">
+            <span>X-Ray 투과율 (외판 · 해치)</span>
+            <span class="slider-val" id="vOp">84%</span>
+          </div>
+          <input type="range" id="sOp" min="12" max="100" step="4" value="84">
+        </div>
+
+        <div class="field-group">
+          <div class="field-head"><span>표시 레이어</span></div>
+          <div class="chk-list">
+            <label class="chk"><input type="checkbox" id="kFov2D" checked><span class="dot" style="background:#38bdf8"></span><span class="lbl">하부 2D FOV (Z=180)</span></label>
+            <label class="chk"><input type="checkbox" id="kFovXT32" checked><span class="dot" style="background:#eab308"></span><span class="lbl" id="lblFovXT32">좌후방 3D XT32 FOV (Z=925)</span></label>
+            <label class="chk"><input type="checkbox" id="kFovE1R" checked><span class="dot" style="background:#a855f7"></span><span class="lbl" id="lblFovE1R">우전방 E1R FOV (Z=242)</span></label>
+            <label class="chk"><input type="checkbox" id="kQR" checked><span class="dot" style="background:#14b8a6"></span><span class="lbl">하향 QR 시야</span></label>
+            <label class="chk"><input type="checkbox" id="kDim" checked><span class="dot" style="background:#22c55e"></span><span class="lbl">외곽 경계선</span></label>
+            <label class="chk"><input type="checkbox" id="kCG"><span class="dot" style="background:#f59e0b"></span><span class="lbl">무게중심 CG</span></label>
+            <label class="chk"><input type="checkbox" id="kDock"><span class="dot" style="background:#ea580c"></span><span class="lbl">후면 벽면 충전 스테이션 (850mm 이격)</span></label>
+          </div>
+        </div>
+      </div>
+    </details>
+  </aside>
+
+  <main id="viewport" data-loaded-meshes="0" data-ready="false" data-arch="HD30C">
+    <canvas id="c"></canvas>
+
+    <div id="loadingOverlay">
+      <div id="loadingTitle">HD-30C-R Rev A.5 3D CAD 불러오는 중...</div>
+      <div class="sub-msg" id="loadingSub">hd30_1500kg_fork.glb · 256 부품</div>
+    </div>
+
+    <div id="vpAnimHud">
+      <div class="hud-top">
+        <span class="hud-tag" id="vpHudStep">1/7</span>
+        <span id="vpHudTitle">HD-30C-R · 1/7 파레트 앞 접근 (approach)</span>
+      </div>
+      <div class="hud-sub" id="vpHudSub">차체 X +0 · reach 0 · Z 105~150 · 내측 +0(Z830) · 락핀 OFF · LC 0.0kg</div>
+    </div>
+
+    <div id="vpStatus">HD-30C-R Rev A.5 · 로딩 중</div>
+
+    <div id="axisLegend">
+      <span style="color:#f87171">+X 전방</span>
+      <span style="color:#4ade80">+Y 좌측</span>
+      <span style="color:#60a5fa">+Z 상방</span>
+    </div>
+
+    <div id="camBar" role="toolbar" aria-label="카메라 시점">
+      <button type="button" class="active" data-cam="iso">등각</button>
+      <button type="button" data-cam="front">정면</button>
+      <button type="button" data-cam="rear">후면</button>
+      <button type="button" data-cam="left">좌측</button>
+      <button type="button" data-cam="top">평면</button>
+      <span class="cam-sep" aria-hidden="true"></span>
+      <button type="button" data-cam="fork">포크·마스트</button>
+      <button type="button" data-cam="steer">4WS 하부</button>
+      <button type="button" data-cam="armor">3D 장갑</button>
+      <span class="cam-sep" aria-hidden="true"></span>
+      <button type="button" id="btnResetView">리셋</button>
+    </div>
+
+    <div id="tip" role="status" aria-live="polite">
+      <div class="t-head">
+        <span class="t-name" id="tipName"></span>
+        <span class="t-kind" id="tipKind"></span>
+      </div>
+      <div class="t-model" id="tipModel"></div>
+      <div class="t-meta" id="tipMeta"></div>
+      <div class="t-bbox" id="tipBbox"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  if (window.location.protocol !== 'file:') return;
+  var ov = document.getElementById('loadingOverlay');
+  if (ov) {
+    ov.innerHTML =
+      '<div id="fileCorsNotice" style="max-width:500px;padding:22px 24px;border-radius:10px;background:#ffffff;border:1px solid #dfe3ea;color:#111827;text-align:left;line-height:1.6;box-shadow:0 16px 40px rgba(0,0,0,0.35)">' +
+      '<div style="font-size:14.5px;font-weight:700;color:#111827;margin-bottom:8px">로컬 파일(file://) 직접 열기 안내</div>' +
+      '<div style="font-size:12.5px;color:#374151;margin-bottom:12px">브라우저 CORS 정책으로 file:// 경로에서는 3D 모듈 및 GLB 파일을 불러올 수 없습니다. 로컬 HTTP 서버 또는 배포 URL로 열어 주세요.</div>' +
+      '<div style="font-size:11.5px;color:#111827;background:#f1f3f6;border:1px solid #dfe3ea;padding:8px 10px;border-radius:6px;font-family:ui-monospace,Consolas,monospace">python -m http.server 8080  (http://localhost:8080/3d.html)</div>' +
+      '</div>';
+  }
+  var st = document.getElementById('vpStatus');
+  if (st) st.textContent = 'file:// CORS 제한 · HTTP 서버 필요';
+})();
+</script>
+
+<script type="module">
+const $ = id => document.getElementById(id);
+
+// ============================================================================
+// SSOT HD-30C-R REV A.5 STANDALONE CATALOG
+// Synchronized live from ./cad/cad_variants_manifest.json on HTTP boot
+// ============================================================================
+const ARCH_CONFIGS = {
+  HD30C: {
+    key: 'HD30C',
+    code: 'HD-30C-R',
+    rev: 'Rev A.5',
+    shortName: 'HD-30C-R (2단 듀플렉스 리치)',
+    partsJson: './hd30_1500kg_parts.json',
+    mainGlb: './hd30_1500kg_fork.glb',
+    optGlb: './hd30_200ah_opt.glb',
+    summaryMid: 'Z550 +75/+100mm',
+    sfLabel: 'SF_ext',
+    sfDecimals: 2,
+    rearBumperXMm: -1110.0,
+    frontBumperXMm: 930.0,
+    podTopMm: 350.0,
+    stepOffsetXMm: 340.0,
+    stepSub: '수직 LM30 + ISO 10243 스프링 ±25 mm · Ø250 4WS · G = 85 mm',
+    spinDegLabel: '±60.1° 대각',
+    spinRad: Math.atan2(727.5, 418.0),
+    lcTitle: 'iForks 포크 내장 4점 로드셀 (축인장 0 N)',
+    lcAcc: '후 49.5% / 전 50.5% · 4×1t',
+    lcIds: ['FL', 'FR', 'RL', 'RR'],
+    lcXMm: [-20.0, 720.0],
+    lcNominalPayloadXMm: 353.8,
+    clipBounds: {
+      x: { min: -1110, max: 3200, def: 150 },
+      y: { min: -600, max: 600, def: 0 },
+      z: { min: 0, max: 995, def: 350 },
+    },
+    xt32Label: '좌후방 3D XT32 FOV (Z=925)',
+    e1rLabel: '우전방 E1R FOV (Z=242)',
+    sensors: {
+      lidar2dFL: [865.0, 534.0, 180.0],
+      lidar2dFLAz: [-86.0, 178.0],
+      lidar2dRR: [-1042.0, -534.0, 180.0],
+      lidar2dRRAz: [93.75, 358.0],
+      xt32Pos: [-905.0, 435.0, 925.0],
+      xt32TiltDeg: 5.0,
+      xt32DeckZ: 855.0,
+      e1rPos: [868.0, -418.0, 242.0],
+      e1rTiltDeg: 0.0,
+      qrPos: [-860.0, 0.0, 140.0],
+    },
+    wheelPivots: {
+      wheel_FL: [645.0, 418.0, 0.0],
+      wheel_FR: [645.0, -418.0, 0.0],
+      wheel_RL: [-810.0, 418.0, 0.0],
+      wheel_RR: [-810.0, -418.0, 0.0],
+    },
+    shellExtra: new Set([
+      'rear_tower_front_skin_4t',
+      'rear_upper_cowl_L', 'rear_upper_cowl_R',
+      'tower_deck_L_6t', 'tower_deck_R_6t', 'tower_deck_ctr_6t',
+      'tower_upper_shroud_L',
+    ]),
+    bomFiles: {
+      china_oem: { file: 'HD30C_RevA5_BOM_China_OEM.csv', href: 'cad/HD30C_RevA5_BOM_China_OEM.csv' },
+      korea_kc:  { file: 'HD30C_RevA5_BOM_Korea_KC.csv',  href: 'cad/HD30C_RevA5_BOM_Korea_KC.csv' },
+    },
+    variants: {
+      Full3D_100Ah: {
+        id: 'Full3D_100Ah',
+        stepFile: 'HD30C_RevA5_Full3D_100Ah.step',
+        csvFile: 'HD30C_RevA5_Full3D_100Ah.csv',
+        stepHref: 'cad/HD30C_RevA5_Full3D_100Ah.step',
+        csvHref: 'cad/HD30C_RevA5_Full3D_100Ah.csv',
+        partCount: 256,
+        stepBytes: 6752465,
+        totalEmptyKg: 2192.42,
+        cgEmptyMm: [-544.3, 3.32, 329.18],
+        cgEmptyExtendedMm: [-352.0, 3.32, 329.18],
+        sf: 1.704,
+      },
+      Semi3D_E1R_100Ah: {
+        id: 'Semi3D_E1R_100Ah',
+        stepFile: 'HD30C_RevA5_Semi3D_E1R_100Ah.step',
+        csvFile: 'HD30C_RevA5_Semi3D_E1R_100Ah.csv',
+        stepHref: 'cad/HD30C_RevA5_Semi3D_E1R_100Ah.step',
+        csvHref: 'cad/HD30C_RevA5_Semi3D_E1R_100Ah.csv',
+        partCount: 256,
+        stepBytes: 6770914,
+        totalEmptyKg: 2191.65,
+        cgEmptyMm: [-544.17, 3.17, 328.98],
+        cgEmptyExtendedMm: [-351.8, 3.17, 328.98],
+        sf: 1.703,
+      },
+      '2D_Basic_100Ah': {
+        id: '2D_Basic_100Ah',
+        stepFile: 'HD30C_RevA5_2D_Basic_100Ah.step',
+        csvFile: 'HD30C_RevA5_2D_Basic_100Ah.csv',
+        stepHref: 'cad/HD30C_RevA5_2D_Basic_100Ah.step',
+        csvHref: 'cad/HD30C_RevA5_2D_Basic_100Ah.csv',
+        partCount: 256,
+        stepBytes: 6770928,
+        totalEmptyKg: 2191.33,
+        cgEmptyMm: [-544.38, 3.23, 328.99],
+        cgEmptyExtendedMm: [-351.98, 3.23, 328.99],
+        sf: 1.703,
+      },
+      Full3D_200Ah: {
+        id: 'Full3D_200Ah',
+        stepFile: 'HD30C_RevA5_Full3D_200Ah.step',
+        csvFile: 'HD30C_RevA5_Full3D_200Ah.csv',
+        stepHref: 'cad/HD30C_RevA5_Full3D_200Ah.step',
+        csvHref: 'cad/HD30C_RevA5_Full3D_200Ah.csv',
+        partCount: 259,
+        stepBytes: 6841870,
+        totalEmptyKg: 2201.07,
+        cgEmptyMm: [-535.45, 1.45, 327.94],
+        cgEmptyExtendedMm: [-343.91, 1.45, 327.94],
+        sf: 1.697,
+      },
+    },
+    varSummaries: {
+      Full3D: '장갑 XT32(+5°·Z925) · 우전방 포드 매립 E1R(Z242) · 대각 2D×2 · QR',
+      Semi3D: '우전방 포드 매립 E1R(Z242) · 장갑 케이지 평면 2D · 대각 2D×2 · QR',
+      '2D_Basic': '우전방 포켓 3t 블랭킹 · 장갑 케이지 평면 2D · 대각 2D×2 · QR',
+    },
+  },
+};
+
+const VARIANT_SPECS = {
+  Full3D: { label: 'Full 3D', frontE1R: true, rearXT32: true },
+  Semi3D: { label: 'Semi 3D (E1R)', frontE1R: true, rearXT32: false },
+  '2D_Basic': { label: '2D 기본', frontE1R: false, rearXT32: false },
+};
+
+// ============================================================================
+// REV A.5 EXACT REAL-KINEMATICS CONSTANTS & 7-STAGE ANIMATION EVALUATOR (HD-30C-R)
+// ============================================================================
+const HD30C_K = {
+  podTop: 350.0,
+  forkH: 45.0,
+  reachMax: 1150.0,
+  approachX: 500.0,       // World chassisX = +500 -> front bumper +1,430 vs pallet rear +1,450 (+20 mm clear!)
+  zStowBot: 105.0,
+  zStowTop: 150.0,
+  dzSingleEntry: -100.0,  // Z=5..50
+  dzDoubleEntry: -70.0,   // Z=35..80 (+10 mm clear of 25 mm solid bottom board!)
+  dzStowDouble: 290.0,    // Z=395..440 (+20 above 375 bottom, +35 below 475 top!)
+  dzMaxLift: 400.0,       // Z=505..550 (pallet_bot=425 double / 450 single!)
+  innerFreeLiftThreshold: 250.0, // FFL: inner mast rises only above dz=+250 -> +40 @ stow_double, +150 @ max_lift!
+  innerStowedTop: 830.0,
+  palletPickupWorldX: 2000.0, // World X_pallet = [+1,450 .. +2,550]; at chassisX=500, reach=0 -> tip=+1,400 (-50 mm); reach=1150 -> heel=+1,450, tip=+2,550!
+};
+
+const STAGES_B = [
+  { id: 'approach',      u0: 0.00, u1: 0.14, uKey: 0.14, name: '파레트 앞 접근',           dropName: '완전 수납 후진 이탈' },
+  { id: 'fork_down',     u0: 0.14, u1: 0.28, uKey: 0.28, name: '포크 삽입 높이 하강',      dropName: '포크 수납고 상승 복귀' },
+  { id: 'reach_insert',  u0: 0.28, u1: 0.46, uKey: 0.46, name: '파레트 앞 포크 전진 삽입', dropName: '차체 정지 포크 후퇴 인출' },
+  { id: 'lift_weigh',    u0: 0.46, u1: 0.64, uKey: 0.64, name: '2단 듀플렉스 상승 + 계량', dropName: '파레트 바닥 하강 안착' },
+  { id: 'reach_in',      u0: 0.64, u1: 0.80, uKey: 0.80, name: '마스트 리치 후퇴 · 인입',  dropName: '파레트 전방 리치 전개' },
+  { id: 'deck_seat',     u0: 0.80, u1: 0.92, uKey: 0.92, name: '데크 안착 · 락핀 · 0 kg',  dropName: '락핀 해제 · 데크 이격' },
+  { id: 'travel_verify', u0: 0.92, u1: 1.00, uKey: 1.00, name: '수납 주행 이탈 확인',      dropName: '적재 수납 접근' },
+];
+
+const STAGE_ALIASES_B = {
+  stowed: 0, stow: 0,
+  approach: 0,
+  fork_down: 1, floor: 1,
+  reach_insert: 2, reach_out: 2, insert: 2,
+  lift_weigh: 3, weigh: 3, deck: 3,
+  reach_in: 4,
+  deck_seat: 5, stow_double: 5,
+  travel_verify: 6, travel: 6,
+};
+
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+function lerp(a, b, t) { return a + (b - a) * t; }
+function smooth(x) {
+  const t = clamp(x, 0, 1);
+  return 0.5 - 0.5 * Math.cos(Math.PI * t);
+}
+
+function computeSymmetricLoadCells(archKey, loadKg, weighActive, seatMode) {
+  const cfg = ARCH_CONFIGS[archKey];
+  if (!weighActive) {
+    if (seatMode === 'none') {
+      return { measuredKg: 0, rearPct: 0, frontPct: 0, statusText: '파레트 없음 (영점)', stateClass: '', badgeClass: '', cells: [0, 0, 0, 0] };
+    }
+    if (seatMode === 'deck') {
+      return { measuredKg: 0, rearPct: 0, frontPct: 0, statusText: '데크 안착 · 무충격 주행 0.0 kg', stateClass: 'state-safe', badgeClass: 'safe', cells: [0, 0, 0, 0] };
+    }
+    return { measuredKg: 0, rearPct: 0, frontPct: 0, statusText: '바닥 대기 (무부하 0.0 kg)', stateClass: '', badgeClass: '', cells: [0, 0, 0, 0] };
+  }
+  const [xRear, xFront] = cfg.lcXMm;
+  const wb = xFront - xRear;
+  const frontRatio = clamp((cfg.lcNominalPayloadXMm - xRear) / wb, 0.2, 0.8);
+  const rearRatio = 1.0 - frontRatio;
+  const frontTotal = loadKg * frontRatio;
+  const rearTotal = loadKg * rearRatio;
+  const fHalf = +(frontTotal / 2).toFixed(1);
+  const rHalf = +(rearTotal / 2).toFixed(1);
+  const r2 = +(Math.max(0, loadKg - fHalf - fHalf - rHalf)).toFixed(1);
+  const cells = [fHalf, fHalf, rHalf, r2];
+  const rearPct = +(rearRatio * 100).toFixed(1);
+  const frontPct = +(frontRatio * 100).toFixed(1);
+  if (loadKg > 1500) {
+    return { measuredKg: loadKg, rearPct, frontPct, statusText: '과적 경보 (>1,500 kg)', stateClass: 'state-overload', badgeClass: 'danger', cells };
+  }
+  return { measuredKg: loadKg, rearPct, frontPct, statusText: 'iForks 직픽업 계량 (축인장 0 N)', stateClass: 'state-ok', badgeClass: 'ok', cells };
+}
+
+function evalAnimHD30C(uRaw, palletMode, isReverse = false) {
+  const u = clamp(uRaw, 0, 1);
+  const isDbl = palletMode === 'double';
+  const hasPallet = palletMode !== 'none';
+  const entryDz = isDbl ? HD30C_K.dzDoubleEntry : HD30C_K.dzSingleEntry;
+  const stowDz = isDbl ? HD30C_K.dzStowDouble : 0.0;
+  const contactDrop = isDbl ? 125.0 : 100.0;
+  const podTop = HD30C_K.podTop;
+  const palPickX = HD30C_K.palletPickupWorldX;
+  const appX = HD30C_K.approachX;
+
+  let chassisX = 0.0;
+  let reach = 0.0;
+  let liftDz = 0.0;
+  let palletX = palPickX;
+  let palletZ = 0.0;
+  let lockpin = false;
+  let weighActive = false;
+  let seatMode = hasPallet ? 'floor' : 'none';
+  let stageIdx = 0;
+  let desc = '';
+
+  const inSeg = (hi) => (isReverse ? (u < hi) : (u <= hi));
+
+  if (u === 0 || inSeg(0.14)) {
+    stageIdx = 0;
+    const s = smooth(u / 0.14);
+    chassisX = lerp(0.0, appX, s);
+    reach = 0.0;
+    liftDz = 0.0;
+    palletX = palPickX;
+    palletZ = 0.0;
+    desc = isReverse
+      ? '포크 100% 수납 상태(reach=0 · Z=105..150 · G=85)로 파레트 앞에서 안전 후진 이탈 (+500 → 0 mm)'
+      : (isDbl
+        ? '포크 100% 차체 수납(reach=0 · 돌출 0 · Z=105..150) 상태로 파레트(+1,450..+2,550) 바로 앞 접근 (범퍼 +1,430 · +20 mm 여유)'
+        : '포크 100% 차체 수납(reach=0 · 돌출 0 · Z=105..150) 상태로 단면 파레트(+1,450..+2,550) 바로 앞 접근 (범퍼 +1,430 · +20 mm 여유)');
+  } else if (inSeg(0.28)) {
+    stageIdx = 1;
+    const s = smooth((u - 0.14) / 0.14);
+    chassisX = appX;
+    reach = 0.0;
+    liftDz = lerp(0.0, entryDz, s);
+    palletX = palPickX;
+    palletZ = 0.0;
+    desc = isReverse
+      ? '차체 정지(X=+500) · 개방 중앙 베이(|Y|<266) 내에서 포크 수납고(Z=105..150) 복귀 상승'
+      : (isDbl
+        ? '차체 정지(X=+500) · reach=0 개방 베이 안에서 포크만 Z=35..80 mm 하강 (25 mm 통판 +10 mm 클리어 · 끝단 +1,400 비접촉)'
+        : '차체 정지(X=+500) · reach=0 개방 베이 안에서 포크만 Z=5..50 mm 하강 (단면 포켓 높이 정렬 · 끝단 +1,400 비접촉)');
+  } else if (inSeg(0.46)) {
+    stageIdx = 2;
+    const s = smooth((u - 0.28) / 0.18);
+    chassisX = appX;
+    reach = lerp(0.0, HD30C_K.reachMax, s);
+    liftDz = entryDz;
+    palletX = palPickX;
+    palletZ = 0.0;
+    desc = isReverse
+      ? '차체 정지(X=+500 고정) 상태에서 마스트·포크만 +1,150 → 0 mm 직선 후퇴 인출 (충돌 0 mm³)'
+      : '차체 정지(X=+500 고정) 상태에서 마스트·포크가 0 → +1,150 mm 직선 전진 삽입 (힐 +1,450 · 끝단 +2,550 · 범퍼 +20 mm 클리어)';
+  } else if (inSeg(0.64)) {
+    stageIdx = 3;
+    const s = smooth((u - 0.46) / 0.18);
+    chassisX = appX;
+    reach = HD30C_K.reachMax;
+    liftDz = lerp(entryDz, HD30C_K.dzMaxLift, s);
+    palletX = palPickX;
+    const zTop = HD30C_K.zStowTop + liftDz;
+    palletZ = Math.max(0.0, zTop - contactDrop);
+    weighActive = hasPallet && palletZ > 1.0;
+    desc = isReverse
+      ? '2단 듀플렉스 하강 · 파레트를 바닥(Z=0 · X=+1,450..+2,550)에 부드럽게 안착 · 로드셀 0.0 kg'
+      : (isDbl
+        ? '2단 FFL 듀플렉스 상승(Z=505..550 · 내측 +150→Z980) + iForks 즉시 계량 (축인장 0 N) · 파레트 하면 425 (+75 > pod 350)'
+        : '2단 FFL 듀플렉스 상승(Z=505..550 · 내측 +150→Z980) + iForks 즉시 계량 (축인장 0 N) · 파레트 하면 450 (+100 > pod 350)');
+  } else if (inSeg(0.80)) {
+    stageIdx = 4;
+    const s = smooth((u - 0.64) / 0.16);
+    chassisX = appX;
+    reach = lerp(HD30C_K.reachMax, 0.0, s);
+    liftDz = HD30C_K.dzMaxLift;
+    palletX = chassisX + 350.0 + reach;
+    palletZ = (HD30C_K.zStowTop + liftDz) - contactDrop;
+    weighActive = hasPallet;
+    desc = isReverse
+      ? '차체 정지(X=+500) · 인양 파레트를 전방 리치(0 → +1,150 mm)로 바닥 작업점(X=+2,000) 위 전개'
+      : '차체 정지(X=+500) · 마스트 리치 +1,150 → 0 mm 후퇴 · 인양 파레트를 차체 데크(pod_top 350 · palX +2,000→+850) 위로 인입';
+  } else if (inSeg(0.92)) {
+    stageIdx = 5;
+    const p = (u - 0.80) / 0.12;
+    const s = smooth(Math.min(1.0, p / 0.85));
+    chassisX = appX;
+    reach = 0.0;
+    liftDz = lerp(HD30C_K.dzMaxLift, stowDz, s);
+    palletX = chassisX + 350.0;
+    const fSup = (HD30C_K.zStowTop + liftDz) - contactDrop;
+    palletZ = Math.max(podTop, fSup);
+    weighActive = hasPallet && fSup > podTop + 0.5;
+    seatMode = weighActive ? 'floor' : (hasPallet ? 'deck' : 'none');
+    lockpin = p >= 0.80;
+    desc = isReverse
+      ? '전동 락핀 해제 · 2단 듀플렉스로 파레트를 데크(pod_top 350)에서 이격 인양'
+      : (isDbl
+        ? '통판(25 mm) pod_top(350) 안착 → 포크 포켓 중앙 stow_double Z=395..440 (+20/+35 비접촉) · 내측 Z=870 < XT32 925 · 락핀 ON · 0.0 kg'
+        : '단면 파레트 pod_top(350) 안착 → 포크 Z=105..150 수납 · 내측 Z=830 · 전동 락핀 ON · 로드셀 0.0 kg');
+  } else {
+    stageIdx = 6;
+    const s = smooth((u - 0.92) / 0.08);
+    chassisX = lerp(appX, 0.0, s);
+    reach = 0.0;
+    liftDz = stowDz;
+    palletX = chassisX + 350.0;
+    palletZ = podTop;
+    weighActive = false;
+    seatMode = hasPallet ? 'deck' : 'none';
+    lockpin = true;
+    desc = isReverse
+      ? '적재 완전 수납 상태(reach=0 · 락핀 ON · LC 0.0 kg)로 파레트 하차 지점 앞 접근 (0 → +500 mm)'
+      : '수납 주행 이탈 확인 · reach=0 돌출 0 mm · G=85 mm · SF_rear=1.345 · 락핀 ON · 로드셀 0.0 kg (차체 +500→0 · palX +850→+350)';
+  }
+
+  const dzInner = Math.max(0.0, liftDz - HD30C_K.innerFreeLiftThreshold);
+  const zForkBot = HD30C_K.zStowBot + liftDz;
+  const zForkTop = HD30C_K.zStowTop + liftDz;
+  const stDef = STAGES_B[stageIdx];
+  const dispIdx = isReverse ? (6 - stageIdx) : stageIdx;
+  const dispName = isReverse ? stDef.dropName : stDef.name;
+
+  return {
+    arch: 'HD30C',
+    u,
+    stageIdx,
+    dispIdx,
+    stageId: stDef.id,
+    stageName: `${dispIdx + 1}/7 ${dispName} (${stDef.id})`,
+    desc,
+    chassisX,
+    reach,
+    liftDz,
+    dzInner,
+    innerTopZ: HD30C_K.innerStowedTop + dzInner,
+    zForkBot,
+    zForkTop,
+    palletX,
+    palletZ,
+    podTop,
+    clearanceOverPod: +(palletZ - podTop).toFixed(1),
+    lockpin,
+    weighActive,
+    seatMode,
+  };
+}
+
+function evalManualHD30C(reachMm, liftDzMm, palletMode, chassisX = 0.0) {
+  const isDbl = palletMode === 'double';
+  const hasPallet = palletMode !== 'none';
+  const podTop = HD30C_K.podTop;
+  const contactDrop = isDbl ? 125.0 : 100.0;
+  const dzInner = Math.max(0.0, liftDzMm - HD30C_K.innerFreeLiftThreshold);
+  const zForkBot = HD30C_K.zStowBot + liftDzMm;
+  const zForkTop = HD30C_K.zStowTop + liftDzMm;
+  const palletX = chassisX + 350.0 + reachMm; // Exact 1:1 (reach=0 -> 350, reach=1150 -> 1500, ZERO 1125/1100 trick!)
+  const isOverDeck = reachMm < 1050.0;
+  const forkSupportZ = Math.max(0.0, zForkTop - contactDrop);
+  const isStowedOnDeck = isOverDeck && forkSupportZ <= podTop;
+  const palletZ = isOverDeck ? Math.max(podTop, forkSupportZ) : forkSupportZ;
+  const weighActive = hasPallet && (isOverDeck ? (forkSupportZ > podTop + 0.5) : (palletZ > 1.0));
+  const seatMode = !hasPallet ? 'none' : (isStowedOnDeck ? 'deck' : 'floor');
+  const lockpin = reachMm < 5 && isStowedOnDeck;
+
+  return {
+    arch: 'HD30C',
+    u: 0,
+    stageIdx: -1,
+    dispIdx: -1,
+    stageId: 'manual',
+    stageName: '수동 기구학 조작 (Manual)',
+    desc: `reach ${reachMm} · 포크 Z=${zForkBot.toFixed(0)}..${zForkTop.toFixed(0)} mm · 내측 마스트 +${dzInner.toFixed(0)} mm`,
+    chassisX,
+    reach: reachMm,
+    liftDz: liftDzMm,
+    dzInner,
+    innerTopZ: HD30C_K.innerStowedTop + dzInner,
+    zForkBot,
+    zForkTop,
+    palletX,
+    palletZ,
+    podTop,
+    clearanceOverPod: +(palletZ - podTop).toFixed(1),
+    lockpin,
+    weighActive,
+    seatMode,
+  };
+}
+
+// ============================================================================
+// FORMATTING & SHARED UI HELPERS
+// ============================================================================
+function formatMB(bytes) { return `${(bytes / (1024 * 1024)).toFixed(2)} MB`; }
+function formatInt(n) { return Math.round(n).toLocaleString('en-US'); }
+function formatKg1(n) { return Number(n).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }); }
+
+function parseInitialArch() {
+  return 'HD30C';
+}
+function parseInitialVariant(raw) {
+  if (!raw) return 'Full3D';
+  const u = raw.trim().toUpperCase();
+  if (u.includes('SEMI') || u === 'E1R') return 'Semi3D';
+  if (u.includes('2D') || u.includes('BASIC')) return '2D_Basic';
+  return 'Full3D';
+}
+function parseInitialBatt(raw) {
+  if (!raw) return '100Ah';
+  return raw.trim().toUpperCase().includes('200') ? '200Ah' : '100Ah';
+}
+
+function resolveCadVariant(archKey, varKey, battKey) {
+  const vars = ARCH_CONFIGS[archKey].variants;
+  if (battKey === '200Ah') return vars.Full3D_200Ah;
+  if (varKey === 'Semi3D') return vars.Semi3D_E1R_100Ah;
+  if (varKey === '2D_Basic') return vars['2D_Basic_100Ah'];
+  return vars.Full3D_100Ah;
+}
+
+function getMassMetrics(archKey, varKey, battKey) {
+  const vars = ARCH_CONFIGS[archKey].variants;
+  if (battKey !== '200Ah') {
+    const v = resolveCadVariant(archKey, varKey, '100Ah');
+    return { massKg: v.totalEmptyKg, cg: v.cgEmptyMm, cgExt: v.cgEmptyExtendedMm || v.cgEmptyMm, sf: v.sf, parts: v.partCount };
+  }
+  if (varKey === 'Full3D') {
+    const v = vars.Full3D_200Ah;
+    return { massKg: v.totalEmptyKg, cg: v.cgEmptyMm, cgExt: v.cgEmptyExtendedMm || v.cgEmptyMm, sf: v.sf, parts: v.partCount };
+  }
+  const base100 = resolveCadVariant(archKey, varKey, '100Ah');
+  const dKg = vars.Full3D_200Ah.totalEmptyKg - vars.Full3D_100Ah.totalEmptyKg;
+  const dSf = vars.Full3D_200Ah.sf - vars.Full3D_100Ah.sf;
+  return {
+    massKg: +(base100.totalEmptyKg + dKg).toFixed(2),
+    cg: vars.Full3D_200Ah.cgEmptyMm,
+    cgExt: vars.Full3D_200Ah.cgEmptyExtendedMm || vars.Full3D_200Ah.cgEmptyMm,
+    sf: +(base100.sf + dSf).toFixed(3),
+    parts: vars.Full3D_200Ah.partCount,
+  };
+}
+
+function updateCadDownloadUI(archKey, varKey, battKey) {
+  const cfg = ARCH_CONFIGS[archKey];
+  const v = resolveCadVariant(archKey, varKey, battKey);
+  const m = getMassMetrics(archKey, varKey, battKey);
+  const cgStr = `(${m.cg[0].toFixed(1)}, ${m.cg[1] >= 0 ? '+' : ''}${m.cg[1].toFixed(1)}, ${m.cg[2].toFixed(1)})`;
+
+  const midMetric = cfg.summaryMid ? cfg.summaryMid : `${cfg.sfLabel} ${m.sf.toFixed(cfg.sfDecimals)}`;
+  $('massSummary').textContent = `${formatKg1(m.massKg)} kg · ${midMetric} · ${m.parts}부품`;
+  $('dlFileName').textContent = v.stepFile;
+  $('dlFileMeta').textContent = `${v.partCount}부품 · ${formatMB(v.stepBytes)} · CG ${cgStr}`;
+  $('dlStepBtn').setAttribute('href', v.stepHref);
+  $('dlStepBtn').setAttribute('download', v.stepFile);
+  $('dlCsvBtn').setAttribute('href', v.csvHref);
+  $('dlCsvBtn').setAttribute('download', v.csvFile);
+  $('dlBomCnBtn').setAttribute('href', cfg.bomFiles.china_oem.href);
+  $('dlBomCnBtn').setAttribute('download', cfg.bomFiles.china_oem.file);
+  $('dlBomKrBtn').setAttribute('href', cfg.bomFiles.korea_kc.href);
+  $('dlBomKrBtn').setAttribute('download', cfg.bomFiles.korea_kc.file);
+
+  const cap = $('dlCaption');
+  const isFallback200 = battKey === '200Ah' && varKey !== 'Full3D';
+  if (isFallback200) {
+    const sensorRef = resolveCadVariant(archKey, varKey, '100Ah');
+    cap.className = 'cad-caption visible warn-tone';
+    cap.innerHTML =
+      `${cfg.code} ${VARIANT_SPECS[varKey].label} + 200Ah 조합의 200Ah STEP은 <strong>${v.stepFile}</strong> 공용본을 사용합니다. 센서 교체 상세는 ` +
+      `<a href="${sensorRef.stepHref}" download="${sensorRef.stepFile}">${sensorRef.stepFile}</a>를 함께 참고하세요.`;
+  } else {
+    cap.className = 'cad-caption';
+    cap.textContent = '';
+  }
+  return v;
+}
+
+function renderWeighUI(archKey, r) {
+  const cfg = ARCH_CONFIGS[archKey];
+  $('weighTitle').textContent = cfg.lcTitle;
+  $('weighAcc').textContent = r.measuredKg > 0
+    ? `후 ${r.rearPct.toFixed(1)}% / 전 ${r.frontPct.toFixed(1)}% · 4×1t`
+    : cfg.lcAcc;
+  $('weighCard').className = `weigh-card ${r.stateClass}`.trim();
+  $('weighStatus').className = `weigh-badge ${r.badgeClass}`.trim();
+  $('weighStatus').textContent = r.statusText;
+  $('weighKg').textContent = `${formatKg1(r.measuredKg)} kg`;
+  for (let i = 0; i < 4; i++) {
+    $(`lcId${i}`).textContent = cfg.lcIds[i];
+    $(`lcVal${i}`).textContent = `${formatKg1(r.cells[i])} kg`;
+  }
+  return r;
+}
+
+function syncArchPanelDOM(archKey) {
+  const cfg = ARCH_CONFIGS[archKey];
+  $('stepSimSub').textContent = cfg.stepSub;
+  $('lblFovXT32').textContent = cfg.xt32Label;
+  $('lblFovE1R').textContent = cfg.e1rLabel;
+  $('viewport').dataset.arch = archKey;
+  const forkBtn = document.querySelector('#camBar button[data-cam="fork"]');
+  if (forkBtn) forkBtn.textContent = '포크·마스트';
+}
+
+function mapTimelineToU(t, mode) {
+  const tc = clamp(t, 0, 1);
+  if (mode === 'drop') return { u: 1.0 - tc, isReverse: true };
+  if (mode === 'loop') {
+    if (tc <= 0.5) return { u: tc * 2.0, isReverse: false };
+    return { u: (1.0 - tc) * 2.0, isReverse: true };
+  }
+  return { u: tc, isReverse: false };
+}
+
+function syncAnimControlsDOM(pose, weigh, animPlaying, animMode, animSpeed, timelineT) {
+  const pct = Math.round(clamp(timelineT, 0, 1) * 100);
+  $('sAnimTimeline').value = String(Math.round(clamp(timelineT, 0, 1) * 1000));
+  $('vAnimPct').textContent = `${pct}%`;
+
+  $('icoPlay').style.display = animPlaying ? 'none' : 'block';
+  $('icoPause').style.display = animPlaying ? 'block' : 'none';
+  $('lblAnimPlay').textContent = animPlaying ? '일시정지' : '재생';
+  $('btnAnimPlay').classList.toggle('paused-active', animPlaying);
+
+  const pill = $('animRunPill');
+  if (animPlaying) {
+    pill.textContent = `재생 중 (${animSpeed}x)`;
+    pill.className = 'state-pill playing';
+  } else if (pose.stageId === 'manual') {
+    pill.textContent = '수동 조작';
+    pill.className = 'state-pill';
+  } else if (timelineT >= 0.999) {
+    pill.textContent = '시퀀스 완료';
+    pill.className = 'state-pill done';
+  } else {
+    pill.textContent = '대기 (정지)';
+    pill.className = 'state-pill';
+  }
+
+  $('animStageName').textContent = `현재 동작: ${pose.stageName}`;
+  $('animStageCode').textContent = pose.stageId;
+  $('animStageDesc').textContent = pose.desc;
+
+  const lpStr = pose.lockpin ? '락핀 ON' : '락핀 OFF';
+  const metricsStr = `차체 X +${Math.round(pose.chassisX)} · reach ${Math.round(pose.reach)} · Z ${pose.zForkBot.toFixed(0)}~${pose.zForkTop.toFixed(0)} · 내측 +${Math.round(pose.dzInner)}(Z${Math.round(pose.innerTopZ)}) · ${lpStr} · LC ${formatKg1(weigh.measuredKg)}kg`;
+  $('animStageMetrics').textContent = metricsStr;
+
+  const hudStep = pose.dispIdx >= 0 ? `${pose.dispIdx + 1}/7` : 'MAN';
+  const code = ARCH_CONFIGS[pose.arch].code;
+  $('vpHudStep').textContent = hudStep;
+  $('vpHudTitle').textContent = `${code} · ${pose.stageName}`;
+  $('vpHudSub').textContent = metricsStr;
+
+  document.querySelectorAll('#animStepPills .step-pill-btn').forEach(btn => {
+    const idx = Number(btn.dataset.stepIdx);
+    btn.classList.toggle('active', pose.dispIdx === idx);
+    btn.classList.toggle('passed', pose.dispIdx > idx);
+  });
+  document.querySelectorAll('[data-anim-mode]').forEach(b => b.classList.toggle('active', b.dataset.animMode === animMode));
+  document.querySelectorAll('[data-anim-speed]').forEach(b => b.classList.toggle('active', Number(b.dataset.animSpeed) === animSpeed));
+}
+
+// ============================================================================
+// CLEAN OFFLINE FALLBACK ON file:// (ZERO CONSOLE ERRORS, FULL INSPECTOR UI)
+// ============================================================================
+if (window.location.protocol === 'file:') {
+  const params = new URLSearchParams(location.search);
+  const activeArch = 'HD30C';
+  let activeVar = parseInitialVariant(params.get('variant') || params.get('pkg'));
+  let activeBatt = parseInitialBatt(params.get('batt'));
+  let activePalletC = 'double';
+  let activeSteer = 'straight';
+  let animMode = 'pickup';
+  let animSpeed = 1;
+  let animPlaying = false;
+  let timelineT = 0.0;
+  let controlSource = 'anim';
+
+  const refreshOffline = () => {
+    const cfg = ARCH_CONFIGS[activeArch];
+    syncArchPanelDOM(activeArch);
+    $('varSummary').textContent = cfg.varSummaries[activeVar];
+    $('btnBatt100').classList.toggle('active', activeBatt === '100Ah');
+    $('btnBatt200').classList.toggle('active', activeBatt === '200Ah');
+    document.querySelectorAll('[data-var]').forEach(b => b.classList.toggle('active', b.dataset.var === activeVar));
+    document.querySelectorAll('[data-steer]').forEach(b => b.classList.toggle('active', b.dataset.steer === activeSteer));
+    $('vSteer').textContent = activeSteer === 'straight' ? '0° / 0°' : (activeSteer === 'crab' ? '+90° (전륜·후륜)' : cfg.spinDegLabel);
+    $('lblStepSim').classList.toggle('active', $('kStepSim').checked);
+    document.querySelectorAll('[data-pallet-c]').forEach(b => b.classList.toggle('active', b.dataset.palletC === activePalletC));
+
+    const loadKg = +$('sLoad').value;
+    $('vLoad').textContent = `${formatInt(loadKg)} kg`;
+
+    let pose;
+    if (controlSource === 'anim') {
+      const { u, isReverse } = mapTimelineToU(timelineT, animMode);
+      pose = evalAnimHD30C(u, activePalletC, isReverse);
+    } else {
+      pose = evalManualHD30C(+$('sReachC').value, +$('sLiftC').value - 105, activePalletC, 0);
+    }
+
+    const weigh = renderWeighUI(activeArch, computeSymmetricLoadCells(activeArch, loadKg, pose.weighActive, pose.seatMode));
+    syncAnimControlsDOM(pose, weigh, animPlaying, animMode, animSpeed, timelineT);
+    updateCadDownloadUI(activeArch, activeVar, activeBatt);
+  };
+
+  document.querySelectorAll('[data-var]').forEach(b => b.addEventListener('click', () => { activeVar = b.dataset.var; refreshOffline(); }));
+  $('btnBatt100').addEventListener('click', () => { activeBatt = '100Ah'; refreshOffline(); });
+  $('btnBatt200').addEventListener('click', () => { activeBatt = '200Ah'; refreshOffline(); });
+  document.querySelectorAll('[data-pallet-c]').forEach(b => b.addEventListener('click', () => { activePalletC = b.dataset.palletC; refreshOffline(); }));
+  document.querySelectorAll('[data-steer]').forEach(b => b.addEventListener('click', () => { activeSteer = b.dataset.steer; refreshOffline(); }));
+  document.querySelectorAll('[data-anim-mode]').forEach(b => b.addEventListener('click', () => { animMode = b.dataset.animMode; timelineT = 0; controlSource = 'anim'; refreshOffline(); }));
+  document.querySelectorAll('[data-anim-speed]').forEach(b => b.addEventListener('click', () => { animSpeed = Number(b.dataset.animSpeed); refreshOffline(); }));
+  $('sAnimTimeline').addEventListener('input', e => { timelineT = (+e.target.value) / 1000; controlSource = 'anim'; refreshOffline(); });
+  ['sReachC', 'sLiftC'].forEach(id => $(id).addEventListener('input', () => { controlSource = 'manual'; refreshOffline(); }));
+  $('sLoad').addEventListener('input', refreshOffline);
+  $('kStepSim').addEventListener('change', refreshOffline);
+  refreshOffline();
+} else {
+  bootViewer();
+}
+
+async function bootViewer() {
+  const [THREE, { OrbitControls }, { GLTFLoader }] = await Promise.all([
+    import('three'),
+    import('three/addons/controls/OrbitControls.js'),
+    import('three/addons/loaders/GLTFLoader.js'),
+  ]);
+
+  const mm = v => v / 1000;
+
+  // Exact right-handed coordinate map from SSOT parts JSON:
+  // X_glb = Y_cad / 1000, Y_glb = Z_cad / 1000, Z_glb = X_cad / 1000 (det = +1)
+  function cad2glb(xCad, yCad, zCad) {
+    return new THREE.Vector3(mm(yCad), mm(zCad), mm(xCad));
+  }
+
+  function sanitizeLabel(str) {
+    if (!str) return '';
+    return String(str).replace(/[\u{1F300}-\u{1FAFF}\u2600-\u27BF\u2B00-\u2BFF]/gu, '').trim();
+  }
+
+  const canvas = $('c');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.12;
+  renderer.localClippingEnabled = true;
+  renderer.clippingPlanes = [];
+
+  const clipPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 10);
+
+  // Neutral Charcoal Studio (#1b2028)
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x1b2028);
+  scene.fog = new THREE.Fog(0x1b2028, 14.0, 34.0);
+
+  const camera = new THREE.PerspectiveCamera(37, 1, 0.02, 60);
+  camera.position.set(2.95, 1.82, 3.05);
+
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.075;
+  controls.target.set(0.0, 0.34, 0.56);
+  controls.maxPolarAngle = Math.PI / 2 - 0.01;
+  controls.minDistance = 0.35;
+  controls.maxDistance = 14.0;
+
+  // Neutral Studio CAD Lighting
+  scene.add(new THREE.HemisphereLight(0xf1f5f9, 0x262d38, 1.56));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.56);
+  keyLight.position.set(3.8, 6.4, 4.2);
+  keyLight.castShadow = true;
+  keyLight.shadow.mapSize.set(2048, 2048);
+  const dCam = 5.2;
+  keyLight.shadow.camera.left = -dCam;
+  keyLight.shadow.camera.right = dCam;
+  keyLight.shadow.camera.top = dCam;
+  keyLight.shadow.camera.bottom = -dCam;
+  keyLight.shadow.bias = -0.0005;
+  scene.add(keyLight);
+
+  const fillLight = new THREE.DirectionalLight(0xdbeafe, 0.72);
+  fillLight.position.set(-4.0, 2.8, -3.0);
+  scene.add(fillLight);
+
+  const rimLight = new THREE.DirectionalLight(0xf8fafc, 0.44);
+  rimLight.position.set(0.0, 2.2, -4.4);
+  scene.add(rimLight);
+
+  // Studio Floor & Engineering Grid (Y_glb = 0, NEVER clipped)
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(32, 32),
+    new THREE.MeshStandardMaterial({ color: 0x1e242d, roughness: 0.94, metalness: 0.03 })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+  const grid = new THREE.GridHelper(16, 32, 0x353f4f, 0x262e3b);
+  grid.position.y = 0.001;
+  scene.add(grid);
+
+  // CAD Coordinate Triad
+  const cadTriad = new THREE.Group();
+  cadTriad.position.copy(cad2glb(-1005, -840, 8));
+  {
+    const addArrow = (dirVec, col) => {
+      cadTriad.add(new THREE.ArrowHelper(dirVec.clone().normalize(), new THREE.Vector3(0, 0, 0), 0.28, col, 0.06, 0.03));
+    };
+    addArrow(new THREE.Vector3(0, 0, 1), 0xf87171); // +X_cad (Front) = +Z_glb
+    addArrow(new THREE.Vector3(1, 0, 0), 0x4ade80); // +Y_cad (Left)  = +X_glb
+    addArrow(new THREE.Vector3(0, 1, 0), 0x60a5fa); // +Z_cad (Up)    = +Y_glb
+  }
+  scene.add(cadTriad);
+
+  // Section Cutaway Guide Frame (NEVER clipped)
+  const clipGuide = new THREE.Group();
+  const clipGuideMesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.20, 3.20),
+    new THREE.MeshBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.06, side: THREE.DoubleSide, depthWrite: false })
+  );
+  const clipGuideBorder = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.PlaneGeometry(3.20, 3.20)),
+    new THREE.LineBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.55 })
+  );
+  clipGuide.add(clipGuideMesh, clipGuideBorder);
+  clipGuide.visible = false;
+  scene.add(clipGuide);
+
+  const sharedPickables = [];
+
+  function tagAuxiliary(mesh, meta, pickTarget) {
+    mesh.userData = {
+      name: meta.name,
+      kind: meta.kind || 'overlay',
+      model: sanitizeLabel(meta.model || ''),
+      material: meta.material || '-',
+      tol: meta.tol || '-',
+      datum_ref: meta.datum_ref || '-',
+      mass_kg: meta.mass_kg != null ? meta.mass_kg : null,
+      bbox_mm: meta.bbox_mm || null,
+      note: sanitizeLabel(meta.note || ''),
+      isGLB: false,
+    };
+    if (pickTarget) pickTarget.push(mesh);
+    return mesh;
+  }
+
+  function makeCadBox(x0, x1, y0, y1, z0, z1, mat, meta, parent = scene, pickTarget = sharedPickables) {
+    const sx = mm(y1 - y0), sy = mm(z1 - z0), sz = mm(x1 - x0);
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat);
+    mesh.position.set(mm((y0 + y1) / 2), mm((z0 + z1) / 2), mm((x0 + x1) / 2));
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    if (meta) {
+      tagAuxiliary(mesh, { ...meta, bbox_mm: [x0, x1, y0, y1, z0, z1] }, pickTarget);
+    }
+    parent.add(mesh);
+    return mesh;
+  }
+
+  // ==========================================================================
+  // SHARED SCENE OVERLAYS: 30 mm ELEVATOR STEP, 850 mm WALL CHARGER, CG MARKER
+  // ==========================================================================
+  const stepSimGroup = new THREE.Group();
+  {
+    const matCorridor  = new THREE.MeshStandardMaterial({ color: 0x2b3340, roughness: 0.88, metalness: 0.08 });
+    const matCabFloor  = new THREE.MeshStandardMaterial({ color: 0x3b4758, roughness: 0.72, metalness: 0.22 });
+    const matSillSteel = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.34, metalness: 0.72 });
+    const matGapDark   = new THREE.MeshStandardMaterial({ color: 0x090d14, roughness: 0.95, metalness: 0.05 });
+    const matWarnEdge  = new THREE.MeshStandardMaterial({ color: 0xeab308, roughness: 0.42, metalness: 0.15 });
+
+    makeCadBox(-1300, 140, -900, 900, 0, 2, matCorridor, {
+      name: 'elevator_corridor_floor', kind: 'overlay',
+      model: '복도 바닥 기준면 (Z = 0 mm · 후륜 접지)', material: '바닥 슬래브',
+    }, stepSimGroup, sharedPickables);
+    makeCadBox(100, 140, -900, 900, 0, 5, matSillSteel, {
+      name: 'elevator_corridor_sill', kind: 'overlay',
+      model: '승강장 문틀 실 플레이트 (40 mm 틈새 전단)', material: 'SUS304 문틀',
+    }, stepSimGroup, sharedPickables);
+    makeCadBox(140, 180, -900, 900, 0, 1.5, matGapDark, {
+      name: 'elevator_gap_40mm', kind: 'overlay',
+      model: '엘리베이터 승강장 40 mm 틈새 (전륜 관절 통과)', material: '승강기 틈새',
+    }, stepSimGroup, sharedPickables);
+    makeCadBox(180, 390, -900, 900, 0, 30, matSillSteel, {
+      name: 'elevator_step_30mm_sill', kind: 'overlay',
+      model: '엘리베이터 30 mm 수직 단차 문턱 (수직 가이드 +25 mm · G=85 mm 여유)', material: '알루미늄/SUS 승강기 문턱',
+    }, stepSimGroup, sharedPickables);
+    makeCadBox(180, 196, -895, 895, 27, 30.8, matWarnEdge, {
+      name: 'elevator_step_edge_mark', kind: 'overlay',
+      model: '30 mm 단차 경계선', material: '안전 마킹',
+    }, stepSimGroup, sharedPickables);
+    makeCadBox(390, 1900, -900, 900, 0, 30, matCabFloor, {
+      name: 'elevator_cab_floor_30mm', kind: 'overlay',
+      model: '엘리베이터 카 내부 바닥 (+30 mm 단차 · 1,200 mm 폭 진입)', material: '승강기 카 바닥',
+    }, stepSimGroup, sharedPickables);
+  }
+  stepSimGroup.visible = false;
+  scene.add(stepSimGroup);
+
+  // Wall Charging Station (#kDock — EXACT 850.0 mm CLEAR BEHIND ACTIVE REAR BUMPER, DEFAULT OFF!)
+  // Built in reference where rear bumper = 0 and dock front = -850, then shifted to cfg.rearBumperXMm!
+  const dockGroup = new THREE.Group();
+  let dockMainMesh = null;
+  {
+    const matDockBody   = new THREE.MeshStandardMaterial({ color: 0x3b4454, roughness: 0.48, metalness: 0.36 });
+    const matDockAccent = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.42, metalness: 0.45 });
+    const matDockCopper = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.24, metalness: 0.85 });
+    const matDockPilot  = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.32, metalness: 0.35 });
+    const matDockLed    = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.65 });
+
+    dockMainMesh = makeCadBox(-1090, -850, -240, 240, 0, 640, matDockBody, {
+      name: 'wall_charging_station', kind: 'overlay',
+      model: '후면 벽면 자동 충전 스테이션 (후면 범퍼 대비 850 mm 이격)',
+      material: '48V 60A 자동충전기 외함',
+    }, dockGroup, sharedPickables);
+    makeCadBox(-863, -850, -120, 120, 256, 344, matDockAccent, {
+      name: 'dock_contact_bezel', kind: 'overlay',
+      model: '벽면 충전기 접점 하우징 (로봇 후면 포트 정합)',
+      material: 'PEEK 절연 하우징',
+    }, dockGroup, sharedPickables);
+    makeCadBox(-857, -850, 34, 96, 274, 326, matDockCopper, {
+      name: 'dock_brush_pos', kind: 'overlay', model: '충전기 (+) C1100 구리 브러시',
+    }, dockGroup, sharedPickables);
+    makeCadBox(-857, -850, -96, -34, 274, 326, matDockCopper, {
+      name: 'dock_brush_neg', kind: 'overlay', model: '충전기 (-) C1100 구리 브러시',
+    }, dockGroup, sharedPickables);
+    makeCadBox(-857, -850, -14, 14, 286, 314, matDockPilot, {
+      name: 'dock_pilot', kind: 'overlay', model: '충전 인터록 파일럿 접점',
+    }, dockGroup, sharedPickables);
+    makeCadBox(-855, -850, -140, 140, 585, 605, matDockLed, {
+      name: 'dock_status_bar', kind: 'overlay', model: '충전 상태 표시등 (48V LFP)',
+    }, dockGroup, sharedPickables);
+
+    const dashMatCenter = new THREE.LineDashedMaterial({ color: 0xf97316, dashSize: 0.08, gapSize: 0.05 });
+    const dashMatSide   = new THREE.LineDashedMaterial({ color: 0x94a3b8, dashSize: 0.06, gapSize: 0.05, transparent: true, opacity: 0.72 });
+    const addDashedSeg = (p0, p1, mat) => {
+      const g = new THREE.BufferGeometry().setFromPoints([p0, p1]);
+      const ln = new THREE.Line(g, mat);
+      ln.computeLineDistances();
+      dockGroup.add(ln);
+    };
+    addDashedSeg(cad2glb(-850, 0, 3), cad2glb(0, 0, 3), dashMatCenter);
+    addDashedSeg(cad2glb(-850, 240, 3), cad2glb(0, 240, 3), dashMatSide);
+    addDashedSeg(cad2glb(-850, -240, 3), cad2glb(0, -240, 3), dashMatSide);
+    addDashedSeg(cad2glb(-850, -300, 3), cad2glb(-850, 300, 3), dashMatCenter);
+    addDashedSeg(cad2glb(0, -300, 3), cad2glb(0, 300, 3), dashMatCenter);
+
+    const dc = document.createElement('canvas');
+    dc.width = 256; dc.height = 64;
+    const dctx = dc.getContext('2d');
+    dctx.fillStyle = 'rgba(15, 23, 42, 0.80)';
+    dctx.fillRect(4, 8, 248, 48);
+    dctx.strokeStyle = '#f97316';
+    dctx.lineWidth = 3;
+    dctx.strokeRect(4, 8, 248, 48);
+    dctx.fillStyle = '#fed7aa';
+    dctx.font = 'bold 24px ui-monospace, Consolas, sans-serif';
+    dctx.textAlign = 'center';
+    dctx.textBaseline = 'middle';
+    dctx.fillText('850 mm 이격', 128, 33);
+    const decalMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.42, 0.105),
+      new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(dc), transparent: true, depthWrite: false })
+    );
+    decalMesh.rotation.x = -Math.PI / 2;
+    decalMesh.rotation.z = Math.PI / 2;
+    decalMesh.position.copy(cad2glb(-425, 0, 4.5));
+    dockGroup.add(decalMesh);
+  }
+  dockGroup.visible = false; // STRICT DEFAULT OFF!
+  scene.add(dockGroup);
+
+  // CG Marker (DEFAULT OFF — #kCG unchecked!)
+  const cgMarkerGroup = new THREE.Group();
+  {
+    const sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(0.028, 20, 20),
+      new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+    );
+    const ring1 = new THREE.Mesh(
+      new THREE.TorusGeometry(0.048, 0.004, 10, 32),
+      new THREE.MeshBasicMaterial({ color: 0xf59e0b })
+    );
+    const ring2 = ring1.clone();
+    ring2.rotation.x = Math.PI / 2;
+    const dropLine = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -0.36, 0)]),
+      new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.78 })
+    );
+    dropLine.name = 'cgDrop';
+    cgMarkerGroup.add(sphere, ring1, ring2, dropLine);
+  }
+  cgMarkerGroup.visible = false;
+  scene.add(cgMarkerGroup);
+
+  // Shared QR Marker Texture
+  const qrTexture = (() => {
+    const qc = document.createElement('canvas');
+    qc.width = 128; qc.height = 128;
+    const ctx = qc.getContext('2d');
+    ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, 128, 128);
+    ctx.fillStyle = '#0f172a';
+    const drawFinder = (x, y) => {
+      ctx.fillRect(x, y, 32, 32);
+      ctx.fillStyle = '#f8fafc'; ctx.fillRect(x + 6, y + 6, 20, 20);
+      ctx.fillStyle = '#0f172a'; ctx.fillRect(x + 11, y + 11, 10, 10);
+    };
+    drawFinder(10, 10); drawFinder(86, 10); drawFinder(10, 86);
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        if ((r < 3 && c < 3) || (r < 3 && c > 4) || (r > 4 && c < 3)) continue;
+        if ((r * 7 + c * 13 + r * c) % 3 !== 0) ctx.fillRect(14 + c * 12, 14 + r * 12, 10, 10);
+      }
+    }
+    return new THREE.CanvasTexture(qc);
+  })();
+
+  // ==========================================================================
+  // SENSOR FOV & VARIANT HARDWARE BUILDERS
+  // ==========================================================================
+  function buildMeasured2DSector(xCad, yCad, zCad, azStartDeg, azEndDeg, radiusM, fillHex, edgeHex) {
+    const grp = new THREE.Group();
+    const origin = cad2glb(xCad, yCad, zCad);
+    const segs = 96;
+    const pts = [origin.x, origin.y, origin.z];
+    const arcPts = [origin.clone()];
+    const indices = [];
+    for (let i = 0; i <= segs; i++) {
+      const az = THREE.MathUtils.degToRad(azStartDeg + (azEndDeg - azStartDeg) * (i / segs));
+      const gx = origin.x + radiusM * Math.sin(az);
+      const gz = origin.z + radiusM * Math.cos(az);
+      pts.push(gx, origin.y, gz);
+      arcPts.push(new THREE.Vector3(gx, origin.y + 0.002, gz));
+      if (i < segs) indices.push(0, i + 1, i + 2);
+    }
+    arcPts.push(origin.clone());
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    geo.setIndex(indices);
+    grp.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
+      color: fillHex, transparent: true, opacity: 0.10, side: THREE.DoubleSide, depthWrite: false,
+    })));
+    grp.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(arcPts),
+      new THREE.LineBasicMaterial({ color: edgeHex, transparent: true, opacity: 0.56 })
+    ));
+    return grp;
+  }
+
+  function buildE1RFov(e1rPos, tiltDeg, distM) {
+    const grp = new THREE.Group();
+    const tiltRad = THREE.MathUtils.degToRad(tiltDeg);
+    const winX = e1rPos[0] + 21.5 * Math.cos(tiltRad);
+    const winZ = e1rPos[2] + 21.5 * Math.sin(tiltRad);
+    const oCtr = cad2glb(winX, e1rPos[1], winZ);
+
+    const halfH = THREE.MathUtils.degToRad(60);
+    const upAng = THREE.MathUtils.degToRad(45 + tiltDeg);
+    const dnAng = THREE.MathUtils.degToRad(45 - tiltDeg);
+
+    const zFar = oCtr.z + distM;
+    const yTopFar = oCtr.y + distM * Math.tan(upAng);
+    const xHalfFar = distM * Math.tan(halfH);
+
+    const dFlr = Math.min(distM, Math.max(0.05, (oCtr.y - 0.005) / Math.tan(dnAng)));
+    const zFlr = oCtr.z + dFlr;
+    const xHalfFlr = dFlr * Math.tan(halfH);
+
+    const verts = new Float32Array([
+      oCtr.x, oCtr.y, oCtr.z,
+      oCtr.x - xHalfFar, yTopFar, zFar,
+      oCtr.x + xHalfFar, yTopFar, zFar,
+      oCtr.x + xHalfFar, 0.005, zFar,
+      oCtr.x - xHalfFar, 0.005, zFar,
+      oCtr.x + xHalfFlr, 0.005, zFlr,
+      oCtr.x - xHalfFlr, 0.005, zFlr,
+    ]);
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(verts, 3));
+    geo.setIndex([0, 1, 2, 0, 2, 5, 2, 3, 5, 0, 6, 1, 1, 6, 4, 0, 5, 6, 5, 3, 4, 5, 4, 6]);
+    grp.add(new THREE.Mesh(
+      geo,
+      new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.10, side: THREE.DoubleSide, depthWrite: false })
+    ));
+    grp.add(new THREE.LineSegments(
+      new THREE.EdgesGeometry(geo),
+      new THREE.LineBasicMaterial({ color: 0xc084fc, transparent: true, opacity: 0.45 })
+    ));
+    return grp;
+  }
+
+  function buildXT32Fov(xt32Pos, tiltDeg) {
+    const fovXT32Group = new THREE.Group();
+    const fovTower2DGroup = new THREE.Group();
+    const o = cad2glb(...xt32Pos);
+    const r = 2.20;
+    const segs = 72;
+    const tilt = THREE.MathUtils.degToRad(tiltDeg);
+    const cT = Math.cos(tilt), sT = Math.sin(tilt);
+    const elU = THREE.MathUtils.degToRad(15.0);
+    const elD = THREE.MathUtils.degToRad(-16.0);
+
+    const rayDirGlb = (azRad, elRad) => {
+      const lx = Math.cos(elRad) * Math.cos(azRad);
+      const ly = Math.cos(elRad) * Math.sin(azRad);
+      const lz = Math.sin(elRad);
+      const wx = cT * lx + sT * lz;
+      const wy = ly;
+      const wz = -sT * lx + cT * lz;
+      return new THREE.Vector3(wy, wz, wx);
+    };
+
+    const pts = [o.x, o.y, o.z];
+    const idx = [];
+    const topRing = [];
+    for (let i = 0; i <= segs; i++) {
+      const az = (i / segs) * Math.PI * 2;
+      const du = rayDirGlb(az, elU);
+      const dd = rayDirGlb(az, elD);
+      const pu = o.clone().addScaledVector(du, r);
+      let pd = o.clone().addScaledVector(dd, r);
+      if (pd.y < 0.008 && dd.y < -1e-4) {
+        const tFlr = (0.008 - o.y) / dd.y;
+        pd = o.clone().addScaledVector(dd, Math.min(r, tFlr));
+      }
+      pts.push(pu.x, pu.y, pu.z, pd.x, pd.y, pd.z);
+      topRing.push(pu);
+    }
+    for (let i = 0; i < segs; i++) {
+      const u0 = 1 + 2 * i, d0 = 2 + 2 * i, u1 = 3 + 2 * i, d1 = 4 + 2 * i;
+      idx.push(0, u0, u1, 0, d1, d0, u0, d0, d1, u0, d1, u1);
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    geo.setIndex(idx);
+    fovXT32Group.add(new THREE.Mesh(
+      geo,
+      new THREE.MeshBasicMaterial({ color: 0xfacc15, transparent: true, opacity: 0.08, side: THREE.DoubleSide, depthWrite: false })
+    ));
+    fovXT32Group.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(topRing),
+      new THREE.LineBasicMaterial({ color: 0xfacc15, transparent: true, opacity: 0.45 })
+    ));
+
+    const ringPts = [];
+    for (let i = 0; i <= segs; i++) {
+      const a = (i / segs) * Math.PI * 2;
+      ringPts.push(new THREE.Vector3(o.x + Math.sin(a) * 2.15, o.y, o.z + Math.cos(a) * 2.15));
+    }
+    fovTower2DGroup.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(ringPts),
+      new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.68 })
+    ));
+    fovTower2DGroup.visible = false;
+    return { fovXT32Group, fovTower2DGroup };
+  }
+
+  function buildQrOverlay(qrPos, pickList) {
+    const grp = new THREE.Group();
+    const qrTile = new THREE.Mesh(new THREE.PlaneGeometry(0.11, 0.11), new THREE.MeshBasicMaterial({ map: qrTexture }));
+    qrTile.rotation.x = -Math.PI / 2;
+    qrTile.position.copy(cad2glb(qrPos[0], qrPos[1], 2.5));
+    tagAuxiliary(qrTile, {
+      name: 'floor_qr_marker', kind: 'qrcam',
+      model: `바닥 QR 항법 마커 (X=${qrPos[0]}, Y=${qrPos[1]} · 110×110 mm)`,
+      material: '산업용 QR 마커',
+      bbox_mm: [qrPos[0] - 55, qrPos[0] + 55, qrPos[1] - 55, qrPos[1] + 55, 0, 2.5],
+    }, pickList);
+    grp.add(qrTile);
+
+    const hLens = qrPos[2] - 3;
+    const rFloor = mm(hLens) * Math.tan(THREE.MathUtils.degToRad(38.25));
+    const fovCone = new THREE.Mesh(
+      new THREE.ConeGeometry(rFloor, mm(hLens), 28, 1, true),
+      new THREE.MeshBasicMaterial({ color: 0x14b8a6, transparent: true, opacity: 0.25, side: THREE.DoubleSide, depthWrite: false })
+    );
+    fovCone.position.copy(cad2glb(qrPos[0], qrPos[1], 3 + hLens / 2));
+    grp.add(fovCone);
+    return grp;
+  }
+
+  function buildRearTower2DHardware(cfg, clipMats, pickList) {
+    const grp = new THREE.Group();
+    const [cx, cy, cz] = cfg.sensors.xt32Pos;
+    const zDeck = cfg.sensors.xt32DeckZ;
+    const zBot2D = cz - 42.5;
+    const zTurretTop = cz + 42.5;
+
+    const matAlu  = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.34, metalness: 0.68, side: THREE.DoubleSide });
+    const mat2D   = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.32, metalness: 0.25, side: THREE.DoubleSide });
+    const matDark = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.16, metalness: 0.78, side: THREE.DoubleSide });
+    clipMats.push(matAlu, mat2D, matDark);
+
+    const pedMeta = {
+      name: 'tower_2d_pedestal_flat',
+      kind: 'frame',
+      model: `${cfg.code} 좌후방 장갑 롤케이지 수평 2D 받침 (Semi 3D / 2D 기본)`,
+      material: 'AL6061-T6',
+      mass_kg: 1.00,
+      bbox_mm: [cx - 68, cx + 68, cy - 68, cy + 68, zDeck, zBot2D],
+    };
+    const flange = new THREE.Mesh(new THREE.CylinderGeometry(mm(68), mm(68), mm(6), 32), matAlu);
+    flange.position.copy(cad2glb(cx, cy, zDeck + 3.0));
+    flange.castShadow = true;
+    tagAuxiliary(flange, pedMeta, pickList);
+    grp.add(flange);
+
+    const colH = Math.max(8, zBot2D - (zDeck + 5.5));
+    const col = new THREE.Mesh(new THREE.CylinderGeometry(mm(43), mm(43), mm(colH), 32), matAlu);
+    col.position.copy(cad2glb(cx, cy, zDeck + 5.5 + colH / 2));
+    col.castShadow = true;
+    tagAuxiliary(col, pedMeta, pickList);
+    grp.add(col);
+
+    const lidMeta = {
+      name: 'lidar_2d_rear_tower',
+      kind: 'lidar2d',
+      model: `${cfg.code} 좌후방 롤케이지 수평 2D 라이다 (Z=${cz} mm · Semi 3D / 2D 기본)`,
+      material: '구매품 (IP65)',
+      mass_kg: 0.35,
+      bbox_mm: [cx - 37.5, cx + 37.5, cy - 37.5, cy + 37.5, zBot2D, zTurretTop],
+    };
+    makeCadBox(cx - 37.5, cx + 37.5, cy - 37.5, cy + 37.5, zBot2D, zBot2D + 40.5, mat2D, lidMeta, grp, pickList);
+    const turret = new THREE.Mesh(new THREE.CylinderGeometry(mm(35), mm(35), mm(45), 28), matDark);
+    turret.position.copy(cad2glb(cx, cy, zBot2D + 62.5));
+    turret.castShadow = true;
+    tagAuxiliary(turret, lidMeta, pickList);
+    grp.add(turret);
+
+    grp.visible = false;
+    return grp;
+  }
+
+  function buildBlankCoverE1RHardware(archKey, clipMats, pickList) {
+    const grp = new THREE.Group();
+    const matBlank = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.42, metalness: 0.62, side: THREE.DoubleSide });
+    clipMats.push(matBlank);
+
+    // Exact build_hd30_cad.py Rev A.5 make_e1r_blanking_cover(): X=885.5..888.5, Y=-465.5..-370.5, Z=207.25..309.5
+    makeCadBox(885.5, 888.5, -465.5, -370.5, 207.25, 309.5, matBlank, {
+      name: 'blank_cover_e1r_front',
+      kind: 'cover',
+      model: '우전방 포드 노즈 E1R 장갑 포켓 3t 강판 블랭킹 커버 (2D 기본)',
+      material: 'SPHC 3t 분체도장',
+      mass_kg: 0.21,
+    }, grp, pickList);
+    grp.visible = false;
+    return grp;
+  }
+
+  // ==========================================================================
+  // TRUE-SCALE 1,100 x 1,100 REAL 25 mm PALLETS (HD-30C-R: SOLID DOUBLE + SINGLE)
+  // ==========================================================================
+  function buildPalletAssembly(archKey, pickList) {
+    const palletRoot = new THREE.Group();
+    const doubleOrWinGrp = new THREE.Group();
+    const singleGrp = new THREE.Group();
+    const loadWireGrp = new THREE.Group();
+    palletRoot.add(doubleOrWinGrp, singleGrp, loadWireGrp);
+
+    const matWoodTop   = new THREE.MeshStandardMaterial({ color: 0xba8752, roughness: 0.78, metalness: 0.04 });
+    const matWoodBlock = new THREE.MeshStandardMaterial({ color: 0x8b5d33, roughness: 0.84, metalness: 0.04 });
+    const matWoodBot   = new THREE.MeshStandardMaterial({ color: 0x9f6e3d, roughness: 0.80, metalness: 0.04 });
+
+    const topSlats = [
+      [-550, -420], [-380, -260], [-220, -100], [-65, 65],
+      [100, 220], [260, 380], [420, 550],
+    ];
+
+    // --- Single-Deck Real T11 Pallet (1,100 x 1,100 x 125 mm: 100 mm pocket + 25 mm top deck) ---
+    {
+      const sMeta = {
+        name: `pallet_t11_single_${archKey}`,
+        kind: 'overlay',
+        model: '실물 T11 단면형 파레트 (1,100×1,100×125 mm · 100 mm 포켓 + 25 mm 상판)',
+        material: '산업용 단면 파레트',
+      };
+      for (const [sx0, sx1] of topSlats) {
+        makeCadBox(sx0, sx1, -550, 550, 100, 125, matWoodTop, sMeta, singleGrp, pickList);
+      }
+      for (const [by0, by1] of [[-550, -435], [-65, 65], [435, 550]]) {
+        makeCadBox(-550, 550, by0, by1, 0, 100, matWoodBlock, sMeta, singleGrp, pickList);
+      }
+    }
+
+    // --- Real T11 1,100 x 1,100 x 150 mm FULL-BOTTOM Double-Deck Pallet (REAL 25.0 mm SOLID CONTINUOUS BOTTOM!) ---
+    {
+      const dTopMeta = {
+        name: 'pallet_t11_double_top',
+        kind: 'overlay',
+        model: '실물 T11 바닥 막힌 양면형 상판 (1,100×1,100 · Z=125..150 mm)',
+        material: '통판 양면 파레트 (25 mm 상판)',
+      };
+      const dBotMeta = {
+        name: 'pallet_t11_double_solid_bottom_25mm',
+        kind: 'overlay',
+        model: '실물 T11 바닥 막힌 25.0 mm 연속 통판 하판 (절개·깎기 0 mm · HD-30C-R 100% 직픽업)',
+        material: '통판 양면 하판 (실물 25.0 mm)',
+      };
+      makeCadBox(-550, 550, -550, 550, 0, 25, matWoodBot, dBotMeta, doubleOrWinGrp, pickList);
+      for (const [by0, by1] of [[-550, -435], [-65, 65], [435, 550]]) {
+        makeCadBox(-550, 550, by0, by1, 25, 125, matWoodBlock, dTopMeta, doubleOrWinGrp, pickList);
+      }
+      for (const [sx0, sx1] of topSlats) {
+        makeCadBox(sx0, sx1, -550, 550, 125, 150, matWoodTop, dTopMeta, doubleOrWinGrp, pickList);
+      }
+    }
+
+    singleGrp.visible = false; // Default: Double Solid 25 mm!
+
+    const cargoFillMat = new THREE.MeshStandardMaterial({
+      color: 0xf59e0b, transparent: true, opacity: 0.08, depthWrite: false, roughness: 0.6,
+    });
+    const cargoEdgeMat = new THREE.LineBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.55 });
+    const cargoUnitBox = new THREE.Mesh(new THREE.BoxGeometry(1.04, 1.0, 1.04), cargoFillMat);
+    const cargoUnitEdge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.04, 1.0, 1.04)), cargoEdgeMat);
+    const cargoScaleGroup = new THREE.Group();
+    cargoScaleGroup.add(cargoUnitBox, cargoUnitEdge);
+    cargoScaleGroup.position.set(0, mm(150), 0);
+    tagAuxiliary(cargoUnitBox, {
+      name: `pallet_cargo_load_${archKey}`,
+      kind: 'overlay',
+      model: '적재 화물 하중 시뮬레이션 (1,100×1,100 · LC = 550 mm)',
+      material: '화물 시뮬레이션',
+      bbox_mm: [-520, 520, -520, 520, 150, 550],
+    }, pickList);
+    loadWireGrp.add(cargoScaleGroup);
+
+    return { palletRoot, doubleOrWinGrp, singleGrp, loadWireGrp, cargoScaleGroup, cargoFillMat, cargoEdgeMat };
+  }
+
+  // ==========================================================================
+  // MATERIAL TUNING FOR LOADED GLB MESHES
+  // ==========================================================================
+  function createCadMaterial(meta, isShell, clipMats, shellMats) {
+    const kind = meta ? meta.kind : 'frame';
+    let roughness = 0.42;
+    let metalness = 0.34;
+    let transparent = false;
+    let opacity = 1.0;
+    let depthWrite = true;
+
+    if (kind === 'fork' || kind === 'rail' || kind === 'fastener' || kind === 'carriage' || kind === 'mast' || kind === 'mast_inner' || kind === 'weigh_shoe' || kind === 'scissor' || kind === 'spring' || kind === 'susp') {
+      roughness = 0.29; metalness = 0.70;
+    } else if (kind === 'armor') {
+      roughness = 0.36; metalness = 0.62;
+    } else if (kind === 'cw') {
+      roughness = 0.64; metalness = 0.34;
+    } else if (kind === 'wheel' || kind === 'pad') {
+      roughness = 0.62; metalness = 0.08;
+    } else if (kind === 'contact') {
+      roughness = 0.24; metalness = 0.85;
+    } else if (kind === 'loadcell') {
+      roughness = 0.30; metalness = 0.44;
+    } else if (kind === 'glass') {
+      roughness = 0.10; metalness = 0.10; transparent = true; opacity = 0.42; depthWrite = false;
+    } else if (kind === 'lidar2d' || kind === 'lidar3df' || kind === 'lidar3dr' || kind === 'qrcam' || kind === 'hmi') {
+      roughness = 0.28; metalness = 0.38;
+    } else if (kind === 'bumper') {
+      roughness = 0.72; metalness = 0.05;
+    } else if (kind === 'battery_opt') {
+      roughness = 0.34; metalness = 0.30;
+    }
+
+    if (isShell) {
+      transparent = true;
+      opacity = (+$('sOp').value) / 100;
+      depthWrite = opacity >= 0.95;
+    }
+
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      vertexColors: true,
+      roughness,
+      metalness,
+      flatShading: true,
+      transparent,
+      opacity,
+      depthWrite,
+      emissive: kind === 'battery_opt' ? 0xb45309 : 0x000000,
+      emissiveIntensity: kind === 'battery_opt' ? 0.20 : 0.0,
+      side: THREE.DoubleSide,
+    });
+    clipMats.push(mat);
+    if (isShell) shellMats.push(mat);
+    return mat;
+  }
+
+  // ==========================================================================
+  // PER-ARCHITECTURE MODEL LOADER & REAL-GLB ARTICULATED KINEMATIC RIGGING
+  // ==========================================================================
+  const loader = new GLTFLoader();
+  const archCache = {};
+  const archLoadingPromises = {};
+  let manifestLoaded = false;
+
+  async function syncManifestOnce() {
+    if (manifestLoaded) return;
+    manifestLoaded = true;
+    try {
+      const resp = await fetch('./cad/cad_variants_manifest.json');
+      if (!resp.ok) return;
+      const manifest = await resp.json();
+      if (!manifest || !manifest.models) return;
+      const aKey = 'HD30C';
+      const mBlock = manifest.models[aKey];
+      if (!mBlock) return;
+      if (mBlock.bom_files) {
+        if (mBlock.bom_files.china_oem && mBlock.bom_files.china_oem.file) {
+          ARCH_CONFIGS[aKey].bomFiles.china_oem = {
+            file: mBlock.bom_files.china_oem.file,
+            href: `cad/${mBlock.bom_files.china_oem.file}`,
+          };
+        }
+        if (mBlock.bom_files.korea_kc && mBlock.bom_files.korea_kc.file) {
+          ARCH_CONFIGS[aKey].bomFiles.korea_kc = {
+            file: mBlock.bom_files.korea_kc.file,
+            href: `cad/${mBlock.bom_files.korea_kc.file}`,
+          };
+        }
+      }
+      if (Array.isArray(mBlock.variants)) {
+        for (const mv of mBlock.variants) {
+          if (ARCH_CONFIGS[aKey].variants[mv.id]) {
+            ARCH_CONFIGS[aKey].variants[mv.id] = {
+              id: mv.id,
+              stepFile: mv.step_file,
+              csvFile: mv.csv_file,
+              stepHref: `cad/${mv.step_file}`,
+              csvHref: `cad/${mv.csv_file}`,
+              partCount: mv.part_count,
+              stepBytes: mv.step_bytes,
+              totalEmptyKg: mv.total_empty_kg,
+              cgEmptyMm: mv.cg_empty_mm,
+              cgEmptyExtendedMm: mv.cg_empty_extended_mm || mv.cg_empty_mm,
+              sf: mv.iso22915_tipping_sf != null ? mv.iso22915_tipping_sf : mv.wheel_load_safety_factor,
+            };
+          }
+        }
+      }
+    } catch (_) {
+      // Embedded Rev A.5 SSOT catalog remains active
+    }
+  }
+
+  async function loadArchModel(archKey) {
+    if (archCache[archKey]) return archCache[archKey];
+    if (archLoadingPromises[archKey]) return archLoadingPromises[archKey];
+
+    const cfg = ARCH_CONFIGS[archKey];
+    const promise = (async () => {
+      const [partsResp, mainGltf, optGltf] = await Promise.all([
+        fetch(cfg.partsJson),
+        loader.loadAsync(cfg.mainGlb),
+        loader.loadAsync(cfg.optGlb),
+      ]);
+      if (!partsResp.ok) throw new Error(`${cfg.partsJson} HTTP ${partsResp.status}`);
+      const partsJson = await partsResp.json();
+
+      const rootGroup = new THREE.Group();
+      rootGroup.visible = false;
+      scene.add(rootGroup);
+
+      // robotWorldGroup moves along world +X_cad (+Z_glb) during approach (0 -> +500 mm) & travel_verify (+500 -> 0 mm)!
+      const robotWorldGroup = new THREE.Group();
+      robotWorldGroup.name = `robotWorldGroup_${archKey}`;
+      const staticGroup = new THREE.Group();
+      const batteryOptGroup = new THREE.Group();
+      batteryOptGroup.visible = false;
+      robotWorldGroup.add(staticGroup, batteryOptGroup);
+      rootGroup.add(robotWorldGroup);
+
+      // HD-30C-R Rev A.5: reach_mast -> mast_inner (2-stage FFL duplex) -> mast_lift (carriage + iForks)
+      const reachMastGroup = new THREE.Group();
+      const mastInnerGroup = new THREE.Group();
+      const mastLiftGroup = new THREE.Group();
+      reachMastGroup.add(mastInnerGroup);
+      mastInnerGroup.add(mastLiftGroup);
+      robotWorldGroup.add(reachMastGroup);
+
+      // Wheel suspension + steering rig from SSOT JSON pivots
+      const wheelRig = {};
+      const pivotsSrc = (partsJson.kinematics && partsJson.kinematics.wheel_groups) ? partsJson.kinematics.wheel_groups : null;
+      for (const k of ['wheel_FL', 'wheel_FR', 'wheel_RL', 'wheel_RR']) {
+        const piv = (pivotsSrc && pivotsSrc[k] && Array.isArray(pivotsSrc[k].pivot_mm))
+          ? pivotsSrc[k].pivot_mm
+          : cfg.wheelPivots[k];
+        const pVec = cad2glb(...piv);
+        const suspGrp = new THREE.Group();
+        suspGrp.position.copy(pVec);
+        const steerGrp = new THREE.Group();
+        suspGrp.add(steerGrp);
+        robotWorldGroup.add(suspGrp);
+        wheelRig[k] = {
+          pivotMm: piv,
+          pivotGlb: pVec,
+          suspGrp,
+          steerGrp,
+          curYaw: 0,
+          tgtYaw: 0,
+          curBumpM: 0,
+          tgtBumpM: 0,
+        };
+      }
+
+      const glbMeshes = new Map();
+      const partsMetaByName = new Map();
+      const loadCellMeshes = [];
+      const lockpinMeshes = [];
+      const clipMaterials = [];
+      const shellMaterials = [];
+      const pickables = [];
+
+      for (const p of partsJson.parts) partsMetaByName.set(p.name, p);
+      if (partsJson.battery_200ah_option && Array.isArray(partsJson.battery_200ah_option.parts)) {
+        for (const bp of partsJson.battery_200ah_option.parts) partsMetaByName.set(bp.name, bp);
+      }
+
+      function attachMesh(mesh, meta, targetParent, pivotOffsetGlb = null) {
+        const partName = mesh.name;
+        const isShell = Boolean(meta && (meta.kind === 'cover' || cfg.shellExtra.has(partName)));
+        mesh.material = createCadMaterial(meta, isShell, clipMaterials, shellMaterials);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.userData = {
+          name: partName,
+          kind: meta ? meta.kind : 'part',
+          model: sanitizeLabel(meta ? meta.model : partName),
+          material: meta ? meta.material : '-',
+          tol: meta ? meta.tol : '-',
+          datum_ref: meta ? meta.datum_ref : '-',
+          mass_kg: meta ? meta.mass_kg : null,
+          moving: Boolean(meta && meta.moving),
+          move_group: meta ? meta.move_group : null,
+          susp_group: meta ? meta.susp_group : null,
+          bbox_mm: meta ? meta.bbox_mm : null,
+          note: sanitizeLabel(meta ? meta.note : ''),
+          isGLB: true,
+        };
+        if (pivotOffsetGlb) mesh.position.sub(pivotOffsetGlb);
+        if (partName.startsWith('loadcell_fork_') || partName.startsWith('ifork_loadcell_')) {
+          loadCellMeshes.push(mesh);
+        }
+        if (partName.startsWith('fork_heel_lockpin_') || partName.startsWith('carriage_lock_pin_')) {
+          lockpinMeshes.push(mesh);
+        }
+        pickables.push(mesh);
+        glbMeshes.set(partName, mesh);
+        targetParent.add(mesh);
+      }
+
+      const mainMeshes = [];
+      mainGltf.scene.traverse(obj => { if (obj.isMesh) mainMeshes.push(obj); });
+
+      let mappedCount = 0;
+      let reachMastCount = 0, mastInnerCount = 0, mastLiftCount = 0;
+      let wheelSteerCount = 0;
+
+      for (const mesh of mainMeshes) {
+        const meta = partsMetaByName.get(mesh.name) || null;
+        if (meta) mappedCount++;
+        const mg = meta ? meta.move_group : null;
+        const sg = meta ? meta.susp_group : null;
+
+        if (mg === 'reach_mast') {
+          reachMastCount++;
+          attachMesh(mesh, meta, reachMastGroup);
+        } else if (mg === 'mast_inner') {
+          mastInnerCount++;
+          attachMesh(mesh, meta, mastInnerGroup);
+        } else if (mg === 'mast_lift') {
+          mastLiftCount++;
+          attachMesh(mesh, meta, mastLiftGroup);
+        } else if (mg && wheelRig[mg]) {
+          wheelSteerCount++;
+          attachMesh(mesh, meta, wheelRig[mg].steerGrp, wheelRig[mg].pivotGlb);
+        } else if (sg && wheelRig[sg]) {
+          attachMesh(mesh, meta, wheelRig[sg].suspGrp, wheelRig[sg].pivotGlb);
+        } else {
+          attachMesh(mesh, meta, staticGroup);
+        }
+      }
+
+      const optMeshes = [];
+      optGltf.scene.traverse(obj => { if (obj.isMesh) optMeshes.push(obj); });
+      for (const mesh of optMeshes) {
+        const meta = partsMetaByName.get(mesh.name) || null;
+        attachMesh(mesh, meta, batteryOptGroup);
+      }
+
+      // Swappable variant hardware
+      const rearTower2DGroup = buildRearTower2DHardware(cfg, clipMaterials, pickables);
+      const blankCoverE1RGroup = buildBlankCoverE1RHardware(archKey, clipMaterials, pickables);
+      robotWorldGroup.add(rearTower2DGroup, blankCoverE1RGroup);
+
+      // Sensor FOV Overlays (attached to robotWorldGroup so FOV moves with chassis!)
+      const fov2DGroup = new THREE.Group();
+      fov2DGroup.add(buildMeasured2DSector(
+        cfg.sensors.lidar2dFL[0], cfg.sensors.lidar2dFL[1], cfg.sensors.lidar2dFL[2],
+        cfg.sensors.lidar2dFLAz[0], cfg.sensors.lidar2dFLAz[1], 2.45, 0x38bdf8, 0x7dd3fc
+      ));
+      fov2DGroup.add(buildMeasured2DSector(
+        cfg.sensors.lidar2dRR[0], cfg.sensors.lidar2dRR[1], cfg.sensors.lidar2dRR[2],
+        cfg.sensors.lidar2dRRAz[0], cfg.sensors.lidar2dRRAz[1], 2.45, 0x0ea5e9, 0x38bdf8
+      ));
+      const fovE1RGroup = buildE1RFov(cfg.sensors.e1rPos, cfg.sensors.e1rTiltDeg, 1.65);
+      const { fovXT32Group, fovTower2DGroup } = buildXT32Fov(cfg.sensors.xt32Pos, cfg.sensors.xt32TiltDeg);
+      const qrSceneGroup = buildQrOverlay(cfg.sensors.qrPos, pickables);
+
+      // Outer Envelope Wireframes (HD-30C-R Rev A.5 exact dimensions!)
+      const envGroup = new THREE.Group();
+      // Stowed 2,040 x 1,200 x 995 mm (X = -1,110 .. +930, center X = -90)
+      const stowedBox = new THREE.LineSegments(
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(1.200, 0.995, 2.040)),
+        new THREE.LineBasicMaterial({ color: 0x4ade80, transparent: true, opacity: 0.44 })
+      );
+      stowedBox.position.copy(cad2glb(-90.0, 0, 995 / 2));
+      // Extended 3,160 x 1,200 x 995 mm (X = -1,110 .. +2,050, center X = +470)
+      const extendedEnvBox = new THREE.LineSegments(
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(1.200, 0.995, 3.160)),
+        new THREE.LineBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.24 })
+      );
+      extendedEnvBox.position.copy(cad2glb(470.0, 0, 995 / 2));
+      extendedEnvBox.visible = false;
+      envGroup.add(stowedBox, extendedEnvBox);
+
+      robotWorldGroup.add(fov2DGroup, fovE1RGroup, fovXT32Group, fovTower2DGroup, qrSceneGroup, envGroup);
+
+      // Real 25 mm Pallet Assembly (WORLD space child of rootGroup!)
+      const pallet = buildPalletAssembly(archKey, pickables);
+      rootGroup.add(pallet.palletRoot);
+
+      const entry = {
+        archKey,
+        rootGroup,
+        robotWorldGroup,
+        staticGroup,
+        batteryOptGroup,
+        reachMastGroup,
+        mastInnerGroup,
+        mastLiftGroup,
+        wheelRig,
+        rearTower2DGroup,
+        blankCoverE1RGroup,
+        fov2DGroup,
+        fovE1RGroup,
+        fovXT32Group,
+        fovTower2DGroup,
+        qrSceneGroup,
+        envGroup,
+        extendedEnvBox,
+        pallet,
+        glbMeshes,
+        partsMetaByName,
+        loadCellMeshes,
+        lockpinMeshes,
+        clipMaterials,
+        shellMaterials,
+        pickables,
+        stats: {
+          mainMeshCount: mainMeshes.length,
+          batteryOptMeshCount: optMeshes.length,
+          mappedMetaCount: mappedCount,
+          partsJsonCount: partsJson.parts.length,
+          reachMastMeshCount: reachMastCount,
+          mastInnerMeshCount: mastInnerCount,
+          mastLiftMeshCount: mastLiftCount,
+          wheelSteerMeshCount: wheelSteerCount,
+        },
+      };
+
+      archCache[archKey] = entry;
+      return entry;
+    })();
+
+    archLoadingPromises[archKey] = promise;
+    return promise;
+  }
+
+  // ==========================================================================
+  // INTERACTIVE & ANIMATION STATE (STANDALONE HD-30C-R Rev A.5, PAUSED)
+  // ==========================================================================
+  let activeArch = 'HD30C';
+  let activeModel = null;
+  let activeVar = 'Full3D';
+  let activeBatt = '100Ah';
+  let activePalletC = 'double';  // Default: 25 mm solid full-bottom double-deck!
+  let activeSteer = 'straight';
+  let clipAxis = 'off';
+  let activeVariant = ARCH_CONFIGS.HD30C.variants.Full3D_100Ah;
+  let switchSeq = 0;
+
+  let animPlaying = false;
+  let animMode = 'pickup';   // 'pickup' | 'drop' | 'loop'
+  let animSpeed = 1;         // 0.5 | 1 | 2
+  let timelineT = 0.0;       // 0 .. 1
+  let controlSource = 'anim'; // 'anim' | 'manual'
+  let lastFrameMs = performance.now();
+  let lastPose = evalAnimHD30C(0, 'double', false);
+  let lastWeighState = computeSymmetricLoadCells('HD30C', 1500, false, 'floor');
+
+  function setModelPartVisible(model, name, vis) {
+    if (!model) return;
+    const m = model.glbMeshes.get(name);
+    if (m) m.visible = vis;
+  }
+
+  function setOpacity(pct) {
+    $('sOp').value = pct;
+    $('vOp').textContent = `${pct}%`;
+    const op = pct / 100;
+    for (const entry of Object.values(archCache)) {
+      entry.shellMaterials.forEach(m => {
+        m.opacity = op;
+        m.depthWrite = op >= 0.95;
+      });
+    }
+  }
+
+  function updateCgPosition() {
+    if (!lastPose) return;
+    const m = getMassMetrics(activeArch, activeVar, activeBatt);
+    const loadKg = +$('sLoad').value;
+    let [cx, cy, cz] = m.cg;
+
+    const reachFrac = clamp((lastPose.reach || 0) / HD30C_K.reachMax, 0, 1);
+    cx = m.cg[0] + reachFrac * (m.cgExt[0] - m.cg[0]) + lastPose.chassisX;
+    const carriedKg = (activePalletC !== 'none' && (lastPose.weighActive || lastPose.seatMode === 'deck')) ? loadKg : 0;
+    if (carriedKg > 0) {
+      const totalKg = m.massKg + carriedKg;
+      cx = (m.massKg * cx + carriedKg * lastPose.palletX) / totalKg;
+      cy = (m.massKg * cy) / totalKg;
+      cz = (m.massKg * cz + carriedKg * (lastPose.palletZ + 200.0)) / totalKg;
+    }
+
+    cgMarkerGroup.position.copy(cad2glb(cx, cy, cz));
+    const drop = cgMarkerGroup.getObjectByName('cgDrop');
+    if (drop) {
+      drop.geometry.setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -mm(cz), 0)]);
+    }
+  }
+
+  function updateSharedEnvironmentForArch() {
+    const cfg = ARCH_CONFIGS[activeArch];
+    // Align dock EXACTLY 850.0 mm behind active rear bumper (chassisX = 0 reference)
+    dockGroup.position.set(0, 0, mm(cfg.rearBumperXMm));
+    if (dockMainMesh && dockMainMesh.userData) {
+      const dockFrontMm = cfg.rearBumperXMm - 850.0;
+      dockMainMesh.userData.model = `후면 벽면 자동 충전 스테이션 (${cfg.code} 후면 범퍼 ${cfg.rearBumperXMm} 대비 850 mm 이격)`;
+      dockMainMesh.userData.bbox_mm = [dockFrontMm - 240, dockFrontMm, -240, 240, 0, 640];
+    }
+    stepSimGroup.position.set(0, 0, mm(cfg.stepOffsetXMm));
+    cadTriad.position.copy(cad2glb(cfg.rearBumperXMm - 225, -840, 8));
+  }
+
+  function refreshConfigUI() {
+    const cfg = ARCH_CONFIGS[activeArch];
+    const sp = VARIANT_SPECS[activeVar];
+    syncArchPanelDOM(activeArch);
+    activeVariant = updateCadDownloadUI(activeArch, activeVar, activeBatt);
+    $('varSummary').textContent = cfg.varSummaries[activeVar];
+    document.querySelectorAll('[data-var]').forEach(b => b.classList.toggle('active', b.dataset.var === activeVar));
+    $('btnBatt100').classList.toggle('active', activeBatt === '100Ah');
+    $('btnBatt200').classList.toggle('active', activeBatt === '200Ah');
+
+    if (activeModel) {
+      setModelPartVisible(activeModel, 'lidar_3d_rear_XT32', sp.rearXT32);
+      setModelPartVisible(activeModel, 'tower_3d_pedestal', sp.rearXT32);
+      activeModel.rearTower2DGroup.visible = !sp.rearXT32;
+
+      setModelPartVisible(activeModel, 'lidar_3d_front_E1R', sp.frontE1R);
+      activeModel.blankCoverE1RGroup.visible = !sp.frontE1R;
+
+      const is200 = activeBatt === '200Ah';
+      setModelPartVisible(activeModel, 'battery_lfp_100ah_main', true);
+      setModelPartVisible(activeModel, 'counterweight_mid_pod_R_trim_100ah', !is200);
+      activeModel.batteryOptGroup.visible = is200;
+
+      $('vpStatus').textContent = is200
+        ? `${cfg.code} ${cfg.rev} · ${activeVariant.partCount} 부품 (200Ah)`
+        : `${cfg.code} ${cfg.rev} · ${activeModel.stats.mainMeshCount} 부품`;
+    }
+
+    updateCgPosition();
+    updateVis();
+    syncDebugState();
+  }
+
+  function applyVariant(varKey) {
+    activeVar = VARIANT_SPECS[varKey] ? varKey : 'Full3D';
+    const sp = VARIANT_SPECS[activeVar];
+    $('kFovE1R').checked = sp.frontE1R;
+    refreshConfigUI();
+  }
+
+  function applyBattery(battKey) {
+    activeBatt = battKey === '200Ah' ? '200Ah' : '100Ah';
+    if (activeBatt === '200Ah' && +$('sOp').value > 52) {
+      setOpacity(52);
+    }
+    refreshConfigUI();
+  }
+
+  function getSteerConfig(archKey, mode) {
+    const cfg = ARCH_CONFIGS[archKey];
+    if (mode === 'crab') {
+      return { wheel_FL: Math.PI / 2, wheel_FR: Math.PI / 2, wheel_RL: Math.PI / 2, wheel_RR: Math.PI / 2, label: '+90° (전륜·후륜)' };
+    }
+    if (mode === 'spin') {
+      const r = cfg.spinRad;
+      return { wheel_FL: -r, wheel_FR: r, wheel_RL: r, wheel_RR: -r, label: cfg.spinDegLabel };
+    }
+    return { wheel_FL: 0, wheel_FR: 0, wheel_RL: 0, wheel_RR: 0, label: '0° / 0°' };
+  }
+
+  function applySteerMode(mode, instant = false) {
+    activeSteer = (mode === 'crab' || mode === 'spin') ? mode : 'straight';
+    const sc = getSteerConfig(activeArch, activeSteer);
+    if (activeModel) {
+      for (const k of ['wheel_FL', 'wheel_FR', 'wheel_RL', 'wheel_RR']) {
+        activeModel.wheelRig[k].tgtYaw = sc[k];
+        if (instant) {
+          activeModel.wheelRig[k].curYaw = sc[k];
+          activeModel.wheelRig[k].steerGrp.rotation.y = sc[k];
+        }
+      }
+    }
+    $('vSteer').textContent = sc.label;
+    document.querySelectorAll('[data-steer]').forEach(b => b.classList.toggle('active', b.dataset.steer === activeSteer));
+    syncDebugState();
+  }
+
+  function applyStepSim(instant = false) {
+    const on = $('kStepSim').checked;
+    stepSimGroup.visible = on;
+    $('lblStepSim').classList.toggle('active', on);
+
+    if (on) {
+      animPlaying = false;
+      timelineT = 0.0;
+      controlSource = 'anim';
+      applyCurrentPose();
+    }
+
+    const frontBumpM = on ? mm(25.0) : 0.0;
+    if (activeModel) {
+      for (const k of ['wheel_FL', 'wheel_FR']) {
+        activeModel.wheelRig[k].tgtBumpM = frontBumpM;
+        if (instant) {
+          activeModel.wheelRig[k].curBumpM = frontBumpM;
+          activeModel.wheelRig[k].suspGrp.position.y = activeModel.wheelRig[k].pivotGlb.y + frontBumpM;
+        }
+      }
+      for (const k of ['wheel_RL', 'wheel_RR']) {
+        activeModel.wheelRig[k].tgtBumpM = 0.0;
+        if (instant) {
+          activeModel.wheelRig[k].curBumpM = 0.0;
+          activeModel.wheelRig[k].suspGrp.position.y = activeModel.wheelRig[k].pivotGlb.y;
+        }
+      }
+    }
+    syncDebugState();
+  }
+
+  // ==========================================================================
+  // APPLY EVALUATED POSE TO REAL GLB RIG, REAL 25 mm PALLETS, LOAD CELLS & HUD
+  // ==========================================================================
+  function applyCurrentPose() {
+    const loadKg = +$('sLoad').value;
+    $('vLoad').textContent = `${formatInt(loadKg)} kg`;
+    if (!activeModel) return;
+
+    let pose;
+    if (controlSource === 'anim') {
+      const { u, isReverse } = mapTimelineToU(timelineT, animMode);
+      pose = evalAnimHD30C(u, activePalletC, isReverse);
+    } else {
+      pose = evalManualHD30C(+$('sReachC').value, +$('sLiftC').value - 105.0, activePalletC, 0.0);
+    }
+    lastPose = pose;
+
+    // 1. Move robotWorldGroup along world +X_cad (+Z_glb)
+    activeModel.robotWorldGroup.position.z = mm(pose.chassisX);
+
+    const pal = activeModel.pallet;
+
+    if (controlSource === 'anim') {
+      $('sReachC').value = String(Math.round(pose.reach));
+      $('sLiftC').value = String(Math.round(pose.zForkBot));
+    }
+    const envLen = Math.round(2040 + Math.max(0, pose.reach - 30));
+    $('vReachC').textContent = pose.reach < 1
+      ? '0 mm (2,040)'
+      : `+${formatInt(pose.reach)} mm (${formatInt(envLen)})`;
+    $('vLiftC').textContent = `Z ${Math.round(pose.zForkBot)}~${Math.round(pose.zForkTop)} (내측 +${Math.round(pose.dzInner)})`;
+    document.querySelectorAll('[data-pallet-c]').forEach(b => b.classList.toggle('active', b.dataset.palletC === activePalletC));
+
+    // Exact 3-stage nested GLB kinematics: reach_mast -> mast_inner (FFL) -> mast_lift (carriage + iForks)
+    activeModel.reachMastGroup.position.z = mm(pose.reach);
+    activeModel.mastInnerGroup.position.y = mm(pose.dzInner);
+    activeModel.mastLiftGroup.position.y = mm(pose.liftDz - pose.dzInner);
+    if (activeModel.extendedEnvBox) {
+      activeModel.extendedEnvBox.visible = pose.reach > 50;
+    }
+
+    // Real 25 mm Full-Bottom Double-Deck / Single Pallet in World Space
+    const showPallet = activePalletC !== 'none';
+    pal.palletRoot.visible = showPallet;
+    pal.doubleOrWinGrp.visible = activePalletC === 'double';
+    pal.singleGrp.visible = activePalletC === 'single';
+    pal.palletRoot.position.set(0, mm(pose.palletZ), mm(pose.palletX));
+
+    const palTopZ = activePalletC === 'double' ? 150.0 : 125.0;
+    const showLoad = showPallet && loadKg > 0;
+    pal.loadWireGrp.visible = showLoad;
+    if (showLoad) {
+      const hCargo = 0.14 + Math.min(1.0, loadKg / 1500) * 0.28;
+      pal.cargoScaleGroup.scale.set(1, hCargo, 1);
+      pal.cargoScaleGroup.position.set(0, mm(palTopZ) + hCargo / 2, 0);
+      const isOver = loadKg > 1500 && pose.weighActive;
+      pal.cargoFillMat.color.setHex(isOver ? 0xef4444 : 0xf59e0b);
+      pal.cargoEdgeMat.color.setHex(isOver ? 0xf87171 : 0xf59e0b);
+    }
+
+    $('vPalletStateC').textContent = !showPallet
+      ? '미표시'
+      : (pose.seatMode === 'deck'
+        ? '데크 안착 (Z350)'
+        : (pose.palletZ > pose.podTop
+          ? `인양 Z${Math.round(pose.palletZ)} (+${Math.round(pose.clearanceOverPod)}mm)`
+          : (pose.palletZ > 1 ? `iForks 계량 Z${Math.round(pose.palletZ)}` : '바닥 대기 (Z=0)')));
+
+    // 4-Point Symmetric Load-Cell UI + Emissive Highlight on real GLB load cells
+    lastWeighState = renderWeighUI(
+      activeArch,
+      computeSymmetricLoadCells(activeArch, loadKg, pose.weighActive, pose.seatMode)
+    );
+    syncAnimControlsDOM(pose, lastWeighState, animPlaying, animMode, animSpeed, timelineT);
+
+    for (const m of activeModel.loadCellMeshes) {
+      if (m === hoveredMesh) continue;
+      if (lastWeighState.stateClass === 'state-overload') {
+        m.material.emissive.setHex(0xdc2626);
+        m.material.emissiveIntensity = 0.58;
+      } else if (lastWeighState.stateClass === 'state-ok') {
+        m.material.emissive.setHex(0xdb2777);
+        m.material.emissiveIntensity = 0.36;
+      } else {
+        m.material.emissive.setHex(0x000000);
+        m.material.emissiveIntensity = 0.0;
+      }
+    }
+
+    // Visual Emissive Feedback on Real Solenoid / Electric Lockpins
+    for (const m of activeModel.lockpinMeshes) {
+      if (m === hoveredMesh) continue;
+      if (pose.lockpin) {
+        m.material.emissive.setHex(0x16a34a);
+        m.material.emissiveIntensity = 0.55;
+      } else {
+        m.material.emissive.setHex(0x000000);
+        m.material.emissiveIntensity = 0.0;
+      }
+    }
+
+    updateCgPosition();
+    syncDebugState();
+  }
+
+  // Layer visibility toggles
+  function updateVis() {
+    const sp = VARIANT_SPECS[activeVar];
+    if (activeModel) {
+      activeModel.fov2DGroup.visible      = $('kFov2D').checked;
+      activeModel.fovXT32Group.visible    = $('kFovXT32').checked && sp.rearXT32;
+      activeModel.fovTower2DGroup.visible = $('kFovXT32').checked && !sp.rearXT32;
+      activeModel.fovE1RGroup.visible     = $('kFovE1R').checked && sp.frontE1R;
+      activeModel.qrSceneGroup.visible    = $('kQR').checked;
+      activeModel.envGroup.visible        = $('kDim').checked;
+    }
+    cgMarkerGroup.visible = $('kCG').checked;
+    dockGroup.visible     = $('kDock').checked;
+    syncDebugState();
+  }
+
+  // ==========================================================================
+  // 3-AXIS CAD SECTION CUTAWAY (PER-MATERIAL ONLY — renderer.clippingPlanes = [])
+  // ==========================================================================
+  function applyClip() {
+    const valMm = +$('sClip').value;
+    if (clipAxis === 'off') {
+      for (const entry of Object.values(archCache)) {
+        entry.clipMaterials.forEach(m => { m.clippingPlanes = []; });
+      }
+      $('sClip').disabled = true;
+      $('vClip').textContent = '비활성';
+      clipGuide.visible = false;
+      syncDebugState();
+      return;
+    }
+
+    $('sClip').disabled = false;
+    const cVal = mm(valMm);
+    const zCtr = activeArch === 'HD30C' ? 0.55 : 0.40;
+
+    if (clipAxis === 'x') {
+      clipPlane.normal.set(0, 0, -1);
+      clipPlane.constant = cVal;
+      $('vClip').textContent = `X ≤ ${valMm} mm`;
+      clipGuide.rotation.set(0, 0, 0);
+      clipGuide.position.set(0, 0.45, cVal);
+    } else if (clipAxis === 'y') {
+      clipPlane.normal.set(-1, 0, 0);
+      clipPlane.constant = cVal;
+      $('vClip').textContent = `Y ≤ ${valMm} mm`;
+      clipGuide.rotation.set(0, Math.PI / 2, 0);
+      clipGuide.position.set(cVal, 0.45, zCtr);
+    } else {
+      clipPlane.normal.set(0, -1, 0);
+      clipPlane.constant = cVal;
+      $('vClip').textContent = `Z ≤ ${valMm} mm`;
+      clipGuide.rotation.set(-Math.PI / 2, 0, 0);
+      clipGuide.position.set(0, cVal, zCtr);
+    }
+
+    for (const entry of Object.values(archCache)) {
+      entry.clipMaterials.forEach(m => { m.clippingPlanes = [clipPlane]; });
+    }
+    clipGuide.visible = true;
+    syncDebugState();
+  }
+
+  function resetClipSliderRangeForArch() {
+    const b = ARCH_CONFIGS[activeArch].clipBounds;
+    const sl = $('sClip');
+    if (clipAxis === 'x') {
+      sl.min = String(b.x.min); sl.max = String(b.x.max); sl.step = '5'; sl.value = String(b.x.def);
+    } else if (clipAxis === 'y') {
+      sl.min = String(b.y.min); sl.max = String(b.y.max); sl.step = '5'; sl.value = String(b.y.def);
+    } else if (clipAxis === 'z') {
+      sl.min = String(b.z.min); sl.max = String(b.z.max); sl.step = '5'; sl.value = String(b.z.def);
+    }
+  }
+
+  // ==========================================================================
+  // CAMERA PRESETS (ADAPTIVE WORKSPACE FRAMING FOR WORLD ANIMATION)
+  // ==========================================================================
+  function getCamView(archKey, key) {
+    const cxM = mm(lastPose ? lastPose.chassisX : 0);
+    if (key === 'rear' && dockGroup.visible) {
+      return { pos: [2.65, 1.24, -1.52], tgt: [0.0, 0.36, -1.48], op: null };
+    }
+    const palCtrM = mm(lastPose ? lastPose.palletX : 2000);
+    const workCtr = (activePalletC === 'none') ? cxM : (cxM - 0.15 + palCtrM) / 2;
+    const mapC = {
+      iso:   { pos: [3.70, 2.08, workCtr + 2.85], tgt: [0.0, 0.42, workCtr], op: null },
+      front: { pos: [0.0, 0.78, Math.max(palCtrM + 1.8, cxM + 3.5)], tgt: [0.0, 0.42, workCtr], op: null },
+      rear:  { pos: [0.0, 0.96, cxM - 3.30], tgt: [0.0, 0.46, cxM - 0.50], op: null },
+      left:  { pos: [4.95, 0.78, workCtr], tgt: [0.0, 0.42, workCtr], op: null },
+      top:   { pos: [0.0, 5.75, workCtr + 0.04], tgt: [0.0, 0.12, workCtr], op: null },
+      fork:  { pos: [2.10, 0.78, cxM + mm(lastPose ? lastPose.reach : 0) + 1.45], tgt: [0.0, 0.32, cxM + mm(lastPose ? lastPose.reach : 0) + 0.40], op: 72 },
+      steer: { pos: [2.70, 0.68, cxM + 0.68], tgt: [0.0, 0.22, cxM - 0.05], op: 34 },
+      armor: { pos: [2.35, 1.50, cxM + 0.96], tgt: [0.0, 0.62, cxM - 0.08], op: 92 },
+    };
+    return mapC[key] || null;
+  }
+
+  let tween = null;
+  function goCam(key, instant = false) {
+    const v = getCamView(activeArch, key);
+    if (!v) return;
+    if (instant) {
+      tween = null;
+      camera.position.set(...v.pos);
+      controls.target.set(...v.tgt);
+      controls.update();
+    } else {
+      tween = {
+        t: 0,
+        p0: camera.position.clone(),
+        p1: new THREE.Vector3(...v.pos),
+        t0: controls.target.clone(),
+        t1: new THREE.Vector3(...v.tgt),
+      };
+    }
+    if (v.op !== null) setOpacity(v.op);
+    document.querySelectorAll('#camBar button[data-cam]').forEach(el => {
+      el.classList.toggle('active', el.dataset.cam === key);
+    });
+  }
+
+  // ==========================================================================
+  // ANIMATION TRANSPORT ACTIONS
+  // ==========================================================================
+  function getActiveStages() { return STAGES_B; }
+
+  function setAnimProgress(tVal) {
+    controlSource = 'anim';
+    timelineT = clamp(tVal, 0, 1);
+    applyCurrentPose();
+  }
+
+  function jumpToDisplayStep(dispIdx) {
+    const idx = clamp(dispIdx, 0, 6);
+    const stages = getActiveStages();
+    let targetT;
+    if (animMode === 'drop') {
+      const revIdx = 6 - idx;
+      targetT = 1.0 - stages[revIdx].u0;
+    } else if (animMode === 'loop') {
+      targetT = stages[idx].uKey * 0.5;
+    } else {
+      targetT = stages[idx].uKey;
+    }
+    animPlaying = false;
+    controlSource = 'anim';
+    timelineT = clamp(targetT, 0, 1);
+    applyCurrentPose();
+  }
+
+  function setAnimStageById(stageIdRaw) {
+    const key = String(stageIdRaw || '').trim().toLowerCase();
+    if (key === 'stowed' || key === 'stow') {
+      animPlaying = false;
+      animMode = 'pickup';
+      controlSource = 'anim';
+      timelineT = 0.0;
+      applyCurrentPose();
+      return true;
+    }
+    const idx = STAGE_ALIASES_B[key];
+    if (idx === undefined) return false;
+    const stages = getActiveStages();
+    animPlaying = false;
+    animMode = 'pickup';
+    controlSource = 'anim';
+    timelineT = stages[idx].uKey;
+    applyCurrentPose();
+    return true;
+  }
+
+  function togglePlayAnim() {
+    if (controlSource === 'manual') {
+      controlSource = 'anim';
+    }
+    if (!animPlaying && timelineT >= 0.999) {
+      timelineT = 0.0;
+    }
+    animPlaying = !animPlaying;
+    lastFrameMs = performance.now();
+    if (animPlaying && $('kStepSim').checked) {
+      $('kStepSim').checked = false;
+      applyStepSim(true);
+    }
+    applyCurrentPose();
+  }
+
+  function resetAnim() {
+    animPlaying = false;
+    controlSource = 'anim';
+    timelineT = 0.0;
+    applyCurrentPose();
+  }
+
+  function stepAnimDir(delta) {
+    const curDisp = lastPose && lastPose.dispIdx >= 0 ? lastPose.dispIdx : 0;
+    jumpToDisplayStep(clamp(curDisp + delta, 0, 6));
+  }
+
+  // ==========================================================================
+  // STANDALONE HD-30C-R MODEL BOOTSTRAP
+  // ==========================================================================
+  async function loadStandaloneHD30C(instantCam = false) {
+    const targetKey = 'HD30C';
+    const seq = ++switchSeq;
+    const cfg = ARCH_CONFIGS[targetKey];
+
+    syncArchPanelDOM(targetKey);
+    const vp = $('viewport');
+    const ov = $('loadingOverlay');
+
+    if (!archCache[targetKey]) {
+      vp.dataset.ready = 'false';
+      $('loadingTitle').textContent = `${cfg.code} ${cfg.rev} 3D CAD 불러오는 중...`;
+      $('loadingSub').textContent = `${cfg.mainGlb.replace('./', '')} · ${cfg.variants.Full3D_100Ah.partCount} 부품`;
+      ov.style.display = 'flex';
+    }
+
+    try {
+      await syncManifestOnce();
+      const entry = await loadArchModel(targetKey);
+      if (seq !== switchSeq) return;
+
+      clearHoverHighlight();
+      tip.style.display = 'none';
+      entry.rootGroup.visible = true;
+
+      activeArch = targetKey;
+      activeModel = entry;
+      animPlaying = false;
+      controlSource = 'anim';
+      timelineT = 0.0;
+      lastPose = evalAnimHD30C(0.0, activePalletC, false);
+
+      vp.dataset.loadedMeshes = String(entry.stats.mainMeshCount);
+      vp.dataset.batteryOptMeshes = String(entry.stats.batteryOptMeshCount);
+      vp.dataset.arch = activeArch;
+      vp.dataset.ready = 'true';
+
+      updateSharedEnvironmentForArch();
+      setOpacity(+$('sOp').value);
+      refreshConfigUI();
+      applySteerMode(activeSteer, true);
+      applyStepSim(true);
+      applyCurrentPose();
+      if (clipAxis !== 'off') resetClipSliderRangeForArch();
+      applyClip();
+      goCam('iso', instantCam);
+
+      ov.style.display = 'none';
+      syncDebugState();
+    } catch (err) {
+      if (seq !== switchSeq) return;
+      $('loadingTitle').textContent = `${cfg.code} 3D CAD GLB 로드 실패`;
+      $('loadingSub').textContent = `${err.message} (로컬 HTTP 서버에서 열어 주세요)`;
+      ov.style.display = 'flex';
+      console.error('[HD-30C-R CAD Loader]', err);
+    }
+  }
+
+  // ==========================================================================
+  // UI EVENT WIRING
+  // ==========================================================================
+  // Animation Studio controls
+  $('btnAnimPlay').addEventListener('click', togglePlayAnim);
+  $('btnAnimReset').addEventListener('click', resetAnim);
+  $('btnAnimPrev').addEventListener('click', () => stepAnimDir(-1));
+  $('btnAnimNext').addEventListener('click', () => stepAnimDir(+1));
+  $('sAnimTimeline').addEventListener('input', e => {
+    animPlaying = false;
+    setAnimProgress((+e.target.value) / 1000);
+  });
+  document.querySelectorAll('#animStepPills .step-pill-btn').forEach(btn => {
+    btn.addEventListener('click', () => jumpToDisplayStep(Number(btn.dataset.stepIdx)));
+  });
+  document.querySelectorAll('[data-anim-mode]').forEach(b => {
+    b.addEventListener('click', () => {
+      animMode = b.dataset.animMode;
+      controlSource = 'anim';
+      timelineT = 0.0;
+      applyCurrentPose();
+    });
+  });
+  document.querySelectorAll('[data-anim-speed]').forEach(b => {
+    b.addEventListener('click', () => {
+      animSpeed = Number(b.dataset.animSpeed) || 1;
+      applyCurrentPose();
+    });
+  });
+
+  // Pallet Toggles
+  document.querySelectorAll('[data-pallet-c]').forEach(b => {
+    b.addEventListener('click', () => {
+      activePalletC = b.dataset.palletC;
+      applyCurrentPose();
+    });
+  });
+
+  // Manual sliders pause animation cleanly and switch to manual kinematics
+  ['sReachC', 'sLiftC'].forEach(id => {
+    $(id).addEventListener('input', () => {
+      animPlaying = false;
+      controlSource = 'manual';
+      applyCurrentPose();
+    });
+  });
+
+  document.querySelectorAll('[data-var]').forEach(b => b.addEventListener('click', () => applyVariant(b.dataset.var)));
+  $('btnBatt100').addEventListener('click', () => applyBattery('100Ah'));
+  $('btnBatt200').addEventListener('click', () => applyBattery('200Ah'));
+  document.querySelectorAll('[data-steer]').forEach(b => b.addEventListener('click', () => applySteerMode(b.dataset.steer)));
+  $('kStepSim').addEventListener('change', () => applyStepSim(false));
+
+  $('sLoad').addEventListener('input', applyCurrentPose);
+  $('sOp').addEventListener('input', e => setOpacity(+e.target.value));
+  ['kFov2D', 'kFovXT32', 'kFovE1R', 'kQR', 'kDim', 'kCG', 'kDock'].forEach(id => {
+    $(id).addEventListener('change', updateVis);
+  });
+
+  document.querySelectorAll('[data-clip]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      clipAxis = btn.dataset.clip;
+      document.querySelectorAll('[data-clip]').forEach(b => b.classList.toggle('active', b === btn));
+      resetClipSliderRangeForArch();
+      applyClip();
+    });
+  });
+  $('sClip').addEventListener('input', applyClip);
+
+  document.querySelectorAll('#camBar button[data-cam]').forEach(el => {
+    el.addEventListener('click', () => goCam(el.dataset.cam));
+  });
+  $('btnResetView').addEventListener('click', () => {
+    setOpacity(activeBatt === '200Ah' ? 52 : 84);
+    goCam('iso');
+  });
+
+  // ==========================================================================
+  // HOVER RAYCASTER & CLEAN WHITE INSPECTOR TOOLTIP
+  // ==========================================================================
+  const ray = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+  const tip = $('tip');
+  let hoveredMesh = null;
+
+  function clearHoverHighlight() {
+    if (hoveredMesh && hoveredMesh.material && hoveredMesh.material.emissive) {
+      const kind = hoveredMesh.userData ? hoveredMesh.userData.kind : '';
+      if (kind === 'battery_opt') {
+        hoveredMesh.material.emissive.setHex(0xb45309);
+        hoveredMesh.material.emissiveIntensity = 0.20;
+      } else if (kind === 'loadcell' && activeModel && activeModel.loadCellMeshes.includes(hoveredMesh)) {
+        if (lastWeighState.stateClass === 'state-overload') {
+          hoveredMesh.material.emissive.setHex(0xdc2626);
+          hoveredMesh.material.emissiveIntensity = 0.58;
+        } else if (lastWeighState.stateClass === 'state-ok') {
+          hoveredMesh.material.emissive.setHex(0xdb2777);
+          hoveredMesh.material.emissiveIntensity = 0.36;
+        } else {
+          hoveredMesh.material.emissive.setHex(0x000000);
+          hoveredMesh.material.emissiveIntensity = 0;
+        }
+      } else if (activeModel && activeModel.lockpinMeshes.includes(hoveredMesh) && lastPose && lastPose.lockpin) {
+        hoveredMesh.material.emissive.setHex(0x16a34a);
+        hoveredMesh.material.emissiveIntensity = 0.55;
+      } else {
+        hoveredMesh.material.emissive.setHex(0x000000);
+        hoveredMesh.material.emissiveIntensity = 0;
+      }
+    }
+    hoveredMesh = null;
+  }
+
+  canvas.addEventListener('pointermove', ev => {
+    if (!activeModel) return;
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
+    ray.setFromCamera(mouse, camera);
+
+    const candidates = activeModel.pickables.concat(sharedPickables);
+    const visList = candidates.filter(o => {
+      let c = o;
+      while (c) {
+        if (!c.visible) return false;
+        c = c.parent;
+      }
+      return true;
+    });
+
+    const hits = ray.intersectObjects(visList, false);
+    const validHit = hits.find(h => {
+      if (clipAxis !== 'off' && h.object.userData && h.object.userData.isGLB) {
+        return clipPlane.distanceToPoint(h.point) >= -0.0005;
+      }
+      return true;
+    });
+
+    if (!validHit) {
+      clearHoverHighlight();
+      tip.style.display = 'none';
+      return;
+    }
+
+    const obj = validHit.object;
+    if (obj !== hoveredMesh) {
+      clearHoverHighlight();
+      hoveredMesh = obj;
+      if (obj.material && obj.material.emissive && obj.userData.isGLB) {
+        obj.material.emissive.setHex(0x2563eb);
+        obj.material.emissiveIntensity = 0.42;
+      }
+    }
+
+    const u = obj.userData;
+    $('tipName').textContent = u.name || obj.name || '-';
+    $('tipKind').textContent = u.kind || 'part';
+    $('tipModel').textContent = u.model || '';
+    $('tipModel').style.display = u.model ? 'block' : 'none';
+
+    const metaParts = [];
+    if (u.material && u.material !== '-') metaParts.push(u.material);
+    if (u.mass_kg != null) metaParts.push(`${Number(u.mass_kg).toFixed(3)} kg`);
+    $('tipMeta').textContent = metaParts.join(' · ');
+    $('tipMeta').style.display = metaParts.length ? 'block' : 'none';
+
+    if (Array.isArray(u.bbox_mm) && u.bbox_mm.length === 6) {
+      const [x0, x1, y0, y1, z0, z1] = u.bbox_mm;
+      const dx = Math.round(x1 - x0), dy = Math.round(y1 - y0), dz = Math.round(z1 - z0);
+      $('tipBbox').textContent = `BBox X[${x0}..${x1}] Y[${y0}..${y1}] Z[${z0}..${z1}] mm (${dx}×${dy}×${dz})`;
+      $('tipBbox').style.display = 'block';
+    } else {
+      $('tipBbox').style.display = 'none';
+    }
+
+    tip.style.display = 'block';
+    tip.style.left = Math.max(8, Math.min(rect.width - 350, ev.clientX - rect.left + 14)) + 'px';
+    tip.style.top  = Math.max(8, Math.min(rect.height - 135, ev.clientY - rect.top + 14)) + 'px';
+  });
+
+  canvas.addEventListener('pointerleave', () => {
+    clearHoverHighlight();
+    tip.style.display = 'none';
+  });
+
+  // ==========================================================================
+  // DEBUG / VERIFICATION STATE SNAPSHOT
+  // ==========================================================================
+  function syncDebugState() {
+    if (!activeModel || !lastPose) return;
+    const cfg = ARCH_CONFIGS[activeArch];
+    dockGroup.updateMatrixWorld(true);
+    const dockBbox = new THREE.Box3();
+    dockGroup.children.forEach(ch => {
+      if (ch.isMesh && ch.userData && ch.userData.name) dockBbox.expandByObject(ch);
+    });
+    const dockMaxXCadMm = isFinite(dockBbox.max.z) ? +(dockBbox.max.z * 1000).toFixed(1) : (cfg.rearBumperXMm - 850.0);
+    const rearBumperXMm = cfg.rearBumperXMm;
+
+    window.__CAD_STATE__ = {
+      ready: true,
+      activeArch,
+      rev: cfg.rev,
+      ...activeModel.stats,
+      activeVar,
+      activeBatt,
+      activePallet: activePalletC,
+      activeSteer,
+      animPlaying,
+      animMode,
+      animSpeed,
+      animProgress: +timelineT.toFixed(4),
+      controlSource,
+      animStageIndex: lastPose.dispIdx,
+      animStageId: lastPose.stageId,
+      animStageLabel: lastPose.stageName,
+      chassisWorldXMm: +lastPose.chassisX.toFixed(1),
+      robotWorldGroupZ: +activeModel.robotWorldGroup.position.z.toFixed(4),
+      forkZBotMm: +lastPose.zForkBot.toFixed(2),
+      forkZTopMm: +lastPose.zForkTop.toFixed(2),
+      reachMmC: +lastPose.reach.toFixed(1),
+      liftDzMmC: +lastPose.liftDz.toFixed(1),
+      mastInnerDzMmC: +lastPose.dzInner.toFixed(1),
+      mastInnerTopZMmC: +lastPose.innerTopZ.toFixed(1),
+      reachMastGroupZ: activeModel.reachMastGroup ? +activeModel.reachMastGroup.position.z.toFixed(4) : null,
+      mastInnerGroupY: activeModel.mastInnerGroup ? +activeModel.mastInnerGroup.position.y.toFixed(4) : null,
+      mastLiftGroupY: activeModel.mastLiftGroup ? +activeModel.mastLiftGroup.position.y.toFixed(4) : null,
+      lockpinEngaged: Boolean(lastPose.lockpin),
+      palletWorldXMm: +lastPose.palletX.toFixed(1),
+      palletWorldZMm: +lastPose.palletZ.toFixed(2),
+      podTopMm: lastPose.podTop,
+      palletClearanceMm: lastPose.clearanceOverPod,
+      loadKg: +$('sLoad').value,
+      weighMeasuredKg: lastWeighState.measuredKg,
+      weighRearPct: lastWeighState.rearPct,
+      weighFrontPct: lastWeighState.frontPct,
+      weighStatus: lastWeighState.statusText,
+      weighCells: lastWeighState.cells,
+      wheelTargetDeg: {
+        FL: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_FL.tgtYaw).toFixed(2),
+        FR: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_FR.tgtYaw).toFixed(2),
+        RL: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_RL.tgtYaw).toFixed(2),
+        RR: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_RR.tgtYaw).toFixed(2),
+      },
+      wheelCurrentDeg: {
+        FL: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_FL.steerGrp.rotation.y).toFixed(2),
+        FR: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_FR.steerGrp.rotation.y).toFixed(2),
+        RL: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_RL.steerGrp.rotation.y).toFixed(2),
+        RR: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_RR.steerGrp.rotation.y).toFixed(2),
+      },
+      stepSimChecked: $('kStepSim').checked,
+      stepSimVisible: stepSimGroup.visible,
+      frontSuspBumpMm: +(activeModel.wheelRig.wheel_FL.tgtBumpM * 1000).toFixed(1),
+      clipAxis,
+      clipValueMm: +$('sClip').value,
+      rendererGlobalClips: renderer.clippingPlanes.length,
+      robotClipMaterialCount: activeModel.clipMaterials.length,
+      cgChecked: $('kCG').checked,
+      cgVisible: cgMarkerGroup.visible,
+      dockChecked: $('kDock').checked,
+      dockVisible: dockGroup.visible,
+      dockMaxXCadMm,
+      rearBumperXMm,
+      dockGapMm: +(rearBumperXMm - dockMaxXCadMm).toFixed(1),
+      batt200OptVisible: activeModel.batteryOptGroup.visible,
+      xt32Visible: activeModel.glbMeshes.get('lidar_3d_rear_XT32')?.visible ?? null,
+      e1rVisible: activeModel.glbMeshes.get('lidar_3d_front_E1R')?.visible ?? null,
+      rearTower2DVisible: activeModel.rearTower2DGroup.visible,
+      blankCoverE1RVisible: activeModel.blankCoverE1RGroup.visible,
+      variantId: activeVariant.id,
+      stepHref: $('dlStepBtn').getAttribute('href'),
+      csvHref: $('dlCsvBtn').getAttribute('href'),
+      bomCnHref: $('dlBomCnBtn').getAttribute('href'),
+      bomKrHref: $('dlBomKrBtn').getAttribute('href'),
+    };
+  }
+
+  window.__CAD_API__ = {
+    goCam: (key, instant = true) => goCam(key, instant),
+    setSteerInstant: mode => applySteerMode(mode, true),
+    setStepInstant: on => { $('kStepSim').checked = !!on; applyStepSim(true); },
+    setPalletC: mode => { activePalletC = mode; applyCurrentPose(); },
+    playAnim: () => { if (!animPlaying) togglePlayAnim(); },
+    pauseAnim: () => { if (animPlaying) togglePlayAnim(); },
+    resetAnim,
+    stepAnim: dir => stepAnimDir(dir),
+    setAnimMode: m => { animMode = m; controlSource = 'anim'; timelineT = 0; applyCurrentPose(); },
+    setAnimSpeed: s => { animSpeed = Number(s) || 1; applyCurrentPose(); },
+    setAnimProgress: t => { animPlaying = false; setAnimProgress(t); },
+    setAnimStage: id => setAnimStageById(id),
+    setCPreset: id => setAnimStageById(id),
+    setManualC: (reachMm, dzMm) => {
+      animPlaying = false; controlSource = 'manual';
+      $('sReachC').value = String(reachMm);
+      $('sLiftC').value = String(105 + dzMm);
+      applyCurrentPose();
+    },
+  };
+
+  function resize() {
+    const r = canvas.parentElement.getBoundingClientRect();
+    if (r.width <= 0 || r.height <= 0) return;
+    renderer.setSize(r.width, r.height, false);
+    camera.aspect = r.width / r.height;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const CYCLE_SECONDS = 16.0; // Base 1x duration for 7-stage pickup (32s for full loop)
+
+  renderer.setAnimationLoop(nowMs => {
+    const dtSec = Math.min(0.05, Math.max(0.0, (nowMs - lastFrameMs) / 1000));
+    lastFrameMs = nowMs;
+
+    // 60fps Real-Kinematics Continuous Animation Loop
+    if (animPlaying && activeModel && controlSource === 'anim') {
+      const totalDur = (animMode === 'loop') ? (CYCLE_SECONDS * 2.0) : CYCLE_SECONDS;
+      timelineT += (dtSec * animSpeed) / totalDur;
+      if (animMode === 'loop') {
+        timelineT = timelineT % 1.0;
+      } else if (timelineT >= 1.0) {
+        timelineT = 1.0;
+        animPlaying = false;
+      }
+      applyCurrentPose();
+    }
+
+    if (tween) {
+      tween.t = Math.min(1, tween.t + 0.065);
+      const e = 1 - Math.pow(1 - tween.t, 3);
+      camera.position.lerpVectors(tween.p0, tween.p1, e);
+      controls.target.lerpVectors(tween.t0, tween.t1, e);
+      if (tween.t >= 1) tween = null;
+    }
+
+    if (activeModel) {
+      let wheelMoved = false;
+      for (const k of ['wheel_FL', 'wheel_FR', 'wheel_RL', 'wheel_RR']) {
+        const rig = activeModel.wheelRig[k];
+        const dyaw = rig.tgtYaw - rig.curYaw;
+        if (Math.abs(dyaw) > 0.0005) {
+          rig.curYaw += dyaw * 0.18;
+          rig.steerGrp.rotation.y = rig.curYaw;
+          wheelMoved = true;
+        } else if (rig.curYaw !== rig.tgtYaw) {
+          rig.curYaw = rig.tgtYaw;
+          rig.steerGrp.rotation.y = rig.curYaw;
+          wheelMoved = true;
+        }
+
+        const dbump = rig.tgtBumpM - rig.curBumpM;
+        if (Math.abs(dbump) > 0.0002) {
+          rig.curBumpM += dbump * 0.18;
+          rig.suspGrp.position.y = rig.pivotGlb.y + rig.curBumpM;
+          wheelMoved = true;
+        } else if (rig.curBumpM !== rig.tgtBumpM) {
+          rig.curBumpM = rig.tgtBumpM;
+          rig.suspGrp.position.y = rig.pivotGlb.y + rig.curBumpM;
+          wheelMoved = true;
+        }
+      }
+      if (wheelMoved && window.__CAD_STATE__) {
+        window.__CAD_STATE__.wheelCurrentDeg = {
+          FL: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_FL.steerGrp.rotation.y).toFixed(2),
+          FR: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_FR.steerGrp.rotation.y).toFixed(2),
+          RL: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_RL.steerGrp.rotation.y).toFixed(2),
+          RR: +THREE.MathUtils.radToDeg(activeModel.wheelRig.wheel_RR.steerGrp.rotation.y).toFixed(2),
+        };
+      }
+    }
+
+    controls.update();
+    renderer.render(scene, camera);
+  });
+
+  // Boot with URL params (?variant=..., ?batt=..., ?autoplay=1)
+  const params = new URLSearchParams(location.search);
+  activeVar = parseInitialVariant(params.get('variant') || params.get('pkg'));
+  activeBatt = parseInitialBatt(params.get('batt'));
+  $('kFovE1R').checked = VARIANT_SPECS[activeVar].frontE1R;
+  if (activeBatt === '200Ah') $('sOp').value = '52';
+  await loadStandaloneHD30C(true);
+
+  if (params.get('autoplay') === '1') {
+    animPlaying = true;
+    lastFrameMs = performance.now();
+    applyCurrentPose();
+  }
+}
+</script>
+</body>
+</html>

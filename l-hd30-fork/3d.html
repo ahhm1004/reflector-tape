@@ -1707,7 +1707,7 @@ const HD30C_K = {
   podTop: 350.0,
   forkH: 45.0,
   reachMax: 1150.0,
-  chassisInsertMax: 1100.0,
+  approachX: 500.0,       // World chassisX = +500 -> front bumper +1,430 vs pallet rear +1,450 (+20 mm clear!)
   zStowBot: 105.0,
   zStowTop: 150.0,
   dzSingleEntry: -100.0,  // Z=5..50
@@ -1716,7 +1716,7 @@ const HD30C_K = {
   dzMaxLift: 400.0,       // Z=505..550 (pallet_bot=425 double / 450 single!)
   innerFreeLiftThreshold: 250.0, // FFL: inner mast rises only above dz=+250 -> +40 @ stow_double, +150 @ max_lift!
   innerStowedTop: 830.0,
-  palletPickupWorldX: 2600.0, // World X_pallet = [+2,050 .. +3,150]; at chassisX=0, reach=1150 -> tip=+2,050!
+  palletPickupWorldX: 2000.0, // World X_pallet = [+1,450 .. +2,550]; at chassisX=500, reach=0 -> tip=+1,400 (-50 mm); reach=1150 -> heel=+1,450, tip=+2,550!
 };
 
 const STAGES_A = [
@@ -1730,13 +1730,13 @@ const STAGES_A = [
 ];
 
 const STAGES_B = [
-  { id: 'stowed',         u0: 0.00, u1: 0.08, uKey: 0.00, name: '대기 접근',                 dropName: '공차 수납 완료' },
-  { id: 'reach_out',      u0: 0.08, u1: 0.22, uKey: 0.22, name: '마스트 리치 전개',          dropName: '마스트 수납 복귀' },
-  { id: 'fork_down',      u0: 0.22, u1: 0.34, uKey: 0.34, name: '포크 바닥 하강',            dropName: '포크 수납 높이 복귀' },
-  { id: 'chassis_insert', u0: 0.34, u1: 0.50, uKey: 0.50, name: '차체 전진 · 포크 삽입',     dropName: '차체 후진 · 포크 인출' },
-  { id: 'lift_weigh',     u0: 0.50, u1: 0.68, uKey: 0.68, name: '2단 듀플렉스 상승 + 계량',  dropName: '파레트 바닥 하강' },
-  { id: 'reach_in',       u0: 0.68, u1: 0.84, uKey: 0.84, name: '마스트 리치 후퇴',          dropName: '마스트 전방 리치 전개' },
-  { id: 'deck_seat',      u0: 0.84, u1: 1.00, uKey: 1.00, name: '데크 안착 · 락핀 · 0 kg',   dropName: '락핀 해제 · 데크 이격' },
+  { id: 'approach',      u0: 0.00, u1: 0.14, uKey: 0.14, name: '파레트 앞 접근',           dropName: '완전 수납 후진 이탈' },
+  { id: 'fork_down',     u0: 0.14, u1: 0.28, uKey: 0.28, name: '포크 삽입 높이 하강',      dropName: '포크 수납고 상승 복귀' },
+  { id: 'reach_insert',  u0: 0.28, u1: 0.46, uKey: 0.46, name: '파레트 앞 포크 전진 삽입', dropName: '차체 정지 포크 후퇴 인출' },
+  { id: 'lift_weigh',    u0: 0.46, u1: 0.64, uKey: 0.64, name: '2단 듀플렉스 상승 + 계량', dropName: '파레트 바닥 하강 안착' },
+  { id: 'reach_in',      u0: 0.64, u1: 0.80, uKey: 0.80, name: '마스트 리치 후퇴 · 인입',  dropName: '파레트 전방 리치 전개' },
+  { id: 'deck_seat',     u0: 0.80, u1: 0.92, uKey: 0.92, name: '데크 안착 · 락핀 · 0 kg',  dropName: '락핀 해제 · 데크 이격' },
+  { id: 'travel_verify', u0: 0.92, u1: 1.00, uKey: 1.00, name: '수납 주행 이탈 확인',      dropName: '적재 수납 접근' },
 ];
 
 const STAGE_ALIASES_A = {
@@ -1751,12 +1751,13 @@ const STAGE_ALIASES_A = {
 
 const STAGE_ALIASES_B = {
   stowed: 0, stow: 0,
-  reach_out: 1,
-  fork_down: 2, floor: 2,
-  chassis_insert: 3, insert: 3,
-  lift_weigh: 4, weigh: 4, deck: 4,
-  reach_in: 5,
-  deck_seat: 6, stow_double: 6,
+  approach: 0,
+  fork_down: 1, floor: 1,
+  reach_insert: 2, reach_out: 2, insert: 2,
+  lift_weigh: 3, weigh: 3, deck: 3,
+  reach_in: 4,
+  deck_seat: 5, stow_double: 5,
+  travel_verify: 6, travel: 6,
 };
 
 function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
@@ -2008,6 +2009,7 @@ function evalAnimHD30C(uRaw, palletMode, isReverse = false) {
   const contactDrop = isDbl ? 125.0 : 100.0;
   const podTop = HD30C_K.podTop;
   const palPickX = HD30C_K.palletPickupWorldX;
+  const appX = HD30C_K.approachX;
 
   let chassisX = 0.0;
   let reach = 0.0;
@@ -2020,63 +2022,77 @@ function evalAnimHD30C(uRaw, palletMode, isReverse = false) {
   let stageIdx = 0;
   let desc = '';
 
-  if (u <= 0.08) {
+  const inSeg = (hi) => (isReverse ? (u < hi) : (u <= hi));
+
+  if (u === 0 || inSeg(0.14)) {
     stageIdx = 0;
-    chassisX = 0; reach = 0; liftDz = 0; palletX = palPickX; palletZ = 0;
-    desc = isDbl
-      ? '수납 대기 · 2,040 mm · G=85 mm · 내측 마스트 Z=830 ≤ 850 · 전방에 25 mm 통판 양면 파레트 대기'
-      : '수납 대기 · 2,040 mm · G=85 mm · 내측 마스트 Z=830 ≤ 850 · 전방에 단면형 파레트 대기';
-  } else if (u <= 0.22) {
-    stageIdx = 1;
-    const s = smooth((u - 0.08) / 0.14);
-    chassisX = 0; reach = lerp(0.0, HD30C_K.reachMax, s); liftDz = 0;
-    palletX = palPickX; palletZ = 0;
-    desc = '마스트 리치 0 → +1,150 mm 전개 · 포크 힐 X=+950 (+930 범퍼보다 +20 mm 전방 클리어!)';
-  } else if (u <= 0.34) {
-    stageIdx = 2;
-    const s = smooth((u - 0.22) / 0.12);
-    chassisX = 0; reach = HD30C_K.reachMax; liftDz = lerp(0.0, entryDz, s);
-    palletX = palPickX; palletZ = 0;
-    desc = isDbl
-      ? '포크 바닥 하강 Z=35..80 mm · 25 mm 연속 통판 하판 위 +10 mm 무접촉 진입 정렬'
-      : '포크 바닥 하강 Z=5..50 mm · 단면형 파레트 저상 포켓 진입 정렬';
-  } else if (u <= 0.50) {
-    stageIdx = 3;
-    const s = smooth((u - 0.34) / 0.16);
-    chassisX = lerp(0.0, HD30C_K.chassisInsertMax, s);
-    reach = HD30C_K.reachMax; liftDz = entryDz;
-    palletX = palPickX; palletZ = 0;
+    const s = smooth(u / 0.14);
+    chassisX = lerp(0.0, appX, s);
+    reach = 0.0;
+    liftDz = 0.0;
+    palletX = palPickX;
+    palletZ = 0.0;
     desc = isReverse
-      ? '로봇 차체 -1,100 mm 후진 · 120×45 mm iForks 포켓 인출 (충돌 0 mm³)'
-      : '로봇 차체 +1,100 mm 전진 · 120×45 mm iForks가 파레트 포켓 내부로 매끄럽게 삽입 (충돌 0 mm³)';
-  } else if (u <= 0.68) {
-    stageIdx = 4;
-    const s = smooth((u - 0.50) / 0.18);
-    chassisX = HD30C_K.chassisInsertMax;
+      ? '포크 100% 수납 상태(reach=0 · Z=105..150 · G=85)로 파레트 앞에서 안전 후진 이탈 (+500 → 0 mm)'
+      : (isDbl
+        ? '포크 100% 차체 수납(reach=0 · 돌출 0 · Z=105..150) 상태로 파레트(+1,450..+2,550) 바로 앞 접근 (범퍼 +1,430 · +20 mm 여유)'
+        : '포크 100% 차체 수납(reach=0 · 돌출 0 · Z=105..150) 상태로 단면 파레트(+1,450..+2,550) 바로 앞 접근 (범퍼 +1,430 · +20 mm 여유)');
+  } else if (inSeg(0.28)) {
+    stageIdx = 1;
+    const s = smooth((u - 0.14) / 0.14);
+    chassisX = appX;
+    reach = 0.0;
+    liftDz = lerp(0.0, entryDz, s);
+    palletX = palPickX;
+    palletZ = 0.0;
+    desc = isReverse
+      ? '차체 정지(X=+500) · 개방 중앙 베이(|Y|<266) 내에서 포크 수납고(Z=105..150) 복귀 상승'
+      : (isDbl
+        ? '차체 정지(X=+500) · reach=0 개방 베이 안에서 포크만 Z=35..80 mm 하강 (25 mm 통판 +10 mm 클리어 · 끝단 +1,400 비접촉)'
+        : '차체 정지(X=+500) · reach=0 개방 베이 안에서 포크만 Z=5..50 mm 하강 (단면 포켓 높이 정렬 · 끝단 +1,400 비접촉)');
+  } else if (inSeg(0.46)) {
+    stageIdx = 2;
+    const s = smooth((u - 0.28) / 0.18);
+    chassisX = appX;
+    reach = lerp(0.0, HD30C_K.reachMax, s);
+    liftDz = entryDz;
+    palletX = palPickX;
+    palletZ = 0.0;
+    desc = isReverse
+      ? '차체 정지(X=+500 고정) 상태에서 마스트·포크만 +1,150 → 0 mm 직선 후퇴 인출 (충돌 0 mm³)'
+      : '차체 정지(X=+500 고정) 상태에서 마스트·포크가 0 → +1,150 mm 직선 전진 삽입 (힐 +1,450 · 끝단 +2,550 · 범퍼 +20 mm 클리어)';
+  } else if (inSeg(0.64)) {
+    stageIdx = 3;
+    const s = smooth((u - 0.46) / 0.18);
+    chassisX = appX;
     reach = HD30C_K.reachMax;
     liftDz = lerp(entryDz, HD30C_K.dzMaxLift, s);
     palletX = palPickX;
     const zTop = HD30C_K.zStowTop + liftDz;
     palletZ = Math.max(0.0, zTop - contactDrop);
     weighActive = hasPallet && palletZ > 1.0;
-    desc = isDbl
-      ? '2단 FFL 듀플렉스 상승(Z=505..550 · 내측 +150) + iForks 즉시 계량 (축인장 0 N) · 파레트 하면 425 (+75 > pod 350)'
-      : '2단 FFL 듀플렉스 상승(Z=505..550 · 내측 +150) + iForks 즉시 계량 (축인장 0 N) · 파레트 하면 450 (+100 > pod 350)';
-  } else if (u <= 0.84) {
-    stageIdx = 5;
-    const s = smooth((u - 0.68) / 0.16);
-    chassisX = HD30C_K.chassisInsertMax;
+    desc = isReverse
+      ? '2단 듀플렉스 하강 · 파레트를 바닥(Z=0 · X=+1,450..+2,550)에 부드럽게 안착 · 로드셀 0.0 kg'
+      : (isDbl
+        ? '2단 FFL 듀플렉스 상승(Z=505..550 · 내측 +150→Z980) + iForks 즉시 계량 (축인장 0 N) · 파레트 하면 425 (+75 > pod 350)'
+        : '2단 FFL 듀플렉스 상승(Z=505..550 · 내측 +150→Z980) + iForks 즉시 계량 (축인장 0 N) · 파레트 하면 450 (+100 > pod 350)');
+  } else if (inSeg(0.80)) {
+    stageIdx = 4;
+    const s = smooth((u - 0.64) / 0.16);
+    chassisX = appX;
     reach = lerp(HD30C_K.reachMax, 0.0, s);
     liftDz = HD30C_K.dzMaxLift;
     palletX = chassisX + 350.0 + reach;
     palletZ = (HD30C_K.zStowTop + liftDz) - contactDrop;
     weighActive = hasPallet;
-    desc = '마스트 리치 +1,150 → 0 mm 후퇴 · 파레트를 차체 데크(pod_top 350 · 스토퍼 Z370) 위로 안전 인입';
-  } else {
-    stageIdx = 6;
-    const p = (u - 0.84) / 0.16;
+    desc = isReverse
+      ? '차체 정지(X=+500) · 인양 파레트를 전방 리치(0 → +1,150 mm)로 바닥 작업점(X=+2,000) 위 전개'
+      : '차체 정지(X=+500) · 마스트 리치 +1,150 → 0 mm 후퇴 · 인양 파레트를 차체 데크(pod_top 350 · palX +2,000→+850) 위로 인입';
+  } else if (inSeg(0.92)) {
+    stageIdx = 5;
+    const p = (u - 0.80) / 0.12;
     const s = smooth(Math.min(1.0, p / 0.85));
-    chassisX = HD30C_K.chassisInsertMax;
+    chassisX = appX;
     reach = 0.0;
     liftDz = lerp(HD30C_K.dzMaxLift, stowDz, s);
     palletX = chassisX + 350.0;
@@ -2085,9 +2101,25 @@ function evalAnimHD30C(uRaw, palletMode, isReverse = false) {
     weighActive = hasPallet && fSup > podTop + 0.5;
     seatMode = weighActive ? 'floor' : (hasPallet ? 'deck' : 'none');
     lockpin = p >= 0.80;
-    desc = isDbl
-      ? '통판(25 mm) pod_top(350) 안착 → 포크 포켓 중앙 Z=395..440 (+20/+35 비접촉) · 내측 Z=870 < XT32 925 · 락핀 체결 · 0.0 kg'
-      : '단면 파레트 pod_top(350) 안착 → 포크 Z=105..150 수납 · 내측 Z=830 · 전동 락핀 체결 · 로드셀 0.0 kg';
+    desc = isReverse
+      ? '전동 락핀 해제 · 2단 듀플렉스로 파레트를 데크(pod_top 350)에서 이격 인양'
+      : (isDbl
+        ? '통판(25 mm) pod_top(350) 안착 → 포크 포켓 중앙 stow_double Z=395..440 (+20/+35 비접촉) · 내측 Z=870 < XT32 925 · 락핀 ON · 0.0 kg'
+        : '단면 파레트 pod_top(350) 안착 → 포크 Z=105..150 수납 · 내측 Z=830 · 전동 락핀 ON · 로드셀 0.0 kg');
+  } else {
+    stageIdx = 6;
+    const s = smooth((u - 0.92) / 0.08);
+    chassisX = lerp(appX, 0.0, s);
+    reach = 0.0;
+    liftDz = stowDz;
+    palletX = chassisX + 350.0;
+    palletZ = podTop;
+    weighActive = false;
+    seatMode = hasPallet ? 'deck' : 'none';
+    lockpin = true;
+    desc = isReverse
+      ? '적재 완전 수납 상태(reach=0 · 락핀 ON · LC 0.0 kg)로 파레트 하차 지점 앞 접근 (0 → +500 mm)'
+      : '수납 주행 이탈 확인 · reach=0 돌출 0 mm · G=85 mm · SF_rear=1.345 · 락핀 ON · 로드셀 0.0 kg (차체 +500→0 · palX +850→+350)';
   }
 
   const dzInner = Math.max(0.0, liftDz - HD30C_K.innerFreeLiftThreshold);
@@ -4101,14 +4133,14 @@ async function bootViewer() {
       if (key === 'rear' && dockGroup.visible) {
         return { pos: [2.65, 1.24, -1.52], tgt: [0.0, 0.36, -1.48], op: null };
       }
-      const palCtrM = mm(lastPose ? lastPose.palletX : 2600);
-      const workCtr = (activePalletC === 'none') ? cxM : (cxM - 0.1 + palCtrM) / 2;
+      const palCtrM = mm(lastPose ? lastPose.palletX : 2000);
+      const workCtr = (activePalletC === 'none') ? cxM : (cxM - 0.15 + palCtrM) / 2;
       const mapC = {
-        iso:   { pos: [4.05, 2.24, workCtr + 3.05], tgt: [0.0, 0.42, workCtr], op: null },
+        iso:   { pos: [3.70, 2.08, workCtr + 2.85], tgt: [0.0, 0.42, workCtr], op: null },
         front: { pos: [0.0, 0.78, Math.max(palCtrM + 1.8, cxM + 3.5)], tgt: [0.0, 0.42, workCtr], op: null },
         rear:  { pos: [0.0, 0.96, cxM - 3.30], tgt: [0.0, 0.46, cxM - 0.50], op: null },
-        left:  { pos: [5.35, 0.80, workCtr], tgt: [0.0, 0.42, workCtr], op: null },
-        top:   { pos: [0.0, 6.20, workCtr + 0.04], tgt: [0.0, 0.12, workCtr], op: null },
+        left:  { pos: [4.95, 0.78, workCtr], tgt: [0.0, 0.42, workCtr], op: null },
+        top:   { pos: [0.0, 5.75, workCtr + 0.04], tgt: [0.0, 0.12, workCtr], op: null },
         fork:  { pos: [2.10, 0.78, cxM + mm(lastPose ? lastPose.reach : 0) + 1.45], tgt: [0.0, 0.32, cxM + mm(lastPose ? lastPose.reach : 0) + 0.40], op: 72 },
         steer: { pos: [2.70, 0.68, cxM + 0.68], tgt: [0.0, 0.22, cxM - 0.05], op: 34 },
         armor: { pos: [2.35, 1.50, cxM + 0.96], tgt: [0.0, 0.62, cxM - 0.08], op: 92 },
@@ -4176,7 +4208,7 @@ async function bootViewer() {
     let targetT;
     if (animMode === 'drop') {
       const revIdx = 6 - idx;
-      targetT = 1.0 - stages[revIdx].uKey;
+      targetT = activeArch === 'HD30C' ? (1.0 - stages[revIdx].u0) : (1.0 - stages[revIdx].uKey);
     } else if (animMode === 'loop') {
       targetT = stages[idx].uKey * 0.5;
     } else {
@@ -4190,6 +4222,14 @@ async function bootViewer() {
 
   function setAnimStageById(stageIdRaw) {
     const key = String(stageIdRaw || '').trim().toLowerCase();
+    if (activeArch === 'HD30C' && (key === 'stowed' || key === 'stow')) {
+      animPlaying = false;
+      animMode = 'pickup';
+      controlSource = 'anim';
+      timelineT = 0.0;
+      applyCurrentPose();
+      return true;
+    }
     const map = activeArch === 'HD30X' ? STAGE_ALIASES_A : STAGE_ALIASES_B;
     const idx = map[key];
     if (idx === undefined) return false;
